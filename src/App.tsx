@@ -1,5 +1,5 @@
 function App() {
-    return <></>;
+    return <span>ASDF</span>;
 }
 
 export default App;
