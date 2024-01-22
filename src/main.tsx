@@ -5,6 +5,7 @@ import { RecoilRoot } from "recoil";
 import GlobalFont from "./styles/GlobalFont";
 import GlobalStyle from "./styles/GlobalStyle";
 
+//This is develop branch
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <RecoilRoot>
         <GlobalFont />
