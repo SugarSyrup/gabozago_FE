@@ -1,22 +1,30 @@
+import { Link } from "react-router-dom";
+import HomeIcon from "../../assets/icons/home.svg?react";
+import MyIcon from "../../assets/icons/my.svg?react";
+import ScrapIcon from "../../assets/icons/scrap.svg?react";
+import TripIcon from "../../assets/icons/trip.svg?react";
 import * as S from "../../styles/common/BottomNavBar.style";
 
-type NavItemType = "홈" | "내 여행" | "스크랩" | "MY";
+function BottomNavBar({ location = "홈" }) {
+  /**
+   * @todo 라우트 변경 시 path 옵션 수정이 필요합니다.
+   */
+  const navItems = [
+    { title: "홈", icon: <HomeIcon />, path: "" },
+    { title: "내 여행", icon: <TripIcon />, path: "" },
+    { title: "스크랩", icon: <ScrapIcon />, path: "" },
+    { title: "MY", icon: <MyIcon />, path: "" },
+  ];
 
-interface Props {
-  location: NavItemType;
-}
-
-function BottomNavBar({ location = "홈" }: Props) {
-  const navItems: NavItemType[] = ["홈", "내 여행", "스크랩", "MY"];
   return (
     <S.Nav>
       <S.NavList>
-        {navItems.map((item: string) => (
-          <S.ListItem className={`${location === item && "active"}`}>
-            <a>
-              (아이콘)
-              <span>{item}</span>
-            </a>
+        {navItems.map((item) => (
+          <S.ListItem $active={location === item.title ? true : false}>
+            <Link to={item.path}>
+              {item.icon}
+              <span>{item.title}</span>
+            </Link>
           </S.ListItem>
         ))}
       </S.NavList>
