@@ -6,7 +6,7 @@ interface ModalOptions {
 }
 
 function useModal({ title }: ModalOptions) {
-  const [isOpend, setIsOpend] = useState(true);
+  const [isOpend, setIsOpend] = useState(false);
 
   const modalOpen = () => {
     setIsOpend(true);
