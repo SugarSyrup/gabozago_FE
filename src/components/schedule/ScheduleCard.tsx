@@ -14,10 +14,12 @@ function ScheduleCard({ imgURL, heading, content, currentBookMarked }: Props) {
     return (
         <S.Container>
             <S.ImgWrapper>
-                <BookMarkBtn
-                    currentBookMarked={currentBookMarked}
-                    onClick={onBookMarkClickHandler}
-                />
+                <S.BookMarkWrapper>
+                    <BookMarkBtn
+                        currentBookMarked={currentBookMarked}
+                        onClick={onBookMarkClickHandler}
+                    />
+                </S.BookMarkWrapper>
                 <img src={imgURL} alt={heading}></img>
             </S.ImgWrapper>
             <Heading size="xs">{heading}</Heading>
