@@ -22,7 +22,9 @@ function ScheduleCard({ imgURL, heading, content, currentBookMarked }: Props) {
                 </S.BookMarkWrapper>
                 <img src={imgURL} alt={heading}></img>
             </S.ImgWrapper>
-            <Heading size="xs">{heading}</Heading>
+            <Heading size="xs" maxWidth={164} noOfLine={1}>
+                {heading}
+            </Heading>
             <S.Content>{content}</S.Content>
         </S.Container>
     );
