@@ -4,6 +4,7 @@ import ScheduleContent from "../components/schedule/ScheduleContent";
 import CirclePlusIcon from "../assets/icons/circlePlus.svg?react";
 
 import * as S from "../styles/pages/SchedulePage.style";
+import MyScheduleCard from "../components/schedule/MyScheduleCard";
 
 function SchedulePage() {
     return (
@@ -29,6 +30,12 @@ function SchedulePage() {
                     heading="제목"
                     content="본문"
                     currentBookMarked={true}
+                />
+                <MyScheduleCard
+                    title="여행제목"
+                    startDate="NNNN.NN.NN"
+                    endDate="NN.NN"
+                    places={["여행지역"]}
                 />
                 <S.FloatingBtnWrapper>
                     <CirclePlusIcon />
