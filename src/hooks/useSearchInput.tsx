@@ -1,12 +1,13 @@
+import React, { useState, useRef } from "react";
+
 import * as S from "../styles/common/SearchInput.style";
 import SearchIcon from "../assets/icons/search.svg?react";
 import CircleXIcon from "../assets/icons/circlex.svg?react";
-import React, { useState, useRef } from "react";
 
 interface Props {
     placeholder?: string;
     required?: boolean;
-    onSubmit?: React.MouseEventHandler<SVGElement>;
+    onSubmit?: React.FormEventHandler;
 }
 
 function useSearchInput({
@@ -14,35 +15,37 @@ function useSearchInput({
     required,
     onSubmit,
 }: Props): [React.RefObject<HTMLInputElement>, JSX.Element] {
-    const [isValue, setIsValue] = useState(false);
+    const [hasValue, setHasValue] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
     const searchInput = (
-        <S.Container>
+        <S.Container onSubmit={onSubmit}>
             <S.Input
                 placeholder={placeholder}
                 required={required}
                 ref={inputRef}
                 onInput={(e) => {
                     if (e.currentTarget.value == "") {
-                        setIsValue(false);
+                        setHasValue(false);
                     } else {
-                        setIsValue(true);
+                        setHasValue(true);
                     }
                 }}
             />
             <S.Btns>
-                {isValue && (
+                {hasValue && (
                     <CircleXIcon
                         className="circleX"
                         onClick={() => {
                             if (inputRef.current) {
                                 inputRef.current.value = "";
                             }
-                            setIsValue(false);
+                            setHasValue(false);
                         }}
                     />
                 )}
-                <SearchIcon className="searchIcon" onClick={onSubmit} />
+                <S.SearchButton>
+                    <SearchIcon className="searchIcon" />
+                </S.SearchButton>
             </S.Btns>
         </S.Container>
     );
