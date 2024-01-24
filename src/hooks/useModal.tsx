@@ -1,11 +1,11 @@
 import { ReactNode, useState } from "react";
 import * as S from "../styles/common/Modal.style";
 
-interface ModalOptions {
+interface Options {
   title?: string;
 }
 
-function useModal({ title }: ModalOptions) {
+function useModal({ title }: Options) {
   const [isOpend, setIsOpend] = useState(false);
 
   const modalOpen = () => {
