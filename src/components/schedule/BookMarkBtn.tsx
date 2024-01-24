@@ -1,7 +1,6 @@
 import BookMarkIcon from "../../assets/icons/bookmark.svg?react";
 import { useState } from "react";
 import FullBookMarkIcon from "../../assets/icons/fullbookmark.svg?react";
-import * as S from "../../styles/schedule/BookMarkBtn.style";
 
 interface Props {
     currentBookMarked: boolean;
@@ -17,13 +16,13 @@ function BookMarkBtn({ currentBookMarked, onClick }: Props) {
     }
 
     return (
-        <S.Wrapper>
+        <>
             {isBookMarked ? (
                 <FullBookMarkIcon onClick={onClickHandler} />
             ) : (
                 <BookMarkIcon onClick={onClickHandler} />
             )}
-        </S.Wrapper>
+        </>
     );
 }
 

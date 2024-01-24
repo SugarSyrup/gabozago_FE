@@ -10,6 +10,13 @@ export const Container = styled.div`
 
 export const Thumbnail = styled.img``;
 
+export const BookMarkWrapper = styled.div`
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    cursor: pointer;
+`;
+
 export const ImgWrapper = styled.div`
     width: 174px;
     height: 174px;
