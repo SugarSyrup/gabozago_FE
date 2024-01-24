@@ -4,6 +4,9 @@ export const Container = styled.form`
     padding: 9px 20px;
     border-radius: 20px;
     border: ${({ theme }) => "1px solid" + theme.gray02};
+    &:focus-within {
+        border: ${({ theme }) => "1px solid" + theme.main};
+    }
 
     display: flex;
     justify-content: space-between;
