@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.form`
     padding: 9px 20px;
     border-radius: 20px;
-    border: ${({ theme }) => "1px solid" + theme.main};
+    border: ${({ theme }) => "1px solid" + theme.gray02};
 
     display: flex;
     justify-content: space-between;
