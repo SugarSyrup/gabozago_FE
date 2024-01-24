@@ -43,4 +43,3 @@ export const Header = styled.div`
   font-size: 16px;
   line-height: 24px;
 `;
-export const Contents = styled.div``;

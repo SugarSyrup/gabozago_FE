@@ -28,7 +28,7 @@ function usePopup() {
               e.stopPropagation();
             }}
           >
-            <S.Contents>{children}</S.Contents>
+            {children}
           </S.Popup>
         </S.PopupContainer>
       )}
