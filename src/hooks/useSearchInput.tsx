@@ -14,10 +14,10 @@ function useSearchInput({
     placeholder,
     required,
     onSubmit,
-}: Props): [React.RefObject<HTMLInputElement>, JSX.Element] {
+}: Props): [React.RefObject<HTMLInputElement>, () => JSX.Element] {
     const [hasValue, setHasValue] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
-    const searchInput = (
+    const SearchInput = () => (
         <S.Container onSubmit={onSubmit}>
             <S.Input
                 placeholder={placeholder}
@@ -50,7 +50,7 @@ function useSearchInput({
         </S.Container>
     );
 
-    return [inputRef, searchInput];
+    return [inputRef, SearchInput];
 }
 
 export default useSearchInput;

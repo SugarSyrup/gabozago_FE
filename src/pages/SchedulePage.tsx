@@ -7,7 +7,7 @@ function SchedulePage() {
     return (
         <PageTemplate nav={true} header={false}>
             여행 일정 페이지
-            {SearchInput}
+            <SearchInput />
         </PageTemplate>
     );
 }
