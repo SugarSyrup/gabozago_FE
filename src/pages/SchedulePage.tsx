@@ -1,25 +1,39 @@
 import PageTemplate from "../components/common/PageTemplate";
-import useSearchInput from "../hooks/useSearchInput";
-import useModal from "../hooks/useModal";
 import Heading from "../components/common/Heading";
+import ScheduleCard from "../components/schedule/ScheduleCard";
+import CirclePlusIcon from "../assets/icons/circlePlus.svg?react";
+
+import * as S from "../styles/pages/SchedulePage.style";
 
 function SchedulePage() {
-    const [, SearchInput] = useSearchInput({});
-    const { Modal, modalOpen } = useModal({
-        title: "제목입력",
-    });
-
     return (
         <PageTemplate nav={true} header={false}>
-            <Modal>
-                <div>TEST</div>
-            </Modal>
-            <Heading size="md" maxWidth={50} noOfLine={4}>
-                즐거운 부산 여행
-            </Heading>
-            <SearchInput />
-            여행 일정 페이지
-            <button onClick={modalOpen}>모달 open</button>
+            <div style={{ padding: "20px" }}>
+                <div
+                    style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "6px",
+                    }}
+                >
+                    <Heading size="md">최민석 님</Heading>
+                    <Heading
+                        size="md"
+                        //style={{ textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)" }}
+                    >
+                        아직 여행 일정이 없어요
+                    </Heading>
+                </div>
+                <ScheduleCard
+                    imgURL="abc"
+                    heading="제목"
+                    content="본문"
+                    currentBookMarked={true}
+                />
+                <S.FloatingBtnWrapper>
+                    <CirclePlusIcon />
+                </S.FloatingBtnWrapper>
+            </div>
         </PageTemplate>
     );
 }
