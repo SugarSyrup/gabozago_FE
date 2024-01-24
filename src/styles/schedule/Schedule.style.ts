@@ -6,6 +6,7 @@ export const Container = styled.div`
     justify-content: space-between;
     align-items: flex-start;
     gap: 10px;
+    max-width: 164px;
 `;
 
 export const Thumbnail = styled.img``;
@@ -32,4 +33,11 @@ export const Content = styled.span`
     font-weight: 400;
     line-height: 9px;
     letter-spacing: 0.2px;
+
+    max-width: 164px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
 `;
