@@ -4,7 +4,7 @@ import * as S from "../../styles/common/Button.style";
 interface Props {
     disabled?: boolean;
     type: "normal" | "text";
-    size: "lg" | "md" | "xs";
+    size: "lg" | "md" | "sm" | "xs";
     children?: ReactNode;
     active?: boolean;
     onClick?: React.MouseEventHandler<HTMLButtonElement>;

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 interface Props {
     type: "normal" | "text";
-    size: "lg" | "md" | "xs";
+    size: "lg" | "md" | "sm" | "xs";
     active?: boolean;
 }
 
@@ -13,6 +13,7 @@ export const Button = styled.button<Props>`
 
     padding: ${({ size }) => size == "lg" && "17px 103px"};
     padding: ${({ size }) => size == "md" && "9px 69px"};
+    padding: ${({ size }) => size == "sm" && "4px 16px"};
     padding: ${({ size }) => size == "xs" && "2px 12px"};
     cursor: pointer;
     border: none;
@@ -21,10 +22,12 @@ export const Button = styled.button<Props>`
 
     font-size: ${({ size }) => size == "lg" && "16px"};
     font-size: ${({ size }) => size == "md" && "16px"};
+    font-size: ${({ size }) => size == "sm" && "10px"};
     font-size: ${({ size }) => size == "xs" && "11px"};
     font-style: normal;
     font-weight: ${({ size }) => size == "lg" && 400};
     font-weight: ${({ size }) => size == "md" && 400};
+    font-weight: ${({ size }) => size == "sm" && 500};
     font-weight: ${({ size }) => size == "xs" && 500};
 
     color: ${({ type, theme }) => type == "text" && theme.gray01};

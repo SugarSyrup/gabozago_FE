@@ -15,6 +15,8 @@ export const Heading = styled.h1<Props>`
 
     font-style: normal;
     font-weight: 700;
+    font-weight: ${({ size }) => size == "xs" && "600"};
+    font-weight: ${({ size }) => size == "sm" && "600"};
 
     letter-spacing: 0.2px;
 
