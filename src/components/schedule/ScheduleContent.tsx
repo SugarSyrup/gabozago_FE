@@ -1,5 +1,5 @@
 import Heading from "../common/Heading";
-import * as S from "../../styles/schedule/Schedule.style";
+import * as S from "../../styles/schedule/ScheduleContent.style";
 import BookMarkBtn from "./BookMarkBtn";
 
 interface Props {
