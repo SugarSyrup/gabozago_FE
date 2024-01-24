@@ -27,7 +27,7 @@ export const Modal = styled.div`
 `;
 
 export const CloseHandle = styled.button`
-  padding: 12px 0 20px;
+  padding: 12px 0 30px;
   width: 100%;
   cursor: grab;
   border: 0;
@@ -49,7 +49,7 @@ export const CloseHandle = styled.button`
 `;
 
 export const Title = styled.div`
-  margin: 15px 0 20px;
+  margin: 5px 0 20px;
   color: ${({ theme }) => theme.gray02};
   font-weight: 600;
 `;
