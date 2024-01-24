@@ -11,14 +11,11 @@ function usePopup() {
     setIsOpend(false);
   };
 
-  interface PopupProps {
+  interface Props {
     children: ReactNode;
-    hasHeader?: boolean;
-    title?: string;
-    hasCloseButton?: boolean;
     padding?: string;
   }
-  const Popup = ({ children, padding }: PopupProps) => (
+  const Popup = ({ children, padding }: Props) => (
     <>
       {isOpend && (
         <S.PopupContainer onClick={popupClose}>
