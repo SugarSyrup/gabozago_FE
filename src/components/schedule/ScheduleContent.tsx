@@ -8,7 +8,12 @@ interface Props {
     content: string;
     currentBookMarked: boolean;
 }
-function ScheduleCard({ imgURL, heading, content, currentBookMarked }: Props) {
+function ScheduleContent({
+    imgURL,
+    heading,
+    content,
+    currentBookMarked,
+}: Props) {
     function onBookMarkClickHandler() {}
 
     return (
@@ -30,4 +35,4 @@ function ScheduleCard({ imgURL, heading, content, currentBookMarked }: Props) {
     );
 }
 
-export default ScheduleCard;
+export default ScheduleContent;

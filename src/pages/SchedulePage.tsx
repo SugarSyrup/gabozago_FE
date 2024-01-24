@@ -1,6 +1,6 @@
 import PageTemplate from "../components/common/PageTemplate";
 import Heading from "../components/common/Heading";
-import ScheduleCard from "../components/schedule/ScheduleCard";
+import ScheduleContent from "../components/schedule/ScheduleContent";
 import CirclePlusIcon from "../assets/icons/circlePlus.svg?react";
 
 import * as S from "../styles/pages/SchedulePage.style";
@@ -24,7 +24,7 @@ function SchedulePage() {
                         아직 여행 일정이 없어요
                     </Heading>
                 </div>
-                <ScheduleCard
+                <ScheduleContent
                     imgURL="abc"
                     heading="제목"
                     content="본문"
