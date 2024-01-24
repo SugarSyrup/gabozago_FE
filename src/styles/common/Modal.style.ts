@@ -23,7 +23,7 @@ export const Modal = styled.div`
   min-height: 330px;
   background-color: ${({ theme }) => theme.white};
   border-radius: 30px 30px 0px 0px;
-  box-shadow: 0 4 10px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
 `;
 
 export const CloseHandle = styled.button`

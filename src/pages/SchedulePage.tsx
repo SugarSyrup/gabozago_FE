@@ -1,27 +1,29 @@
 import PageTemplate from "../components/common/PageTemplate";
 import useSearchInput from "../hooks/useSearchInput";
 import useModal from "../hooks/useModal";
-import Heading from "../components/common/Heading";
+import usePopup from "../hooks/usePopup";
 
 function SchedulePage() {
-    const [, SearchInput] = useSearchInput({});
-    const { Modal, modalOpen } = useModal({
-        title: "제목입력",
-    });
+  const [, SearchInput] = useSearchInput({});
+  const { Modal, modalOpen } = useModal({
+    title: "제목입력",
+  });
+  const { Popup, popupOpen } = usePopup();
 
-    return (
-        <PageTemplate nav={true} header={false}>
-            <Modal>
-                <div>TEST</div>
-            </Modal>
-            <Heading size="md" maxWidth={50} noOfLine={4}>
-                즐거운 부산 여행
-            </Heading>
-            <SearchInput />
-            여행 일정 페이지
-            <button onClick={modalOpen}>모달 open</button>
-        </PageTemplate>
-    );
+  return (
+    <PageTemplate nav={true} header={false}>
+      <Modal>
+        <div>TEST</div>
+      </Modal>
+      <Popup title="신고하기" padding="30px 40px">
+        신고가 접수되었습니다.
+      </Popup>
+      <SearchInput />
+      여행 일정 페이지
+      <button onClick={modalOpen}>모달 open</button>
+      <button onClick={popupOpen}>팝업 open</button>
+    </PageTemplate>
+  );
 }
 
 export default SchedulePage;
