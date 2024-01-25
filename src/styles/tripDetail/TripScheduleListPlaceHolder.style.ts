@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const List = styled.ol`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 18px;
   width: 100%;
 `;
 
@@ -11,8 +11,6 @@ export const Item = styled.li`
   width: 100%;
   padding-left: 30px;
   position: relative;
-  /* display: flex; */
-  /* gap: 20px; */
 
   div {
     p {
@@ -42,8 +40,8 @@ export const Item = styled.li`
     position: absolute;
     left: 5px;
     top: 25px;
-    width: 1.6px;
-    height: 80%;
+    width: 1.4px;
+    height: 90%;
     background-color: ${({ theme }) => theme.blue02};
   }
 `;
