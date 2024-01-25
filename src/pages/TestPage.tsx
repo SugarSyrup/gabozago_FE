@@ -3,7 +3,7 @@ import useSearchInput from "../hooks/useSearchInput";
 import useModal from "../hooks/useModal";
 import usePopup from "../hooks/usePopup";
 
-function SchedulePage() {
+function TestPage() {
   const [, SearchInput] = useSearchInput({});
   const { Modal, modalOpen } = useModal({
     title: "제목입력",
@@ -15,9 +15,7 @@ function SchedulePage() {
       <Modal>
         <div>TEST</div>
       </Modal>
-      <Popup title="신고하기" padding="30px 40px">
-        신고가 접수되었습니다.
-      </Popup>
+      <Popup padding="30px 40px">신고가 접수되었습니다.</Popup>
       <SearchInput />
       여행 일정 페이지
       <button onClick={modalOpen}>모달 open</button>
@@ -26,4 +24,4 @@ function SchedulePage() {
   );
 }
 
-export default SchedulePage;
+export default TestPage;
