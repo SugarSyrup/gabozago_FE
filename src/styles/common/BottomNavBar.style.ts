@@ -2,11 +2,6 @@ import styled from "styled-components";
 
 export const Nav = styled.nav`
   width: 100%;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 20;
   background-color: ${({ theme }) => theme.white};
 `;
 export const NavList = styled.ul`
@@ -47,6 +42,4 @@ export const ListItem = styled.li<{ $active?: boolean }>`
       }
     }
   }
-
-  /* width: 100%; */
 `;
