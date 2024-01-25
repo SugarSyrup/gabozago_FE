@@ -5,12 +5,33 @@ import CalendarIcon from "../../assets/icons/calendar.svg?react";
 import BusIcon from "../../assets/icons/bus.svg?react";
 interface Props {
   size?: "default" | "sm";
+  title: string;
+  departuereDate: Date;
+  arrivalDate: Date;
+  days: number;
+  transport: string;
 }
-function TripInfo({ size = "default" }: Props) {
+function TripInfo({
+  size = "default",
+  title,
+  departuereDate,
+  arrivalDate,
+  days,
+  transport,
+}: Props) {
+  const duration = [
+    departuereDate.toLocaleDateString("ko-KR").slice(2),
+    arrivalDate.toLocaleDateString("ko-KR").slice(2),
+  ];
+  if (departuereDate.getFullYear === arrivalDate.getFullYear) {
+    duration[0] = duration[0].slice(4);
+    duration[1] = duration[1].slice(4);
+  }
+
   return (
     <S.Container>
       <S.Header>
-        <Heading size="lg">즐거운 부산 여행</Heading>
+        <Heading size="lg">{title}</Heading>
         <S.EditButton>
           편집
           <EditIcon />
@@ -22,14 +43,16 @@ function TripInfo({ size = "default" }: Props) {
             <CalendarIcon />
             <span>여행일자</span>
           </span>
-          <span>12. 20 - 12. 23 / 3박 4일</span>
+          <span>
+            {duration[0]} - {duration[1]} / {days - 1}박 {days}일
+          </span>
         </S.DetailItem>
         <S.DetailItem>
           <span>
             <BusIcon />
             <span>이동수단</span>
           </span>
-          <span>대중교통</span>
+          <span>{transport}</span>
         </S.DetailItem>
       </S.DetailList>
     </S.Container>
