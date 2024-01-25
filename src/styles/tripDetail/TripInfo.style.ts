@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
@@ -7,11 +7,12 @@ export const Container = styled.div`
   flex-direction: column;
 `;
 
-export const Header = styled.header`
-  margin-bottom: 16px;
+export const Header = styled.header<{ size: "default" | "small" }>`
+  margin-bottom: ${({ size }) => (size === "default" ? "16px" : "13px")};
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 export const EditButton = styled.button`
@@ -29,17 +30,38 @@ export const EditButton = styled.button`
   background-color: ${({ theme }) => theme.gray06};
 `;
 
-export const DetailList = styled.ul`
+export const DetailList = styled.ul<{ column: boolean }>`
   display: flex;
-  flex-direction: column;
+  flex-direction: ${({ column }) => (column ? "column" : "row")};
+  gap: ${({ column }) => (column ? "6" : "10")}px;
 `;
-export const DetailItem = styled.li`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: ${({ theme }) => theme.gray};
+
+const defaultDetailItem = css`
   font-size: 14px;
   line-height: 22px;
+
+  svg {
+    width: 22px;
+    height: 22px;
+  }
+`;
+const smallDetailItem = css`
+  /* gap: 10px; */
+  font-size: 12px;
+  line-height: 18.5px;
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+`;
+export const DetailItem = styled.li<{ size: "default" | "small" }>`
+  display: flex;
+  align-items: center;
+  color: ${({ theme }) => theme.gray};
+  gap: 8px;
+
+  ${({ size }) => (size === "default" ? defaultDetailItem : smallDetailItem)}
 
   span:first-of-type {
     display: flex;

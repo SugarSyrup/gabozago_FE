@@ -30,15 +30,15 @@ function TripInfo({
 
   return (
     <S.Container>
-      <S.Header>
-        <Heading size="lg">{title}</Heading>
+      <S.Header size={size === "default" ? "default" : "small"}>
+        <Heading size={size === "default" ? "lg" : "md"}>{title}</Heading>
         <S.EditButton>
           편집
           <EditIcon />
         </S.EditButton>
       </S.Header>
-      <S.DetailList>
-        <S.DetailItem>
+      <S.DetailList column={size === "default" ? true : false}>
+        <S.DetailItem size={size === "default" ? "default" : "small"}>
           <span>
             <CalendarIcon />
             <span>여행일자</span>
@@ -47,7 +47,7 @@ function TripInfo({
             {duration[0]} - {duration[1]} / {days - 1}박 {days}일
           </span>
         </S.DetailItem>
-        <S.DetailItem>
+        <S.DetailItem size={size === "default" ? "default" : "small"}>
           <span>
             <BusIcon />
             <span>이동수단</span>
