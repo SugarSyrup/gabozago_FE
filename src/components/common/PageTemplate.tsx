@@ -13,7 +13,7 @@ function PageTemplate({ children, header = true, nav = true }: Props) {
   return (
     <S.Container>
       {/* {header && <Header />} */}
-      {children}
+      <S.Content>{children}</S.Content>
       {nav && <BottomNavBar location="내 여행" />}
     </S.Container>
   );
