@@ -8,11 +8,11 @@ import router from "./router";
 
 //This is develop branch
 ReactDOM.createRoot(document.getElementById("root")!).render(
-    <RecoilRoot>
-        <GlobalFont />
-        <GlobalStyle />
-        <ThemeProvider theme={theme}>
-            <RouterProvider router={router} />
-        </ThemeProvider>
-    </RecoilRoot>
+  <RecoilRoot>
+    <ThemeProvider theme={theme}>
+      <GlobalFont />
+      <GlobalStyle />
+      <RouterProvider router={router} />
+    </ThemeProvider>
+  </RecoilRoot>
 );
