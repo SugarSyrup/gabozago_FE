@@ -22,8 +22,6 @@ const smallButton = css`
 `;
 
 export const AddButton = styled.button<{ size: string }>`
-  margin: 5px;
-
   display: flex;
   justify-content: center;
   align-items: center;
