@@ -7,7 +7,7 @@ export const Container = styled.div`
   top: 0;
   bottom: 0;
   display: grid;
-  grid-template-rows: 1fr fit-content;
+  grid-template-rows: 1fr fit-content(100%);
   margin: auto;
   max-width: 500px;
   width: 100%;
