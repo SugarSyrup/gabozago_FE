@@ -12,6 +12,7 @@ interface Props {
     startDate: string;
     endDate: string;
     places: string[];
+    highlight: boolean;
 }
 
 function MyScheduleCard({
@@ -20,9 +21,10 @@ function MyScheduleCard({
     startDate,
     endDate,
     places,
+    highlight
 }: Props) {
     return (
-        <S.Card>
+        <S.Card highlight={highlight}>
             <S.InfoContainer>
                 <S.ThumbnailWrapper>
                     {thumbnailURL && <img src={thumbnailURL} alt={title} />}

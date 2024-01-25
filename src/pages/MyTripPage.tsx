@@ -36,12 +36,14 @@ function MyTripPage() {
 								startDate="NNNN.NN.NN"
 								endDate="NN.NN"
 								places={["여행지역"]}
+								highlight={true}
 							/>
 							<MyScheduleCard
 								title="여행제목"
 								startDate="NNNN.NN.NN"
 								endDate="NN.NN"
 								places={["여행지역"]}
+								highlight={false}
 							/>
 						</S.ScheduleCardContainer>
 						<S.CreateMyTripScheduleBtn>

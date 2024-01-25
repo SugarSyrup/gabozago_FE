@@ -145,6 +145,7 @@ export const ContentHeadingWrappper = styled.div`
 export const ContentContainer = styled.div`
     display:grid;
     grid-template-columns: 1fr 1fr;
+    justify-items: center;
     gap:16px;
 `
 
