@@ -1,6 +1,6 @@
 import PageTemplate from "../components/common/PageTemplate";
 
-function SchedulePage() {
+function MyTripPage() {
   return (
     <PageTemplate nav={true} header={false}>
       내 여행 페이지
@@ -8,4 +8,4 @@ function SchedulePage() {
   );
 }
 
-export default SchedulePage;
+export default MyTripPage;
