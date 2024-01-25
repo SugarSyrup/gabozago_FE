@@ -1,11 +1,11 @@
 import React from "react";
 import AddPlaceButton from "./AddPlaceButton";
-import * as S from "../../styles/tripDetail/TripScheduleListPlaceHolder.style";
+import * as S from "../../styles/tripDetail/TripPlanListPlaceHolder.style";
 
 interface Props {
   days: number;
 }
-function TripScheduleListPlaceHolder({ days = 1 }: Props) {
+function TripPlanListPlaceHolder({ days = 1 }: Props) {
   const title: string[] = [];
   for (let i = 1; i <= days; i++) {
     title.push(`Day ${i}`);
@@ -24,4 +24,4 @@ function TripScheduleListPlaceHolder({ days = 1 }: Props) {
   );
 }
 
-export default TripScheduleListPlaceHolder;
+export default TripPlanListPlaceHolder;
