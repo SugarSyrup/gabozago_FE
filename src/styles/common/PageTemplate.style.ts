@@ -17,5 +17,5 @@ export const Content = styled.div`
   width: 100%;
   height: 100vh;
   overflow-y: auto;
-  padding: 32px 20px;
+  //padding: 32px 20px;
 `;

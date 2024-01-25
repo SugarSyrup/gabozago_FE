@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
+export const Card = styled.div`
     width: 260px;
     height: 141px;
     flex-shrink: 0;
@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
     position: relative;
 `;
 
-export const ScheduleInfoContainer = styled.div`
+export const InfoContainer = styled.div`
     position: relative;
     box-sizing: border-box;
     width: 100%;
@@ -48,7 +48,7 @@ export const MenuIcon = styled.div`
     top: 8px;
 `;
 
-export const BottomContainer = styled.div`
+export const ButtonContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;

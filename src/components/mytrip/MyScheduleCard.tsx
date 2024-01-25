@@ -1,7 +1,9 @@
-import * as S from "../../styles/schedule/MyScheduleCard.style";
-import Button from "../common/Button";
+import * as S from "../../styles/mytrip/MyScheduleCard.style";
+
 import LocationIcon from "../../assets/icons/location.svg?react";
 import MeatballsMenuIcon from "../../assets/icons/meatballsMenu.svg?react";
+
+import Button from "../common/Button";
 import Heading from "../common/Heading";
 
 interface Props {
@@ -20,24 +22,24 @@ function MyScheduleCard({
     places,
 }: Props) {
     return (
-        <S.Wrapper>
-            <S.ScheduleInfoContainer>
+        <S.Card>
+            <S.InfoContainer>
                 <S.ThumbnailWrapper>
                     {thumbnailURL && <img src={thumbnailURL} alt={title} />}
                 </S.ThumbnailWrapper>
-                <div>
+                <>
                     <Heading size="sm" noOfLine={1} maxWidth={110}>
                         {title}
                     </Heading>
                     <S.Date>
                         {startDate} - {endDate}
                     </S.Date>
-                </div>
+                </>
                 <S.MenuIcon>
                     <MeatballsMenuIcon />
                 </S.MenuIcon>
-            </S.ScheduleInfoContainer>
-            <S.BottomContainer>
+            </S.InfoContainer>
+            <S.ButtonContainer>
                 <S.Places>
                     <LocationIcon />
                     {places.map((item) => (
@@ -47,8 +49,8 @@ function MyScheduleCard({
                 <Button size="sm" active={true} type="normal">
                     여행 수정하기
                 </Button>
-            </S.BottomContainer>
-        </S.Wrapper>
+            </S.ButtonContainer>
+        </S.Card>
     );
 }
 
