@@ -31,9 +31,8 @@ export const data = {
           theme: "베이커리",
           placeId: 1232132131,
           position: { lat: 37.1234, lng: -122.5678 },
-          placeImage:
-            "https://placehold.co/300x300/738DEC/white?text=go&font=roboto",
-          memo: "",
+          placeImage: null,
+          memo: "메모메모메모",
           transfort: "",
           travelTime: "",
         },
@@ -42,8 +41,7 @@ export const data = {
           theme: "테마",
           placeId: 1232132131,
           position: { lat: 37.1234, lng: -122.5678 },
-          placeImage:
-            "https://placehold.co/300x300/738DEC/white?text=go&font=roboto",
+          placeImage: "https://placehold.co/300x300/orange/white",
           memo: "",
           transfort: "",
           travelTime: "15분",
