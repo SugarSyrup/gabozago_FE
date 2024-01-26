@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import line from "../../assets/icons/line.svg";
 
 export const PlaceItem = styled.li`
@@ -40,7 +40,7 @@ export const MarkerBox = styled.div`
   }
 `;
 
-export const PlaceBox = styled.div`
+export const PlaceBox = styled.div<{ hasMemo: boolean }>`
   padding: 12px 20px;
   height: fit-content;
   display: grid;
@@ -51,16 +51,25 @@ export const PlaceBox = styled.div`
 
   div {
     line-height: 22px;
-    p:nth-of-type(1) {
-      font-weight: 600;
-      font-size: 14px;
+    & > div {
+      ${({ hasMemo }) =>
+        hasMemo &&
+        css`
+          display: flex;
+          gap: 7px;
+        `}
+      p:nth-of-type(1) {
+        font-weight: 600;
+        font-size: 14px;
+        color: ${({ theme }) => theme.black};
+      }
+      p:nth-of-type(2) {
+        font-size: 11px;
+        font-weight: 400;
+        color: ${({ theme }) => theme.gray01};
+      }
     }
-    p:nth-of-type(2) {
-      font-size: 11px;
-      font-weight: 400;
-      color: ${({ theme }) => theme.gray01};
-    }
-    p:nth-of-type(3) {
+    & > p:nth-of-type(1) {
       font-size: 11px;
       font-weight: 400;
       color: ${({ theme }) => theme.main};

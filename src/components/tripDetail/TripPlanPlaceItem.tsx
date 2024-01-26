@@ -11,6 +11,7 @@ interface Props {
   addPlaceButton?: boolean;
 }
 function TripPlanPlaceItem({ place, index, addPlaceButton = false }: Props) {
+  const hasMemo = place.memo !== "";
   return (
     <>
       <S.PlaceItem>
@@ -18,14 +19,15 @@ function TripPlanPlaceItem({ place, index, addPlaceButton = false }: Props) {
           <EllipseIcon />
           <span>{index + 1}</span>
         </S.MarkerBox>
-        <S.PlaceBox>
+        <S.PlaceBox hasMemo={hasMemo}>
           <div>
-            <p>{place.placeName}</p>
-            <p>{place.theme}</p>
-            {place.memo !== "" && <p> place.memo</p>}
+            <div>
+              <p>{place.placeName}</p>
+              <p>{place.theme}</p>
+            </div>
+            {hasMemo && <p>{place.memo}</p>}
           </div>
           <img
-            // src={imagePlaceholder}
             src={place.placeImage ? place.placeImage : imagePlaceholder}
             alt=""
           />
