@@ -45,6 +45,7 @@ export const PlaceBox = styled.div`
   height: fit-content;
   display: grid;
   grid-template-columns: 1fr 38px;
+  align-items: center;
   background-color: ${({ theme }) => theme.blue05};
   border-radius: 10px;
 
