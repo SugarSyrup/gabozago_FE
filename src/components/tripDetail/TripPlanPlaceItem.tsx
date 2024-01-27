@@ -19,14 +19,14 @@ function TripPlanPlaceItem({ place, index, addPlaceButton = false }: Props) {
           <EllipseIcon />
           <span>{index + 1}</span>
         </S.MarkerBox>
-        <S.PlaceBox hasMemo={hasMemo}>
-          <div>
+        <S.PlaceBox>
+          <S.PlaceTextBox hasMemo={hasMemo}>
             <div>
-              <p>{place.placeName}</p>
-              <p>{place.theme}</p>
+              <S.PlaceName>{place.placeName}</S.PlaceName>
+              <S.PlaceTheme>{place.theme}</S.PlaceTheme>
             </div>
-            {hasMemo && <p>{place.memo}</p>}
-          </div>
+            {hasMemo && <S.PlaceMemo>{place.memo}</S.PlaceMemo>}
+          </S.PlaceTextBox>
           <img
             src={place.placeImage ? place.placeImage : imagePlaceholder}
             alt=""
