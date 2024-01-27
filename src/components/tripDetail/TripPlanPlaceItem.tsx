@@ -1,7 +1,5 @@
-import React from "react";
 import * as S from "../../styles/tripDetail/TripPlanPlaceItem.style";
 import { Place } from "../../assets/data/tripPlanData";
-import EllipseIcon from "../../assets/icons/ellipse.svg?react";
 import imagePlaceholder from "../../assets/icons/image_placeholder_circle.svg";
 import AddPlaceButton from "./AddPlaceButton";
 
@@ -16,16 +14,17 @@ function TripPlanPlaceItem({ place, index, addPlaceButton = false }: Props) {
     <>
       <S.PlaceItem>
         <S.MarkerBox>
-          <EllipseIcon />
-          <span>{index + 1}</span>
+          <S.MarkerSpan>{index + 1}</S.MarkerSpan>
         </S.MarkerBox>
         <S.PlaceBox>
           <S.PlaceTextBox hasMemo={hasMemo}>
             <div>
-              <S.PlaceName>{place.placeName}</S.PlaceName>
-              <S.PlaceTheme>{place.theme}</S.PlaceTheme>
+              <S.PlaceNameParagraph>{place.placeName}</S.PlaceNameParagraph>
+              <S.PlaceThemeParagraph>{place.theme}</S.PlaceThemeParagraph>
             </div>
-            {hasMemo && <S.PlaceMemo>{place.memo}</S.PlaceMemo>}
+            {hasMemo && (
+              <S.PlaceMemoParagraph>{place.memo}</S.PlaceMemoParagraph>
+            )}
           </S.PlaceTextBox>
           <img
             src={place.placeImage ? place.placeImage : imagePlaceholder}

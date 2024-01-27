@@ -10,14 +10,14 @@ export const PlaceItem = styled.li`
   gap: 10px;
 
   &:not(:last-of-type) {
-    padding-bottom: 6px;
+    padding-bottom: 10px;
 
     /* 숫자 마크 아래 라인 */
     & > div:first-of-type:after {
       content: "";
       display: block;
       width: 1.6px;
-      height: 90%;
+      /* height: 90%; */
       background-image: url(${line});
       background-repeat: round;
     }
@@ -30,20 +30,18 @@ export const MarkerBox = styled.div`
   gap: 3px;
   flex-direction: column;
   align-items: center;
-  position: relative;
-
-  span {
-    position: absolute;
-    top: 0;
-    font-size: 11px;
-    line-height: 18px;
-    color: ${({ theme }) => theme.white};
-  }
-
-  svg {
-    width: 18px;
-    height: 18px;
-  }
+`;
+export const MarkerSpan = styled.span`
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  padding-top: 2px;
+  border-radius: 50%;
+  background-color: ${({ theme }) => theme.main};
+  color: ${({ theme }) => theme.white};
 `;
 
 export const PlaceBox = styled.div`
@@ -73,19 +71,19 @@ export const PlaceTextBox = styled.div<{ hasMemo: boolean }>`
     gap: ${({ hasMemo }) => (hasMemo ? "7px" : "0")};
   }
 `;
-export const PlaceName = styled.p`
+export const PlaceNameParagraph = styled.p`
   line-height: 22px;
   font-weight: 600;
   font-size: 14px;
   color: ${({ theme }) => theme.black};
 `;
-export const PlaceTheme = styled.p`
+export const PlaceThemeParagraph = styled.p`
   font-size: 11px;
   line-height: 18px;
   font-weight: 400;
   color: ${({ theme }) => theme.gray01};
 `;
-export const PlaceMemo = styled.p`
+export const PlaceMemoParagraph = styled.p`
   font-size: 11px;
   line-height: 18px;
   font-weight: 400;
