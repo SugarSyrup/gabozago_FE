@@ -1,38 +1,47 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import line from "../../assets/icons/line.svg";
+
+const lineCss = css`
+  content: "";
+  flex-grow: 2;
+  display: block;
+  width: 1.6px;
+  background-image: url(${line});
+  background-repeat: repeat-y;
+  background-size: unset;
+`;
 
 export const PlaceItem = styled.li`
   width: 100%;
-  position: relative;
   display: grid;
-  grid-template-columns: 20px 1fr;
+  grid-template-columns: min-content 1fr;
   align-items: center;
   gap: 10px;
 
   &:not(:last-of-type) {
     padding-bottom: 10px;
 
-    /* 숫자 마크 아래 라인 */
-    & > div:first-of-type:after {
-      content: "";
-      display: block;
-      width: 1.6px;
-      /* height: 90%; */
-      background-image: url(${line});
-      background-repeat: round;
+    // 숫자마커 위, 아래 라인
+    & > div:first-of-type > div {
+      &::before,
+      &::after {
+        ${lineCss}
+      }
     }
   }
 `;
 
 export const MarkerBox = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-rows: fit-content(100%) 1fr;
   height: 100%;
-  gap: 3px;
+  gap: 8px;
   flex-direction: column;
   align-items: center;
 `;
-export const MarkerSpan = styled.span`
+export const NumberSpan = styled.span`
   display: flex;
+  margin: auto;
   align-items: center;
   justify-content: center;
   padding-top: 2px;
@@ -45,7 +54,31 @@ export const MarkerSpan = styled.span`
   background-color: ${({ theme }) => theme.main};
   color: ${({ theme }) => theme.white};
 `;
+export const TransportBox = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
 
+  font-size: 10px;
+  font-weight: 500;
+  text-align: center;
+  color: ${({ theme }) => theme.gray02};
+  word-break: keep-all;
+
+  p {
+    margin: 3px 0;
+    // 스크린리더 지원 텍스트
+    span:first-of-type {
+      visibility: hidden;
+      position: absolute;
+    }
+    svg {
+      margin-bottom: 2px;
+    }
+  }
+`;
 export const PlaceBox = styled.div`
   padding: 12px 20px;
   height: fit-content;

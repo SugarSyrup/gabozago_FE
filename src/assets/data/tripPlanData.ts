@@ -11,7 +11,7 @@ export interface Place {
   position: { lat: number; lng: number };
   placeImage: string;
   memo: string;
-  transfort: string;
+  transport: "도보" | "버스" | "차량" | "지하철" | "";
   travelTime: string;
 }
 export const data = {
@@ -33,8 +33,8 @@ export const data = {
           position: { lat: 37.1234, lng: -122.5678 },
           placeImage: null,
           memo: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised ",
-          transfort: "",
-          travelTime: "",
+          transport: "도보",
+          travelTime: "1시간 10분",
         },
         {
           placeName: "장소명",
@@ -43,7 +43,7 @@ export const data = {
           position: { lat: 37.1234, lng: -122.5678 },
           placeImage: "https://placehold.co/300x300/orange/white",
           memo: "",
-          transfort: "",
+          transport: "",
           travelTime: "15분",
         },
         {
@@ -53,8 +53,8 @@ export const data = {
           position: { lat: 37.1234, lng: -122.5678 },
           placeImage: "https://placehold.co/300x300/orange/white",
           memo: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-          transfort: "",
-          travelTime: "15분",
+          transport: "",
+          travelTime: "",
         },
       ],
     },
