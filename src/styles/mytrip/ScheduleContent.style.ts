@@ -6,7 +6,8 @@ export const Container = styled.div`
     justify-content: space-between;
     align-items: flex-start;
     gap: 10px;
-    max-width: 164px;
+    //max-width: 164px;
+    width: 100%;
 `;
 
 export const Thumbnail = styled.img``;
@@ -19,8 +20,14 @@ export const BookMarkWrapper = styled.div`
 `;
 
 export const ImgWrapper = styled.div`
-    width: 174px;
-    height: 174px;
+    //width: 174px;
+    width: 100%;
+    //height: 174px;
+    &:after {
+        content: "";
+        display: block;
+        padding-bottom: 100%;
+    }
     flex-shrink: 0;
     border-radius: 6px;
     background-color: ${({ theme }) => theme.gray04};

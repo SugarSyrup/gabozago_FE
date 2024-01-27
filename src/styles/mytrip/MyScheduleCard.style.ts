@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Card = styled.div<{highlight: boolean}>`
+export const Card = styled.div<{ highlight: boolean }>`
     width: 260px;
     height: 141px;
     flex-shrink: 0;
@@ -8,7 +8,7 @@ export const Card = styled.div<{highlight: boolean}>`
     background-color: ${({ theme }) => theme.blue05};
 
     position: relative;
-    opacity: ${({highlight}) => !highlight && 0.4};
+    opacity: ${({ highlight }) => !highlight && 0.4};
 `;
 
 export const InfoContainer = styled.div`
