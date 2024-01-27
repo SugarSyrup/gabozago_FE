@@ -32,13 +32,15 @@ export const MarkerBox = styled.div`
   align-items: center;
 `;
 export const MarkerSpan = styled.span`
-  width: 18px;
-  height: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 11px;
   padding-top: 2px;
+  width: 18px;
+  height: 18px;
+
+  font-weight: 500;
+  font-size: 11px;
   border-radius: 50%;
   background-color: ${({ theme }) => theme.main};
   color: ${({ theme }) => theme.white};
