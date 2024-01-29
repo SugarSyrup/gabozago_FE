@@ -5,11 +5,10 @@ import { DayPlan } from "../../assets/data/tripPlanData";
 import TripPlanPlaceItem from "./TripPlanPlaceItem";
 
 interface Props {
-  view?: "all" | string;
   plan?: DayPlan[];
   days?: number;
 }
-function TripPlanList({ days, view, plan = [] }: Props) {
+function TripPlanList({ days, plan = [] }: Props) {
   const dateToString = (date: Date) => {
     const days = ["일", "월", "화", "수", "목", "금", "토"];
     return `${date.getUTCMonth() + 1}.${date.getUTCDate()}/${
