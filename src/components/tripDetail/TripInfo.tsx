@@ -4,7 +4,7 @@ import EditIcon from "../../assets/icons/edit.svg?react";
 import CalendarIcon from "../../assets/icons/calendar.svg?react";
 import BusIcon from "../../assets/icons/bus.svg?react";
 interface Props {
-  size?: "default" | "sm";
+  size?: "default" | "small";
   title: string;
   departuereDate: Date;
   arrivalDate: Date;
