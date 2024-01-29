@@ -18,8 +18,8 @@ function TripPlanList({ days, plan = [] }: Props) {
 
   return (
     <S.Container>
-      <button>전체 일정</button>
-      <button>편집</button>
+      <S.DayFilterButton onClick={() => {}}>전체 일정</S.DayFilterButton>
+      <S.EditButton>편집</S.EditButton>
       <S.PlaceListContainer>
         {plan.map((dayPlan) => (
           <div>
