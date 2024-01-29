@@ -8,6 +8,9 @@ import { data as planData } from "../assets/data/tripPlanData";
 import { useState } from "react";
 
 function MyTripDetailPage() {
+  /**
+   * @todo: id를 통해 일정 데이터 비동기 요청 불러와 State로 관리하기
+   */
   const [data, setData] = useState(planData);
   const username = "최민석";
 
