@@ -16,120 +16,118 @@ function MyTripPage() {
     const FLAG = false;
     return (
         <PageTemplate nav={true} header={false}>
-            <S.Container>
-                {/* Heading */}
-                {FLAG ? (
-                    <S.ContainerWithPlan>
-                        <S.HeadingContainerWithPlan>
-                            <Heading size="md">나의 다가오는 여행</Heading>
-                            <S.ScheduleAllBtn>
-                                전체 보기
-                                <RightChevronIcon />
-                            </S.ScheduleAllBtn>
-                        </S.HeadingContainerWithPlan>
+            {/* Heading */}
+            {FLAG ? (
+                <S.ContainerWithPlan>
+                    <S.HeadingContainerWithPlan>
+                        <Heading size="md">나의 다가오는 여행</Heading>
+                        <S.ScheduleAllBtn>
+                            전체 보기
+                            <RightChevronIcon />
+                        </S.ScheduleAllBtn>
+                    </S.HeadingContainerWithPlan>
 
-                        <S.ScheduleCardContainer>
-                            <MyScheduleCard
-                                title="여행제목"
-                                startDate="NNNN.NN.NN"
-                                endDate="NN.NN"
-                                places={["여행지역"]}
-                                highlight={true}
-                            />
-                            <MyScheduleCard
-                                title="여행제목"
-                                startDate="NNNN.NN.NN"
-                                endDate="NN.NN"
-                                places={["여행지역"]}
-                                highlight={false}
-                            />
-                        </S.ScheduleCardContainer>
-                        <S.CreateMyTripScheduleBtn>
-                            <CirclePlusIcon />
-                            새로운 여행 일정 만들기
-                        </S.CreateMyTripScheduleBtn>
-                    </S.ContainerWithPlan>
-                ) : (
-                    <>
-                        <S.HeadingContainer>
-                            <Heading size="md">최민석 님</Heading>
-                            <Heading size="md">
-                                <S.HeadingShadow>
-                                    아직 여행 일정이 없어요
-                                </S.HeadingShadow>
-                            </Heading>
-                        </S.HeadingContainer>
+                    <S.ScheduleCardContainer>
+                        <MyScheduleCard
+                            title="여행제목"
+                            startDate="NNNN.NN.NN"
+                            endDate="NN.NN"
+                            places={["여행지역"]}
+                            highlight={true}
+                        />
+                        <MyScheduleCard
+                            title="여행제목"
+                            startDate="NNNN.NN.NN"
+                            endDate="NN.NN"
+                            places={["여행지역"]}
+                            highlight={false}
+                        />
+                    </S.ScheduleCardContainer>
+                    <S.CreateMyTripScheduleBtn>
+                        <CirclePlusIcon />
+                        새로운 여행 일정 만들기
+                    </S.CreateMyTripScheduleBtn>
+                </S.ContainerWithPlan>
+            ) : (
+                <>
+                    <S.HeadingContainer>
+                        <Heading size="md">최민석 님</Heading>
+                        <Heading size="md">
+                            <S.HeadingShadow>
+                                아직 여행 일정이 없어요
+                            </S.HeadingShadow>
+                        </Heading>
+                    </S.HeadingContainer>
 
-                        {/* Create Schedule */}
-                        <S.CreateMyTripContainer>
-                            <S.CreateMyTripTextWrapper>
-                                <S.CreateMyTripText>
-                                    <S.TextHighlight>
-                                        여행 일정을 생성
-                                    </S.TextHighlight>
-                                    하여 여행 계획을 세워보세요!
-                                </S.CreateMyTripText>
-                                <CalendarAddIcon />
-                            </S.CreateMyTripTextWrapper>
-                            <S.SeperateLine />
-                            <S.ButtonWrapper>
-                                <Button size="sm" type="text">
-                                    <S.ButtonText>
-                                        일정 생성하기
-                                        <CircleRightChevronIcon />
-                                    </S.ButtonText>
-                                </Button>
-                            </S.ButtonWrapper>
-                        </S.CreateMyTripContainer>
-                    </>
-                )}
+                    {/* Create Schedule */}
+                    <S.CreateMyTripContainer>
+                        <S.CreateMyTripTextWrapper>
+                            <S.CreateMyTripText>
+                                <S.TextHighlight>
+                                    여행 일정을 생성
+                                </S.TextHighlight>
+                                하여 여행 계획을 세워보세요!
+                            </S.CreateMyTripText>
+                            <CalendarAddIcon />
+                        </S.CreateMyTripTextWrapper>
+                        <S.SeperateLine />
+                        <S.ButtonWrapper>
+                            <Button size="sm" type="text">
+                                <S.ButtonText>
+                                    일정 생성하기
+                                    <CircleRightChevronIcon />
+                                </S.ButtonText>
+                            </Button>
+                        </S.ButtonWrapper>
+                    </S.CreateMyTripContainer>
+                </>
+            )}
 
-                {/* Contents */}
-                <S.ContentHeadingWrappper>
-                    <Heading size="md">새 여행계획을 세워보세요!</Heading>
-                </S.ContentHeadingWrappper>
-                <S.ContentContainer>
-                    <ScheduleContent
-                        imgURL="abc"
-                        heading="제목"
-                        content="본문"
-                        currentBookMarked={true}
-                    />
-                    <ScheduleContent
-                        imgURL="abc"
-                        heading="제목"
-                        content="본문"
-                        currentBookMarked={true}
-                    />
-                    <ScheduleContent
-                        imgURL="abc"
-                        heading="제목"
-                        content="본문"
-                        currentBookMarked={true}
-                    />
-                    <ScheduleContent
-                        imgURL="abc"
-                        heading="제목"
-                        content="본문"
-                        currentBookMarked={true}
-                    />
-                    <ScheduleContent
-                        imgURL="abc"
-                        heading="제목"
-                        content="본문"
-                        currentBookMarked={true}
-                    />
-                    <ScheduleContent
-                        imgURL="abc"
-                        heading="제목"
-                        content="본문"
-                        currentBookMarked={true}
-                    />
-                </S.ContentContainer>
-                <S.FloatingBtnWrapper>
-                    <BlueCirclePlusIcon />
-                </S.FloatingBtnWrapper>
-            </S.Container>
+            {/* Contents */}
+            <S.ContentHeadingWrappper>
+                <Heading size="md">새 여행계획을 세워보세요!</Heading>
+            </S.ContentHeadingWrappper>
+            <S.ContentContainer>
+                <ScheduleContent
+                    imgURL="abc"
+                    heading="제목"
+                    content="본문"
+                    currentBookMarked={true}
+                />
+                <ScheduleContent
+                    imgURL="abc"
+                    heading="제목"
+                    content="본문"
+                    currentBookMarked={true}
+                />
+                <ScheduleContent
+                    imgURL="abc"
+                    heading="제목"
+                    content="본문"
+                    currentBookMarked={true}
+                />
+                <ScheduleContent
+                    imgURL="abc"
+                    heading="제목"
+                    content="본문"
+                    currentBookMarked={true}
+                />
+                <ScheduleContent
+                    imgURL="abc"
+                    heading="제목"
+                    content="본문"
+                    currentBookMarked={true}
+                />
+                <ScheduleContent
+                    imgURL="abc"
+                    heading="제목"
+                    content="본문"
+                    currentBookMarked={true}
+                />
+            </S.ContentContainer>
+            <S.FloatingBtnWrapper>
+                <BlueCirclePlusIcon />
+            </S.FloatingBtnWrapper>
         </PageTemplate>
     );
 }
