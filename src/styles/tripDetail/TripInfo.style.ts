@@ -1,18 +1,38 @@
 import styled, { css } from "styled-components";
 
-export const Container = styled.div`
+type SizeType = "default" | "sm" | "xs";
+export const Container = styled.div<{ size: SizeType }>`
   width: 100%;
-  padding: 18px 0;
-  display: flex;
-  flex-direction: column;
-`;
-
-export const Header = styled.header<{ size: "default" | "small" }>`
-  margin-bottom: ${({ size }) => (size === "default" ? "16px" : "13px")};
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
   align-items: center;
+  transition: all ease-in-out 0.3s;
+
+  ${({ size }) => {
+    switch (size) {
+      case "sm":
+        return css`
+          grid-template-columns: 1fr fit-content(100%);
+          margin-bottom: 16px;
+        `;
+        break;
+
+      case "xs":
+        return css`
+          grid-template-columns: fit-content(100%) 1fr;
+          margin-bottom: 13px;
+          gap: 11px;
+        `;
+        break;
+
+      default:
+        return css`
+          grid-template-columns: 1fr fit-content(100%);
+          margin-bottom: 20px;
+          gap: 13px;
+        `;
+        break;
+    }
+  }};
 `;
 
 export const EditButton = styled.button`
@@ -30,10 +50,19 @@ export const EditButton = styled.button`
   background-color: ${({ theme }) => theme.gray06};
 `;
 
-export const DetailList = styled.ul<{ column: boolean }>`
+export const DetailList = styled.ul<{ size: SizeType }>`
   display: flex;
-  flex-direction: ${({ column }) => (column ? "column" : "row")};
-  gap: ${({ column }) => (column ? "6" : "10")}px;
+
+  ${({ size }) =>
+    size !== "default"
+      ? css`
+          flex-direction: row;
+          gap: 10px;
+        `
+      : css`
+          flex-direction: column;
+          gap: 6px;
+        `};
 `;
 
 const defaultDetailItem = css`
@@ -55,7 +84,7 @@ const smallDetailItem = css`
     height: 14px;
   }
 `;
-export const DetailItem = styled.li<{ size: "default" | "small" }>`
+export const DetailItem = styled.li<{ size: SizeType }>`
   display: flex;
   align-items: center;
   color: ${({ theme }) => theme.gray};

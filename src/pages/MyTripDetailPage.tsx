@@ -26,7 +26,7 @@ function MyTripDetailPage() {
       {hasPlan(data) ? (
         <>
           <TripInfo
-            size={"small"}
+            size={"sm"}
             title={data.title}
             departuereDate={data.departureDate}
             arrivalDate={data.arrivalDate}
