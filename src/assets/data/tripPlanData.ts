@@ -30,7 +30,7 @@ export const data = {
           placeName: "더베이베이커리",
           theme: "베이커리",
           placeId: 1232132131,
-          position: { lat: 37.1234, lng: -122.5678 },
+          position: { lat: 35.134576, lng: 129.10254 },
           placeImage: null,
           memo: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised ",
           transport: "도보",
