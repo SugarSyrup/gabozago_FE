@@ -11,6 +11,10 @@ interface Props {
  */
 function PlanMap({ plan }: Props) {
   const findMidLatLng = () => {
+    const result = {
+      lat: 0,
+      lng: 0,
+    };
     const temp = plan.filter(({ route }) => route?.length !== 0);
     console.log(temp);
 
@@ -21,25 +25,17 @@ function PlanMap({ plan }: Props) {
       .map(({ route }) => route?.map(({ position }) => position.lng))
       .flat();
 
+    if (lats.length === 0 && lngs.length === 0) {
+      return result;
+    }
+
     lats.sort();
     lngs.sort();
 
-    const result = {
-      lat: 0,
-      lng: 0,
-    };
-
-    if (lats.length === 1) {
-      result.lat = lats[0];
-    } else {
-      result.lat = (lats[0] + lats[lats.length - 1]) / 2;
-    }
-
-    if (lngs.length === 1) {
-      result.lng = lngs[0];
-    } else {
-      result.lng = (lngs[0] + lngs[lngs.length - 1]) / 2;
-    }
+    result.lat =
+      lats.length === 1 ? lats[0] : (lats[0] + lats[lats.length - 1]) / 2;
+    result.lng =
+      lngs.length === 1 ? lngs[0] : (lngs[0] + lngs[lngs.length - 1]) / 2;
 
     return result;
   };
