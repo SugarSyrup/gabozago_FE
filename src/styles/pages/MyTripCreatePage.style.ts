@@ -38,6 +38,13 @@ export const Footer = styled.footer`
     padding-right: 5px;
 `;
 
+export const LocationTags = styled.div`
+    width: 100%;
+
+    display: flex;
+    gap: 10px;
+`;
+
 export const SubmitButtonText = styled.span`
     color: white;
 `;

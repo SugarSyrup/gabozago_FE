@@ -8,6 +8,7 @@ import useSearchInput from "../hooks/useSearchInput";
 
 import * as S from "../styles/pages/MyTripCreatePage.style";
 import { Heading } from "../styles/common/Heading.style";
+import LocationTag from "../components/mytrip/LocationTag";
 
 function MyTripCreatePage() {
     const navigate = useNavigate();
@@ -37,6 +38,10 @@ function MyTripCreatePage() {
                 ))}
             </S.Locations>
             <S.Footer>
+                <S.LocationTags>
+                    <LocationTag name="부산" />
+                    <LocationTag name="부산" />
+                </S.LocationTags>
                 <Button size="lg" type="normal" disabled={true}>
                     지역을 선택해주세요.
                 </Button>
