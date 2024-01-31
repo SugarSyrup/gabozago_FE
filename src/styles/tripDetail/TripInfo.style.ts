@@ -13,6 +13,7 @@ export const Container = styled.div<{ size: SizeType }>`
         return css`
           grid-template-columns: 1fr fit-content(100%);
           margin-bottom: 16px;
+          gap: 8px;
         `;
         break;
 
@@ -79,7 +80,6 @@ const defaultDetailItem = css`
   }
 `;
 const smallDetailItem = css`
-  /* gap: 10px; */
   font-size: 12px;
   line-height: 18.5px;
 

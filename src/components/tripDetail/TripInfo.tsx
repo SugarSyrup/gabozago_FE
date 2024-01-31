@@ -20,6 +20,7 @@ function TripInfo({
   days,
   transport,
 }: Props) {
+  size = "xs";
   /** Heading 컴포넌트 size */
   enum headingSize {
     "default" = "lg", // 24px
@@ -73,10 +74,12 @@ function TripInfo({
       )}
       <S.DetailList size={size}>
         <S.DetailItem size={size}>
-          <span>
-            {size !== "xs" && <CalendarIcon />}
-            <span>여행일자</span>
-          </span>
+          {size !== "xs" && (
+            <span>
+              <CalendarIcon />
+              <span>여행일자</span>
+            </span>
+          )}
           <span>
             {getTripDuration()} / {days - 1}박 {days}일
           </span>
