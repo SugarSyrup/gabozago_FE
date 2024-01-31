@@ -28,18 +28,23 @@ export const Locations = styled.div`
 export const Footer = styled.footer`
     position: absolute;
     bottom: 50px;
+    left: 0px;
 
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 14px;
 
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-left: 25px;
+    padding-right: 25px;
+
+    width: 100%;
+    overflow: auto;
 `;
 
 export const LocationTags = styled.div`
     width: 100%;
+    overflow: hidden;
 
     display: flex;
     gap: 10px;

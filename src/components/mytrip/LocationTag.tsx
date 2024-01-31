@@ -4,11 +4,12 @@ import * as S from "../../styles/mytrip/LocationTag.style";
 
 interface Props {
     name: string;
+    onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
-function LocationTag({ name }: Props) {
+function LocationTag({ name, onClick }: Props) {
     return (
-        <S.Container>
+        <S.Container onClick={onClick}>
             {name}
             <XIcon />
         </S.Container>
