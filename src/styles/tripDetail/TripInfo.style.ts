@@ -48,6 +48,10 @@ export const EditButton = styled.button`
   cursor: pointer;
   color: ${({ theme }) => theme.gray01};
   background-color: ${({ theme }) => theme.gray06};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.gray04};
+  }
 `;
 
 export const DetailList = styled.ul<{ size: SizeType }>`
