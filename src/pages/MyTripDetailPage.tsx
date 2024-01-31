@@ -6,6 +6,7 @@ import TripPlanListPlaceHolder from "../components/tripDetail/TripPlanListPlaceH
 import TripPlanList from "../components/tripDetail/TripPlanList";
 import { data as planData } from "../assets/data/tripPlanData";
 import { useState } from "react";
+import PlanMap from "../components/tripDetail/PlanMap";
 
 function MyTripDetailPage() {
   /**
@@ -24,6 +25,7 @@ function MyTripDetailPage() {
         days={data.days}
         transport={data.transport}
       />
+      <PlanMap plan={data.plan} />
       <TripPlanList days={data.days} plan={data.plan} />
       <TripInfo
         title={data.title}

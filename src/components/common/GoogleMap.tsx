@@ -1,16 +1,25 @@
-import React, { useCallback } from "react";
+import React, { ReactNode, useCallback } from "react";
 import {
   GoogleMap as GoogleMapBox,
-  Marker,
   useJsApiLoader,
 } from "@react-google-maps/api";
 
+export interface Position {
+  lat: number;
+  lng: number;
+}
 interface Props {
   width?: string;
   height?: string;
-  center: { lat: number; lng: number };
+  center: Position;
+  children?: ReactNode;
 }
-function GoogleMap({ width = "100%", height = "100%", center }: Props) {
+function GoogleMap({
+  width = "100%",
+  height = "100%",
+  center = { lat: 0, lng: 0 },
+  children,
+}: Props) {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: import.meta.env.VITE_GOOGLEMAP_API_KEY,
@@ -43,12 +52,12 @@ function GoogleMap({ width = "100%", height = "100%", center }: Props) {
     <GoogleMapBox
       mapContainerStyle={{ width, height }}
       center={center}
-      zoom={18}
+      zoom={14}
       onLoad={onLoad}
       onUnmount={onUnmount}
       options={mapOptions}
     >
-      <Marker position={center}></Marker>
+      {children}
     </GoogleMapBox>
   ) : (
     <></>
