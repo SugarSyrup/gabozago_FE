@@ -11,6 +11,7 @@ import RightChevronIcon from "../assets/icons/rightChevron.svg?react";
 import CalendarAddIcon from "../assets/icons/calendarAdd.svg?react";
 
 import * as S from "../styles/pages/SchedulePage.style";
+import { Link } from "react-router-dom";
 
 function MyTripPage() {
     const FLAG = false;
@@ -43,10 +44,12 @@ function MyTripPage() {
                             highlight={false}
                         />
                     </S.ScheduleCardContainer>
-                    <S.CreateMyTripScheduleBtn>
-                        <CirclePlusIcon />
-                        새로운 여행 일정 만들기
-                    </S.CreateMyTripScheduleBtn>
+                    <Link to="/mytrip/create">
+                        <S.CreateMyTripScheduleBtn>
+                            <CirclePlusIcon />
+                            새로운 여행 일정 만들기
+                        </S.CreateMyTripScheduleBtn>
+                    </Link>
                 </S.ContainerWithPlan>
             ) : (
                 <>
@@ -72,12 +75,14 @@ function MyTripPage() {
                         </S.CreateMyTripTextWrapper>
                         <S.SeperateLine />
                         <S.ButtonWrapper>
-                            <Button size="sm" type="text">
-                                <S.ButtonText>
-                                    일정 생성하기
-                                    <CircleRightChevronIcon />
-                                </S.ButtonText>
-                            </Button>
+                            <Link to="/mytrip/create">
+                                <Button size="sm" type="text">
+                                    <S.ButtonText>
+                                        일정 생성하기
+                                        <CircleRightChevronIcon />
+                                    </S.ButtonText>
+                                </Button>
+                            </Link>
                         </S.ButtonWrapper>
                     </S.CreateMyTripContainer>
                 </>
@@ -125,9 +130,12 @@ function MyTripPage() {
                     currentBookMarked={true}
                 />
             </S.ContentContainer>
-            <S.FloatingBtnWrapper>
-                <BlueCirclePlusIcon />
-            </S.FloatingBtnWrapper>
+
+            <Link to="/mytrip/create">
+                <S.FloatingBtnWrapper>
+                    <BlueCirclePlusIcon />
+                </S.FloatingBtnWrapper>
+            </Link>
         </PageTemplate>
     );
 }
