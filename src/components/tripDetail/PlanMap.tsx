@@ -1,5 +1,5 @@
 import GoogleMap from "../common/GoogleMap";
-import { Marker as MarkerBox } from "@react-google-maps/api";
+import { MarkerProps } from "@react-google-maps/api";
 import { DayPlan } from "../../assets/data/tripPlanData";
 
 interface Props {
@@ -39,18 +39,19 @@ function PlanMap({ plan }: Props) {
 
     return result;
   };
+  const markers: MarkerProps[] = [];
+
+  plan.map(({ day, route }) => {
+    route?.map(({ placeName, position }) => {
+      markers.push({
+        position: position,
+        label: { text: placeName, className: "marker-label" },
+      });
+    });
+  });
 
   return (
-    <GoogleMap height="220px" center={findMidLatLng()}>
-      {plan &&
-        plan.map(({ day, route }) => {
-          return route?.map(({ placeName, position }) => (
-            <MarkerBox label={placeName} position={position}>
-              {day}
-            </MarkerBox>
-          ));
-        })}
-    </GoogleMap>
+    <GoogleMap height="220px" center={findMidLatLng()} markers={markers} />
   );
 }
 
