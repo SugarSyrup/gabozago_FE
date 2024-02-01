@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import * as S from "../styles/MyTripDetailPage.style";
+
 import PageTemplate from "../components/common/PageTemplate";
 import TripInfo from "../components/tripDetail/TripInfo";
 import TripPlanListPlaceHolder from "../components/tripDetail/TripPlanListPlaceHolder";
 import TripPlanList from "../components/tripDetail/TripPlanList";
-import ClapBlueIcon from "../assets/icons/clap_blue.svg?react";
+import PlanMap from "../components/tripDetail/PlanMap";
 
+import ClapBlueIcon from "../assets/icons/clap_blue.svg?react";
 import { Plan, data as planData } from "../assets/data/tripPlanData";
+import * as S from "../styles/MyTripDetailPage.style";
 
 function MyTripDetailPage() {
   /**
@@ -33,6 +35,7 @@ function MyTripDetailPage() {
             days={data.days}
             transport={data.transport}
           />
+          <PlanMap plan={data.plan} />
           <TripPlanList days={data.days} plan={data.plan} />
         </>
       ) : (
