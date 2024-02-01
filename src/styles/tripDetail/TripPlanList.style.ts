@@ -1,18 +1,36 @@
 import styled from "styled-components";
+import bottomArrowImage from "../../assets/icons/arrow_bottom.svg";
 
 export const Container = styled.div`
   width: 100%;
 `;
-export const DayInfo = styled.p`
-  margin-bottom: 20px;
-  font-weight: 600;
-  font-size: 14px;
+export const DayFilterButton = styled.button`
+  margin-bottom: 10px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  border: 0;
+  background-color: transparent;
+  font-size: 13px;
   line-height: 22px;
-  span {
-    margin-left: 5px;
-    font-weight: 500;
-    color: ${({ theme }) => theme.gray01};
-    font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.gray05};
+  }
+  &:active {
+    background-color: ${({ theme }) => theme.gray04};
+  }
+
+  &::after {
+    content: "";
+    display: block;
+    width: 24px;
+    height: 24px;
+    background: url(${bottomArrowImage}) no-repeat center;
   }
 `;
 export const PlaceListContainer = styled.div`
@@ -20,4 +38,3 @@ export const PlaceListContainer = styled.div`
   flex-direction: column;
   gap: 20px;
 `;
-export const PlaceList = styled.ol``;

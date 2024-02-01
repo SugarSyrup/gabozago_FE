@@ -1,18 +1,39 @@
 import styled, { css } from "styled-components";
+import { Size } from "../../components/tripDetail/TripInfo";
 
-export const Container = styled.div`
+export const Container = styled.div<{ size: Size }>`
   width: 100%;
-  padding: 18px 0;
-  display: flex;
-  flex-direction: column;
-`;
-
-export const Header = styled.header<{ size: "default" | "small" }>`
-  margin-bottom: ${({ size }) => (size === "default" ? "16px" : "13px")};
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
   align-items: center;
+  transition: all ease-in-out 0.3s;
+
+  ${({ size }) => {
+    switch (size) {
+      case "sm":
+        return css`
+          grid-template-columns: 1fr fit-content(100%);
+          margin-bottom: 16px;
+          gap: 8px;
+        `;
+        break;
+
+      case "xs":
+        return css`
+          grid-template-columns: fit-content(100%) 1fr;
+          margin-bottom: 13px;
+          gap: 11px;
+        `;
+        break;
+
+      default:
+        return css`
+          grid-template-columns: 1fr fit-content(100%);
+          margin-bottom: 20px;
+          gap: 13px;
+        `;
+        break;
+    }
+  }};
 `;
 
 export const EditButton = styled.button`
@@ -28,12 +49,25 @@ export const EditButton = styled.button`
   cursor: pointer;
   color: ${({ theme }) => theme.gray01};
   background-color: ${({ theme }) => theme.gray06};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.gray04};
+  }
 `;
 
-export const DetailList = styled.ul<{ column: boolean }>`
+export const DetailList = styled.ul<{ size: Size }>`
   display: flex;
-  flex-direction: ${({ column }) => (column ? "column" : "row")};
-  gap: ${({ column }) => (column ? "6" : "10")}px;
+
+  ${({ size }) =>
+    size !== "default"
+      ? css`
+          flex-direction: row;
+          gap: 10px;
+        `
+      : css`
+          flex-direction: column;
+          gap: 6px;
+        `};
 `;
 
 const defaultDetailItem = css`
@@ -46,7 +80,6 @@ const defaultDetailItem = css`
   }
 `;
 const smallDetailItem = css`
-  /* gap: 10px; */
   font-size: 12px;
   line-height: 18.5px;
 
@@ -55,7 +88,7 @@ const smallDetailItem = css`
     height: 14px;
   }
 `;
-export const DetailItem = styled.li<{ size: "default" | "small" }>`
+export const DetailItem = styled.li<{ size: Size }>`
   display: flex;
   align-items: center;
   color: ${({ theme }) => theme.gray};
