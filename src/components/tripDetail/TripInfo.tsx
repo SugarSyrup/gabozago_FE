@@ -4,8 +4,9 @@ import EditIcon from "../../assets/icons/edit.svg?react";
 import CalendarIcon from "../../assets/icons/calendar.svg?react";
 import BusIcon from "../../assets/icons/bus.svg?react";
 
+export type Size = "default" | "sm" | "xs";
 interface Props {
-  size?: "default" | "sm" | "xs";
+  size?: Size;
   title: string;
   departuereDate: Date;
   arrivalDate: Date;

@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
+import { Size } from "../../components/tripDetail/TripInfo";
 
-type SizeType = "default" | "sm" | "xs";
-export const Container = styled.div<{ size: SizeType }>`
+export const Container = styled.div<{ size: Size }>`
   width: 100%;
   display: grid;
   align-items: center;
@@ -55,7 +55,7 @@ export const EditButton = styled.button`
   }
 `;
 
-export const DetailList = styled.ul<{ size: SizeType }>`
+export const DetailList = styled.ul<{ size: Size }>`
   display: flex;
 
   ${({ size }) =>
@@ -88,7 +88,7 @@ const smallDetailItem = css`
     height: 14px;
   }
 `;
-export const DetailItem = styled.li<{ size: SizeType }>`
+export const DetailItem = styled.li<{ size: Size }>`
   display: flex;
   align-items: center;
   color: ${({ theme }) => theme.gray};
