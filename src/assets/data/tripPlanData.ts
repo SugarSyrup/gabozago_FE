@@ -9,12 +9,20 @@ export interface Place {
   theme: string;
   placeId: number;
   position: { lat: number; lng: number };
-  placeImage: string;
+  placeImage: string | null;
   memo: string;
   transport: "도보" | "버스" | "차량" | "지하철" | "";
   travelTime: string;
 }
-export const data = {
+export interface Plan {
+  title: string;
+  departureDate: Date;
+  arrivalDate: Date;
+  days: number;
+  transport: string;
+  plan: DayPlan[];
+}
+export const data: Plan = {
   title: "즐거운 부산 여행",
   departureDate: new Date("2024-12-20"), // 출발
   arrivalDate: new Date("2024-12-23"), // 도착
