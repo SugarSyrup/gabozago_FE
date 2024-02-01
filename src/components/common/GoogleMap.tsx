@@ -46,6 +46,7 @@ function GoogleMap({
     streetViewControl: false,
     minZoom: 4,
     maxZoom: 18,
+    disableDefaultUI: true,
   };
 
   return isLoaded ? (
