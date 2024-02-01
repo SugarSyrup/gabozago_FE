@@ -16,7 +16,7 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
-    width: 100%;
-    overflow-y: auto;
-    padding: 32px 20px;
+  width: 100%;
+  overflow-y: auto;
+  padding: 40px 20px;
 `;
