@@ -1,8 +1,6 @@
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import { locations } from "../assets/data/locations";
-import LeftChevronIcon from "../assets/icons/leftChevron.svg?react";
 import PageTemplate from "../components/common/PageTemplate";
 import Button from "../components/common/Button";
 import useSearchInput from "../hooks/useSearchInput";
@@ -10,9 +8,9 @@ import useSearchInput from "../hooks/useSearchInput";
 import * as S from "../styles/pages/MyTripCreatePage.style";
 import { Heading } from "../styles/common/Heading.style";
 import LocationTag from "../components/mytrip/LocationTag";
+import BackButton from "../components/mytrip/BackButton";
 
 function MyTripCreatePage() {
-    const navigate = useNavigate();
     const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
 
     const [, SearchInput] = useSearchInput({
@@ -37,11 +35,7 @@ function MyTripCreatePage() {
     return (
         <PageTemplate nav={false} header={false}>
             <S.Header>
-                <LeftChevronIcon
-                    onClick={() => {
-                        navigate(-1);
-                    }}
-                />
+                <BackButton />
                 <SearchInput />
             </S.Header>
             <S.LocationsHeader>
@@ -49,10 +43,7 @@ function MyTripCreatePage() {
             </S.LocationsHeader>
             <S.Locations>
                 {locations.map((location) => {
-                    const isActive =
-                        selectedLocations.find(
-                            (selectedLocation) => selectedLocation == location
-                        ) == location;
+                    const isActive = selectedLocations.includes(location);
                     return (
                         <Button
                             size="md"
