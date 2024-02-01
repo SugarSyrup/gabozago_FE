@@ -12,6 +12,8 @@ export const Container = styled.form`
     justify-content: space-between;
     align-items: center;
     position: relative;
+
+    width: 100%;
 `;
 
 export const Input = styled.input`
