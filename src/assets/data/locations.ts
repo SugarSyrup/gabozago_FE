@@ -31,7 +31,7 @@ export const extraLocations = [
     { name: "여수", desc: "설명란" },
     { name: "양산", desc: "설명란" },
     { name: "가평", desc: "설명란" },
-    { name: "김해", desc: "설명란" },
-    { name: "김천", desc: "설명란" },
-    { name: "김제", desc: "설명란" },
+    { name: "김해", desc: "통영•거제•남해" },
+    { name: "김천", desc: "국내" },
+    { name: "김제", desc: "전주" },
 ];
