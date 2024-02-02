@@ -1,5 +1,5 @@
 import { locationType } from "../../assets/data/locations";
-import SearchResult from "./SearchResultItem";
+import SearchResultItem from "./SearchResultItem";
 
 import * as S from "../../styles/mytrip/SearchedLocations.style";
 import SearchNotFounded from "./SearchNotFounded";
@@ -16,7 +16,7 @@ function SearchedLocations({ searchedLocations, keyword }: Props) {
                 searchedLocations.map((searchedLocation) => {
                     if (keyword) {
                         return (
-                            <SearchResult
+                            <SearchResultItem
                                 name={searchedLocation.name}
                                 desc={searchedLocation.desc}
                                 keyword={keyword}
