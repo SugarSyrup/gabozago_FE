@@ -1,4 +1,8 @@
+import { useRecoilState } from "recoil";
+
+import { selectedLocationsState } from "../../recoil/mytrip/selectedLocations";
 import * as S from "../../styles/mytrip/SearchResultItem.style";
+
 import Button from "../common/Button";
 
 interface Props {
@@ -8,6 +12,24 @@ interface Props {
 }
 
 function SearchResultItem({ name, desc, keyword }: Props) {
+    const [selectedLocations, setSelectedLocations] = useRecoilState(
+        selectedLocationsState
+    );
+
+    function selectLocation(location: string) {
+        setSelectedLocations((prev) =>
+            [location, ...prev].filter((findLocation, index) => {
+                return [location, ...prev].indexOf(findLocation) === index;
+            })
+        );
+    }
+
+    function deleteLocation(location: string) {
+        setSelectedLocations((prev) =>
+            prev.filter((item) => location !== item)
+        );
+    }
+
     return (
         <S.Container>
             <S.Info>
@@ -25,7 +47,16 @@ function SearchResultItem({ name, desc, keyword }: Props) {
                 </S.Name>
                 <S.Desc>{desc}</S.Desc>
             </S.Info>
-            <Button size="xs" type="normal">
+            <Button
+                size="xs"
+                type="normal"
+                active={selectedLocations.includes(name)}
+                onClick={() => {
+                    selectedLocations.includes(name)
+                        ? deleteLocation(name)
+                        : selectLocation(name);
+                }}
+            >
                 선택
             </Button>
         </S.Container>

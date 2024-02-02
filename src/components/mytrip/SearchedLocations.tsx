@@ -1,7 +1,7 @@
 import { locationType } from "../../assets/data/locations";
-import SearchResultItem from "./SearchResultItem";
-
 import * as S from "../../styles/mytrip/SearchedLocations.style";
+
+import SearchResultItem from "./SearchResultItem";
 import SearchNotFounded from "./SearchNotFounded";
 
 interface Props {

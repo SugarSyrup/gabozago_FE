@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { useRecoilState } from "recoil";
+
+import { selectedLocationsState } from "../recoil/mytrip/selectedLocations";
 
 import {
     locations,
@@ -7,16 +10,19 @@ import {
 } from "../assets/data/locations";
 import PageTemplate from "../components/common/PageTemplate";
 import Button from "../components/common/Button";
-import useSearchInput from "../hooks/useSearchInput";
-
-import * as S from "../styles/pages/MyTripCreatePage.style";
-import { Heading } from "../styles/common/Heading.style";
 import LocationTag from "../components/mytrip/LocationTag";
 import BackButton from "../components/mytrip/BackButton";
 import SearchedLocations from "../components/mytrip/SearchedLocations";
 
+import useSearchInput from "../hooks/useSearchInput";
+
+import * as S from "../styles/pages/MyTripCreatePage.style";
+import { Heading } from "../styles/common/Heading.style";
+
 function MyTripCreatePage() {
-    const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
+    const [selectedLocations, setSelectedLocations] = useRecoilState(
+        selectedLocationsState
+    );
     const [searchedLocations, setSearchedLocations] = useState<locationType[]>(
         []
     );
