@@ -1,4 +1,4 @@
-import * as S from "../../styles/mytrip/SearchResult.style";
+import * as S from "../../styles/mytrip/SearchResultItem.style";
 import Button from "../common/Button";
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
     keyword: string;
 }
 
-function SearchResult({ name, desc, keyword }: Props) {
+function SearchResultItem({ name, desc, keyword }: Props) {
     return (
         <S.Container>
             <S.Info>
@@ -32,4 +32,4 @@ function SearchResult({ name, desc, keyword }: Props) {
     );
 }
 
-export default SearchResult;
+export default SearchResultItem;
