@@ -1,21 +1,36 @@
 import { useState } from "react";
+import { useRecoilState } from "recoil";
 
-import { locations } from "../assets/data/locations";
+import { selectedLocationsState } from "../recoil/mytrip/selectedLocations";
+
+import {
+    locations,
+    extraLocations,
+    locationType,
+} from "../assets/data/locations";
 import PageTemplate from "../components/common/PageTemplate";
 import Button from "../components/common/Button";
+import LocationTag from "../components/mytrip/LocationTag";
+import BackButton from "../components/mytrip/BackButton";
+import SearchedLocations from "../components/mytrip/SearchedLocations";
+
 import useSearchInput from "../hooks/useSearchInput";
 
 import * as S from "../styles/pages/MyTripCreatePage.style";
 import { Heading } from "../styles/common/Heading.style";
-import LocationTag from "../components/mytrip/LocationTag";
-import BackButton from "../components/mytrip/BackButton";
 
 function MyTripCreatePage() {
-    const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
+    const [selectedLocations, setSelectedLocations] = useRecoilState(
+        selectedLocationsState
+    );
+    const [searchedLocations, setSearchedLocations] = useState<locationType[]>(
+        []
+    );
+    const [isSearching, setIsSearching] = useState<boolean>(false);
 
-    const [, SearchInput] = useSearchInput({
+    const [inputRef, SearchInput] = useSearchInput({
         placeholder: "어디로 떠나시나요?",
-        onSubmit: () => {},
+        onChange: onChange,
     });
 
     function selectLocation(location: string) {
@@ -32,35 +47,63 @@ function MyTripCreatePage() {
         );
     }
 
+    function onChange() {
+        if (inputRef.current) {
+            if (inputRef.current?.value === "") {
+                setIsSearching(false);
+            } else {
+                setIsSearching(true);
+                setSearchedLocations(searchResult(inputRef.current?.value));
+            }
+        }
+    }
+
+    function searchResult(keyword: string) {
+        return extraLocations.filter((location) =>
+            location.name.includes(keyword)
+        );
+    }
+
     return (
         <PageTemplate nav={false} header={false}>
             <S.Header>
                 <BackButton />
                 <SearchInput />
             </S.Header>
-            <S.LocationsHeader>
-                <Heading size="md">지역을 선택해주세요.</Heading>
-            </S.LocationsHeader>
-            <S.Locations>
-                {locations.map((location) => {
-                    const isActive = selectedLocations.includes(location);
-                    return (
-                        <Button
-                            size="md"
-                            type="normal"
-                            active={isActive}
-                            onClick={() => {
-                                isActive
-                                    ? deleteLocation(location)
-                                    : selectLocation(location);
-                            }}
-                            key={location}
-                        >
-                            {location}
-                        </Button>
-                    );
-                })}
-            </S.Locations>
+            {isSearching ? (
+                <SearchedLocations
+                    searchedLocations={searchedLocations}
+                    keyword={inputRef.current?.value}
+                />
+            ) : (
+                <>
+                    <S.LocationsHeader>
+                        <Heading size="md">지역을 선택해주세요.</Heading>
+                    </S.LocationsHeader>
+                    <S.Locations>
+                        {locations.map((location) => {
+                            const isActive = selectedLocations.includes(
+                                location.name
+                            );
+                            return (
+                                <Button
+                                    size="md"
+                                    type="normal"
+                                    active={isActive}
+                                    onClick={() => {
+                                        isActive
+                                            ? deleteLocation(location.name)
+                                            : selectLocation(location.name);
+                                    }}
+                                    key={location.name}
+                                >
+                                    {location.name}
+                                </Button>
+                            );
+                        })}
+                    </S.Locations>
+                </>
+            )}
             <S.Footer>
                 <S.LocationTags>
                     {selectedLocations.map((selectedLocation) => (
