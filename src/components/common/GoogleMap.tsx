@@ -5,6 +5,7 @@ import {
   useJsApiLoader,
 } from "@react-google-maps/api";
 import mapPinIcon from "../../assets/icons/image_placeholder_circle.svg";
+import * as S from "../../styles/common/GoogleMap.style";
 
 export interface Position {
   lat: number;
@@ -65,19 +66,23 @@ function GoogleMap({
     disableDefaultUI: true,
   };
 
-  return isLoaded ? (
-    <GoogleMapBox
-      mapContainerStyle={{ width, height }}
-      center={center}
-      zoom={14}
-      onLoad={onLoad}
-      onUnmount={onUnmount}
-      options={mapOptions}
-    >
-      {children}
-    </GoogleMapBox>
-  ) : (
-    <></>
+  return (
+    <S.MapWrapper height={height}>
+      {isLoaded ? (
+        <GoogleMapBox
+          mapContainerStyle={{ width, height }}
+          center={center}
+          zoom={14}
+          onLoad={onLoad}
+          onUnmount={onUnmount}
+          options={mapOptions}
+        >
+          {children}
+        </GoogleMapBox>
+      ) : (
+        <></>
+      )}
+    </S.MapWrapper>
   );
 }
 

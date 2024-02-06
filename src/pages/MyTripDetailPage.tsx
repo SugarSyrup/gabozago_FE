@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import PageTemplate from "../components/common/PageTemplate";
@@ -8,8 +8,10 @@ import TripPlanList from "../components/tripDetail/TripPlanList";
 import PlanMap from "../components/tripDetail/PlanMap";
 
 import ClapBlueIcon from "../assets/icons/clap_blue.svg?react";
-import { Plan, data as planData } from "../assets/data/tripPlanData";
+import { TripPlan, data as planData } from "../assets/data/tripPlanData";
 import * as S from "../styles/MyTripDetailPage.style";
+import { planViewModeState } from "../recoil/planViewModeState";
+import { useRecoilState } from "recoil";
 
 function MyTripDetailPage() {
   /**
@@ -17,18 +19,21 @@ function MyTripDetailPage() {
    */
   const { id } = useParams(); // 파라미터에 게시글 ID
   console.log(id);
-  const [data, setData] = useState<Plan>(planData);
+  const [data, setData] = useState<TripPlan>(planData);
   const username = "최민석";
-  const hasPlan = (data: Plan) => {
+  const hasPlan = (data: TripPlan) => {
     return data.plan.length !== 0;
   };
+  const [viewMode, setViewMode] = useRecoilState(planViewModeState);
+  useEffect(() => {
+    setViewMode("EDIT");
+  }, []);
 
   return (
     <PageTemplate nav={true} header={false}>
       {hasPlan(data) ? (
         <>
           <TripInfo
-            size={"sm"}
             title={data.title}
             departuereDate={data.departureDate}
             arrivalDate={data.arrivalDate}

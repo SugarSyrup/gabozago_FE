@@ -3,10 +3,11 @@ import Heading from "../common/Heading";
 import EditIcon from "../../assets/icons/edit.svg?react";
 import CalendarIcon from "../../assets/icons/calendar.svg?react";
 import BusIcon from "../../assets/icons/bus.svg?react";
+import { useRecoilValue } from "recoil";
+import { tripInfoSizeState } from "../../recoil/planViewModeState";
 
 export type Size = "default" | "sm" | "xs";
 interface Props {
-  size?: Size;
   title: string;
   departuereDate: Date;
   arrivalDate: Date;
@@ -14,21 +15,19 @@ interface Props {
   transport: string;
 }
 function TripInfo({
-  size = "default",
   title,
   departuereDate,
   arrivalDate,
   days,
   transport,
 }: Props) {
-  size = "xs";
-  /** Heading 컴포넌트 size */
+  const size = useRecoilValue(tripInfoSizeState);
+  /** Heading 컴포넌트 Prop으로 전달할 size */
   enum headingSize {
     "default" = "lg", // 24px
     "sm" = "md", // 20px
     "xs" = "sm", // 16px
   }
-
   /** "[출발일] - [도착일]"을 YY.MM.DD 혹은 MM.DD 형식으로 출력 */
   const getTripDuration = () => {
     const dateToString = (
