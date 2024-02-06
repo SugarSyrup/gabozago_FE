@@ -19,7 +19,7 @@ import useSearchInput from "../hooks/useSearchInput";
 import * as S from "../styles/pages/MyTripCreatePage.style";
 import { Heading } from "../styles/common/Heading.style";
 
-function MyTripCreatePage() {
+function MyTripLocationSelectPage() {
     const [selectedLocations, setSelectedLocations] = useRecoilState(
         selectedLocationsState
     );
@@ -129,4 +129,4 @@ function MyTripCreatePage() {
     );
 }
 
-export default MyTripCreatePage;
+export default MyTripLocationSelectPage;
