@@ -19,39 +19,32 @@ function MyTripDetailPage() {
    */
   const { id } = useParams(); // 파라미터에 게시글 ID
   console.log(id);
-  const [data, setData] = useState<TripPlan>(planData);
+  const [data] = useState<TripPlan>(planData);
   const username = "최민석";
   const hasPlan = (data: TripPlan) => {
     return data.plan.length !== 0;
   };
-  const [viewMode, setViewMode] = useRecoilState(planViewModeState);
+  const [, setViewMode] = useRecoilState(planViewModeState);
   useEffect(() => {
-    setViewMode("EDIT");
+    setViewMode("PLAN");
   }, []);
 
   return (
     <PageTemplate nav={true} header={false}>
+      <TripInfo
+        title={data.title}
+        departuereDate={data.departureDate}
+        arrivalDate={data.arrivalDate}
+        days={data.days}
+        transport={data.transport}
+      />
       {hasPlan(data) ? (
         <>
-          <TripInfo
-            title={data.title}
-            departuereDate={data.departureDate}
-            arrivalDate={data.arrivalDate}
-            days={data.days}
-            transport={data.transport}
-          />
           <PlanMap plan={data.plan} />
           <TripPlanList days={data.days} plan={data.plan} />
         </>
       ) : (
         <>
-          <TripInfo
-            title={data.title}
-            departuereDate={data.departureDate}
-            arrivalDate={data.arrivalDate}
-            days={data.days}
-            transport={data.transport}
-          />
           <S.MessageBox>
             <p>
               {username}님, 새로운 여행 일정이 만들어졌어요!
