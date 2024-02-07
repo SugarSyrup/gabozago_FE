@@ -5,11 +5,6 @@ export const HeadingWrapper = styled.div`
     margin-bottom:42px;
 `
 
-export const CalendarContainer = styled.div`
-    display:flex;
-    flex-direction:column;
-    gap:26px;
-`
 
 export const Footer = styled.footer`
     position: absolute;

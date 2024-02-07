@@ -6,7 +6,7 @@ export const CalendarHeader = styled.span`
     line-height:22px;
 `
 
-export const CalendarContainer = styled.div`
+export const Calendar = styled.div`
     width:100%;
     margin-top:14px;
 
@@ -31,9 +31,13 @@ export const Day = styled.div`
     line-height:18px;
     color:rgba(60, 60, 67, 0.30);
 `
+interface DateProps {
+    isHighlight: boolean;
+    isDuring: boolean;
+}
 
 //날짜
-export const Date = styled.div`
+export const Date = styled.div<DateProps>`
     width:44px;
     height:44px;
 

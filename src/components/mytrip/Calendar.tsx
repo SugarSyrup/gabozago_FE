@@ -3,11 +3,12 @@ import * as S from "../../styles/mytrip/Calendar.style";
 interface Props{
     year:number;
     month: number;
-    startDate?: number;
-    endDate?:number;
+    startDate?: string;
+    endDate?:string;
+    onClick?:(date:string) => void;
 }
 
-function Calendar({year, month} : Props) {
+function Calendar({year, month, onClick} : Props) {
     function FillDate() {
         const currentMonthStartDay = new Date(year,month,1).getDay();
         const currentMonthLastDate = new Date(year,month,0).getDate();
@@ -18,7 +19,14 @@ function Calendar({year, month} : Props) {
         }
 
         for(let i = 1; i <= currentMonthLastDate; i++) {
-            arr.push(<S.Date>{i}</S.Date>)
+            arr.push(<S.Date 
+                isHighlight={false}
+                isDuring={false}
+                onClick={(e) => {
+                if(onClick) {
+                    onClick(`${year}/${month}/${e.currentTarget.innerText}`);
+                }
+            }}>{i}</S.Date>)
         }
 
         return arr;
@@ -27,9 +35,9 @@ function Calendar({year, month} : Props) {
     return(
         <>
             <S.CalendarHeader>
-                2023년 12월
+                {year}년 {month}월
             </S.CalendarHeader>
-            <S.CalendarContainer>
+            <S.Calendar>
                 <S.Day>SUN</S.Day>
                 <S.Day>MON</S.Day>
                 <S.Day>TUE</S.Day>
@@ -38,7 +46,7 @@ function Calendar({year, month} : Props) {
                 <S.Day>FRI</S.Day>
                 <S.Day>SAT</S.Day>
                 {FillDate()}
-            </S.CalendarContainer>
+            </S.Calendar>
         </>
     )
 }

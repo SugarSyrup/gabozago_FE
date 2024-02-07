@@ -6,10 +6,11 @@ import { Link } from "react-router-dom";
 import Heading from "../components/common/Heading";
 import Button from "../components/common/Button";
 
-import Calendar from "../components/mytrip/Calendar";
+import CalendarContainer from "../components/mytrip/CalendarContainer";
 
 function MyTripDatesSelectPage() {
-    return(<>
+    return(
+    <>
         <PageTemplate header={false} nav={false}>
             <Link to="/mytrip" style={{cursor:"pointer"}}>
                 <XIcon/>
@@ -17,11 +18,7 @@ function MyTripDatesSelectPage() {
             <S.HeadingWrapper>
                 <Heading size="sm">여행 날짜를 선택해주세요.</Heading>
             </S.HeadingWrapper>
-            <S.CalendarContainer>
-                <Calendar year={2023} month={12}/>
-                <Calendar year={2024} month={1}/>
-                <Calendar year={2024} month={2}/>
-            </S.CalendarContainer>
+            <CalendarContainer />
             <S.Footer>
                 <Button
                     size="lg"
