@@ -16,7 +16,7 @@ import SearchedLocations from "../components/mytrip/SearchedLocations";
 
 import useSearchInput from "../hooks/useSearchInput";
 
-import * as S from "../styles/pages/MyTripCreatePage.style";
+import * as S from "../styles/pages/MyTripLocationSelectPage.style";
 import { Heading } from "../styles/common/Heading.style";
 
 function MyTripLocationSelectPage() {
