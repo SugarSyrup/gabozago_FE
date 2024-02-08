@@ -1,10 +1,9 @@
-import PageTemplate from "../components/common/PageTemplate";
-
-import XIcon from "../assets/icons/grayx.svg?react";
-import * as S from "../styles/pages/MyTripDatesSelectPage.style";
 import { Link } from "react-router-dom";
+
+import * as S from "../styles/pages/MyTripDatesSelectPage.style";
+import XIcon from "../assets/icons/grayx.svg?react";
+import PageTemplate from "../components/common/PageTemplate";
 import Heading from "../components/common/Heading";
-import Button from "../components/common/Button";
 
 import CalendarContainer from "../components/mytrip/CalendarContainer";
 
@@ -19,16 +18,6 @@ function MyTripDatesSelectPage() {
                 <Heading size="sm">여행 날짜를 선택해주세요.</Heading>
             </S.HeadingWrapper>
             <CalendarContainer />
-            <S.Footer>
-                <Button
-                    size="lg"
-                    type="normal"
-                    disabled={true}
-                    active={false}
-                >
-                    날짜를 선택해주세요.
-                </Button>
-            </S.Footer>
         </PageTemplate>
     </>)
 }
