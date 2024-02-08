@@ -21,8 +21,9 @@ function MyTripDetailPage() {
   console.log(id);
   const [data, setData] = useState<TripPlan>(planData);
   const [hasPlan, setHasPlan] = useState(false);
-  const username = "최민석";
   const [, setViewMode] = useRecoilState(planViewModeState);
+  const username = "최민석";
+
   useEffect(() => {
     if (data.plan.length !== 0) {
       setViewMode("PLAN");
