@@ -2,7 +2,7 @@ import { atom, selector } from "recoil";
 
 export const planViewModeState = atom<"NOPLAN" | "PLAN" | "EDIT">({
   key: "editModeState",
-  default: "PLAN",
+  default: "NOPLAN",
 });
 
 type InfoViewSize = "default" | "sm" | "xs";

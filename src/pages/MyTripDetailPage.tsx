@@ -19,15 +19,16 @@ function MyTripDetailPage() {
    */
   const { id } = useParams(); // 파라미터에 게시글 ID
   console.log(id);
-  const [data] = useState<TripPlan>(planData);
+  const [data, setData] = useState<TripPlan>(planData);
+  const [hasPlan, setHasPlan] = useState(false);
   const username = "최민석";
-  const hasPlan = (data: TripPlan) => {
-    return data.plan.length !== 0;
-  };
   const [, setViewMode] = useRecoilState(planViewModeState);
   useEffect(() => {
-    setViewMode("PLAN");
-  }, []);
+    if (data.plan.length !== 0) {
+      setViewMode("PLAN");
+      setHasPlan(true);
+    }
+  }, [data]);
 
   return (
     <PageTemplate nav={true} header={false}>
@@ -38,7 +39,7 @@ function MyTripDetailPage() {
         days={data.days}
         transport={data.transport}
       />
-      {hasPlan(data) ? (
+      {hasPlan ? (
         <>
           <PlanMap plan={data.plan} />
           <TripPlanList days={data.days} plan={data.plan} />
