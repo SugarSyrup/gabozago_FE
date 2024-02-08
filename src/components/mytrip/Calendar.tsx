@@ -3,12 +3,12 @@ import * as S from "../../styles/mytrip/Calendar.style";
 interface Props{
     year:number;
     month: number;
-    startDate?: string;
-    endDate?:string;
-    onClick?:(date:string) => void;
+    startDate: string;
+    endDate:string;
+    onDateClick:(date:string) => void;
 }
 
-function Calendar({year, month, onClick} : Props) {
+function Calendar({year, month, startDate, endDate, onDateClick} : Props) {
     function FillDate() {
         const currentMonthStartDay = new Date(year,month,1).getDay();
         const currentMonthLastDate = new Date(year,month,0).getDate();
@@ -19,14 +19,19 @@ function Calendar({year, month, onClick} : Props) {
         }
 
         for(let i = 1; i <= currentMonthLastDate; i++) {
-            arr.push(<S.Date 
-                isHighlight={false}
-                isDuring={false}
-                onClick={(e) => {
-                if(onClick) {
-                    onClick(`${year}/${month}/${e.currentTarget.innerText}`);
+            const thisDate = `${year}${String(month).padStart(2, "0")}${String(i).padStart(2, "0")}`;
+            arr.push(
+                <S.Date 
+                    isDuring={Number(startDate) <= Number(thisDate) && Number(endDate) >= Number(thisDate)}
+                    onClick={() => {
+                        onDateClick(thisDate);
+                }}>
+                {Number(startDate) === Number(thisDate) || Number(endDate) === Number(thisDate) ? 
+                    <S.DateHightlight isStartDate={Number(startDate) === Number(thisDate)}>{i}</S.DateHightlight>
+                    : i
                 }
-            }}>{i}</S.Date>)
+                </S.Date>
+            )
         }
 
         return arr;
