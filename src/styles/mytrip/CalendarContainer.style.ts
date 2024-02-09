@@ -12,6 +12,7 @@ export const Footer = styled.footer`
     position: absolute;
     bottom: 0px;
     left: 0px;
+    z-index:2;
 
     height:200px;
     padding-bottom:50px;
