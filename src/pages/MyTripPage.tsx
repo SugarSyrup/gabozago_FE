@@ -12,9 +12,20 @@ import CalendarAddIcon from "../assets/icons/calendarAdd.svg?react";
 
 import * as S from "../styles/pages/SchedulePage.style";
 import { Link } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { datesState } from "../recoil/mytrip/createData";
 
 function MyTripPage() {
     const FLAG = false;
+    const setDates = useSetRecoilState(datesState);
+
+    function initializeDates() {
+        setDates({
+            startDate:"",
+            endDate:""
+        });
+    }
+
     return (
         <PageTemplate nav={true} header={false}>
             {/* Heading */}
@@ -44,7 +55,7 @@ function MyTripPage() {
                             highlight={false}
                         />
                     </S.ScheduleCardContainer>
-                    <Link to="/mytrip/create">
+                    <Link to="/mytrip/create" onClick={() => initializeDates()}>
                         <S.CreateMyTripScheduleBtn>
                             <CirclePlusIcon />
                             새로운 여행 일정 만들기
@@ -75,7 +86,7 @@ function MyTripPage() {
                         </S.CreateMyTripTextWrapper>
                         <S.SeperateLine />
                         <S.ButtonWrapper>
-                            <Link to="/mytrip/create">
+                            <Link to="/mytrip/create"  onClick={() => initializeDates()}>
                                 <Button size="sm" type="text">
                                     <S.ButtonText>
                                         일정 생성하기
@@ -131,7 +142,7 @@ function MyTripPage() {
                 />
             </S.ContentContainer>
 
-            <Link to="/mytrip/create">
+            <Link to="/mytrip/create"  onClick={() => initializeDates()}>
                 <S.FloatingBtnWrapper>
                     <BlueCirclePlusIcon />
                 </S.FloatingBtnWrapper>

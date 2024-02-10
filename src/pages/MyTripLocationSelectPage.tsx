@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 
-import { selectedLocationsState } from "../recoil/mytrip/selectedLocations";
+import { selectedLocationsState } from "../recoil/mytrip/createData";
 
 import {
     locations,

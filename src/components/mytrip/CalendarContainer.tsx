@@ -1,30 +1,39 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import * as S from "../../styles/mytrip/CalendarContainer.style.ts";
+import { datesState } from "../../recoil/mytrip/createData.ts";
 
 import Button from "../common/Button.tsx";
 import Calendar from "./Calendar";
-import { Link } from "react-router-dom";
+import { useRecoilState } from "recoil";
 
 function CalendarContainer() {
     const [dateClickFlag, setDateClickFlag] = useState<boolean>(true);
-    const [startDate, setStartDate] = useState<string>("");
-    const [endDate, setEndDate] = useState<string>("");
     const [dateDiff, setDateDiff] = useState<number>(-1);
+
+    const [dates, setDates] = useRecoilState(datesState);
 
     function onDateClick(date:string) {
         if(dateClickFlag) {
-            setEndDate("");
-            setStartDate(date);
+            setDates({
+                startDate: date,
+                endDate:""
+            })
             setDateClickFlag(prev => !prev);
         } else {
-            if(Number(date) < Number(startDate)) {
-                setEndDate(startDate);
-                setStartDate(date);
-                setDateDiff(calculateDateDiff(date, startDate));
+            if(Number(date) < Number(dates.startDate)) {
+                setDates({
+                    startDate: date,
+                    endDate:dates.startDate
+                })
+                setDateDiff(calculateDateDiff(date, dates.startDate));
             } else {
-                setEndDate(date);
-                setDateDiff(calculateDateDiff(startDate, date));
+                setDates({
+                    startDate: dates.startDate,
+                    endDate: date
+                })
+                setDateDiff(calculateDateDiff(dates.startDate, date));
             }
             setDateClickFlag(prev => !prev);
         }
@@ -42,7 +51,7 @@ function CalendarContainer() {
 
         for(let year = currentDateInfo.getFullYear(); year<=currentDateInfo.getFullYear() + 10; year++) {
             for(let month = currentDateInfo.getMonth(); month<=12; month++) {
-                elements.push(<Calendar year={year} month={month} onDateClick={onDateClick} startDate={startDate} endDate={endDate}/>)
+                elements.push(<Calendar year={year} month={month} onDateClick={onDateClick} startDate={dates.startDate} endDate={dates.endDate}/>)
             }
         }
 
@@ -60,11 +69,11 @@ function CalendarContainer() {
                     <Button
                         size="lg"
                         type="normal"
-                        disabled={startDate === "" && endDate === ""}
-                        active={startDate !== "" && endDate !== ""}
+                        disabled={dates.startDate === "" && dates.endDate === ""}
+                        active={dates.startDate !== "" && dates.endDate !== ""}
                     >
-                        {startDate !== "" && endDate !== "" ? 
-                            `${startDate.slice(0,4)}.${startDate.slice(4,6)}.${startDate.slice(6,8)} - ${startDate.slice(0,4) !== endDate.slice(0,4) ? `${endDate.slice(0,4)}.` : ""}${startDate.slice(4,6) !== endDate.slice(4,6) ? `${endDate.slice(4,6)}.` : ""}${endDate.slice(6,8)} / ${dateDiff}박 ${dateDiff+1}일`
+                        {dates.startDate !== "" && dates.endDate !== "" ? 
+                            `${dates.startDate.slice(0,4)}.${dates.startDate.slice(4,6)}.${dates.startDate.slice(6,8)} - ${dates.startDate.slice(0,4) !== dates.endDate.slice(0,4) ? `${dates.endDate.slice(0,4)}.` : ""}${dates.startDate.slice(4,6) !== dates.endDate.slice(4,6) ? `${dates.endDate.slice(4,6)}.` : ""}${dates.endDate.slice(6,8)} / ${dateDiff}박 ${dateDiff+1}일`
                             : "날짜를 선택해주세요." 
                         }
                     </Button>
