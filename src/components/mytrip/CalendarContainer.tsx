@@ -40,8 +40,8 @@ function CalendarContainer() {
         const elements = [];
         const currentDateInfo = new Date();
 
-        for(let year = currentDateInfo.getFullYear(); year<=currentDateInfo.getFullYear()+10; year++) {
-            for(let month = currentDateInfo.getMonth(); month<=12; year++) {
+        for(let year = currentDateInfo.getFullYear(); year<=currentDateInfo.getFullYear() + 10; year++) {
+            for(let month = currentDateInfo.getMonth(); month<=12; month++) {
                 elements.push(<Calendar year={year} month={month} onDateClick={onDateClick} startDate={startDate} endDate={endDate}/>)
             }
         }
