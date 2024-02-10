@@ -5,6 +5,14 @@ export const CalendarContainer = styled.div`
     display:flex;
     flex-direction:column;
     gap:26px;
+
+    height:70vh;
+    overflow:auto;
+
+    &::-webkit-scrollbar {
+        display: none;
+        scrollbar-width: none;
+    }
 `
 
 

@@ -36,10 +36,23 @@ function CalendarContainer() {
         return (Math.abs(dateDiffTime/ (1000 * 60 * 60 * 24)));
     }
 
+    function drawCalendars() {
+        const elements = [];
+        const currentDateInfo = new Date();
+
+        for(let year = currentDateInfo.getFullYear(); year<=currentDateInfo.getFullYear()+10; year++) {
+            for(let month = currentDateInfo.getMonth(); month<=12; year++) {
+                elements.push(<Calendar year={year} month={month} onDateClick={onDateClick} startDate={startDate} endDate={endDate}/>)
+            }
+        }
+
+        return elements;
+    }
+
     return(
         <>
             <S.CalendarContainer>
-                <Calendar year={2023} month={12} onDateClick={onDateClick} startDate={startDate} endDate={endDate}/>
+                {drawCalendars()}
             </S.CalendarContainer>
             
             <S.Footer>
