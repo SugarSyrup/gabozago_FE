@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 
-import { selectedLocationsState } from "../recoil/mytrip/selectedLocations";
+import { selectedLocationsState } from "../recoil/mytrip/createData";
 
 import {
     locations,
@@ -16,10 +16,10 @@ import SearchedLocations from "../components/mytrip/SearchedLocations";
 
 import useSearchInput from "../hooks/useSearchInput";
 
-import * as S from "../styles/pages/MyTripCreatePage.style";
+import * as S from "../styles/pages/MyTripLocationSelectPage.style";
 import { Heading } from "../styles/common/Heading.style";
 
-function MyTripCreatePage() {
+function MyTripLocationSelectPage() {
     const [selectedLocations, setSelectedLocations] = useRecoilState(
         selectedLocationsState
     );
@@ -129,4 +129,4 @@ function MyTripCreatePage() {
     );
 }
 
-export default MyTripCreatePage;
+export default MyTripLocationSelectPage;

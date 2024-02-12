@@ -1,6 +1,6 @@
 import { useRecoilState } from "recoil";
 
-import { selectedLocationsState } from "../../recoil/mytrip/selectedLocations";
+import { selectedLocationsState } from "../../recoil/mytrip/createData";
 import * as S from "../../styles/mytrip/SearchResultItem.style";
 
 import Button from "../common/Button";

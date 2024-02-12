@@ -3,7 +3,8 @@ import App from "./pages/App";
 import MyTripPage from "./pages/MyTripPage";
 import TestPage from "./pages/TestPage";
 import MyTripDetailPage from "./pages/MyTripDetailPage";
-import MyTripCreatePage from "./pages/MyTripCreatePage";
+import MyTripLocationSelectPage from "./pages/MyTripLocationSelectPage";
+import MyTripDatesSelectPage from "./pages/MyTripDatesSelectPage";
 
 const router = createBrowserRouter([
     {
@@ -16,7 +17,11 @@ const router = createBrowserRouter([
     },
     {
         path: "/mytrip/create",
-        element: <MyTripCreatePage />,
+        element: <MyTripDatesSelectPage />
+    },
+    {
+        path: "/mytrip/create/location",
+        element: <MyTripLocationSelectPage />,
     },
     {
         path: "/mytrip/:id",
