@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import PageTemplate from "../components/common/PageTemplate";
@@ -8,42 +8,35 @@ import TripPlanList from "../components/tripDetail/TripPlanList";
 import PlanMap from "../components/tripDetail/PlanMap";
 
 import ClapBlueIcon from "../assets/icons/clap_blue.svg?react";
-import { TripPlan, data as planData } from "../assets/data/tripPlanData";
 import * as S from "../styles/MyTripDetailPage.style";
 import { planViewModeState } from "../recoil/planViewModeState";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { tripPlanState } from "../recoil/tripPlanState";
 
 function MyTripDetailPage() {
-  /**
-   * @todo: id를 통해 일정 데이터 비동기 요청 불러와 State로 관리하기
-   */
+  // @todo: id를 통해 일정 데이터 비동기 요청 불러와 State로 관리하기
   const { id } = useParams(); // 파라미터에 게시글 ID
-  console.log(id);
-  const [data, setData] = useState<TripPlan>(planData);
-  const [hasPlan, setHasPlan] = useState(false);
-  const [, setViewMode] = useRecoilState(planViewModeState);
+  const [viewMode, setViewMode] = useRecoilState(planViewModeState);
+  const tripPlan = useRecoilValue(tripPlanState);
+
+  // @todo: 사용자 정보 state로 관리
   const username = "최민석";
 
   useEffect(() => {
-    if (data.plan.length !== 0) {
+    if (tripPlan?.length !== 0) {
       setViewMode("PLAN");
-      setHasPlan(true);
+    } else {
+      setViewMode("NOPLAN");
     }
-  }, [data]);
+  }, [tripPlan]);
 
   return (
-    <PageTemplate nav={true} header={false}>
-      <TripInfo
-        title={data.title}
-        departuereDate={data.departureDate}
-        arrivalDate={data.arrivalDate}
-        days={data.days}
-        transport={data.transport}
-      />
-      {hasPlan ? (
+    <PageTemplate nav={true}>
+      <TripInfo />
+      {viewMode === "NOPLAN" ? (
         <>
-          <PlanMap plan={data.plan} />
-          <TripPlanList days={data.days} plan={data.plan} />
+          <PlanMap />
+          <TripPlanList />
         </>
       ) : (
         <>

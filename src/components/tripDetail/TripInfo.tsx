@@ -5,22 +5,11 @@ import CalendarIcon from "../../assets/icons/calendar.svg?react";
 import BusIcon from "../../assets/icons/bus.svg?react";
 import { useRecoilValue } from "recoil";
 import { tripInfoSizeState } from "../../recoil/planViewModeState";
+import { tripInfoState } from "../../recoil/tripPlanState";
 
 export type Size = "default" | "sm" | "xs";
-interface Props {
-  title: string;
-  departuereDate: Date;
-  arrivalDate: Date;
-  days: number;
-  transport: string;
-}
-function TripInfo({
-  title,
-  departuereDate,
-  arrivalDate,
-  days,
-  transport,
-}: Props) {
+function TripInfo() {
+  const tripInfo = useRecoilValue(tripInfoState);
   const size = useRecoilValue(tripInfoSizeState);
   /** Heading 컴포넌트 Prop으로 전달할 size */
   enum headingSize {
@@ -65,9 +54,9 @@ function TripInfo({
 
   return (
     <S.Container size={size}>
-      <Heading size={headingSize[size]}>{title}</Heading>
+      <Heading size={headingSize[size]}>{tripInfo.title}</Heading>
       {size !== "xs" && (
-        <S.EditButton>
+        <S.EditButton onClick={() => {}}>
           편집
           <EditIcon />
         </S.EditButton>
@@ -81,7 +70,7 @@ function TripInfo({
             </span>
           )}
           <span>
-            {getTripDuration()} / {days - 1}박 {days}일
+            {getTripDuration()} / {tripInfo.days - 1}박 {tripInfo.days}일
           </span>
         </S.DetailItem>
         {size !== "xs" && (
@@ -90,7 +79,7 @@ function TripInfo({
               <BusIcon />
               <span>이동수단</span>
             </span>
-            <span>{transport}</span>
+            <span>{tripInfo.transport}</span>
           </S.DetailItem>
         )}
       </S.DetailList>

@@ -1,15 +1,13 @@
 import GoogleMap from "../common/GoogleMap";
 import { MarkerProps } from "@react-google-maps/api";
-import { DayPlan } from "../../assets/data/tripPlanData";
 import { planViewModeState } from "../../recoil/planViewModeState";
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
+import { tripPlanState } from "../../recoil/tripPlanState";
 
-interface Props {
-  plan: DayPlan[];
-}
-function PlanMap({ plan }: Props) {
-  const [viewMode] = useRecoilState(planViewModeState);
+function PlanMap() {
+  const viewMode = useRecoilValue(planViewModeState);
+  const plan = useRecoilValue(tripPlanState);
   const findMidLatLng = () => {
     const result = {
       lat: 0,
@@ -41,7 +39,7 @@ function PlanMap({ plan }: Props) {
   const [markers, setMarkers] = useState<MarkerProps[]>([]);
 
   useEffect(() => {
-    plan.map(({ day, route }) => {
+    plan?.map(({ route }) => {
       route?.map(({ placeName, position }) => {
         setMarkers((prev) => [
           ...prev,

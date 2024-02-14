@@ -14,7 +14,7 @@ export interface DayPlan {
   dayOfWeek: string;
   route: Place[];
 }
-export interface TripPlan {
+export interface Trip {
   title: string;
   departureDate: Date;
   arrivalDate: Date;
@@ -22,7 +22,7 @@ export interface TripPlan {
   transport: string;
   plan: DayPlan[] | null;
 }
-export const data: TripPlan = {
+export const data: Trip = {
   title: "즐거운 부산 여행",
   departureDate: new Date("2024-12-20"), // 출발
   arrivalDate: new Date("2024-12-23"), // 도착
