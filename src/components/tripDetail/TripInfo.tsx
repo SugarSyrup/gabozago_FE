@@ -18,7 +18,7 @@ function TripInfo() {
     "xs" = "sm", // 16px
   }
   /** "[출발일] - [도착일]"을 YY.MM.DD 혹은 MM.DD 형식으로 출력 */
-  const getTripDuration = () => {
+  const getTripDuration = (departure: Date, arrival: Date) => {
     const dateToString = (
       date: Date,
       format: "YY.MM.DD" | "MM.DD" = "YY.MM.DD"
@@ -30,22 +30,21 @@ function TripInfo() {
         return str.slice(2);
       }
     };
-    const isDprtArrSameYear =
-      departuereDate.getFullYear === arrivalDate.getFullYear;
+    const isDprtArrSameYear = departure.getFullYear === arrival.getFullYear;
 
     let duration = [];
 
     if (isDprtArrSameYear) {
       // 같은 해이면 "MM.DD"
       duration = [
-        dateToString(departuereDate, "MM.DD"),
-        dateToString(arrivalDate, "MM.DD"),
+        dateToString(departure, "MM.DD"),
+        dateToString(arrival, "MM.DD"),
       ];
     } else {
       // 다른 해이면 "MM.DD"
       duration = [
-        dateToString(departuereDate, "YY.MM.DD"),
-        dateToString(arrivalDate, "YY.MM.DD"),
+        dateToString(departure, "YY.MM.DD"),
+        dateToString(arrival, "YY.MM.DD"),
       ];
     }
 
@@ -70,7 +69,8 @@ function TripInfo() {
             </span>
           )}
           <span>
-            {getTripDuration()} / {tripInfo.days - 1}박 {tripInfo.days}일
+            {getTripDuration(tripInfo.departureDate, tripInfo.arrivalDate)} /{" "}
+            {tripInfo.days - 1}박 {tripInfo.days}일
           </span>
         </S.DetailItem>
         {size !== "xs" && (

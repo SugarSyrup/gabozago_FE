@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 
 import PageTemplate from "../components/common/PageTemplate";
 import TripInfo from "../components/tripDetail/TripInfo";
@@ -15,7 +15,7 @@ import { tripPlanState } from "../recoil/tripPlanState";
 
 function MyTripDetailPage() {
   // @todo: id를 통해 일정 데이터 비동기 요청 불러와 State로 관리하기
-  const { id } = useParams(); // 파라미터에 게시글 ID
+  // const { id } = useParams(); // 파라미터에 게시글 ID
   const [viewMode, setViewMode] = useRecoilState(planViewModeState);
   const tripPlan = useRecoilValue(tripPlanState);
 
