@@ -1,6 +1,7 @@
 import * as S from "../../styles/tripDetail/TripPlanList.style";
 import { DayPlan as DayPlanType } from "../../assets/data/tripPlanData";
 import DayPlan from "./DayPlan";
+import DayPlanEdit from "./DayPlanEdit";
 import { useRecoilState } from "recoil";
 import { planViewModeState } from "../../recoil/planViewModeState";
 
@@ -32,6 +33,13 @@ function TripPlanList({ days, plan = [] }: Props) {
             >
               완료
             </S.EditComplateButton>
+            {plan.map((dayPlan) => (
+              <DayPlanEdit
+                day={dayPlan.day}
+                date={dayPlan.date}
+                route={dayPlan.route}
+              />
+            ))}
           </>
         )}
       </S.PlaceListContainer>

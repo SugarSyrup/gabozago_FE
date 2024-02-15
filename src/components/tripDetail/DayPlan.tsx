@@ -11,7 +11,7 @@ interface Props {
   route: Place[];
 }
 function DayPlan({ day, date, route }: Props) {
-  const [viewMode, setViewMode] = useRecoilState(planViewModeState);
+  const [, setViewMode] = useRecoilState(planViewModeState);
   const dateToString = (date: Date) => {
     const days = ["일", "월", "화", "수", "목", "금", "토"];
     return `${date.getUTCMonth() + 1}.${date.getUTCDate()}/${
