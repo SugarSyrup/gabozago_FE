@@ -8,6 +8,7 @@ import Heading from "../components/common/Heading";
 import RecommendationListItem from "../components/tripDetail/RecommendationListItem";
 import RecommendationReviewItem from "../components/tripDetail/RecommendationReviewItem";
 import { Button } from "../styles/common/Button.style";
+import SelectedLocations from "../components/tripDetail/SelectedLocations";
 
 function MyTripLocationSearchPage() {
     const [tabNavIdx, setTabNavIdx] = useState<number>(1);
@@ -93,6 +94,7 @@ function MyTripLocationSearchPage() {
                 </S.RecommendatoinReviewList>
             </S.Contents>
             <S.Footer>
+                <SelectedLocations />
                 <Button size="lg" type="normal" disabled={true}>
                     장소를 선택해주세요
                 </Button>

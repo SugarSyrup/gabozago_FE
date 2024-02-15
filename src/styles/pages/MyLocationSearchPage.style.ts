@@ -89,6 +89,7 @@ export const Footer = styled.footer`
     padding-right: 30px;
 
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 `;
