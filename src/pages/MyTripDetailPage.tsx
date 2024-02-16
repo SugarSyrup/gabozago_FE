@@ -23,6 +23,7 @@ function MyTripDetailPage() {
   const username = "최민석";
 
   useEffect(() => {
+    console.log(tripPlan);
     if (tripPlan?.length !== 0) {
       setViewMode("PLAN");
     } else {
@@ -35,11 +36,6 @@ function MyTripDetailPage() {
       <TripInfo />
       {viewMode === "NOPLAN" ? (
         <>
-          <PlanMap />
-          <TripPlanList />
-        </>
-      ) : (
-        <>
           <S.MessageBox>
             <p>
               {username}님, 새로운 여행 일정이 만들어졌어요!
@@ -48,6 +44,11 @@ function MyTripDetailPage() {
             <p>아래에 장소를 추가해 계획을 완성해보세요:)</p>
           </S.MessageBox>
           <TripPlanListPlaceHolder days={4} />
+        </>
+      ) : (
+        <>
+          <PlanMap />
+          <TripPlanList />
         </>
       )}
     </PageTemplate>

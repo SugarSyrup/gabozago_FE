@@ -35,9 +35,7 @@ function DayPlan({ day, date, route }: Props) {
         </S.EditButton>
       </S.DayInfo>
       <S.PlaceList>
-        {route.length === 0 ? (
-          <AddPlaceButton />
-        ) : (
+        {route.length !== 0 ? (
           <>
             {route.map((place, index) => (
               <TripPlanPlaceItem
@@ -47,6 +45,8 @@ function DayPlan({ day, date, route }: Props) {
               />
             ))}
           </>
+        ) : (
+          <AddPlaceButton />
         )}
       </S.PlaceList>
     </S.Container>
