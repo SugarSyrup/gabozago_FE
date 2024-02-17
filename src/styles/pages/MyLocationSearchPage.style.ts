@@ -81,12 +81,16 @@ export const RecommendatoinReviewList = styled.div`
 
 export const Footer = styled.footer`
     position: absolute;
+    left:0px;
     bottom: 0px;
 
     width: 100%;
+    padding-top:18px;
     padding-bottom: 38px;
     padding-left: 30px;
     padding-right: 30px;
+
+    background-color:${({theme}) => theme.gray07};
 
     display: flex;
     flex-direction: column;

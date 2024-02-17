@@ -1,15 +1,17 @@
 import CircleXIcon from "../../assets/icons/circleX_white.svg?react";
-import * as S from "../../styles/tripDetail/SelectedLocationItem.style";
+import * as S from "../../styles/tripDetail/SelectedPlaceItem.style";
 
 interface Props {
     name: string;
     thumbnail?: string;
+    id: string;
+    onDelete: (id:string) => void;
 }
 
-function SelectedLocationItem({ name, thumbnail }: Props) {
+function SelectedPlaceItem({ id, name, thumbnail, onDelete }: Props) {
     return (
         <S.Container>
-            <S.DeleteIcon>
+            <S.DeleteIcon onClick={() => {onDelete(id)}}>
                 <CircleXIcon />
             </S.DeleteIcon>
             <S.Thumbnail>
@@ -20,4 +22,4 @@ function SelectedLocationItem({ name, thumbnail }: Props) {
     );
 }
 
-export default SelectedLocationItem;
+export default SelectedPlaceItem;

@@ -1,0 +1,23 @@
+export const recommendLocations = [
+    {
+        id:"1",
+        name:"장소명",
+        hearts:1,
+        rating:1,
+        theme:"테마"
+    },
+    {
+        id:"2",
+        name:"장소명",
+        hearts:1,
+        rating:1,
+        theme:"테마"
+    },
+    {
+        id:"4",
+        name:"장소명",
+        hearts:1,
+        rating:1,
+        theme:"테마"
+    }
+]

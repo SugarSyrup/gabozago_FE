@@ -7,8 +7,8 @@ import * as S from "../styles/pages/MyLocationSearchPage.style";
 import Heading from "../components/common/Heading";
 import RecommendationListItem from "../components/tripDetail/RecommendationListItem";
 import RecommendationReviewItem from "../components/tripDetail/RecommendationReviewItem";
-import { Button } from "../styles/common/Button.style";
 import SelectedLocations from "../components/tripDetail/SelectedLocations";
+import { recommendLocations } from "../assets/data/recommendLocations";
 
 function MyTripLocationSearchPage() {
     const [tabNavIdx, setTabNavIdx] = useState<number>(1);
@@ -44,24 +44,9 @@ function MyTripLocationSearchPage() {
             <S.Contents>
                 <Heading size="sm">실시간 부산 HOT 여행지</Heading>
                 <S.RecommendationList>
-                    <RecommendationListItem
-                        name="장소명"
-                        theme="테마"
-                        hearts={1}
-                        rating={1}
-                    />
-                    <RecommendationListItem
-                        name="장소명"
-                        theme="테마"
-                        hearts={1}
-                        rating={1}
-                    />
-                    <RecommendationListItem
-                        name="장소명"
-                        theme="테마"
-                        hearts={1}
-                        rating={1}
-                    />
+                    {
+                        recommendLocations.map(({name, theme, hearts, rating, id}) => <RecommendationListItem name={name} hearts={hearts} theme={theme} rating={rating} id={id}/>)
+                    }
                 </S.RecommendationList>
                 <Heading size="sm">
                     추가한 여행지를 포함한 리뷰가 있어요!
@@ -95,9 +80,6 @@ function MyTripLocationSearchPage() {
             </S.Contents>
             <S.Footer>
                 <SelectedLocations />
-                <Button size="lg" type="normal" disabled={true}>
-                    장소를 선택해주세요
-                </Button>
             </S.Footer>
         </PageTemplate>
     );
