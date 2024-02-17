@@ -19,28 +19,30 @@ function MyTripLocationSearchPage() {
     return (
         <PageTemplate nav={false} header={false}>
             <S.Header>
-                <BackButton></BackButton>
-                <SearchInput />
+                <S.SearchBar>
+                    <BackButton></BackButton>
+                    <SearchInput />
+                </S.SearchBar>
+                <S.TabNavigation>
+                    <S.NavigationItem
+                        isHighlight={tabNavIdx === 1}
+                        onClick={() => {
+                            setTabNavIdx(1);
+                        }}
+                    >
+                        장소 선택
+                    </S.NavigationItem>
+                    <S.NavigationItem
+                        isHighlight={tabNavIdx === 2}
+                        onClick={() => {
+                            setTabNavIdx(2);
+                        }}
+                    >
+                        저장한 장소
+                    </S.NavigationItem>
+                    <S.HighlightLine isHighlight={tabNavIdx === 1} />
+                </S.TabNavigation>
             </S.Header>
-            <S.TabNavigation>
-                <S.NavigationItem
-                    isHighlight={tabNavIdx === 1}
-                    onClick={() => {
-                        setTabNavIdx(1);
-                    }}
-                >
-                    장소 선택
-                </S.NavigationItem>
-                <S.NavigationItem
-                    isHighlight={tabNavIdx === 2}
-                    onClick={() => {
-                        setTabNavIdx(2);
-                    }}
-                >
-                    저장한 장소
-                </S.NavigationItem>
-                <S.HighlightLine isHighlight={tabNavIdx === 1} />
-            </S.TabNavigation>
             <S.Contents>
                 <Heading size="sm">실시간 부산 HOT 여행지</Heading>
                 <S.RecommendationList>

@@ -1,18 +1,35 @@
 import styled from "styled-components";
 
 export const Header = styled.div`
+    width:100%;
+    padding-top:40px;
+
+    position:absolute;
+    top:0px;
+    left:0px;
+
+    display:flex;
+    flex-direction:column;
+
+    background-color:white;
+`;
+
+export const SearchBar = styled.div`
     display: flex;
     align-items: center;
     gap: 8px;
 
     width: 100%;
     position: relative;
-`;
+
+    padding-left:20px;
+    padding-right:20px;
+`
 
 export const TabNavigation = styled.div`
     width: 100%;
-    position: absolute;
-    left: 0px;
+    position: relative;
+    //left: 0px;
 
     border-bottom: ${({ theme }) => `2px solid ${theme.gray04}`};
 
@@ -53,8 +70,7 @@ export const HighlightLine = styled.div<{ isHighlight: boolean }>`
 `;
 
 export const Contents = styled.div`
-    margin-top: 54px;
-    padding-top: 20px;
+    padding-top: 120px;
 
     display: flex;
     flex-direction: column;
