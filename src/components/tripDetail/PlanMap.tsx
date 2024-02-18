@@ -3,7 +3,7 @@ import { MarkerProps } from "@react-google-maps/api";
 import { planViewModeState } from "../../recoil/planViewModeState";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
-import { tripPlanState } from "../../recoil/tripPlanState";
+import { tripPlanState } from "../../recoil/tripState";
 
 function PlanMap() {
   const viewMode = useRecoilValue(planViewModeState);

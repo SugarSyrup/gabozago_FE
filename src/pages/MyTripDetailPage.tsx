@@ -11,7 +11,7 @@ import ClapBlueIcon from "../assets/icons/clap_blue.svg?react";
 import * as S from "../styles/MyTripDetailPage.style";
 import { planViewModeState } from "../recoil/planViewModeState";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { tripPlanState } from "../recoil/tripPlanState";
+import { tripPlanState } from "../recoil/tripState";
 
 function MyTripDetailPage() {
   // @todo: id를 통해 일정 데이터 비동기 요청 불러와 State로 관리하기

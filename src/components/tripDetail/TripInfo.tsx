@@ -5,7 +5,7 @@ import CalendarIcon from "../../assets/icons/calendar.svg?react";
 import BusIcon from "../../assets/icons/bus.svg?react";
 import { useRecoilValue } from "recoil";
 import { tripInfoSizeState } from "../../recoil/planViewModeState";
-import { tripInfoState } from "../../recoil/tripPlanState";
+import { tripInfoState } from "../../recoil/tripState";
 
 export type Size = "default" | "sm" | "xs";
 function TripInfo() {

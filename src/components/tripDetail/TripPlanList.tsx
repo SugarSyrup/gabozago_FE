@@ -3,7 +3,7 @@ import DayPlan from "./DayPlan";
 import DayPlanEdit from "./DayPlanEdit";
 import { useRecoilState } from "recoil";
 import { planViewModeState } from "../../recoil/planViewModeState";
-import { tripPlanState } from "../../recoil/tripPlanState";
+import { tripPlanState } from "../../recoil/tripState";
 
 function TripPlanList() {
   const [viewMode, setViewMode] = useRecoilState(planViewModeState);
