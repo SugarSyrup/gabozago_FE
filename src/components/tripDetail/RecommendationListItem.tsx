@@ -55,12 +55,12 @@ function RecommendationListItem({
                 <S.Infomation>
                     {keyword ? 
                         <S.Name>
-                            {name.split("").map((word, index) => {
+                            {name.split('').map((word, index) => {
                                 if (
                                     name.indexOf(keyword) <= index &&
                                     index < name.indexOf(keyword) + keyword.length
                                 ) {
-                                    return <S.HighlightName>{keyword}</S.HighlightName>;
+                                    return <S.HighlightName>{word}</S.HighlightName>;
                                 } else {
                                     return <>{word}</>;
                                 }
