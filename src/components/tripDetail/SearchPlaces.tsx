@@ -44,7 +44,7 @@ function SearchPlaces({searchedPlaces, keyword}:Props) {
                     <SearchIcon />
                     <S.Title>검색 결과가 없습니다.</S.Title>
                     <S.Desc>찾으시는 장소가 없나요?직접 등록해보세요!</S.Desc>
-                    <S.Button>새로운 장소 추가하기</S.Button>
+                    <S.Button onClick={() => {navigate("/mytrip/123/create")}} >새로운 장소 추가하기</S.Button>
                 </S.SearchedNotFounded>
             }
             <S.SelectedPlacesList>

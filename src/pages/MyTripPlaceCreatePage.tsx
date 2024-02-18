@@ -6,12 +6,15 @@ import LeftChevronIcon from "../assets/icons/leftChevron.svg?react";
 import Button from "../components/common/Button";
 import Heading from "../components/common/Heading";
 import { useRef, useState } from "react";
+import { useSetRecoilState } from "recoil";
+import { selectedPlacesState } from "../recoil/mytrip/selectedPlacesState";
 
 function MyTripPlaceCreatePage() {
     const navigate = useNavigate();
     const { id } = useParams();
     const [isNameEnter, setIsNameEnter] = useState<boolean>(false);
     const [isAddrEnter, setIsAddrEnter] = useState<boolean>(false);
+    const setSelectedPlaces = useSetRecoilState(selectedPlacesState);
     const NameRef = useRef<HTMLInputElement>(null);
 
     return(
@@ -22,7 +25,13 @@ function MyTripPlaceCreatePage() {
             </S.Header>
             <S.Form onSubmit={(e) => {
                 e.preventDefault();
-                navigate(`/mytrip/${id}/search/${NameRef.current?.value}`);
+                if(NameRef.current){
+                    navigate(`/mytrip/${id}/search/${NameRef.current.value}`);
+                    setSelectedPlaces(prev => [...prev, {
+                        id:"123",
+                        name:NameRef.current.value
+                    }])
+                }
             }}>
                 <S.InputList>
                     <S.Input placeholder="장소를 입력하세요." required ref={NameRef} type="text" onInput={(e) => {
