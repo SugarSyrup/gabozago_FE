@@ -1,13 +1,13 @@
 import * as S from "../../styles/tripDetail/TripPlanList.style";
 import DayPlan from "./DayPlan";
 import DayPlanEdit from "./DayPlanEdit";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { planViewModeState } from "../../recoil/planViewModeState";
 import { tripPlanState } from "../../recoil/tripPlanState";
 
 function TripPlanList() {
   const [viewMode, setViewMode] = useRecoilState(planViewModeState);
-  const plan = useRecoilValue(tripPlanState);
+  const [plan, setPlan] = useRecoilState(tripPlanState);
 
   return (
     <S.Container>
@@ -24,14 +24,14 @@ function TripPlanList() {
         )}
         {viewMode === "EDIT"
           ? plan?.map((dayPlan) => (
-              <DayPlan
+              <DayPlanEdit
                 day={dayPlan.day}
-                date={dayPlan.date}
                 route={dayPlan.route}
+                setPlan={setPlan}
               />
             ))
           : plan?.map((dayPlan) => (
-              <DayPlanEdit
+              <DayPlan
                 day={dayPlan.day}
                 date={dayPlan.date}
                 route={dayPlan.route}

@@ -1,4 +1,5 @@
 export interface Place {
+  id: string | number;
   placeName: string;
   theme: string;
   placeId: number;
@@ -35,6 +36,7 @@ export const data: Trip = {
       dayOfWeek: "수",
       route: [
         {
+          id: String(Date()),
           placeName: "더베이베이커리",
           theme: "베이커리",
           placeId: 1232132131,
@@ -44,6 +46,7 @@ export const data: Trip = {
           travelTime: "1시간 10분",
         },
         {
+          id: String(Date()),
           placeName: "장소명",
           theme: "테마",
           placeId: 1232132131,
@@ -54,6 +57,7 @@ export const data: Trip = {
           travelTime: "15분",
         },
         {
+          id: String(Date()),
           placeName: "장소명",
           theme: "테마",
           placeId: 1232132131,
@@ -71,6 +75,7 @@ export const data: Trip = {
       dayOfWeek: "목",
       route: [
         {
+          id: String(Date()),
           placeName: "랄라베이커리",
           theme: "베이커리",
           placeId: 1232132131,
@@ -80,6 +85,7 @@ export const data: Trip = {
           travelTime: "1시간 10분",
         },
         {
+          id: String(Date()),
           placeName: "장소명2",
           theme: "테마",
           placeId: 1232132131,
@@ -90,6 +96,7 @@ export const data: Trip = {
           travelTime: "15분",
         },
         {
+          id: String(Date()),
           placeName: "장소명3",
           theme: "테마",
           placeId: 1232132131,
