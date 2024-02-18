@@ -53,3 +53,8 @@ export const Desc = styled.div`
     align-items: center;
     gap: 7px;
 `;
+
+
+export const HighlightName = styled.span`
+    color:${({theme}) => theme.main};
+`

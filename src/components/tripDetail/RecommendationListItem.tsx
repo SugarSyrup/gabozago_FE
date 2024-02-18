@@ -15,6 +15,7 @@ interface Props {
     hearts: number;
     rating: number;
     thumbnail?: string;
+    keyword?: string;
 }
 
 function RecommendationListItem({
@@ -24,6 +25,7 @@ function RecommendationListItem({
     hearts,
     rating,
     id,
+    keyword
 }: Props) {
     const [selectedPlaces, setSelectedPlaces] = useRecoilState(selectedPlacesState);
     const [ isActive, setIsActive ] = useState<boolean>(false);
@@ -51,7 +53,22 @@ function RecommendationListItem({
                     <img src={thumbnail} />
                 </S.Thumbnail>
                 <S.Infomation>
-                    <S.Name>{name}</S.Name>
+                    {keyword ? 
+                        <S.Name>
+                            {name.split("").map((word, index) => {
+                                if (
+                                    name.indexOf(keyword) <= index &&
+                                    index < name.indexOf(keyword) + keyword.length
+                                ) {
+                                    return <S.HighlightName>{keyword}</S.HighlightName>;
+                                } else {
+                                    return <>{word}</>;
+                                }
+                            })}
+                        </S.Name>
+                        :
+                        <S.Name>{name}</S.Name>
+                    }
                     <S.Desc>
                         <span>{theme}</span>
                         <span>•</span>

@@ -20,14 +20,14 @@ function SearchPlaces({searchedPlaces, keyword}:Props) {
             prev.filter((SelectedPlace) => SelectedPlace.id !== id)
         );
     }
-    
+
     return(
         <>
             {
                 (searchedPlaces.length !== 0) ?
                 <S.SearchPlacesList>
                     {searchedPlaces.map(({name, theme, hearts, rating, id}) =>         
-                            <RecommendationListItem name={name} hearts={hearts} theme={theme} rating={rating} id={id}/>
+                            <RecommendationListItem name={name} hearts={hearts} theme={theme} rating={rating} id={id} keyword={keyword}/>
                     )}
                     <S.AddPlace>
                         <S.Explain>
@@ -46,7 +46,7 @@ function SearchPlaces({searchedPlaces, keyword}:Props) {
                 </S.SearchedNotFounded>
             }
             <S.SelectedPlacesList>
-                {selectedPlaces.map((selectedPlace, idx) => <SelectedPlaceItem name={selectedPlace.name} key={selectedPlace.id} id={selectedPlace.id} onDelete={onDelete} />)}
+                {selectedPlaces.map(({name, id}) => <SelectedPlaceItem name={name} key={id} id={id} onDelete={onDelete}/>)}
             </S.SelectedPlacesList>
         </>
     )
