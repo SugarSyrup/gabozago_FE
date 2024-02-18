@@ -1,8 +1,11 @@
+import { useRecoilState } from "recoil";
 import { PlaceType } from "../../assets/data/Places";
 import SearchIcon from "../../assets/icons/search.svg?react";
 import * as S from "../../styles/tripDetail/SearchPlaces.style";
 
 import RecommendationListItem from "./RecommendationListItem";
+import { selectedPlacesState } from "../../recoil/mytrip/selectedPlacesState";
+import SelectedPlaceItem from "./SelectedPlaceItem";
 
 interface Props {
     searchedPlaces: PlaceType[];
@@ -10,6 +13,14 @@ interface Props {
 }
 
 function SearchPlaces({searchedPlaces, keyword}:Props) {
+    const [selectedPlaces, setSelectedPlaces] = useRecoilState(selectedPlacesState);
+
+    function onDelete(id: string) {
+        setSelectedPlaces((prev) =>
+            prev.filter((SelectedPlace) => SelectedPlace.id !== id)
+        );
+    }
+    
     return(
         <>
             {
@@ -34,6 +45,9 @@ function SearchPlaces({searchedPlaces, keyword}:Props) {
                     <S.Button>새로운 장소 추가하기</S.Button>
                 </S.SearchedNotFounded>
             }
+            <S.SelectedPlacesList>
+                {selectedPlaces.map((selectedPlace, idx) => <SelectedPlaceItem name={selectedPlace.name} key={selectedPlace.id} id={selectedPlace.id} onDelete={onDelete} />)}
+            </S.SelectedPlacesList>
         </>
     )
 }

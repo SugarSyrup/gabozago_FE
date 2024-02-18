@@ -79,3 +79,12 @@ export const Desc = styled.span`
 
     color:${({theme}) => theme.gray02};
 `
+
+export const SelectedPlacesList = styled.ol`
+    display: flex;
+    gap: 10px;
+
+    padding:10px 28px;
+    position:fixed;
+    bottom:0px;
+`
