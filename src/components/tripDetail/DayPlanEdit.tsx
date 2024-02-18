@@ -24,7 +24,12 @@ function DayPlanEdit({ day, route: routeProp, setPlan }: Props) {
     <S.Container>
       <S.DaySpan>Day {day}</S.DaySpan>
       <S.PlaceList>
-        <ReactSortable group={"dayPlan"} list={route} setList={setRoute}>
+        <ReactSortable
+          group={"dayPlan"}
+          list={route}
+          setList={setRoute}
+          animation={150}
+        >
           {route.map((item, index) => (
             <EditablePlaceItem key={item.id} place={item} index={index} />
           ))}
