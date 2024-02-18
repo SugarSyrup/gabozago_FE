@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { recommendPlaces, places, PlaceType } from "../assets/data/Places";
 import * as S from "../styles/pages/MyLocationSearchPage.style";
 
@@ -11,9 +11,11 @@ import RecommendationListItem from "../components/tripDetail/RecommendationListI
 import SelectedLocations from "../components/tripDetail/SelectedLocations";
 import RecommendationReviewItem from "../components/tripDetail/RecommendationReviewItem";
 import SearchPlaces from "../components/tripDetail/SearchPlaces";
+import { useParams } from "react-router-dom";
 
 
 function MyTripLocationSearchPage() {
+    const {newPlace} = useParams();
     const [tabNavIdx, setTabNavIdx] = useState<number>(1);
     const [isSearching, setIsSearching] = useState<boolean>(false);
     const [searchedPlaces, setSearchedPlaces] = useState<PlaceType[]>([]);
@@ -29,7 +31,6 @@ function MyTripLocationSearchPage() {
             } else {
                 setIsSearching(true);
                 setSearchedPlaces(searchResult(inputRef.current.value));
-                console.log(searchResult(inputRef.current.value));
             }
         }
     }
@@ -40,6 +41,14 @@ function MyTripLocationSearchPage() {
         )
     }
 
+
+    useEffect(() => {
+        if(newPlace && inputRef.current) {
+            inputRef.current.value = newPlace;
+            setIsSearching(true);
+            setSearchedPlaces(searchResult(newPlace));
+        }
+    }, []);
     return (
         <PageTemplate nav={false} header={false}>
             <S.Header>

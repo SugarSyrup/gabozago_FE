@@ -6,6 +6,7 @@ import * as S from "../../styles/tripDetail/SearchPlaces.style";
 import RecommendationListItem from "./RecommendationListItem";
 import { selectedPlacesState } from "../../recoil/mytrip/selectedPlacesState";
 import SelectedPlaceItem from "./SelectedPlaceItem";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
     searchedPlaces: PlaceType[];
@@ -14,6 +15,7 @@ interface Props {
 
 function SearchPlaces({searchedPlaces, keyword}:Props) {
     const [selectedPlaces, setSelectedPlaces] = useRecoilState(selectedPlacesState);
+    const navigate = useNavigate();
 
     function onDelete(id: string) {
         setSelectedPlaces((prev) =>
@@ -34,7 +36,7 @@ function SearchPlaces({searchedPlaces, keyword}:Props) {
                             <span>찾으시는 장소가 없나요?</span>
                             <span>직접 등록해보세요!</span>
                         </S.Explain>
-                        <S.Button>새로운 장소 추가하기</S.Button>
+                        <S.Button onClick={() => {navigate("/mytrip/123/create")}}>새로운 장소 추가하기</S.Button>
                     </S.AddPlace>
                 </S.SearchPlacesList>
                 :

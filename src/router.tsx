@@ -6,6 +6,7 @@ import MyTripDetailPage from "./pages/MyTripDetailPage";
 import MyTripLocationSelectPage from "./pages/MyTripLocationSelectPage";
 import MyTripDatesSelectPage from "./pages/MyTripDatesSelectPage";
 import MyTripLocationSearchPage from "./pages/MyTripLocationSearchPage";
+import MyTripPlaceCreatePage from "./pages/MyTripPlaceCreatePage";
 
 const router = createBrowserRouter([
     {
@@ -31,6 +32,14 @@ const router = createBrowserRouter([
     {
         path: "/mytrip/:id/search",
         element: <MyTripLocationSearchPage />,
+    },
+    {
+        path: "/mytrip/:id/search/:newPlace",
+        element: <MyTripLocationSearchPage />,
+    },
+    {
+        path: "/mytrip/:id/create",
+        element: <MyTripPlaceCreatePage />
     },
     {
         path: "/test",
