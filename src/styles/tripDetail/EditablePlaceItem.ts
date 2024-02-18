@@ -4,16 +4,37 @@ export const ListItem = styled.li`
   margin: 0 -20px;
   width: calc(100% + 40px);
   background-color: ${({ theme }) => theme.red};
-  color: ${({ theme }) => theme.white};
+  position: relative;
+
+  &::after {
+    content: "삭제";
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    width: 80px;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: ${({ theme }) => theme.white};
+  }
 `;
 
-export const Wrapper = styled.div<{ isSelected: boolean }>`
+export const Wrapper = styled.div<{ isSelected: boolean; translateX: number }>`
+  position: relative;
+  z-index: 10;
   padding: 10px 20px;
   width: 100%;
   display: flex;
   align-items: center;
   gap: 15px;
   flex-wrap: nowrap;
+
+  transition: transform 0.2s;
+  transform: translateX(0);
+  transform: translateX(${({ translateX }) => translateX + "px"});
 
   cursor: pointer;
   background-color: ${({ theme, isSelected }) =>

@@ -29,6 +29,7 @@ function DayPlanEdit({ day, route: routeProp, setPlan }: Props) {
           list={route}
           setList={setRoute}
           animation={150}
+          handle=".handle"
         >
           {route.map((item, index) => (
             <EditablePlaceItem key={item.id} place={item} index={index} />

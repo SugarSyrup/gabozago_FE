@@ -11,6 +11,9 @@ interface Props {
 }
 function EditablePlaceItem({ place, index }: Props) {
   const [isSelected, setIsSelected] = useState(false);
+  const [isMouseDown, setIsMouseDown] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [translateX, setTranslateX] = useState(0);
 
   return (
     <S.ListItem>
@@ -19,6 +22,34 @@ function EditablePlaceItem({ place, index }: Props) {
         onClick={() => {
           setIsSelected((prev) => !prev);
         }}
+        onMouseDown={(e) => {
+          setStartX(e.clientX);
+          setIsMouseDown(true);
+        }}
+        onMouseMove={(e) => {
+          if (isMouseDown) {
+            const temp = e.clientX - startX;
+
+            // -80px까지 드래그 가능
+            if (temp < -80) {
+              setTranslateX(-80);
+            } else if (temp < 0) {
+              setTranslateX(e.clientX - startX);
+            }
+          }
+        }}
+        onMouseUp={() => {
+          if (isMouseDown && translateX < 40) {
+            // @todo: 아이템 삭제
+          }
+          setTranslateX(0);
+          setIsMouseDown(false);
+        }}
+        onMouseLeave={() => {
+          setTranslateX(0);
+          setIsMouseDown(false);
+        }}
+        translateX={translateX}
       >
         {isSelected ? <SelectFilledIcon /> : <SelectIcon />}
         <S.PlaceInfo>
@@ -28,7 +59,7 @@ function EditablePlaceItem({ place, index }: Props) {
             <p>{place.theme}</p>
           </div>
         </S.PlaceInfo>
-        <HamburgerIcon />
+        <HamburgerIcon className="handle" />
       </S.Wrapper>
     </S.ListItem>
   );
