@@ -12,6 +12,7 @@ import * as S from "../styles/MyTripDetailPage.style";
 import { planViewModeState } from "../recoil/planViewModeState";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { tripPlanState } from "../recoil/tripState";
+import EditModeBottomControlBox from "../components/tripDetail/EditModeBottomControlBox";
 
 function MyTripDetailPage() {
   // @todo: id를 통해 일정 데이터 비동기 요청 불러와 State로 관리하기
@@ -32,7 +33,9 @@ function MyTripDetailPage() {
   }, [tripPlan]);
 
   return (
-    <PageTemplate nav={true}>
+    <PageTemplate
+      nav={viewMode === "EDIT" ? <EditModeBottomControlBox /> : true}
+    >
       <TripInfo />
       {viewMode === "NOPLAN" ? (
         <>

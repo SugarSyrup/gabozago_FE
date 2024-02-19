@@ -1,26 +1,31 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import HomeIcon from "../../assets/icons/home.svg?react";
 import MyIcon from "../../assets/icons/my.svg?react";
 import ScrapIcon from "../../assets/icons/scrap.svg?react";
 import TripIcon from "../../assets/icons/trip.svg?react";
 import * as S from "../../styles/common/BottomNavBar.style";
 
-function BottomNavBar({ location = "홈" }) {
-  /**
-   * @todo 라우트 변경 시 path 옵션 수정이 필요합니다.
-   */
+function BottomNavBar() {
+  const { pathname } = useLocation();
   const navItems = [
-    { title: "홈", icon: <HomeIcon />, path: "" },
-    { title: "내 여행", icon: <TripIcon />, path: "" },
+    { title: "홈", icon: <HomeIcon />, path: "/" },
+    { title: "내 여행", icon: <TripIcon />, path: "/mytrip" },
     { title: "스크랩", icon: <ScrapIcon />, path: "" },
     { title: "MY", icon: <MyIcon />, path: "" },
   ];
+  const isMatches = (path: string) => {
+    if (path === "/" && pathname === "/") {
+      return true;
+    }
+
+    return pathname.startsWith(path) ? true : false;
+  };
 
   return (
     <S.Nav>
       <S.NavList>
         {navItems.map((item) => (
-          <S.ListItem $active={location === item.title ? true : false}>
+          <S.ListItem active={isMatches(item.path)}>
             <Link to={item.path}>
               {item.icon}
               <span>{item.title}</span>
