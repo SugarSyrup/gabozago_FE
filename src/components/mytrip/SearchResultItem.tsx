@@ -39,7 +39,7 @@ function SearchResultItem({ name, desc, keyword }: Props) {
                             name.indexOf(keyword) <= index &&
                             index < name.indexOf(keyword) + keyword.length
                         ) {
-                            return <S.HighlightName>{keyword}</S.HighlightName>;
+                            return <S.HighlightName>{word}</S.HighlightName>;
                         } else {
                             return <>{word}</>;
                         }
