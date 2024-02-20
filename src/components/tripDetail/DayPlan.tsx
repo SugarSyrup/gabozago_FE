@@ -2,7 +2,7 @@ import { Place } from "../../assets/data/tripPlanData";
 import TripPlanPlaceItem from "./TripPlanPlaceItem";
 import AddPlaceButton from "./AddPlaceButton";
 import * as S from "../../styles/tripDetail/DayPlan.style";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { planViewModeState } from "../../recoil/planViewModeState";
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
   route: Place[];
 }
 function DayPlan({ day, date, route }: Props) {
-  const [, setViewMode] = useRecoilState(planViewModeState);
+  const setViewMode = useSetRecoilState(planViewModeState);
   const dateToString = (date: Date) => {
     const days = ["일", "월", "화", "수", "목", "금", "토"];
     return `${date.getUTCMonth() + 1}.${date.getUTCDate()}/${

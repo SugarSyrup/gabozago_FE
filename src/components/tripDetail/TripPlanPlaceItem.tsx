@@ -6,7 +6,7 @@ import SubwayIcon from "../../assets/icons/transport_subway.svg?react";
 import WalkIcon from "../../assets/icons/transport_walk.svg?react";
 import AddPlaceButton from "./AddPlaceButton";
 import { useLongPress } from "use-long-press";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { planViewModeState } from "../../recoil/planViewModeState";
 
 interface Props {
@@ -15,7 +15,7 @@ interface Props {
   addPlaceButton?: boolean;
 }
 function TripPlanPlaceItem({ place, index, addPlaceButton = false }: Props) {
-  const [, setViewMode] = useRecoilState(planViewModeState);
+  const setViewMode = useSetRecoilState(planViewModeState);
   const hasMemo = place.memo !== "";
   const transportIconMap = {
     도보: <WalkIcon />,
