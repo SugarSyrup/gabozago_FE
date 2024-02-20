@@ -34,7 +34,7 @@ function MyTripDetailPage() {
 
   return (
     <PageTemplate
-      nav={viewMode === "EDIT" ? <EditModeBottomControlBox /> : true}
+      nav={viewMode === "EDIT" ? <EditModeBottomControlBox /> : "default"}
     >
       <TripInfo />
       {viewMode === "NOPLAN" ? (
