@@ -10,12 +10,12 @@ function BottomNavBar() {
   const navItems = [
     { title: "홈", icon: <HomeIcon />, path: "/" },
     { title: "내 여행", icon: <TripIcon />, path: "/mytrip" },
-    { title: "스크랩", icon: <ScrapIcon />, path: "" },
-    { title: "MY", icon: <MyIcon />, path: "" },
+    { title: "스크랩", icon: <ScrapIcon />, path: "/" },
+    { title: "MY", icon: <MyIcon />, path: "/" },
   ];
   const isMatches = (path: string) => {
-    if (path === "/" && pathname === "/") {
-      return true;
+    if (path === "/") {
+      return pathname === "/" ? true : false;
     }
 
     return pathname.startsWith(path) ? true : false;
