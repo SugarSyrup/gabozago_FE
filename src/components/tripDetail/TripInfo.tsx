@@ -3,34 +3,22 @@ import Heading from "../common/Heading";
 import EditIcon from "../../assets/icons/edit.svg?react";
 import CalendarIcon from "../../assets/icons/calendar.svg?react";
 import BusIcon from "../../assets/icons/bus.svg?react";
+import { useRecoilValue } from "recoil";
+import { tripInfoSizeState } from "../../recoil/planViewModeState";
+import { tripInfoState } from "../../recoil/tripState";
 
 export type Size = "default" | "sm" | "xs";
-interface Props {
-  size?: Size;
-  title: string;
-  departuereDate: Date;
-  arrivalDate: Date;
-  days: number;
-  transport: string;
-}
-function TripInfo({
-  size = "default",
-  title,
-  departuereDate,
-  arrivalDate,
-  days,
-  transport,
-}: Props) {
-  size = "xs";
-  /** Heading 컴포넌트 size */
+function TripInfo() {
+  const tripInfo = useRecoilValue(tripInfoState);
+  const size = useRecoilValue(tripInfoSizeState);
+  /** Heading 컴포넌트 Prop으로 전달할 size */
   enum headingSize {
     "default" = "lg", // 24px
     "sm" = "md", // 20px
     "xs" = "sm", // 16px
   }
-
   /** "[출발일] - [도착일]"을 YY.MM.DD 혹은 MM.DD 형식으로 출력 */
-  const getTripDuration = () => {
+  const getTripDuration = (departure: Date, arrival: Date) => {
     const dateToString = (
       date: Date,
       format: "YY.MM.DD" | "MM.DD" = "YY.MM.DD"
@@ -42,22 +30,21 @@ function TripInfo({
         return str.slice(2);
       }
     };
-    const isDprtArrSameYear =
-      departuereDate.getFullYear === arrivalDate.getFullYear;
+    const isDprtArrSameYear = departure.getFullYear === arrival.getFullYear;
 
     let duration = [];
 
     if (isDprtArrSameYear) {
       // 같은 해이면 "MM.DD"
       duration = [
-        dateToString(departuereDate, "MM.DD"),
-        dateToString(arrivalDate, "MM.DD"),
+        dateToString(departure, "MM.DD"),
+        dateToString(arrival, "MM.DD"),
       ];
     } else {
       // 다른 해이면 "MM.DD"
       duration = [
-        dateToString(departuereDate, "YY.MM.DD"),
-        dateToString(arrivalDate, "YY.MM.DD"),
+        dateToString(departure, "YY.MM.DD"),
+        dateToString(arrival, "YY.MM.DD"),
       ];
     }
 
@@ -66,9 +53,9 @@ function TripInfo({
 
   return (
     <S.Container size={size}>
-      <Heading size={headingSize[size]}>{title}</Heading>
+      <Heading size={headingSize[size]}>{tripInfo.title}</Heading>
       {size !== "xs" && (
-        <S.EditButton>
+        <S.EditButton onClick={() => {}}>
           편집
           <EditIcon />
         </S.EditButton>
@@ -82,7 +69,8 @@ function TripInfo({
             </span>
           )}
           <span>
-            {getTripDuration()} / {days - 1}박 {days}일
+            {getTripDuration(tripInfo.departureDate, tripInfo.arrivalDate)} /{" "}
+            {tripInfo.days - 1}박 {tripInfo.days}일
           </span>
         </S.DetailItem>
         {size !== "xs" && (
@@ -91,7 +79,7 @@ function TripInfo({
               <BusIcon />
               <span>이동수단</span>
             </span>
-            <span>{transport}</span>
+            <span>{tripInfo.transport}</span>
           </S.DetailItem>
         )}
       </S.DetailList>

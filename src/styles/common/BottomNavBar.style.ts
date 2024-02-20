@@ -12,7 +12,7 @@ export const NavList = styled.ul`
   grid-template-columns: repeat(4, 1fr);
 `;
 
-export const ListItem = styled.li<{ $active?: boolean }>`
+export const ListItem = styled.li<{ active?: boolean }>`
   a {
     padding: 12px;
     display: flex;
@@ -21,7 +21,7 @@ export const ListItem = styled.li<{ $active?: boolean }>`
     align-items: center;
 
     text-decoration: none;
-    color: ${({ $active, theme }) => ($active ? theme.main : theme.gray02)};
+    color: ${({ active, theme }) => (active ? theme.main : theme.gray02)};
     transition: all ease-in-out 0.3s;
 
     span {
@@ -32,7 +32,7 @@ export const ListItem = styled.li<{ $active?: boolean }>`
     }
     path {
       transition: all ease-in-out 0.3s;
-      fill: ${({ $active, theme }) => ($active ? theme.main : theme.gray02)};
+      fill: ${({ active, theme }) => (active ? theme.main : theme.gray02)};
     }
 
     &:hover {

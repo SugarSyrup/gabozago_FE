@@ -1,35 +1,37 @@
-export interface Place {
-  id: string | number;
-  placeName: string;
-  theme: string;
-  placeId: number;
-  position: { lat: number; lng: number };
-  placeImage?: string;
-  memo: string;
-  transport: "도보" | "버스" | "차량" | "지하철" | "";
-  travelTime: string;
-}
-export interface DayPlan {
-  day: number;
-  date: Date;
-  dayOfWeek: string;
-  route: Place[];
-}
-export interface Trip {
-  title: string;
-  departureDate: Date;
-  arrivalDate: Date;
-  days: number;
-  transport: string;
-  plan: DayPlan[] | null;
-}
-export const data: Trip = {
-  title: "즐거운 부산 여행",
-  departureDate: new Date("2024-12-20"), // 출발
-  arrivalDate: new Date("2024-12-23"), // 도착
-  days: 4,
-  transport: "대중교통",
-  plan: [
+import { atom, selector } from "recoil";
+import { DayPlan, Trip } from "../assets/data/tripPlanData";
+
+export const tripState = atom<Trip>({
+  key: "tripState",
+  default: {
+    title: "즐거운 부산 여행",
+    departureDate: new Date("2024-12-20"), // 출발
+    arrivalDate: new Date("2024-12-23"), // 도착
+    days: 4,
+    transport: "대중교통",
+    plan: [],
+  },
+});
+
+export const tripInfoState = selector({
+  key: "tripInfoState",
+  get: ({ get }) => {
+    const trip = get(tripState);
+
+    return {
+      title: trip.title,
+      departureDate: trip.departureDate,
+      arrivalDate: trip.arrivalDate,
+      days: trip.days,
+      transport: trip.transport,
+    };
+  },
+});
+
+// @todo: 추후 비동기 데이터 쿼리로 수정 필요
+export const tripPlanState = atom<DayPlan[]>({
+  key: "tripPlanState",
+  default: [
     {
       day: 1,
       date: new Date("2024-12-20"),
@@ -121,4 +123,4 @@ export const data: Trip = {
       route: [],
     },
   ],
-};
+});

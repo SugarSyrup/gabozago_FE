@@ -1,22 +1,19 @@
 import GoogleMap from "../common/GoogleMap";
 import { MarkerProps } from "@react-google-maps/api";
-import { DayPlan } from "../../assets/data/tripPlanData";
+import { planViewModeState } from "../../recoil/planViewModeState";
+import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
+import { tripPlanState } from "../../recoil/tripState";
 
-interface Props {
-  plan: DayPlan[];
-}
-/**
- * @todo 마커에 넘버링
- * @todo 클릭하면 효과가 생기면서 라벨이 보이게
- */
-function PlanMap({ plan }: Props) {
+function PlanMap() {
+  const viewMode = useRecoilValue(planViewModeState);
+  const plan = useRecoilValue(tripPlanState);
   const findMidLatLng = () => {
     const result = {
       lat: 0,
       lng: 0,
     };
     const temp = plan.filter(({ route }) => route?.length !== 0);
-    console.log(temp);
 
     const lats = temp
       .map(({ route }) => route?.map(({ position }) => position.lat))
@@ -39,19 +36,28 @@ function PlanMap({ plan }: Props) {
 
     return result;
   };
-  const markers: MarkerProps[] = [];
+  const [markers, setMarkers] = useState<MarkerProps[]>([]);
 
-  plan.map(({ day, route }) => {
-    route?.map(({ placeName, position }) => {
-      markers.push({
-        position: position,
-        label: { text: placeName, className: "marker-label" },
+  useEffect(() => {
+    plan?.map(({ route }) => {
+      route?.map(({ placeName, position }) => {
+        setMarkers((prev) => [
+          ...prev,
+          {
+            position: position,
+            label: { text: placeName, className: "marker-label" },
+          },
+        ]);
       });
     });
-  });
+  }, []);
 
   return (
-    <GoogleMap height="220px" center={findMidLatLng()} markers={markers} />
+    <GoogleMap
+      height={viewMode === "EDIT" ? "0px" : "220px"}
+      center={findMidLatLng()}
+      markers={markers}
+    />
   );
 }
 

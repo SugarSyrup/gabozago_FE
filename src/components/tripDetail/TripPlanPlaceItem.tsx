@@ -5,6 +5,9 @@ import CarIcon from "../../assets/icons/transport_car.svg?react";
 import SubwayIcon from "../../assets/icons/transport_subway.svg?react";
 import WalkIcon from "../../assets/icons/transport_walk.svg?react";
 import AddPlaceButton from "./AddPlaceButton";
+import { useLongPress } from "use-long-press";
+import { useSetRecoilState } from "recoil";
+import { planViewModeState } from "../../recoil/planViewModeState";
 
 interface Props {
   place: Place;
@@ -12,6 +15,7 @@ interface Props {
   addPlaceButton?: boolean;
 }
 function TripPlanPlaceItem({ place, index, addPlaceButton = false }: Props) {
+  const setViewMode = useSetRecoilState(planViewModeState);
   const hasMemo = place.memo !== "";
   const transportIconMap = {
     도보: <WalkIcon />,
@@ -20,6 +24,9 @@ function TripPlanPlaceItem({ place, index, addPlaceButton = false }: Props) {
     대중교통: <SubwayIcon />,
     차량: <CarIcon />,
   };
+  const onLongClick = useLongPress(() => {
+    setViewMode("EDIT");
+  });
 
   return (
     <S.PlaceItem>
@@ -35,7 +42,7 @@ function TripPlanPlaceItem({ place, index, addPlaceButton = false }: Props) {
           )}
         </S.TransportBox>
       </S.MarkerBox>
-      <S.PlaceBox>
+      <S.PlaceBox {...onLongClick()}>
         <S.PlaceTextBox hasMemo={hasMemo}>
           <div>
             <S.PlaceNameParagraph>{place.placeName}</S.PlaceNameParagraph>
