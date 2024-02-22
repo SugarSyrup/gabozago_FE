@@ -6,6 +6,7 @@ export const SettingIconWrapper = styled.div`
     right:24px;
 `
 
+<<<<<<< HEAD
 export const FixedContainer = styled.div`
     position:absolute;
     left: 0px;
@@ -24,6 +25,8 @@ export const Content = styled.div`
     padding-top:200px;
 `
 
+=======
+>>>>>>> d03910d (feat(#38): MyPage 의 기본 구조 구현)
 export const Header = styled.header`
     display:flex;
     justify-content:space-between;

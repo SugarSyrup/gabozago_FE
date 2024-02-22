@@ -46,7 +46,7 @@ const router = createBrowserRouter([
     path: "/mytrip/:id/create",
     element: <MyTripPlaceCreatePage />,
   },
-  /* ---- 마이 페이지 ---- */
+  /* ---- 스크랩 페이지 ---- */
   {
       path:"/mypage/:id",
       element:<MyPage />,
