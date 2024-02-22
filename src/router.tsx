@@ -7,6 +7,8 @@ import MyTripLocationSelectPage from "./pages/MyTripLocationSelectPage";
 import MyTripDatesSelectPage from "./pages/MyTripDatesSelectPage";
 import MyTripLocationSearchPage from "./pages/MyTripLocationSearchPage";
 import MyTripPlaceCreatePage from "./pages/MyTripPlaceCreatePage";
+import MyPage from "./pages/MyPage";
+import { userData } from "./assets/data/userData";
 
 const router = createBrowserRouter([
     {
@@ -16,30 +18,39 @@ const router = createBrowserRouter([
     {
         path: "/mytrip",
         element: <MyTripPage />,
+        children: [         
+            {
+                path: "create",
+                element: <MyTripDatesSelectPage />,
+            },
+            {
+                path: "create/location",
+                element: <MyTripLocationSelectPage />,
+            },
+            {
+                path: ":id",
+                element: <MyTripDetailPage />,
+            },
+            {
+                path: ":id/search",
+                element: <MyTripLocationSearchPage />,
+            },
+            {
+                path: ":id/search/:newPlace",
+                element: <MyTripLocationSearchPage />,
+            },
+            {
+                path: ":id/create",
+                element: <MyTripPlaceCreatePage />
+            },   
+        ]
     },
     {
-        path: "/mytrip/create",
-        element: <MyTripDatesSelectPage />,
-    },
-    {
-        path: "/mytrip/create/location",
-        element: <MyTripLocationSelectPage />,
-    },
-    {
-        path: "/mytrip/:id",
-        element: <MyTripDetailPage />,
-    },
-    {
-        path: "/mytrip/:id/search",
-        element: <MyTripLocationSearchPage />,
-    },
-    {
-        path: "/mytrip/:id/search/:newPlace",
-        element: <MyTripLocationSearchPage />,
-    },
-    {
-        path: "/mytrip/:id/create",
-        element: <MyTripPlaceCreatePage />
+        path:"/mypage/:id",
+        element:<MyPage />,
+        loader: async() => {
+            return userData;
+        }
     },
     {
         path: "/test",
