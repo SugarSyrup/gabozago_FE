@@ -5,6 +5,7 @@ export const Header = styled.header`
   left: 0;
   right: 0;
   top: 0;
+  background-color: ${({ theme }) => theme.white};
 `;
 
 export const Heading = styled.h1`
@@ -35,4 +36,7 @@ export const TabItem = styled.li<{ focused: boolean }>`
     ${({ theme, focused }) => (focused === true ? theme.main : theme.gray04)};
 
   transition: all 0.3s ease-in-out;
+`;
+export const Contents = styled.div`
+  padding-top: 90px;
 `;
