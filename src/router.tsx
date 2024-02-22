@@ -7,44 +7,52 @@ import MyTripLocationSelectPage from "./pages/MyTripLocationSelectPage";
 import MyTripDatesSelectPage from "./pages/MyTripDatesSelectPage";
 import MyTripLocationSearchPage from "./pages/MyTripLocationSearchPage";
 import MyTripPlaceCreatePage from "./pages/MyTripPlaceCreatePage";
+import ScrapBookPage from "./pages/ScrapBookPage";
 
 const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <App />,
-    },
-    {
-        path: "/mytrip",
-        element: <MyTripPage />,
-    },
-    {
-        path: "/mytrip/create",
-        element: <MyTripDatesSelectPage />,
-    },
-    {
-        path: "/mytrip/create/location",
-        element: <MyTripLocationSelectPage />,
-    },
-    {
-        path: "/mytrip/:id",
-        element: <MyTripDetailPage />,
-    },
-    {
-        path: "/mytrip/:id/search",
-        element: <MyTripLocationSearchPage />,
-    },
-    {
-        path: "/mytrip/:id/search/:newPlace",
-        element: <MyTripLocationSearchPage />,
-    },
-    {
-        path: "/mytrip/:id/create",
-        element: <MyTripPlaceCreatePage />
-    },
-    {
-        path: "/test",
-        element: <TestPage />,
-    },
+  {
+    path: "/",
+    element: <App />,
+  },
+  /* ---- 내 여행 페이지 ---- */
+  {
+    path: "/mytrip",
+    element: <MyTripPage />,
+  },
+  {
+    path: "/mytrip/create",
+    element: <MyTripDatesSelectPage />,
+  },
+  {
+    path: "/mytrip/create/location",
+    element: <MyTripLocationSelectPage />,
+  },
+  {
+    path: "/mytrip/:id",
+    element: <MyTripDetailPage />,
+  },
+  {
+    path: "/mytrip/:id/search",
+    element: <MyTripLocationSearchPage />,
+  },
+  {
+    path: "/mytrip/:id/search/:newPlace",
+    element: <MyTripLocationSearchPage />,
+  },
+  {
+    path: "/mytrip/:id/create",
+    element: <MyTripPlaceCreatePage />,
+  },
+  /* ---- 스크랩 페이지 ---- */
+  {
+    path: "/scrapbook",
+    element: <ScrapBookPage />,
+  },
+  // 기타
+  {
+    path: "/test",
+    element: <TestPage />,
+  },
 ]);
 
 export default router;

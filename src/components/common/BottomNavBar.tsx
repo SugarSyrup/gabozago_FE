@@ -10,7 +10,7 @@ function BottomNavBar() {
   const navItems = [
     { title: "홈", icon: <HomeIcon />, path: "/" },
     { title: "내 여행", icon: <TripIcon />, path: "/mytrip" },
-    { title: "스크랩", icon: <ScrapIcon />, path: "/" },
+    { title: "스크랩", icon: <ScrapIcon />, path: "/scrapbook" },
     { title: "MY", icon: <MyIcon />, path: "/" },
   ];
   const isMatches = (path: string) => {
