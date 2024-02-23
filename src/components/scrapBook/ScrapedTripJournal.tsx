@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import * as S from "../../styles/scrapBook/ScrapedTripJournal.style";
 import addCircle from "../../assets/icons/add_circle.svg";
+import { useNavigate } from "react-router-dom";
 
 interface JournalGroup {
   id: string;
@@ -28,6 +29,7 @@ interface Journal {
 }
 
 function ScrapedTripJournal() {
+  const navigate = useNavigate();
   const journalsByGroup: JournalGroup[] = [
     {
       id: "20221010120409",
@@ -118,6 +120,9 @@ function ScrapedTripJournal() {
           background={
             group.journals.length !== 0 ? group.journals[0].thumbnail : ""
           }
+          onClick={() => {
+            navigate(`./${group.id}`);
+          }}
         >
           <div></div>
           <p>{group.title}</p>
