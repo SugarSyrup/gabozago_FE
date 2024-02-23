@@ -1,7 +1,7 @@
-import * as S from "../styles/pages/scrapBook/ScrapBookPage.style";
-import PageTemplate from "../components/common/PageTemplate";
+import * as S from "../../styles/pages/scrapBook/ScrapBookPage.style";
+import PageTemplate from "../../components/common/PageTemplate";
 import { useState } from "react";
-import ScrapedTripJournal from "../components/scrapBook/ScrapedTripJournal";
+import ScrapedTripJournal from "../../components/scrapBook/ScrapedTripJournal";
 
 function ScrapBookPage(props) {
   const [tabs, setTabs] = useState([

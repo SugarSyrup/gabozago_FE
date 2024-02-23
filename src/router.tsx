@@ -7,7 +7,8 @@ import MyTripLocationSelectPage from "./pages/MyTripLocationSelectPage";
 import MyTripDatesSelectPage from "./pages/MyTripDatesSelectPage";
 import MyTripLocationSearchPage from "./pages/MyTripLocationSearchPage";
 import MyTripPlaceCreatePage from "./pages/MyTripPlaceCreatePage";
-import ScrapBookPage from "./pages/ScrapBookPage";
+import ScrapBookPage from "./pages/scrapbook/ScrapBookPage";
+import ScrapBookGroupPage from "./pages/scrapbook/ScrapBookGroupPage";
 import MyPage from "./pages/MyPage";
 import { userData } from "./assets/data/userData";
 
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
   {
     path: "/scrapbook",
     element: <ScrapBookPage />,
+  },
+  {
+    path: "/scrapbook/:id",
+    element: <ScrapBookGroupPage />,
   },
   // 기타
   {
