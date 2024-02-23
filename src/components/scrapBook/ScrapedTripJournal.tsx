@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import * as S from "../../styles/scrapBook/ScrapedTripJournal.style";
-import AddCircle from "../../assets/icons/add_circle.svg?react";
 import addCircle from "../../assets/icons/add_circle.svg";
 
 interface JournalGroup {
@@ -42,7 +41,7 @@ function ScrapedTripJournal() {
           createdAt: "20221010120410",
           updatedAt: "20221010120410",
           username: "사자",
-          thumbnail: "",
+          thumbnail: "https://placehold.co/600x400?text=Hello+World",
           location: ["서울"], // 지역
           theme: "힐링", // 여행 테마
           headCount: 1, // 인원
@@ -114,7 +113,12 @@ function ScrapedTripJournal() {
   return (
     <S.GroupList>
       {journalsByGroup.map((group) => (
-        <S.GroupItem key={group.id}>
+        <S.GroupItem
+          key={group.id}
+          background={
+            group.journals.length !== 0 ? group.journals[0].thumbnail : ""
+          }
+        >
           <div></div>
           <p>{group.title}</p>
         </S.GroupItem>

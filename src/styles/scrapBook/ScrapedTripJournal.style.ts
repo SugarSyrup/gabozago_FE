@@ -7,14 +7,21 @@ export const GroupList = styled.ol`
   gap: 13px 20px;
 `;
 
-export const GroupItem = styled.li`
+export const GroupItem = styled.li<{ background?: string | undefined }>`
   cursor: pointer;
   div {
     width: 100%;
     height: 0;
+    overflow: hidden;
     padding-bottom: 100%;
-    background-color: ${({ theme }) => theme.gray05};
+
     border-radius: 10px;
+    background-color: ${({ theme }) => theme.gray05};
+    background-image: ${({ background }) =>
+      background ? `url(${background})` : "none"};
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
   }
   p {
     margin-top: 10px;
@@ -27,11 +34,9 @@ export const GroupItem = styled.li`
   }
 `;
 
-export const CreateNewGroupItem = styled(GroupItem)<{ background?: string }>`
+export const CreateNewGroupItem = styled(GroupItem)`
   div {
     background-color: ${({ theme }) => theme.blue05};
-    background-image: url(${({ background }) => background});
-    background-position: center;
-    background-repeat: no-repeat;
+    background-size: auto;
   }
 `;
