@@ -24,8 +24,13 @@ function ScrapBookGroupPage() {
           </S.Header>
           <S.JournalList>
             {group.journals.map((item) => (
-              <></>
-              // 여행기 항목
+              <ScrapedJournalItem
+                title={item.title}
+                thumbnail={item.thumbnail}
+                username={item.username}
+                like={item.like}
+                scraped={item.scraped}
+              />
             ))}
           </S.JournalList>
         </>
