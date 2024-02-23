@@ -97,10 +97,15 @@ export const HiddenInfoTitle = styled.span`
   white-space: nowrap;
 `;
 
-export const ThumbnaiImage = styled.img`
+export const ThumbnailImage = styled.img`
   width: 84px;
   height: 84px;
   border-radius: 6px;
 
   object-fit: cover;
+`;
+
+export const ThumbnailImagePlaceHolder = styled(ThumbnailImage)`
+  background-color: ${({ theme }) => theme.gray04};
+  object-fit: none;
 `;

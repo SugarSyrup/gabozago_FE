@@ -2,6 +2,7 @@ import * as S from "../../styles/scrapBook/ScrapedJournalItem.style";
 import UserIcon from "../../assets/icons/my.svg?react";
 import ClapIcon from "../../assets/icons/clap.svg?react";
 import BookMarkIcon from "../../assets/icons/bookmark.svg?react";
+import imageIcon from "../../assets/icons/image.svg";
 
 interface Props {
   title: string;
@@ -42,7 +43,14 @@ function ScrapedJournalItem({
             </S.BottomInfoItemBottom>
           </S.BottomInfoList>
         </S.InfoBox>
-        <S.ThumbnaiImage src={thumbnail} alt={""} />
+        {thumbnail ? (
+          <S.ThumbnailImage src={thumbnail} alt={""} />
+        ) : (
+          <S.ThumbnailImagePlaceHolder
+            src={imageIcon}
+            alt={"이미지 불러오기에 실패했습니다."}
+          />
+        )}
       </S.StyledLink>
     </S.JournalItem>
   );
