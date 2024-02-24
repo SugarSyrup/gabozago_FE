@@ -8,10 +8,7 @@ import SettingIcon from "../assets/icons/setting.svg?react";
 import PageTemplate from "../components/common/PageTemplate";
 
 import * as S from "../styles/pages/MyPage.style";
-<<<<<<< HEAD
 import MyTrip from "../components/mypage/MyTrip";
-=======
->>>>>>> d03910d (feat(#38): MyPage 의 기본 구조 구현)
 
 
 function MyPage() {
@@ -23,7 +20,6 @@ function MyPage() {
             <S.SettingIconWrapper>
                 <SettingIcon />
             </S.SettingIconWrapper>
-<<<<<<< HEAD
             <S.FixedContainer>
                 <S.Header>
                     <S.UserProfile>
@@ -66,45 +62,6 @@ function MyPage() {
             <S.Content>
                 <MyTrip />
             </S.Content>
-=======
-            <S.Header>
-                <S.UserProfile>
-                    <UserIcon />
-                    <S.Name>{name}</S.Name>
-                </S.UserProfile>
-                <S.ProfileEditBtn>프로필 수정</S.ProfileEditBtn>
-            </S.Header>
-            <S.Statics>
-                <S.StaticItem>
-                    <S.StaticItemName>팔로워</S.StaticItemName>
-                    <S.StaticItemStat>{follower}</S.StaticItemStat>
-                </S.StaticItem>
-                <S.StaticItem>
-                    <S.StaticItemName>팔로잉</S.StaticItemName>
-                    <S.StaticItemStat>{following}</S.StaticItemStat>
-                </S.StaticItem>
-                <S.StaticItem>
-                    <S.StaticItemName>내 후기</S.StaticItemName>
-                    <S.StaticItemStat>{reviews}</S.StaticItemStat>
-                </S.StaticItem>
-                <S.StaticItem>
-                    <S.StaticItemName>공감수</S.StaticItemName>
-                    <S.StaticItemStat>{hearts}</S.StaticItemStat>
-                </S.StaticItem>
-                <S.StaticItem>
-                    <S.StaticItemName>조회수</S.StaticItemName>
-                    <S.StaticItemStat>{views}</S.StaticItemStat>
-                </S.StaticItem>
-            </S.Statics>
-            <S.TapNavigationBar>
-                <S.TapNavigation onClick={() => {setCurrentTap("trip")}} isHighlight={currentTap === "trip"} >나의 여행</S.TapNavigation>
-                <S.TapNavigation onClick={() => {setCurrentTap("review")}} isHighlight={currentTap === "review"} >나의 리뷰</S.TapNavigation>
-                <S.TapNavigation onClick={() => {setCurrentTap("activity")}} isHighlight={currentTap === "activity"} >나의 활동</S.TapNavigation>
-            </S.TapNavigationBar>
-            <S.SeperateLine>
-                <S.HighLightLine position={currentTap}/>
-            </S.SeperateLine>
->>>>>>> d03910d (feat(#38): MyPage 의 기본 구조 구현)
         </PageTemplate>
     )
 }
