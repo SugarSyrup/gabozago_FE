@@ -5,10 +5,10 @@ import ScrapedTripJournal from "../../components/scrapBook/ScrapedTripJournal";
 import ScrapedTripPlace from "../../components/scrapBook/ScrapedTripPlace";
 
 function ScrapBookPage(props) {
-  const [tabs, setTabs] = useState([
+  const tabs = [
     { id: 1, title: "여행기", content: <ScrapedTripJournal /> },
     { id: 2, title: "여행 장소", content: <ScrapedTripPlace /> },
-  ]); // content 속성에 보여줄 컴포넌트 매핑
+  ]; // content 속성에 보여줄 컴포넌트 매핑
   const [focusedTabId, setFocusedTabId] = useState(1);
 
   return (
