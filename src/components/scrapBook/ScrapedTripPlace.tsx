@@ -4,7 +4,7 @@ import { scrapedPlacesState } from "../../recoil/scrapBook/scrapState";
 import BookMarkIcon from "../../assets/icons/bookmark_filled.svg?react";
 import imageIcon from "../../assets/icons/image.svg";
 
-function ScrapedTripPlace(props) {
+function ScrapedTripPlace() {
   const [places, setPlaces] = useRecoilState(scrapedPlacesState);
   return (
     <S.PlaceList>
