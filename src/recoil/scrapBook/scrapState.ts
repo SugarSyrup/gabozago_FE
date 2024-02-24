@@ -109,7 +109,42 @@ export const scrapedJournalGroupsState = atom({
   default: defaultJournalGroups,
 });
 
-const defaultScrapedPlaces = [{}];
+interface ScrapedPlace {
+  id: string | number;
+  placeName: string;
+  theme: string;
+  address: string;
+  images: string[];
+  createdAt: string;
+}
+
+const defaultScrapedPlaces: ScrapedPlace[] = [
+  {
+    id: "20230101120408",
+    placeName: "순천만 국가정원",
+    theme: "테마공원",
+    address: "전남 순천시 국가정원1호길 47",
+    images: [
+      "https://lh3.googleusercontent.com/p/AF1QipMEdPOZD3iu6GdW8pMaME-lxuv_UmpbTiOPHn1A=s1360-w1360-h1020",
+      "https://lh3.googleusercontent.com/p/AF1QipMSPPTGgvqIexrkh7o-czpIS-Ty8y7EqXSj1vCE=s1360-w1360-h1020",
+      "https://lh3.googleusercontent.com/p/AF1QipMSPPTGgvqIexrkh7o-czpIS-Ty8y7EqXSj1vCE=s1360-w1360-h1020",
+      "https://lh3.googleusercontent.com/p/AF1QipMEdPOZD3iu6GdW8pMaME-lxuv_UmpbTiOPHn1A=s1360-w1360-h1020",
+      "https://lh3.googleusercontent.com/p/AF1QipMSPPTGgvqIexrkh7o-czpIS-Ty8y7EqXSj1vCE=s1360-w1360-h1020",
+      "https://lh3.googleusercontent.com/p/AF1QipMSPPTGgvqIexrkh7o-czpIS-Ty8y7EqXSj1vCE=s1360-w1360-h1020",
+    ],
+    createdAt: "20230101120408",
+  },
+  {
+    id: "20230101120408",
+    placeName: "순천만 국가정원",
+    theme: "테마공원",
+    address: "전남 순천시 국가정원1호길 47",
+    images: [
+      "https://lh3.googleusercontent.com/p/AF1QipMEdPOZD3iu6GdW8pMaME-lxuv_UmpbTiOPHn1A=s1360-w1360-h1020",
+    ],
+    createdAt: "20230101120408",
+  },
+];
 
 export const scrapedPlacesState = atom({
   key: "scrapedPlacesState",
