@@ -8,6 +8,7 @@ import SettingIcon from "../assets/icons/setting.svg?react";
 import PageTemplate from "../components/common/PageTemplate";
 
 import * as S from "../styles/pages/MyPage.style";
+import MyTrip from "../components/mypage/MyTrip";
 
 
 function MyPage() {
@@ -56,6 +57,7 @@ function MyPage() {
             <S.SeperateLine>
                 <S.HighLightLine position={currentTap}/>
             </S.SeperateLine>
+            <MyTrip />
         </PageTemplate>
     )
 }
