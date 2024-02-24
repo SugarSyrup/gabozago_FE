@@ -9,6 +9,8 @@ import PageTemplate from "../components/common/PageTemplate";
 
 import * as S from "../styles/pages/MyPage.style";
 import MyTrip from "../components/mypage/MyTrip";
+import MyReview from "../components/mypage/MyReview";
+import MyActivity from "../components/mypage/MyActivity";
 
 
 function MyPage() {
@@ -60,7 +62,18 @@ function MyPage() {
                 </S.SeperateLine>
             </S.FixedContainer>
             <S.Content>
-                <MyTrip />
+                {(() => {
+                    switch (currentTap) {
+                        case "trip" :
+                            return <MyTrip />;
+                        case "review":
+                            return <MyReview />;
+                        case "activity":
+                            return <MyActivity />;
+                        default:
+                            return null;
+                    }
+                })()}
             </S.Content>
         </PageTemplate>
     )
