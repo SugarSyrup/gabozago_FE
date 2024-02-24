@@ -135,7 +135,7 @@ const defaultScrapedPlaces: ScrapedPlace[] = [
     createdAt: "20230101120408",
   },
   {
-    id: "20230101120408",
+    id: "202301011204010",
     placeName: "순천만 국가정원",
     theme: "테마공원",
     address: "전남 순천시 국가정원1호길 47",
