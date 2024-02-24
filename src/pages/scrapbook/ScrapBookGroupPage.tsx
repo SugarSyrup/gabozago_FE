@@ -6,6 +6,7 @@ import PageTemplate from "../../components/common/PageTemplate";
 import Heading from "../../components/common/Heading";
 import BackButton from "../../components/mytrip/BackButton";
 import ScrapedJournalItem from "../../components/scrapBook/ScrapedJournalItem";
+import FilterList from "../../components/scrapBook/FilterList";
 
 function ScrapBookGroupPage() {
   const { id } = useParams();
@@ -13,27 +14,31 @@ function ScrapBookGroupPage() {
   const group = journalGroups.find((group) => group.id === id);
 
   return (
-    <PageTemplate>
+    <PageTemplate
+      header={
+        <S.Header>
+          <S.BackButtonContainer>
+            <BackButton />
+          </S.BackButtonContainer>
+          <S.HeadingContainer>
+            <Heading size="sm">{group?.title}</Heading>
+          </S.HeadingContainer>
+          <FilterList />
+        </S.Header>
+      }
+    >
       {group ? (
-        <>
-          <S.Header>
-            <S.BackButtonContainer>
-              <BackButton />
-            </S.BackButtonContainer>
-            <Heading size="sm">{group.title}</Heading>
-          </S.Header>
-          <S.JournalList>
-            {group.journals.map((item) => (
-              <ScrapedJournalItem
-                title={item.title}
-                thumbnail={item.thumbnail}
-                username={item.username}
-                like={item.like}
-                scraped={item.scraped}
-              />
-            ))}
-          </S.JournalList>
-        </>
+        <S.JournalList>
+          {group.journals.map((item) => (
+            <ScrapedJournalItem
+              title={item.title}
+              thumbnail={item.thumbnail}
+              username={item.username}
+              like={item.like}
+              scraped={item.scraped}
+            />
+          ))}
+        </S.JournalList>
       ) : (
         "존재하지 않는 폴더입니다."
       )}

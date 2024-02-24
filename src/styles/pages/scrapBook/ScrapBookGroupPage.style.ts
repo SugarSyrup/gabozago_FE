@@ -1,18 +1,25 @@
 import styled from "styled-components";
 
 export const Header = styled.header`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
   display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: start;
+  gap: 20px;
   padding: 40px 20px 20px;
   background-color: ${({ theme }) => theme.white};
 `;
+
+export const HeadingContainer = styled.div`
+  text-align: center;
+  width: 100%;
+  height: 24px;
+`;
+
 export const BackButtonContainer = styled.button`
   position: absolute;
+  top: 40px;
   left: 20px;
   background-color: transparent;
   padding: 0;
@@ -20,6 +27,4 @@ export const BackButtonContainer = styled.button`
   cursor: pointer;
 `;
 
-export const JournalList = styled.ol`
-  padding-top: 60px;
-`;
+export const JournalList = styled.ol``;
