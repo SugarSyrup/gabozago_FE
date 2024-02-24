@@ -6,6 +6,24 @@ export const SettingIconWrapper = styled.div`
     right:24px;
 `
 
+export const FixedContainer = styled.div`
+    position:absolute;
+    left: 0px;
+    top:0px;
+    z-index:2;
+
+    padding-top:40px;
+    padding-left:24px;
+    padding-right:24px;
+    width:100%;
+
+    background-color:white;
+`
+
+export const Content = styled.div`
+    padding-top:200px;
+`
+
 export const Header = styled.header`
     display:flex;
     justify-content:space-between;

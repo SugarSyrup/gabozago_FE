@@ -13,6 +13,7 @@ export const Container = styled.div`
 
 export const CreateMyTrip = styled(Link)`
     width:100%;
+    margin-top:-5px;
     padding-top:24px;
     padding-bottom:24px;
 
