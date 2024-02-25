@@ -14,7 +14,7 @@ import MyActivity from "../components/mypage/MyActivity";
 
 
 function MyPage() {
-    const [ currentTap, setCurrentTap ] = useState<"trip" | "review" | "activity">("trip")
+    const [ currentTap, setCurrentTap ] = useState<"trip" | "review" | "activity">("review")
     const {name, follower, following, reviews, hearts, views} = useLoaderData() as userDataType;
 
     return (
