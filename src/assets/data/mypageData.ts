@@ -24,7 +24,7 @@ export type myReviewType = {
     type: string;
     claps: number;
     comments: number;
-    thumbnail?: string;
+    thumbnailURL?: string;
 }
 
 export const myReviewData:myReviewType[] = [
@@ -43,6 +43,42 @@ export const myReviewData:myReviewType[] = [
     {
         title: "[사진] 블라블라블라",
         type:"photo",
+        claps: 123,
+        comments: 123,
+    },
+]
+
+export type myClapsType = {
+    title: string;
+    username: string;
+    claps: number;
+    comments: number;
+    thumbnailURL?: string;
+    avatarURL?: string;
+}
+
+export const myClapsData:myClapsType[] = [
+    {
+        title: "제목 123",
+        username: "USERNAME",
+        claps: 123,
+        comments: 123,
+    },
+    {
+        title: "제목 123",
+        username: "USERNAME",
+        claps: 123,
+        comments: 123,
+    },
+    {
+        title: "제목 123",
+        username: "USERNAME",
+        claps: 123,
+        comments: 123,
+    },
+    {
+        title: "제목 123",
+        username: "USERNAME",
         claps: 123,
         comments: 123,
     },

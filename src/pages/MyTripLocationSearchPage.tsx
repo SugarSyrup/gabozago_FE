@@ -50,7 +50,7 @@ function MyTripLocationSearchPage() {
         }
     }, []);
     return (
-        <PageTemplate nav={false} header={false}>
+        <PageTemplate nav={false}>
             <S.Header>
                 <S.SearchBar>
                     <BackButton></BackButton>

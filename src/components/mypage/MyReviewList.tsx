@@ -12,18 +12,18 @@ function MyReviewList({data}: Props) {
     return(
         <S.List>
             {
-                data.map(({title, type, claps, comments, thumbnail}) => 
+                data.map(({title, type, claps, comments, thumbnailURL}) => 
                     <S.Item>
                         <S.TextContainer>
                             <S.Name>{title}</S.Name>
                             <S.Desc>
                                 <span><ClapIcon /> {claps}</span> 
-                                <span><CommentIcon style={{fill:"#727272"}}/> {comments}</span>
+                                <span><CommentIcon /> {comments}</span>
                             </S.Desc>
                         </S.TextContainer>
                         <S.ThumbnailWrapper>
                             
-                            {thumbnail && <img src={thumbnail} alt={title} />}
+                            {thumbnailURL && <img src={thumbnailURL} alt={title} />}
                         </S.ThumbnailWrapper>
                     </S.Item>
                 )
