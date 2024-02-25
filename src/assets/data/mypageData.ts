@@ -83,3 +83,31 @@ export const myClapsData:myClapsType[] = [
         comments: 123,
     },
 ]
+
+export type myCommentsType = {
+    postName: string;
+    comment: string;
+}
+
+export const myCommentsData:myCommentsType[] = [
+    {
+        postName: "게시글 제목",
+        comment: "작성한 댓글 내용"
+    },
+    {
+        postName: "게시글 제목",
+        comment: "작성한 댓글 내용"
+    },
+    {
+        postName: "게시글 제목",
+        comment: "작성한 댓글 내용"
+    },
+    {
+        postName: "게시글 제목",
+        comment: "작성한 댓글 내용"
+    },
+    {
+        postName: "게시글 제목",
+        comment: "작성한 댓글 내용"
+    },
+]

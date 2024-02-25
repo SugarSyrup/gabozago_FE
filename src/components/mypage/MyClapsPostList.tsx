@@ -1,4 +1,4 @@
-import * as S from "../../styles/mypage/MySharedPostList.style";
+import * as S from "../../styles/mypage/MyClapsPostList.style";
 
 import ClapIcon from "../../assets/icons/clap.svg?react";
 import CommentIcon from "../../assets/icons/comment.svg?react";

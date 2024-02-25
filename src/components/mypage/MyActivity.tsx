@@ -3,10 +3,10 @@ import { useState } from "react";
 import * as S from "../../styles/mypage/MyActivity.style";
 
 import MyActivityFilter from "./MyActivityFilter";
-import MyClapsPostList from "./MyClapsPostList.tsx";
+import MyClapsPostList from "./MyClapsPostList";
+import MyCommentsList from "./MyCommentsList";
 
-
-import { myClapsData } from "../../assets/data/mypageData";
+import { myClapsData, myCommentsData } from "../../assets/data/mypageData";
 
 function MyActivity() {
     const [filter, setFilter] = useState<"post" | "comment">("post");
@@ -18,7 +18,7 @@ function MyActivity() {
                 filter === "post" ?
                 <MyClapsPostList data={myClapsData}/>
                 :
-                <></>
+                <MyCommentsList data={myCommentsData}/>
             }
         </S.Container>
     );
