@@ -48,7 +48,7 @@ const router = createBrowserRouter([
   },
   /* ---- 스크랩 페이지 ---- */
   {
-      path:"/mypage/:id",
+      path:"/profile/:id",
       element:<MyPage />,
       loader: async() => {
           return userData;
