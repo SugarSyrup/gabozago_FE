@@ -5,10 +5,14 @@ import * as S from "../../styles/mypage/MyTrip.style";
 import Button from "../common/Button";
 import CirclePlusIcon from "../../assets/icons/circlePlus.svg?react";
 
-function MyTrip() {
+interface Props {
+    username : string;
+}
+
+function MyTrip({username} : Props) {
     return(
         <S.Container>
-            <Heading size="sm">나의 다가오는 여행</Heading>
+            <Heading size="sm">{username} 의 다가오는 여행</Heading>
             <TripList />
             <S.CreateMyTrip to="/mytrip/create">
                 <Button type="text" size="md">

@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLoaderData, useParams } from "react-router-dom";
 
 import UserIcon from "../assets/icons/user.svg?react";
 import { userDataType } from "../assets/data/userData";
@@ -14,8 +14,14 @@ import MyActivity from "../components/mypage/MyActivity";
 
 
 function MyPage() {
-    const [ currentTap, setCurrentTap ] = useState<"trip" | "review" | "activity">("activity")
+    const { uid } = useParams();
+    const [ isMyProfile, setIsMyProfile ] = useState<boolean>(false);
+    const [ currentTap, setCurrentTap ] = useState<"trip" | "review" | "activity">("trip")
     const {name, follower, following, reviews, hearts, views} = useLoaderData() as userDataType;
+
+    useEffect(() => {
+        //TODO : uid와 비교해서 isMyProfile 변경
+    }, [])
 
     return (
         <PageTemplate>
@@ -28,7 +34,11 @@ function MyPage() {
                         <UserIcon />
                         <S.Name>{name}</S.Name>
                     </S.UserProfile>
+                    {isMyProfile ? 
                     <S.ProfileEditBtn>프로필 수정</S.ProfileEditBtn>
+                    :
+                    <></>
+                    }
                 </S.Header>
                 <S.Statics>
                     <S.StaticItem>
@@ -60,12 +70,15 @@ function MyPage() {
                 <S.SeperateLine>
                     <S.HighLightLine position={currentTap}/>
                 </S.SeperateLine>
+                {
+                    isMyProfile && <></>
+                }
             </S.FixedContainer>
             <S.Content>
                 {(() => {
                     switch (currentTap) {
                         case "trip" :
-                            return <MyTrip />;
+                            return <MyTrip username={isMyProfile ? "나" : "USER"}/>;
                         case "review":
                             return <MyReview />;
                         case "activity":
