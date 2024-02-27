@@ -9,7 +9,7 @@ import MyTripLocationSearchPage from "./pages/MyTripLocationSearchPage";
 import MyTripPlaceCreatePage from "./pages/MyTripPlaceCreatePage";
 import ScrapBookPage from "./pages/scrapbook/ScrapBookPage";
 import ScrapBookGroupPage from "./pages/scrapbook/ScrapBookGroupPage";
-import MyPage from "./pages/MyPage";
+import ProfilePage from "./pages/ProfilePage";
 import { userData } from "./assets/data/userData";
 
 const router = createBrowserRouter([
@@ -49,7 +49,7 @@ const router = createBrowserRouter([
   /* ---- 스크랩 페이지 ---- */
   {
       path:"/profile/:id",
-      element:<MyPage />,
+      element:<ProfilePage />,
       loader: async() => {
           return userData;
       }

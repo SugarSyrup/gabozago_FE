@@ -1,15 +1,15 @@
-import * as S from "../../styles/mypage/MyClapsPostList.style";
+import * as S from "../../styles/ProfilePage/UserClapsPostList.style";
 
 import ClapIcon from "../../assets/icons/clap.svg?react";
 import CommentIcon from "../../assets/icons/comment.svg?react";
 import UserIcon from "../../assets/icons/user.svg?react";
-import { myClapsType } from "../../assets/data/mypageData";
+import { userClapsType } from "../../assets/data/userpageData";
 
 interface Props {
-    data: myClapsType[]
+    data: userClapsType[]
 }
 
-function MyClapsPostList({data}: Props) {
+function UserClapsPostList({data}: Props) {
     return(
         <S.List>
             {
@@ -41,4 +41,4 @@ function MyClapsPostList({data}: Props) {
     )
 }
 
-export default MyClapsPostList;
+export default UserClapsPostList;

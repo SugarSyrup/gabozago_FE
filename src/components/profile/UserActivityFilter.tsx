@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import * as S from "../../styles/mypage/MyReviewFilter.style";
+import * as S from "../../styles/ProfilePage/UserReviewFilter.style";
 
 interface Props {
     filter: "post" | "comment";
@@ -8,7 +8,7 @@ interface Props {
     commentCount: number;
 }
 
-function MyActivityFilter({filter, setFilter, shareCount, commentCount} : Props) {
+function UserActivityFilter({filter, setFilter, shareCount, commentCount} : Props) {
     return(
         <S.FilterList>
             <S.FilterItem isHighlight={filter === "post"} onClick={() => {setFilter("post")}} >공감한 글 {shareCount}</S.FilterItem>
@@ -17,4 +17,4 @@ function MyActivityFilter({filter, setFilter, shareCount, commentCount} : Props)
     );
 }
 
-export default MyActivityFilter;
+export default UserActivityFilter;

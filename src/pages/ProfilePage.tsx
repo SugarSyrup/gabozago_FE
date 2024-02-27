@@ -7,13 +7,13 @@ import { userDataType } from "../assets/data/userData";
 import SettingIcon from "../assets/icons/setting.svg?react";
 import PageTemplate from "../components/common/PageTemplate";
 
-import * as S from "../styles/pages/MyPage.style";
-import MyTrip from "../components/mypage/MyTrip";
-import MyReview from "../components/mypage/MyReview";
-import MyActivity from "../components/mypage/MyActivity";
+import * as S from "../styles/pages/ProfilePage.style";
+import UserTrip from "../components/profile/UserTrip";
+import UserReview from "../components/profile/UserReview";
+import UserActivity from "../components/profile/UserActivity";
 
 
-function MyPage() {
+function ProfilePage() {
     const { uid } = useParams();
     const [ isMyProfile, setIsMyProfile ] = useState<boolean>(false);
     const [ currentTap, setCurrentTap ] = useState<"trip" | "review" | "activity">("trip")
@@ -24,7 +24,7 @@ function MyPage() {
     }, [])
 
     return (
-        <PageTemplate>
+        <PageTemplate nav={false} >
             <S.SettingIconWrapper>
                 <SettingIcon />
             </S.SettingIconWrapper>
@@ -78,11 +78,11 @@ function MyPage() {
                 {(() => {
                     switch (currentTap) {
                         case "trip" :
-                            return <MyTrip username={isMyProfile ? "나" : "USER"}/>;
+                            return <UserTrip username={isMyProfile ? "나" : "USER"}/>;
                         case "review":
-                            return <MyReview />;
+                            return <UserReview />;
                         case "activity":
-                            return <MyActivity />;
+                            return <UserActivity />;
                         default:
                             return null;
                     }
@@ -93,4 +93,4 @@ function MyPage() {
 }
 
 
-export default MyPage;
+export default ProfilePage;

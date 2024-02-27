@@ -1,7 +1,7 @@
 import Heading from "../common/Heading";
 import TripList from "./TripList";
 
-import * as S from "../../styles/mypage/MyTrip.style";
+import * as S from "../../styles/ProfilePage/UserTrip.style";
 import Button from "../common/Button";
 import CirclePlusIcon from "../../assets/icons/circlePlus.svg?react";
 
@@ -9,7 +9,7 @@ interface Props {
     username : string;
 }
 
-function MyTrip({username} : Props) {
+function UserTrip({username} : Props) {
     return(
         <S.Container>
             <Heading size="sm">{username} 의 다가오는 여행</Heading>
@@ -26,4 +26,4 @@ function MyTrip({username} : Props) {
     )
 }
 
-export default MyTrip;
+export default UserTrip;

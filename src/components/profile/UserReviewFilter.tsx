@@ -1,12 +1,12 @@
 import { Dispatch } from "react";
-import * as S from "../../styles/mypage/MyReviewFilter.style";
+import * as S from "../../styles/ProfilePage/UserReviewFilter.style";
 
 interface Props {
     filter: "all" | "post" | "video" | "shot" | "photo";
     setFilter: Dispatch<React.SetStateAction<"all" | "post" | "video" | "shot" | "photo">>;
 }
 
-function MyReviewFilter({filter, setFilter} : Props) {
+function UserReviewFilter({filter, setFilter} : Props) {
     return(
         <S.FilterList>
             <S.FilterItem isHighlight={filter === "all"} onClick={() => {setFilter("all")}} >전체</S.FilterItem>
@@ -18,4 +18,4 @@ function MyReviewFilter({filter, setFilter} : Props) {
     );
 }
 
-export default MyReviewFilter;
+export default UserReviewFilter;

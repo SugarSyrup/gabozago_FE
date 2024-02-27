@@ -1,4 +1,4 @@
-export const myTripData = [
+export const userTripData = [
     {
         name:"포레 워크샵",
         location: "부산광역시",
@@ -19,7 +19,7 @@ export const myTripData = [
     },
 ]
 
-export type myReviewType = {
+export type userReviewType = {
     title: string;
     type: string;
     claps: number;
@@ -27,7 +27,7 @@ export type myReviewType = {
     thumbnailURL?: string;
 }
 
-export const myReviewData:myReviewType[] = [
+export const userReviewData:userReviewType[] = [
     {
         title: "[게시글] 블라블라블라",
         type: "post",
@@ -48,7 +48,7 @@ export const myReviewData:myReviewType[] = [
     },
 ]
 
-export type myClapsType = {
+export type userClapsType = {
     title: string;
     username: string;
     claps: number;
@@ -57,7 +57,7 @@ export type myClapsType = {
     avatarURL?: string;
 }
 
-export const myClapsData:myClapsType[] = [
+export const userClapsData:userClapsType[] = [
     {
         title: "제목 123",
         username: "USERNAME",
@@ -84,12 +84,12 @@ export const myClapsData:myClapsType[] = [
     },
 ]
 
-export type myCommentsType = {
+export type userCommentsType = {
     postName: string;
     comment: string;
 }
 
-export const myCommentsData:myCommentsType[] = [
+export const userCommentsData:userCommentsType[] = [
     {
         postName: "게시글 제목",
         comment: "작성한 댓글 내용"
