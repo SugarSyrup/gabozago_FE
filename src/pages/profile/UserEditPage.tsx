@@ -4,7 +4,7 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import PageTemplate from "../../components/common/PageTemplate";
 import Heading from "../../components/common/Heading";
 
-import * as S from "../../styles/pages/UserEditPage.stye";
+import * as S from "../../styles/pages/profile/UserEditPage.stye";
 
 import { userDataType } from "../../assets/data/userData";
 import XIcon from "../../assets/icons/x.svg?react";

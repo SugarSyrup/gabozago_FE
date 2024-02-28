@@ -12,6 +12,7 @@ import ScrapBookGroupPage from "./pages/scrapbook/ScrapBookGroupPage";
 import ProfilePage from "./pages/profile/ProfilePage";
 import { userData } from "./assets/data/userData";
 import UserEditPage from "./pages/profile/UserEditPage";
+import UserFollowPage from "./pages/profile/UserFollowPage";
 
 const router = createBrowserRouter([
   {
@@ -57,7 +58,7 @@ const router = createBrowserRouter([
   },
   {
     path:"/profile/:id/follow",
-    element:<></>
+    element:<UserFollowPage />
   },
   {
     path:"/profile/:id/edit",

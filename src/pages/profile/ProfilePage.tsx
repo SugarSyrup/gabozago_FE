@@ -7,7 +7,7 @@ import UserIcon from "../../assets/icons/user.svg?react";
 
 import PageTemplate from "../../components/common/PageTemplate";
 
-import * as S from "../../styles/pages/ProfilePage.style";
+import * as S from "../../styles/pages/profile/ProfilePage.style";
 import UserTrip from "../../components/profile/UserTrip";
 import UserReview from "../../components/profile/UserReview";
 import UserActivity from "../../components/profile/UserActivity";
