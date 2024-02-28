@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { LegacyRef, useEffect, useRef, useState } from "react";
 import { useLoaderData, useParams } from "react-router-dom";
 
 import UserIcon from "../assets/icons/user.svg?react";
@@ -11,6 +11,7 @@ import * as S from "../styles/pages/ProfilePage.style";
 import UserTrip from "../components/profile/UserTrip";
 import UserReview from "../components/profile/UserReview";
 import UserActivity from "../components/profile/UserActivity";
+import FollowBtn from "../components/profile/FollowBtn";
 
 
 function ProfilePage() {
@@ -18,6 +19,7 @@ function ProfilePage() {
     const [ isMyProfile, setIsMyProfile ] = useState<boolean>(false);
     const [ currentTap, setCurrentTap ] = useState<"trip" | "review" | "activity">("trip")
     const {name, follower, following, reviews, hearts, views} = useLoaderData() as userDataType;
+    const FixedHeaderRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         //TODO : uid와 비교해서 isMyProfile 변경
@@ -28,7 +30,7 @@ function ProfilePage() {
             <S.SettingIconWrapper>
                 <SettingIcon />
             </S.SettingIconWrapper>
-            <S.FixedContainer>
+            <S.FixedContainer ref={FixedHeaderRef}>
                 <S.Header>
                     <S.UserProfile>
                         <UserIcon />
@@ -37,7 +39,8 @@ function ProfilePage() {
                     {isMyProfile ? 
                     <S.ProfileEditBtn>프로필 수정</S.ProfileEditBtn>
                     :
-                    <></>
+                    //TODO : 팔로우 여부 정보 가져오기
+                    <FollowBtn isFollowing={false}/>
                     }
                 </S.Header>
                 <S.Statics>
@@ -62,6 +65,17 @@ function ProfilePage() {
                         <S.StaticItemStat>{views}</S.StaticItemStat>
                     </S.StaticItem>
                 </S.Statics>
+
+                {
+                    !isMyProfile && 
+                    <S.UserIntroduce>
+                        <span>
+                            안녕하세요! 저는 여행관련 스타트업을 운영하고 있습니다:)
+                            제가 좋아하는 여행지, 그리고 음식을 소개합니다!
+                        </span>
+                    </S.UserIntroduce>
+                }
+
                 <S.TapNavigationBar>
                     <S.TapNavigation onClick={() => {setCurrentTap("trip")}} isHighlight={currentTap === "trip"} >나의 여행</S.TapNavigation>
                     <S.TapNavigation onClick={() => {setCurrentTap("review")}} isHighlight={currentTap === "review"} >나의 리뷰</S.TapNavigation>
@@ -70,11 +84,8 @@ function ProfilePage() {
                 <S.SeperateLine>
                     <S.HighLightLine position={currentTap}/>
                 </S.SeperateLine>
-                {
-                    isMyProfile && <></>
-                }
             </S.FixedContainer>
-            <S.Content>
+            <S.Content FixedContainerHeight={FixedHeaderRef.current?.offsetHeight} >
                 {(() => {
                     switch (currentTap) {
                         case "trip" :
