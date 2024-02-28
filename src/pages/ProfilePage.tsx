@@ -1,5 +1,5 @@
-import { LegacyRef, useEffect, useRef, useState } from "react";
-import { useLoaderData, useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 
 import UserIcon from "../assets/icons/user.svg?react";
 import { userDataType } from "../assets/data/userData";
@@ -18,8 +18,9 @@ function ProfilePage() {
     const { uid } = useParams();
     const [ isMyProfile, setIsMyProfile ] = useState<boolean>(false);
     const [ currentTap, setCurrentTap ] = useState<"trip" | "review" | "activity">("trip")
-    const {name, follower, following, reviews, hearts, views} = useLoaderData() as userDataType;
+    const {name, follower, following, reviews, hearts, views, desc} = useLoaderData() as userDataType;
     const FixedHeaderRef = useRef<HTMLDivElement>(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         //TODO : uid와 비교해서 isMyProfile 변경
@@ -37,7 +38,7 @@ function ProfilePage() {
                         <S.Name>{name}</S.Name>
                     </S.UserProfile>
                     {isMyProfile ? 
-                    <S.ProfileEditBtn>프로필 수정</S.ProfileEditBtn>
+                    <S.ProfileEditBtn onClick={() => {navigate(`edit`)}}> 프로필 수정</S.ProfileEditBtn>
                     :
                     //TODO : 팔로우 여부 정보 가져오기
                     <FollowBtn isFollowing={false}/>
@@ -70,8 +71,7 @@ function ProfilePage() {
                     !isMyProfile && 
                     <S.UserIntroduce>
                         <span>
-                            안녕하세요! 저는 여행관련 스타트업을 운영하고 있습니다:)
-                            제가 좋아하는 여행지, 그리고 음식을 소개합니다!
+                            {desc}
                         </span>
                     </S.UserIntroduce>
                 }

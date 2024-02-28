@@ -11,6 +11,7 @@ import ScrapBookPage from "./pages/scrapbook/ScrapBookPage";
 import ScrapBookGroupPage from "./pages/scrapbook/ScrapBookGroupPage";
 import ProfilePage from "./pages/ProfilePage";
 import { userData } from "./assets/data/userData";
+import UserEditPage from "./pages/UserEditPage";
 
 const router = createBrowserRouter([
   {
@@ -46,13 +47,20 @@ const router = createBrowserRouter([
     path: "/mytrip/:id/create",
     element: <MyTripPlaceCreatePage />,
   },
-  /* ---- 스크랩 페이지 ---- */
+  /* ---- 유저 프로필 페이지 ---- */
   {
       path:"/profile/:id",
       element:<ProfilePage />,
       loader: async() => {
           return userData;
       }
+  },
+  {
+    path:"/profile/:id/edit",
+    element: <UserEditPage />,
+    loader: async() => {
+        return userData;
+    }
   },
   /* ---- 스크랩 페이지 ---- */
   {
