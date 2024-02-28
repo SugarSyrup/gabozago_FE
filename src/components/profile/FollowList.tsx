@@ -1,8 +1,10 @@
+import { FollowerType } from "../../assets/data/followers";
 import * as S from "../../styles/ProfilePage/FollowList.style";
+
 import FollowItem from "./FollowItem";
 
 interface Props {
-    data: [];
+    data: FollowerType[];
 }
 
 function FollowList({data}:Props) {
@@ -13,13 +15,12 @@ function FollowList({data}:Props) {
                     {data.length} 
                     <span>명</span>
                 </S.FollowCounts>
-                {/* TODO: 정렬 */}
+                {/* TODO: [디자인] filter 종류 정리되는 데로 추가 */}
             </S.Header>
             <S.List>
-                <FollowItem name="이유진" />
-                <FollowItem name="이유진" />
-                <FollowItem name="이유진" />
-                <FollowItem name="이유진" />
+                {
+                    data.map((follower) => <FollowItem name={follower.name} key={follower.id} id={follower.id}/>)
+                }
             </S.List>
         </S.Container>
     );

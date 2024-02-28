@@ -50,18 +50,19 @@ const router = createBrowserRouter([
   },
   /* ---- 유저 프로필 페이지 ---- */
   {
-      path:"/profile/:id",
+      path:"/profile/:uid",
       element:<ProfilePage />,
       loader: async() => {
           return userData;
       }
   },
   {
-    path:"/profile/:id/follow",
+    path:"/profile/:uid/follow",
     element:<UserFollowPage />
   },
   {
-    path:"/profile/:id/edit",
+    // TODO : [LOGIN 기능 정의 이후] LOGIN 정보를 기반으로 접근 허용 / 거부
+    path:"/profile/:uid/edit",
     element: <UserEditPage />,
     loader: async() => {
         return userData;

@@ -45,11 +45,11 @@ function ProfilePage() {
                     }
                 </S.Header>
                 <S.Statics>
-                    <S.StaticItem>
+                    <S.StaticItem onClick={() => {navigate("follow")}}>
                         <S.StaticItemName>팔로워</S.StaticItemName>
                         <S.StaticItemStat>{follower}</S.StaticItemStat>
                     </S.StaticItem>
-                    <S.StaticItem>
+                    <S.StaticItem onClick={() => {navigate("follow")}}>
                         <S.StaticItemName>팔로잉</S.StaticItemName>
                         <S.StaticItemStat>{following}</S.StaticItemStat>
                     </S.StaticItem>
