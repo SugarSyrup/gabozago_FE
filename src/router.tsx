@@ -9,9 +9,9 @@ import MyTripLocationSearchPage from "./pages/MyTripLocationSearchPage";
 import MyTripPlaceCreatePage from "./pages/MyTripPlaceCreatePage";
 import ScrapBookPage from "./pages/scrapbook/ScrapBookPage";
 import ScrapBookGroupPage from "./pages/scrapbook/ScrapBookGroupPage";
-import ProfilePage from "./pages/ProfilePage";
+import ProfilePage from "./pages/profile/ProfilePage";
 import { userData } from "./assets/data/userData";
-import UserEditPage from "./pages/UserEditPage";
+import UserEditPage from "./pages/profile/UserEditPage";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +54,10 @@ const router = createBrowserRouter([
       loader: async() => {
           return userData;
       }
+  },
+  {
+    path:"/profile/:id/follow",
+    element:<></>
   },
   {
     path:"/profile/:id/edit",

@@ -1,17 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 
-import UserIcon from "../assets/icons/user.svg?react";
-import { userDataType } from "../assets/data/userData";
+import { userDataType } from "../../assets/data/userData";
+import SettingIcon from "../../assets/icons/setting.svg?react";
+import UserIcon from "../../assets/icons/user.svg?react";
 
-import SettingIcon from "../assets/icons/setting.svg?react";
-import PageTemplate from "../components/common/PageTemplate";
+import PageTemplate from "../../components/common/PageTemplate";
 
-import * as S from "../styles/pages/ProfilePage.style";
-import UserTrip from "../components/profile/UserTrip";
-import UserReview from "../components/profile/UserReview";
-import UserActivity from "../components/profile/UserActivity";
-import FollowBtn from "../components/profile/FollowBtn";
+import * as S from "../../styles/pages/ProfilePage.style";
+import UserTrip from "../../components/profile/UserTrip";
+import UserReview from "../../components/profile/UserReview";
+import UserActivity from "../../components/profile/UserActivity";
+import FollowBtn from "../../components/profile/FollowBtn";
 
 
 function ProfilePage() {

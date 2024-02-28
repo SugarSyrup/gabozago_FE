@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 
-import PageTemplate from "../components/common/PageTemplate";
-import Heading from "../components/common/Heading";
+import PageTemplate from "../../components/common/PageTemplate";
+import Heading from "../../components/common/Heading";
 
-import * as S from "../styles/pages/UserEditPage.stye";
+import * as S from "../../styles/pages/UserEditPage.stye";
 
-import { userDataType } from "../assets/data/userData";
-import XIcon from "../assets/icons/x.svg?react";
-import UserIcon from "../assets/icons/user.svg?react";
-import CameraCircleIcon from "../assets/icons/camera_circle.svg?react";
+import { userDataType } from "../../assets/data/userData";
+import XIcon from "../../assets/icons/x.svg?react";
+import UserIcon from "../../assets/icons/user.svg?react";
+import CameraCircleIcon from "../../assets/icons/camera_circle.svg?react";
 
 function UserEditPage() {
     const {name, desc} = useLoaderData() as userDataType;
