@@ -18,7 +18,7 @@ function UserEditPage() {
     const navigate = useNavigate();
 
     return(
-        <PageTemplate>
+        <PageTemplate nav={null}>
             <S.Header>
                 <S.CloseIconWrapper>
                     <XIcon onClick={() => {navigate(-1)}}/>
@@ -28,7 +28,7 @@ function UserEditPage() {
                     isActive={nameValue !== name || descValue !== desc} 
                     onClick={() => {
                         if(nameValue !== name || descValue !== desc) {
-                            // TODO : 조건 달성 시, POST
+                            // TODO : [백엔드] 조건 달성 시, POST
                         }
                     }}
                 >

@@ -23,11 +23,15 @@ function ProfilePage() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        //TODO : uid와 비교해서 isMyProfile 변경
+        //TODO : [백엔드/로그인] 로그인 정보 비교해서 내 프로필인지 남의 프로필인지 설정 
     }, [])
 
+    useEffect(() => {
+
+    }, [isMyProfile]);
+
     return (
-        <PageTemplate nav={false} >
+        <PageTemplate >
             <S.SettingIconWrapper>
                 <SettingIcon />
             </S.SettingIconWrapper>
