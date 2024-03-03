@@ -96,9 +96,9 @@ export const RecommendatoinReviewList = styled.div`
 `;
 
 export const Footer = styled.footer`
-    position: absolute;
-    left:0px;
-    bottom: 0px;
+    position: relative;
+    /* left:0px;
+    bottom: 0px; */
 
     width: 100%;
     padding-top:18px;

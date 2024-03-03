@@ -50,7 +50,11 @@ function MyTripLocationSearchPage() {
         }
     }, []);
     return (
-        <PageTemplate nav={false}>
+        <PageTemplate nav={
+            <S.Footer>
+                <SelectedLocations />
+            </S.Footer>
+        }>
             <S.Header>
                 <S.SearchBar>
                     <BackButton></BackButton>
@@ -126,9 +130,6 @@ function MyTripLocationSearchPage() {
                         />
                     </S.RecommendatoinReviewList>
                 </S.Contents>
-                <S.Footer>
-                    <SelectedLocations />
-                </S.Footer>
             </>
             }
         </PageTemplate>
