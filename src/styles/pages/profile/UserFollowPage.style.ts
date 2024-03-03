@@ -62,7 +62,7 @@ export const NavigationItem = styled.div<{ isHighlight: boolean }>`
     width: 40%;
 
     cursor: pointer;
-    transition: color 0.2s linear;
+    transition: color 0.2s ease-in-out;
 `;
 
 export const SeperateLine = styled.div`
@@ -82,7 +82,7 @@ export const HighLightLine = styled.div<{position: string}>`
     left: ${({position}) => position === "follower" && "0px"};
     left: ${({position}) => position === "following" && "50%"};
 
-    transition: left 0.2s linear;
+    transition: left 0.2s ease-in-out;
 `
 
 

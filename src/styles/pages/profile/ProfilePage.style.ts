@@ -161,5 +161,5 @@ export const HighLightLine = styled.div<{position: string}>`
     left: ${({position}) => position === "review" && "94px"};
     left: ${({position}) => position === "activity" && "173px"};
 
-    transition: left 0.2s linear;
+    transition: left 0.2s ease-in-out;
 `
