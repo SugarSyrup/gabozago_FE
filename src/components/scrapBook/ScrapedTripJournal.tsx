@@ -10,6 +10,14 @@ function ScrapedTripJournal() {
 
   return (
     <S.GroupList>
+      <S.CreateNewGroupItem key={"createGroup"} background={addCircle}>
+        <div
+          onClick={() => {
+            alert("새 그룹 생성");
+          }}
+        ></div>
+        <p>새 그룹 만들기</p>
+      </S.CreateNewGroupItem>
       {journalGroups.map((group) => (
         <S.GroupItem
           key={group.id}
@@ -24,14 +32,6 @@ function ScrapedTripJournal() {
           <p>{group.title}</p>
         </S.GroupItem>
       ))}
-      <S.CreateNewGroupItem key={"createGroup"} background={addCircle}>
-        <div
-          onClick={() => {
-            alert("새 그룹 생성");
-          }}
-        ></div>
-        <p>새 그룹 만들기</p>
-      </S.CreateNewGroupItem>
     </S.GroupList>
   );
 }
