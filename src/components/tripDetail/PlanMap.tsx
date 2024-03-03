@@ -1,11 +1,16 @@
+import * as S from "../../styles/mytrip/PlanMap.style.ts";
 import GoogleMap from "../common/GoogleMap";
 import { MarkerProps } from "@react-google-maps/api";
 import { planViewModeState } from "../../recoil/planViewModeState";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { tripPlanState } from "../../recoil/tripState";
+import ChevronBottomIcon from "../../assets/icons/chevron_bottom.svg?react";
+import ChevronTopIcon from "../../assets/icons/chevron_top.svg?react";
 
 function PlanMap() {
+  const [markers, setMarkers] = useState<MarkerProps[]>([]);
+  const [mapOpened, setMapOpend] = useState<boolean>(true);
   const viewMode = useRecoilValue(planViewModeState);
   const plan = useRecoilValue(tripPlanState);
   const findMidLatLng = () => {
@@ -36,7 +41,14 @@ function PlanMap() {
 
     return result;
   };
-  const [markers, setMarkers] = useState<MarkerProps[]>([]);
+
+  useEffect(() => {
+    if (viewMode === "EDIT") {
+      setMapOpend(false);
+    } else {
+      setMapOpend(true);
+    }
+  }, [viewMode]);
 
   useEffect(() => {
     plan?.map(({ route }) => {
@@ -53,11 +65,20 @@ function PlanMap() {
   }, []);
 
   return (
-    <GoogleMap
-      height={viewMode === "EDIT" ? "0px" : "220px"}
-      center={findMidLatLng()}
-      markers={markers}
-    />
+    <S.Container>
+      <GoogleMap
+        height={mapOpened ? "220px" : "0px"}
+        center={findMidLatLng()}
+        markers={markers}
+      />
+      <S.MapOpenButton
+        onClick={() => {
+          setMapOpend((prev) => !prev);
+        }}
+      >
+        {mapOpened ? <ChevronTopIcon /> : <ChevronBottomIcon />}
+      </S.MapOpenButton>
+    </S.Container>
   );
 }
 

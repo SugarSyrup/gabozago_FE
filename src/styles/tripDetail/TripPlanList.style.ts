@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import bottomArrowImage from "../../assets/icons/arrow_bottom.svg";
 
 export const Container = styled.div`
   width: 100%;
@@ -23,14 +22,6 @@ export const DayFilterButton = styled.button`
   }
   &:active {
     background-color: ${({ theme }) => theme.gray04};
-  }
-
-  &::after {
-    content: "";
-    display: block;
-    width: 24px;
-    height: 24px;
-    background: url(${bottomArrowImage}) no-repeat center;
   }
 `;
 export const PlaceListContainer = styled.div`

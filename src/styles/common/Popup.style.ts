@@ -25,7 +25,7 @@ export const PopupContainer = styled.div`
   }
 `;
 export const Popup = styled.div<{ padding?: string }>`
-  max-width: 90%;
+  width: 90%;
   position: relative;
   padding: ${({ padding }) => (padding ? padding : "20px")};
   background-color: ${({ theme }) => theme.white};

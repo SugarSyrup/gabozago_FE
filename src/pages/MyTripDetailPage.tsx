@@ -1,3 +1,4 @@
+import * as S from "../styles/MyTripDetailPage.style";
 import { useEffect } from "react";
 // import { useParams } from "react-router-dom";
 
@@ -8,7 +9,6 @@ import TripPlanList from "../components/tripDetail/TripPlanList";
 import PlanMap from "../components/tripDetail/PlanMap";
 
 import ClapBlueIcon from "../assets/icons/clap_blue.svg?react";
-import * as S from "../styles/MyTripDetailPage.style";
 import { planViewModeState } from "../recoil/planViewModeState";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { tripPlanState } from "../recoil/tripState";

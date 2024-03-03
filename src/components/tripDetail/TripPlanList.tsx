@@ -4,6 +4,7 @@ import DayPlanEdit from "./DayPlanEdit";
 import { useRecoilState } from "recoil";
 import { planViewModeState } from "../../recoil/planViewModeState";
 import { tripPlanState } from "../../recoil/tripState";
+import ArrowBottomIcon from "../../assets/icons/arrow_bottom.svg?react";
 
 function TripPlanList() {
   const [viewMode, setViewMode] = useRecoilState(planViewModeState);
@@ -11,7 +12,10 @@ function TripPlanList() {
 
   return (
     <S.Container>
-      <S.DayFilterButton onClick={() => {}}>전체 일정</S.DayFilterButton>
+      <S.DayFilterButton onClick={() => {}}>
+        전체 일정
+        <ArrowBottomIcon />
+      </S.DayFilterButton>
       <S.PlaceListContainer>
         {viewMode === "EDIT" && (
           <S.EditComplateButton
