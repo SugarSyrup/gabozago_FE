@@ -44,7 +44,7 @@ function Calendar({year, month, startDate, endDate, onDateClick} : Props) {
                         onDateClick(thisDate);
                 }}>
                 {Number(startDate) === Number(thisDate) || Number(endDate) === Number(thisDate) ? 
-                    <S.DateHightlight isStartDate={Number(startDate) === Number(thisDate)}>{i}</S.DateHightlight>
+                    <S.DateHightlight isStartDate={Number(startDate) === Number(thisDate)} isThisDate={Number(startDate) === Number(endDate)}>{i}</S.DateHightlight>
                     : i
                 }
                 </S.Date>
