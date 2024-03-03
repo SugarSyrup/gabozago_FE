@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import LeftChevronIcon from "../../assets/icons/leftChevron.svg?react";
+import LeftChevronIcon from "../../assets/icons/chevron_left.svg?react";
 
 function BackButton() {
   const navigate = useNavigate();

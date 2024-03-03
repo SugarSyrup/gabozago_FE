@@ -1,9 +1,9 @@
 import * as S from "./style";
 import ClapIcon from "../../../assets/icons/clap.svg?react";
-import BookMarkIcon from "../../../assets/icons/bookmarkBlack.svg?react";
+import BookMarkIcon from "../../../assets/icons/bookmark_black.svg?react";
 import CommentIcon from "../../../assets/icons/comment.svg?react";
 import ShareIcon from "../../../assets/icons/share.svg?react";
-import RightChevronIcon from "../../../assets/icons/rightChevron.svg?react";
+import RightChevronIcon from "../../../assets/icons/chevron_right.svg?react";
 
 interface Props {
   name: string;

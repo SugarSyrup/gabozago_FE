@@ -4,11 +4,11 @@ import Button from "../../../components/common/Button";
 import MyScheduleCard from "../../../components/mytrip/MyScheduleCard";
 
 import ScheduleContent from "../../../components/mytrip/SchedueContent";
-import CirclePlusIcon from "../../../assets/icons/circlePlus.svg?react";
-import BlueCirclePlusIcon from "../../../assets/icons/blueCirclePlus.svg?react";
-import CircleRightChevronIcon from "../../../assets/icons/circleRightChevron.svg?react";
-import RightChevronIcon from "../../../assets/icons/rightChevron.svg?react";
-import CalendarAddIcon from "../../../assets/icons/calendarAdd.svg?react";
+import CirclePlusIcon from "../../../assets/icons/plus_circle.svg?react";
+import BlueCirclePlusIcon from "../../../assets/icons/plus_circle_blue.svg?react";
+import CircleRightChevronIcon from "../../../assets/icons/chevron_right_circle.svg?react";
+import RightChevronIcon from "../../../assets/icons/chevron_right.svg?react";
+import CalendarAddIcon from "../../../assets/icons/calendar_add.svg?react";
 
 import * as S from "./style";
 import { Link } from "react-router-dom";

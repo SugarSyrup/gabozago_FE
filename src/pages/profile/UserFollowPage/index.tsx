@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import * as S from "./style";
-import LeftChevronIcon from "../../../assets/icons/leftChevron.svg?react";
+import LeftChevronIcon from "../../../assets/icons/chevron_left.svg?react";
 
 import FollowList from "../../../components/profile/FollowList";
 import PageTemplate from "../../../components/common/PageTemplate";

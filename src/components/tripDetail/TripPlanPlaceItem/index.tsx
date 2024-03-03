@@ -3,9 +3,9 @@ import { useLongPress } from "use-long-press";
 import { useSetRecoilState } from "recoil";
 import AddPlaceButton from "../AddPlaceButton";
 import imagePlaceholder from "../../../assets/icons/image_placeholder_circle.svg";
-import CarIcon from "../../../assets/icons/transport_car.svg?react";
-import SubwayIcon from "../../../assets/icons/transport_subway.svg?react";
-import WalkIcon from "../../../assets/icons/transport_walk.svg?react";
+import CarIcon from "../../../assets/icons/car.svg?react";
+import SubwayIcon from "../../../assets/icons/subway.svg?react";
+import WalkIcon from "../../../assets/icons/walk.svg?react";
 import { planViewModeState } from "../../../recoil/planViewModeState";
 import { Place } from "../../../assets/data/tripPlanData";
 

@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import PageTemplate from "../../../components/common/PageTemplate";
 
 import * as S from "./style";
-import LeftChevronIcon from "../../../assets/icons/leftChevron.svg?react";
+import LeftChevronIcon from "../../../assets/icons/chevron_left.svg?react";
 import Button from "../../../components/common/Button";
 import Heading from "../../../components/common/Heading";
 import { useRef, useState } from "react";
