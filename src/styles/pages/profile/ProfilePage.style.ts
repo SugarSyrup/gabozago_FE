@@ -69,7 +69,7 @@ export const Statics = styled.ol`
     gap:10px;
 `
 
-export const StaticItem = styled.li`
+export const StaticItem = styled.li<{isHover: boolean}>`
     flex-grow: 1;
     height:68px;
 
@@ -81,6 +81,11 @@ export const StaticItem = styled.li`
 
     border-radius:10px;
     background-color:${({theme}) => theme.gray06};
+
+    &:hover {
+        background-color:  ${({isHover, theme}) => isHover && theme.blue04};
+        cursor:pointer;
+    }
 `
 
 export const StaticItemName = styled.h4`

@@ -12,6 +12,7 @@ import { Followers, FollowerType } from "../../assets/data/followers";
 
 function UserFollowPage() {
     const { uid } = useParams();
+    const [ isMyProfile, setIsMyProfile] = useState(false);
     const [ currentTap, setCurrentTap ] = useState<"follower" | "following">("follower");
     const [ data, setData] = useState<FollowerType[]>(Followers);
     const navigate = useNavigate();
@@ -51,7 +52,7 @@ function UserFollowPage() {
                     </S.ButtonWrapper>
                 </S.InputWrapper>
 
-                <FollowList data={data} />
+                <FollowList data={data} isMyProfile={isMyProfile}/>
             </S.FixedHeader>
         </PageTemplate>
     )

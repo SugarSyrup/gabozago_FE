@@ -6,9 +6,10 @@ interface Props {
     avatarURL?: string;
     name: string;
     id: number;
+    isMyProfile: boolean;
 }
 
-function FollowItem({avatarURL, name, id}: Props) {
+function FollowItem({avatarURL, name, id, isMyProfile}: Props) {
     const navigate = useNavigate();
 
     return(
@@ -21,9 +22,11 @@ function FollowItem({avatarURL, name, id}: Props) {
                 }
                 <S.Name>{name}</S.Name>
             </S.UserInfo>
-            <S.DeleteBtn onClick={() => {
-                // TODO: [백엔드] DELETE Request
-            }}>삭제</S.DeleteBtn>
+            {isMyProfile && 
+                <S.DeleteBtn onClick={() => {
+                    // TODO: [백엔드] DELETE Request
+                }}>삭제</S.DeleteBtn>
+            }
         </S.Container>
     );
 }
