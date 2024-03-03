@@ -31,6 +31,8 @@ function MyTripLocationSelectPage() {
     const [inputRef, SearchInput] = useSearchInput({
         placeholder: "어디로 떠나시나요?",
         onChange: onChange,
+        backgroundColor:"white",
+        borderColor:"#ADADAD"
     });
 
     function selectLocation(location: string) {

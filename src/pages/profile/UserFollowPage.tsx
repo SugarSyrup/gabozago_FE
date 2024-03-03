@@ -3,18 +3,31 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import * as S from "../../styles/pages/profile/UserFollowPage.style";
 import LeftChevronIcon from "../../assets/icons/leftChevron.svg?react";
-import SearchIcon from "../../assets/icons/search.svg?react";
 
 import FollowList from "../../components/profile/FollowList";
 import PageTemplate from "../../components/common/PageTemplate";
 
 import { Followers, FollowerType } from "../../assets/data/followers";
+import useSearchInput from "../../hooks/useSearchInput";
 
 function UserFollowPage() {
     const { uid } = useParams();
     const [ isMyProfile, setIsMyProfile] = useState(false);
     const [ currentTap, setCurrentTap ] = useState<"follower" | "following">("follower");
     const [ data, setData] = useState<FollowerType[]>(Followers);
+    const [inputRef, SearchInput] = useSearchInput({
+        placeholder: "사용자명, 닉네임을 검색해보세요.",
+        onSubmit: (e) => {
+            e.preventDefault();
+        },
+        onChange: (e) => {
+            setData(Followers.filter(user => user.name.includes(e.currentTarget.value)));
+        },
+        backgroundColor:"#F3F4F6",
+        borderColor:"#F3F4F6",
+        searchIconColor: "#ADADAD",
+        placeholderColor:"#ADADAD",
+    });
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -41,15 +54,8 @@ function UserFollowPage() {
                     <S.HighLightLine position={currentTap}/>
                 </S.SeperateLine>
                 
-                <S.InputWrapper onSubmit={(e) => {
-                    e.preventDefault();
-                }}>
-                    <S.Input type="text" placeholder="사용자명, 닉네임을 검색해보세요." name="searchResult" onChange={(e) => {
-                        setData(Followers.filter(user => user.name.includes(e.currentTarget.value)));
-                    }}/>
-                    <S.ButtonWrapper>
-                        <SearchIcon />
-                    </S.ButtonWrapper>
+                <S.InputWrapper>
+                    <SearchInput />
                 </S.InputWrapper>
 
                 <FollowList data={data} isMyProfile={isMyProfile}/>

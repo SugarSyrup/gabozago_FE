@@ -89,30 +89,7 @@ export const HighLightLine = styled.div<{position: string}>`
 export const InputWrapper = styled.form`
     margin-top:12px;
 
-    width:100%;
-    padding:7px 20px;
-
-    background-color:${({theme}) => theme.gray05};
     border-radius:20px;
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-`
-
-export const Input = styled.input`
-    border:none;
-    background-color:inherit;
-
-    width:80%;
-
-    &::placeholder {
-        color:${({theme}) => theme.gray02};
-        font-size:14px;
-        font-weight:400;
-        line-height:22px;
-        letter-spacing:0.2px;
-    }
 `
 
 export const ButtonWrapper= styled.button`

@@ -22,6 +22,8 @@ function MyTripLocationSearchPage() {
     const [inputRef, SearchInput] = useSearchInput({
         placeholder: "장소명을 입력하세요",
         onChange: onChange,
+        backgroundColor:"white",
+        borderColor:"#ADADAD"
     });
 
     function onChange() {
