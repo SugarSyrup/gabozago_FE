@@ -1,12 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./pages/App";
-import MyTripPage from "./pages/MyTripPage";
+import MyTripPage from "./pages/mytrip/MyTripPage";
 import TestPage from "./pages/TestPage";
 import MyTripDetailPage from "./pages/MyTripDetailPage";
-import MyTripLocationSelectPage from "./pages/MyTripLocationSelectPage";
-import MyTripDatesSelectPage from "./pages/MyTripDatesSelectPage";
-import MyTripLocationSearchPage from "./pages/MyTripLocationSearchPage";
-import MyTripPlaceCreatePage from "./pages/MyTripPlaceCreatePage";
+import MyTripLocationSelectPage from "./pages/mytrip/LocationSelectPage";
+import MyTripDatesSelectPage from "./pages/mytrip/DatesSelectePage";
+import MyTripLocationSearchPage from "./pages/mytrip/MyLocationSearchPage";
+import MyTripPlaceCreatePage from "./pages/mytrip/PlaceCreatePage";
 import ScrapBookPage from "./pages/scrapbook/ScrapBookPage";
 import ScrapBookGroupPage from "./pages/scrapbook/ScrapBookGroupPage";
 import ProfilePage from "./pages/profile/ProfilePage";
