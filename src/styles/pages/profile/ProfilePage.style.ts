@@ -69,7 +69,7 @@ export const Statics = styled.ol`
     gap:10px;
 `
 
-export const StaticItem = styled.li<{isHover: boolean}>`
+export const StaticItem = styled.li<{isHover?: boolean}>`
     flex-grow: 1;
     height:68px;
 

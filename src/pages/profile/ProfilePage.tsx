@@ -17,6 +17,7 @@ import FollowBtn from "../../components/profile/FollowBtn";
 function ProfilePage() {
     const { uid } = useParams();
     const [ isMyProfile, setIsMyProfile ] = useState<boolean>(false);
+    const [ headerHeight, setHeaderHeight ] = useState<number>(200);
     const [ currentTap, setCurrentTap ] = useState<"trip" | "review" | "activity">("trip")
     const {name, follower, following, reviews, hearts, views, desc} = useLoaderData() as userDataType;
     const FixedHeaderRef = useRef<HTMLDivElement>(null);
@@ -27,8 +28,10 @@ function ProfilePage() {
     }, [])
 
     useEffect(() => {
-
-    }, [isMyProfile]);
+        if(FixedHeaderRef.current) {
+            setHeaderHeight(FixedHeaderRef.current.offsetHeight)
+        }
+    }, [FixedHeaderRef.current])
 
     return (
         <PageTemplate >
@@ -89,7 +92,7 @@ function ProfilePage() {
                     <S.HighLightLine position={currentTap}/>
                 </S.SeperateLine>
             </S.FixedContainer>
-            <S.Content FixedContainerHeight={FixedHeaderRef.current?.offsetHeight} >
+            <S.Content FixedContainerHeight={headerHeight} >
                 {(() => {
                     switch (currentTap) {
                         case "trip" :
