@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 
 import { selectedLocationsState } from "../recoil/mytrip/createData";
@@ -34,10 +34,12 @@ function MyTripLocationSelectPage() {
     });
 
     function selectLocation(location: string) {
-        setSelectedLocations((prev) =>
-            [location, ...prev].filter((findLocation, index) => {
-                return [location, ...prev].indexOf(findLocation) === index;
+        setSelectedLocations((prev) =>{
+            const addLocations = [...prev, location];
+            return addLocations.filter((findLocation, index) => {
+                return addLocations.indexOf(findLocation) === index;
             })
+            }
         );
     }
 
@@ -65,7 +67,7 @@ function MyTripLocationSelectPage() {
     }
 
     return (
-        <PageTemplate nav={false} header={false}>
+        <PageTemplate nav={false}>
             <S.Header>
                 <BackButton />
                 <SearchInput />
@@ -122,7 +124,11 @@ function MyTripLocationSelectPage() {
                     disabled={!(selectedLocations.length > 0)}
                     active={selectedLocations.length > 0}
                 >
-                    지역을 선택해주세요.
+                    {selectLocation.length === 0 ? 
+                        "지역을 선택해주세요." 
+                        : 
+                        `${selectedLocations.map((location) => " " + location)} 선택 완료`
+                    }
                 </Button>
             </S.Footer>
         </PageTemplate>
