@@ -25,16 +25,16 @@ function SelectedPlaces() {
     }, [selectedPlaces])
 
     return (
-        <>
-            <S.Container>
+        <S.Container>
+            <S.SelectedPlaceList>
                 {
                     selectedPlaces.map((selectedPlace, idx) => <SelectedPlaceItem name={selectedPlace.name} key={selectedPlace.id} id={selectedPlace.id} onDelete={onDelete} />)
                 }
-            </S.Container>
-            <Button size="lg" type="normal" disabled={!hasSelectedPlaces} active={hasSelectedPlaces}>
+            </S.SelectedPlaceList>
+            <Button size="lg" type="normal" disabled={!hasSelectedPlaces} active={hasSelectedPlaces} width={"100%"}>
                 {hasSelectedPlaces ? "장소 선택 완료" : "장소를 선택해주세요" }
             </Button>
-        </>
+        </S.Container>
     );
 }
 

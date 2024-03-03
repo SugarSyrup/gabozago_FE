@@ -33,6 +33,10 @@ export const ImgWrapper = styled.div`
     background-color: ${({ theme }) => theme.gray04};
 
     position: relative;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
 `;
 
 export const Content = styled.span`

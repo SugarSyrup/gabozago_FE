@@ -101,37 +101,31 @@ function MyTripPage() {
       </S.ContentHeadingWrappper>
       <S.ContentContainer>
         <ScheduleContent
-          imgURL="abc"
           heading="제목"
           content="본문"
           currentBookMarked={true}
         />
         <ScheduleContent
-          imgURL="abc"
           heading="제목"
           content="본문"
           currentBookMarked={true}
         />
         <ScheduleContent
-          imgURL="abc"
           heading="제목"
           content="본문"
           currentBookMarked={true}
         />
         <ScheduleContent
-          imgURL="abc"
           heading="제목"
           content="본문"
           currentBookMarked={true}
         />
         <ScheduleContent
-          imgURL="abc"
           heading="제목"
           content="본문"
           currentBookMarked={true}
         />
         <ScheduleContent
-          imgURL="abc"
           heading="제목"
           content="본문"
           currentBookMarked={true}

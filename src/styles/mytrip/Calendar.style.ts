@@ -57,7 +57,7 @@ export const Date = styled.div<DateProps>`
     z-index:1
 `
 
-export const DateHightlight = styled.div<{isStartDate:boolean}>`
+export const DateHightlight = styled.div<{isStartDate:boolean, isThisDate: boolean}>`
     width:36px;
     height:36px;
 
@@ -70,7 +70,31 @@ export const DateHightlight = styled.div<{isStartDate:boolean}>`
     background-color:#5276FA;
     color:white;
     
-    ${({isStartDate}) => isStartDate ? 
+    ${({isStartDate, isThisDate}) => isThisDate ? 
+    `&::before {
+        content: "";
+        width:50%;
+        height:100%;
+
+        background-color:white;
+
+        position:absolute;
+        left:0;
+        z-index:-1;
+    }
+    &::after {
+        content: "";
+        width:50%;
+        height:100%;
+
+        background-color:white;
+
+        position:absolute;
+        right:0;
+        z-index:-1;
+    }`
+    :
+    isStartDate ? 
         `&::before {
             content: "";
             width:50%;
@@ -82,7 +106,8 @@ export const DateHightlight = styled.div<{isStartDate:boolean}>`
             left:0;
             z-index:-1;
         }` 
-        : `&::after {
+        : 
+        `&::after {
             content: "";
             width:50%;
             height:100%;
@@ -94,7 +119,7 @@ export const DateHightlight = styled.div<{isStartDate:boolean}>`
             z-index:-1;
         }`
     }
-`
+`;
 
 export const Empty = styled.div`
     width:44px;

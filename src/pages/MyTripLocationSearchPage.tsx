@@ -22,6 +22,8 @@ function MyTripLocationSearchPage() {
     const [inputRef, SearchInput] = useSearchInput({
         placeholder: "장소명을 입력하세요",
         onChange: onChange,
+        backgroundColor:"white",
+        borderColor:"#ADADAD"
     });
 
     function onChange() {
@@ -50,7 +52,11 @@ function MyTripLocationSearchPage() {
         }
     }, []);
     return (
-        <PageTemplate nav={false}>
+        <PageTemplate nav={
+            <S.Footer>
+                <SelectedLocations />
+            </S.Footer>
+        }>
             <S.Header>
                 <S.SearchBar>
                     <BackButton></BackButton>
@@ -126,9 +132,6 @@ function MyTripLocationSearchPage() {
                         />
                     </S.RecommendatoinReviewList>
                 </S.Contents>
-                <S.Footer>
-                    <SelectedLocations />
-                </S.Footer>
             </>
             }
         </PageTemplate>

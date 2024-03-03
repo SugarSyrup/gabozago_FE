@@ -9,6 +9,10 @@ interface Props {
     required?: boolean;
     onSubmit?: React.FormEventHandler;
     onChange?: () => void;
+    backgroundColor: string;
+    borderColor: string;
+    searchIconColor?: string;
+    placeholderColor?: string;
 }
 
 function useSearchInput({
@@ -16,18 +20,29 @@ function useSearchInput({
     required,
     onSubmit,
     onChange,
+    backgroundColor,
+    borderColor,
+    searchIconColor,
+    placeholderColor,
 }: Props): [React.RefObject<HTMLInputElement>, () => JSX.Element] {
     const inputRef = useRef<HTMLInputElement>(null);
     const SearchInput = useCallback(() => {
         const [hasValue, setHasValue] = useState(false);
 
         return (
-            <S.Container onSubmit={onSubmit}>
+            <S.Container 
+                onSubmit={onSubmit}
+                backgroundColor={backgroundColor}
+                borderColor={borderColor}
+            >
                 <S.Input
                     placeholder={placeholder}
                     required={required}
                     ref={inputRef}
-                    onInput={(e) => {
+                    id="searchInput"
+                    placeholderColor={placeholderColor}
+                    onChange={(e) => {
+                        console.log("worked!");
                         if (e.currentTarget.value == "") {
                             setHasValue(false);
                         } else {
@@ -48,16 +63,21 @@ function useSearchInput({
                                     inputRef.current.value = "";
                                 }
                                 setHasValue(false);
+                                
+                                if(onChange){
+                                    onChange()
+                                }
+                                // searchInputEle?.dispatchEvent(new Event('change', { bubbles: true }));
                             }}
                         />
                     )}
-                    <S.SearchButton>
+                    <S.SearchButton searchIconColor={searchIconColor}>
                         <SearchIcon className="searchIcon" />
                     </S.SearchButton>
                 </S.Btns>
             </S.Container>
         );
-    }, []);
+    }, [inputRef]);
 
     return [inputRef, SearchInput];
 }

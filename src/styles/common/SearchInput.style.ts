@@ -1,9 +1,15 @@
 import styled from "styled-components";
 
-export const Container = styled.form`
-    padding: 9px 20px;
+export const Container = styled.form<{
+    backgroundColor: string;
+    borderColor: string;
+}>`
+    padding:7px 20px;
     border-radius: 20px;
     border: ${({ theme }) => "1px solid" + theme.gray02};
+    border: ${({ borderColor }) => "1px solid" + borderColor};
+    background-color: ${({ backgroundColor }) => backgroundColor};
+
     &:focus-within {
         border: ${({ theme }) => "1px solid" + theme.main};
     }
@@ -16,7 +22,7 @@ export const Container = styled.form`
     width: 100%;
 `;
 
-export const Input = styled.input`
+export const Input = styled.input<{placeholderColor?: string}>`
     border: none;
     width: 80%;
 
@@ -24,8 +30,9 @@ export const Input = styled.input`
     line-height: 22px;
     font-size: 16px;
 
+    background-color:inherit;
     &::placeholder {
-        color: ${({ theme }) => theme.blue03};
+        color: ${({ theme, placeholderColor }) => placeholderColor? placeholderColor : theme.blue03};
     }
 
     &:focus {
@@ -47,12 +54,12 @@ export const Btns = styled.div`
     }
 `;
 
-export const SearchButton = styled.div`
+export const SearchButton = styled.div<{searchIconColor?: string}>`
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
     path {
-        fill: ${({ theme }) => theme.main};
+        fill: ${({ theme, searchIconColor }) => searchIconColor ? searchIconColor : theme.main};
     }
 `;

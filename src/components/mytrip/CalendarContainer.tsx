@@ -48,9 +48,11 @@ function CalendarContainer() {
     function drawCalendars() {
         const elements = [];
         const currentDateInfo = new Date();
-
-        for(let year = currentDateInfo.getFullYear(); year<=currentDateInfo.getFullYear() + 10; year++) {
-            for(let month = currentDateInfo.getMonth(); month<=12; month++) {
+        for(let month = currentDateInfo.getMonth(); month<=12; month++) {
+            elements.push(<Calendar year={currentDateInfo.getFullYear()} month={month} onDateClick={onDateClick} startDate={dates.startDate} endDate={dates.endDate}/>)
+        }
+        for(let year = currentDateInfo.getFullYear() + 1; year<=currentDateInfo.getFullYear() + 10; year++) {
+            for(let month = 1; month<=12; month++) {
                 elements.push(<Calendar year={year} month={month} onDateClick={onDateClick} startDate={dates.startDate} endDate={dates.endDate}/>)
             }
         }
@@ -65,15 +67,16 @@ function CalendarContainer() {
             </S.CalendarContainer>
             
             <S.Footer>
-                <Link to="/mytrip/create/location">
+                <Link to="/mytrip/create/location" style={{width:"100%"}}>
                     <Button
                         size="lg"
                         type="normal"
                         disabled={dates.startDate === "" && dates.endDate === ""}
                         active={dates.startDate !== "" && dates.endDate !== ""}
+                        width={"100%"}
                     >
                         {dates.startDate !== "" && dates.endDate !== "" ? 
-                            `${dates.startDate.slice(0,4)}.${dates.startDate.slice(4,6)}.${dates.startDate.slice(6,8)} - ${dates.startDate.slice(0,4) !== dates.endDate.slice(0,4) ? `${dates.endDate.slice(0,4)}.` : ""}${dates.startDate.slice(4,6) !== dates.endDate.slice(4,6) ? `${dates.endDate.slice(4,6)}.` : ""}${dates.endDate.slice(6,8)} / ${dateDiff}박 ${dateDiff+1}일`
+                            `${dates.startDate.slice(0,4)}.${dates.startDate.slice(4,6)}.${dates.startDate.slice(6,8)} ${dates.startDate === dates.endDate ? "" : "-"} ${dates.startDate.slice(0,4) !== dates.endDate.slice(0,4) ? `${dates.endDate.slice(0,4)}.` : ""}${dates.startDate.slice(4,6) !== dates.endDate.slice(4,6) ? `${dates.endDate.slice(4,6)}.` : ""}${dates.startDate.slice(6,8) !== dates.endDate.slice(6,8) ? `${dates.endDate.slice(6,8)}.` : ""} / ${dateDiff}박 ${dateDiff+1}일`
                             : "날짜를 선택해주세요." 
                         }
                     </Button>

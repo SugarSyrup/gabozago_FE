@@ -1,11 +1,12 @@
 import * as S from "../../styles/mytrip/ScheduleContent.style";
+import ImageIcon from "../../assets/icons/image.svg?react";
 
 import Heading from "../common/Heading";
 
 import BookMarkBtn from "./BookMarkBtn";
 
 interface Props {
-    imgURL: string;
+    imgURL?: string;
     heading: string;
     content: string;
     currentBookMarked: boolean;
@@ -27,7 +28,12 @@ function ScheduleContent({
                         onClick={onBookMarkClickHandler}
                     />
                 </S.BookMarkWrapper>
-                <img src={imgURL} alt={heading}></img>
+                {
+                    imgURL ? 
+                    <img src={imgURL} alt={heading} loading="lazy" decoding="async" />
+                    :
+                    <ImageIcon width={62} height={62}/>
+                }
             </S.ImgWrapper>
             <Heading size="xs" maxWidth={164} noOfLine={1}>
                 {heading}

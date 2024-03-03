@@ -55,7 +55,7 @@ export const NavigationItem = styled.div<{ isHighlight: boolean }>`
     width: 40%;
 
     cursor: pointer;
-    transition: color 0.2s linear;
+    transition: color 0.2s ease-in-out;
 `;
 
 export const HighlightLine = styled.div<{ isHighlight: boolean }>`
@@ -66,7 +66,7 @@ export const HighlightLine = styled.div<{ isHighlight: boolean }>`
     left: ${({ isHighlight }) => (isHighlight ? "0px" : "50%")};
     bottom: -2px;
 
-    transition: left 0.2s linear;
+    transition: left 0.2s ease-in-out;
 `;
 
 export const Contents = styled.div`
@@ -96,9 +96,9 @@ export const RecommendatoinReviewList = styled.div`
 `;
 
 export const Footer = styled.footer`
-    position: absolute;
-    left:0px;
-    bottom: 0px;
+    position: relative;
+    /* left:0px;
+    bottom: 0px; */
 
     width: 100%;
     padding-top:18px;

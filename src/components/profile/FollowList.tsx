@@ -5,9 +5,10 @@ import FollowItem from "./FollowItem";
 
 interface Props {
     data: FollowerType[];
+    isMyProfile: boolean;
 }
 
-function FollowList({data}:Props) {
+function FollowList({data, isMyProfile}:Props) {
     return(
         <S.Container>
             <S.Header>
@@ -19,7 +20,7 @@ function FollowList({data}:Props) {
             </S.Header>
             <S.List>
                 {
-                    data.map((follower) => <FollowItem name={follower.name} key={follower.id} id={follower.id}/>)
+                    data.map((follower) => <FollowItem name={follower.name} key={follower.id} id={follower.id} isMyProfile={isMyProfile}/>)
                 }
             </S.List>
         </S.Container>

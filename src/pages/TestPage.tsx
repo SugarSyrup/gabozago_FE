@@ -4,7 +4,10 @@ import useModal from "../hooks/useModal";
 import usePopup from "../hooks/usePopup";
 
 function TestPage() {
-  const [, SearchInput] = useSearchInput({});
+  const [, SearchInput] = useSearchInput({
+    backgroundColor:"white",
+    borderColor:"#ADADAD"
+  });
   const { Modal, modalOpen } = useModal({
     title: "제목입력",
   });

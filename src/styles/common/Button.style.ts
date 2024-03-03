@@ -4,6 +4,7 @@ interface Props {
     type: "normal" | "text";
     size: "lg" | "md" | "sm" | "xs";
     active?: boolean;
+    width?: string
 }
 
 export const Button = styled.button<Props>`
@@ -33,6 +34,9 @@ export const Button = styled.button<Props>`
     color: ${({ type, theme }) => type == "text" && theme.gray01};
     color: ${({ type, theme }) => type == "normal" && theme.black};
     color: ${({ active, theme }) => active && theme.white};
+
+    box-sizing:border-box;
+    width: ${({ width }) => width && `${width}`};
 
     &:disabled {
         background-color: ${({ theme }) => theme.gray03};
