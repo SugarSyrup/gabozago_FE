@@ -48,9 +48,11 @@ function CalendarContainer() {
     function drawCalendars() {
         const elements = [];
         const currentDateInfo = new Date();
-
-        for(let year = currentDateInfo.getFullYear(); year<=currentDateInfo.getFullYear() + 10; year++) {
-            for(let month = currentDateInfo.getMonth(); month<=12; month++) {
+        for(let month = currentDateInfo.getMonth(); month<=12; month++) {
+            elements.push(<Calendar year={currentDateInfo.getFullYear()} month={month} onDateClick={onDateClick} startDate={dates.startDate} endDate={dates.endDate}/>)
+        }
+        for(let year = currentDateInfo.getFullYear() + 1; year<=currentDateInfo.getFullYear() + 10; year++) {
+            for(let month = 1; month<=12; month++) {
                 elements.push(<Calendar year={year} month={month} onDateClick={onDateClick} startDate={dates.startDate} endDate={dates.endDate}/>)
             }
         }
