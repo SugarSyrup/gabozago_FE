@@ -1,4 +1,4 @@
-import * as S from "../../styles/mypage/TripItem.style";
+import * as S from "../../styles/ProfilePage/TripItem.style";
 import MeatBallsMenuIcon from "../../assets/icons/meatballsMenu.svg?react";
 import LocationIcon from "../../assets/icons/location.svg?react";
 import CalendarIcon from "../../assets/icons/calendar.svg?react";

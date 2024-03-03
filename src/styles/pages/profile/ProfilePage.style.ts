@@ -20,8 +20,8 @@ export const FixedContainer = styled.div`
     background-color:white;
 `
 
-export const Content = styled.div`
-    padding-top:200px;
+export const Content = styled.div<{FixedContainerHeight: number | undefined}>`
+    padding-top:${({FixedContainerHeight}) => FixedContainerHeight ? `${FixedContainerHeight - 40}px`  : "200px" };
 `
 
 export const Header = styled.header`
@@ -61,6 +61,7 @@ export const ProfileEditBtn = styled.button`
 export const Statics = styled.ol`
     width:100%;
     margin-top:10px;
+    margin-bottom:6px;
 
     display:flex;
     justify-content:space-between;
@@ -95,9 +96,27 @@ export const StaticItemStat = styled.span`
     line-height: 22px; 
 `
 
+export const UserIntroduce = styled.div`
+    width:100%;
+    padding:14px 20px;
+    border-radius:10px;
+
+    background-color:${({theme}) => theme.blue05};
+    margin-top:4px;
+
+    span {
+        width:100%;
+        /* background-color:#D9D9D9; */
+
+        font-size: 12px;
+        line-height: 20px; /* 166.667% */
+        letter-spacing: 0.2px;
+    }
+`
+
 export const TapNavigationBar = styled.nav`
     width:100%;
-    margin-top:26px;
+    margin-top:20px;
 
     display:flex;
     gap:30px;

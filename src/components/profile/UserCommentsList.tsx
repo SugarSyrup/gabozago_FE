@@ -1,13 +1,13 @@
-import * as S from "../../styles/mypage/MyCommentsList.style";
+import * as S from "../../styles/ProfilePage/UserCommentsList.style";
 
-import { myCommentsType } from "../../assets/data/mypageData";
+import { userCommentsType } from "../../assets/data/userpageData";
 import CommentIcon from "../../assets/icons/comment_fill.svg?react";
 
 interface Props {
-    data: myCommentsType[];
+    data: userCommentsType[];
 }
 
-function MyCommentsList({data}: Props) {
+function UserCommentsList({data}: Props) {
     return(
         <S.List>
             {data.map(({comment, postName}) => 
@@ -23,4 +23,4 @@ function MyCommentsList({data}: Props) {
     );
 }
 
-export default MyCommentsList;
+export default UserCommentsList;

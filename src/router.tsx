@@ -9,8 +9,10 @@ import MyTripLocationSearchPage from "./pages/MyTripLocationSearchPage";
 import MyTripPlaceCreatePage from "./pages/MyTripPlaceCreatePage";
 import ScrapBookPage from "./pages/scrapbook/ScrapBookPage";
 import ScrapBookGroupPage from "./pages/scrapbook/ScrapBookGroupPage";
-import MyPage from "./pages/MyPage";
+import ProfilePage from "./pages/profile/ProfilePage";
 import { userData } from "./assets/data/userData";
+import UserEditPage from "./pages/profile/UserEditPage";
+import UserFollowPage from "./pages/profile/UserFollowPage";
 
 const router = createBrowserRouter([
   {
@@ -46,13 +48,25 @@ const router = createBrowserRouter([
     path: "/mytrip/:id/create",
     element: <MyTripPlaceCreatePage />,
   },
-  /* ---- 스크랩 페이지 ---- */
+  /* ---- 유저 프로필 페이지 ---- */
   {
-      path:"/profile/:id",
-      element:<MyPage />,
+      path:"/profile/:uid",
+      element:<ProfilePage />,
       loader: async() => {
           return userData;
       }
+  },
+  {
+    path:"/profile/:uid/follow",
+    element:<UserFollowPage />
+  },
+  {
+    // TODO : [LOGIN 기능 정의 이후] LOGIN 정보를 기반으로 접근 허용 / 거부
+    path:"/profile/:uid/edit",
+    element: <UserEditPage />,
+    loader: async() => {
+        return userData;
+    }
   },
   /* ---- 스크랩 페이지 ---- */
   {

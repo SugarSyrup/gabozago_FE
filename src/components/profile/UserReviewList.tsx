@@ -1,14 +1,14 @@
-import * as S from "../../styles/mypage/MyReviewList.style";
+import * as S from "../../styles/ProfilePage/UserReviewList.style";
 
 import ClapIcon from "../../assets/icons/clap.svg?react";
 import CommentIcon from "../../assets/icons/comment.svg?react";
-import { myReviewType } from "../../assets/data/mypageData";
+import { userReviewType } from "../../assets/data/userpageData";
 
 interface Props {
-    data: myReviewType[],
+    data: userReviewType[],
 }
 
-function MyReviewList({data}: Props) {
+function UserReviewList({data}: Props) {
     return(
         <S.List>
             {
@@ -32,4 +32,4 @@ function MyReviewList({data}: Props) {
     );
 }
 
-export default MyReviewList;
+export default UserReviewList;
