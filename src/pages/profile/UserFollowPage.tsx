@@ -20,15 +20,17 @@ function UserFollowPage() {
         onSubmit: (e) => {
             e.preventDefault();
         },
-        onChange: (e) => {
-            setData(Followers.filter(user => user.name.includes(e.currentTarget.value)));
-        },
+        onChange: onChange,
         backgroundColor:"#F3F4F6",
         borderColor:"#F3F4F6",
         searchIconColor: "#ADADAD",
         placeholderColor:"#ADADAD",
     });
     const navigate = useNavigate();
+
+    function onChange() {
+        setData(Followers.filter(user => user.name.includes(inputRef.current ? inputRef.current.value : "")));
+    }
 
     useEffect(() => {
         // TODO : [백엔드] 유저의 팔로우, 팔로잉 리스트 GET

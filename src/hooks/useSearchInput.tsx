@@ -8,7 +8,7 @@ interface Props {
     placeholder?: string;
     required?: boolean;
     onSubmit?: React.FormEventHandler;
-    onChange?: React.ChangeEventHandler<HTMLInputElement>;
+    onChange?: () => void;
     backgroundColor: string;
     borderColor: string;
     searchIconColor?: string;
@@ -39,8 +39,10 @@ function useSearchInput({
                     placeholder={placeholder}
                     required={required}
                     ref={inputRef}
+                    id="searchInput"
                     placeholderColor={placeholderColor}
                     onChange={(e) => {
+                        console.log("worked!");
                         if (e.currentTarget.value == "") {
                             setHasValue(false);
                         } else {
@@ -48,7 +50,7 @@ function useSearchInput({
                         }
 
                         if (onChange) {
-                            onChange(e);
+                            onChange();
                         }
                     }}
                 />
@@ -61,6 +63,11 @@ function useSearchInput({
                                     inputRef.current.value = "";
                                 }
                                 setHasValue(false);
+                                
+                                if(onChange){
+                                    onChange()
+                                }
+                                // searchInputEle?.dispatchEvent(new Event('change', { bubbles: true }));
                             }}
                         />
                     )}
@@ -70,7 +77,7 @@ function useSearchInput({
                 </S.Btns>
             </S.Container>
         );
-    }, []);
+    }, [inputRef]);
 
     return [inputRef, SearchInput];
 }
