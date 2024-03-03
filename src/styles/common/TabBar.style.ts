@@ -28,10 +28,8 @@ export const TabItem = styled.li<{ focused: boolean }>`
 export const HighlightLine = styled.div<{ tabsLength: number; focus: number }>`
   position: absolute;
   bottom: 0;
-  transform: translateX(
-    ${({ tabsLength, focus }) =>
-      focus ? css`calc(100% / ${tabsLength} * ${focus})` : "0"}
-  );
+  left: ${({ tabsLength, focus }) =>
+    focus ? css`calc(100% / ${tabsLength} * ${focus})` : "0"};
   width: calc(100% / ${({ tabsLength }) => tabsLength});
   height: 2px;
 
