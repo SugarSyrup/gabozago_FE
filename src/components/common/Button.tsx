@@ -8,9 +8,10 @@ interface Props {
     children?: ReactNode;
     active?: boolean;
     onClick?: React.MouseEventHandler<HTMLButtonElement>;
+    width?: string
 }
 
-function Button({ disabled, children, type, size, active, onClick }: Props) {
+function Button({ disabled, children, type, size, active, width, onClick }: Props) {
     return (
         <S.Button
             disabled={disabled}
@@ -18,6 +19,7 @@ function Button({ disabled, children, type, size, active, onClick }: Props) {
             size={size}
             active={active}
             onClick={onClick}
+            width={width}
         >
             {children}
         </S.Button>

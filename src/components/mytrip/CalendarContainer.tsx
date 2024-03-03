@@ -67,12 +67,13 @@ function CalendarContainer() {
             </S.CalendarContainer>
             
             <S.Footer>
-                <Link to="/mytrip/create/location">
+                <Link to="/mytrip/create/location" style={{width:"100%"}}>
                     <Button
                         size="lg"
                         type="normal"
                         disabled={dates.startDate === "" && dates.endDate === ""}
                         active={dates.startDate !== "" && dates.endDate !== ""}
+                        width={"100%"}
                     >
                         {dates.startDate !== "" && dates.endDate !== "" ? 
                             `${dates.startDate.slice(0,4)}.${dates.startDate.slice(4,6)}.${dates.startDate.slice(6,8)} ${dates.startDate === dates.endDate ? "" : "-"} ${dates.startDate.slice(0,4) !== dates.endDate.slice(0,4) ? `${dates.endDate.slice(0,4)}.` : ""}${dates.startDate.slice(4,6) !== dates.endDate.slice(4,6) ? `${dates.endDate.slice(4,6)}.` : ""}${dates.startDate.slice(6,8) !== dates.endDate.slice(6,8) ? `${dates.endDate.slice(6,8)}.` : ""} / ${dateDiff}박 ${dateDiff+1}일`

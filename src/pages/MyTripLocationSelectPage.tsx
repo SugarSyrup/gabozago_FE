@@ -123,6 +123,7 @@ function MyTripLocationSelectPage() {
                     type="normal"
                     disabled={!(selectedLocations.length > 0)}
                     active={selectedLocations.length > 0}
+                    width={"100%"}
                 >
                     {selectLocation.length === 0 ? 
                         "지역을 선택해주세요." 
