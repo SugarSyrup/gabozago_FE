@@ -14,11 +14,16 @@ import UserEditPage from "./pages/profile/UserEditPage";
 import UserFollowPage from "./pages/profile/UserFollowPage";
 
 import { userData } from "./assets/data/userData";
+import HomePage from "./pages/home/HomePage";
 
 const router = createBrowserRouter([
   {
+    path: "*",
+    element: <HomePage />,
+  },
+  {
     path: "/",
-    element: <App />,
+    element: <HomePage />,
   },
   /* ---- 내 여행 페이지 ---- */
   {

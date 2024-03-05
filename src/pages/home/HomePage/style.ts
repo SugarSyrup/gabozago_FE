@@ -1,0 +1,47 @@
+import styled from "styled-components";
+
+export const Header = styled.header`
+  padding: 0 20px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: ${({ theme }) => theme.white};
+
+  &::before {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    content: "";
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: ${({ theme }) => theme.gray04};
+  }
+`;
+
+export const SearchButton = styled.button`
+  height: fit-content;
+  padding: 0;
+  cursor: pointer;
+  border: 0;
+  background-color: transparent;
+  border-radius: 50%;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.gray05};
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+`;
+
+export const ContentBox = styled.div`
+  margin-top: 44px;
+  padding-top: 4px;
+`;
