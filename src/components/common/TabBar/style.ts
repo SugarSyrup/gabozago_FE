@@ -17,6 +17,7 @@ export const TabItem = styled.li<{
   widthStyle: "fit-content" | "flexible";
   focused: boolean;
   fontSize: string | "14px";
+  color: string | "default";
 }>`
   padding: 10px 0;
   flex-grow: ${({ widthStyle }) => (widthStyle === "flexible" ? 1 : 0)};
@@ -27,8 +28,13 @@ export const TabItem = styled.li<{
   font-size: ${({ fontSize }) => fontSize};
   line-height: 22px;
   font-weight: ${({ focused }) => (focused === true ? "600" : "500")};
-  color: ${({ theme, focused }) =>
-    focused === true ? theme.main : theme.gray01};
+  color: ${({ theme, focused, color }) => {
+    if (focused) {
+      return theme.main;
+    } else {
+      return color === "default" ? theme.gray01 : color;
+    }
+  }};
 
   transition: all 0.3s ease-in-out;
 `;

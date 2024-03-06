@@ -12,7 +12,8 @@ interface Props {
   focusedTabIndex: number;
   setFocusedTabIndex: Dispatch<SetStateAction<number>>;
   widthStyle?: "fit-content" | "flexible" | undefined;
-  fontSize?: string | "14px" | undefined;
+  fontSize?: string | undefined;
+  color?: string | undefined;
 }
 
 function TabBar({
@@ -21,6 +22,7 @@ function TabBar({
   setFocusedTabIndex,
   widthStyle = "flexible",
   fontSize = "14px",
+  color = "default",
 }: Props) {
   const tabRefs = tabs.map(() => createRef<HTMLLIElement>());
   const [highlightOption, setHighlightOption] = useState({
@@ -42,12 +44,13 @@ function TabBar({
           <S.TabItem
             key={tab.id}
             ref={tabRefs[index]}
-            focused={index === focusedTabIndex}
             onClick={() => {
               setFocusedTabIndex(index);
             }}
+            focused={index === focusedTabIndex}
             widthStyle={widthStyle}
             fontSize={fontSize}
+            color={color}
           >
             {tab.name}
           </S.TabItem>
