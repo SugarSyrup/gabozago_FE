@@ -38,6 +38,9 @@ export const SearchButton = styled.button`
   svg {
     width: 24px;
     height: 24px;
+    path {
+      fill: ${({ theme }) => theme.gray};
+    }
   }
 `;
 

@@ -21,6 +21,7 @@ function HomePage() {
           setFocusedTabIndex={setFocusedTabIndex}
           widthStyle="fit-content"
           fontSize="20px"
+          color="#424242"
         />
         <S.SearchButton
           onClick={() => {
