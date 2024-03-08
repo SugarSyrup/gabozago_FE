@@ -85,3 +85,20 @@ export const SendButton = styled.button`
     }
   }
 `;
+
+export const NoCommentBox = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -65%);
+  color: ${({ theme }) => theme.gray02};
+  font-size: 12px;
+  font-weight: 400;
+
+  p:first-of-type {
+    margin-bottom: 8px;
+    color: ${({ theme }) => theme.black};
+    font-size: 16px;
+    font-weight: 500;
+  }
+`;

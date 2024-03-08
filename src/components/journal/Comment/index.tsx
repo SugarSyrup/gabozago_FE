@@ -14,18 +14,18 @@ function Comment({ commentInputPosition = "top" }: Props) {
           댓글 <S.CommentCountSpan>{comments.length}</S.CommentCountSpan>
         </Heading>
       </S.Header>
+      <S.CommentInputBox position={commentInputPosition}>
+        <S.UserProfileImg />
+        <S.CommentInput type="text" placeholder="댓글 달기..." />
+        <S.SendButton
+          onClick={() => {
+            alert("전송");
+          }}
+        >
+          <SendIcon />
+        </S.SendButton>
+      </S.CommentInputBox>
       <S.Contents>
-        <S.CommentInputBox position={commentInputPosition}>
-          <S.UserProfileImg src={`${userIcon}`} />
-          <S.CommentInput type="text" placeholder="댓글 달기..." />
-          <S.SendButton
-            onClick={() => {
-              alert("전송");
-            }}
-          >
-            <SendIcon />
-          </S.SendButton>
-        </S.CommentInputBox>
         {comments && comments.length !== 0 ? (
           <>
             <div>댓글1</div>
@@ -33,7 +33,10 @@ function Comment({ commentInputPosition = "top" }: Props) {
             <div>댓글3</div>
           </>
         ) : (
-          <>댓글없듬</>
+          <S.NoCommentBox>
+            <p>아직 댓글이 없습니다.</p>
+            <p>가장 먼저 댓글을 남겨 보세요!</p>
+          </S.NoCommentBox>
         )}
       </S.Contents>
     </S.Container>
