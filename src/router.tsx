@@ -12,18 +12,20 @@ import ScrapBookGroupPage from "./pages/scrapbook/ScrapBookGroupPage";
 import ProfilePage from "./pages/profile/ProfilePage";
 import UserEditPage from "./pages/profile/UserEditPage";
 import UserFollowPage from "./pages/profile/UserFollowPage";
+import HomePage from "./pages/home/HomePage";
+import ShortFormPage from "./pages/journal/ShortformPage";
 
 import { userData } from "./assets/data/userData";
-import HomePage from "./pages/home/HomePage";
 
 const router = createBrowserRouter([
   {
     path: "*",
     element: <HomePage />,
   },
+  /* ---- 여행기 페이지 ---- */
   {
-    path: "/",
-    element: <HomePage />,
+    path: "/journal/:id",
+    element: <ShortFormPage />,
   },
   /* ---- 내 여행 페이지 ---- */
   {
