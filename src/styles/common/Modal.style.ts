@@ -20,18 +20,19 @@ export const ModalContainer = styled.div`
   }
 `;
 
-export const Modal = styled.div`
+export const Modal = styled.div<{ borderRadius: string }>`
   position: absolute;
   bottom: 0;
   width: 100%;
   min-height: 330px;
   background-color: ${({ theme }) => theme.white};
-  border-radius: 30px 30px 0px 0px;
+  border-radius: ${({ borderRadius }) =>
+    `${borderRadius} ${borderRadius} 0px 0px`};
   box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
 `;
 
 export const CloseHandle = styled.button`
-  padding: 12px 0 30px;
+  padding: 12px 0 16px;
   width: 100%;
   cursor: grab;
   border: 0;
@@ -59,5 +60,5 @@ export const Title = styled.div`
 `;
 
 export const Contents = styled.div`
-  padding: 0 25px;
+  padding-top: 24px;
 `;
