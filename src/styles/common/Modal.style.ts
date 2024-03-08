@@ -3,6 +3,10 @@ import styled from "styled-components";
 export const ModalContainer = styled.div`
   position: absolute;
   width: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
   overflow: hidden;
   z-index: 30;
 
