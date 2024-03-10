@@ -1,14 +1,20 @@
 import styled, { css } from "styled-components";
 import UserIcon from "../../../assets/icons/user.svg?react";
 
-export const Container = styled.div`
+export const Header = styled.header<{ position: "bottom" | "top" }>`
   width: 100%;
-  word-break: keep-all;
-`;
-
-export const Header = styled.header`
   padding: 10px 16px 12px;
   border-bottom: 1px solid ${({ theme }) => theme.gray04};
+  background-color: ${({ theme }) => theme.white};
+
+  ${({ position }) =>
+    position === "bottom" &&
+    css`
+      position: absolute;
+      top: 0;
+      padding-top: 24px;
+      z-index: 10;
+    `}
 `;
 
 export const CommentCountSpan = styled.span`
@@ -16,8 +22,16 @@ export const CommentCountSpan = styled.span`
 `;
 
 export const Contents = styled.div<{ position: "bottom" | "top" }>`
-  padding: ${({ position }) =>
-    position === "bottom" ? "16px 15px 100px" : "16px 0px"};
+  ${({ position }) =>
+    position === "bottom"
+      ? css`
+          height: 80vh;
+          padding: 50px 15px 120px;
+          overflow-y: auto;
+        `
+      : css`
+          padding: 16px 0px;
+        `};
 `;
 
 export const CommentInputForm = styled.form<{ position: "bottom" | "top" }>`
@@ -39,6 +53,7 @@ export const CommentInputForm = styled.form<{ position: "bottom" | "top" }>`
           right: 0;
 
           border-top: 1px solid ${({ theme }) => theme.gray04};
+          z-index: 10;
         `
       : css`
           position: relative;

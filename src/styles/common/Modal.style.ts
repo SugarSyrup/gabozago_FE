@@ -21,9 +21,11 @@ export const ModalContainer = styled.div`
 `;
 
 export const Modal = styled.div<{ borderRadius: string }>`
+  overflow: hidden;
   position: absolute;
   bottom: 0;
   width: 100%;
+  max-height: 80vh;
   min-height: 330px;
   background-color: ${({ theme }) => theme.white};
   border-radius: ${({ borderRadius }) =>

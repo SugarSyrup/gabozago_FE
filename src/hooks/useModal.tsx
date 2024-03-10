@@ -5,6 +5,7 @@ interface Options {
   title?: string;
   handle?: boolean;
   borderRadius?: string;
+  height?: string;
 }
 
 function useModal({
@@ -31,6 +32,7 @@ function useModal({
               //   alert("click");
             }}
             borderRadius={borderRadius}
+            // height={height}
           >
             {handle && <S.CloseHandle onClick={modalClose} />}
             <S.Contents>

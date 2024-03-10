@@ -25,7 +25,6 @@ function Comment({ commentInputPosition = "top" }: Props) {
 
   useEffect(() => {
     // @todo: id 가져와 댓글 목록 업데이트하기
-
     const comment = {
       id: "9de9f8ff-2a75-4294-Bf2f-7e06755395c8",
       name: "상은수",
@@ -37,12 +36,12 @@ function Comment({ commentInputPosition = "top" }: Props) {
       parentCommentId: "",
     };
 
-    setComments([comment, comment]);
+    setComments([comment, comment, comment]);
   }, []);
 
   return (
-    <S.Container>
-      <S.Header>
+    <>
+      <S.Header position={commentInputPosition}>
         <Heading size="sm">
           댓글 <S.CommentCountSpan>{comments.length}</S.CommentCountSpan>
         </Heading>
@@ -80,7 +79,7 @@ function Comment({ commentInputPosition = "top" }: Props) {
           </S.NoCommentBox>
         )}
       </S.Contents>
-    </S.Container>
+    </>
   );
 }
 
