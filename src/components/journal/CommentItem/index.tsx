@@ -80,7 +80,7 @@ function CommentItem({
                 toggleLike();
               }}
             >
-              {isLiked ? <ClapIcon /> : <ClapBlueIcon />}
+              {isLiked ? <ClapBlueIcon /> : <ClapIcon />}
               <span>{like}</span>
             </S.IconButton>
             <S.IconButton onClick={addReply}>
