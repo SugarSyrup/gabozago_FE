@@ -15,15 +15,19 @@ export const CommentCountSpan = styled.span`
   color: ${({ theme }) => theme.main};
 `;
 
-export const Contents = styled.div`
-  padding: 16px 15px;
+export const Contents = styled.div<{ position: "bottom" | "top" }>`
+  padding: ${({ position }) =>
+    position === "bottom" ? "16px 15px 100px" : "16px 0px"};
 `;
 
-export const CommentInputBox = styled.div<{ position: "bottom" | "top" }>`
+export const CommentInputForm = styled.form<{ position: "bottom" | "top" }>`
   display: flex;
+  flex-wrap: nowrap;
   gap: 7px;
   justify-content: space-between;
   align-items: center;
+
+  background-color: ${({ theme }) => theme.white};
 
   ${({ position }) =>
     position === "bottom"
@@ -43,6 +47,8 @@ export const CommentInputBox = styled.div<{ position: "bottom" | "top" }>`
 `;
 
 export const UserProfileImg = styled(UserIcon)`
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
 
   path {
@@ -50,8 +56,13 @@ export const UserProfileImg = styled(UserIcon)`
   }
 `;
 
-export const CommentInput = styled.input`
+export const CommentInputControlBox = styled.div`
+  position: relative;
   flex: 1 1 100%;
+`;
+
+export const CommentInput = styled.input`
+  width: 100%;
   padding: 9px 18px;
   line-height: 22px;
 
@@ -66,10 +77,14 @@ export const CommentInput = styled.input`
 
 export const SendButton = styled.button`
   position: absolute;
-  right: 28px;
-  cursor: pointer;
+  top: 50%;
+  right: 12px;
+  padding: 0;
   width: 30px;
 
+  transform: translateY(-50%);
+
+  cursor: pointer;
   border: 0;
   background-color: transparent;
 
@@ -84,6 +99,12 @@ export const SendButton = styled.button`
       fill: ${({ theme }) => theme.gray02};
     }
   }
+`;
+
+export const CommentList = styled.ol`
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 `;
 
 export const NoCommentBox = styled.div`
