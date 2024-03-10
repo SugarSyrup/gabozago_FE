@@ -28,12 +28,25 @@ export const UserProfileImg = styled.img`
   object-fit: cover;
 `;
 export const ContentsBox = styled.div`
+  position: relative;
   flex: 1 1 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
   gap: 6px;
+`;
+
+export const MenuButton = styled.button`
+  position: absolute;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  padding: 0px;
+
+  cursor: pointer;
+  border: 0;
+  background-color: transparent;
 `;
 
 export const UserNameSpan = styled.span`

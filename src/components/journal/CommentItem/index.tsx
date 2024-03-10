@@ -6,6 +6,7 @@ import UserIcon from "../../../assets/icons/user.svg?react";
 import ChatBubbleIcon from "../../../assets/icons/chatBubble.svg?react";
 import ClapIcon from "../../../assets/icons/clap.svg?react";
 import ClapBlueIcon from "../../../assets/icons/clap_blue.svg?react";
+import KebabMenuIcon from "../../../assets/icons/menu_kebab.svg?react";
 
 interface Props {
   id: string;
@@ -57,6 +58,14 @@ function CommentItem({
           </S.UserProfileImgBox>
         </Link>
         <S.ContentsBox>
+          <S.MenuButton
+            onClick={() => {
+              // @todo: 삭제 혹은 신고
+              alert("@todo: 삭제 혹은 신고");
+            }}
+          >
+            <KebabMenuIcon />
+          </S.MenuButton>
           <div>
             <Link to={`/profile/${username}`}>
               <S.UserNameSpan>{name}</S.UserNameSpan>
