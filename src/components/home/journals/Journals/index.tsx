@@ -1,7 +1,28 @@
 import { useState } from "react";
 import ShortFormList from "../shortform/ShortFormList";
 import * as S from "./style";
+import SnapshotList from "../snapshot/SnapshotList";
 
+const snapshots = [
+  {
+    id: 232132131,
+    title: "제목",
+    location: "부산",
+    createdAt: "2021-12-31",
+    userid: "useridididid",
+    username: "최민석",
+    profileImage: "https://placehold.co/300x300",
+    images: [
+      "https://placehold.co/300x300",
+      "https://placehold.co/300x300",
+      "https://placehold.co/300x300",
+    ],
+    text: "본문내용 어쩌구저쩌구", // 본문 내용
+    like: 20,
+    bookmark: 30,
+    commentCount: 12,
+  },
+];
 const shortForms = [
   {
     id: 0,
@@ -44,7 +65,7 @@ function Journals() {
     { text: "게시글", contents: <></> },
     { text: "영상", contents: <></> },
     { text: "숏폼", contents: <ShortFormList data={shortForms} /> },
-    { text: "사진", contents: <></> },
+    { text: "사진", contents: <SnapshotList data={snapshots} /> },
   ];
 
   return (
