@@ -1,36 +1,54 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled.div<{ widthStyle: "fit-content" | "flexible" }>`
   position: relative;
+  width: ${({ widthStyle }) =>
+    widthStyle === "flexible" ? "auto" : widthStyle};
 `;
 
-export const TabList = styled.ol`
+export const TabList = styled.ol<{ widthStyle: "fit-content" | "flexible" }>`
   display: flex;
   justify-content: space-around;
+  gap: ${({ widthStyle }) => (widthStyle === "flexible" ? "0" : "13px")};
+  border-bottom: 2px solid ${({ theme }) => theme.gray04};
 `;
 
-export const TabItem = styled.li<{ focused: boolean }>`
-  padding: 10px;
-  flex-grow: 1;
-
+export const TabItem = styled.li<{
+  widthStyle: "fit-content" | "flexible";
+  focused: boolean;
+  fontSize: string | "14px";
+  color: string | "default";
+}>`
+  padding: 10px 0;
+  flex-grow: ${({ widthStyle }) => (widthStyle === "flexible" ? 1 : 0)};
+  flex-basis: ${({ widthStyle }) =>
+    widthStyle === "flexible" ? "auto" : "fit-content"};
   cursor: pointer;
   text-align: center;
-  font-size: 14px;
+  font-size: ${({ fontSize }) => fontSize};
   line-height: 22px;
   font-weight: ${({ focused }) => (focused === true ? "600" : "500")};
-  color: ${({ theme, focused }) =>
-    focused === true ? theme.main : theme.gray01};
-  border-bottom: 2px solid ${({ theme }) => theme.gray04};
+  color: ${({ theme, focused, color }) => {
+    if (focused) {
+      return theme.main;
+    } else {
+      return color === "default" ? theme.gray01 : color;
+    }
+  }};
 
   transition: all 0.3s ease-in-out;
 `;
 
-export const HighlightLine = styled.div<{ tabsLength: number; focus: number }>`
+export const HighlightLine = styled.div<{
+  tabsLength: number;
+  focus: number;
+  width: number;
+  x: number;
+}>`
   position: absolute;
   bottom: 0;
-  left: ${({ tabsLength, focus }) =>
-    focus ? css`calc(100% / ${tabsLength} * ${focus})` : "0"};
-  width: calc(100% / ${({ tabsLength }) => tabsLength});
+  left: ${({ x }) => x}px;
+  width: ${({ width }) => width}px;
   height: 2px;
 
   background-color: ${({ theme }) => theme.main};
