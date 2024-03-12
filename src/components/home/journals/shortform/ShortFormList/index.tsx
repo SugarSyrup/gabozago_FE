@@ -1,6 +1,7 @@
 import * as S from "./style";
 import { Link } from "react-router-dom";
 import KebabMenuIcon from "../../../../../assets/icons/menu_kebab.svg?react";
+import LocationIcon from "../../../../../assets/icons/location.svg?react";
 
 interface Props {
   data: {
@@ -23,7 +24,10 @@ function ShortFormList({ data }: Props) {
                 <KebabMenuIcon />
               </S.MenuButton>
               <S.InfoBox>
-                <p>{location}</p>
+                <p>
+                  <LocationIcon />
+                  {location ? location : "-"}
+                </p>
                 <p>{title}</p>
               </S.InfoBox>
             </S.Container>

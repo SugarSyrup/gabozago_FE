@@ -40,11 +40,18 @@ export const InfoBox = styled.div`
   bottom: 0;
 
   text-decoration: none;
-  text-shadow: 0 0 5px #00000040;
   font-weight: 400;
   line-height: 22px;
   color: ${({ theme }) => theme.white};
 
+  p:nth-child(1) {
+    svg {
+      margin-right: 5px;
+      path {
+        fill: ${({ theme }) => theme.white};
+      }
+    }
+  }
   p:nth-child(2) {
     margin-top: 3px;
 
