@@ -24,7 +24,7 @@ const router = createBrowserRouter([
   },
   /* ---- 여행기 페이지 ---- */
   {
-    path: "/journal/:id",
+    path: "/journal/shortform/:id",
     element: <ShortFormPage />,
   },
   /* ---- 내 여행 페이지 ---- */

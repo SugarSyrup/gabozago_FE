@@ -17,7 +17,7 @@ function ShortFormList({ data }: Props) {
     <S.List>
       {data.map(({ id, title, location, thumbnail }) => (
         <S.ListItem>
-          <Link to={`/shortform/${id}`}>
+          <Link to={`/journal/shortform/${id}`}>
             <S.Container>
               <S.ThumbnailImage src={thumbnail} alt="" />
               <S.MenuButton>
