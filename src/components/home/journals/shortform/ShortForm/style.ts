@@ -17,6 +17,7 @@ export const InfoBox = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
+  width: 80%;
   display: flex;
   flex-direction: column;
   gap: 11px;
@@ -31,6 +32,7 @@ export const InfoBox = styled.div`
       align-items: center;
       gap: 6px;
 
+      word-break: keep-all;
       font-size: 14px;
       font-weight: 500;
       text-decoration: none;
@@ -56,7 +58,8 @@ export const InfoBox = styled.div`
     padding-left: 2px;
     font-weight: 500;
     font-size: 16px;
-    line-height: 20px;
+    line-height: 22px;
+    word-break: keep-all;
     color: ${({ theme }) => theme.white};
   }
   p:nth-child(3) {
@@ -93,6 +96,45 @@ export const FollowButton = styled.button`
   border: 0;
   background-color: ${({ theme }) => theme.main};
   color: white;
+`;
+
+export const ControlBox = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 0 20px 44px;
+`;
+
+export const IconButton = styled.button`
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  color: ${({ theme }) => theme.white};
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+
+  svg {
+    margin-bottom: 6px;
+    width: 30px;
+    height: 30px;
+  }
+
+  &:not(:first-child) {
+    margin-top: 20px;
+    svg path {
+      fill: ${({ theme }) => theme.white};
+    }
+  }
+
+  &:first-child svg {
+    path {
+      stroke: ${({ theme }) => theme.gray02};
+    }
+  }
 `;
 
 export const YoutubeContainer = styled.div`

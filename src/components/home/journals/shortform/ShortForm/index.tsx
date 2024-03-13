@@ -4,6 +4,10 @@ import { Suspense, useRef } from "react";
 import FollowBtn from "../../../../profile/FollowBtn";
 import UserIcon from "../../../../../assets/icons/user.svg?react";
 import LocationIcon from "../../../../../assets/icons/location.svg?react";
+import BookMarkIcon from "../../../../../assets/icons/bookmark.svg?react";
+import CommentIcon from "../../../../../assets/icons/comment.svg?react";
+import LikeIcon from "../../../../../assets/icons/clap.svg?react";
+import ShareIcon from "../../../../../assets/icons/share.svg?react";
 
 export interface TShortForm {
   id: number;
@@ -71,13 +75,45 @@ function ShortForm({
           </span>
         </p>
       </S.InfoBox>
-      {/* <S.ControlBox></S.ControlBox> */}
+      <S.ControlBox>
+        <S.IconButton
+          onClick={() => {
+            // @todo: ClickHandler 연결
+          }}
+        >
+          <LikeIcon />
+          {like}
+        </S.IconButton>
+        <S.IconButton
+          onClick={() => {
+            // @todo: ClickHandler 연결
+          }}
+        >
+          <CommentIcon />
+          {commentCount}
+        </S.IconButton>
+        <S.IconButton
+          onClick={() => {
+            // @todo: ClickHandler 연결
+          }}
+        >
+          <BookMarkIcon />
+          {bookmark}
+        </S.IconButton>
+        <S.IconButton
+          onClick={() => {
+            // @todo: ClickHandler 연결
+          }}
+        >
+          <ShareIcon />
+        </S.IconButton>
+      </S.ControlBox>
       <S.YoutubeContainer>
         <Suspense fallback={<S.YoutubeFallback>로딩 중...</S.YoutubeFallback>}>
           <S.YoutubeIframe
             ref={youtubeRef}
             src={`https://www.youtube.com/embed/${videoId}?${queryString}`}
-            allow="autoplay"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             loading="lazy"
           />
         </Suspense>
