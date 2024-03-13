@@ -19,7 +19,7 @@ function ShortFormPage() {
       location: "여수",
       createdAt: "2024-02-13",
       thumbnail: "https://placehold.co/400x600",
-      video: "https://youtube.com/shorts/8Ka1IaC9akw?si=tISsl8l1zI6CiKI-", // 숏폼 url
+      videoId: "8Ka1IaC9akw", // 숏폼 url
       userid: "choiminshuk",
       username: "최민석",
       profileImage: "https://placehold.co/400x600",
