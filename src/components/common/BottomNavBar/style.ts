@@ -3,7 +3,9 @@ import styled from "styled-components";
 export const Nav = styled.nav`
   width: 100%;
   background-color: ${({ theme }) => theme.white};
+  z-index: 20;
 `;
+
 export const NavList = styled.ul`
   margin: auto;
   margin-bottom: 20px;
