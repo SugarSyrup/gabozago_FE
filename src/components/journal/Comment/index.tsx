@@ -5,10 +5,11 @@ import CommentItem, { Comment } from "../CommentItem";
 import { MouseEventHandler, useEffect, useRef, useState } from "react";
 
 interface Props {
+  id: number;
   commentInputPosition?: "bottom" | "top";
 }
 
-function Comment({ commentInputPosition = "top" }: Props) {
+function Comment({ id, commentInputPosition = "top" }: Props) {
   const commentInputRef = useRef<HTMLInputElement>(null);
   const [comment, setComment] = useState<string>("");
   const [comments, setComments] = useState<Comment[]>([]);

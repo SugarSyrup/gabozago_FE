@@ -1,5 +1,17 @@
 import styled from "styled-components";
 
+export const UrlLabel = styled.label`
+  display: block;
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 14px;
+`;
+
+export const UrlInput = styled.input`
+  width: 100%;
+  padding: 5px 10px;
+`;
+
 export const Container = styled.div`
   position: absolute;
   top: 0;
