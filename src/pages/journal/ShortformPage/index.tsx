@@ -5,6 +5,8 @@ import PageTemplate from "../../../components/common/PageTemplate";
 import ShortForm, {
   TShortForm,
 } from "../../../components/home/journals/shortform/ShortForm";
+import BackButton from "../../../components/common/BackButton";
+import KebabMenuIcon from "../../../assets/icons/menu_kebab.svg?react";
 
 function ShortFormPage() {
   const { pathname } = useLocation();
@@ -31,6 +33,12 @@ function ShortFormPage() {
 
   return (
     <PageTemplate>
+      <S.Header>
+        <BackButton />
+        <S.IconButton>
+          <KebabMenuIcon id="메뉴" />
+        </S.IconButton>
+      </S.Header>
       <S.Container>
         <ShortForm {...data} />
       </S.Container>
