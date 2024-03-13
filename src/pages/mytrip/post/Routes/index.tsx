@@ -5,144 +5,6 @@ import ChevronBottomIcon from "../../../../assets/icons/chevron_bottom.svg?react
 import ChevronTopIcon from "../../../../assets/icons/chevron_top.svg?react";
 import { useState } from "react";
 
-const data = [
-    {
-        day: 1,
-        places: [
-            {
-                id:1,
-                name:"TEXT",
-                thumbnailURL:""
-            },
-            {
-                id:2,
-                name:"TEXT",
-                thumbnailURL:""
-            },
-            {
-                id:3,
-                name:"TEXT",
-                thumbnailURL:""
-            },
-            {
-                id:4,
-                name:"TEXT",
-                thumbnailURL:""
-            },
-            {
-                id:5,
-                name:"TEXT",
-                thumbnailURL:""
-            },
-            {
-                id:6,
-                name:"TEXT",
-                thumbnailURL:""
-            },
-            {
-                id:7,
-                name:"TEXT",
-                thumbnailURL:""
-            },
-            {
-                id:8,
-                name:"TEXT",
-                thumbnailURL:""
-            },
-            {
-                id:9,
-                name:"TEXT",
-                thumbnailURL:""
-            },
-            {
-                id:10,
-                name:"TEXT",
-                thumbnailURL:""
-            },
-        ]
-    },
-    {
-        day: 2,
-        places: [
-            {
-                id:1,
-                name:"TEXT",
-                thumbnailURL:""
-            },
-            {
-                id:2,
-                name:"TEXT",
-                thumbnailURL:""
-            },
-            {
-                id:3,
-                name:"TEXT",
-                thumbnailURL:""
-            },
-            {
-                id:4,
-                name:"TEXT",
-                thumbnailURL:""
-            },
-            {
-                id:5,
-                name:"TEXT",
-                thumbnailURL:""
-            }
-        ]
-    },
-    {
-        day: 3,
-        places: [
-            {
-                id:1,
-                name:"TEXT",
-                thumbnailURL:""
-            }
-        ]
-    },
-    {
-        day: 4,
-        places: [
-            {
-                id:1,
-                name:"TEXT",
-                thumbnailURL:""
-            },
-            {
-                id:2,
-                name:"TEXT",
-                thumbnailURL:""
-            }
-        ]
-    },
-    {
-        day: 5,
-        places: [
-            {
-                id:1,
-                name:"TEXT",
-                thumbnailURL:""
-            },
-            {
-                id:2,
-                name:"TEXT",
-                thumbnailURL:""
-            },
-            {
-                id:3,
-                name:"TEXT",
-                thumbnailURL:""
-            },
-            {
-                id:4,
-                name:"TEXT",
-                thumbnailURL:""
-            },
-        ]
-    },
-]
-
 interface DayType {
     day:number,
     places:{
@@ -152,7 +14,11 @@ interface DayType {
     }[]
 }
 
-function Routes() {
+interface Props {
+    data: DayType[];
+}
+
+function Routes({data}: Props) {
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
     return(
