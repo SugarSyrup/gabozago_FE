@@ -1,7 +1,7 @@
-import ClapIcon from "../../../../assets/icons/clap.svg?react";
-import CommentIcon from "../../../../assets/icons/comment.svg?react";
-import BookMarkIcon from "../../../../assets/icons/bookmark.svg?react";
-import ShareIcon from "../../../../assets/icons/share.svg?react";
+import ClapIcon from "../../../assets/icons/clap.svg?react";
+import CommentIcon from "../../../assets/icons/comment.svg?react";
+import BookMarkIcon from "../../../assets/icons/bookmark.svg?react";
+import ShareIcon from "../../../assets/icons/share.svg?react";
 
 import * as S from "./style";
 

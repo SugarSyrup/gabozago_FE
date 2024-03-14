@@ -1,6 +1,6 @@
-import ChevronRightIcon from "../../../../assets/icons/chevron_right.svg?react";
-import CalendarAddIcon from "../../../../assets/icons/calendar_add_border.svg?react";
-import BookMarkIcon from "../../../../assets/icons/bookmark.svg?react";
+import ChevronRightIcon from "../../../assets/icons/chevron_right.svg?react";
+import CalendarAddIcon from "../../../assets/icons/calendar_add_border.svg?react";
+import BookMarkIcon from "../../../assets/icons/bookmark.svg?react";
 
 import * as S from "./style";
 import PhotoSlider from "../PhotoSlider";

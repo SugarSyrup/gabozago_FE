@@ -1,8 +1,8 @@
 import * as S from "./style";
-import Heading from "../../../../components/common/Heading";
-import DoubleCircleIcon from "../../../../assets/icons/double_circle.svg?react";
-import ChevronBottomIcon from "../../../../assets/icons/chevron_bottom.svg?react";
-import ChevronTopIcon from "../../../../assets/icons/chevron_top.svg?react";
+import Heading from "../../common/Heading";
+import DoubleCircleIcon from "../../../assets/icons/double_circle.svg?react";
+import ChevronBottomIcon from "../../../assets/icons/chevron_bottom.svg?react";
+import ChevronTopIcon from "../../../assets/icons/chevron_top.svg?react";
 import { useState } from "react";
 
 interface DayType {

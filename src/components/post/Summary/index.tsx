@@ -1,9 +1,9 @@
-import LocationIcon from "../../../../assets/icons/location.svg?react";
-import PeoplesIcon from "../../../../assets/icons/peoples.svg?react";
-import CalendarIcon from "../../../../assets/icons/calendar.svg?react";
-import CardIcon from "../../../../assets/icons/card.svg?react";
-import SnowIcon from "../../../../assets/icons/snow.svg?react";
-import ThemeIcon from "../../../../assets/icons/theme.svg?react";
+import LocationIcon from "../../../assets/icons/location.svg?react";
+import PeoplesIcon from "../../../assets/icons/peoples.svg?react";
+import CalendarIcon from "../../../assets/icons/calendar.svg?react";
+import CardIcon from "../../../assets/icons/card.svg?react";
+import SnowIcon from "../../../assets/icons/snow.svg?react";
+import ThemeIcon from "../../../assets/icons/theme.svg?react";
 
 import * as S from "./style";
 
