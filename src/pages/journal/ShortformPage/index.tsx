@@ -7,6 +7,7 @@ import ShortForm, {
 } from "../../../components/home/journals/shortform/ShortForm";
 import BackButton from "../../../components/common/BackButton";
 import KebabMenuIcon from "../../../assets/icons/menu_kebab.svg?react";
+import BottomNavBar from "../../../components/common/BottomNavBar";
 
 function ShortFormPage() {
   const { pathname } = useLocation();
@@ -32,7 +33,7 @@ function ShortFormPage() {
   }, []);
 
   return (
-    <PageTemplate>
+    <PageTemplate nav={<BottomNavBar style="transparent" />}>
       <S.Header>
         <BackButton />
         <S.IconButton>
