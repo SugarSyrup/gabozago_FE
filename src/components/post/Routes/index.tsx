@@ -8,7 +8,7 @@ import { useState } from "react";
 interface DayType {
     day:number,
     places:{
-        id:number,
+        id:string,
         name:string,
         thumbnailURL:string,
     }[]

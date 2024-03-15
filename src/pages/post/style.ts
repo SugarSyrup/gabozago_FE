@@ -1,33 +1,48 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const ThumbnailWrapper = styled.div`
-    width:100%;
-    height:340px;
+export const PageContainer = styled.div`
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: grid;
+    grid-template-rows: 1fr fit-content(100%);
+    margin: auto;
+    max-width: 500px;
+    width: 100%;
+    height: 100vh;
 
+    overflow:auto;
+`
+
+export const ThumbnailWrapper = styled.img`
+    width: 100%;
+    height:340px;
+    
     background-color:${({theme}) => theme.gray03 };
     position:absolute;
-    top:-40px;
-    left:-20px;
+    top:0px;
+    left:0px;
     z-index:2;
-
-    overflow-y:scroll;
 `
 
 export const Header = styled.header`
     position:relative;
     
-
     width:100%;
-    padding-top:300px;
+    padding-top:340px;
+    padding-left:20px;
+    padding-right:20px;
     /* padding-left:20px;
     padding-right:20px; */
+    
 
     display:flex;
     flex-direction:column;   
 
     padding-bottom:25px;
-    border-bottom:8px solid ${({theme}) => theme.gray06};
 
     background-color:white;
 `
@@ -114,6 +129,13 @@ export const FollowBtn = styled.button`
 `
 
 export const Contents = styled.div`
+    margin-top:14px;
+    
+    background-color:white;
+    padding-top:14px;
+    padding-left:20px;
+    padding-right:20px;
+    padding-bottom:36px;
 `
 
 export const Day = styled.div`
@@ -135,10 +157,29 @@ export const Day = styled.div`
     }
 `
 
+export const SeperateLine = styled.div`
+    transform:translateX(-20px);
+
+    width: calc(100% + 40px);
+    height:8px;
+
+
+    background-color:${({theme}) => theme.gray06};
+`
+
 export const DayLink = styled(Link)`
     color:white;
     font-size: 12px;
     font-weight: 500;
     line-height: 28px; 
     text-decoration-line: underline;
+`
+
+export const Comments = styled.div`
+    width:100%;
+    margin-top:10px;
+    padding-left:20px;
+    padding-right:20px;
+
+    background-color:white;
 `

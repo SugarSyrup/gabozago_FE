@@ -2,14 +2,20 @@ import styled from "styled-components";
 
 export const Navigation = styled.nav`
     width:100%;
+    max-width:500px;
     padding-top:16px;
     padding-bottom:32px;
     padding-left:36px;
     padding-right:36px;
 
+    background-color:white;
+
     display:flex;
     justify-content:space-between;
     align-items:center;
+
+    position:fixed;
+    bottom:0px;
 `
 
 export const NavigationItem = styled.div`
