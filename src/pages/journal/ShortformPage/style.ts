@@ -25,6 +25,18 @@ export const Header = styled.header`
   }
 `;
 
+export const UrlLabel = styled.label`
+  display: block;
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 14px;
+`;
+
+export const UrlInput = styled.input`
+  width: 100%;
+  padding: 5px 10px;
+`;
+
 export const IconButton = styled.button`
   padding: 0;
   width: 24px;
@@ -35,13 +47,19 @@ export const IconButton = styled.button`
 `;
 
 export const Container = styled.div`
+  width: 100%;
+  min-height: 100%;
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  padding-bottom: 80px;
-  width: 100%;
-  min-height: 90%;
-  background-color: ${({ theme }) => theme.black};
+  /* padding-bottom: 80px; */
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-padding-top: var(--ytd-margin-6x);
+  margin-top: var(--ytd-shorts-top-spacing);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  background-color: ${({ theme }) => theme.gray};
 `;

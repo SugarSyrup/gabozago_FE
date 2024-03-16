@@ -8,9 +8,6 @@ import BookMarkIcon from "../../../../../assets/icons/bookmark.svg?react";
 import CommentIcon from "../../../../../assets/icons/comment.svg?react";
 import LikeIcon from "../../../../../assets/icons/clap.svg?react";
 import ShareIcon from "../../../../../assets/icons/share.svg?react";
-import useModal from "../../../../../hooks/useModal";
-import Comment from "../../../../journal/Comment";
-import usePopup from "../../../../../hooks/usePopup";
 
 export interface TShortForm {
   id: number;
@@ -25,6 +22,8 @@ export interface TShortForm {
   like: number;
   bookmark: number;
   commentCount: number;
+  modalOpen: () => void;
+  popupOpen: () => void;
 }
 
 function ShortForm({
@@ -40,15 +39,11 @@ function ShortForm({
   like,
   bookmark,
   commentCount,
+  modalOpen,
+  popupOpen,
 }: TShortForm) {
   // @todo: 유저정보에서 좋아요 정보 가져와 비교 => 좋아요 활성화/비활성화 관리
   // @todo: 스크랩 데이터에서 스크랩됐는지 비교 => 북마크 활성화/비활성화 관리
-  const { Modal, modalOpen } = useModal({
-    title: "",
-    handle: false,
-    borderRadius: "16px",
-  });
-  const { Popup, popupOpen } = usePopup();
   const youtubeRef = useRef<HTMLIFrameElement>(null);
   const opts = {
     autoplay: 1,
@@ -66,24 +61,6 @@ function ShortForm({
 
   return (
     <>
-      <Modal>
-        <Comment id={id} commentInputPosition="bottom" />
-      </Modal>
-      <Popup>
-        <S.UrlLabel htmlFor="urlCopy">
-          아래 링크를 복사해 공유해보세요!
-        </S.UrlLabel>
-        <S.UrlInput
-          type="url"
-          name="현재 링크 복사"
-          id="urlCopy"
-          value={window.location.href}
-          disabled
-        />
-      </Popup>
-      <Modal>
-        <Comment id={id} commentInputPosition="bottom" />
-      </Modal>
       <S.Container>
         <S.InfoBox>
           <p>

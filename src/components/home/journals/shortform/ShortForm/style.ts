@@ -1,25 +1,15 @@
 import styled from "styled-components";
 
-export const UrlLabel = styled.label`
-  display: block;
-  text-align: center;
-  margin-bottom: 10px;
-  font-size: 14px;
-`;
-
-export const UrlInput = styled.input`
-  width: 100%;
-  padding: 5px 10px;
-`;
-
 export const Container = styled.div`
-  transform: translateY(0);
-  transition: transform ease-in-out 0.3s;
+  position: relative;
   height: 100%;
+  scroll-snap-align: center;
+  margin-bottom: 10px;
 `;
 
 export const InfoBox = styled.div`
   padding: 17px 20px;
+  margin-bottom: 80px;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -46,6 +36,7 @@ export const InfoBox = styled.div`
 
       svg {
         width: 30px;
+        height: 30px;
         path {
           fill: ${({ theme }) => theme.white};
         }
@@ -108,7 +99,8 @@ export const ControlBox = styled.div`
   position: absolute;
   bottom: 0;
   right: 0;
-  margin: 0 20px 44px;
+  padding: 17px 20px;
+  margin-bottom: 80px;
 `;
 
 export const IconButton = styled.button`
@@ -144,6 +136,8 @@ export const IconButton = styled.button`
 `;
 
 export const YoutubeContainer = styled.div`
+  overflow: hidden;
+  border-radius: 10px;
   width: 100%;
   height: inherit;
 `;
