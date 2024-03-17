@@ -25,13 +25,22 @@ export const FilterButton = styled.button`
   line-height: 18px;
   font-weight: 500;
 
+  cursor: pointer;
   color: ${({ theme }) => theme.gray01};
   border: 0;
   box-shadow: 0 0 0 1px ${({ theme }) => theme.gray02} inset;
   border-radius: 6px;
   background-color: ${({ theme }) => theme.gray07};
 
-  cursor: pointer;
+  &.active {
+    color: ${({ theme }) => theme.main};
+    box-shadow: 0 0 0 1px ${({ theme }) => theme.main} inset;
+    background-color: ${({ theme }) => theme.blue05};
+
+    svg path {
+      stroke: ${({ theme }) => theme.main};
+    }
+  }
 
   &:hover,
   &:active {
