@@ -1,6 +1,6 @@
 import * as S from "./style";
 import OptionsIcon from "../../../assets/icons/options.svg?react";
-import ChevronBottomIcon from "../../../assets/icons/chevron_bottom_small.svg?react";
+import FilterButton from "../FilterButton";
 
 interface Props {
   filters: string[];
@@ -16,10 +16,7 @@ function FilterList({ filters }: Props) {
       </S.FilterItem>
       {filters.map((item) => (
         <S.FilterItem>
-          <S.FilterButton onClick={() => alert(item)}>
-            {item}
-            <ChevronBottomIcon />
-          </S.FilterButton>
+          <FilterButton name={item} />
         </S.FilterItem>
       ))}
     </S.FilterList>
