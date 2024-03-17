@@ -3,9 +3,16 @@ import * as S from "../styles/common/Modal.style";
 
 interface Options {
   title?: string;
+  handle?: boolean;
+  borderRadius?: string;
+  height?: string;
 }
 
-function useModal({ title }: Options) {
+function useModal({
+  title = "",
+  handle = true,
+  borderRadius = "30px",
+}: Options) {
   const [isOpend, setIsOpend] = useState(false);
 
   const modalOpen = () => {
@@ -24,8 +31,10 @@ function useModal({ title }: Options) {
               e.stopPropagation();
               //   alert("click");
             }}
+            borderRadius={borderRadius}
+            // height={height}
           >
-            <S.CloseHandle onClick={modalClose} />
+            {handle && <S.CloseHandle onClick={modalClose} />}
             <S.Contents>
               {title && <S.Title>{title}</S.Title>}
               {children}
