@@ -16,9 +16,10 @@ interface DayType {
 
 interface Props {
     data: DayType[];
+    alertOpenFn: (tripName: string, day: number) => void;
 }
 
-function Routes({data}: Props) {
+function Routes({data, alertOpenFn}: Props) {
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
     return(
@@ -34,14 +35,16 @@ function Routes({data}: Props) {
                                 for( let i = 0; i<dayData.places.length / 5; i++){
                                     slicePlaces.push(dayData.places.slice(i*5,(i+1)*5));
                                 }
-                                console.log(slicePlaces);
 
                                 return (
                                     <>
                                         <S.RouteItemContent line={1}>
                                             <DoubleCircleIcon />
                                             <span>Day {dayData.day}</span>
-                                            <S.RouteItemLink to="/post">코스 저장하기</S.RouteItemLink>
+                                            <S.RouteItemLink onClick={() => {
+                                                {/* TODO: req -> res 저장된 여행 경로 가져와서, alert */}
+                                                alertOpenFn("부산 여행",dayData.day)
+                                            }}>코스 저장하기</S.RouteItemLink>
                                         </S.RouteItemContent>
                                         {
                                             slicePlaces.map((places, line) => 
@@ -50,6 +53,7 @@ function Routes({data}: Props) {
                                                     <S.RouteCourseLine length={places.length}>
                                                         {
                                                             places.map((place, idx) => 
+                                                                // TODO: 아이텀 선택시 장소 상세 정보 페이지 이동 액션
                                                                 <S.CourseContainer left={idx*(100/(places.length-1))}>
                                                                     <S.CourseImg src="123"/>
                                                                     <S.CourseName>{place.name}</S.CourseName>

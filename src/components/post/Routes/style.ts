@@ -70,7 +70,7 @@ export const RouteItemContent = styled.li<{line: number}>`
 `
 
 
-export const RouteItemLink = styled(Link)`
+export const RouteItemLink = styled.span`
     color:${({theme}) => theme.gray01};
     font-size: 12px;
     font-weight: 500;

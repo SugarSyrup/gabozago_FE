@@ -16,11 +16,11 @@ interface Props {
 
 function BottomNav({postId, isClap, claps, comment, bookmark, shares}: Props) {
     // TODO: 각 BottomNav 클릭시 action 추가
-    // TODO: 댓글은 rebase후 바로 연결
 
     return(
         <S.Navigation>
             <S.NavigationItem>
+                {/* TODO: isClap 유무 확인하기 */}
                 <ClapIcon />
                 <span>{claps}</span>
             </S.NavigationItem>
