@@ -1,7 +1,7 @@
 import { atom, selector } from "recoil";
 
 type Range = [number, number] | [null, null];
-interface TFilter {
+export interface TFilter {
   sort: "latest";
   location: string[];
   headCount: Range;
@@ -19,8 +19,9 @@ export const journalFilterState = atom<TFilter>({
     headCount: [null, null],
     duration: [null, null],
     season: [],
-    theme: [],
-    budget: [null, null],
+    theme: ["가", "나", "다", "라", "마", "바"],
+    budget: [10000, 40000],
+    // budget: [null, null],
   },
 });
 
@@ -28,7 +29,7 @@ export const activeJournalFilterListState = selector({
   key: "activeJournalFilterListState",
   get: ({ get }) => {
     const filter = get(journalFilterState);
-    const activeFilterValues = [];
+    const activeFilterValues: { type: keyof TFilter; value: string }[] = [];
 
     // 정렬
     if (filter.sort !== "latest") {
@@ -72,8 +73,8 @@ export const activeJournalFilterListState = selector({
     }
 
     // 지역
-    activeFilterValues.push(
-      filter.location.map((item) => ({ type: "location", value: item }))
+    filter.location.map((item) =>
+      activeFilterValues.push({ type: "location", value: item })
     );
 
     // 계절
@@ -85,14 +86,16 @@ export const activeJournalFilterListState = selector({
     ) {
       activeFilterValues.push({ type: "season", value: "사계절" });
     } else {
-      activeFilterValues.push(
-        filter.season.map((item) => ({ type: "season", value: item }))
+      filter.season.map((item) =>
+        activeFilterValues.push({ type: "season", value: item })
       );
     }
 
     // 테마
-    activeFilterValues.push(
-      filter.theme.map((item) => ({ type: "theme", value: item }))
+    filter.theme.map((item) =>
+      activeFilterValues.push({ type: "theme", value: item })
     );
+
+    return activeFilterValues;
   },
 });

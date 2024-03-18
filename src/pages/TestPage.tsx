@@ -27,7 +27,9 @@ function TestPage() {
       <button onClick={modalOpen}>모달 open</button>
       <button onClick={popupOpen}>팝업 open</button>
       {/* <Comment /> */}
-      <FilterList filters={["정렬", "지역"]} />
+      <FilterList
+        filters={["sort", "location", "theme", "budget", "duration"]}
+      />
     </PageTemplate>
   );
 }
