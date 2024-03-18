@@ -5,7 +5,10 @@ import ScrapIcon from "../../../assets/icons/scrap.svg?react";
 import TripIcon from "../../../assets/icons/trip.svg?react";
 import * as S from "./style";
 
-function BottomNavBar() {
+interface Props {
+  style?: "white" | "transparent";
+}
+function BottomNavBar({ style = "white" }: Props) {
   const { pathname } = useLocation();
   const navItems = [
     { title: "홈", icon: <HomeIcon />, path: "/" },
@@ -16,17 +19,20 @@ function BottomNavBar() {
   ];
   const isMatches = (path: string) => {
     if (path === "/") {
-      return pathname === "/" ? true : false;
+      return pathname === "/" || pathname.startsWith("/journal") ? true : false;
     }
 
     return pathname.startsWith(path) ? true : false;
   };
 
   return (
-    <S.Nav>
+    <S.Nav backgroundColor={style}>
       <S.NavList>
         {navItems.map((item) => (
-          <S.ListItem active={isMatches(item.path)}>
+          <S.ListItem
+            active={isMatches(item.path)}
+            activeColor={style === "transparent" ? "white" : "main"}
+          >
             <Link to={item.path}>
               {item.icon}
               <span>{item.title}</span>

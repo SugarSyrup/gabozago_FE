@@ -8,15 +8,15 @@ import ClapIcon from "../../../assets/icons/clap.svg?react";
 import ClapBlueIcon from "../../../assets/icons/clap_blue.svg?react";
 import KebabMenuIcon from "../../../assets/icons/menu_kebab.svg?react";
 
-interface Props {
-  id: string;
+export interface Comment {
+  id: number;
   name: string;
   username: string;
   profileImage: string;
   createDate: string;
   text: string;
   like: number;
-  replys?: Props[];
+  replys?: Comment[];
 }
 
 function CommentItem({

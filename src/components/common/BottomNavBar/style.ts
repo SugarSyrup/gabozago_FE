@@ -1,9 +1,11 @@
 import styled from "styled-components";
 
-export const Nav = styled.nav`
+export const Nav = styled.nav<{ backgroundColor: string }>`
   width: 100%;
-  background-color: ${({ theme }) => theme.white};
+  background-color: ${({ backgroundColor }) => backgroundColor};
+  z-index: 20;
 `;
+
 export const NavList = styled.ul`
   margin: auto;
   margin-bottom: 20px;
@@ -12,7 +14,7 @@ export const NavList = styled.ul`
   grid-template-columns: repeat(4, 1fr);
 `;
 
-export const ListItem = styled.li<{ active?: boolean }>`
+export const ListItem = styled.li<{ active?: boolean; activeColor: string }>`
   a {
     padding: 12px;
     display: flex;
@@ -21,7 +23,12 @@ export const ListItem = styled.li<{ active?: boolean }>`
     align-items: center;
 
     text-decoration: none;
-    color: ${({ active, theme }) => (active ? theme.main : theme.gray02)};
+    color: ${({ active, activeColor, theme }) =>
+      active
+        ? activeColor === "white"
+          ? theme.white
+          : theme.main
+        : theme.gray02};
     transition: all ease-in-out 0.3s;
 
     span {
@@ -32,7 +39,12 @@ export const ListItem = styled.li<{ active?: boolean }>`
     }
     path {
       transition: all ease-in-out 0.3s;
-      fill: ${({ active, theme }) => (active ? theme.main : theme.gray02)};
+      fill: ${({ active, activeColor, theme }) =>
+        active
+          ? activeColor === "white"
+            ? theme.white
+            : theme.main
+          : theme.gray02};
     }
 
     &:hover {

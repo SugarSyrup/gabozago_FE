@@ -1,14 +1,16 @@
 import styled from "styled-components";
 
 export const Header = styled.header`
-  padding: 0 20px;
+  padding: 40px 20px 0;
   position: absolute;
+  top: 0;
   left: 0;
   right: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: ${({ theme }) => theme.white};
+  z-index: 20;
 
   &::before {
     position: absolute;
@@ -45,6 +47,7 @@ export const SearchButton = styled.button`
 `;
 
 export const ContentBox = styled.div`
+  height: 100%;
   margin-top: 44px;
   padding-top: 4px;
 `;

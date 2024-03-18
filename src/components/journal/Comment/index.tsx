@@ -1,17 +1,18 @@
 import * as S from "./style";
 import Heading from "../../common/Heading";
 import SendIcon from "../../../assets/icons/send.svg?react";
-import CommentItem from "../CommentItem";
+import CommentItem, { Comment } from "../CommentItem";
 import { MouseEventHandler, useEffect, useRef, useState } from "react";
 
 interface Props {
+  id: number;
   commentInputPosition?: "bottom" | "top";
 }
 
-function Comment({ commentInputPosition = "top" }: Props) {
+function Comment({ id, commentInputPosition = "top" }: Props) {
   const commentInputRef = useRef<HTMLInputElement>(null);
   const [comment, setComment] = useState<string>("");
-  const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState<Comment[]>([]);
 
   const submitComment: MouseEventHandler<HTMLInputElement> = (e) => {
     e.preventDefault();
@@ -26,14 +27,14 @@ function Comment({ commentInputPosition = "top" }: Props) {
   useEffect(() => {
     // @todo: id 가져와 댓글 목록 업데이트하기
     const comment = {
-      id: "9de9f8ff-2a75-4294-Bf2f-7e06755395c8",
+      id: 12345567,
       name: "상은수",
       username: "user-wfd37gu",
       profileImage: "https://placehold.co/100x100/png",
       createDate: "2024-03-03/04:20:13",
       like: 71,
       text: "댓글내용",
-      parentCommentId: "",
+      parentCommentId: null,
     };
 
     setComments([comment, comment, comment]);
