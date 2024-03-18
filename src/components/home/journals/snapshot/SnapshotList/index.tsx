@@ -1,8 +1,10 @@
 import * as S from "./style";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import KebabMenuIcon from "../../../../../assets/icons/menu_kebab.svg?react";
 import userIcon from "../../../../../assets/icons/user.svg";
+import ClapIcon from "../../../../../assets/icons/clap.svg?react";
+import CommentIcon from "../../../../../assets/icons/comment.svg?react";
 
 interface Props {
   data: {
@@ -69,6 +71,16 @@ function SnapshotList({ data }: Props) {
                     </S.ImageItem>
                   ))}
                 </S.ImageList>
+                <S.BottomInfoBox>
+                  <S.InfoItem>
+                    <ClapIcon />
+                    {like}
+                  </S.InfoItem>
+                  <S.InfoItem>
+                    <CommentIcon />
+                    {commentCount}
+                  </S.InfoItem>
+                </S.BottomInfoBox>
               </S.ContentsBox>
             </S.Container>
           </S.ListItem>

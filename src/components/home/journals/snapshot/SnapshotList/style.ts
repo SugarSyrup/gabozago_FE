@@ -90,3 +90,23 @@ export const Image = styled.img`
   object-fit: cover;
   border-radius: 6px;
 `;
+
+export const BottomInfoBox = styled.div`
+  margin-top: 8px;
+  width: 100%;
+  display: flex;
+  gap: 9px;
+`;
+
+export const InfoItem = styled.span`
+  display: flex;
+  align-items: center;
+
+  color: ${({ theme }) => theme.gray};
+
+  svg {
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
+  }
+`;

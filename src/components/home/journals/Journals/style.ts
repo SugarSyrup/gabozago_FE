@@ -3,12 +3,13 @@ import styled from "styled-components";
 export const Container = styled.div`
   height: 100%;
   display: grid;
-  grid-template-rows: fit-content 1fr;
+  grid-template-rows: fit-content(100%) auto;
 `;
 
 export const FixedControlBox = styled.div`
   width: 100%;
   position: sticky;
+  height: fit-content;
 
   z-index: 20;
   background-color: ${({ theme }) => theme.white};
