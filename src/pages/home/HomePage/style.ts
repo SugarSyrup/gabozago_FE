@@ -47,6 +47,7 @@ export const SearchButton = styled.button`
 `;
 
 export const ContentBox = styled.div`
+  height: 100%;
   margin-top: 44px;
   padding-top: 4px;
 `;
