@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const PlaceList = styled.ol`
   display: flex;
@@ -23,6 +24,15 @@ export const BookMarkButton = styled.button`
 
   svg {
     fill: ${({ theme }) => theme.main};
+  }
+`;
+
+export const StyledLink = styled(Link)`
+  color: ${({ theme }) => theme.black};
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
   }
 `;
 
