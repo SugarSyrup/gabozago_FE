@@ -19,9 +19,8 @@ export const journalFilterState = atom<TFilter>({
     headCount: [null, null],
     duration: [null, null],
     season: [],
-    theme: ["가", "나", "다", "라", "마", "바"],
-    budget: [10000, 40000],
-    // budget: [null, null],
+    theme: [],
+    budget: [null, null],
   },
 });
 
