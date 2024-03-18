@@ -11,16 +11,16 @@ import {
   journalFilterState,
 } from "../../../recoil/journals/journalState";
 
+export type TFilterName =
+  | "sort"
+  | "location"
+  | "headCount"
+  | "duration"
+  | "season"
+  | "theme"
+  | "budget";
 interface Props {
-  filters: (
-    | "sort"
-    | "location"
-    | "headCount"
-    | "duration"
-    | "season"
-    | "theme"
-    | "budget"
-  )[];
+  filters: TFilterName[];
 }
 
 function FilterList({ filters }: Props) {

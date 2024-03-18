@@ -16,6 +16,7 @@ export const FixedControlBox = styled.div`
 `;
 
 export const CategoryList = styled.ol`
+  margin: 5px 0 10px;
   padding: 6px 0;
   display: flex;
   gap: 7px;
