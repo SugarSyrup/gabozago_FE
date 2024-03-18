@@ -23,12 +23,13 @@ export const CategoryList = styled.ol`
 `;
 export const CategoryItem = styled.li``;
 export const CategoryButton = styled.button<{ active: boolean }>`
-  border: 0;
   padding: 0 5px;
+  border: 0;
   border-radius: 5px;
-  line-height: 22px;
+
   font-size: 14px;
-  color: ${({ theme, active }) => (active ? theme.main : theme.black)};
+  line-height: 22px;
+  color: ${({ theme, active }) => (active ? theme.main : theme.gray01)};
   background-color: transparent;
   cursor: pointer;
 

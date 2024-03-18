@@ -16,7 +16,11 @@ export const FilterItem = styled.li`
 
 export const AllFilterButton = styled(FilterButton)`
   background-color: ${({ theme }) => theme.gray06};
-  box-shadow: 0 0 0 0px ${({ theme }) => theme.gray02} inset;
+  box-shadow: 0 0 0 0px;
+
+  svg path {
+    fill: ${({ theme }) => theme.gray01};
+  }
 
   &:hover,
   &:active {
