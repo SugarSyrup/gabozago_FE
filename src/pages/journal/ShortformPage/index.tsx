@@ -100,7 +100,7 @@ function ShortFormPage() {
   }, [focusedIndex]);
 
   return (
-    <PageTemplate nav={<BottomNavBar style="transparent" />}>
+    <PageTemplate nav={<BottomNavBar style="black" />}>
       <S.Header>
         <BackButton />
         <S.IconButton>

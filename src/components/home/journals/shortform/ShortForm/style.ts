@@ -9,7 +9,6 @@ export const Container = styled.div`
 
 export const InfoBox = styled.div`
   padding: 17px 20px;
-  margin-bottom: 80px;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -100,7 +99,6 @@ export const ControlBox = styled.div`
   bottom: 0;
   right: 0;
   padding: 17px 20px;
-  margin-bottom: 80px;
 `;
 
 export const IconButton = styled.button`
