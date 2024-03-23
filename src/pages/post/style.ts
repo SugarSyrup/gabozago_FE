@@ -14,6 +14,7 @@ export const PageContainer = styled.div`
     height: 100vh;
 
     overflow:auto;
+    background-color:${({theme}) => theme.gray06};
 `
 
 export const ThumbnailWrapper = styled.img`
@@ -585,6 +586,7 @@ export const HeaderLeftItems = styled.div`
 
 export const CreateScrapFolder = styled.div<{isOpen: boolean}>`
     animation:${({isOpen}) => isOpen ? fadeIn : fadeOut} 0.15s ease-out;
+    display:${({isOpen}) => isOpen ? "flex" : "none"};
     width: 100%;
     /* 추가 */
     height:100vh;
@@ -592,7 +594,6 @@ export const CreateScrapFolder = styled.div<{isOpen: boolean}>`
     right: 0;
     bottom: 0;
 
-    display: flex;
     justify-content: center;
     align-items: center;
     

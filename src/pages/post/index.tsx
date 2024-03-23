@@ -19,6 +19,8 @@ import { useNavigate } from "react-router-dom";
 import useModal from "../../hooks/useModal";
 import { useRef, useState } from "react";
 import usePopup from "../../hooks/usePopup";
+import useScrapAlert from "../../components/post/useScrapAlert";
+import usePlaceAlert from "../../components/post/usePlaceAlert";
 
 const data = {
     postId: "1",
@@ -230,45 +232,12 @@ const data = {
     ]
 }
 
-const travelList = [
-    {
-        id: "213",
-        name: "부산여행",
-        location: "부산광역시",
-        isAdd: true
-    }
-]
-
 function PostPage() {
     const navigate = useNavigate();
-    const [isMyTripAlertOpen, setIsMyTripAlertOpen] = useState<boolean>(false);
-    const [isScrapAlertOpen, setIsScrapAlertOpen] = useState<boolean>(false);
     const [isScrapCreate, setIsScrapCreate] = useState<boolean>(false);
     const PlaceAlertTextRef = useRef<HTMLSpanElement>(null);
     const CourseModalTextRef = useRef<HTMLSpanElement>(null);
 
-    function alertOpen(tripName: string, day: number) {
-        if(PlaceAlertTextRef.current) {
-            PlaceAlertTextRef.current.innerText = `"${tripName}" 일정에 추가되었습니다.`;
-        }
-
-        if(CourseModalTextRef.current) {
-            CourseModalTextRef.current.innerText = `"${tripName}" 일정에 Day ${day}을 추가했어요!`
-        }
-
-        popupOpen();
-        // setIsMyTripAlertOpen(true);
-        // setTimeout(() => {
-        //     setIsMyTripAlertOpen(false)
-        // }, 3000);
-    }
-
-    function scrapOpen() { 
-        setIsScrapAlertOpen(true);
-        setTimeout(() => {
-            setIsScrapAlertOpen(false);
-        }, 3000);
-    }
 
     const courseModal = useModal({
       title: "",
@@ -290,6 +259,14 @@ function PostPage() {
 
     const {Popup, popupOpen, popupClose} = usePopup();
 
+    const {ScrapAlert, scrapAlertOpen, scrapAlertClose} = useScrapAlert({
+        onClick: scrapModal.modalOpen
+    });
+
+    const {PlaceAlert, placeAlertOpen, placeAlertClose} = usePlaceAlert({
+        onClick: placeModal.modalOpen,
+        text:"absc"
+    })
 
     function onUserClick() {
         navigate(`/profile/${data.author.userId}`);
@@ -297,6 +274,8 @@ function PostPage() {
 
     return(
         <S.PageContainer>
+            <ScrapAlert />
+            <PlaceAlert />
             <S.ModalWrapper>
                 {/* 큰 여행 일정을 내 여행일정에 추가 */}
                 <courseModal.Modal>
@@ -459,18 +438,15 @@ function PostPage() {
                     </S.CourseModalContainer>
                 </scrapModal.Modal>
 
-                {
-                    isScrapCreate && 
-                    <S.CreateScrapFolder isOpen={isScrapCreate}>
-                        <S.CreateScrapFolderContainer>
-                            <S.CreateScrapHeader>
-                                <span>새 폴더 이름</span>
-                                <S.SaveText onClick={() => {setIsScrapCreate(false)}}>저장</S.SaveText>
-                            </S.CreateScrapHeader>
-                            <input type="text" />
-                        </S.CreateScrapFolderContainer>
-                    </S.CreateScrapFolder>
-                }
+                <S.CreateScrapFolder isOpen={isScrapCreate}>
+                    <S.CreateScrapFolderContainer>
+                        <S.CreateScrapHeader>
+                            <span>새 폴더 이름</span>
+                            <S.SaveText onClick={() => {setIsScrapCreate(false)}}>저장</S.SaveText>
+                        </S.CreateScrapHeader>
+                        <input type="text" />
+                    </S.CreateScrapFolderContainer>
+                </S.CreateScrapFolder>
 
                 {/* 여행 일정이 없을때 */}
                 <Popup padding={"52px"}>
@@ -484,19 +460,6 @@ function PostPage() {
                         </S.PopupButtonContainer>
                     </S.PopupContainer>
                 </Popup>
-
-                {/* 일정에 추가 Alert */}
-                <S.Alert isOpen={isMyTripAlertOpen}>
-                    <CalendarAddIcon />
-                    <span ref={PlaceAlertTextRef}></span>
-                    <S.ModalOpenText onClick={() => {courseModal.modalOpen()}}>변경하기</S.ModalOpenText>
-                </S.Alert>
-
-                <S.Alert isOpen={isScrapAlertOpen}>
-                    <ScrapIcon />
-                    <span>스크랩이 완료되었습니다</span>
-                    <S.ModalOpenText onClick={() => {scrapModal.modalOpen()}}>내 스크랩 확인하기</S.ModalOpenText>
-                </S.Alert>
             </S.ModalWrapper>
 
             <S.Header>
@@ -509,6 +472,7 @@ function PostPage() {
                         <S.Name>{data.author.name}</S.Name>
                         <S.Date>{data.author.createdAt}</S.Date>
                     </S.UserInfo>
+                    
                     {
                         // TODO: 팔로우 버튼 클릭 action
                         data.author.isFollowed ? 
@@ -518,11 +482,12 @@ function PostPage() {
                         :
                         <S.FollowBtn>+ 팔로우</S.FollowBtn>
                     }
+
                 </S.UserContainer>
             </S.Header>
             <S.Contents>
                 <Summary {...data.summary} />                
-                <Routes data={data.routes} alertOpenFn={alertOpen}/>
+                <Routes data={data.routes} alertOpenFn={placeAlertOpen}/>
 
                 {
                     data.routes.map((route) => 
@@ -530,7 +495,7 @@ function PostPage() {
                             <S.Day>
                                 <span>Day {route.day}</span>
                                 {/* TODO: req -> res 저장된 여행 경로 가져와서, alert */}
-                                <S.DayLink onClick={() => {alertOpen("부산 여행", route.day)}}>코스 저장하기</S.DayLink>
+                                <S.DayLink onClick={() => {placeAlertOpen()}}>코스 저장하기</S.DayLink>
                             </S.Day>
                             {
                                 route.places.map((place, idx) => 
@@ -538,13 +503,14 @@ function PostPage() {
                                         index={idx+1}
                                         {...place}
                                         onCalendarClick={() => {placeModal.modalOpen()}}
-                                        onScrapClick={scrapOpen}
+                                        onScrapClick={scrapAlertOpen}
                                     />
                                 )
                             }
                         </>
                     )
                 }
+                
             </S.Contents>
             {/* TOOD: 댓글 데이터 삽입, CRUD 가능한 액션 확인 */}
             <S.Comments>
