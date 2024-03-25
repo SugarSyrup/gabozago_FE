@@ -1,13 +1,16 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  width: 100%;
   height: 100%;
   display: grid;
   grid-template-rows: fit-content(100%) auto;
+  grid-template-columns: 100%;
+  overflow-y: hidden;
 `;
 
 export const FixedControlBox = styled.div`
-  width: 100%;
+  /* width: 100%; */
   position: sticky;
   height: fit-content;
 

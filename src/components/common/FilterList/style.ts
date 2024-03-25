@@ -2,7 +2,9 @@ import styled from "styled-components";
 import { FilterButton } from "../FilterButton/style";
 
 export const FilterList = styled.ol`
+  padding-bottom: 5px;
   display: flex;
+  flex-wrap: nowrap;
   gap: 10px;
   width: 100%;
   overflow-x: auto;
@@ -33,7 +35,7 @@ export const AllFilterButton = styled(FilterButton)`
 `;
 
 export const ActiveFilterList = styled(FilterList)`
-  margin-top: 14px;
+  /* margin-top: 14px; */
   flex-wrap: wrap;
 `;
 

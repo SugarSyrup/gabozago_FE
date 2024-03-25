@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import ShortFormList from "../shortform/ShortFormList";
 import * as S from "./style";
 import SnapshotList from "../snapshot/SnapshotList";

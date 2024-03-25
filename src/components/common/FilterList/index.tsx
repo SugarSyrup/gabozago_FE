@@ -64,7 +64,7 @@ function FilterList({ filters }: Props) {
   };
 
   return (
-    <div>
+    <>
       <S.FilterList>
         <S.FilterItem>
           <S.AllFilterButton onClick={() => alert("전체 필터 보기")}>
@@ -89,7 +89,7 @@ function FilterList({ filters }: Props) {
           </S.ActiveFilterChip>
         ))}
       </S.ActiveFilterList>
-    </div>
+    </>
   );
 }
 
