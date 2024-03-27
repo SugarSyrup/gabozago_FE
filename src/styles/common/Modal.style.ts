@@ -8,7 +8,7 @@ export const ModalContainer = styled.div`
   top: 0;
   bottom: 0;
   overflow: hidden;
-  z-index: 30;
+  z-index: 50;
 
   &::before {
     content: "";

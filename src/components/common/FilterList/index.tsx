@@ -1,5 +1,5 @@
 import * as S from "./style";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { SetterOrUpdater, useRecoilState, useRecoilValue } from "recoil";
 
 import OptionsIcon from "../../../assets/icons/options.svg?react";
 import DeleteIcon from "../../../assets/icons/x.svg?react";
@@ -8,8 +8,10 @@ import FilterButton from "../FilterButton";
 import {
   TFilter,
   activeJournalFilterListState,
-  journalFilterState,
 } from "../../../recoil/journals/journalState";
+
+import { modalState } from "../../../recoil/modalState";
+import Filter from "../filterInputs/Filter";
 
 export type TFilterName =
   | "sort"
@@ -21,9 +23,16 @@ export type TFilterName =
   | "budget";
 interface Props {
   filters: TFilterName[];
+  filterState: TFilter;
+  filterSetState: SetterOrUpdater<TFilter>;
 }
 
-function FilterList({ filters }: Props) {
+function FilterList({
+  filters,
+  filterState: filter,
+  filterSetState: setFilter,
+}: Props) {
+  const [modal, setModal] = useRecoilState(modalState);
   const filterTypeMap = {
     sort: "정렬",
     location: "지역",
@@ -34,8 +43,6 @@ function FilterList({ filters }: Props) {
     budget: "경비",
   };
   const activeFilters = useRecoilValue(activeJournalFilterListState);
-  const setFilter = useSetRecoilState(journalFilterState);
-
   const deleteFilterChip = (type: keyof TFilter, value: string): void => {
     setFilter((prev) => {
       switch (type) {
@@ -62,6 +69,20 @@ function FilterList({ filters }: Props) {
       return prev;
     });
   };
+  const filterButtonClickHandler = (item: TFilterName) => {
+    setModal(() => ({
+      title: filterTypeMap[item],
+      isOpend: true,
+      contents: (
+        <Filter
+          type={item}
+          filterState={filter}
+          filterSetState={setFilter}
+          setModal={setModal}
+        />
+      ),
+    }));
+  };
 
   return (
     <>
@@ -73,7 +94,13 @@ function FilterList({ filters }: Props) {
         </S.FilterItem>
         {filters.map((item) => (
           <S.FilterItem>
-            <FilterButton name={filterTypeMap[item]} type={item} />
+            <FilterButton
+              name={filterTypeMap[item]}
+              type={item}
+              onClick={() => {
+                filterButtonClickHandler(item);
+              }}
+            />
           </S.FilterItem>
         ))}
       </S.FilterList>

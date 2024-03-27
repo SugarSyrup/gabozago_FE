@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ShortFormList from "../shortform/ShortFormList";
 import * as S from "./style";
 import SnapshotList from "../snapshot/SnapshotList";
 import FilterList, { TFilterName } from "../../../common/FilterList";
+import { useRecoilState } from "recoil";
+import { journalFilterState } from "../../../../recoil/journals/journalState";
 
 const snapshots = [
   {
@@ -60,6 +62,7 @@ const shortForms = [
 ];
 
 function Journals() {
+  const [filter, setFilter] = useRecoilState(journalFilterState);
   const [activeCategoryIndex, setActiveCategoryIndex] = useState<number>(0);
   const categories: {
     text: string;
@@ -105,6 +108,10 @@ function Journals() {
     },
   ];
 
+  useEffect(() => {
+    // filter에 맞게 contents 불러오기
+  }, []);
+
   return (
     <S.Container>
       <S.FixedControlBox>
@@ -122,7 +129,11 @@ function Journals() {
             </S.CategoryItem>
           ))}
         </S.CategoryList>
-        <FilterList filters={categories[activeCategoryIndex].filters} />
+        <FilterList
+          filters={categories[activeCategoryIndex].filters}
+          filterState={filter}
+          filterSetState={setFilter}
+        />
       </S.FixedControlBox>
       <S.ContentBox>{categories[activeCategoryIndex].contents}</S.ContentBox>
     </S.Container>

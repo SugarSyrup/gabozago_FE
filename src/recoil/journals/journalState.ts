@@ -1,8 +1,9 @@
 import { atom, selector } from "recoil";
 
 type Range = [number, number] | [null, null];
+
 export interface TFilter {
-  sort: "latest";
+  sort: "추천순" | "인기순" | "최근 인기순" | "최신순";
   location: string[];
   headCount: Range;
   duration: Range;
@@ -14,7 +15,7 @@ export interface TFilter {
 export const journalFilterState = atom<TFilter>({
   key: "journalFilterState",
   default: {
-    sort: "latest",
+    sort: "최신순",
     location: [],
     headCount: [null, null],
     duration: [null, null],
