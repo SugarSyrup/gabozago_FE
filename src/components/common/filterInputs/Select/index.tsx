@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import * as S from "./style";
-// import { TFilter } from "../../../../recoil/journals/journalState";
 
 interface Props {
   filter: string[] | string;
