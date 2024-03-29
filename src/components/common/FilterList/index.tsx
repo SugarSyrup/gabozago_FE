@@ -4,14 +4,13 @@ import { SetterOrUpdater, useRecoilState, useRecoilValue } from "recoil";
 import OptionsIcon from "../../../assets/icons/options.svg?react";
 import DeleteIcon from "../../../assets/icons/x.svg?react";
 import FilterButton from "../FilterButton";
+import Filter from "../filterInputs/Filter";
 
 import {
   TFilter,
   activeJournalFilterListState,
 } from "../../../recoil/journals/journalState";
-
 import { modalState } from "../../../recoil/modalState";
-import Filter from "../filterInputs/Filter";
 
 export type TFilterName =
   | "sort"

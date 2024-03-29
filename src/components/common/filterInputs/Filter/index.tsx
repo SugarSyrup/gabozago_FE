@@ -4,6 +4,7 @@ import Button from "../../Button";
 import { SetterOrUpdater } from "recoil";
 import { useState } from "react";
 import { TFilter } from "../../../../recoil/journals/journalState";
+import Buttons from "../Buttons";
 
 type TFilterType = "multi-select" | "range" | "buttons";
 
@@ -98,7 +99,13 @@ function Filter({
         return <></>;
         break;
       case "buttons":
-        return <></>;
+        return (
+          <Buttons
+            filter={tempFilter}
+            setFilter={setTempFilter}
+            options={filterMap[type].options || []}
+          />
+        );
         break;
     }
   };

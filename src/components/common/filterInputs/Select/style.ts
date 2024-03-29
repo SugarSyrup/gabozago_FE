@@ -14,8 +14,6 @@ export const Item = styled.li<{ checked: boolean }>`
   line-height: 22px;
   word-break: keep-all;
   font-size: 16px;
-  /* font-weight: ${({ checked }) => (checked ? 500 : 400)};
-  color: ${({ theme, checked }) => (checked ? theme.main : theme.gray01)}; */
 
   &:hover {
     background-color: ${({ theme }) => theme.blue05};
