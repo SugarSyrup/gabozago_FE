@@ -35,8 +35,9 @@ export const AllFilterButton = styled(FilterButton)`
 `;
 
 export const ActiveFilterList = styled(FilterList)`
-  /* margin-top: 14px; */
+  margin: 5px 0;
   flex-wrap: wrap;
+  gap: 5px 5px;
 `;
 
 export const ActiveFilterChip = styled.button`
