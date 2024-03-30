@@ -3,9 +3,10 @@ import styled from "styled-components";
 export const PopupContainer = styled.div`
   position: absolute;
   width: 100%;
+  /* 추가 */
+  height:100vh;
   left: 0;
   right: 0;
-  top: 0;
   bottom: 0;
   display: flex;
   justify-content: center;
@@ -18,6 +19,8 @@ export const PopupContainer = styled.div`
     display: block;
     position: absolute;
     left: 0;
+    top:0;
+    bottom:0;
     width: 100%;
     height: 100vh;
     opacity: 30%;
