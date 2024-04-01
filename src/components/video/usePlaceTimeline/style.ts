@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 
 export const VideoTimeline = styled.div`
-    width:calc(100% + 40px); 
+    width: 100%; 
     position:absolute;  
     left:0px;
 

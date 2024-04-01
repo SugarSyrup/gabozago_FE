@@ -4,13 +4,56 @@ import BusIcon from "../../../assets/icons/bus.svg?react";
 import CalendarAddIcon from "../../../assets/icons/calendar_add_border.svg?react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
+const data = [
+    {
+        name: "장소명",
+        theme: "테마",
+        time: 15,
+    },
+    {
+        name: "장소명",
+        theme: "테마",
+        time: 15,
+    },
+    {
+        name: "장소명",
+        theme: "테마",
+        time: 15,
+    },
+    {
+        name: "장소명",
+        theme: "테마",
+        time: 15,
+    },
+    {
+        name: "장소명",
+        theme: "테마",
+        time: 15,
+    },
+    {
+        name: "장소명",
+        theme: "테마",
+        time: 15,
+    },
+    {
+        name: "장소명",
+        theme: "테마",
+        time: 15,
+    },
+    {
+        name: "장소명",
+        theme: "테마",
+        time: -1,
+    },
+]
+
 function usePlaceTimeline() {
     const timelineRef = useRef<HTMLDivElement>(null);
     const [index, setIndex] = useState(0);
 
     useEffect(() => {
         timelineRef.current?.scrollTo({
-            left:198 * index - (timelineRef.current.offsetWidth / 2) + 16,
+            left:210 * index + 13 - (timelineRef.current.offsetWidth / 2),
             behavior:"smooth"
         })
         console.log(index);
@@ -40,29 +83,25 @@ function usePlaceTimeline() {
     const PlaceTimeline = useCallback(() => {
         return(
             <S.VideoTimeline ref={timelineRef}>
-                <S.TimeLineItem>
-                    <S.TimeLineIndex>1</S.TimeLineIndex>
-                    <S.TimeLineInfo>
-                        <span>장소명</span>
-                        <span>테마</span>
-                    </S.TimeLineInfo>
-                    <CalendarAddIcon />
-                </S.TimeLineItem>
-                <S.TimeLineLinker>
-                    <div>
-                        <BusIcon />
-                        <span>15분</span>
-                    </div>
-                </S.TimeLineLinker>
-                <S.TimeLineItem>
-                    <S.TimeLineIndex>1</S.TimeLineIndex>
-                    <S.TimeLineInfo>
-                        <span>장소명</span>
-                        <span>테마</span>
-                    </S.TimeLineInfo>
-                    <CalendarAddIcon />
-                </S.TimeLineItem>
-                
+                {data.map((ele, idx) => <>
+                    <S.TimeLineItem onClick={() => {moveIndex(idx)}}>
+                        <S.TimeLineIndex>{idx+1}</S.TimeLineIndex>
+                        <S.TimeLineInfo>
+                            <span>{ele.name}</span>
+                            <span>{ele.theme}</span>
+                        </S.TimeLineInfo>
+                        <CalendarAddIcon />
+                    </S.TimeLineItem>
+                    {
+                        ele.time != -1 &&
+                        <S.TimeLineLinker>
+                            <div>
+                                <BusIcon />
+                                <span>{ele.time}분</span>
+                            </div>
+                        </S.TimeLineLinker>
+                    }
+                </>)}
             </S.VideoTimeline>
         )
     }, []
