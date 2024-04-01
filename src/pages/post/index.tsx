@@ -10,7 +10,6 @@ import ScrapBorderIcon from "../../assets/icons/bookmark.svg?react";
 
 import Summary from "../../components/post/Summary";
 import Routes from "../../components/post/Routes";
-import BottomNav from "../../components/post/BottomNav";
 import Place from "../../components/post/Place";
 
 import * as S from "./style";
@@ -21,6 +20,7 @@ import { useRef, useState } from "react";
 import usePopup from "../../hooks/usePopup";
 import useScrapAlert from "../../components/post/useScrapAlert";
 import usePlaceAlert from "../../components/post/usePlaceAlert";
+import CommunityPageTemplate from "../../components/common/CommunityPageTemplate";
 
 const data = {
     postId: "1",
@@ -273,7 +273,7 @@ function PostPage() {
     }
 
     return(
-        <S.PageContainer>
+        <CommunityPageTemplate postId={data.postId} isClap={data.isClap} claps={data.claps} comment={data.comment} bookmark={data.bookmark} shares={data.shares} onCommentClick={() => {}}>
             <ScrapAlert />
             <PlaceAlert />
             <S.ModalWrapper>
@@ -512,12 +512,11 @@ function PostPage() {
                 }
                 
             </S.Contents>
-            {/* TOOD: 댓글 데이터 삽입, CRUD 가능한 액션 확인 */}
+            {/* TODO: 댓글 데이터 삽입, CRUD 가능한 액션 확인 */}
             <S.Comments>
-                <Comment />
+                <Comment id={1}/>
             </S.Comments>
-            <BottomNav postId={data.postId} isClap={data.isClap} claps={data.claps} comment={data.comment} bookmark={data.bookmark} shares={data.shares} />
-        </S.PageContainer>
+        </CommunityPageTemplate>
     );
 }
 

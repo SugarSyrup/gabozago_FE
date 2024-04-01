@@ -1,22 +1,5 @@
 import styled, { keyframes } from "styled-components";
 
-export const PageContainer = styled.div`
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    display: grid;
-    grid-template-rows: 1fr fit-content(100%);
-    margin: auto;
-    max-width: 500px;
-    width: 100%;
-    height: 100vh;
-
-    overflow:auto;
-    background-color:${({theme}) => theme.gray06};
-`
-
 export const ThumbnailWrapper = styled.img`
     width: 100%;
     height:340px;
