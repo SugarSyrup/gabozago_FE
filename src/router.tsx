@@ -17,6 +17,7 @@ import ShortFormPage from "./pages/journal/ShortformPage";
 
 import { userData } from "./assets/data/userData";
 import PostPage from "./pages/post";
+import VideoPage from "./pages/video";
 
 const router = createBrowserRouter([
   {
@@ -89,6 +90,10 @@ const router = createBrowserRouter([
   {
     path: "/post",
     element: <PostPage />
+  },
+  {
+    path: "/video",
+    element: <VideoPage />
   },
   // 기타
   {
