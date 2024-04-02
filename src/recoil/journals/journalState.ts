@@ -17,11 +17,11 @@ export const journalFilterState = atom<TFilter>({
   default: {
     sort: "최신순",
     location: [],
-    headCount: [null, null],
-    duration: [null, null],
+    headCount: [1, 30],
+    duration: [1, 100],
     season: [],
     theme: [],
-    budget: [null, null],
+    budget: [10000, 9990000],
   },
 });
 

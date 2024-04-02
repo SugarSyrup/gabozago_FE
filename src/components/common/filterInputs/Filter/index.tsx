@@ -5,8 +5,9 @@ import { SetterOrUpdater } from "recoil";
 import { useState } from "react";
 import { TFilter } from "../../../../recoil/journals/journalState";
 import Buttons from "../Buttons";
+import Range from "../Range";
 
-type TFilterType = "multi-select" | "range" | "buttons";
+type TFilterType = "multi-select" | "range" | "buttons" | "location";
 
 interface TFilterInfo {
   title: string;
@@ -51,13 +52,49 @@ const filterMap = {
   // location
   location: {
     title: "지역",
-    type: "location",
-    options: [],
+    type: "multi-select",
+    options: [
+      "서울",
+      "부산",
+      "대구",
+      "인천",
+      "광주",
+      "대전",
+      "울산",
+      "세종",
+      "경기",
+      "강원",
+      "충북",
+    ],
   },
   // range
-  headCount: { title: "인원", type: "range", options: [] },
-  duration: { title: "일정", type: "range", options: [] },
-  budget: { title: "경비", type: "range", options: [] },
+  headCount: {
+    title: "인원",
+    type: "range",
+    min: 1,
+    max: 100,
+    step: 1,
+    unit: "명",
+    extraControler: <></>,
+  },
+  duration: {
+    title: "일정",
+    type: "range",
+    min: 1,
+    max: 100,
+    step: 1,
+    unit: "일",
+    extraControler: <></>,
+  },
+  budget: {
+    title: "경비",
+    type: "range",
+    min: 1,
+    max: 1000,
+    step: 1,
+    unit: "만원",
+    extraControler: <></>,
+  },
   // buttons
   season: {
     title: "계절",
@@ -96,7 +133,18 @@ function Filter({
         );
         break;
       case "range":
-        return <></>;
+        return (
+          <Range
+            filter={tempFilter}
+            setFilter={setTempFilter}
+            name={filterMap[type].title}
+            unit={filterMap[type].unit}
+            min={filterMap[type].min}
+            max={filterMap[type].max}
+            step={filterMap[type].step}
+            extraControlerComponent={filterMap[type].extraControler}
+          />
+        );
         break;
       case "buttons":
         return (
