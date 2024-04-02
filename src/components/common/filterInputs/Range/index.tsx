@@ -12,7 +12,7 @@ interface Props {
   min: number;
   max: number;
   step: number;
-  extraControlerComponent?: JSX.Element;
+  extraControlerComponent?: JSX.Element | null;
 }
 
 function Range({
@@ -45,26 +45,28 @@ function Range({
   };
 
   return (
-    <S.Container>
-      <S.ValueParagraph>{renderValue()}</S.ValueParagraph>
-      <S.InputContainer>
-        <S.SliderLabel position={"left"}>{min + unit}</S.SliderLabel>
-        <S.SliderLabel position={"right"}>{max + unit}</S.SliderLabel>
-        <RangeSlider
-          min={min}
-          max={max}
-          step={step}
-          defaultValue={[min, max]}
-          value={filter}
-          onInput={setFilter}
-        />
-      </S.InputContainer>
+    <>
+      <S.Container>
+        <S.ValueParagraph>{renderValue()}</S.ValueParagraph>
+        <S.InputContainer>
+          <S.SliderLabel position={"left"}>{min + unit}</S.SliderLabel>
+          <S.SliderLabel position={"right"}>{max + unit}</S.SliderLabel>
+          <RangeSlider
+            min={min}
+            max={max}
+            step={step}
+            defaultValue={[min, max]}
+            value={filter}
+            onInput={setFilter}
+          />
+        </S.InputContainer>
+      </S.Container>
       {extraControlerComponent && (
         <S.ExtraControlerContainer>
           {extraControlerComponent}
         </S.ExtraControlerContainer>
       )}
-    </S.Container>
+    </>
   );
 }
 

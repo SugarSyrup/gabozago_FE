@@ -1,12 +1,13 @@
 import styled, { css } from "styled-components";
 
 export const Container = styled.div`
+  position: relative;
   width: 100%;
   padding: 0 20px;
 `;
 
 export const ValueParagraph = styled.p`
-  margin-bottom: 25px;
+  margin: 10px 0 30px;
   font-weight: 500;
   line-height: 22px;
   font-size: 16px;
@@ -83,5 +84,7 @@ export const SliderLabel = styled.span<{ position: "left" | "right" }>`
 `;
 
 export const ExtraControlerContainer = styled.div`
-  margin-top: 30px;
+  width: 100%;
+  margin-top: 50px;
+  margin-bottom: 50px;
 `;

@@ -6,15 +6,9 @@ import { useState } from "react";
 import { TFilter } from "../../../../recoil/journals/journalState";
 import Buttons from "../Buttons";
 import Range from "../Range";
-
-type TFilterType = "multi-select" | "range" | "buttons" | "location";
-
-interface TFilterInfo {
-  title: string;
-  type: TFilterType;
-  options?: string[];
-  default?: string[];
-}
+// import HeadCountEC from "../extraControllers/HeadCountEC";
+import DurationEC from "../extraControllers/DurationEC";
+// import BudgetEC from "../extraControllers/BudgetEC";
 
 interface Props {
   type: keyof TFilter | "total";
@@ -27,82 +21,6 @@ interface Props {
   }>;
 }
 
-const filterMap = {
-  // select
-  sort: {
-    title: "정렬",
-    type: "select",
-    options: ["최신순", "추천순", "인기순", "최근 인기순"],
-  },
-  // multi-select
-  theme: {
-    title: "테마",
-    type: "multi-select",
-    options: [
-      "미식 • 쇼핑",
-      "전시 • 행사",
-      "도보여행",
-      "자연",
-      "아웃도어 • 레저",
-      "체류",
-      "가족여행",
-      "애견동반",
-    ],
-  },
-  // location
-  location: {
-    title: "지역",
-    type: "multi-select",
-    options: [
-      "서울",
-      "부산",
-      "대구",
-      "인천",
-      "광주",
-      "대전",
-      "울산",
-      "세종",
-      "경기",
-      "강원",
-      "충북",
-    ],
-  },
-  // range
-  headCount: {
-    title: "인원",
-    type: "range",
-    min: 1,
-    max: 100,
-    step: 1,
-    unit: "명",
-    extraControler: <></>,
-  },
-  duration: {
-    title: "일정",
-    type: "range",
-    min: 1,
-    max: 100,
-    step: 1,
-    unit: "일",
-    extraControler: <></>,
-  },
-  budget: {
-    title: "경비",
-    type: "range",
-    min: 1,
-    max: 1000,
-    step: 1,
-    unit: "만원",
-    extraControler: <></>,
-  },
-  // buttons
-  season: {
-    title: "계절",
-    type: "buttons",
-    options: ["사계절", "봄", "여름", "가을", "겨울"],
-  },
-};
-
 function Filter({
   type,
   filterState: filter,
@@ -110,6 +28,84 @@ function Filter({
   setModal,
 }: Props) {
   const [tempFilter, setTempFilter] = useState(filter[type]);
+
+  const filterMap = {
+    // select
+    sort: {
+      title: "정렬",
+      type: "select",
+      options: ["최신순", "추천순", "인기순", "최근 인기순"],
+    },
+    // multi-select
+    theme: {
+      title: "테마",
+      type: "multi-select",
+      options: [
+        "미식 • 쇼핑",
+        "전시 • 행사",
+        "도보여행",
+        "자연",
+        "아웃도어 • 레저",
+        "체류",
+        "가족여행",
+        "애견동반",
+      ],
+    },
+    // location
+    location: {
+      title: "지역",
+      type: "multi-select",
+      options: [
+        "서울",
+        "부산",
+        "대구",
+        "인천",
+        "광주",
+        "대전",
+        "울산",
+        "세종",
+        "경기",
+        "강원",
+        "충북",
+      ],
+    },
+    // range
+    headCount: {
+      title: "인원",
+      type: "range",
+      min: 1,
+      max: 100,
+      step: 1,
+      unit: "명",
+      // extraControler: <HeadCountEC filter={tempFilter} setFilter={setTempFilter} />,
+    },
+    duration: {
+      title: "일정",
+      type: "range",
+      min: 1,
+      max: 100,
+      step: 1,
+      unit: "일",
+      extraControler: (
+        <DurationEC filter={tempFilter} setFilter={setTempFilter} />
+      ),
+    },
+    budget: {
+      title: "경비",
+      type: "range",
+      min: 1,
+      max: 1000,
+      step: 1,
+      unit: "만원",
+      // extraControler: <BudgetEC filter={tempFilter} setFilter={setTempFilter} />,
+    },
+    // buttons
+    season: {
+      title: "계절",
+      type: "buttons",
+      options: ["사계절", "봄", "여름", "가을", "겨울"],
+    },
+  };
   const renderFilterContents = () => {
     switch (filterMap[type].type) {
       case "select":
