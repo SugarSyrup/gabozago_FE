@@ -1,10 +1,12 @@
 import styled from "styled-components";
 
 export const SliderWrapper = styled.div`
-    width:100%;
+    width:calc(100vw - 40px);
+    max-width: 445px;
     position:relative;
 
     display:flex;
+    flex-basis:100%;
     margin-top:26px;
 
     overflow:hidden;

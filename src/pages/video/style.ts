@@ -168,7 +168,7 @@ export const PlaceBtns = styled.div`
 
 export const PlaceBtn = styled.div`
     width:100%;
-    padding:8px 30px;
+    padding:8px 0px;
 
     border-radius:6px;
     background-color:${({theme}) => theme.gray05};
