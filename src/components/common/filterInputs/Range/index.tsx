@@ -33,6 +33,8 @@ function Range({
 
     if (value[0] === min && value[1] === max) {
       return `전체${name}`;
+    } else if (value[0] === value[1]) {
+      return `${value[0]}${unit}`;
     } else {
       if (value[1] === max) {
         return `${value[0]}${unit} 이상`;

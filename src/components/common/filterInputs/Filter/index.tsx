@@ -6,7 +6,7 @@ import { useState } from "react";
 import { TFilter } from "../../../../recoil/journals/journalState";
 import Buttons from "../Buttons";
 import Range from "../Range";
-// import HeadCountEC from "../extraControllers/HeadCountEC";
+import HeadCountEC from "../extraControllers/HeadCountEC";
 import DurationEC from "../extraControllers/DurationEC";
 // import BudgetEC from "../extraControllers/BudgetEC";
 
@@ -74,10 +74,12 @@ function Filter({
       title: "인원",
       type: "range",
       min: 1,
-      max: 100,
+      max: 30,
       step: 1,
-      unit: "명",
-      // extraControler: <HeadCountEC filter={tempFilter} setFilter={setTempFilter} />,
+      unit: "인",
+      extraControler: (
+        <HeadCountEC filter={tempFilter} setFilter={setTempFilter} max={30} />
+      ),
     },
     duration: {
       title: "일정",
