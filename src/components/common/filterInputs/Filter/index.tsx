@@ -8,7 +8,7 @@ import Buttons from "../Buttons";
 import Range from "../Range";
 import HeadCountEC from "../extraControllers/HeadCountEC";
 import DurationEC from "../extraControllers/DurationEC";
-// import BudgetEC from "../extraControllers/BudgetEC";
+import BudgetEC from "../extraControllers/BudgetEC";
 
 interface Props {
   type: keyof TFilter | "total";
@@ -99,7 +99,9 @@ function Filter({
       max: 1000,
       step: 1,
       unit: "만원",
-      // extraControler: <BudgetEC filter={tempFilter} setFilter={setTempFilter} />,
+      extraControler: (
+        <BudgetEC filter={tempFilter} setFilter={setTempFilter} step={10000} />
+      ),
     },
     // buttons
     season: {
