@@ -1,5 +1,5 @@
 import * as S from "./style";
-import { SetterOrUpdater, useRecoilState, useRecoilValue } from "recoil";
+import { SetterOrUpdater, useRecoilValue, useSetRecoilState } from "recoil";
 
 import OptionsIcon from "../../../assets/icons/options.svg?react";
 import DeleteIcon from "../../../assets/icons/x.svg?react";
@@ -31,7 +31,7 @@ function FilterList({
   filterState: filter,
   filterSetState: setFilter,
 }: Props) {
-  const [modal, setModal] = useRecoilState(modalState);
+  const setModal = useSetRecoilState(modalState);
   const filterTypeMap = {
     sort: "정렬",
     location: "지역",
@@ -46,7 +46,7 @@ function FilterList({
     setFilter((prev) => {
       switch (type) {
         case "sort":
-          return { ...prev, sort: "latest" };
+          return { ...prev, sort: "최신순" };
           break;
 
         case "location":
