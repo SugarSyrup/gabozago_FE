@@ -57,6 +57,7 @@ export const CloseHandle = styled.button`
 
 export const Title = styled.div`
   margin: 5px 0 20px;
+  padding-left: 20px;
   color: ${({ theme }) => theme.gray02};
   font-weight: 600;
 `;
