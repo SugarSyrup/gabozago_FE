@@ -1,6 +1,7 @@
 import * as S from "./style";
+import YouTube from "react-youtube";
 import { Link } from "react-router-dom";
-import { Suspense, useRef } from "react";
+import { Suspense, useEffect, useRef } from "react";
 import FollowBtn from "../../../../profile/FollowBtn";
 import UserIcon from "../../../../../assets/icons/user.svg?react";
 import LocationIcon from "../../../../../assets/icons/location.svg?react";
@@ -22,6 +23,7 @@ export interface TShortForm {
   like: number;
   bookmark: number;
   commentCount: number;
+  visible: boolean;
   modalOpen: () => void;
   popupOpen: () => void;
 }
@@ -30,8 +32,6 @@ function ShortForm({
   id,
   title,
   location,
-  createdAt,
-  thumbnail,
   videoId,
   userid,
   username,
@@ -39,29 +39,68 @@ function ShortForm({
   like,
   bookmark,
   commentCount,
+  visible,
   modalOpen,
   popupOpen,
 }: TShortForm) {
   // @todo: 유저정보에서 좋아요 정보 가져와 비교 => 좋아요 활성화/비활성화 관리
   // @todo: 스크랩 데이터에서 스크랩됐는지 비교 => 북마크 활성화/비활성화 관리
-  const youtubeRef = useRef<HTMLIFrameElement>(null);
+  const playerRef = useRef<YouTube>(null);
   const opts = {
     autoplay: 1,
     controls: 0,
-    loop: 1,
-    mute: 1,
-    modestbranding: 1,
-    fs: 0,
-    playsinline: 0,
+    showInfo: 0,
     rel: 0,
+    modestbranding: 0,
+    loop: 1,
+    autohide: 1,
+    playlist: videoId,
   };
-  const queryString = Object.entries(opts)
-    .map(([key, value]) => `${key}=${value}`)
-    .join("&");
+  const videoPlayControl = () => {
+    const player = playerRef.current?.getInternalPlayer();
+    if (visible) {
+      player.playVideo();
+    } else {
+      player.pauseVideo();
+    }
+  };
+
+  useEffect(() => {
+    videoPlayControl();
+  }, [visible]);
 
   return (
     <>
-      <S.Container>
+      <S.Container
+        onScroll={() => {
+          console.log("scroll");
+        }}
+      >
+        <S.YoutubeContainer>
+          <Suspense
+            fallback={<S.YoutubeFallback>로딩 중...</S.YoutubeFallback>}
+          >
+            <YouTube
+              videoId={videoId}
+              ref={playerRef}
+              loading="lazy"
+              opts={{
+                width: "100%",
+                height: "888px",
+                playerVars: opts,
+              }}
+              onEnd={() => {
+                playerRef.current?.resetPlayer();
+              }}
+              onReady={() => {
+                const player = playerRef.current?.getInternalPlayer();
+                player.setVolume(40);
+
+                videoPlayControl();
+              }}
+            />
+          </Suspense>
+        </S.YoutubeContainer>
         <S.InfoBox>
           <p>
             <Link to={`profile/${userid}`}>
@@ -107,18 +146,6 @@ function ShortForm({
             <ShareIcon />
           </S.IconButton>
         </S.ControlBox>
-        <S.YoutubeContainer>
-          <Suspense
-            fallback={<S.YoutubeFallback>로딩 중...</S.YoutubeFallback>}
-          >
-            <S.YoutubeIframe
-              ref={youtubeRef}
-              src={`https://www.youtube.com/embed/${videoId}?${queryString}`}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              loading="lazy"
-            />
-          </Suspense>
-        </S.YoutubeContainer>
       </S.Container>
     </>
   );
