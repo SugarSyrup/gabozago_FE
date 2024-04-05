@@ -3,7 +3,7 @@ import ShortFormList from "../shortform/ShortFormList";
 import * as S from "./style";
 import SnapshotList from "../snapshot/SnapshotList";
 
-const snapshots = [
+export const snapshots = [
   {
     id: 232132131,
     title: "제목",

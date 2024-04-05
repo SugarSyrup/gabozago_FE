@@ -64,6 +64,7 @@ export const ProfileImage = styled.img`
 `;
 
 export const ContentsBox = styled.div`
+  cursor: pointer;
   width: 100%;
   font-size: 14px;
   line-height: 20px;
@@ -75,6 +76,7 @@ export const ContentsBox = styled.div`
 `;
 
 export const ImageList = styled.ol`
+  cursor: default;
   width: 100%;
   overflow-x: auto;
   scroll-snap-type: y mandatory;
