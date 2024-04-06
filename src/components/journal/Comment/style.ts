@@ -30,7 +30,7 @@ export const Contents = styled.div<{ position: "bottom" | "top" }>`
           overflow-y: auto;
         `
       : css`
-          padding: 16px 0px;
+          padding: 16px 20px;
         `};
 `;
 
@@ -57,7 +57,7 @@ export const CommentInputForm = styled.form<{ position: "bottom" | "top" }>`
         `
       : css`
           position: relative;
-          padding: 8px 0;
+          padding: 8px 20px;
         `}
 `;
 
