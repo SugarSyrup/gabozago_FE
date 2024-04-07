@@ -12,7 +12,7 @@ export interface TFilter {
   budget: Range;
 }
 
-const defaultFilter: TFilter = {
+export const defaultFilter: TFilter = {
   sort: "최신순",
   location: [],
   headCount: [1, 30],
