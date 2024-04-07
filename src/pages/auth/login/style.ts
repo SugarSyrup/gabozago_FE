@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const Container = styled.div`
     width:100%;
@@ -27,7 +27,6 @@ export const BrandCopy = styled.span`
 
 export const OAuthSquareButton = styled.div`
     width:100%;
-    margin-top:90px;
     padding: 9px 0px;
     border-radius:4px;
     background-color:#FFE812;
@@ -104,4 +103,54 @@ export const HelpText = styled(Link)`
     font-weight: 400;
     line-height: 24px;
     text-decoration-line: underline;
+`
+
+export const MessageContainer = styled.div`
+    position:relative;
+    width:100%;
+    margin-top:90px;
+
+    display:flex;
+    justify-content:center;
+`
+
+const upDown = keyframes`
+  from{
+    transform: translateY(2px);
+  }
+  to{
+    transform: translateY(-2px);
+  }
+`
+
+export const FloatingMessage = styled.div`
+    padding:4px 25px;
+    background-color:white;
+    border-radius:6px;
+    filter: drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.15));
+
+    position:absolute;
+    top:-46px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:6px;
+
+    animation: ${upDown} 1s infinite ease-in-out alternate;
+
+    &::after{
+        content:"";
+        width:0;
+        height:0;
+        border-top:9px solid white;
+        border-left:9px solid transparent;
+        border-bottom:9px solid transparent;
+        border-right:9px solid transparent;
+        filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.15));
+
+        position:absolute;
+        z-index:20;
+        bottom:-18px;
+    }
 `

@@ -2,6 +2,7 @@ import PageTemplate from "../../../components/common/PageTemplate";
 
 import LogoIcon from "../../../assets/icons/logo.svg?react";
 import LogoText from "../../../assets/icons/logo_text.svg?react";
+import ThunderMoveIcon from "../../../assets/icons/thuder_move.svg?react";
 import KakaoTalkImg from "../../../assets/imgs/kakaotalk.png";
 import AppleImg from "../../../assets/imgs/apple.png";
 import NaverImg from "../../../assets/imgs/naver.png";
@@ -19,10 +20,16 @@ function LoginPage() {
                     <span>타인의 여행후기를</span>
                     <span>나만의 여행으로 만드는 새로운 방법</span>
                 </S.BrandCopy>
-                <S.OAuthSquareButton>
-                    <img src={KakaoTalkImg} />
-                    <span>카카오톡으로 시작하기</span>
-                </S.OAuthSquareButton>
+                <S.MessageContainer>
+                    <S.FloatingMessage>
+                        <ThunderMoveIcon />
+                        <span>3초만에 빠른 시작하기</span>
+                    </S.FloatingMessage>
+                    <S.OAuthSquareButton>
+                        <img src={KakaoTalkImg} />
+                        <span>카카오톡으로 시작하기</span>
+                    </S.OAuthSquareButton>
+                </S.MessageContainer>
                 <S.SeperateTextLine>
                     또는
                 </S.SeperateTextLine>
