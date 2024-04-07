@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 export const List = styled.ol`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, auto));
+  grid-template-columns: 100%;
+  grid-template-rows: repeat(auto-fit, minmax(150px, auto));
   gap: 11px 9px;
 `;
 
