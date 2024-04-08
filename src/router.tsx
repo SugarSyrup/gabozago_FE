@@ -1,10 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "./pages/App";
 import MyTripPage from "./pages/mytrip/MyTripPage";
 import TestPage from "./pages/TestPage";
 import MyTripDetailPage from "./pages/mytrip/DetailPage";
 import MyTripLocationSelectPage from "./pages/mytrip/LocationSelectPage";
-import MyTripDatesSelectPage from "./pages/mytrip/DatesSelectePage";
+import MyTripDatesSelectPage from "./pages/mytrip/DatesSelectPage";
 import MyTripLocationSearchPage from "./pages/mytrip/LocationSearchPage";
 import MyTripPlaceCreatePage from "./pages/mytrip/PlaceCreatePage";
 import ScrapBookPage from "./pages/scrapbook/ScrapBookPage";
@@ -14,8 +13,10 @@ import UserEditPage from "./pages/profile/UserEditPage";
 import UserFollowPage from "./pages/profile/UserFollowPage";
 import HomePage from "./pages/home/HomePage";
 import ShortFormPage from "./pages/journal/ShortformPage";
+import SnapshotPage from "./pages/journal/SnapshotPage";
 
 import { userData } from "./assets/data/userData";
+import PostPage from "./pages/post";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
   {
     path: "/journal/shortform/:id",
     element: <ShortFormPage />,
+  },
+  {
+    path: "/journal/snapshot/:id",
+    element: <SnapshotPage />,
   },
   /* ---- 내 여행 페이지 ---- */
   {
@@ -84,6 +89,10 @@ const router = createBrowserRouter([
   {
     path: "/scrapbook/:id",
     element: <ScrapBookGroupPage />,
+  },
+  {
+    path: "/post",
+    element: <PostPage />
   },
   // 기타
   {

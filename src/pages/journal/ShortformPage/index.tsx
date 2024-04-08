@@ -1,6 +1,5 @@
 import * as S from "./style";
-import { WheelEvent, useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
 import PageTemplate from "../../../components/common/PageTemplate";
 import ShortForm, {
   TShortForm,
@@ -13,12 +12,14 @@ import usePopup from "../../../hooks/usePopup";
 import Comment from "../../../components/journal/Comment";
 
 function ShortFormPage() {
-  const navigate = useNavigate();
-  const { pathname } = useLocation();
-  const id: number = Number(pathname.split("/").pop()); // 마지막 path === id
-
-  const [focusedIndex, setFocusedIndex] = useState<number>(0);
-  const [shortforms, setShortforms] = useState<TShortForm[]>([]);
+  const shortsListRef = useRef<HTMLDivElement>(null);
+  const [shortforms, setShortforms] = useState<TShortForm[]>([{ id: 0 }]);
+  const [focusIndex, setFocusindex] = useState<number>(0);
+  const createCopyURL = (id: number) => {
+    const arr = window.location.href.split("/").slice(0, -1);
+    arr.push(String(id));
+    return arr.join("/");
+  };
 
   const { Modal, modalOpen } = useModal({
     title: "",
@@ -26,21 +27,6 @@ function ShortFormPage() {
     borderRadius: "16px",
   });
   const { Popup, popupOpen } = usePopup();
-
-  const onWheel = (e: WheelEvent<HTMLElement>) => {
-    console.dir(e);
-    e.stopPropagation();
-    const wheelDirection = e.deltaY > 0 ? "UP" : "DOWN";
-    alert("scroll" + wheelDirection);
-
-    if (wheelDirection === "UP") {
-      if (focusedIndex > 0) {
-        setFocusedIndex((prev) => prev - 1);
-      }
-    } else {
-      setFocusedIndex((prev) => prev + 1);
-    }
-  };
 
   useEffect(() => {
     // 숏폼 정보 불러오기
@@ -90,17 +76,8 @@ function ShortFormPage() {
     ] as TShortForm[]);
   }, []);
 
-  useEffect(() => {
-    console.log("focusedIndex: ", focusedIndex);
-    if (shortforms.length !== 0) {
-      navigate(`/journals/shorform/${shortforms[focusedIndex].id}`, {
-        replace: true,
-      });
-    }
-  }, [focusedIndex]);
-
   return (
-    <PageTemplate nav={<BottomNavBar style="transparent" />}>
+    <PageTemplate nav={<BottomNavBar style="black" />}>
       <S.Header>
         <BackButton />
         <S.IconButton>
@@ -108,7 +85,7 @@ function ShortFormPage() {
         </S.IconButton>
       </S.Header>
       <Modal>
-        <Comment id={id} commentInputPosition="bottom" />
+        <Comment id={shortforms[focusIndex].id} commentInputPosition="bottom" />
       </Modal>
       <Popup>
         <S.UrlLabel htmlFor="urlCopy">
@@ -118,13 +95,27 @@ function ShortFormPage() {
           type="url"
           name="현재 링크 복사"
           id="urlCopy"
-          value={window.location.href}
+          value={createCopyURL(shortforms[focusIndex].id)}
           disabled
         />
       </Popup>
-      <S.Container onWheel={onWheel} onWheelCapture={onWheel}>
-        {shortforms.map((item) => (
-          <ShortForm {...item} modalOpen={modalOpen} popupOpen={popupOpen} />
+      <S.Container
+        ref={shortsListRef}
+        onScroll={(e) => {
+          setFocusindex(
+            Math.floor(
+              shortsListRef.current.scrollTop / (e.target.clientHeight - 80)
+            )
+          );
+        }}
+      >
+        {shortforms.map((item, index) => (
+          <ShortForm
+            {...item}
+            modalOpen={modalOpen}
+            popupOpen={popupOpen}
+            visible={index === focusIndex}
+          />
         ))}
       </S.Container>
     </PageTemplate>

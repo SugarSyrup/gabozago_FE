@@ -6,7 +6,43 @@ import FilterList, { TFilterName } from "../../../common/FilterList";
 import { useRecoilState } from "recoil";
 import { journalFilterState } from "../../../../recoil/journals/journalState";
 
-const snapshots = [
+export const snapshots = [
+  {
+    id: 232132131,
+    title: "제목",
+    location: "부산",
+    createdAt: "2021-12-31",
+    userid: "useridididid",
+    username: "최민석",
+    profileImage: "https://placehold.co/300x300",
+    images: [
+      "https://placehold.co/300x300",
+      "https://placehold.co/300x300",
+      "https://placehold.co/300x300",
+    ],
+    text: "본문내용 어쩌구저쩌구", // 본문 내용
+    like: 20,
+    bookmark: 30,
+    commentCount: 12,
+  },
+  {
+    id: 232132131,
+    title: "제목",
+    location: "부산",
+    createdAt: "2021-12-31",
+    userid: "useridididid",
+    username: "최민석",
+    profileImage: "https://placehold.co/300x300",
+    images: [
+      "https://placehold.co/300x300",
+      "https://placehold.co/300x300",
+      "https://placehold.co/300x300",
+    ],
+    text: "본문내용 어쩌구저쩌구", // 본문 내용
+    like: 20,
+    bookmark: 30,
+    commentCount: 12,
+  },
   {
     id: 232132131,
     title: "제목",
