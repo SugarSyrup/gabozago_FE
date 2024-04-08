@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ShortFormList from "../shortform/ShortFormList";
 import * as S from "./style";
 import SnapshotList from "../snapshot/SnapshotList";
+import FilterList, { TFilterName } from "../../../common/FilterList";
+import { useRecoilState } from "recoil";
+import { journalFilterState } from "../../../../recoil/journals/journalState";
 
 export const snapshots = [
   {
@@ -95,14 +98,55 @@ const shortForms = [
 ];
 
 function Journals() {
+  const [filter, setFilter] = useRecoilState(journalFilterState);
   const [activeCategoryIndex, setActiveCategoryIndex] = useState<number>(0);
-  const categories = [
-    { text: "전체", contents: <></> },
-    { text: "게시글", contents: <></> },
-    { text: "영상", contents: <></> },
-    { text: "숏폼", contents: <ShortFormList data={shortForms} /> },
-    { text: "사진", contents: <SnapshotList data={snapshots} /> },
+  const categories: {
+    text: string;
+    filters: TFilterName[];
+    contents: JSX.Element;
+  }[] = [
+    { text: "전체", filters: ["sort", "location"], contents: <></> },
+    {
+      text: "게시글",
+      filters: [
+        "sort",
+        "location",
+        "headCount",
+        "duration",
+        "theme",
+        "season",
+        "budget",
+      ],
+      contents: <></>,
+    },
+    {
+      text: "영상",
+      filters: [
+        "sort",
+        "location",
+        "headCount",
+        "duration",
+        "theme",
+        "season",
+        "budget",
+      ],
+      contents: <></>,
+    },
+    {
+      text: "숏폼",
+      filters: ["sort", "location", "theme"],
+      contents: <ShortFormList data={shortForms} />,
+    },
+    {
+      text: "사진",
+      filters: ["sort", "location"],
+      contents: <SnapshotList data={snapshots} />,
+    },
   ];
+
+  useEffect(() => {
+    // filter에 맞게 contents 불러오기
+  }, []);
 
   return (
     <S.Container>
@@ -121,6 +165,11 @@ function Journals() {
             </S.CategoryItem>
           ))}
         </S.CategoryList>
+        <FilterList
+          filters={categories[activeCategoryIndex].filters}
+          filterState={filter}
+          filterSetState={setFilter}
+        />
       </S.FixedControlBox>
       <S.ContentBox>{categories[activeCategoryIndex].contents}</S.ContentBox>
     </S.Container>
