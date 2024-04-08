@@ -14,25 +14,28 @@ function HomePage() {
   ];
 
   return (
-    <PageTemplate>
-      <S.Header>
-        <TabBar
-          tabs={tabs}
-          focusedTabIndex={focusedTabIndex}
-          setFocusedTabIndex={setFocusedTabIndex}
-          widthStyle="fit-content"
-          fontSize="20px"
-          color="#424242"
-        />
-        <S.SearchButton
-          onClick={() => {
-            alert("검색");
-          }}
-        >
-          <SearchIcon />
-        </S.SearchButton>
-      </S.Header>
-      <S.ContentBox>{tabs[focusedTabIndex].content}</S.ContentBox>
+    <PageTemplate
+      header={
+        <S.Header>
+          <TabBar
+            tabs={tabs}
+            focusedTabIndex={focusedTabIndex}
+            setFocusedTabIndex={setFocusedTabIndex}
+            widthStyle="fit-content"
+            fontSize="20px"
+            color="#424242"
+          />
+          <S.SearchButton
+            onClick={() => {
+              alert("검색");
+            }}
+          >
+            <SearchIcon />
+          </S.SearchButton>
+        </S.Header>
+      }
+    >
+      {tabs[focusedTabIndex].content}
     </PageTemplate>
   );
 }

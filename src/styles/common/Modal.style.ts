@@ -7,7 +7,7 @@ export const ModalContainer = styled.div`
   right: 0;
   bottom: 0;
   overflow: hidden;
-  z-index: 30;
+  z-index: 50;
 
   &::before {
     content: "";
@@ -56,6 +56,7 @@ export const CloseHandle = styled.button`
 
 export const Title = styled.div`
   margin: 5px 0 20px;
+  padding-left: 20px;
   color: ${({ theme }) => theme.gray02};
   font-weight: 600;
 `;

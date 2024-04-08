@@ -6,7 +6,7 @@ import TripIcon from "../../../assets/icons/trip.svg?react";
 import * as S from "./style";
 
 interface Props {
-  style?: "white" | "transparent";
+  style?: "white" | "black";
 }
 function BottomNavBar({ style = "white" }: Props) {
   const { pathname } = useLocation();
@@ -31,7 +31,7 @@ function BottomNavBar({ style = "white" }: Props) {
         {navItems.map((item) => (
           <S.ListItem
             active={isMatches(item.path)}
-            activeColor={style === "transparent" ? "white" : "main"}
+            activeColor={style === "black" ? "white" : "main"}
           >
             <Link to={item.path}>
               {item.icon}

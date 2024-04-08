@@ -1,5 +1,4 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "./pages/App";
 import MyTripPage from "./pages/mytrip/MyTripPage";
 import TestPage from "./pages/TestPage";
 import MyTripDetailPage from "./pages/mytrip/DetailPage";
@@ -14,6 +13,7 @@ import UserEditPage from "./pages/profile/UserEditPage";
 import UserFollowPage from "./pages/profile/UserFollowPage";
 import HomePage from "./pages/home/HomePage";
 import ShortFormPage from "./pages/journal/ShortformPage";
+import SnapshotPage from "./pages/journal/SnapshotPage";
 
 import { userData } from "./assets/data/userData";
 import PostPage from "./pages/post";
@@ -28,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: "/journal/shortform/:id",
     element: <ShortFormPage />,
+  },
+  {
+    path: "/journal/snapshot/:id",
+    element: <SnapshotPage />,
   },
   /* ---- 내 여행 페이지 ---- */
   {

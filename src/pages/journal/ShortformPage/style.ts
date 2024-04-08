@@ -54,7 +54,7 @@ export const Container = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-  /* padding-bottom: 80px; */
+  padding-bottom: 80px;
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
   scroll-padding-top: var(--ytd-margin-6x);
