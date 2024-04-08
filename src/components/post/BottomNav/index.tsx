@@ -10,11 +10,12 @@ interface Props {
     isClap: boolean;
     claps:number;
     comment:number;
+    onCommentClick: () => void;
     bookmark:number;
     shares: number;
 }
 
-function BottomNav({postId, isClap, claps, comment, bookmark, shares}: Props) {
+function BottomNav({postId, isClap, claps, comment, onCommentClick, bookmark, shares}: Props) {
     // TODO: 각 BottomNav 클릭시 action 추가
 
     return(
@@ -24,7 +25,7 @@ function BottomNav({postId, isClap, claps, comment, bookmark, shares}: Props) {
                 <ClapIcon />
                 <span>{claps}</span>
             </S.NavigationItem>
-            <S.NavigationItem>
+            <S.NavigationItem onClick={onCommentClick}>
                 <CommentIcon />
                 <span>{comment}</span>
             </S.NavigationItem>
