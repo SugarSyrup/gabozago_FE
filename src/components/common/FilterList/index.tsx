@@ -9,6 +9,7 @@ import Filter from "../filterInputs/Filter";
 import {
   TFilter,
   activeJournalFilterListState,
+  defaultFilter,
 } from "../../../recoil/journals/journalState";
 import { modalState } from "../../../recoil/modalState";
 
@@ -45,10 +46,6 @@ function FilterList({
   const deleteFilterChip = (type: keyof TFilter, value: string): void => {
     setFilter((prev) => {
       switch (type) {
-        case "sort":
-          return { ...prev, sort: "최신순" };
-          break;
-
         case "location":
         case "season":
         case "theme":
@@ -61,7 +58,8 @@ function FilterList({
         case "headCount":
         case "duration":
         case "budget":
-          return { ...prev, [type]: [null, null] };
+        case "sort":
+          return { ...prev, [type]: defaultFilter[type] };
           break;
       }
 
