@@ -46,8 +46,27 @@ function FilterList({
   const deleteFilterChip = (type: keyof TFilter, value: string): void => {
     setFilter((prev) => {
       switch (type) {
-        case "location":
         case "season":
+          if (
+            prev.season.includes("사계절") ||
+            (prev.season.includes("봄") &&
+              prev.season.includes("여름") &&
+              prev.season.includes("가을") &&
+              prev.season.includes("겨울"))
+          ) {
+            return {
+              ...prev,
+              season: [],
+            };
+          } else {
+            return {
+              ...prev,
+              season: prev[type].filter((item) => item !== value),
+            };
+          }
+          break;
+
+        case "location":
         case "theme":
           return {
             ...prev,
