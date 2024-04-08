@@ -3,13 +3,55 @@ import styled from "styled-components";
 export const Container = styled.div`
   position: relative;
   height: 100%;
-  scroll-snap-align: center;
+  scroll-snap-align: start;
   margin-bottom: 10px;
+`;
+
+export const YoutubeContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+  border-radius: 10px;
+
+  &::after {
+    position: absolute;
+    bottom: 0;
+    content: "";
+    display: block;
+    width: 100%;
+    height: 150px;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(0, 0, 0, 0.2) 30%,
+      rgba(0, 0, 0, 0.5) 80%
+    );
+  }
+`;
+
+export const YoutubeFallback = styled.div`
+  width: 100%;
+  height: inherit;
+  background-color: ${({ theme }) => theme.black};
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const YoutubeIframe = styled.iframe`
+  width: 100%;
+  height: inherit;
 `;
 
 export const InfoBox = styled.div`
   padding: 17px 20px;
-  margin-bottom: 80px;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -100,7 +142,6 @@ export const ControlBox = styled.div`
   bottom: 0;
   right: 0;
   padding: 17px 20px;
-  margin-bottom: 80px;
 `;
 
 export const IconButton = styled.button`
@@ -133,26 +174,4 @@ export const IconButton = styled.button`
       stroke: ${({ theme }) => theme.gray02};
     }
   }
-`;
-
-export const YoutubeContainer = styled.div`
-  overflow: hidden;
-  border-radius: 10px;
-  width: 100%;
-  height: inherit;
-`;
-
-export const YoutubeFallback = styled.div`
-  width: 100%;
-  height: inherit;
-  background-color: ${({ theme }) => theme.black};
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const YoutubeIframe = styled.iframe`
-  width: 100%;
-  height: inherit;
 `;

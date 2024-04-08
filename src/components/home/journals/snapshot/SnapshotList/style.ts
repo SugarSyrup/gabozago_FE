@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 export const List = styled.ol`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, auto));
+  grid-template-columns: 100%;
+  grid-template-rows: repeat(auto-fit, minmax(150px, auto));
   gap: 11px 9px;
 `;
 
@@ -64,6 +65,7 @@ export const ProfileImage = styled.img`
 `;
 
 export const ContentsBox = styled.div`
+  cursor: pointer;
   width: 100%;
   font-size: 14px;
   line-height: 20px;
@@ -75,6 +77,7 @@ export const ContentsBox = styled.div`
 `;
 
 export const ImageList = styled.ol`
+  cursor: default;
   width: 100%;
   overflow-x: auto;
   scroll-snap-type: y mandatory;

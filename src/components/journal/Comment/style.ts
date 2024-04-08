@@ -3,18 +3,22 @@ import UserIcon from "../../../assets/icons/user.svg?react";
 
 export const Header = styled.header<{ position: "bottom" | "top" }>`
   width: 100%;
-  padding: 10px 16px 12px;
-  border-bottom: 1px solid ${({ theme }) => theme.gray04};
+  padding: 20px 16px 12px;
   background-color: ${({ theme }) => theme.white};
 
   ${({ position }) =>
-    position === "bottom" &&
-    css`
-      position: absolute;
-      top: 0;
-      padding-top: 24px;
-      z-index: 10;
-    `}
+    position === "bottom"
+      ? css`
+          position: absolute;
+          top: 0;
+          padding-top: 24px;
+          z-index: 10;
+
+          border-bottom: 1px solid ${({ theme }) => theme.gray04};
+        `
+      : css`
+          border-top: 1px solid ${({ theme }) => theme.gray04};
+        `}
 `;
 
 export const CommentCountSpan = styled.span`
@@ -30,7 +34,7 @@ export const Contents = styled.div<{ position: "bottom" | "top" }>`
           overflow-y: auto;
         `
       : css`
-          padding: 16px 0px;
+          padding: 16px 20px;
         `};
 `;
 
@@ -57,7 +61,7 @@ export const CommentInputForm = styled.form<{ position: "bottom" | "top" }>`
         `
       : css`
           position: relative;
-          padding: 8px 0;
+          padding: 8px 20px;
         `}
 `;
 

@@ -6,21 +6,23 @@ import userIcon from "../../../../../assets/icons/user.svg";
 import ClapIcon from "../../../../../assets/icons/clap.svg?react";
 import CommentIcon from "../../../../../assets/icons/comment.svg?react";
 
+export interface TSnapshot {
+  id: number;
+  title: string;
+  location: string;
+  createdAt: string;
+  userid: string;
+  username: string;
+  profileImage: string;
+  images: string[];
+  text: string;
+  like: number;
+  bookmark: number;
+  commentCount: number;
+}
+
 interface Props {
-  data: {
-    id: number;
-    title: string;
-    location: string;
-    createdAt: string;
-    userid: string;
-    username: string;
-    profileImage: string;
-    images: string[];
-    text: string;
-    like: number;
-    bookmark: number;
-    commentCount: number;
-  }[];
+  data: TSnapshot[];
 }
 
 function SnapshotList({ data }: Props) {
@@ -64,7 +66,11 @@ function SnapshotList({ data }: Props) {
                 }}
               >
                 <p>{text}</p>
-                <S.ImageList>
+                <S.ImageList
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                >
                   {images.map((item) => (
                     <S.ImageItem>
                       <S.Image src={item} alt="" />
