@@ -60,3 +60,18 @@ export const InputAlert = styled.span<{hasExplain: boolean}>`
     bottom: ${({hasExplain}) => hasExplain ? "0px" : "-20px"};
     right: 0px;
 `
+
+export const ConfirmButton = styled.span`
+    position:absolute;
+    right:11px;
+    top:42px;
+
+    padding:0px 12px;
+    border-radius: 20px;
+    border: 1px solid ${({theme}) => theme.main};;
+    background: #ECF0FF;
+
+    color: ${({theme}) => theme.main};
+    font-size: 11px;
+    line-height: 22px;
+`

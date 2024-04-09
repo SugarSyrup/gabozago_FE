@@ -8,9 +8,10 @@ interface Props {
     required: boolean,
     explain?: JSX.Element,
     alert?: JSX.Element,
+    onButtonClick?: () => void,
 }
 
-function InputContainer({inputType, name, label, disabled,  required, explain, alert}: Props) {
+function InputContainer({inputType, name, label, disabled,  required, explain, alert, onButtonClick}: Props) {
     return(
         <S.InputContainer>
             <S.Label htmlFor={name}>{label}</S.Label>
@@ -26,6 +27,12 @@ function InputContainer({inputType, name, label, disabled,  required, explain, a
                 <S.InputAlert hasExplain={explain !== undefined}>
                     {alert}
                 </S.InputAlert>
+            }
+            {
+                onButtonClick && 
+                <S.ConfirmButton>
+                    확인
+                </S.ConfirmButton>
             }
         </S.InputContainer>
     )

@@ -41,6 +41,7 @@ function SignUpPage() {
                             사용가능한 닉네임입니다:)
                         </S.AlertMessage>
                     }
+                    onButtonClick={() => {}}
                 />
                 <CheckBoxs />
 
@@ -55,6 +56,7 @@ function SignUpPage() {
                             유효하지 않은 유저입니다.
                         </S.AlertMessage>
                     }
+                    onButtonClick={() => {}}
                 />
                 <S.ButtonWrapper>
                     <Button type="normal" size="lg" width="100%">회원가입 완료</Button>
