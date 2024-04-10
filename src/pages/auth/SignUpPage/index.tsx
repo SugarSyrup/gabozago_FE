@@ -4,7 +4,7 @@ import KakaoIcon from "../../../assets/imgs/kakaotalk.png";
 
 import * as S from "./style";
 import Button from "../../../components/common/Button";
-import InputContainer from "../../../components/auth/InputContainer";
+import InputContainer from "../../../components/common/InputContainer";
 import CheckBoxs from "../../../components/auth/CheckBoxs";
 
 function SignUpPage() {
