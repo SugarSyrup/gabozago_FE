@@ -1,4 +1,4 @@
-import BackButton from "../../../components/common/BackButton";
+
 import PageTemplate from "../../../components/common/PageTemplate";
 import KakaoIcon from "../../../assets/imgs/kakaotalk.png";
 
@@ -6,15 +6,14 @@ import * as S from "./style";
 import Button from "../../../components/common/Button";
 import InputContainer from "../../../components/common/InputContainer";
 import CheckBoxs from "../../../components/auth/CheckBoxs";
+import PageHeader from "../../../components/common/PageHeader";
 
 function SignUpPage() {
     return(
         <PageTemplate nav={false} header={
-            <S.Header>
-                <BackButton />
-                <span>회원가입</span>
-                <span></span>
-            </S.Header>
+            <PageHeader>
+                <S.HeaderText>회원 가입</S.HeaderText>
+            </PageHeader>
         }>
             <S.FormContainer>
                 <InputContainer 
