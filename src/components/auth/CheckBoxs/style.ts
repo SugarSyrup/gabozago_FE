@@ -11,6 +11,7 @@ export const CheckBoxsContainer = styled.div`
     gap:10px;
 `
 
+
 export const CheckBoxContainer = styled.div`
     width:100%;
     padding:12px 20px;
@@ -28,16 +29,6 @@ export const CheckBoxContainer = styled.div`
     }
 `
 
-export const CheckBoxInputContainer = styled.div`
-    display:flex;
-    justify-content:flex-start;
-    align-items:center;
-    gap:7px;
-
-    label, a{
-        margin-left:7px;
-    }
-`
 
 export const CheckBoxLabelHighlight = styled.label`
     color: ${({theme}) => theme.black};
