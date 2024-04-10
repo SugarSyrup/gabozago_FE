@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import * as S from "./style";
-import CheckBoxItem from "../CheckBoxItem";
+import CheckBoxItem from "../../common/CheckBoxItem";
 
 function CheckBoxs() {
     const [allChecks, setAllChecks] = useState(false);
