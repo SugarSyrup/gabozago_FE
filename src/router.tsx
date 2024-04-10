@@ -18,6 +18,8 @@ import SnapshotPage from "./pages/journal/SnapshotPage";
 import { userData } from "./assets/data/userData";
 import PostPage from "./pages/post";
 import VideoPage from "./pages/video";
+import LoginPage from "./pages/auth/LoginPage";
+import SignUpPage from "./pages/auth/SignUpPage";
 
 const router = createBrowserRouter([
   {
@@ -98,6 +100,15 @@ const router = createBrowserRouter([
   {
     path: "/video",
     element: <VideoPage />
+  },
+  /* ---- 로그인 페이지 ---- */
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+  {
+    path: "/signup",
+    element: <SignUpPage />,
   },
   // 기타
   {
