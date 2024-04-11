@@ -1,3 +1,5 @@
+import {QueryClient, useMutation, useQuery} from "@tanstack/react-query";
+
 import PageTemplate from "../../../components/common/PageTemplate";
 
 import LogoIcon from "../../../assets/icons/logo.svg?react";
@@ -9,8 +11,80 @@ import NaverImg from "../../../assets/imgs/naver.png";
 import GoogleImg from "../../../assets/imgs/google.png";
 
 import * as S from "./style";
+import { queryClient } from "../../../main";
+
+async function login() {
+    const response = await fetch(`${import.meta.env.VITE_BASE_URL}user/app/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            "uid": 1,
+            "provider": "google",
+            "email" : "test@naver.com",
+            "nickname" : "test1",
+            "profile_pic" : ""
+        }),
+    })
+
+    return await response.json();
+}
+
+async function refresh() {
+    const response = await fetch(`${import.meta.env.VITE_BASE_URL}user/jwt-token-auth/refresh`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            "refresh": queryClient.getQueryData(["refresh_token"])
+        })
+    })
+
+    return await response.json();
+}
 
 function LoginPage() {
+    const {data: userData, mutate: loginMutate, isSuccess: isLoginSuccess} = useMutation({
+        mutationFn: () => login(),
+    })
+
+    const {data: refreshData, mutate: refreshMutate, isSuccess: isRefreshSuccess} = useMutation({
+        mutationFn: () => refresh(),
+    })
+
+    function tokenRefresh() {
+        refreshMutate();
+        setTimeout(() => {
+            if(isRefreshSuccess) {
+                queryClient.setQueryData(
+                    ['access_token'],
+                    refreshData.access
+                )
+
+                tokenRefresh();
+            }
+        }, 1000 * 60 * 60 * 23)
+    }
+
+    function developLogin() {
+        loginMutate();
+        if(isLoginSuccess) {
+            queryClient.setQueryData(
+                ['access_token'],
+                userData.access,
+                
+            );
+            queryClient.setQueryData(
+                ['refresh_token'],
+                userData.refresh
+            );
+
+            tokenRefresh();
+        }
+    }
+
     return(
         <PageTemplate nav={false}>
             <S.Container>
@@ -25,7 +99,7 @@ function LoginPage() {
                         <ThunderMoveIcon />
                         <span>3초만에 빠른 시작하기</span>
                     </S.FloatingMessage>
-                    <S.OAuthSquareButton>
+                    <S.OAuthSquareButton onClick={developLogin}>
                         <img src={KakaoTalkImg} />
                         <span>카카오톡으로 시작하기</span>
                     </S.OAuthSquareButton>
@@ -34,13 +108,13 @@ function LoginPage() {
                     또는
                 </S.SeperateTextLine>
                 <S.OAuthButtons>
-                    <S.OAuthCircleButton color="#00BF18">
+                    <S.OAuthCircleButton color="#00BF18" onClick={developLogin}>
                         <img src={NaverImg} />
                     </S.OAuthCircleButton>
-                    <S.OAuthCircleButton color="#FFFFFF">
+                    <S.OAuthCircleButton color="#FFFFFF" onClick={developLogin}>
                         <img src={GoogleImg} />
                     </S.OAuthCircleButton>
-                    <S.OAuthCircleButton color="#000000">
+                    <S.OAuthCircleButton color="#000000" onClick={developLogin}>
                         <img src={AppleImg} />
                     </S.OAuthCircleButton>
                 </S.OAuthButtons>
