@@ -11,7 +11,7 @@ import * as S from "./style";
 import UserTrip from "../../../components/profile/UserTrip";
 import UserReview from "../../../components/profile/UserReview";
 import UserActivity from "../../../components/profile/UserActivity";
-import FollowBtn from "../../../components/profile/FollowBtn";
+import FollowBtn from "../../../components/common/FollowBtn";
 
 function ProfilePage() {
   const { uid } = useParams();

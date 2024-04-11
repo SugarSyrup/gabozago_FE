@@ -16,6 +16,7 @@ import useCourseModal from "../../components/video/useCourseModal";
 import usePlaceModal from "../../components/video/usePlaceModal";
 import useScrapModal from "../../components/video/useScrapModal";
 import useNoMyTripAlert from "../../components/video/useNoMyTripAlert";
+import FollowBtn from "../../components/common/FollowBtn";
 
 function PostPage() {
     const navigate = useNavigate();
@@ -57,17 +58,9 @@ function PostPage() {
                         <S.Name>{data.author.name}</S.Name>
                         <S.Date>{data.author.createdAt}</S.Date>
                     </S.UserInfo>
-                    
-                    {
-                        // TODO: 팔로우 버튼 클릭 action
-                        data.author.isFollowed ? 
-                        <S.FollowBtn>
-                           <CheckIcon /> 팔로잉
-                        </S.FollowBtn>
-                        :
-                        <S.FollowBtn>+ 팔로우</S.FollowBtn>
-                    }
-
+                    <S.FollowBtnWrapper>
+                        <FollowBtn isFollowing={data.author.isFollowed} />
+                    </S.FollowBtnWrapper>
                 </S.UserContainer>
             </S.Header>
             <S.Contents>

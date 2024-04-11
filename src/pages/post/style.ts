@@ -76,6 +76,16 @@ export const UserInfo = styled.div`
     gap:2px;
 `
 
+export const FollowBtnWrapper = styled.div`
+    position:absolute;
+    right:8px;
+
+    svg{
+        width:12px;
+        height:12px;
+    }
+`
+
 export const Name = styled.span`
     font-size: 14px;
     font-weight: 600;
@@ -84,37 +94,6 @@ export const Name = styled.span`
 export const Date = styled.span`
     color: ${({theme}) => theme.gray01};
     font-size: 12px;
-`
-
-export const FollowBtn = styled.button`
-    display: inline-flex;
-    padding: 7px 10px;
-
-    justify-content: center;
-    align-items: center;
-    gap: 6px;
-    flex-shrink: 0;
-
-    border:none;
-    border-radius: 6px;
-    background: ${({theme}) => theme.main};
-
-    color: white;
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 500;
-
-    position:absolute;
-    right:0px;
-
-    svg{
-        width:12px;
-        height:12px;
-
-        path {
-            fill:white;
-        }
-    }
 `
 
 export const Contents = styled.div`

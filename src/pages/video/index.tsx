@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from "react";
 import YouTube from "react-youtube";
 
 import AvatarIcon from "../../assets/icons/user.svg?react";
-import CheckIcon from "../../assets/icons/check.svg?react";
 import { data } from "../../assets/data/postData";
 import CalendarAddIcon from "../../assets/icons/calendar_add_border.svg?react";
 import ScrapBorderIcon from "../../assets/icons/bookmark.svg?react";
@@ -21,6 +20,7 @@ import usePlaceModal from "../../components/video/usePlaceModal";
 import useCourseModal from "../../components/video/useCourseModal";
 
 import * as S from "./style";
+import FollowBtn from "../../components/common/FollowBtn";
 
 function VideoPage() {const navigate = useNavigate();
     const playerRef = useRef<YouTube>(null);
@@ -107,15 +107,9 @@ function VideoPage() {const navigate = useNavigate();
                         <S.Name>{data.author.name}</S.Name>
                         <S.Date>팔로워 5명</S.Date>
                     </S.UserInfo>
-                    {
-                        // TODO: 팔로우 버튼 클릭 action
-                        data.author.isFollowed ? 
-                        <S.FollowBtn>
-                           <CheckIcon /> 팔로잉
-                        </S.FollowBtn>
-                        :
-                        <S.FollowBtn>+ 팔로우</S.FollowBtn>
-                    }
+                    <S.FollowBtnWrapper>
+                        <FollowBtn isFollowing={data.author.isFollowed}/>
+                    </S.FollowBtnWrapper>
                 </S.UserContainer>
             </S.Header>
             <S.Contents>

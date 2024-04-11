@@ -10,7 +10,7 @@ import userIcon from "../../../assets/icons/user.svg";
 import ClapIcon from "../../../assets/icons/clap.svg?react";
 import CommentIcon from "../../../assets/icons/comment.svg?react";
 import Comment from "../../../components/journal/Comment";
-import FollowBtn from "../../../components/profile/FollowBtn";
+import FollowBtn from "../../../components/common/FollowBtn";
 
 function SnapshotPage() {
   const { pathname } = useLocation();
