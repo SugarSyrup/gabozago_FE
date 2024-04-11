@@ -1,22 +1,22 @@
-import AvatarIcon from "../../assets/icons/user.svg?react";
-import CheckIcon from "../../assets/icons/check.svg?react";
+import { useNavigate } from "react-router-dom";
+import AvatarIcon from "../../../assets/icons/user.svg?react";
+
+import { data } from "../../../assets/data/postData";
 
 import Summary from "../../../components/post/Summary";
 import Routes from "../../../components/post/Routes";
 import Place from "../../../components/post/Place";
-
-import * as S from "./style";
 import Comment from "../../../components/journal/Comment";
-import { useNavigate } from "react-router-dom";
 import useScrapAlert from "../../../components/post/useScrapAlert";
 import usePlaceAlert from "../../../components/post/usePlaceAlert";
 import CommunityPageTemplate from "../../../components/common/CommunityPageTemplate";
-import { data } from "../../../assets/data/postData";
 import useCourseModal from "../../../components/video/useCourseModal";
 import usePlaceModal from "../../../components/video/usePlaceModal";
 import useScrapModal from "../../../components/video/useScrapModal";
 import useNoMyTripAlert from "../../../components/video/useNoMyTripAlert";
 import FollowBtn from "../../../components/common/FollowBtn";
+
+import * as S from "./style";
 
 function PostPage() {
     const navigate = useNavigate();

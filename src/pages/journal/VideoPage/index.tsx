@@ -2,10 +2,11 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import YouTube from "react-youtube";
 
-import AvatarIcon from "../../assets/icons/user.svg?react";
 import { data } from "../../../assets/data/postData";
-import CalendarAddIcon from "../../assets/icons/calendar_add_border.svg?react";
-import ScrapBorderIcon from "../../assets/icons/bookmark.svg?react";
+
+import AvatarIcon from "../../../assets/icons/user.svg?react";
+import CalendarAddIcon from "../../../assets/icons/calendar_add_border.svg?react";
+import ScrapBorderIcon from "../../../assets/icons/bookmark.svg?react";
 
 import Summary from "../../../components/post/Summary";
 import Routes from "../../../components/post/Routes";
