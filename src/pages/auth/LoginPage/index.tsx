@@ -1,4 +1,5 @@
-import {QueryClient, useMutation, useQuery} from "@tanstack/react-query";
+import {useMutation} from "@tanstack/react-query";
+import IsLoginTemplate from "../../../components/IsLoginTemplate";
 
 import PageTemplate from "../../../components/common/PageTemplate";
 
@@ -9,9 +10,9 @@ import KakaoTalkImg from "../../../assets/imgs/kakaotalk.png";
 import AppleImg from "../../../assets/imgs/apple.png";
 import NaverImg from "../../../assets/imgs/naver.png";
 import GoogleImg from "../../../assets/imgs/google.png";
+import { queryClient } from "../../../main";
 
 import * as S from "./style";
-import { queryClient } from "../../../main";
 
 async function login() {
     const response = await fetch(`${import.meta.env.VITE_BASE_URL}user/app/login`, {
@@ -58,11 +59,7 @@ function LoginPage() {
         refreshMutate();
         setTimeout(() => {
             if(isRefreshSuccess) {
-                queryClient.setQueryData(
-                    ['access_token'],
-                    refreshData.access
-                )
-
+                localStorage.setItem("access_token", refreshData.access);
                 tokenRefresh();
             }
         }, 1000 * 60 * 60 * 23)
@@ -71,58 +68,52 @@ function LoginPage() {
     function developLogin() {
         loginMutate();
         if(isLoginSuccess) {
-            queryClient.setQueryData(
-                ['access_token'],
-                userData.access,
-                
-            );
-            queryClient.setQueryData(
-                ['refresh_token'],
-                userData.refresh
-            );
-
+            localStorage.setItem("access_token", userData.access);
+            localStorage.setItem("refresh_token", userData.refresh);
             tokenRefresh();
         }
     }
 
     return(
-        <PageTemplate nav={false}>
-            <S.Container>
-                <LogoIcon />
-                <LogoText />
-                <S.BrandCopy>
-                    <span>타인의 여행후기를</span>
-                    <span>나만의 여행으로 만드는 새로운 방법</span>
-                </S.BrandCopy>
-                <S.MessageContainer>
-                    <S.FloatingMessage>
-                        <ThunderMoveIcon />
-                        <span>3초만에 빠른 시작하기</span>
-                    </S.FloatingMessage>
-                    <S.OAuthSquareButton onClick={developLogin}>
-                        <img src={KakaoTalkImg} />
-                        <span>카카오톡으로 시작하기</span>
-                    </S.OAuthSquareButton>
-                </S.MessageContainer>
-                <S.SeperateTextLine>
-                    또는
-                </S.SeperateTextLine>
-                <S.OAuthButtons>
-                    <S.OAuthCircleButton color="#00BF18" onClick={developLogin}>
-                        <img src={NaverImg} />
-                    </S.OAuthCircleButton>
-                    <S.OAuthCircleButton color="#FFFFFF" onClick={developLogin}>
-                        <img src={GoogleImg} />
-                    </S.OAuthCircleButton>
-                    <S.OAuthCircleButton color="#000000" onClick={developLogin}>
-                        <img src={AppleImg} />
-                    </S.OAuthCircleButton>
-                </S.OAuthButtons>
-                <S.HelpText to="/help">
-                    도움이 필요하신가요?
-                </S.HelpText>
-            </S.Container>
-        </PageTemplate>
+        <IsLoginTemplate>
+            <PageTemplate nav={false}>
+                <S.Container>
+                    <LogoIcon />
+                    <LogoText />
+                    <S.BrandCopy>
+                        <span>타인의 여행후기를</span>
+                        <span>나만의 여행으로 만드는 새로운 방법</span>
+                    </S.BrandCopy>
+                    <S.MessageContainer>
+                        <S.FloatingMessage>
+                            <ThunderMoveIcon />
+                            <span>3초만에 빠른 시작하기</span>
+                        </S.FloatingMessage>
+                        <S.OAuthSquareButton onClick={developLogin}>
+                            <img src={KakaoTalkImg} />
+                            <span>카카오톡으로 시작하기</span>
+                        </S.OAuthSquareButton>
+                    </S.MessageContainer>
+                    <S.SeperateTextLine>
+                        또는
+                    </S.SeperateTextLine>
+                    <S.OAuthButtons>
+                        <S.OAuthCircleButton color="#00BF18" onClick={developLogin}>
+                            <img src={NaverImg} />
+                        </S.OAuthCircleButton>
+                        <S.OAuthCircleButton color="#FFFFFF" onClick={developLogin}>
+                            <img src={GoogleImg} />
+                        </S.OAuthCircleButton>
+                        <S.OAuthCircleButton color="#000000" onClick={developLogin}>
+                            <img src={AppleImg} />
+                        </S.OAuthCircleButton>
+                    </S.OAuthButtons>
+                    <S.HelpText to="/help">
+                        도움이 필요하신가요?
+                    </S.HelpText>
+                </S.Container>
+            </PageTemplate>
+        </IsLoginTemplate>
     )
 }
 
