@@ -1,5 +1,5 @@
 import {useMutation} from "@tanstack/react-query";
-import IsLoginTemplate from "../../../components/IsLoginTemplate";
+import AuthCheck from "../../../components/AuthCheck";
 
 import PageTemplate from "../../../components/common/PageTemplate";
 
@@ -75,7 +75,7 @@ function LoginPage() {
     }
 
     return(
-        <IsLoginTemplate>
+        <AuthCheck>
             <PageTemplate nav={false}>
                 <S.Container>
                     <LogoIcon />
@@ -113,7 +113,7 @@ function LoginPage() {
                     </S.HelpText>
                 </S.Container>
             </PageTemplate>
-        </IsLoginTemplate>
+        </AuthCheck>
     )
 }
 

@@ -5,7 +5,7 @@ interface Props {
     children: React.ReactNode
 }
 
-function IsLoginTemplate({children}:Props) {
+function AuthCheck({children}:Props) {
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -21,4 +21,4 @@ function IsLoginTemplate({children}:Props) {
     )
 }
 
-export default IsLoginTemplate;
+export default AuthCheck;
