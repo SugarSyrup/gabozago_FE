@@ -21,6 +21,7 @@ import VideoPage from "./pages/journal/VideoPage";
 import LoginPage from "./pages/auth/LoginPage";
 import SignUpPage from "./pages/auth/SignUpPage";
 import SettingsPage from "./pages/profile/SettingsPage";
+import TermsPage from "./pages/TermsPage";
 
 const router = createBrowserRouter([
   {
@@ -119,6 +120,10 @@ const router = createBrowserRouter([
     element: <SignUpPage />,
   },
   // 기타
+  {
+    path: "/terms/:id",
+    element: <TermsPage />,
+  },
   {
     path: "/test",
     element: <TestPage />,
