@@ -2,7 +2,7 @@ import * as S from "./style";
 import YouTube from "react-youtube";
 import { Link } from "react-router-dom";
 import { Suspense, useEffect, useRef } from "react";
-import FollowBtn from "../../../../profile/FollowBtn";
+import FollowBtn from "../../../../common/FollowBtn";
 import UserIcon from "../../../../../assets/icons/user.svg?react";
 import LocationIcon from "../../../../../assets/icons/location.svg?react";
 import BookMarkIcon from "../../../../../assets/icons/bookmark.svg?react";

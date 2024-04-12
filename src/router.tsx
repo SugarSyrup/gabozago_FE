@@ -16,8 +16,8 @@ import ShortFormPage from "./pages/journal/ShortformPage";
 import SnapshotPage from "./pages/journal/SnapshotPage";
 
 import { userData } from "./assets/data/userData";
-import PostPage from "./pages/post";
-import VideoPage from "./pages/video";
+import PostPage from "./pages/journal/PostPage";
+import VideoPage from "./pages/journal/VideoPage";
 import LoginPage from "./pages/auth/LoginPage";
 import SignUpPage from "./pages/auth/SignUpPage";
 
@@ -34,6 +34,14 @@ const router = createBrowserRouter([
   {
     path: "/journal/snapshot/:id",
     element: <SnapshotPage />,
+  },
+  {
+    path: "/journal/post/:id",
+    element: <PostPage />
+  },
+  {
+    path: "/journal/video/:id",
+    element: <VideoPage />
   },
   /* ---- 내 여행 페이지 ---- */
   {
@@ -92,14 +100,6 @@ const router = createBrowserRouter([
   {
     path: "/scrapbook/:id",
     element: <ScrapBookGroupPage />,
-  },
-  {
-    path: "/post",
-    element: <PostPage />
-  },
-  {
-    path: "/video",
-    element: <VideoPage />
   },
   /* ---- 로그인 페이지 ---- */
   {

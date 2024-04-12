@@ -2,25 +2,26 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import YouTube from "react-youtube";
 
-import AvatarIcon from "../../assets/icons/user.svg?react";
-import CheckIcon from "../../assets/icons/check.svg?react";
-import { data } from "../../assets/data/postData";
-import CalendarAddIcon from "../../assets/icons/calendar_add_border.svg?react";
-import ScrapBorderIcon from "../../assets/icons/bookmark.svg?react";
+import { data } from "../../../assets/data/postData";
 
-import Summary from "../../components/post/Summary";
-import Routes from "../../components/post/Routes";
-import usePlaceSlider from "../../components/video/usePlaceSlider";
-import usePlaceTimeline from "../../components/video/usePlaceTimeline";
-import CommunityPageTemplate from "../../components/common/CommunityPageTemplate";
-import useNoMyTripAlert from "../../components/video/useNoMyTripAlert";
-import usePlaceAlert from "../../components/post/usePlaceAlert";
-import useScrapAlert from "../../components/post/useScrapAlert";
-import useScrapModal from "../../components/video/useScrapModal";
-import usePlaceModal from "../../components/video/usePlaceModal";
-import useCourseModal from "../../components/video/useCourseModal";
+import AvatarIcon from "../../../assets/icons/user.svg?react";
+import CalendarAddIcon from "../../../assets/icons/calendar_add_border.svg?react";
+import ScrapBorderIcon from "../../../assets/icons/bookmark.svg?react";
+
+import Summary from "../../../components/post/Summary";
+import Routes from "../../../components/post/Routes";
+import usePlaceSlider from "../../../components/video/usePlaceSlider";
+import usePlaceTimeline from "../../../components/video/usePlaceTimeline";
+import CommunityPageTemplate from "../../../components/common/CommunityPageTemplate";
+import useNoMyTripAlert from "../../../components/video/useNoMyTripAlert";
+import usePlaceAlert from "../../../components/post/usePlaceAlert";
+import useScrapAlert from "../../../components/post/useScrapAlert";
+import useScrapModal from "../../../components/video/useScrapModal";
+import usePlaceModal from "../../../components/video/usePlaceModal";
+import useCourseModal from "../../../components/video/useCourseModal";
 
 import * as S from "./style";
+import FollowBtn from "../../../components/common/FollowBtn";
 
 function VideoPage() {const navigate = useNavigate();
     const playerRef = useRef<YouTube>(null);
@@ -107,15 +108,9 @@ function VideoPage() {const navigate = useNavigate();
                         <S.Name>{data.author.name}</S.Name>
                         <S.Date>팔로워 5명</S.Date>
                     </S.UserInfo>
-                    {
-                        // TODO: 팔로우 버튼 클릭 action
-                        data.author.isFollowed ? 
-                        <S.FollowBtn>
-                           <CheckIcon /> 팔로잉
-                        </S.FollowBtn>
-                        :
-                        <S.FollowBtn>+ 팔로우</S.FollowBtn>
-                    }
+                    <S.FollowBtnWrapper>
+                        <FollowBtn isFollowing={data.author.isFollowed}/>
+                    </S.FollowBtnWrapper>
                 </S.UserContainer>
             </S.Header>
             <S.Contents>

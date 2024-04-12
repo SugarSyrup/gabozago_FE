@@ -1,6 +1,24 @@
 import styled from "styled-components";
 
-export const ThumbnailWrapper = styled.img`
+export const PageContainer = styled.div`
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: grid;
+    grid-template-rows: 1fr fit-content(100%);
+    margin: auto;
+    max-width: 500px;
+    width: 100%;
+    height: 100vh;
+
+    overflow:auto;
+
+    background-color:${({theme}) => theme.gray06};
+`
+
+export const VideoWrapper = styled.div`
     width: 100%;
     height:340px;
     
@@ -27,11 +45,13 @@ export const Header = styled.header`
     background-color:white;
 `
 
+
 export const Type = styled.span`
     color: ${({theme}) => theme.gray01};
     font-size: 13px;
     font-weight: 400;
     line-height: 28px;
+    margin-top:95px;
 `
 
 export const Title = styled.div`
@@ -76,6 +96,16 @@ export const UserInfo = styled.div`
     gap:2px;
 `
 
+export const FollowBtnWrapper = styled.div`
+    position:absolute;
+    right:8px;
+
+    svg{
+        width:12px;
+        height:12px;
+    }
+`
+
 export const Name = styled.span`
     font-size: 14px;
     font-weight: 600;
@@ -86,36 +116,6 @@ export const Date = styled.span`
     font-size: 12px;
 `
 
-export const FollowBtn = styled.button`
-    display: inline-flex;
-    padding: 7px 10px;
-
-    justify-content: center;
-    align-items: center;
-    gap: 6px;
-    flex-shrink: 0;
-
-    border:none;
-    border-radius: 6px;
-    background: ${({theme}) => theme.main};
-
-    color: white;
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 500;
-
-    position:absolute;
-    right:0px;
-
-    svg{
-        width:12px;
-        height:12px;
-
-        path {
-            fill:white;
-        }
-    }
-`
 
 export const Contents = styled.div`
     margin-top:14px;
@@ -127,48 +127,68 @@ export const Contents = styled.div`
     padding-bottom:36px;
 `
 
-export const Day = styled.div`
-    width:100%;
-    padding: 6px 20px;
-    margin-top:36px;
-    border-radius:10px;
 
-    background-color:${({theme}) => theme.main};
+export const Explain = styled.span`
+    display:inline-block;
+    margin-top:16px;
+
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 26px;
+`
+
+export const PlaceBtns = styled.div`
+    width:100%;
+    margin-top:24px;
 
     display:flex;
-    justify-content:space-between;
+    gap:10px;
+    align-items:center;
+`
+
+export const PlaceBtn = styled.div`
+    width:100%;
+    padding:8px 0px;
+
+    border-radius:6px;
+    background-color:${({theme}) => theme.gray05};
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+
+    svg {
+        width:18px;
+        height:18px;
+
+        path {
+            fill: ${({theme}) => theme.gray01};
+        }
+    }
 
     span{
-        color: white;
-        font-size: 15px;
-        font-weight: 600;
-        line-height: 28px;
+        color: ${({theme}) => theme.gray};
+        font-size: 11px;
+        font-weight: 400;
+        line-height: 21.588px;
     }
 `
 
-export const SeperateLine = styled.div`
-    transform:translateX(-20px);
-
-    width: calc(100% + 40px);
-    height:8px;
-
-
-    background-color:${({theme}) => theme.gray06};
-`
-
-export const DayLink = styled.span`
-    color:white;
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 28px; 
-    text-decoration-line: underline;
-`
-
-export const Comments = styled.div`
+export const SubTitle = styled.span`
+    display:inline-block;
     width:100%;
     margin-top:10px;
-    padding-left:20px;
-    padding-right:20px;
+    margin-bottom:6px;
 
-    background-color:white;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 21.588px; 
+`
+
+export const SubTitleDesc = styled.span`
+    color: ${({theme}) => theme.main};
+    font-size: 13px;
+    line-height: 21.588px;
+    margin-bottom:6px;
 `
