@@ -5,9 +5,11 @@ import { useNavigate } from "react-router-dom";
 import ChevronRightIcon from "../../../assets/icons/chevron_right.svg?react";
 import { useState } from "react";
 import NotificationToggleButton from "../../../components/profile/settings/NotificationToggleButton";
+import usePopup from "../../../hooks/usePopup";
 
 function SettingsPage() {
   const navigate = useNavigate();
+  const { Popup, popupOpen, popupClose } = usePopup();
   const [isActivityNotiAllowed, setIsActivityNotiAllowed] =
     useState<boolean>(false);
   const username = "최민석";
@@ -54,6 +56,30 @@ function SettingsPage() {
 
   return (
     <PageTemplate header={<PageHeader>설정</PageHeader>}>
+      <Popup>
+        <S.PopupContainer>
+          <p>정말 로그아웃 하시겠습니까?</p>
+          <div>
+            <S.PopupConfirmButton
+              type={"secondary"}
+              onClick={() => {
+                popupClose();
+              }}
+            >
+              취소
+            </S.PopupConfirmButton>
+            <S.PopupConfirmButton
+              type={"primary"}
+              onClick={() => {
+                popupClose();
+                // @todo: 로그아웃
+              }}
+            >
+              확인
+            </S.PopupConfirmButton>
+          </div>
+        </S.PopupContainer>
+      </Popup>
       <S.ContentsWrapper>
         <S.UserSettingButton onClick={() => navigate(`/profile/edit`)}>
           <div>
@@ -91,7 +117,13 @@ function SettingsPage() {
               </ol>
             </div>
           ))}
-          <S.LogOutButton>로그아웃</S.LogOutButton>
+          <S.LogOutButton
+            onClick={() => {
+              popupOpen();
+            }}
+          >
+            로그아웃
+          </S.LogOutButton>
         </S.SettingsContainer>
       </S.ContentsWrapper>
     </PageTemplate>
