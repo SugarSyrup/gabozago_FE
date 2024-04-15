@@ -89,7 +89,8 @@ function SettingsPage() {
           <ChevronRightIcon />
         </S.UserSettingButton>
         <S.SettingsContainer>
-          <div>
+          {/* @todo: 알림 설정 개발 전까지 표시X  */}
+          {/* <div>
             <S.SettingTitleParagraph>알림 설정</S.SettingTitleParagraph>
             <NotificationToggleButton
               name="활동 알림"
@@ -99,7 +100,7 @@ function SettingsPage() {
                 setIsActivityNotiAllowed((prev) => !prev);
               }}
             />
-          </div>
+          </div> */}
           {settings.map((group) => (
             <div>
               <S.SettingTitleParagraph>{group.title}</S.SettingTitleParagraph>
