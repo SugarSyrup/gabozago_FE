@@ -22,6 +22,7 @@ import LoginPage from "./pages/auth/LoginPage";
 import SignUpPage from "./pages/auth/SignUpPage";
 import SettingsPage from "./pages/profile/SettingsPage";
 import TermsPage from "./pages/TermsPage";
+import ResignPage from "./pages/ResignPage";
 
 const router = createBrowserRouter([
   {
@@ -88,7 +89,7 @@ const router = createBrowserRouter([
   },
   {
     // TODO : [LOGIN 기능 정의 이후] LOGIN 정보를 기반으로 접근 허용 / 거부
-    path: "/profile/:uid/edit",
+    path: "/profile/edit",
     element: <UserEditPage />,
     loader: async () => {
       return userData;
@@ -123,6 +124,10 @@ const router = createBrowserRouter([
   {
     path: "/terms/:id",
     element: <TermsPage />,
+  },
+  {
+    path: "/leave",
+    element: <ResignPage />,
   },
   {
     path: "/test",
