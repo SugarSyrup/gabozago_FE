@@ -21,18 +21,20 @@ function CheckBoxItem({
   children,
 }: Props) {
   return (
-    <S.CheckBoxInputContainer>
-      <input
-        type="checkbox"
-        checked={checked}
-        onChange={onChange}
-        name={name}
-        id={inputId}
-        required={required}
-        className={className}
-      />
-      {children}
-    </S.CheckBoxInputContainer>
+    <label>
+      <S.CheckBoxInputContainer>
+        <input
+          type="checkbox"
+          checked={checked}
+          onChange={onChange}
+          name={name}
+          id={inputId}
+          required={required}
+          className={className}
+        />
+        {children}
+      </S.CheckBoxInputContainer>
+    </label>
   );
 }
 
