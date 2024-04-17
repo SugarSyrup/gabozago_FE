@@ -29,6 +29,7 @@ import PostPage from "./pages/journal/PostPage";
 import VideoPage from "./pages/journal/VideoPage";
 import LoginPage from "./pages/auth/LoginPage";
 import SignUpPage from "./pages/auth/SignUpPage";
+import ArticlePage from "./pages/ArticlePage";
 
 import ResignPage from "./pages/resign/ResignPage";
 import ResignDonePage from "./pages/resign/ResignDonePage";
@@ -209,6 +210,10 @@ const router = createBrowserRouter([
   },
   {
     // 테스트
+    path:"/article",
+    element:<ArticlePage />
+  },
+  {
     path: "/test",
     element: <TestPage />,
   },
