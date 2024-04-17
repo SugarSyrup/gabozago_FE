@@ -3,6 +3,7 @@ import PageTemplate from "../../components/common/PageTemplate";
 import PageHeader from "../../components/common/PageHeader";
 import CheckBoxItem from "../../components/common/CheckBox";
 import { ChangeEventHandler, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface TReason {
   value: string;
@@ -10,6 +11,18 @@ interface TReason {
 }
 
 function ResignPage() {
+  const navigate = useNavigate();
+  const [selectedReason, setSelectedReason] = useState<string[]>([]);
+  const toggleReason: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const value = e.target.id;
+
+    if (selectedReason.includes(value)) {
+      setSelectedReason((prev) => prev.filter((item) => item !== value));
+    } else {
+      setSelectedReason((prev) => [...prev, value]);
+    }
+  };
+
   const [suggestionText, setSuggestionText] = useState<string>("");
   const suggestionChangeHandler: ChangeEventHandler<HTMLTextAreaElement> = (
     e
@@ -18,6 +31,8 @@ function ResignPage() {
       setSuggestionText(e.target.value);
     }
   };
+
+  // @todo: 로그인 유저 정보 가져오기
   const username = "최민석";
   const reasonMap: TReason[] = [
     { value: "01", text: "재가입" },
@@ -32,8 +47,28 @@ function ResignPage() {
     <PageTemplate
       nav={
         <S.ConfirmButtonsContainer>
-          <S.ConfirmButton styleTheme="secondary">탈퇴하기</S.ConfirmButton>
-          <S.ConfirmButton styleTheme="primary">취소하기</S.ConfirmButton>
+          <S.ConfirmButton
+            styleTheme="secondary"
+            onClick={() => {
+              if (selectedReason.length === 0) {
+                alert("탈퇴 사유를 선택해 주세요.");
+                return;
+              }
+              // @todo: API를 통한 회원 탈퇴 요청
+              // @todo: 로그아웃(토큰 없애기)
+              navigate("/leave/done");
+            }}
+          >
+            탈퇴하기
+          </S.ConfirmButton>
+          <S.ConfirmButton
+            styleTheme="primary"
+            onClick={() => {
+              navigate(-1);
+            }}
+          >
+            취소하기
+          </S.ConfirmButton>
         </S.ConfirmButtonsContainer>
       }
       header={<PageHeader>탈퇴하기</PageHeader>}
@@ -60,15 +95,26 @@ function ResignPage() {
         </S.InfoContainer>
       </S.NoticeContainer>
       <S.ReasonContainer>
-        <S.TitleParagraph>
-          가보자고를 탈퇴하려는 이유가 무엇인가요? (복수선택 가능)
-          <span className="required-text">필수</span>
-        </S.TitleParagraph>
+        <div>
+          <S.TitleParagraph>
+            가보자고를 탈퇴하려는 이유가 무엇인가요? (복수선택 가능)
+            <span className="required-text">필수</span>
+          </S.TitleParagraph>
+          {selectedReason.length === 0 && (
+            <S.TitleDescParagraph>
+              최소 1개 이상의 탈퇴 사유를 선택해주세요.
+            </S.TitleDescParagraph>
+          )}
+        </div>
         <S.InfoContainer>
           <ul className="checkboxs">
             {reasonMap.map(({ value, text }) => (
               <li>
-                <CheckBoxItem name="탈퇴 사유" inputId={value}>
+                <CheckBoxItem
+                  name="탈퇴 사유"
+                  inputId={value}
+                  onChange={toggleReason}
+                >
                   {text}
                 </CheckBoxItem>
               </li>
