@@ -22,7 +22,8 @@ import LoginPage from "./pages/auth/LoginPage";
 import SignUpPage from "./pages/auth/SignUpPage";
 import SettingsPage from "./pages/profile/SettingsPage";
 import TermsPage from "./pages/TermsPage";
-import ResignPage from "./pages/ResignPage";
+import ResignPage from "./pages/resign/ResignPage";
+import ResignDonePage from "./pages/resign/ResignDonePage";
 
 const router = createBrowserRouter([
   {
@@ -128,6 +129,10 @@ const router = createBrowserRouter([
   {
     path: "/leave",
     element: <ResignPage />,
+  },
+  {
+    path: "/leave/done",
+    element: <ResignDonePage />,
   },
   {
     path: "/test",

@@ -1,7 +1,7 @@
 import * as S from "./style";
-import PageTemplate from "../../components/common/PageTemplate";
-import PageHeader from "../../components/common/PageHeader";
-import CheckBoxItem from "../../components/common/CheckBox";
+import PageTemplate from "../../../components/common/PageTemplate";
+import PageHeader from "../../../components/common/PageHeader";
+import CheckBoxItem from "../../../components/common/CheckBox";
 import { ChangeEventHandler, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
