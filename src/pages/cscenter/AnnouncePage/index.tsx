@@ -1,12 +1,47 @@
 import * as S from "./style";
-import React from "react";
+import { useEffect, useState } from "react";
 import PageTemplate from "../../../components/common/PageTemplate";
 import PageHeader from "../../../components/common/PageHeader";
+import { Link } from "react-router-dom";
+
+interface TData {
+  id: number;
+  title: string;
+  createdAt: string;
+}
 
 function AnnouncePage() {
+  const [data, setData] = useState<TData[]>([
+    {
+      id: 2,
+      title: "공지사항2",
+      createdAt: "2024-04-12",
+    },
+    {
+      id: 1,
+      title: "공지사항1",
+      createdAt: "2024-04-12",
+    },
+  ]);
+
+  useEffect(() => {
+    // @todo: 공지사항 불러오기
+  }, []);
+
   return (
     <PageTemplate nav={false} header={<PageHeader>공지사항</PageHeader>}>
-      <div></div>
+      <S.Container>
+        <S.OrderedList>
+          {data.map(({ id, title, createdAt }) => (
+            <S.ListItem>
+              <Link to={`./${id}`}>
+                <p className="title">{title}</p>
+                <p className="date">{createdAt}</p>
+              </Link>
+            </S.ListItem>
+          ))}
+        </S.OrderedList>
+      </S.Container>
     </PageTemplate>
   );
 }

@@ -27,6 +27,7 @@ import ResignDonePage from "./pages/resign/ResignDonePage";
 import AnnouncePage from "./pages/cscenter/AnnouncePage";
 import HelpPage from "./pages/cscenter/HelpPage";
 import FeedBackPage from "./pages/cscenter/FeedBackPage";
+import AnnounceDetailPage from "./pages/cscenter/AnnounceDetailPage";
 
 const router = createBrowserRouter([
   {
@@ -128,6 +129,10 @@ const router = createBrowserRouter([
   {
     path: "/cscenter/announce",
     element: <AnnouncePage />,
+  },
+  {
+    path: "/cscenter/announce/:id",
+    element: <AnnounceDetailPage />,
   },
   {
     path: "/cscenter/help",
