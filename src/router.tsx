@@ -33,9 +33,10 @@ import { userData } from "./assets/data/userData";
 import ResignPage from "./pages/resign/ResignPage";
 import ResignDonePage from "./pages/resign/ResignDonePage";
 import AnnouncePage from "./pages/cscenter/AnnouncePage";
-import HelpPage from "./pages/cscenter/HelpPage";
-import FeedBackPage from "./pages/cscenter/FeedBackPage";
 import AnnounceDetailPage from "./pages/cscenter/AnnounceDetailPage";
+import FeedBackPage from "./pages/cscenter/FeedBackPage";
+import CSCenterPage from "./pages/cscenter/CSCenterPage";
+import FAQPage from "./pages/cscenter/FAQPage";
 
 const router = createBrowserRouter([
   {
@@ -143,6 +144,10 @@ const router = createBrowserRouter([
   },
   /* ---- 고객센터 페이지 ---- */
   {
+    path: "/cscenter",
+    element: <CSCenterPage />,
+  },
+  {
     path: "/cscenter/announce",
     element: <AnnouncePage />,
   },
@@ -151,8 +156,8 @@ const router = createBrowserRouter([
     element: <AnnounceDetailPage />,
   },
   {
-    path: "/cscenter/help",
-    element: <HelpPage />,
+    path: "/cscenter/faq",
+    element: <FAQPage />,
   },
   {
     path: "/cscenter/feedback",
