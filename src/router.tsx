@@ -32,6 +32,9 @@ import { userData } from "./assets/data/userData";
 
 import ResignPage from "./pages/resign/ResignPage";
 import ResignDonePage from "./pages/resign/ResignDonePage";
+import AnnouncePage from "./pages/cscenter/AnnouncePage";
+import HelpPage from "./pages/cscenter/HelpPage";
+import FeedBackPage from "./pages/cscenter/FeedBackPage";
 
 const router = createBrowserRouter([
   {
@@ -136,6 +139,19 @@ const router = createBrowserRouter([
   {
     path: "/place/:id",
     element: <PlacePage />
+  },
+  /* ---- 고객센터 페이지 ---- */
+  {
+    path: "/cscenter/announce",
+    element: <AnnouncePage />,
+  },
+  {
+    path: "/cscenter/help",
+    element: <HelpPage />,
+  },
+  {
+    path: "/cscenter/feedback",
+    element: <FeedBackPage />,
   },
   // 기타
   {
