@@ -20,6 +20,10 @@ import PostPage from "./pages/journal/PostPage";
 import VideoPage from "./pages/journal/VideoPage";
 import LoginPage from "./pages/auth/LoginPage";
 import SignUpPage from "./pages/auth/SignUpPage";
+import SettingsPage from "./pages/profile/SettingsPage";
+import TermsPage from "./pages/TermsPage";
+import ResignPage from "./pages/resign/ResignPage";
+import ResignDonePage from "./pages/resign/ResignDonePage";
 
 const router = createBrowserRouter([
   {
@@ -37,11 +41,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/journal/post/:id",
-    element: <PostPage />
+    element: <PostPage />,
   },
   {
     path: "/journal/video/:id",
-    element: <VideoPage />
+    element: <VideoPage />,
   },
   /* ---- 내 여행 페이지 ---- */
   {
@@ -86,8 +90,15 @@ const router = createBrowserRouter([
   },
   {
     // TODO : [LOGIN 기능 정의 이후] LOGIN 정보를 기반으로 접근 허용 / 거부
-    path: "/profile/:uid/edit",
+    path: "/profile/edit",
     element: <UserEditPage />,
+    loader: async () => {
+      return userData;
+    },
+  },
+  {
+    path: "/profile/settings",
+    element: <SettingsPage />,
     loader: async () => {
       return userData;
     },
@@ -111,6 +122,18 @@ const router = createBrowserRouter([
     element: <SignUpPage />,
   },
   // 기타
+  {
+    path: "/terms/:id",
+    element: <TermsPage />,
+  },
+  {
+    path: "/leave",
+    element: <ResignPage />,
+  },
+  {
+    path: "/leave/done",
+    element: <ResignDonePage />,
+  },
   {
     path: "/test",
     element: <TestPage />,
