@@ -20,6 +20,7 @@ import PostPage from "./pages/journal/PostPage";
 import VideoPage from "./pages/journal/VideoPage";
 import LoginPage from "./pages/auth/LoginPage";
 import SignUpPage from "./pages/auth/SignUpPage";
+import PlacePage from "./pages/PlacePage";
 
 const router = createBrowserRouter([
   {
@@ -109,6 +110,10 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <SignUpPage />,
+  },
+  {
+    path: "/place/:id",
+    element: <PlacePage />
   },
   // 기타
   {
