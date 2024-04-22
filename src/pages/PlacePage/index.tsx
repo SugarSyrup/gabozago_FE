@@ -74,6 +74,11 @@ function PlacePage() {
                     }}
                     onLoad={onLoad}
                     onUnmount={onUnmount}
+                    options={{
+                        fullscreenControl:false,
+                        keyboardShortcuts:false,
+                        mapTypeControl:false,
+                    }}
                 >
                     <Marker position={{
                         lat: 37,
