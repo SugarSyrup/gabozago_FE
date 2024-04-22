@@ -1,6 +1,24 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+export const ModalContainer= styled.div`
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    grid-template-columns: 100%;
+    margin: auto;
+
+    max-width: 500px;
+    max-height: 100vh;
+    width: 100%;
+    height: 100vh;
+
+    background-color: ${({ theme }) => theme.white};
+    z-index:0;
+`
+
 export const TopBarText = styled.span`
     color: ${({theme}) => theme.black};
     font-size: 18px;

@@ -14,6 +14,8 @@ import PageTemplate from "../../components/common/PageTemplate";
 import PlaceOperateTime from "../../components/journal/PlaceOperateTime";
 
 import * as S from "./style";
+import useScrapModal from "../../components/video/useScrapModal";
+import useCourseModal from "../../components/video/useCourseModal";
 
 function PlacePage() {
     const { isLoaded } = useJsApiLoader({
@@ -36,9 +38,14 @@ function PlacePage() {
       }, [])
 
     const thumbnailWrapperRef = useRef<HTMLDivElement>(null);
+    const {CourseModal, courseModalOpen, courseModalClose, setCourseModalData} = useCourseModal();
+//    const {PlaceModal, placeModalOpen, placeModalClose, setPlaceModalData} = usePlaceModal();
+    const {ScrapModal, scrapModalOpen, scrapModalClose, setScrapModalData} = useScrapModal();
 
     return(
         <PageTemplate header={<PageHeader LeftItem={<BackButton />}><S.TopBarText>모구모구 제과점</S.TopBarText></PageHeader>} nav={false}>
+            <CourseModal />
+            <ScrapModal />
             <S.ThumbnailWrapper ref={thumbnailWrapperRef}>
                 <img src={"a.png"} />
             </S.ThumbnailWrapper>
@@ -87,11 +94,11 @@ function PlacePage() {
                 </GoogleMap>
             }
             <S.Buttons>
-                <S.Button>
+                <S.Button onClick={() => courseModalOpen()}>
                     <CalendarAddIcon />
                     <span>내 일정에 추가하기</span>
                 </S.Button>
-                <S.Button>
+                <S.Button onClick={() => scrapModalOpen()}>
                     <ScrapIcon />
                     <span>장소 스크랩에 저장</span>
                 </S.Button>
