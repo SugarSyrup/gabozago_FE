@@ -11,6 +11,7 @@ import ScrapIcon from "../../assets/icons/bookmark.svg?react"
 import BackButton from "../../components/common/BackButton";
 import PageHeader from "../../components/common/PageHeader";
 import PageTemplate from "../../components/common/PageTemplate";
+import PlaceOperateTime from "../../components/journal/PlaceOperateTime";
 
 import * as S from "./style";
 
@@ -53,6 +54,7 @@ function PlacePage() {
                 </S.InfomationItem>
                 <S.InfomationItem>
                     <TimeIcon />
+                    <PlaceOperateTime />
                 </S.InfomationItem>
                 <S.InfomationItem>
                     <LinkIcon />

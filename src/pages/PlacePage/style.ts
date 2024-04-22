@@ -58,17 +58,22 @@ export const InfomationItem = styled.li`
 `
 
 export const InfomationText = styled.span`
-    color: ${({theme}) => theme.gray};
-    font-size: 13px;
+    color: ${({theme}) => theme.black};
+    font-size: 12px;
     font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.25px;
 `
 
 export const InfomationLink = styled(Link)`
     color: ${({theme}) => theme.main};
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 400;
+    line-height: 20px; 
+    letter-spacing: 0.25px;
     text-decoration-line: underline;
 `
+
 
 export const Buttons = styled.div`
     width:100%;
