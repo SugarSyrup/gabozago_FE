@@ -1,14 +1,14 @@
 import styled from "styled-components";
 
 
-export const StationList = styled.ol`
+export const StationList = styled.ol<{isBackground: boolean}>`
     display:flex;
     flex-direction:column;
     justify-content:flex-start;
 
     width:100%;
     padding:12px 20px;
-    background-color:${({theme}) => theme.blue05};
+    background-color:${({isBackground, theme}) => isBackground ? theme.blue05 : "white"};
     border-radius:6px;
 `
 
@@ -48,7 +48,7 @@ export const Linker = styled.div<{
     }
 `;
 
-export const TextContainer = styled.div<{
+export const TextContainer = styled.a<{
     isLast?: boolean
 }>`
     width:100%;
@@ -62,6 +62,7 @@ export const TextContainer = styled.div<{
     justify-content:center;
     align-items:flex-start;
     gap:6px;
+    text-decoration:none;
 
     border-bottom:${({theme, isLast}) => !isLast && `1px solid ${theme.gray03}`};
 `
@@ -76,4 +77,33 @@ export const StationName = styled.span`
     color: ${({theme}) => theme.gray};
     font-size: 12px;
     font-weight: 400;
+`
+
+export const StationIcon = styled.div`
+    width:60px;
+    height:60px;
+    border-radius:100%;
+
+    background-color:white;
+    filter: drop-shadow(0px 5px 5px rgba(0, 0, 0, 0.25));
+
+    position:fixed;
+    bottom:90px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    cursor:pointer;
+`
+
+
+export const ModalTitle = styled.span`
+    margin-left:20px;
+    color: ${({theme}) => theme.gray};
+
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.15px;
 `
