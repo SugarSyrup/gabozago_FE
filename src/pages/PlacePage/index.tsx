@@ -1,5 +1,4 @@
-import { useCallback, useRef, useState } from "react";
-import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
+import { useRef } from "react";
 
 import LocationIcon from "../../assets/icons/location.svg?react";
 import PhoneIcon from "../../assets/icons/phone.svg?react";
@@ -12,34 +11,15 @@ import BackButton from "../../components/common/BackButton";
 import PageHeader from "../../components/common/PageHeader";
 import PageTemplate from "../../components/common/PageTemplate";
 import PlaceOperateTime from "../../components/journal/PlaceOperateTime";
-
-import * as S from "./style";
 import useScrapModal from "../../components/video/useScrapModal";
 import useCourseModal from "../../components/video/useCourseModal";
 
+import * as S from "./style";
+import PlaceGoogleMap from "../../components/journal/GoogleMap";
+
 function PlacePage() {
-    const { isLoaded } = useJsApiLoader({
-        id: 'google-map-script',
-        googleMapsApiKey: import.meta.env.VITE_GOOGLEMAP_KEY,
-    })
-
-    const [map, setMap] = useState(null)
-    const onLoad = useCallback(function callback(map: any) {
-        const bounds = new window.google.maps.LatLngBounds({
-            lat: 37,
-            lng: 126
-        });
-        map.fitBounds(bounds);
-
-        setMap(map)
-    }, [])
-    const onUnmount = useCallback(function callback(map: any) {
-        setMap(null)
-      }, [])
-
     const thumbnailWrapperRef = useRef<HTMLDivElement>(null);
     const {CourseModal, courseModalOpen, courseModalClose, setCourseModalData} = useCourseModal();
-//    const {PlaceModal, placeModalOpen, placeModalClose, setPlaceModalData} = usePlaceModal();
     const {ScrapModal, scrapModalOpen, scrapModalClose, setScrapModalData} = useScrapModal();
 
     return(
@@ -68,31 +48,13 @@ function PlacePage() {
                     <S.InfomationLink to="/">인스타그램</S.InfomationLink>
                 </S.InfomationItem>
             </S.InfomationList>
-            {
-                isLoaded && <GoogleMap
-                    mapContainerStyle={{
-                        width: '100%',
-                        height: '100px',
-                        borderRadius: '6px',
-                    }}
-                    center={{
-                        lat: 37,
-                        lng: 126
-                    }}
-                    onLoad={onLoad}
-                    onUnmount={onUnmount}
-                    options={{
-                        fullscreenControl:false,
-                        keyboardShortcuts:false,
-                        mapTypeControl:false,
-                    }}
-                >
-                    <Marker position={{
-                        lat: 37,
-                        lng: 126
-                    }} />
-                </GoogleMap>
-            }
+            <PlaceGoogleMap center={{
+                lat: 37,
+                lng: 126
+            }} markers={[{
+                lat: 37,
+                lng: 126
+            }]}/>
             <S.Buttons>
                 <S.Button onClick={() => courseModalOpen()}>
                     <CalendarAddIcon />
