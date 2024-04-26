@@ -75,6 +75,7 @@ export const data = {
 		},
 		{
 			type:"place",
+			imageURL:"a.png",
 			placeId:123,
 		}
 	],

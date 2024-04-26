@@ -11,9 +11,10 @@ import { useNavigate } from "react-router-dom";
 
 interface Props {
     placeId: number,
+    imageURL: string,
 }
 
-function PlaceInfo({placeId} : Props){
+function PlaceInfo({placeId, imageURL} : Props){
     const navigate = useNavigate();
     const [data, setData] = useState<{
         region: string,
@@ -37,7 +38,7 @@ function PlaceInfo({placeId} : Props){
         <S.Container>
             {data && 
             <>
-                <img />
+                <img src={imageURL}/>
                 <S.Infomation>
                     <S.TextContainer>
                         <S.Name onClick={() => {
