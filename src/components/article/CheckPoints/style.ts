@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const CheckPointList = styled.div`
-    margin-top:45px;
-    margin-bottom:40px;
+    margin-top:30px;
+    margin-bottom:15px;
 
     border-radius: 4px;
     border: 1px solid ${({theme}) => theme.main};
