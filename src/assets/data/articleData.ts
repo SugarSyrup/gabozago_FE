@@ -60,7 +60,7 @@ export const data = {
 		},
 		{
 			type:"photo",
-			photoURLs:["",""],
+			photoURLs:["a.png","b.png"],
 			desc:"모구모구 전포점 가게"
 		},
 		{
