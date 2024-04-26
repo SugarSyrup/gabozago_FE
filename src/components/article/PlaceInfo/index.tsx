@@ -7,12 +7,14 @@ import BookMarkIcon from "../../../assets/icons/bookmark.svg?react";
 import RightChevron from "../../../assets/icons/chevron_right.svg?react";
 
 import * as S from "./style";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
     placeId: number,
 }
 
 function PlaceInfo({placeId} : Props){
+    const navigate = useNavigate();
     const [data, setData] = useState<{
         region: string,
         name:string,
@@ -38,7 +40,9 @@ function PlaceInfo({placeId} : Props){
                 <img />
                 <S.Infomation>
                     <S.TextContainer>
-                        <S.Name>    
+                        <S.Name onClick={() => {
+                            navigate("/")
+                        }}>    
                             <MarketIcon />
                             <span>{data.name}</span>
                             <RightChevron />
