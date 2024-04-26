@@ -14,8 +14,7 @@ function BottomNavBar({ style = "white" }: Props) {
     { title: "홈", icon: <HomeIcon />, path: "/" },
     { title: "내 여행", icon: <TripIcon />, path: "/mytrip" },
     { title: "스크랩", icon: <ScrapIcon />, path: "/scrapbook" },
-    // TODO : 추후 user-id로 변경
-    { title: "MY", icon: <MyIcon />, path: "/profile/123" },
+    { title: "MY", icon: <MyIcon />, path: "/profile" },
   ];
   const isMatches = (path: string) => {
     if (path === "/") {

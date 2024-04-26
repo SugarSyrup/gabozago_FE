@@ -1,15 +1,17 @@
+import * as S from "./style";
 import { useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 
 import PageTemplate from "../../../components/common/PageTemplate";
 import Heading from "../../../components/common/Heading";
 
-import * as S from "./style";
-
 import { userDataType } from "../../../assets/data/userData";
 import XIcon from "../../../assets/icons/x.svg?react";
 import UserIcon from "../../../assets/icons/user.svg?react";
 import CameraCircleIcon from "../../../assets/icons/camera_circle.svg?react";
+import RightChevronIcon from "../../../assets/icons/chevron_right.svg?react";
+import KakaoIcon from "../../../assets/imgs/kakaotalk.png";
+import InputContainer from "../../../components/common/InputContainer";
 
 function UserEditPage() {
   const { name, desc } = useLoaderData() as userDataType;
@@ -69,8 +71,28 @@ function UserEditPage() {
             id="desc"
             name="desc"
           ></input>
+          <InputContainer
+            inputType="email"
+            name="account"
+            label="연결된 계정"
+            disabled={true}
+            required={true}
+            explain={
+              <>
+                <img src={KakaoIcon} />
+                카카오로 가입한 계정이에요
+              </>
+            }
+          />
         </S.InputContainer>
       </S.Form>
+      <S.ExitButton
+        onClick={() => {
+          navigate("/leave");
+        }}
+      >
+        탈퇴하기 <RightChevronIcon />
+      </S.ExitButton>
     </PageTemplate>
   );
 }
