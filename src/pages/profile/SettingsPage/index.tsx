@@ -3,15 +3,11 @@ import PageTemplate from "../../../components/common/PageTemplate";
 import PageHeader from "../../../components/common/PageHeader";
 import { useNavigate } from "react-router-dom";
 import ChevronRightIcon from "../../../assets/icons/chevron_right.svg?react";
-import { useState } from "react";
-import NotificationToggleButton from "../../../components/profile/settings/NotificationToggleButton";
 import usePopup from "../../../hooks/usePopup";
 
 function SettingsPage() {
   const navigate = useNavigate();
   const { Popup, popupOpen, popupClose } = usePopup();
-  const [isActivityNotiAllowed, setIsActivityNotiAllowed] =
-    useState<boolean>(false);
   const username = "최민석";
   const settings = [
     {
@@ -23,7 +19,7 @@ function SettingsPage() {
         },
         {
           text: "고객센터 • 도움말",
-          path: "/cscenter/help",
+          path: "/cscenter",
         },
         {
           text: "의견보내기",
@@ -89,18 +85,6 @@ function SettingsPage() {
           <ChevronRightIcon />
         </S.UserSettingButton>
         <S.SettingsContainer>
-          {/* @todo: 알림 설정 개발 전까지 표시X  */}
-          {/* <div>
-            <S.SettingTitleParagraph>알림 설정</S.SettingTitleParagraph>
-            <NotificationToggleButton
-              name="활동 알림"
-              desc="좋아요, 댓글, 팔로우 등 내 활동에 대한 알림이에요."
-              active={isActivityNotiAllowed}
-              onClick={() => {
-                setIsActivityNotiAllowed((prev) => !prev);
-              }}
-            />
-          </div> */}
           {settings.map((group) => (
             <div>
               <S.SettingTitleParagraph>{group.title}</S.SettingTitleParagraph>
