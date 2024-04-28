@@ -29,6 +29,8 @@ import AnnounceDetailPage from "./pages/cscenter/AnnounceDetailPage";
 import FeedBackPage from "./pages/cscenter/FeedBackPage";
 import CSCenterPage from "./pages/cscenter/CSCenterPage";
 import FAQPage from "./pages/cscenter/FAQPage";
+import InquiryPage from "./pages/cscenter/InquiryPage";
+import InquiryHistoryPage from "./pages/cscenter/InquiryHistoryPage";
 
 const router = createBrowserRouter([
   {
@@ -130,6 +132,14 @@ const router = createBrowserRouter([
   {
     path: "/cscenter",
     element: <CSCenterPage />,
+  },
+  {
+    path: "/cscenter/inquiry",
+    element: <InquiryPage />,
+  },
+  {
+    path: "/cscenter/history",
+    element: <InquiryHistoryPage />,
   },
   {
     path: "/cscenter/announce",
