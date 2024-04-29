@@ -7,7 +7,7 @@ interface Props {
     color?: string;
 }
 
-export const Headline = styled.h1<Props>`
+export const Label = styled.label<Props>`
     ${({theme, size, color}) => {
         const COLOR = color ? color : theme.black;
 
@@ -15,23 +15,26 @@ export const Headline = styled.h1<Props>`
             case "lg" :
                 return css`
                     color: ${COLOR};
-                    font-size: 24px;
-                    font-weight: 600;
-                    //line-height: 40px;
+                    font-size: 12px;
+                    font-weight: 400;
+                    line-height: 20px;
+                    letter-spacing:0.1px;
                 `
             case "md" :
                 return css`
                     color: ${COLOR};
-                    font-size: 22px;
+                    font-size: 11px;
                     font-weight: 600;
-                    //line-height: 36px;
+                    line-height: 16px;
+                    letter-spacing:0.5px;
                 `
             case "sm" :
                 return css`
                     color: ${COLOR};
-                    font-size: 20px;
-                    font-weight: 600;
-                    //line-height: 32px;
+                    font-size: 9px;
+                    font-weight: 400;
+                    line-height: 16px;
+                    letter-spacing:0.5px;
                 `
         }
     }}
