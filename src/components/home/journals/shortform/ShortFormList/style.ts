@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const List = styled.ol`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, auto));
-  gap: 11px 9px;
+  gap: 20px 20px;
 `;
 
 export const ListItem = styled.li``;

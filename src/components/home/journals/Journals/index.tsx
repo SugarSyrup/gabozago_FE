@@ -99,7 +99,7 @@ const shortForms = [
 
 function Journals() {
   const [filter, setFilter] = useRecoilState(journalFilterState);
-  const [activeCategoryIndex, setActiveCategoryIndex] = useState<number>(0);
+  const [activeCategoryIndex, setActiveCategoryIndex] = useState<number>(3);
   const categories: {
     text: string;
     filters: TFilterName[];
@@ -151,7 +151,7 @@ function Journals() {
   return (
     <S.Container>
       <S.FixedControlBox>
-        <S.CategoryList>
+        {/* <S.CategoryList>
           {categories.map(({ text }, index) => (
             <S.CategoryItem key={`category-${text}`}>
               <S.CategoryButton
@@ -164,7 +164,7 @@ function Journals() {
               </S.CategoryButton>
             </S.CategoryItem>
           ))}
-        </S.CategoryList>
+        </S.CategoryList> */}
         <FilterList
           filters={categories[activeCategoryIndex].filters}
           filterState={filter}
