@@ -10,7 +10,7 @@ interface Props {
 
 function Label({ children, size, noOfLine, maxWidth, color }: Props) {
     return (
-        <S.Label size={size} noOfLine={noOfLine} maxWidth={maxWidth}>
+        <S.Label size={size} noOfLine={noOfLine} maxWidth={maxWidth} color={color}>
             {children}
         </S.Label>
     );

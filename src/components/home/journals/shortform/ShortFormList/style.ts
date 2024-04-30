@@ -15,26 +15,14 @@ export const Container = styled.div`
   line-height: 0;
 `;
 
-export const MenuButton = styled.button`
-  margin: 10px 5px;
+export const Views = styled.span`
   position: absolute;
-  top: 0;
-  right: 0;
-  padding: 0;
-
-  border: 0;
-  background-color: transparent;
-  text-shadow: 0 0 5px #00000060;
-  cursor: pointer;
-
-  svg path {
-    fill: ${({ theme }) => theme.white};
-    stroke: ${({ theme }) => theme.white};
-  }
+  top: 10px;
+  right: 10px;
 `;
 
 export const InfoBox = styled.div`
-  padding: 12px 10px;
+  padding: 10px 10px;
   position: absolute;
   left: 0;
   bottom: 0;
@@ -46,19 +34,24 @@ export const InfoBox = styled.div`
 
   p:nth-child(1) {
     svg {
-      margin-right: 5px;
       path {
         fill: ${({ theme }) => theme.white};
       }
     }
+
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    gap:5px;
   }
+
   p:nth-child(2) {
-    margin-top: 3px;
+    margin-top: 5px;
 
     text-overflow: ellipsis;
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
   }
 `;

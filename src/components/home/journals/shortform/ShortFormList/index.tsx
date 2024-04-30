@@ -1,7 +1,8 @@
 import * as S from "./style";
 import { Link } from "react-router-dom";
-import KebabMenuIcon from "../../../../../assets/icons/menu_kebab.svg?react";
 import LocationIcon from "../../../../../assets/icons/location.svg?react";
+import ThemeIcon from "../../../../../assets/icons/theme.svg?react";
+import Typography from "../../../../common/Typography";
 
 interface Props {
   data: {
@@ -20,15 +21,17 @@ function ShortFormList({ data }: Props) {
           <Link to={`/journal/shortform/${id}`}>
             <S.Container>
               <S.ThumbnailImage src={thumbnail} alt="" />
-              <S.MenuButton>
-                <KebabMenuIcon />
-              </S.MenuButton>
+              <S.Views>
+                <Typography.Label size="sm" color="white">조회수 210</Typography.Label>
+              </S.Views>
               <S.InfoBox>
                 <p>
                   <LocationIcon />
-                  {location ? location : "-"}
+                  <Typography.Label size="md" color="white">{location ? location : "-"}</Typography.Label>
+                  <ThemeIcon />
+                  <Typography.Label size="md" color="white">도보여행</Typography.Label>
                 </p>
-                <p>{title}</p>
+                <Typography.Title size="sm" color="white">{title}</Typography.Title>
               </S.InfoBox>
             </S.Container>
           </Link>

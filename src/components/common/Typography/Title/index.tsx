@@ -10,7 +10,7 @@ interface Props {
 
 function Title({ children, size, noOfLine, maxWidth, color }: Props) {
     return (
-        <S.Title size={size} noOfLine={noOfLine} maxWidth={maxWidth}>
+        <S.Title size={size} noOfLine={noOfLine} maxWidth={maxWidth} color={color}>
             {children}
         </S.Title>
     );
