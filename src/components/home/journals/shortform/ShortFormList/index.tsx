@@ -29,9 +29,9 @@ function ShortFormList({ data }: Props) {
               <S.InfoBox>
                 <p>
                   <LocationIcon />
-                  {region.map((item) => <Typography.Label size="md" color="white">{item}</Typography.Label>)}
+                  {region !== undefined ? region.map((item) => <Typography.Label size="md" color="white">{item}</Typography.Label>) : "-"}
                   <ThemeIcon />
-                  {theme.map((item) => <Typography.Label size="md" color="white">{item}</Typography.Label>)}
+                  {theme !== undefined ? theme.map((item) => <Typography.Label size="md" color="white">{item}</Typography.Label>) : "-"}
                 </p>
                 <Typography.Title size="sm" color="white">{title}</Typography.Title>
               </S.InfoBox>
