@@ -36,7 +36,8 @@ import AnnouncePage from "./pages/cscenter/AnnouncePage";
 import AnnounceDetailPage from "./pages/cscenter/AnnounceDetailPage";
 import FeedBackPage from "./pages/cscenter/FeedBackPage";
 import CSCenterPage from "./pages/cscenter/CSCenterPage";
-import FAQPage from "./pages/cscenter/FAQPage";
+import CSCenterDetailPage from "./pages/cscenter/CSCenterDetailPage";
+
 import InquiryPage from "./pages/cscenter/InquiryPage";
 import InquiryHistoryPage from "./pages/cscenter/InquiryHistoryPage";
 
@@ -150,6 +151,10 @@ const router = createBrowserRouter([
     element: <CSCenterPage />,
   },
   {
+    path: "/cscenter/:id",
+    element: <CSCenterDetailPage />,
+  },
+  {
     path: "/cscenter/inquiry",
     element: <InquiryPage />,
   },
@@ -164,10 +169,6 @@ const router = createBrowserRouter([
   {
     path: "/cscenter/announce/:id",
     element: <AnnounceDetailPage />,
-  },
-  {
-    path: "/cscenter/faq",
-    element: <FAQPage />,
   },
   {
     path: "/cscenter/feedback",
