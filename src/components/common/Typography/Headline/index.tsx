@@ -10,7 +10,7 @@ interface Props {
 
 function Headline({ children, size, noOfLine, maxWidth, color }: Props) {
     return (
-        <S.Headline size={size} noOfLine={noOfLine} maxWidth={maxWidth}>
+        <S.Headline size={size} noOfLine={noOfLine} maxWidth={maxWidth} color={color} >
             {children}
         </S.Headline>
     );
