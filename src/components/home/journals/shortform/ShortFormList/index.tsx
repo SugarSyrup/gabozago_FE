@@ -8,28 +8,30 @@ interface Props {
   data: {
     id: number;
     title: string;
-    location: string;
+    region: string[];
     thumbnail: string;
+    views: number;
+    theme:string[]
   }[];
 }
 
 function ShortFormList({ data }: Props) {
   return (
     <S.List>
-      {data.map(({ id, title, location, thumbnail }) => (
+      {data.map(({ id, title, region, thumbnail, views, theme }) => (
         <S.ListItem>
           <Link to={`/journal/shortform/${id}`}>
             <S.Container>
               <S.ThumbnailImage src={thumbnail} alt="" />
               <S.Views>
-                <Typography.Label size="sm" color="white">조회수 210</Typography.Label>
+                <Typography.Label size="sm" color="white">조회수 {views}</Typography.Label>
               </S.Views>
               <S.InfoBox>
                 <p>
                   <LocationIcon />
-                  <Typography.Label size="md" color="white">{location ? location : "-"}</Typography.Label>
+                  {region.map((item) => <Typography.Label size="md" color="white">{item}</Typography.Label>)}
                   <ThemeIcon />
-                  <Typography.Label size="md" color="white">도보여행</Typography.Label>
+                  {theme.map((item) => <Typography.Label size="md" color="white">{item}</Typography.Label>)}
                 </p>
                 <Typography.Title size="sm" color="white">{title}</Typography.Title>
               </S.InfoBox>
