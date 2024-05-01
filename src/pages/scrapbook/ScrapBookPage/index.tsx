@@ -8,7 +8,7 @@ import TabBar from "../../../components/common/TabBar";
 function ScrapBookPage() {
   const [focusedTabIndex, setFocusedTabIndex] = useState<number>(0);
   const tabs = [
-    { id: 1, name: "여행기", content: <ScrapedTripJournal /> },
+    { id: 1, name: "콘텐츠", content: <ScrapedTripJournal /> },
     { id: 2, name: "여행 장소", content: <ScrapedTripPlace /> },
   ]; // content 속성에 보여줄 컴포넌트 매핑
 
