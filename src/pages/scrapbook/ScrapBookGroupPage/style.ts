@@ -11,6 +11,24 @@ export const Header = styled.header`
   background-color: ${({ theme }) => theme.white};
 `;
 
+export const TabBarContainer = styled.div`
+  margin-top: 10px;
+  padding: 0 20px;
+  position: relative;
+
+  &::before {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    content: "";
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: ${({ theme }) => theme.gray04};
+  }
+`;
+
 export const HeadingContainer = styled.div`
   text-align: center;
   width: 100%;
