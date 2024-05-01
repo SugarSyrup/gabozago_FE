@@ -85,7 +85,16 @@ function ScrapedTripJournal() {
           ></div>
           <p>새 그룹 만들기</p>
         </S.CreateNewGroupItem>
-
+        <S.GroupItem
+          key={0}
+          background={""}
+          onClick={() => {
+            navigate(`./${0}`);
+          }}
+        >
+          <div></div>
+          <p>모든 게시물</p>
+        </S.GroupItem>
         {groupList.map(({ id, name, thumbnail }) => (
           <S.GroupItem
             key={id}
