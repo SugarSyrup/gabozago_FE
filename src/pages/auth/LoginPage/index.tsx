@@ -1,14 +1,16 @@
 import { useMutation } from "@tanstack/react-query";
+import { queryClient } from "../../../main";
+
 import AuthCheck from "../../../components/common/AuthCheck";
 import PageTemplate from "../../../components/common/PageTemplate";
+
 import LogoIcon from "../../../assets/icons/logo.svg?react";
 import LogoText from "../../../assets/icons/logo_text.svg?react";
 import ThunderMoveIcon from "../../../assets/icons/thuder_move.svg?react";
-import KakaoTalkImg from "../../../assets/imgs/kakaotalk.png";
-import AppleImg from "../../../assets/imgs/apple.png";
-import NaverImg from "../../../assets/imgs/naver.png";
-import GoogleImg from "../../../assets/imgs/google.png";
-import { queryClient } from "../../../main";
+import KakaoIcon from "../../../assets/icons/kakao.svg?react";
+import GoogleIcon from "../../../assets/icons/google.svg?react";
+import NaverIcon from "../../../assets/icons/naver.svg?react";
+import AppleIcon from "../../../assets/icons/apple.svg?react";
 
 import * as S from "./style";
 
@@ -102,23 +104,22 @@ function LoginPage() {
               <span>3초만에 빠른 시작하기</span>
             </S.FloatingMessage>
             <S.OAuthSquareButton onClick={developLogin}>
-              <img src={KakaoTalkImg} />
+              <KakaoIcon />
               <span>카카오톡으로 시작하기</span>
             </S.OAuthSquareButton>
           </S.MessageContainer>
           <S.SeperateTextLine>또는</S.SeperateTextLine>
           <S.OAuthButtons>
             <S.OAuthCircleButton color="#00BF18" onClick={developLogin}>
-              <img src={NaverImg} />
+              <NaverIcon width={14} height={14} />
             </S.OAuthCircleButton>
             <S.OAuthCircleButton color="#FFFFFF" onClick={developLogin}>
-              <img src={GoogleImg} />
+              <GoogleIcon width={20} height={20} />
             </S.OAuthCircleButton>
             <S.OAuthCircleButton color="#000000" onClick={developLogin}>
-              <img src={AppleImg} />
+              <AppleIcon width={40} height={40} />
             </S.OAuthCircleButton>
           </S.OAuthButtons>
-          <S.HelpText to="/help">도움이 필요하신가요?</S.HelpText>
         </S.Container>
       </PageTemplate>
     </AuthCheck>
