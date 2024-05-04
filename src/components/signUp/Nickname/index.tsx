@@ -34,7 +34,7 @@ function Nickname({setIsNicknameOk}: Props) {
         
         <InputContainer
           inputType="text"
-          name="account"
+          name="nickname"
           label="닉네임"
           disabled={false}
           required={true}

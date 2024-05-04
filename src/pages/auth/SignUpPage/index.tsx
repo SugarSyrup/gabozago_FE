@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import PageTemplate from "../../../components/common/PageTemplate";
@@ -15,9 +15,23 @@ import GoogleIcon from "../../../assets/icons/google.svg?react";
 import AppleIcon from "../../../assets/icons/apple.svg?react";
 
 import * as S from "./style";
+import { Post } from "../../../utils/api";
+
+type loginResponse = {
+  status: "ACTIVE" | "INACTIVE";
+  access: string;
+  refresh: string;
+  access_expires_at: string;
+  refresh_expires_at: string;
+  user_data?: {
+    email: string;
+    nickname: string;
+  }
+}
 
 function SignUpPage() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   const type = searchParams.get("type");
   const email = searchParams.get("email");
@@ -44,11 +58,32 @@ function SignUpPage() {
     >
       <S.FormContainer  action="post" onSubmit={(e) => {
         e.preventDefault();
-        alert("submit");
+
+        const formData = new FormData(e.currentTarget);
+        const {email, nickname, recommendName} = Object.fromEntries(formData);
+        let body = {}
+        
+        if(type === "naver") {
+          body = {
+            email: email,
+            nickname: nickname,
+          }
+        } else {
+          body = {
+            nickname: nickname
+          }
+        }
+
+        Post<loginResponse>(`${import.meta.env.VITE_BASE_URL}user/sign-in`, body)
+          .then((response) => {
+            localStorage.setItem("access_token", response.data.access);
+            localStorage.setItem("refresh_token", response.data.access);
+            navigate("/");
+          });
       }}>
         <InputContainer
           inputType="email"
-          name="account"
+          name="email"
           label="연결된 계정"
           disabled={type === "naver" ? false : true}
           required={true}
