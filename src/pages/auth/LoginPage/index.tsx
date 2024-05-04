@@ -1,5 +1,5 @@
-import { useMutation } from "@tanstack/react-query";
-import { queryClient } from "../../../main";
+import { useNavigate } from "react-router-dom";
+import { Post } from "../../../utils/api";
 
 import AuthCheck from "../../../components/common/AuthCheck";
 import PageTemplate from "../../../components/common/PageTemplate";
@@ -14,77 +14,43 @@ import AppleIcon from "../../../assets/icons/apple.svg?react";
 
 import * as S from "./style";
 
-async function login() {
-  const response = await fetch(
-    `${import.meta.env.VITE_BASE_URL}user/app/login`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        uid: 1,
-        provider: "google",
-        email: "test@naver.com",
-        nickname: "test1",
-        profile_pic: "",
-      }),
-    }
-  );
-
-  return await response.json();
+type loginResponse = {
+  status: "ACTIVE" | "INACTIVE";
+  access: string;
+  refresh: string;
+  access_expires_at: string;
+  refresh_expires_at: string;
 }
 
-async function refresh() {
-  const response = await fetch(
-    `${import.meta.env.VITE_BASE_URL}user/jwt-token-auth/refresh`,
+async function login() {
+  const response = await Post<loginResponse>(`${import.meta.env.VITE_BASE_URL}user/app/login`,
     {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        refresh: queryClient.getQueryData(["refresh_token"]),
-      }),
+      uid: 1,
+      provider: "google",
+      email: "test@naver.com",
+      nickname: "test1",
+      profile_pic: "",
+    },
+    {
+      headers: {'Content-Type': 'application/json'}
     }
   );
 
-  return await response.json();
+  return response;
 }
 
 function LoginPage() {
-  const {
-    data: userData,
-    mutate: loginMutate,
-    isSuccess: isLoginSuccess,
-  } = useMutation({
-    mutationFn: () => login(),
-  });
+  const navigate = useNavigate();
 
-  const {
-    data: refreshData,
-    mutate: refreshMutate,
-    isSuccess: isRefreshSuccess,
-  } = useMutation({
-    mutationFn: () => refresh(),
-  });
-
-  function tokenRefresh() {
-    refreshMutate();
-    setTimeout(() => {
-      if (isRefreshSuccess) {
-        localStorage.setItem("access_token", refreshData.access);
-        tokenRefresh();
-      }
-    }, 1000 * 60 * 60 * 23);
-  }
-
-  function developLogin() {
-    loginMutate();
-    if (isLoginSuccess) {
-      localStorage.setItem("access_token", userData.access);
-      localStorage.setItem("refresh_token", userData.refresh);
-      tokenRefresh();
+  async function developLogin() {
+    const response = await login();
+    console.log(response);
+    if(response.data.status === "ACTIVE") {
+      localStorage.setItem("access_token", response.data.access);
+      localStorage.setItem("refresh_token", response.data.access);
+      navigate("/");
+    } else {
+      navigate("/signup");
     }
   }
 
