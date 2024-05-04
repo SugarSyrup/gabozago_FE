@@ -50,7 +50,7 @@ function SignUpPage() {
           inputType="email"
           name="account"
           label="연결된 계정"
-          disabled={true}
+          disabled={type === "naver" ? false : true}
           required={true}
           value={email ? email : ""}
           explain={
