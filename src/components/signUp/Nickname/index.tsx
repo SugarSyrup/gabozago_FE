@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+
 import InputContainer from "../../common/InputContainer";
 import { Get } from "../../../utils/api";
+
 import * as S from "./style";
-import { useSearchParams } from "react-router-dom";
-import KakaoIcon from "../../../assets/icons/kakao.svg?react";
-import NaverIcon from "../../../assets/icons/naver.svg?react";
-import GoogleIcon from "../../../assets/icons/google.svg?react";
-import AppleIcon from "../../../assets/icons/apple.svg?react";
 
 interface Props {
   setIsNicknameOk: React.Dispatch<React.SetStateAction<boolean>>
@@ -14,9 +12,6 @@ interface Props {
 
 function Nickname({setIsNicknameOk}: Props) {
     const [searchParams, setSearchParams] = useSearchParams();
-
-    const type = searchParams.get("type");
-    const email = searchParams.get("email");
 
     const [nickname, setNicknameState] = useState(searchParams.get("nickname"));
     const [nicknameAlert, setNicknameAlert] = useState("");
@@ -36,52 +31,7 @@ function Nickname({setIsNicknameOk}: Props) {
 
     return(
       <>
-        <InputContainer
-          inputType="email"
-          name="account"
-          label="연결된 계정"
-          disabled={type === "naver" ? false : true}
-          required={true}
-          value={email ? email : ""}
-          explain={
-            <>
-              {
-                (() => {
-                  switch(type) {
-                    case "kakao":
-                      return <>
-                          <S.BrandIcon type={type}>
-                            <KakaoIcon />
-                          </S.BrandIcon>
-                          카카오로 가입한 계정이에요
-                        </>
-                    case "google":
-                      return <>
-                        <S.BrandIcon type={type}>
-                          <GoogleIcon />
-                        </S.BrandIcon>
-                        구글로 가입한 계정이에요
-                      </>
-                    case "naver":
-                      return <>
-                        <S.BrandIcon type={type}>
-                          <NaverIcon />
-                        </S.BrandIcon>
-                        네이버로 가입한 계정이에요
-                      </>
-                    case "apple":
-                      return <>
-                        <S.BrandIcon type={type}>
-                          <AppleIcon />
-                        </S.BrandIcon>
-                        애플로 가입한 계정이에요
-                      </>
-                  }
-                })()
-              }
-            </>
-          }
-        />
+        
         <InputContainer
           inputType="text"
           name="account"

@@ -1,6 +1,8 @@
 import { useState } from "react";
+
 import InputContainer from "../../common/InputContainer";
 import { Get } from "../../../utils/api";
+
 import * as S from "./style";
 
 function RecommendNickname() {
@@ -18,7 +20,7 @@ function RecommendNickname() {
             </>
           }
           disabled={false}
-          required={true}
+          required={false}
           placeholder="추천인 닉네임 입력"
           alert={
             <S.AlertMessage color={recommendAlert.length > 13 ? "red" : "blue"}>
