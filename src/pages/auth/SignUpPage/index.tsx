@@ -1,13 +1,41 @@
-import PageTemplate from "../../../components/common/PageTemplate";
-import KakaoIcon from "../../../assets/imgs/kakaotalk.png";
+import { useSearchParams } from "react-router-dom";
 
-import * as S from "./style";
+import PageTemplate from "../../../components/common/PageTemplate";
+import KakaoIcon from "../../../assets/icons/kakao.svg?react";
+import NaverIcon from "../../../assets/icons/naver.svg?react";
+import GoogleIcon from "../../../assets/icons/google.svg?react";
+import AppleIcon from "../../../assets/icons/apple.svg?react";
+
 import Button from "../../../components/common/Button";
 import InputContainer from "../../../components/common/InputContainer";
 import CheckBoxs from "../../../components/signUp/CheckBoxs";
 import PageHeader from "../../../components/common/PageHeader";
 
+import * as S from "./style";
+import { useEffect, useState } from "react";
+import { Get } from "../../../utils/api";
+
 function SignUpPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const [nickname, setNicknameState] = useState(searchParams.get("nickname"));
+  const [nicknameAlert, setNicknameAlert] = useState("");
+  const [recommendAlery, setRecommendAlert] = useState("");
+
+  const type = searchParams.get("type");
+  const email = searchParams.get("email");
+
+  useEffect(() => {
+    Get<{message: "POSSIBLE" | "IMPOSSIBLE"}>(`${import.meta.env.VITE_BASE_URL}user/nickname/${nickname}`)
+      .then((res) => {
+        if(res.data.message === "POSSIBLE") {
+          setNicknameAlert(`사용 가능한 닉네임이에요!`)
+        } else {
+          setNicknameAlert(`사용 불가능한 닉네임이에요!`)
+        }
+      });
+  }, [])
+
   return (
     <PageTemplate
       nav={false}
@@ -24,10 +52,43 @@ function SignUpPage() {
           label="연결된 계정"
           disabled={true}
           required={true}
+          value={email ? email : ""}
           explain={
             <>
-              <img src={KakaoIcon} />
-              카카오로 가입한 계정이에요
+              {
+                (() => {
+                  switch(type) {
+                    case "kakao":
+                      return <>
+                          <S.BrandIcon type={type}>
+                            <KakaoIcon />
+                          </S.BrandIcon>
+                          카카오로 가입한 계정이에요
+                        </>
+                    case "google":
+                      return <>
+                        <S.BrandIcon type={type}>
+                          <GoogleIcon />
+                        </S.BrandIcon>
+                        구글로 가입한 계정이에요
+                      </>
+                    case "naver":
+                      return <>
+                        <S.BrandIcon type={type}>
+                          <NaverIcon />
+                        </S.BrandIcon>
+                        네이버로 가입한 계정이에요
+                      </>
+                    case "apple":
+                      return <>
+                        <S.BrandIcon type={type}>
+                          <AppleIcon />
+                        </S.BrandIcon>
+                        애플로 가입한 계정이에요
+                      </>
+                  }
+                })()
+              }
             </>
           }
         />
@@ -37,12 +98,25 @@ function SignUpPage() {
           label="닉네임"
           disabled={false}
           required={true}
+          value={nickname ? nickname : ""}
           alert={
-            <S.AlertMessage color="blue">
-              사용가능한 닉네임입니다:)
+            <S.AlertMessage color={nicknameAlert.length > 14 ? "red" : "blue"}>
+              {nicknameAlert}
             </S.AlertMessage>
           }
-          onButtonClick={() => {}}
+          onInput={(e) => {
+            setNicknameState(e.currentTarget.value);
+          }}
+          onButtonClick={() => {
+            Get<{message: "POSSIBLE" | "IMPOSSIBLE"}>(`${import.meta.env.VITE_BASE_URL}user/nickname/${nickname}`)
+              .then((res) => {
+                if(res.data.message === "POSSIBLE") {
+                  setNicknameAlert(`사용 가능한 닉네임이에요!`)
+                } else {
+                  setNicknameAlert(`사용 불가능한 닉네임이에요!`)
+                }
+              });
+          }}
         />
         <CheckBoxs />
 

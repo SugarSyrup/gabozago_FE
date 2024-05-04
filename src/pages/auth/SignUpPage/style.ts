@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const FormContainer = styled.form`
     padding-top:24px;
@@ -51,4 +51,48 @@ export const ButtonWrapper = styled.div`
     bottom:45px;
 
     width:calc(100% - 40px);
+`
+
+export const BrandIcon = styled.div<{
+    type: "kakao" | "google" | "naver" | "apple"
+}>`
+    width:16px;
+    height:16px;
+    border-radius:100%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    svg{
+        width:16px;
+        height:16px;
+        path{
+            width:16px;
+            height:16px;
+        }
+    }
+
+    ${({type}) => type === "naver" && `svg{width:8px; height:8px;}`}
+
+    ${({type}) => {
+        switch(type) {
+            case "kakao":
+                return css`
+                    background-color: yellow;
+                `
+            case "google":
+                return css`
+                    background-color:#FFFFFF;
+                `
+            case "naver":
+                return css`
+                    background-color:#00BF18;
+                `
+            case "apple":
+                return css`
+                    background-color:#000000;
+                `
+        }
+    }}
 `

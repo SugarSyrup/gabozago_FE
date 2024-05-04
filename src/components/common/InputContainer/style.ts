@@ -20,7 +20,9 @@ export const Label = styled.label`
     letter-spacing: 0.2px;
 `
 
-export const Input = styled.input`
+export const Input = styled.input<{
+    disabled: boolean;
+}>`
     width:100%;
     padding:10px 16px;
     
@@ -28,7 +30,7 @@ export const Input = styled.input`
     border: 1px solid #DCDCDC;
     background: #F9F9F9;
 
-    color: #ADADAD;
+    color: ${({disabled, theme}) => disabled ? theme.gray02 : theme.black};
     font-size: 14px;
     font-weight: 400;
     line-height: 22px;
@@ -74,4 +76,5 @@ export const ConfirmButton = styled.span`
     color: ${({theme}) => theme.main};
     font-size: 11px;
     line-height: 22px;
+    cursor:pointer;
 `

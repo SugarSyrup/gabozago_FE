@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import * as S from "./style";
 
 interface Props {
@@ -8,14 +9,17 @@ interface Props {
     required: boolean,
     explain?: JSX.Element,
     alert?: JSX.Element,
+    value?: string,
+    onInput?: React.FormEventHandler<HTMLInputElement>
     onButtonClick?: () => void,
 }
 
-function InputContainer({inputType, name, label, disabled,  required, explain, alert, onButtonClick}: Props) {
+//@TODO: Input Props에 따라 메모지에이션 설정해서 re-rednering 컨트롤 하기 
+function InputContainer({inputType, name, label, disabled,  required, explain, alert, value, onButtonClick, onInput}: Props) {
     return(
         <S.InputContainer>
             <S.Label htmlFor={name}>{label}</S.Label>
-            <S.Input type={inputType} name={name} id={name} disabled={disabled} required={required} />
+            <S.Input type={inputType} name={name} id={name} disabled={disabled} required={required} defaultValue={value} onInput={onInput}/>
             {
                 explain &&
                 <S.InputExplain>
@@ -30,7 +34,10 @@ function InputContainer({inputType, name, label, disabled,  required, explain, a
             }
             {
                 onButtonClick && 
-                <S.ConfirmButton>
+                <S.ConfirmButton onClick={() => {
+
+                    onButtonClick();
+                }}>
                     확인
                 </S.ConfirmButton>
             }
