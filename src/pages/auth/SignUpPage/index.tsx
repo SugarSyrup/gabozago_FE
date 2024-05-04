@@ -1,4 +1,5 @@
 import { useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 import PageTemplate from "../../../components/common/PageTemplate";
 import KakaoIcon from "../../../assets/icons/kakao.svg?react";
@@ -11,30 +12,30 @@ import InputContainer from "../../../components/common/InputContainer";
 import CheckBoxs from "../../../components/signUp/CheckBoxs";
 import PageHeader from "../../../components/common/PageHeader";
 
-import * as S from "./style";
-import { useEffect, useState } from "react";
 import { Get } from "../../../utils/api";
+
+import * as S from "./style";
 
 function SignUpPage() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [nickname, setNicknameState] = useState(searchParams.get("nickname"));
+  const [recommend, setRecommend] = useState("");
   const [nicknameAlert, setNicknameAlert] = useState("");
-  const [recommendAlery, setRecommendAlert] = useState("");
+  const [recommendAlert, setRecommendAlert] = useState("");
+  const [checkboxActive, setCheckboxActive] = useState(false);
+  const [isButtonActive, setIsButtonActive] = useState(false);
 
   const type = searchParams.get("type");
   const email = searchParams.get("email");
 
   useEffect(() => {
-    Get<{message: "POSSIBLE" | "IMPOSSIBLE"}>(`${import.meta.env.VITE_BASE_URL}user/nickname/${nickname}`)
-      .then((res) => {
-        if(res.data.message === "POSSIBLE") {
-          setNicknameAlert(`사용 가능한 닉네임이에요!`)
-        } else {
-          setNicknameAlert(`사용 불가능한 닉네임이에요!`)
-        }
-      });
-  }, [])
+    if(nicknameAlert === "사용 가능한 닉네임이에요!" && checkboxActive) {
+      setIsButtonActive(true);
+    } else {
+      setIsButtonActive(false);
+    }
+  }, [nicknameAlert, checkboxActive])
 
   return (
     <PageTemplate
@@ -99,6 +100,7 @@ function SignUpPage() {
           disabled={false}
           required={true}
           value={nickname ? nickname : ""}
+          placeholder="닉네임을 입력하세요. (중복 불가)"
           alert={
             <S.AlertMessage color={nicknameAlert.length > 14 ? "red" : "blue"}>
               {nicknameAlert}
@@ -106,6 +108,7 @@ function SignUpPage() {
           }
           onInput={(e) => {
             setNicknameState(e.currentTarget.value);
+            setNicknameAlert("");
           }}
           onButtonClick={() => {
             Get<{message: "POSSIBLE" | "IMPOSSIBLE"}>(`${import.meta.env.VITE_BASE_URL}user/nickname/${nickname}`)
@@ -118,7 +121,7 @@ function SignUpPage() {
               });
           }}
         />
-        <CheckBoxs />
+        <CheckBoxs setCheckboxActive={setCheckboxActive} />
 
         <InputContainer
           inputType="text"
@@ -131,17 +134,29 @@ function SignUpPage() {
           }
           disabled={false}
           required={true}
+          placeholder="추천인 닉네임 입력"
           alert={
-            <S.AlertMessage color="red">
-              유효하지 않은 유저입니다.
+            <S.AlertMessage color={recommendAlert.length > 13 ? "red" : "blue"}>
+              {recommendAlert}
             </S.AlertMessage>
           }
-          onButtonClick={() => {}}
+          onInput={(e) => {
+            setRecommend(e.currentTarget.value);
+            setRecommendAlert("");
+          }}
+          onButtonClick={() => {
+            Get<{message: "POSSIBLE" | "IMPOSSIBLE"}>(`${import.meta.env.VITE_BASE_URL}user/nickname/${nickname}`)
+              .then((res) => {
+                if(res.data.message === "POSSIBLE") {
+                  setRecommendAlert(`유효하지 않은 유저입니다.`)
+                } else {
+                  setRecommendAlert(`추천 가능한 유저입니다.`)
+                }
+              });
+          }}
         />
-        <S.ButtonWrapper>
-          <Button type="normal" size="lg" width="100%">
+        <S.ButtonWrapper disabled={isButtonActive}>
             회원가입 완료
-          </Button>
         </S.ButtonWrapper>
       </S.FormContainer>
     </PageTemplate>

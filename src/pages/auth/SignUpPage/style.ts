@@ -46,11 +46,29 @@ export const AlertMessage = styled.span<{color: "red" | "blue"}>`
     letter-spacing: 0.2px;
 `
 
-export const ButtonWrapper = styled.div`
+export const ButtonWrapper = styled.button`
     position:absolute;
     bottom:45px;
 
     width:calc(100% - 40px);
+    padding:17px 0px;
+
+    background-color: ${({ theme }) => theme.gray03};
+    
+    cursor: pointer;
+    border: none;
+    border-radius: 30px;
+    box-sizing:border-box;
+
+    color: ${({ theme }) => theme.white};
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22px;
+
+    &:disabled {
+        background-color: ${({ theme }) => theme.main};
+        color: ${({ theme }) => theme.white };
+    }
 `
 
 export const BrandIcon = styled.div<{

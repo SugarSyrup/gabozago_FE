@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { Dispatch, useEffect, useRef, useState } from "react";
+
+import CheckBoxItem from "../../common/CheckBox";
 
 import * as S from "./style";
-import CheckBoxItem from "../../common/CheckBox";
-import { Link } from "react-router-dom";
 
 const terms = [
   {
@@ -29,8 +29,32 @@ const terms = [
   },
 ];
 
-function CheckBoxs() {
+interface Props {
+  setCheckboxActive: Dispatch<React.SetStateAction<boolean>>
+}
+
+function CheckBoxs({setCheckboxActive}: Props) {
   const [allChecks, setAllChecks] = useState(false);
+  const [ageCheck, setAgeCheck] = useState(false);
+  const [serviceCheck, setServiceCheck] = useState(false);
+  const [personalCheck, setPersonalCheck] = useState(false);
+
+  useEffect(() => {
+    if(allChecks === true) {
+      setAgeCheck(true);
+      setServiceCheck(true);
+      setPersonalCheck(true);
+      setCheckboxActive(true);
+    } 
+  }, [allChecks])
+
+  useEffect(() => {
+    if(ageCheck && serviceCheck && personalCheck) {
+      setCheckboxActive(true);
+    } else {
+      setCheckboxActive(false);
+    }
+  }, [ageCheck, serviceCheck, personalCheck])
 
   return (
     <S.CheckBoxsContainer>
@@ -48,6 +72,7 @@ function CheckBoxs() {
               } else {
                 checkboxs[i].checked = false;
                 setAllChecks(false);
+                setCheckboxActive(false);
               }
             }
           }}
@@ -65,12 +90,23 @@ function CheckBoxs() {
             required={term.required}
             className="checkbox"
             onClick={(e) => {
+              switch (term.id) {
+                case "ageCheck":
+                  setAgeCheck(e.currentTarget.checked);
+                  break;
+                case "serviceCheck" :
+                  setServiceCheck(e.currentTarget.checked);
+                  break;
+                case "personalCheck" :
+                  setPersonalCheck(e.currentTarget.checked);
+                  break;
+              }
               if (!e.currentTarget.checked) {
                 setAllChecks(false);
               }
             }}
           >
-            <S.CheckBoxLabel>
+            <S.CheckBoxLabel htmlFor={`${term.id}`}>
               {
                 term.link ?
                 <S.TermLink to={term.link}>{term.label}</S.TermLink>

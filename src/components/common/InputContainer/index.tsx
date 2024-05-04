@@ -10,16 +10,17 @@ interface Props {
     explain?: JSX.Element,
     alert?: JSX.Element,
     value?: string,
+    placeholder?: string,
     onInput?: React.FormEventHandler<HTMLInputElement>
     onButtonClick?: () => void,
 }
 
 //@TODO: Input Props에 따라 메모지에이션 설정해서 re-rednering 컨트롤 하기 
-function InputContainer({inputType, name, label, disabled,  required, explain, alert, value, onButtonClick, onInput}: Props) {
+function InputContainer({inputType, name, label, disabled,  required, explain, alert, value, placeholder, onButtonClick, onInput}: Props) {
     return(
         <S.InputContainer>
             <S.Label htmlFor={name}>{label}</S.Label>
-            <S.Input type={inputType} name={name} id={name} disabled={disabled} required={required} defaultValue={value} onInput={onInput}/>
+            <S.Input type={inputType} name={name} id={name} disabled={disabled} required={required} defaultValue={value} placeholder={placeholder} onInput={onInput}/>
             {
                 explain &&
                 <S.InputExplain>
