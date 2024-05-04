@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import * as S from "./style";
 import CheckBoxItem from "../../common/CheckBox";
+import { Link } from "react-router-dom";
 
 const terms = [
   {
@@ -12,11 +13,13 @@ const terms = [
   {
     id: "serviceCheck",
     label: "서비스 이용약관 동의",
+    link: "/terms/01",
     required: true,
   },
   {
     id: "personalCheck",
     label: "개인정보 수집 및 이용 동의",
+    link: "/terms/02",
     required: true,
   },
   {
@@ -36,7 +39,8 @@ function CheckBoxs() {
           checked={allChecks}
           inputId="allCheck"
           onChange={(e) => {
-            const checkboxs = document.getElementsByClassName("checkbox");
+            const checkboxs = document.getElementsByClassName("checkbox") as HTMLCollectionOf<HTMLInputElement>;
+
             for (let i = 0; i < checkboxs.length; i++) {
               if (e.currentTarget.checked) {
                 checkboxs[i].checked = true;
@@ -66,7 +70,14 @@ function CheckBoxs() {
               }
             }}
           >
-            <S.CheckBoxLabel>{term.label}</S.CheckBoxLabel>
+            <S.CheckBoxLabel>
+              {
+                term.link ?
+                <S.TermLink to={term.link}>{term.label}</S.TermLink>
+                :
+                term.label
+              }
+            </S.CheckBoxLabel>
             {term.required ? (
               <S.CheckBoxRequired>(필수)</S.CheckBoxRequired>
             ) : (
