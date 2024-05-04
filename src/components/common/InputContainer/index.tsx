@@ -15,7 +15,6 @@ interface Props {
     onButtonClick?: () => void,
 }
 
-//@TODO: Input Props에 따라 메모지에이션 설정해서 re-rednering 컨트롤 하기 
 function InputContainer({inputType, name, label, disabled,  required, explain, alert, value, placeholder, onButtonClick, onInput}: Props) {
     return(
         <S.InputContainer>
