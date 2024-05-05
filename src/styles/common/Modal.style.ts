@@ -25,7 +25,6 @@ export const Modal = styled.div<{ borderRadius: string }>`
   bottom: 0;
   width: 100%;
   max-height: 80vh;
-  min-height: 330px;
   background-color: ${({ theme }) => theme.white};
   border-radius: ${({ borderRadius }) =>
     `${borderRadius} ${borderRadius} 0px 0px`};
