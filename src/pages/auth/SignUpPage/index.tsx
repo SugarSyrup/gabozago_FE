@@ -15,7 +15,7 @@ import GoogleIcon from "../../../assets/icons/google.svg?react";
 import AppleIcon from "../../../assets/icons/apple.svg?react";
 
 import * as S from "./style";
-import { Post } from "../../../utils/api";
+import { post } from "../../../utils/api";
 
 type loginResponse = {
   status: "ACTIVE" | "INACTIVE";
@@ -74,7 +74,7 @@ function SignUpPage() {
           }
         }
 
-        Post<loginResponse>(`${import.meta.env.VITE_BASE_URL}user/sign-in`, body)
+        post<loginResponse>(`${import.meta.env.VITE_BASE_URL}user/sign-in`, body)
           .then((response) => {
             localStorage.setItem("access_token", response.data.access);
             localStorage.setItem("refresh_token", response.data.access);

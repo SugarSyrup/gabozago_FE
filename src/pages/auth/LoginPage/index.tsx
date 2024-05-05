@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Post } from "../../../utils/api";
+import { post } from "../../../utils/api";
 
 import AuthCheck from "../../../components/common/AuthCheck";
 import PageTemplate from "../../../components/common/PageTemplate";
@@ -27,7 +27,7 @@ type loginResponse = {
 }
 
 async function login() {
-  const response = await Post<loginResponse>(`${import.meta.env.VITE_BASE_URL}user/app/login`,
+  const response = await post<loginResponse>(`${import.meta.env.VITE_BASE_URL}user/app/login`,
     {
       uid: 1,
       provider: "google",

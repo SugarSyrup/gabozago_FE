@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import InputContainer from "../../common/InputContainer";
-import { Get } from "../../../utils/api";
+import { get } from "../../../utils/api";
 
 import * as S from "./style";
 
@@ -32,7 +32,7 @@ function RecommendNickname() {
             setRecommendAlert("");
           }}
           onButtonClick={() => {
-            Get<{message: "POSSIBLE" | "IMPOSSIBLE"}>(`${import.meta.env.VITE_BASE_URL}user/nickname/${recommend}`)
+            get<{message: "POSSIBLE" | "IMPOSSIBLE"}>(`${import.meta.env.VITE_BASE_URL}user/nickname/${recommend}`)
               .then((res) => {
                 if(res.data.message === "POSSIBLE") {
                   setRecommendAlert(`유효하지 않은 유저입니다.`)

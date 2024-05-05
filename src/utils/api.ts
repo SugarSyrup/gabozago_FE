@@ -46,7 +46,7 @@ axiosInstance.interceptors.response.use(
     onError,
 );
 
-export const Get = async <T>(
+export const get = async <T>(
     url: string,
     config?: AxiosRequestConfig,
 ): Promise<AxiosResponse<T>> => {
@@ -54,7 +54,7 @@ export const Get = async <T>(
     return response;
 };
   
-export const Post = async <T>(
+export const post = async <T>(
     url: string,
     data?: any,
     config?: AxiosRequestConfig,

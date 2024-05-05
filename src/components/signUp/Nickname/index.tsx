@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import InputContainer from "../../common/InputContainer";
-import { Get } from "../../../utils/api";
+import { get } from "../../../utils/api";
 
 import * as S from "./style";
 
@@ -17,7 +17,7 @@ function Nickname({setIsNicknameOk}: Props) {
     const [nicknameAlert, setNicknameAlert] = useState("");
 
     useEffect(() => {
-      Get<{message: "POSSIBLE" | "IMPOSSIBLE"}>(`${import.meta.env.VITE_BASE_URL}user/nickname/${nickname}`)
+      get<{message: "POSSIBLE" | "IMPOSSIBLE"}>(`${import.meta.env.VITE_BASE_URL}user/nickname/${nickname}`)
         .then((res) => {
           if(res.data.message === "POSSIBLE") {
             setNicknameAlert(`사용 가능한 닉네임이에요!`);
@@ -51,7 +51,7 @@ function Nickname({setIsNicknameOk}: Props) {
             setIsNicknameOk(false);
           }}
           onButtonClick={() => {
-            Get<{message: "POSSIBLE" | "IMPOSSIBLE"}>(`${import.meta.env.VITE_BASE_URL}user/nickname/${nickname}`)
+            get<{message: "POSSIBLE" | "IMPOSSIBLE"}>(`${import.meta.env.VITE_BASE_URL}user/nickname/${nickname}`)
               .then((res) => {
                 if(res.data.message === "POSSIBLE") {
                   setNicknameAlert(`사용 가능한 닉네임이에요!`)
