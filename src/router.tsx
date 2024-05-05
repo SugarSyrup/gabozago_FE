@@ -80,7 +80,7 @@ const router = createBrowserRouter([
   },
   /* ---- 유저 프로필 페이지 ---- */
   {
-    path: "/profile/:uid",
+    path: "/profile",
     element: <ProfilePage />,
     loader: async () => {
       return userData;
