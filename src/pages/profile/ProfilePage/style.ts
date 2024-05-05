@@ -2,8 +2,21 @@ import styled from "styled-components";
 
 export const SettingIconWrapper = styled.div`
     position:absolute;
-    top:44px;
-    right:24px;
+    top:15px;
+    right:20px;
+
+    z-index:10;
+    cursor:pointer;
+
+    svg{
+        width:30px;
+        height:30px;
+
+        path{
+            width:30px !important;
+            height:30px !important;
+        }
+    }
 `
 
 export const FixedContainer = styled.div`
@@ -12,7 +25,7 @@ export const FixedContainer = styled.div`
     top:0px;
     z-index:2;
 
-    padding-top:40px;
+    padding-top:45px;
     padding-left:24px;
     padding-right:24px;
     width:100%;
@@ -30,32 +43,38 @@ export const Header = styled.header`
     align-items:center;
 
     width: 100%;
-
-    margin-top:24px;
 `
 
 export const UserProfile = styled.div`
     display:flex;
     align-items:center;
     gap:10px;
-`
 
-export const Name= styled.span`
-    font-size:18px;
-    font-weight:700;
-    letter-spacing: 0.2px;
+    svg {
+        width:44px;
+        height:44px;
+        path{
+            fill:${({theme}) => theme.main};
+        }
+    }
 `
 
 export const ProfileEditBtn = styled.button`
-    padding: 5px 11px;
+    padding: 4px 20px;
     border:none;
     border-radius:6px;
-
-    line-height:18px;
-    font-size:11px;
+    cursor:pointer;
 
     color:${({theme}) => theme.main};
+`
+
+export const UserIntroduce = styled.div`
+    width:100%;
+    padding:14px 20px;
+    border-radius:10px;
     background-color:${({theme}) => theme.blue05};
+
+    margin-top:10px;
 `
 
 export const Statics = styled.ol`
@@ -70,10 +89,8 @@ export const Statics = styled.ol`
 `
 
 export const StaticItem = styled.li<{isHover?: boolean}>`
-    flex-grow: 1;
-    height:68px;
-
-    padding: 14px 18px;
+    width:22%;
+    padding: 6px 17px;
     display: flex;
     flex-direction:column;
     justify-content:center;
@@ -89,42 +106,20 @@ export const StaticItem = styled.li<{isHover?: boolean}>`
 `
 
 export const StaticItemName = styled.h4`
-    color: ${({theme}) => theme.gray02};
-    font-size: 11px;
-    font-weight: 600;
-    line-height: 22px;
+    color: #A6A6A6;
 `
 
 export const StaticItemStat = styled.span`
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 22px; 
+    color: ${({theme}) => theme.gray};
 `
 
-export const UserIntroduce = styled.div`
-    width:100%;
-    padding:14px 20px;
-    border-radius:10px;
-
-    background-color:${({theme}) => theme.blue05};
-    margin-top:4px;
-
-    span {
-        width:100%;
-        /* background-color:#D9D9D9; */
-
-        font-size: 12px;
-        line-height: 20px; /* 166.667% */
-        letter-spacing: 0.2px;
-    }
-`
 
 export const TapNavigationBar = styled.nav`
     width:100%;
     margin-top:20px;
 
     display:flex;
-    gap:30px;
+    gap:24px;
     justify-content:flex-start;
     align-items:center;
 `
@@ -157,9 +152,8 @@ export const HighLightLine = styled.div<{position: string}>`
     height:2px;
     background-color:${({theme}) => theme.main};
     
-    left: ${({position}) => position === "trip" && "15px"};
-    left: ${({position}) => position === "review" && "94px"};
-    left: ${({position}) => position === "activity" && "173px"};
+    left: ${({position}) => position === "trip" && "20px"};
+    left: ${({position}) => position === "activity" && "96px"};
 
     transition: left 0.2s ease-in-out;
 `
