@@ -35,6 +35,22 @@ export const List = styled.ol`
   }
 `;
 
+export const NoDataParagraph = styled.p`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  word-break: keep-all;
+
+  color: ${({ theme }) => theme.gray02};
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.15px;
+`;
+
 export const StatusSpan = styled.span<{ type: "active" | "inactive" }>`
   width: fit-content;
   padding: 5px 11px;

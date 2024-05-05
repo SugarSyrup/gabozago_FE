@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import PageTemplate from "../../../components/common/PageTemplate";
 import PageHeader from "../../../components/common/PageHeader";
 import { useParams } from "react-router-dom";
+import { get } from "../../../utils/api";
 
 interface TData {
   title: string;
@@ -20,7 +21,13 @@ function AnnounceDetailPage() {
   });
 
   useEffect(() => {
-    // @todo: 공지사항 상세 데이터 불러오기
+    get<{
+      next: string;
+      previous: string;
+      results: TData;
+    }>(
+      `${import.meta.env.VITE_BASE_URL}settings/support/announcement/${id}`
+    ).then(({ data }) => setData(data.results));
   }, []);
 
   return (

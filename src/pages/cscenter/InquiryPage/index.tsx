@@ -7,6 +7,15 @@ import Button from "../../../components/common/Button";
 import { modalState } from "../../../recoil/modalState";
 import BottomChevronIcon from "../../../assets/icons/chevron_bottom_small.svg?react";
 import ImageAddIcon from "../../../assets/icons/image_add.svg?react";
+import { post } from "../../../utils/api";
+
+interface TForm {
+  type: string;
+  email: string;
+  title: string;
+  contents: string;
+  files: File[];
+}
 
 function InquiryPage() {
   const username = "최민석";
@@ -22,21 +31,23 @@ function InquiryPage() {
   ]);
   const submitRef = useRef<HTMLButtonElement>(null);
   const setModal = useSetRecoilState(modalState);
-  const [form, setForm] = useState<{
-    type: string;
-    username: string;
-    email: string;
-    title: string;
-    contents: string;
-    files: File[];
-  }>({
+  const [form, setForm] = useState<TForm>({
     type: "00",
-    username: username,
     email: "",
     title: "",
     contents: "",
     files: [],
   });
+
+  const submitForm = () => {
+    const token = localStorage.getItem("access_token");
+    if (token) {
+      // @todo: 첨부파일 "파일 vs 이미지" api 변경점 논의 후, 이미지만 받을 경우 image 업로드 별도 처리
+      post<TForm>(`${import.meta.env.VITE_BASE_URL}settings/support/help/ask`, {
+        headers: { Authorization: token },
+      });
+    }
+  };
 
   useEffect(() => {
     setModal({
@@ -206,10 +217,7 @@ function InquiryPage() {
               return;
             }
             // @todo: 추가로 밸리데이션 체크 필요
-
-            alert(
-              `유형:${form.type}/문의자:${form.username}/이메일:${form.email}/제목:${form.title}...`
-            );
+            submitForm();
           }}
         >
           제출하기
