@@ -8,24 +8,20 @@ import UserIcon from "../../../assets/icons/user.svg?react";
 import PageTemplate from "../../../components/common/PageTemplate";
 import UserTrip from "../../../components/profile/UserTrip";
 import UserActivity from "../../../components/profile/UserActivity";
-
-import * as S from "./style";
 import Typography from "../../../components/common/Typography";
 
+import * as S from "./style";
+
 function ProfilePage() {
-  const [isMyProfile, setIsMyProfile] = useState<boolean>(false);
+  const navigate = useNavigate();
   const [headerHeight, setHeaderHeight] = useState<number>(200);
   const [currentTap, setCurrentTap] = useState<"trip" | "activity">(
     "trip"
   );
+
   const { name, follower, following, reviews, hearts, views, desc } =
     useLoaderData() as userDataType;
   const FixedHeaderRef = useRef<HTMLDivElement>(null);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    //TODO : [백엔드/로그인] 로그인 정보 비교해서 내 프로필인지 남의 프로필인지 설정
-  }, []);
 
   useEffect(() => {
     if (FixedHeaderRef.current) {
@@ -119,7 +115,7 @@ function ProfilePage() {
         {(() => {
           switch (currentTap) {
             case "trip":
-              return <UserTrip username={isMyProfile ? "나" : "USER"} />;
+              return <UserTrip />;
             case "activity":
               return <UserActivity />;
             default:
