@@ -1,5 +1,4 @@
 import styled from "styled-components";
-
 import { Link } from "react-router-dom";
 
 export const CheckBoxsContainer = styled.div`
@@ -38,10 +37,16 @@ export const CheckBoxLabelHighlight = styled.label`
 `
 
 export const CheckBoxLabel = styled.label`
+    margin-left:7px;
+
     color: ${({theme}) => theme.black};
     font-size: 14px;
     font-weight: 400;
     line-height: 22px;
+`
+
+export const TermLink = styled(Link)`
+    color:${({theme}) => theme.black};
 `
 
 export const CheckBoxLabelLink = styled(Link)`

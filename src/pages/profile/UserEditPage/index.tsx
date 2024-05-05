@@ -9,7 +9,7 @@ import { userDataType } from "../../../assets/data/userData";
 import XIcon from "../../../assets/icons/x.svg?react";
 import UserIcon from "../../../assets/icons/user.svg?react";
 import CameraCircleIcon from "../../../assets/icons/camera_circle.svg?react";
-import KakaoIcon from "../../../assets/imgs/kakaotalk.png";
+import KakaoIcon from "../../../assets/icons/kakao.svg?react";
 import InputContainer from "../../../components/common/InputContainer";
 import ExtraButton from "../../../components/common/ExtraButton";
 
@@ -79,7 +79,7 @@ function UserEditPage() {
             required={true}
             explain={
               <>
-                <img src={KakaoIcon} />
+                <KakaoIcon />
                 카카오로 가입한 계정이에요
               </>
             }

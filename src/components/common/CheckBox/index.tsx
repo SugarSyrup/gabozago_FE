@@ -1,4 +1,4 @@
-import { ChangeEventHandler } from "react";
+import { ChangeEventHandler, MouseEventHandler } from "react";
 import * as S from "./style";
 
 interface Props {
@@ -8,6 +8,7 @@ interface Props {
   required?: boolean;
   className?: string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
+  onClick?: MouseEventHandler<HTMLInputElement>;
   children?: React.ReactNode;
 }
 
@@ -19,6 +20,7 @@ function CheckBoxItem({
   required,
   className,
   children,
+  onClick
 }: Props) {
   return (
     <label>
@@ -31,6 +33,7 @@ function CheckBoxItem({
           id={inputId}
           required={required}
           className={className}
+          onClick={onClick}
         />
         {children}
       </S.CheckBoxInputContainer>
