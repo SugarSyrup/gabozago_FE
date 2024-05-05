@@ -10,19 +10,17 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "../../../components/common/Button";
+import { get } from "../../../utils/api";
 
 function CSCenterPage() {
   const [focusedCategory, setFocusedCategory] = useState<string>("01");
   const [questions, setQuestions] = useState<
     {
-      id: string;
+      id: string | number;
+      category?: string;
       title: string;
     }[]
-  >([
-    { id: "01", title: "내 스크랩을 친구에게 공유하고 싶어요." },
-    { id: "02", title: "내 스크랩을 친구에게 공유하고 싶어요." },
-    { id: "03", title: "내 스크랩을 친구에게 공유하고 싶어요." },
-  ]);
+  >([{ id: "00", title: "-" }]);
   const navigate = useNavigate();
   const categoryMap: { value: string; text: string; icon: JSX.Element }[] = [
     {
@@ -39,7 +37,14 @@ function CSCenterPage() {
   ];
 
   useEffect(() => {
-    // @todo: focusedCategory에 맞게 리스트 요청, 결과 setQuestions
+    console.log("focused: FAQ" + focusedCategory);
+    get<{
+      next: string;
+      previous: string;
+      results: { id: number; category: string; title: string }[];
+    }>(`${import.meta.env.VITE_BASE_URL}settings/support/help/faq`, {
+      params: { category: `FAQ${focusedCategory}` },
+    }).then(({ data }) => setQuestions(data.results));
   }, [focusedCategory]);
 
   return (
@@ -88,7 +93,7 @@ function CSCenterPage() {
           <S.QuestionList>
             {questions.map(({ id, title }) => (
               <li>
-                <Link to={`./${id}`}>{title}</Link>
+                <Link to={`./faq/${id}`}>{title}</Link>
               </li>
             ))}
           </S.QuestionList>

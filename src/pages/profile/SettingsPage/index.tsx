@@ -4,11 +4,13 @@ import PageHeader from "../../../components/common/PageHeader";
 import { useNavigate } from "react-router-dom";
 import ChevronRightIcon from "../../../assets/icons/chevron_right.svg?react";
 import usePopup from "../../../hooks/usePopup";
+import { useEffect, useState } from "react";
+import { get } from "../../../utils/api";
 
 function SettingsPage() {
   const navigate = useNavigate();
   const { Popup, popupOpen, popupClose } = usePopup();
-  const username = "최민석";
+  const [username, setUsername] = useState<string>("-");
   const settings = [
     {
       title: "고객 지원",
@@ -49,6 +51,23 @@ function SettingsPage() {
       ],
     },
   ];
+
+  useEffect(() => {
+    const token = localStorage.getItem("access_token");
+    console.log(token);
+    if (token) {
+      get<{
+        avatarURL: string;
+        name: string;
+        desc: string;
+      }>(`${import.meta.env.VITE_BASE_URL}user/profile`, {
+        // headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: token },
+      });
+    } else {
+      alert("유저 정보 가져오기 실패: 로그인이 필요합니다.");
+    }
+  }, []);
 
   return (
     <PageTemplate header={<PageHeader>설정</PageHeader>}>
