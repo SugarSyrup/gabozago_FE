@@ -1,7 +1,7 @@
-import * as S from "./style";
-
-import TripItem from "../TripItem";
 import { userTripData } from "../../../assets/data/userpageData";
+import TripItem from "../TripItem";
+
+import * as S from "./style";
 
 function TripList() {
     return(<>
