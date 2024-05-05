@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { Dispatch, useEffect, useRef, useState } from "react";
+
+import CheckBoxItem from "../../common/CheckBox";
 
 import * as S from "./style";
-import CheckBoxItem from "../../common/CheckBox";
 
 const terms = [
   {
@@ -12,11 +13,13 @@ const terms = [
   {
     id: "serviceCheck",
     label: "서비스 이용약관 동의",
+    link: "/terms/01",
     required: true,
   },
   {
     id: "personalCheck",
     label: "개인정보 수집 및 이용 동의",
+    link: "/terms/02",
     required: true,
   },
   {
@@ -26,8 +29,32 @@ const terms = [
   },
 ];
 
-function CheckBoxs() {
+interface Props {
+  setCheckboxActive: Dispatch<React.SetStateAction<boolean>>
+}
+
+function CheckBoxs({setCheckboxActive}: Props) {
   const [allChecks, setAllChecks] = useState(false);
+  const [ageCheck, setAgeCheck] = useState(false);
+  const [serviceCheck, setServiceCheck] = useState(false);
+  const [personalCheck, setPersonalCheck] = useState(false);
+
+  useEffect(() => {
+    if(allChecks === true) {
+      setAgeCheck(true);
+      setServiceCheck(true);
+      setPersonalCheck(true);
+      setCheckboxActive(true);
+    } 
+  }, [allChecks])
+
+  useEffect(() => {
+    if(ageCheck && serviceCheck && personalCheck) {
+      setCheckboxActive(true);
+    } else {
+      setCheckboxActive(false);
+    }
+  }, [ageCheck, serviceCheck, personalCheck])
 
   return (
     <S.CheckBoxsContainer>
@@ -36,7 +63,8 @@ function CheckBoxs() {
           checked={allChecks}
           inputId="allCheck"
           onChange={(e) => {
-            const checkboxs = document.getElementsByClassName("checkbox");
+            const checkboxs = document.getElementsByClassName("checkbox") as HTMLCollectionOf<HTMLInputElement>;
+
             for (let i = 0; i < checkboxs.length; i++) {
               if (e.currentTarget.checked) {
                 checkboxs[i].checked = true;
@@ -44,6 +72,7 @@ function CheckBoxs() {
               } else {
                 checkboxs[i].checked = false;
                 setAllChecks(false);
+                setCheckboxActive(false);
               }
             }
           }}
@@ -61,12 +90,30 @@ function CheckBoxs() {
             required={term.required}
             className="checkbox"
             onClick={(e) => {
+              switch (term.id) {
+                case "ageCheck":
+                  setAgeCheck(e.currentTarget.checked);
+                  break;
+                case "serviceCheck" :
+                  setServiceCheck(e.currentTarget.checked);
+                  break;
+                case "personalCheck" :
+                  setPersonalCheck(e.currentTarget.checked);
+                  break;
+              }
               if (!e.currentTarget.checked) {
                 setAllChecks(false);
               }
             }}
           >
-            <S.CheckBoxLabel>{term.label}</S.CheckBoxLabel>
+            <S.CheckBoxLabel htmlFor={`${term.id}`}>
+              {
+                term.link ?
+                <S.TermLink to={term.link}>{term.label}</S.TermLink>
+                :
+                term.label
+              }
+            </S.CheckBoxLabel>
             {term.required ? (
               <S.CheckBoxRequired>(필수)</S.CheckBoxRequired>
             ) : (
