@@ -73,54 +73,12 @@ export const SettingItem = styled.li`
   }
 `;
 
-export const LogOutButton = styled.button`
+export const LeaveButton = styled.button`
+  margin-top: 10px;
   padding: 0;
-  width: fit-content;
+  text-align: left;
+  cursor: pointer;
   border: 0;
   background-color: transparent;
-  text-decoration: underline;
-  color: ${({ theme }) => theme.red};
-  cursor: pointer;
-`;
-
-export const PopupContainer = styled.div`
-  p {
-    text-align: center;
-    padding: 20px 0 38px;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 20px;
-    color: ${({ theme }) => theme.black};
-  }
-
-  div {
-    margin: 0 -20px -20px;
-    border-radius: 0 0 15px 15px;
-    overflow: hidden;
-    display: flex;
-    border-top: 1px solid ${({ theme }) => theme.gray04};
-  }
-`;
-
-export const PopupConfirmButton = styled.button<{
-  type: "secondary" | "primary";
-}>`
-  cursor: pointer;
-  flex: 1 1 100%;
-  padding: 14px;
-  border: 0;
-  color: ${({ theme, type }) =>
-    type === "secondary" ? theme.gray02 : theme.main};
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 20px;
-  background-color: transparent;
-
-  &:last-of-type {
-    border-left: 1px solid ${({ theme }) => theme.gray04};
-  }
-
-  &:hover {
-    background-color: ${({ theme }) => theme.gray06};
-  }
+  color: ${({ theme }) => theme.gray02};
 `;

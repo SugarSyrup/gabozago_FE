@@ -3,13 +3,11 @@ import PageTemplate from "../../../components/common/PageTemplate";
 import PageHeader from "../../../components/common/PageHeader";
 import { useNavigate } from "react-router-dom";
 import ChevronRightIcon from "../../../assets/icons/chevron_right.svg?react";
-import usePopup from "../../../hooks/usePopup";
 import { useEffect, useState } from "react";
 import { get } from "../../../utils/api";
 
 function SettingsPage() {
   const navigate = useNavigate();
-  const { Popup, popupOpen, popupClose } = usePopup();
   const [username, setUsername] = useState<string>("-");
   const settings = [
     {
@@ -61,7 +59,6 @@ function SettingsPage() {
         name: string;
         desc: string;
       }>(`${import.meta.env.VITE_BASE_URL}user/profile`, {
-        // headers: { Authorization: `Bearer ${token}` },
         headers: { Authorization: token },
       });
     } else {
@@ -71,30 +68,6 @@ function SettingsPage() {
 
   return (
     <PageTemplate header={<PageHeader>설정</PageHeader>}>
-      <Popup>
-        <S.PopupContainer>
-          <p>정말 로그아웃 하시겠습니까?</p>
-          <div>
-            <S.PopupConfirmButton
-              type={"secondary"}
-              onClick={() => {
-                popupClose();
-              }}
-            >
-              취소
-            </S.PopupConfirmButton>
-            <S.PopupConfirmButton
-              type={"primary"}
-              onClick={() => {
-                popupClose();
-                // @todo: 로그아웃
-              }}
-            >
-              확인
-            </S.PopupConfirmButton>
-          </div>
-        </S.PopupContainer>
-      </Popup>
       <S.ContentsWrapper>
         <S.UserSettingButton onClick={() => navigate(`/profile/edit`)}>
           <div>
@@ -121,13 +94,13 @@ function SettingsPage() {
               </ol>
             </div>
           ))}
-          <S.LogOutButton
+          <S.LeaveButton
             onClick={() => {
-              popupOpen();
+              navigate("/leave");
             }}
           >
-            로그아웃
-          </S.LogOutButton>
+            탈퇴하기
+          </S.LeaveButton>
         </S.SettingsContainer>
       </S.ContentsWrapper>
     </PageTemplate>
