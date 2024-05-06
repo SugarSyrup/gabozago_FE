@@ -11,6 +11,17 @@ import UserActivity from "../../../components/profile/UserActivity";
 import Typography from "../../../components/common/Typography";
 
 import * as S from "./style";
+import { get } from "../../../utils/api";
+
+type profileType = {
+  nickname: string,
+  description: string,
+  avatarURL: string,
+  clapCount: number,
+  scrapCount: number,
+  myTravelDay: number,
+  myTravelCount: number,
+}
 
 function ProfilePage() {
   const navigate = useNavigate();
@@ -28,6 +39,14 @@ function ProfilePage() {
       setHeaderHeight(FixedHeaderRef.current.offsetHeight);
     }
   }, [FixedHeaderRef.current]);
+
+  useEffect(() => {
+    get<profileType>(`${import.meta.env.VITE_BASE_URL}user/profile`)
+      .then((response) => {
+        //[SugarSyrup] @TODO: 백엔드 아직 미 업데이트! -> 유저 페이지 data 불러온 정보 표시
+      })
+
+  }, [])
 
   return (
     <PageTemplate>
