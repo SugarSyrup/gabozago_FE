@@ -24,7 +24,7 @@ export const Label = styled.label<Props>`
                 return css`
                     color: ${COLOR};
                     font-size: 11px;
-                    font-weight: 600;
+                    font-weight: 400;
                     line-height: 16px;
                     letter-spacing:0.5px;
                 `

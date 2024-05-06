@@ -1,14 +1,16 @@
+import { useState } from "react";
+
 import KebabMenuIcon from "../../../assets/icons/menu_kebab.svg?react";
 import LocationIcon from "../../../assets/icons/location.svg?react";
 import CalendarIcon from "../../../assets/icons/calendar.svg?react";
 import SmallLogoIcon from "../../../assets/icons/logo_small.svg?react";
 import InfomationIcon from "../../../assets/icons/exclamation_circle.svg?react";
 
-import * as S from "./style";
 import Typography from "../../common/Typography";
 import useModal from "../../../hooks/useModal";
 import usePopup from "../../../hooks/usePopup";
-import { useState } from "react";
+
+import * as S from "./style";
 
 interface Props {
     id: string;

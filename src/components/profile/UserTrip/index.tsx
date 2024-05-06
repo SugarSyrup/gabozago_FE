@@ -1,12 +1,11 @@
-import Heading from "../../common/Heading";
-import TripList from "../TripList";
 import ChevronRightIcon from "../../../assets/icons/chevron_right.svg?react";
-
-import * as S from "./style";
-import Button from "../../common/Button";
 import CirclePlusIcon from "../../../assets/icons/plus_circle.svg?react";
+
+import Button from "../../common/Button";
 import Typography from "../../common/Typography";
 
+import TripList from "../TripList";
+import * as S from "./style";
 
 function UserTrip() {
   return (
