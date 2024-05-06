@@ -12,12 +12,15 @@ import CameraCircleIcon from "../../../assets/icons/camera_circle.svg?react";
 import RightChevronIcon from "../../../assets/icons/chevron_right.svg?react";
 import KakaoIcon from "../../../assets/icons/kakao.svg?react";
 import InputContainer from "../../../components/common/InputContainer";
+import { BrandIcon } from "../../auth/SignUpPage/style";
 
 function UserEditPage() {
   const { name, desc } = useLoaderData() as userDataType;
   const [nameValue, setNameValue] = useState(name);
   const [descValue, setDescValue] = useState(desc);
   const navigate = useNavigate();
+
+  const [avatarURL, setAvatarURL] = useState("");
 
   return (
     <PageTemplate nav={null}>
@@ -43,11 +46,30 @@ function UserEditPage() {
       </S.Header>
       <S.Form>
         <S.AvatarWrapper>
-          <UserIcon width={90} height={90} />
+          {
+            avatarURL === "" ?
+            <UserIcon width={90} height={90} />
+            :
+            <img src={avatarURL} style={{
+              width:"90px",
+              height:"90px",
+              borderRadius:"100%",
+            }}/>
+          }
           <S.CameraIconWrapper htmlFor="avatarURL">
             <CameraCircleIcon width={24} height={24} />
           </S.CameraIconWrapper>
-          <input type="file" name="avatarURL" id="avatarURL" />
+          <input type="file" name="avatarURL" id="avatarURL" accept="image/*" onInput={(e) => {
+            if(e.currentTarget.files){
+              const file = e.currentTarget.files[0];
+              const reader = new FileReader();
+
+              reader.readAsDataURL(file);
+              reader.onloadend = () => {
+                setAvatarURL(reader.result);
+              }
+            }
+          }}/>
         </S.AvatarWrapper>
         <S.InputContainer>
           <label htmlFor="username">이름</label>
@@ -79,7 +101,9 @@ function UserEditPage() {
             required={true}
             explain={
               <>
-                <KakaoIcon />
+                <BrandIcon type="kakao">
+                  <KakaoIcon />
+                </BrandIcon>
                 카카오로 가입한 계정이에요
               </>
             }
