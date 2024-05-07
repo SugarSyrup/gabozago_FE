@@ -1,23 +1,33 @@
-import { userCommentsType } from "../../../assets/data/userpageData";
+import { Link } from "react-router-dom";
 import CommentIcon from "../../../assets/icons/comment_fill.svg?react";
 import Typography from "../../common/Typography";
-
+import { commentsResponseType } from "../UserActivity";
 import * as S from "./style";
 
 interface Props {
-    data: userCommentsType[];
+    data: commentsResponseType['results'];
+    type: "short-form" | "article"
 }
 
-function UserCommentsList({data}: Props) {
+function UserCommentsList({data, type}: Props) {
     return(
         <S.List>
-            {data.map(({comment, postName}) => 
+            {data.map(({id, comment, title}) => 
                 <>
                     <S.Item>
                         <CommentIcon />
                         <S.Text>
                             <Typography.Title size="md">{comment}</Typography.Title>
-                            <Typography.Label size="md" color="#A6A6A6">{postName}</Typography.Label>
+                            {
+                                type === "short-form" ?
+                                <Link to={`/journal/shortform/${id}`}>
+                                    <Typography.Label size="md" color="#A6A6A6">{title}</Typography.Label>
+                                </Link>
+                                :
+                                <Link to={`/article/${id}`}>
+                                    <Typography.Label size="md" color="#A6A6A6">{title}</Typography.Label>
+                                </Link>
+                            }
                         </S.Text>
                     </S.Item>
                 </>
