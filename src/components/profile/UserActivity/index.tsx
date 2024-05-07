@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import * as S from "./style";
 
@@ -49,7 +49,9 @@ export type commentsResponseType = {
 function UserActivity() {
     const [actFilter, setActFilter] = useState<"clap" | "comment">("clap");
     const [postFilter, setPostFilter] = useState<"short-form" | "article">("article");
+    const [next, setNext] = useState<string>("");
     const [data, setData] = useState<articleResponseType | shortsResponseType | commentsResponseType>();
+    const dataContainerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         post<articleResponseType | shortsResponseType | commentsResponseType>(`${import.meta.env.VITE_BASE_URL}user/profile/my-activity`, {
@@ -57,12 +59,34 @@ function UserActivity() {
             community: postFilter,
         }).then((response) => {
             //[SugarSyrup] @TODO: 백엔드 아직 미 업데이트! -> Filter 마다 data 저장해서 rendering 구현 하기
+            //[SugarSyrup] @TODO: 백엔드 아직 미 업데이트! -> next 상태 저장
         })
     }, [actFilter, postFilter])
+
+    useEffect(() => {
+        let observer = new IntersectionObserver(() => {});
+
+        if(dataContainerRef.current) {
+            observer = new IntersectionObserver(([entry]) => {
+                if(entry.isIntersecting) {
+                    post<articleResponseType | shortsResponseType | commentsResponseType>(next).then((response) => {
+                        //[SugarSyrup] @TODO: 백엔드 아직 미 업데이트! -> Next Data 이전 상태에서 뒤에 추가하기!
+                    })      
+                }
+            }, { threshold: [0.8]})
+    
+            observer.observe(dataContainerRef.current)
+        }
+
+        return () => {
+            observer && observer.disconnect()
+        };
+    }, [next, dataContainerRef])
 
     return (
         <S.Container>
             <UserActivityFilter setActFilter={setActFilter} setPostFilter={setPostFilter}/>
+            <div ref={dataContainerRef}>
             {
                 data !== undefined &&
                 actFilter === "clap" ?
@@ -74,6 +98,7 @@ function UserActivity() {
                 data !== undefined &&
                 <UserCommentsList data={data.results as commentsResponseType['results']} type={postFilter}/>
             }
+            </div>
         </S.Container>
     );
 }
