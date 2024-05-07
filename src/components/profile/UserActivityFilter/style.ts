@@ -7,20 +7,19 @@ export const FilterList = styled.div`
     gap:10px;
 `
 
-export const FilterItem = styled.div<{isHighlight?: boolean}>`
-    padding: 5px 11px;
+export const FilterItem = styled.select`
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='6' viewBox='0 0 9 6' fill='none'%3E%3Cpath d='M1 1L4.5 5L8.5 1' stroke='%235276FA' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")  no-repeat 90% 50%;
 
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
+    padding:4px 24px 4px 11px;
 
     border-radius:6px;
-    background-color:${({theme}) => theme.gray05};
-    
-    font-size:11px;
-    line-height:20px;
-    color:${({theme}) => theme.gray01};
+    border: 1px solid ${({theme}) => theme.main};
+    background-color: ${({theme}) => theme.blue05};
 
-    background-color:${({theme, isHighlight}) => isHighlight && theme.main};
-    color:${({isHighlight}) => isHighlight && "white"};
+    color: ${({theme}) => theme.main};
+    font-size: 11px;
+    line-height: 19px;
 `
