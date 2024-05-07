@@ -20,7 +20,6 @@ import PostPage from "./pages/journal/PostPage";
 import VideoPage from "./pages/journal/VideoPage";
 import LoginPage from "./pages/auth/LoginPage";
 import SignUpPage from "./pages/auth/SignUpPage";
-import ArticlePage from "./pages/ArticlePage";
 import SettingsPage from "./pages/profile/SettingsPage";
 import TermsPage from "./pages/TermsPage";
 import ResignPage from "./pages/resign/ResignPage";
@@ -123,10 +122,6 @@ const router = createBrowserRouter([
     element: <SignUpPage />,
   },
   // 기타
-  {
-    path:"/article",
-    element:<ArticlePage />
-  },
   {
     path: "/terms/:id",
     element: <TermsPage />,
