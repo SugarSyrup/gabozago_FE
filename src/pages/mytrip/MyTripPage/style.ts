@@ -19,7 +19,6 @@ export const CreateMyTripButton = styled.div`
     padding: 20px;
     display:flex;
     justify-content:space-between;
-    align-items:center;
 
     border: ${({ theme }) => `1px dashed ${theme.blue02}`};
     border-radius:10px;

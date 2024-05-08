@@ -66,13 +66,7 @@ function MyTripPage() {
               <CalendarAddIcon />
             </S.CreateMyTripButton>
 
-            <S.CreateMyTripTextButton hasTripHistory={false} onClick={() => {
-              navigate("/mytrip/create");
-              setDatesState({
-                startDate: "",
-                endDate: "",
-              })
-            }}>
+            <S.CreateMyTripTextButton hasTripHistory={false}>
               <CirclePlusIcon />
               <Typography.Title size="md" color="white">새로운 여행 일정 만들기</Typography.Title>
             </S.CreateMyTripTextButton>
@@ -93,13 +87,7 @@ function MyTripPage() {
               
             </S.ScheduleCardContainer>
 
-            <S.CreateMyTripTextButton hasTripHistory={true} onClick={() => {
-              navigate("/mytrip/create");
-              setDatesState({
-                startDate: "",
-                endDate: "",
-              })
-            }}>
+            <S.CreateMyTripTextButton hasTripHistory={true}>
               <CirclePlusIcon />
               <Typography.Title size="md" color="#484848">새로운 여행 일정 만들기</Typography.Title>
             </S.CreateMyTripTextButton>
@@ -108,7 +96,7 @@ function MyTripPage() {
       }
       
       {
-        tripHistory.length === 0 && 
+        tripHistory.length !== 0 && 
         <>
           <S.ContentHeadingWrappper>
             <Typography.Headline size="sm">지난 여행 기록</Typography.Headline>
