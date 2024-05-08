@@ -1,23 +1,43 @@
-import PageTemplate from "../../../components/common/PageTemplate";
-import Heading from "../../../components/common/Heading";
-import Button from "../../../components/common/Button";
-import MyScheduleCard from "../../../components/mytrip/MyScheduleCard";
+import { useEffect, useState } from "react";
+import { useSetRecoilState } from "recoil";
 
-import ScheduleContent from "../../../components/mytrip/SchedueContent";
+import { get } from "../../../utils/api";
+import { datesState } from "../../../recoil/mytrip/createData";
+
+import PageTemplate from "../../../components/common/PageTemplate";
+import MyScheduleCard from "../../../components/mytrip/MyScheduleCard";
+import Typography from "../../../components/common/Typography";
+
 import CirclePlusIcon from "../../../assets/icons/plus_circle.svg?react";
-import BlueCirclePlusIcon from "../../../assets/icons/plus_circle_blue.svg?react";
-import CircleRightChevronIcon from "../../../assets/icons/chevron_right_circle.svg?react";
 import RightChevronIcon from "../../../assets/icons/chevron_right.svg?react";
 import CalendarAddIcon from "../../../assets/icons/calendar_add.svg?react";
 
 import * as S from "./style";
-import { Link } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
-import { datesState } from "../../../recoil/mytrip/createData";
+
+type travelResponseType = {
+  "id": number,
+  "title": string,
+  "departure_date": string
+  "arrival_date": string,
+  "regions": string[]
+}[]
 
 function MyTripPage() {
-  const FLAG = false;
   const setDates = useSetRecoilState(datesState);
+  const [tripHistory, setTripHistory] = useState<travelResponseType>([]);
+  const [tripUpComming, setTripUpComming] = useState<travelResponseType>([]);
+
+  useEffect(() => {
+    get<travelResponseType>(`${import.meta.env.VITE_BASE_URL}my-travel/upcomming`)
+      .then((response) => {
+        setTripHistory(response.data);
+      })
+
+    get<travelResponseType>(`${import.meta.env.VITE_BASE_URL}my-travel/past`)
+      .then((response) => {
+        setTripUpComming(response.data);
+      })
+  }, [])
 
   function initializeDates() {
     setDates({
@@ -28,115 +48,71 @@ function MyTripPage() {
 
   return (
     <PageTemplate>
-      {/* Heading */}
-      {FLAG ? (
-        <S.ContainerWithPlan>
-          <S.HeadingContainerWithPlan>
-            <Heading size="md">나의 다가오는 여행</Heading>
-            <S.ScheduleAllBtn>
-              전체 보기
-              <RightChevronIcon />
-            </S.ScheduleAllBtn>
-          </S.HeadingContainerWithPlan>
+      {
+        tripUpComming.length === 0 ? 
+        (
+          <S.NoUpCommingContainer>
+            <S.HeadingContainer>
+              <Typography.Headline size="md">최민석 님</Typography.Headline>
+              <Typography.Title size="lg"><S.TextHighlight>가보자고</S.TextHighlight>와 첫 여행 일정을 세워보세요!</Typography.Title>
+            </S.HeadingContainer>
 
-          <S.ScheduleCardContainer>
-            <MyScheduleCard
-              title="여행제목"
-              startDate="NNNN.NN.NN"
-              endDate="NN.NN"
-              places={["여행지역"]}
-              highlight={true}
-            />
-            <MyScheduleCard
-              title="여행제목"
-              startDate="NNNN.NN.NN"
-              endDate="NN.NN"
-              places={["여행지역"]}
-              highlight={false}
-            />
-          </S.ScheduleCardContainer>
-          <Link to="/mytrip/create" onClick={() => initializeDates()}>
-            <S.CreateMyTripScheduleBtn>
-              <CirclePlusIcon />
-              새로운 여행 일정 만들기
-            </S.CreateMyTripScheduleBtn>
-          </Link>
-        </S.ContainerWithPlan>
-      ) : (
-        <>
-          <S.HeadingContainer>
-            <Heading size="md">최민석 님</Heading>
-            <Heading size="md">
-              <S.HeadingShadow>아직 여행 일정이 없어요</S.HeadingShadow>
-            </Heading>
-          </S.HeadingContainer>
+            <S.CreateMyTripButton>
+              <S.CreateMyTripTextWrapper>
+                <Typography.Title size="lg">
+                  <S.TextHighlight>여행 일정을 생성</S.TextHighlight> 하여
+                </Typography.Title>
+                <Typography.Title size="lg">
+                  여행 계획을 세워보세요!
+                </Typography.Title>
+              </S.CreateMyTripTextWrapper>
 
-          {/* Create Schedule */}
-          <S.CreateMyTripContainer>
-            <S.CreateMyTripTextWrapper>
-              <S.CreateMyTripText>
-                <S.TextHighlight>여행 일정을 생성</S.TextHighlight>
-                하여 여행 계획을 세워보세요!
-              </S.CreateMyTripText>
               <CalendarAddIcon />
-            </S.CreateMyTripTextWrapper>
-            <S.SeperateLine />
-            <S.ButtonWrapper>
-              <Link to="/mytrip/create" onClick={() => initializeDates()}>
-                <Button size="sm" type="text">
-                  <S.ButtonText>
-                    일정 생성하기
-                    <CircleRightChevronIcon />
-                  </S.ButtonText>
-                </Button>
-              </Link>
-            </S.ButtonWrapper>
-          </S.CreateMyTripContainer>
+            </S.CreateMyTripButton>
+
+            <S.CreateMyTripTextButton hasTripHistory={false}>
+              <CirclePlusIcon />
+              <Typography.Title size="md" color="white">새로운 여행 일정 만들기</Typography.Title>
+            </S.CreateMyTripTextButton>
+          </S.NoUpCommingContainer>
+        )
+        :
+        (
+          <S.ContainerWithPlan>
+            <S.HeadingContainer>
+              <Typography.Headline size="md">최민석 님</Typography.Headline>
+              <Typography.Title size="lg">다가오는 여행이 있어요!</Typography.Title>
+            </S.HeadingContainer>
+
+            <S.ScheduleCardContainer>
+              {
+                tripUpComming.map((tripData) => <MyScheduleCard {...tripData}/>)
+              }
+              
+            </S.ScheduleCardContainer>
+
+            <S.CreateMyTripTextButton hasTripHistory={true}>
+              <CirclePlusIcon />
+              <Typography.Title size="md" color="#484848">새로운 여행 일정 만들기</Typography.Title>
+            </S.CreateMyTripTextButton>
+          </S.ContainerWithPlan>
+        )
+      }
+      
+      {
+        tripHistory.length !== 0 && 
+        <>
+          <S.ContentHeadingWrappper>
+            <Typography.Headline size="sm">지난 여행 기록</Typography.Headline>
+            <S.ShowAllTrips to="/mytrip/all">
+              <Typography.Body size="lg" color="#424242">전체보기</Typography.Body>
+              <RightChevronIcon />
+            </S.ShowAllTrips>
+          </S.ContentHeadingWrappper>
+          <S.ContentContainer>
+          </S.ContentContainer>
         </>
-      )}
-
-      {/* Contents */}
-      <S.ContentHeadingWrappper>
-        <Heading size="md">새 여행계획을 세워보세요!</Heading>
-      </S.ContentHeadingWrappper>
-      <S.ContentContainer>
-        <ScheduleContent
-          heading="제목"
-          content="본문"
-          currentBookMarked={true}
-        />
-        <ScheduleContent
-          heading="제목"
-          content="본문"
-          currentBookMarked={true}
-        />
-        <ScheduleContent
-          heading="제목"
-          content="본문"
-          currentBookMarked={true}
-        />
-        <ScheduleContent
-          heading="제목"
-          content="본문"
-          currentBookMarked={true}
-        />
-        <ScheduleContent
-          heading="제목"
-          content="본문"
-          currentBookMarked={true}
-        />
-        <ScheduleContent
-          heading="제목"
-          content="본문"
-          currentBookMarked={true}
-        />
-      </S.ContentContainer>
-
-      <Link to="/mytrip/create" onClick={() => initializeDates()}>
-        <S.FloatingBtnWrapper>
-          <BlueCirclePlusIcon />
-        </S.FloatingBtnWrapper>
-      </Link>
+      }
     </PageTemplate>
   );
 }
