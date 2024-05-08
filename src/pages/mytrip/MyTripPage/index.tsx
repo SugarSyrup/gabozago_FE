@@ -12,6 +12,9 @@ import CalendarAddIcon from "../../../assets/icons/calendar_add.svg?react";
 
 import * as S from "./style";
 import MyLastScheduleCard from "../../../components/mytrip/MyLastScheduleCard";
+import { useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { datesState } from "../../../recoil/mytrip/createData";
 
 type travelResponseType = {
   "id": number,
@@ -22,6 +25,8 @@ type travelResponseType = {
 }[]
 
 function MyTripPage() {
+  const navigate = useNavigate();
+  const setDatesState = useSetRecoilState(datesState);
   const [tripHistory, setTripHistory] = useState<travelResponseType>([]);
   const [tripUpComming, setTripUpComming] = useState<travelResponseType>([]);
 
@@ -61,7 +66,13 @@ function MyTripPage() {
               <CalendarAddIcon />
             </S.CreateMyTripButton>
 
-            <S.CreateMyTripTextButton hasTripHistory={false}>
+            <S.CreateMyTripTextButton hasTripHistory={false} onClick={() => {
+              navigate("/mytrip/create");
+              setDatesState({
+                startDate: "",
+                endDate: "",
+              })
+            }}>
               <CirclePlusIcon />
               <Typography.Title size="md" color="white">새로운 여행 일정 만들기</Typography.Title>
             </S.CreateMyTripTextButton>
@@ -82,7 +93,13 @@ function MyTripPage() {
               
             </S.ScheduleCardContainer>
 
-            <S.CreateMyTripTextButton hasTripHistory={true}>
+            <S.CreateMyTripTextButton hasTripHistory={true} onClick={() => {
+              navigate("/mytrip/create");
+              setDatesState({
+                startDate: "",
+                endDate: "",
+              })
+            }}>
               <CirclePlusIcon />
               <Typography.Title size="md" color="#484848">새로운 여행 일정 만들기</Typography.Title>
             </S.CreateMyTripTextButton>
@@ -104,7 +121,6 @@ function MyTripPage() {
             {
               tripHistory.map((trip) => <MyLastScheduleCard {...trip} />)
             }
-            
           </S.ContentContainer>
         </>
       }

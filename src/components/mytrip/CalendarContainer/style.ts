@@ -23,7 +23,6 @@ export const Footer = styled.footer`
     z-index:2;
 
     height:200px;
-    padding-bottom:50px;
 
     display: flex;
     flex-direction: column;
@@ -31,11 +30,36 @@ export const Footer = styled.footer`
     align-items: center;
     gap: 14px;
 
-    padding-left: 25px;
-    padding-right: 25px;
+    padding:15px 30px;
 
     width: 100%;
     overflow: auto;
 
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.00) 0%, #FFF 50%);
 `;
+
+export const Button = styled.button<{
+    bgColor: boolean
+}>`
+    width:100%;
+    padding:10px 20px 15px;
+    border-radius:30px;
+    border:none;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+
+    background-color: ${({theme, bgColor}) => bgColor ? theme.main : '#a6a6a6'};
+    text-decoration: none;
+    cursor:pointer;
+    svg{
+        width:28px;
+        height:28px;
+
+        path{
+            fill:white;
+        }
+    }
+`
