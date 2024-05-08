@@ -96,7 +96,7 @@ function MyTripPage() {
       }
       
       {
-        tripHistory.length !== 0 && 
+        tripHistory.length === 0 && 
         <>
           <S.ContentHeadingWrappper>
             <Typography.Headline size="sm">지난 여행 기록</Typography.Headline>
