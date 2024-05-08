@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 
@@ -17,6 +17,12 @@ function CalendarContainer() {
     const [dateDiff, setDateDiff] = useState<number>(-1);
 
     const [dates, setDates] = useRecoilState(datesState);
+
+    useEffect(() => {
+        if(dates.startDate !== "" && dates.endDate !== "") {
+            setDateDiff(calculateDateDiff(dates.startDate, dates.endDate));
+        }
+    }, [])
 
     function onDateClick(date:string) {
         if(dateClickFlag) {
