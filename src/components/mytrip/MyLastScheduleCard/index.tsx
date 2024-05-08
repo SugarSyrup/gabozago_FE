@@ -32,7 +32,7 @@ function MyLastScheduleCard({
                     <LogoSmallIcon />
                 </S.ThumbnailWrapper>
                 <S.TextContainer>
-                    <Typography.Title size="md">{title}</Typography.Title>
+                    <Typography.Title size="md" noOfLine={2}>{title}</Typography.Title>
                     <S.Infos>
                         <S.Info>
                             <CalendarIcon />

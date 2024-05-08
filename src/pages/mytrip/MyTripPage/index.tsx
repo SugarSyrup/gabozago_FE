@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import { useSetRecoilState } from "recoil";
 
 import { get } from "../../../utils/api";
-import { datesState } from "../../../recoil/mytrip/createData";
 
 import PageTemplate from "../../../components/common/PageTemplate";
 import MyScheduleCard from "../../../components/mytrip/MyScheduleCard";
@@ -24,7 +22,6 @@ type travelResponseType = {
 }[]
 
 function MyTripPage() {
-  const setDates = useSetRecoilState(datesState);
   const [tripHistory, setTripHistory] = useState<travelResponseType>([]);
   const [tripUpComming, setTripUpComming] = useState<travelResponseType>([]);
 
@@ -38,14 +35,7 @@ function MyTripPage() {
       .then((response) => {
         setTripUpComming(response.data);
       })
-  }, [])
-
-  function initializeDates() {
-    setDates({
-      startDate: "",
-      endDate: "",
-    });
-  }
+  }, []);
 
   return (
     <PageTemplate>
@@ -111,13 +101,10 @@ function MyTripPage() {
             </S.ShowAllTrips>
           </S.ContentHeadingWrappper>
           <S.ContentContainer>
-            <MyLastScheduleCard 
-              id={1}
-              title="asdf"
-              departure_date="asdf"
-              arrival_date="sadf"
-              regions={["asdf","asdf"]}
-            />
+            {
+              tripHistory.map((trip) => <MyLastScheduleCard {...trip} />)
+            }
+            
           </S.ContentContainer>
         </>
       }
