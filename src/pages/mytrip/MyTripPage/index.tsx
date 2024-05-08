@@ -13,6 +13,7 @@ import RightChevronIcon from "../../../assets/icons/chevron_right.svg?react";
 import CalendarAddIcon from "../../../assets/icons/calendar_add.svg?react";
 
 import * as S from "./style";
+import MyLastScheduleCard from "../../../components/mytrip/MyLastScheduleCard";
 
 type travelResponseType = {
   "id": number,
@@ -110,6 +111,13 @@ function MyTripPage() {
             </S.ShowAllTrips>
           </S.ContentHeadingWrappper>
           <S.ContentContainer>
+            <MyLastScheduleCard 
+              id={1}
+              title="asdf"
+              departure_date="asdf"
+              arrival_date="sadf"
+              regions={["asdf","asdf"]}
+            />
           </S.ContentContainer>
         </>
       }
