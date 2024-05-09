@@ -4,7 +4,7 @@ import * as S from "./style";
 
 interface Props {
     LeftItem?: React.ReactNode,
-    children?: React.ReactNode,
+    children: React.ReactNode,
     RightItem?: React.ReactNode,
 }
 
