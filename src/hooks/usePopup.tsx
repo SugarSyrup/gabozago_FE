@@ -31,7 +31,7 @@ function usePopup() {
       )}
     </>
   );
-  return { popupClose, popupOpen, Popup };
+  return { popupClose, popupOpen, Popup, isOpend };
 }
 
 export default usePopup;
