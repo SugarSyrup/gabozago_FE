@@ -16,6 +16,7 @@ export const FixedControlBox = styled.div`
 
   z-index: 20;
   background-color: ${({ theme }) => theme.white};
+  padding-top:10px;
 `;
 
 export const CategoryList = styled.ol`

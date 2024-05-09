@@ -20,8 +20,4 @@ export const CheckBoxInputContainer = styled.div`
       background-size: contain;
     }
   }
-  label,
-  a {
-    margin-left: 7px;
-  }
 `;

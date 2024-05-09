@@ -1,33 +1,38 @@
 import { useEffect, useRef, useState } from "react";
-import { useLoaderData, useNavigate, useParams } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 
 import { userDataType } from "../../../assets/data/userData";
 import SettingIcon from "../../../assets/icons/setting.svg?react";
 import UserIcon from "../../../assets/icons/user.svg?react";
 
 import PageTemplate from "../../../components/common/PageTemplate";
+import UserTrip from "../../../components/profile/UserTrip";
+import UserActivity from "../../../components/profile/UserActivity";
+import Typography from "../../../components/common/Typography";
 
 import * as S from "./style";
-import UserTrip from "../../../components/profile/UserTrip";
-import UserReview from "../../../components/profile/UserReview";
-import UserActivity from "../../../components/profile/UserActivity";
-import FollowBtn from "../../../components/common/FollowBtn";
+import { get } from "../../../utils/api";
+
+type profileType = {
+  nickname: string,
+  description: string,
+  avatarURL: string,
+  clapCount: number,
+  scrapCount: number,
+  myTravelDay: number,
+  myTravelCount: number,
+}
 
 function ProfilePage() {
-  const { uid } = useParams();
-  const [isMyProfile, setIsMyProfile] = useState<boolean>(false);
+  const navigate = useNavigate();
   const [headerHeight, setHeaderHeight] = useState<number>(200);
-  const [currentTap, setCurrentTap] = useState<"trip" | "review" | "activity">(
+  const [currentTap, setCurrentTap] = useState<"trip" | "activity">(
     "trip"
   );
+
   const { name, follower, following, reviews, hearts, views, desc } =
     useLoaderData() as userDataType;
   const FixedHeaderRef = useRef<HTMLDivElement>(null);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    //TODO : [백엔드/로그인] 로그인 정보 비교해서 내 프로필인지 남의 프로필인지 설정
-  }, []);
 
   useEffect(() => {
     if (FixedHeaderRef.current) {
@@ -35,69 +40,72 @@ function ProfilePage() {
     }
   }, [FixedHeaderRef.current]);
 
+  useEffect(() => {
+    get<profileType>(`${import.meta.env.VITE_BASE_URL}user/profile`)
+      .then((response) => {
+        //[SugarSyrup] @TODO: 백엔드 아직 미 업데이트! -> 유저 페이지 data 불러온 정보 표시
+      })
+
+  }, [])
+
   return (
     <PageTemplate>
-      <S.SettingIconWrapper>
+      <S.SettingIconWrapper onClick={() => {navigate('/profile/settings')}}>
         <SettingIcon />
       </S.SettingIconWrapper>
       <S.FixedContainer ref={FixedHeaderRef}>
         <S.Header>
           <S.UserProfile>
             <UserIcon />
-            <S.Name>{name}</S.Name>
+            <Typography.Title size="lg">{name}</Typography.Title>
           </S.UserProfile>
-          {isMyProfile ? (
             <S.ProfileEditBtn
               onClick={() => {
                 navigate(`edit`);
               }}
             >
-              {" "}
-              프로필 수정
+              <Typography.Title size="md" color="inherit">프로필 수정</Typography.Title>
             </S.ProfileEditBtn>
-          ) : (
-            //TODO : 팔로우 여부 정보 가져오기
-            <FollowBtn isFollowing={false} />
-          )}
         </S.Header>
+
+        <S.UserIntroduce>
+          <Typography.Body size="md" noOfLine={5}>{desc}</Typography.Body>
+        </S.UserIntroduce>
+
         <S.Statics>
-          <S.StaticItem
-            onClick={() => {
-              navigate("follow");
-            }}
-            isHover={true}
-          >
-            <S.StaticItemName>팔로워</S.StaticItemName>
-            <S.StaticItemStat>{follower}</S.StaticItemStat>
-          </S.StaticItem>
-          <S.StaticItem
-            onClick={() => {
-              navigate("follow");
-            }}
-            isHover={true}
-          >
-            <S.StaticItemName>팔로잉</S.StaticItemName>
-            <S.StaticItemStat>{following}</S.StaticItemStat>
+          <S.StaticItem>
+            <S.StaticItemName>
+              <Typography.Title size="md" color="inherit">공감 수</Typography.Title>
+            </S.StaticItemName>
+            <S.StaticItemStat>
+              <Typography.Title size="md" color="inherit">{views}</Typography.Title>  
+            </S.StaticItemStat>
           </S.StaticItem>
           <S.StaticItem>
-            <S.StaticItemName>내 후기</S.StaticItemName>
-            <S.StaticItemStat>{reviews}</S.StaticItemStat>
+            <S.StaticItemName>
+              <Typography.Title size="md" color="inherit">스그랩 수</Typography.Title>
+            </S.StaticItemName>
+            <S.StaticItemStat>
+              <Typography.Title size="md" color="inherit">{views}</Typography.Title>  
+            </S.StaticItemStat>
           </S.StaticItem>
           <S.StaticItem>
-            <S.StaticItemName>공감수</S.StaticItemName>
-            <S.StaticItemStat>{hearts}</S.StaticItemStat>
+            <S.StaticItemName>
+              <Typography.Title size="md" color="inherit">여행 일</Typography.Title>
+            </S.StaticItemName>
+            <S.StaticItemStat>
+              <Typography.Title size="md" color="inherit">{views}</Typography.Title>  
+            </S.StaticItemStat>
           </S.StaticItem>
           <S.StaticItem>
-            <S.StaticItemName>조회수</S.StaticItemName>
-            <S.StaticItemStat>{views}</S.StaticItemStat>
+            <S.StaticItemName>
+              <Typography.Title size="md" color="inherit">여행 수</Typography.Title>
+            </S.StaticItemName>
+            <S.StaticItemStat>
+              <Typography.Title size="md" color="inherit">{views}</Typography.Title>  
+            </S.StaticItemStat>
           </S.StaticItem>
         </S.Statics>
-
-        {!isMyProfile && (
-          <S.UserIntroduce>
-            <span>{desc}</span>
-          </S.UserIntroduce>
-        )}
 
         <S.TapNavigationBar>
           <S.TapNavigation
@@ -106,15 +114,7 @@ function ProfilePage() {
             }}
             isHighlight={currentTap === "trip"}
           >
-            나의 여행
-          </S.TapNavigation>
-          <S.TapNavigation
-            onClick={() => {
-              setCurrentTap("review");
-            }}
-            isHighlight={currentTap === "review"}
-          >
-            나의 리뷰
+            <Typography.Title size="md">나의 여행</Typography.Title>
           </S.TapNavigation>
           <S.TapNavigation
             onClick={() => {
@@ -122,20 +122,19 @@ function ProfilePage() {
             }}
             isHighlight={currentTap === "activity"}
           >
-            나의 활동
+            <Typography.Title size="md">나의 활동</Typography.Title>
           </S.TapNavigation>
         </S.TapNavigationBar>
         <S.SeperateLine>
           <S.HighLightLine position={currentTap} />
         </S.SeperateLine>
       </S.FixedContainer>
+      
       <S.Content FixedContainerHeight={headerHeight}>
         {(() => {
           switch (currentTap) {
             case "trip":
-              return <UserTrip username={isMyProfile ? "나" : "USER"} />;
-            case "review":
-              return <UserReview />;
+              return <UserTrip />;
             case "activity":
               return <UserActivity />;
             default:

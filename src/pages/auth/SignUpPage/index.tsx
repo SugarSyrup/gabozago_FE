@@ -1,13 +1,52 @@
-import PageTemplate from "../../../components/common/PageTemplate";
-import KakaoIcon from "../../../assets/imgs/kakaotalk.png";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-import * as S from "./style";
-import Button from "../../../components/common/Button";
+import PageTemplate from "../../../components/common/PageTemplate";
 import InputContainer from "../../../components/common/InputContainer";
+
 import CheckBoxs from "../../../components/signUp/CheckBoxs";
 import PageHeader from "../../../components/common/PageHeader";
+import RecommendNickname from "../../../components/signUp/RecommendNickname";
+import Nickname from "../../../components/signUp/Nickname";
+
+import KakaoIcon from "../../../assets/icons/kakao.svg?react";
+import NaverIcon from "../../../assets/icons/naver.svg?react";
+import GoogleIcon from "../../../assets/icons/google.svg?react";
+import AppleIcon from "../../../assets/icons/apple.svg?react";
+
+import * as S from "./style";
+import { post } from "../../../utils/api";
+
+type loginResponse = {
+  status: "ACTIVE" | "INACTIVE";
+  access: string;
+  refresh: string;
+  access_expires_at: string;
+  refresh_expires_at: string;
+  user_data?: {
+    email: string;
+    nickname: string;
+  }
+}
 
 function SignUpPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+
+  const type = searchParams.get("type");
+  const email = searchParams.get("email");
+  const [isNicknameOk, setIsNicknameOk] = useState<boolean>(false);
+  const [checkboxActive, setCheckboxActive] = useState(false);
+  const [isButtonActive, setIsButtonActive] = useState(false);
+
+  useEffect(() => {
+    if(isNicknameOk && checkboxActive) {
+      setIsButtonActive(true);
+    } else {
+      setIsButtonActive(false);
+    }
+  }, [isNicknameOk, checkboxActive])
+
   return (
     <PageTemplate
       nav={false}
@@ -17,57 +56,83 @@ function SignUpPage() {
         </PageHeader>
       }
     >
-      <S.FormContainer>
+      <S.FormContainer  action="post" onSubmit={(e) => {
+        e.preventDefault();
+
+        const formData = new FormData(e.currentTarget);
+        const {email, nickname, recommendName} = Object.fromEntries(formData);
+        let body = {}
+        
+        if(type === "naver") {
+          body = {
+            email: email,
+            nickname: nickname,
+          }
+        } else {
+          body = {
+            nickname: nickname
+          }
+        }
+
+        post<loginResponse>(`${import.meta.env.VITE_BASE_URL}user/sign-in`, body)
+          .then((response) => {
+            localStorage.setItem("access_token", response.data.access);
+            localStorage.setItem("refresh_token", response.data.access);
+            navigate("/");
+          });
+      }}>
         <InputContainer
           inputType="email"
-          name="account"
+          name="email"
           label="연결된 계정"
-          disabled={true}
+          disabled={type === "naver" ? false : true}
           required={true}
+          value={email ? email : ""}
           explain={
             <>
-              <img src={KakaoIcon} />
-              카카오로 가입한 계정이에요
+              {
+                (() => {
+                  switch(type) {
+                    case "kakao":
+                      return <>
+                          <S.BrandIcon type={type}>
+                            <KakaoIcon />
+                          </S.BrandIcon>
+                          카카오로 가입한 계정이에요
+                        </>
+                    case "google":
+                      return <>
+                        <S.BrandIcon type={type}>
+                          <GoogleIcon />
+                        </S.BrandIcon>
+                        구글로 가입한 계정이에요
+                      </>
+                    case "naver":
+                      return <>
+                        <S.BrandIcon type={type}>
+                          <NaverIcon />
+                        </S.BrandIcon>
+                        네이버로 가입한 계정이에요
+                      </>
+                    case "apple":
+                      return <>
+                        <S.BrandIcon type={type}>
+                          <AppleIcon />
+                        </S.BrandIcon>
+                        애플로 가입한 계정이에요
+                      </>
+                  }
+                })()
+              }
             </>
           }
         />
-        <InputContainer
-          inputType="text"
-          name="account"
-          label="닉네임"
-          disabled={false}
-          required={true}
-          alert={
-            <S.AlertMessage color="blue">
-              사용가능한 닉네임입니다:)
-            </S.AlertMessage>
-          }
-          onButtonClick={() => {}}
-        />
-        <CheckBoxs />
+        <Nickname setIsNicknameOk={setIsNicknameOk}/>
+        <CheckBoxs setCheckboxActive={setCheckboxActive} />
 
-        <InputContainer
-          inputType="text"
-          name="reccomendName"
-          label={
-            <>
-              추천받고 오셨다면 알려주세요!
-              <S.InputExplain>(선택)</S.InputExplain>
-            </>
-          }
-          disabled={false}
-          required={true}
-          alert={
-            <S.AlertMessage color="red">
-              유효하지 않은 유저입니다.
-            </S.AlertMessage>
-          }
-          onButtonClick={() => {}}
-        />
-        <S.ButtonWrapper>
-          <Button type="normal" size="lg" width="100%">
+        <RecommendNickname />
+        <S.ButtonWrapper formAction="" type="submit" disabled={!isButtonActive}>
             회원가입 완료
-          </Button>
         </S.ButtonWrapper>
       </S.FormContainer>
     </PageTemplate>
