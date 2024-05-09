@@ -34,9 +34,6 @@ async function login() {
       email: "test@naver.com",
       nickname: "test1",
       profile_pic: "",
-    },
-    {
-      headers: {'Content-Type': 'application/json'}
     }
   );
 

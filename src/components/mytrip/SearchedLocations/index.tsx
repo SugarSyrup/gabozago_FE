@@ -1,11 +1,11 @@
-import { locationType } from "../../../assets/data/locations";
 import * as S from "./style";
 
 import SearchResultItem from "../SearchResultItem";
 import SearchNotFounded from "../SearchNotFounded";
+import { locationResponseType } from "../../../pages/mytrip/LocationSelectPage";
 
 interface Props {
-    searchedLocations: locationType[];
+    searchedLocations: locationResponseType[];
     keyword: string | undefined;
 }
 
@@ -18,7 +18,7 @@ function SearchedLocations({ searchedLocations, keyword }: Props) {
                         return (
                             <SearchResultItem
                                 name={searchedLocation.name}
-                                desc={searchedLocation.desc}
+                                desc={searchedLocation.category}
                                 keyword={keyword}
                             />
                         );
