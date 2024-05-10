@@ -20,6 +20,7 @@ import PostPage from "./pages/journal/PostPage";
 import VideoPage from "./pages/journal/VideoPage";
 import LoginPage from "./pages/auth/LoginPage";
 import SignUpPage from "./pages/auth/SignUpPage";
+import ArticlePage from "./pages/ArticlePage";
 import PlacePage from "./pages/PlacePage";
 import SettingsPage from "./pages/profile/SettingsPage";
 import TermsPage from "./pages/TermsPage";
@@ -87,7 +88,7 @@ const router = createBrowserRouter([
   },
   /* ---- 유저 프로필 페이지 ---- */
   {
-    path: "/profile/:uid",
+    path: "/profile",
     element: <ProfilePage />,
     loader: async () => {
       return userData;
@@ -177,6 +178,11 @@ const router = createBrowserRouter([
     element: <PlacePage />,
   },
   // 기타
+  {
+    // 아티클 
+    path:"/article",
+    element:<ArticlePage />
+  },
   {
     // 약관
     path: "/terms/:id",
