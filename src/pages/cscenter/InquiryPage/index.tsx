@@ -38,6 +38,7 @@ function InquiryPage() {
     contents: "",
     files: [],
   });
+  const [previewImages, setPreviewImages] = useState<string[]>([]);
 
   const submitForm = () => {
     const token = localStorage.getItem("access_token");
@@ -158,49 +159,80 @@ function InquiryPage() {
         </S.InputContainer>
         <S.InputContainer>
           <S.TitleHeading>첨부파일</S.TitleHeading>
-          <S.FileList>
-            <li>
-              <S.FileLabel htmlFor="files">
-                <ImageAddIcon />
-                <span>{form.files.length} / 5</span>
-              </S.FileLabel>
-            </li>
-            {form.files.map(({ name }, targetIndex) => (
-              <li>
-                <S.FileBox
-                  onClick={() => {
-                    setForm((prev) => ({
-                      ...prev,
-                      files: prev.files.filter(
-                        (item, index) => index !== targetIndex
-                      ),
-                    }));
-                  }}
-                >
-                  <p>{name}</p>
-                </S.FileBox>
-              </li>
-            ))}
-          </S.FileList>
+          <S.FileUploaderContainer>
+            <S.FileLabel htmlFor="files">
+              <ImageAddIcon />
+              <span>{form.files.length} / 5</span>
+            </S.FileLabel>
+            <S.FileList>
+              {previewImages.map((item, targetIndex) => (
+                <li>
+                  <S.FileBox
+                    image={item}
+                    onClick={() => {
+                      setForm((prev) => ({
+                        ...prev,
+                        files: prev.files.filter(
+                          (item, index) => index !== targetIndex
+                        ),
+                      }));
+                      setPreviewImages((prev) =>
+                        prev.filter((item, index) => index !== targetIndex)
+                      );
+                    }}
+                  />
+                </li>
+              ))}
+            </S.FileList>
+          </S.FileUploaderContainer>
           <input
             type="file"
-            accept=".doc,.docx,.hwp,.pdf,.text,.zip,.webp,.jpeg,.jpg,.png,.gif"
+            accept=".webp,.jpeg,.jpg,.png,.gif"
             id="files"
             required={false}
             multiple
             onChange={(e) => {
-              const fileArray = Array.from(e.currentTarget.files || []);
-              console.dir(fileArray);
+              const maxSize = 10 * 1024 * 1024; // 10MB 사이즈 제항
+              const newFileArray = Array.from(e.currentTarget.files || []);
+              const fileArray = form.files.concat(newFileArray);
+
+              /* ==== Validation 시작 ==== */
+              // 최대 개수를 초과할 수 없음
+              if (fileArray.length > 5) {
+                return alert("사진 첨부는 최대 5개까지 가능합니다.");
+              }
+              // 이미지 크기 제한 체크
+              newFileArray.map(({ name, size }) => {
+                if (size > maxSize) {
+                  return alert(
+                    `10MB 이내 이미지 파일만 첨부할 수 있습니다. \nfile: ${name}`
+                  );
+                }
+              });
+              /* ==== Validation 끝 ==== */
+
               setForm((prev) => ({
                 ...prev,
                 files: fileArray,
               }));
+
+              // 미리보기 이미지 url 생성해 PreviewImages에 저장
+              setPreviewImages([]);
+              fileArray.map((item) => {
+                const fileRead = new FileReader();
+                fileRead.onload = () => {
+                  setPreviewImages((prev) => [
+                    ...prev,
+                    String(fileRead.result),
+                  ]);
+                };
+                fileRead.readAsDataURL(item);
+              });
             }}
             style={{ display: "none" }}
           />
           <S.DescSpan>
-            10MB 이내 모든 이미지 및 허용된 문서 (MS office, pdf, txt)와 zip
-            파일을 5개까지 첨부가능합니다.
+            10MB 이내 이미지 파일(jpg, png, gif)을 최대 5개까지 첨부 가능합니다.
           </S.DescSpan>
         </S.InputContainer>
         <button

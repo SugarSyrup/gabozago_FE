@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import xSvg from "../../../assets/icons/circleX.svg";
 
 export const ButtonContainer = styled.div`
   padding: 20px;
@@ -158,10 +159,12 @@ const fileBoxCSS = css`
   letter-spacing: 0.5px;
 
   color: ${({ theme }) => theme.gray02};
+`;
 
-  &:hover {
-    background: ${({ theme }) => theme.gray04};
-  }
+export const FileUploaderContainer = styled.div`
+  display: grid;
+  grid-template-columns: fit-content(100%) 1fr;
+  gap: 10px;
 `;
 
 export const FileLabel = styled.label`
@@ -181,11 +184,13 @@ export const FileList = styled.ol`
   overflow-x: auto;
 `;
 
-export const FileBox = styled.div`
+export const FileBox = styled.div<{ image: string }>`
   ${fileBoxCSS}
   padding: 8px;
   position: relative;
-  background: ${({ theme }) => theme.gray07};
+  background: url(${({ image }) => image}) ${({ theme }) => theme.gray07};
+  background-position: center;
+  background-size: cover;
   border: 1px solid ${({ theme }) => theme.gray05};
 
   p {
@@ -200,18 +205,16 @@ export const FileBox = styled.div`
   }
 
   &:hover::after {
-    content: "x";
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    content: "";
+    display: block;
     position: absolute;
     top: 0;
     right: 0;
+
+    color: ${({ theme }) => theme.gray02};
     width: 20px;
     height: 20px;
-    background-color: ${({ theme }) => theme.white};
-    border-radius: 50%;
-    color: ${({ theme }) => theme.gray02};
-    transform: translate(-5px, 5px);
+    background: url(${xSvg});
+    background-position: center;
   }
 `;
