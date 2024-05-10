@@ -9,7 +9,7 @@ import BottomChevronIcon from "../../../assets/icons/chevron_bottom_small.svg?re
 import ImageAddIcon from "../../../assets/icons/image_add.svg?react";
 import { post } from "../../../utils/api";
 
-interface TForm {
+interface Form {
   type: string;
   email: string;
   title: string;
@@ -31,7 +31,7 @@ function InquiryPage() {
   ]);
   const submitRef = useRef<HTMLButtonElement>(null);
   const setModal = useSetRecoilState(modalState);
-  const [form, setForm] = useState<TForm>({
+  const [form, setForm] = useState<Form>({
     type: "00",
     email: "",
     title: "",
@@ -43,9 +43,7 @@ function InquiryPage() {
     const token = localStorage.getItem("access_token");
     if (token) {
       // @todo: 첨부파일 "파일 vs 이미지" api 변경점 논의 후, 이미지만 받을 경우 image 업로드 별도 처리
-      post<TForm>(`${import.meta.env.VITE_BASE_URL}settings/support/help/ask`, {
-        headers: { Authorization: token },
-      });
+      post<Form>(`${import.meta.env.VITE_BASE_URL}settings/support/help/ask`);
     }
   };
 

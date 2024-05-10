@@ -32,10 +32,7 @@ function FeedBackPage() {
               if (token) {
                 post<string>(
                   `${import.meta.env.VITE_BASE_URL}settings/support/opinion`,
-                  { content: text },
-                  {
-                    headers: { Authorization: token },
-                  }
+                  { content: text }
                 );
 
                 alert("접수되었습니다. 고객님의 소중한 의견 감사합니다.");

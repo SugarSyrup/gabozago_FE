@@ -34,10 +34,6 @@ async function login() {
       provider: "google",
       email: "test_gbzg@gmail.com",
       nickname: "테스트용",
-      // profile_pic: "https://pbs.twimg.com/media/DmOBeFoUcAAiWMJ.jpg",
-    },
-    {
-      headers: { "Content-Type": "application/json" },
     }
   );
 
