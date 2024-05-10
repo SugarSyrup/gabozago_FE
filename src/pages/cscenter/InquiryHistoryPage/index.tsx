@@ -36,9 +36,9 @@ function InquiryHistoryPage() {
         next: string | null;
         previous: string | null;
         results: THistoryList[];
-      }>(`${import.meta.env.VITE_BASE_URL}settings/support/help/ask`, {
-        headers: { Authorization: token },
-      }).then(({ data }) => setData(data.results));
+      }>(`${import.meta.env.VITE_BASE_URL}settings/support/help/ask`).then(
+        ({ data }) => setData(data.results)
+      );
     }
   }, []);
 
