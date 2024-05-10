@@ -8,6 +8,7 @@ import { modalState } from "../../../recoil/modalState";
 import BottomChevronIcon from "../../../assets/icons/chevron_bottom_small.svg?react";
 import ImageAddIcon from "../../../assets/icons/image_add.svg?react";
 import { post } from "../../../utils/api";
+import { useNavigate } from "react-router-dom";
 
 interface Form {
   type: string;
@@ -29,6 +30,7 @@ function InquiryPage() {
     ["06", "서비스 개선 사안"],
     ["07", "기타 문의"],
   ]);
+  const navigate = useNavigate();
   const submitRef = useRef<HTMLButtonElement>(null);
   const setModal = useSetRecoilState(modalState);
   const [form, setForm] = useState<Form>({
@@ -40,11 +42,43 @@ function InquiryPage() {
   });
   const [previewImages, setPreviewImages] = useState<string[]>([]);
 
-  const submitForm = () => {
+  const submitForm = async () => {
     const token = localStorage.getItem("access_token");
     if (token) {
-      // @todo: 첨부파일 "파일 vs 이미지" api 변경점 논의 후, 이미지만 받을 경우 image 업로드 별도 처리
-      post<Form>(`${import.meta.env.VITE_BASE_URL}settings/support/help/ask`);
+      // 이미지 파일 스토리지에 업로드
+      const imageIds: number[] = [];
+
+      for (const file of form.files) {
+        const formData = new FormData();
+        formData.append("image", file);
+
+        const { data } = await post<{ id: number; imageURL: string }>(
+          `${import.meta.env.VITE_BASE_URL}settings/image`,
+          formData
+        );
+        imageIds.push(data.id);
+      }
+
+      // Form 전송
+      const body = {
+        email: form.email,
+        type: "ASK" + form.type,
+        title: form.title,
+        content: form.contents,
+        images: imageIds,
+      };
+
+      const inquiryId = await post<{
+        email: string;
+        type: string;
+        title: string;
+        content: string;
+        images: number[];
+      }>(`${import.meta.env.VITE_BASE_URL}settings/support/help/ask`, body);
+      alert(
+        "문의가 등록되었습니다. /n 문의하신 내용은 빠른 시간 내에 답변을 드리도록 하겠습니다."
+      );
+      navigate(`/cscenter/inquiry/${inquiryId}`);
     }
   };
 
