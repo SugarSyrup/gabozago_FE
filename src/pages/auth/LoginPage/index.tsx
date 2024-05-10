@@ -32,8 +32,8 @@ async function login() {
     {
       uid: 1234321,
       provider: "google",
-      email: "test_gbzg@gmail.com",
-      nickname: "테스트용",
+      email: "gbzg_test@gmail.com",
+      nickname: "tiredDeveloper",
     }
   );
 
