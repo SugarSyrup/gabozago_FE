@@ -45,7 +45,16 @@ function InquiryHistoryPage() {
   return (
     <PageTemplate nav={false} header={<PageHeader>내 문의 내역</PageHeader>}>
       {data.length === 0 ? (
-        <S.NoDataParagraph>문의 내역이 없습니다.</S.NoDataParagraph>
+        <S.NoDataTextContainer>
+          <p className="no_data-heading">문의하신 내역이 없습니다.</p>
+          <p className="no_data-desc">
+            문의 내용은 고객센터/도움말의
+            <br />
+            서비스 문의하기를
+            <br />
+            클릭하여 작성해주세요.
+          </p>
+        </S.NoDataTextContainer>
       ) : (
         <S.List>
           {data.map(({ id, title, date, status }) => (

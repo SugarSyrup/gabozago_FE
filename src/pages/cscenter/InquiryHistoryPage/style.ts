@@ -35,20 +35,31 @@ export const List = styled.ol`
   }
 `;
 
-export const NoDataParagraph = styled.p`
+export const NoDataTextContainer = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 
   word-break: keep-all;
+  text-align: center;
 
-  color: ${({ theme }) => theme.gray02};
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 24px;
-  letter-spacing: 0.15px;
+  .no_data-heading {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 32px;
+  }
+  .no_data-desc {
+    color: ${({ theme }) => theme.gray02};
+    color: var(--Brand-Color-Gray-Secondary, #a6a6a6);
+
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.15px;
+  }
 `;
 
 export const StatusSpan = styled.span<{ type: "active" | "inactive" }>`
