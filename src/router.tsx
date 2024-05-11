@@ -1,4 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
+import { userData } from "./assets/data/userData";
+
 import MyTripPage from "./pages/mytrip/MyTripPage";
 import TestPage from "./pages/TestPage";
 import MyTripDetailPage from "./pages/mytrip/DetailPage";
@@ -14,8 +16,6 @@ import UserFollowPage from "./pages/profile/UserFollowPage";
 import HomePage from "./pages/home/HomePage";
 import ShortFormPage from "./pages/journal/ShortformPage";
 import SnapshotPage from "./pages/journal/SnapshotPage";
-
-import { userData } from "./assets/data/userData";
 import PostPage from "./pages/journal/PostPage";
 import VideoPage from "./pages/journal/VideoPage";
 import LoginPage from "./pages/auth/LoginPage";
@@ -26,6 +26,14 @@ import SettingsPage from "./pages/profile/SettingsPage";
 import TermsPage from "./pages/TermsPage";
 import ResignPage from "./pages/resign/ResignPage";
 import ResignDonePage from "./pages/resign/ResignDonePage";
+import AnnouncePage from "./pages/cscenter/AnnouncePage";
+import AnnounceDetailPage from "./pages/cscenter/AnnounceDetailPage";
+import FeedBackPage from "./pages/cscenter/FeedBackPage";
+import CSCenterPage from "./pages/cscenter/CSCenterPage";
+import FAQPage from "./pages/cscenter/FAQPage";
+import FAQDetailPage from "./pages/cscenter/FAQDetailPage";
+import InquiryPage from "./pages/cscenter/InquiryPage";
+import InquiryHistoryPage from "./pages/cscenter/InquiryHistoryPage";
 
 const router = createBrowserRouter([
   {
@@ -123,28 +131,75 @@ const router = createBrowserRouter([
     path: "/signup",
     element: <SignUpPage />,
   },
+  /* ---- 고객센터 페이지 ---- */
   {
+    // 고객센터/도움말
+    path: "/cscenter",
+    element: <CSCenterPage />,
+  },
+  {
+    // FAQ 페이지
+    path: "/cscenter/faq",
+    element: <FAQPage />,
+  },
+  {
+    // FAQ 상세 페이지
+    path: "/cscenter/faq/:id",
+    element: <FAQDetailPage />,
+  },
+  {
+    // 문의 하기
+    path: "/cscenter/inquiry",
+    element: <InquiryPage />,
+  },
+  {
+    // 내 문의 내역
+    path: "/cscenter/history",
+    element: <InquiryHistoryPage />,
+  },
+  {
+    // 공지사항
+    path: "/cscenter/announce",
+    element: <AnnouncePage />,
+  },
+  {
+    // 공지사항 상세보기
+    path: "/cscenter/announce/:id",
+    element: <AnnounceDetailPage />,
+  },
+  {
+    // 의견 보내기
+    path: "/cscenter/feedback",
+    element: <FeedBackPage />,
+  },
+  {
+    // 장소 페이지
     path: "/place/:id",
-    element: <PlacePage />
+    element: <PlacePage />,
   },
   // 기타
   {
+    // 아티클 
     path:"/article",
     element:<ArticlePage />
   },
   {
+    // 약관
     path: "/terms/:id",
     element: <TermsPage />,
   },
   {
+    // 탈퇴하기
     path: "/leave",
     element: <ResignPage />,
   },
   {
+    // 탈퇴 완료
     path: "/leave/done",
     element: <ResignDonePage />,
   },
   {
+    // 테스트
     path: "/test",
     element: <TestPage />,
   },

@@ -9,13 +9,15 @@ import { userDataType } from "../../../assets/data/userData";
 import XIcon from "../../../assets/icons/x.svg?react";
 import UserIcon from "../../../assets/icons/user.svg?react";
 import CameraCircleIcon from "../../../assets/icons/camera_circle.svg?react";
-import RightChevronIcon from "../../../assets/icons/chevron_right.svg?react";
 import KakaoIcon from "../../../assets/icons/kakao.svg?react";
 import InputContainer from "../../../components/common/InputContainer";
+import ExtraButton from "../../../components/common/ExtraButton";
+import usePopup from "../../../hooks/usePopup";
 import { BrandIcon } from "../../auth/SignUpPage/style";
 
 function UserEditPage() {
   const { name, desc } = useLoaderData() as userDataType;
+  const { Popup, popupOpen, popupClose } = usePopup();
   const [nameValue, setNameValue] = useState(name);
   const [descValue, setDescValue] = useState(desc);
   const navigate = useNavigate();
@@ -24,6 +26,32 @@ function UserEditPage() {
 
   return (
     <PageTemplate nav={null}>
+      <Popup>
+        <S.PopupContainer>
+          <p>정말 로그아웃 하시겠습니까?</p>
+          <div>
+            <S.PopupConfirmButton
+              type={"secondary"}
+              onClick={() => {
+                popupClose();
+              }}
+            >
+              취소
+            </S.PopupConfirmButton>
+            <S.PopupConfirmButton
+              type={"primary"}
+              onClick={() => {
+                popupClose();
+                localStorage.removeItem("access_token");
+                localStorage.removeItem("refresh_token");
+                navigate("/");
+              }}
+            >
+              확인
+            </S.PopupConfirmButton>
+          </div>
+        </S.PopupContainer>
+      </Popup>
       <S.Header>
         <S.CloseIconWrapper>
           <XIcon
@@ -110,13 +138,12 @@ function UserEditPage() {
           />
         </S.InputContainer>
       </S.Form>
-      <S.ExitButton
+      <ExtraButton
+        label="로그아웃"
         onClick={() => {
-          navigate("/leave");
+          popupOpen();
         }}
-      >
-        탈퇴하기 <RightChevronIcon />
-      </S.ExitButton>
+      />
     </PageTemplate>
   );
 }

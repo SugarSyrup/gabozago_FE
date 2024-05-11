@@ -23,20 +23,17 @@ type loginResponse = {
   user_data?: {
     email: string;
     nickname: string;
-  }
-}
+  };
+};
 
 async function login() {
-  const response = await post<loginResponse>(`${import.meta.env.VITE_BASE_URL}user/app/login`,
+  const response = await post<loginResponse>(
+    `${import.meta.env.VITE_BASE_URL}user/app/login`,
     {
-      uid: 1,
+      uid: 1234321,
       provider: "google",
-      email: "test@naver.com",
-      nickname: "test1",
-      profile_pic: "",
-    },
-    {
-      headers: {'Content-Type': 'application/json'}
+      email: "gbzg_test@gmail.com",
+      nickname: "tiredDeveloper",
     }
   );
 
@@ -48,14 +45,14 @@ function LoginPage() {
 
   async function developLogin(type: string) {
     const response = await login();
-    
-    if(response.data.status === "ACTIVE") {
+
+    if (response.data.status === "ACTIVE") {
       localStorage.setItem("access_token", response.data.access);
       localStorage.setItem("refresh_token", response.data.access);
       navigate("/");
     } else {
-      if(response.data.user_data){
-        const {email, nickname} = response.data.user_data;
+      if (response.data.user_data) {
+        const { email, nickname } = response.data.user_data;
         navigate(`/signup?type=${type}&email=${email}&nickname=${nickname}`);
       }
     }
@@ -76,20 +73,39 @@ function LoginPage() {
               <ThunderMoveIcon />
               <span>3초만에 빠른 시작하기</span>
             </S.FloatingMessage>
-            <S.OAuthSquareButton onClick={() => {developLogin("kakao")}}>
+            <S.OAuthSquareButton
+              onClick={() => {
+                developLogin("kakao");
+              }}
+            >
               <KakaoIcon />
               <span>카카오톡으로 시작하기</span>
             </S.OAuthSquareButton>
           </S.MessageContainer>
           <S.SeperateTextLine>또는</S.SeperateTextLine>
           <S.OAuthButtons>
-            <S.OAuthCircleButton color="#00BF18" onClick={() => {developLogin("naver")}}>
+            <S.OAuthCircleButton
+              color="#00BF18"
+              onClick={() => {
+                developLogin("naver");
+              }}
+            >
               <NaverIcon width={14} height={14} />
             </S.OAuthCircleButton>
-            <S.OAuthCircleButton color="#FFFFFF" onClick={() => {developLogin("google")}}>
+            <S.OAuthCircleButton
+              color="#FFFFFF"
+              onClick={() => {
+                developLogin("google");
+              }}
+            >
               <GoogleIcon width={20} height={20} />
             </S.OAuthCircleButton>
-            <S.OAuthCircleButton color="#000000" onClick={() => {developLogin("apple")}}>
+            <S.OAuthCircleButton
+              color="#000000"
+              onClick={() => {
+                developLogin("apple");
+              }}
+            >
               <AppleIcon width={40} height={40} />
             </S.OAuthCircleButton>
           </S.OAuthButtons>
