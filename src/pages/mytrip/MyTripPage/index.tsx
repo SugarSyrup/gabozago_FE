@@ -28,24 +28,24 @@ function MyTripPage() {
   const navigate = useNavigate();
   const setDatesState = useSetRecoilState(datesState);
   const [tripHistory, setTripHistory] = useState<travelResponseType>([]);
-  const [tripUpComming, setTripUpComming] = useState<travelResponseType>([]);
+  const [tripUpComing, setTripUpComing] = useState<travelResponseType>([]);
 
   useEffect(() => {
-    get<travelResponseType>(`${import.meta.env.VITE_BASE_URL}my-travel/upcomming`)
+    get<travelResponseType>(`${import.meta.env.VITE_BASE_URL}my-travel/upcoming`)
       .then((response) => {
         setTripHistory(response.data);
       })
 
     get<travelResponseType>(`${import.meta.env.VITE_BASE_URL}my-travel/past`)
       .then((response) => {
-        setTripUpComming(response.data);
+        setTripUpComing(response.data);
       })
   }, []);
 
   return (
     <PageTemplate>
       {
-        tripUpComming.length === 0 ? 
+        tripUpComing.length === 0 ? 
         (
           <S.NoUpCommingContainer>
             <S.HeadingContainer>
@@ -66,7 +66,7 @@ function MyTripPage() {
               <CalendarAddIcon />
             </S.CreateMyTripButton>
 
-            <S.CreateMyTripTextButton hasTripHistory={false}>
+            <S.CreateMyTripTextButton onClick={() => {navigate('/mytrip/create')}} hasTripHistory={false}>
               <CirclePlusIcon />
               <Typography.Title size="md" color="white">새로운 여행 일정 만들기</Typography.Title>
             </S.CreateMyTripTextButton>
@@ -82,12 +82,12 @@ function MyTripPage() {
 
             <S.ScheduleCardContainer>
               {
-                tripUpComming.map((tripData) => <MyScheduleCard {...tripData}/>)
+                tripUpComing.map((tripData) => <MyScheduleCard {...tripData}/>)
               }
               
             </S.ScheduleCardContainer>
 
-            <S.CreateMyTripTextButton hasTripHistory={true}>
+            <S.CreateMyTripTextButton onClick={() => {navigate('/mytrip/create')}} hasTripHistory={true}>
               <CirclePlusIcon />
               <Typography.Title size="md" color="#484848">새로운 여행 일정 만들기</Typography.Title>
             </S.CreateMyTripTextButton>

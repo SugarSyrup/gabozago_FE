@@ -8,20 +8,25 @@ import * as S from "./style";
 import { get } from "../../../utils/api";
 
 type travelResponseType = {
-    "id": number,
-    "title": string,
-    "departure_date": string
-    "arrival_date": string,
-    "regions": string[]
-  }[]
+    next: string | null,
+    previous: string | null,
+    results: {
+        "id": number,
+        "title": string,
+        "departure_date": string
+        "arrival_date": string,
+        "regions": string[]
+    }[]
+}
+
 
 function ViewAllPage() {
-    const [tripData, setTripData] = useState<travelResponseType>([]);
+    const [tripData, setTripData] = useState<travelResponseType["results"]>([]);
 
     useEffect(() => {
         get<travelResponseType>(`${import.meta.env.VITE_BASE_URL}my-travel/all`)
         .then((response) => {
-            setTripData(response.data);
+            setTripData(response.data.results);
         })
     }, [])
 
