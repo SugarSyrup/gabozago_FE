@@ -59,7 +59,9 @@ export const SearchButton = styled.div<{searchIconColor?: string}>`
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    path {
-        fill: ${({ theme, searchIconColor }) => searchIconColor ? searchIconColor : theme.main};
+    svg{
+        path {
+            fill: ${({ theme, searchIconColor }) => searchIconColor ? searchIconColor : theme.main};
+        }
     }
 `;

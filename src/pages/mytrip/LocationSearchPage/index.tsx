@@ -1,21 +1,24 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
+import PageTemplate from "../../../components/common/PageTemplate";
+import Heading from "../../../components/common/Heading";
+import BackButton from "../../../components/common/BackButton";
+import useSearchInput from "../../../hooks/useSearchInput";
+import Typography from "../../../components/common/Typography";
+
+import RecommendationListItem from "../../../components/tripDetail/RecommendationListItem";
+import SelectedLocations from "../../../components/tripDetail/SelectedPlaces";
+import RecommendationReviewItem from "../../../components/tripDetail/RecommendationReviewItem";
+import SearchPlaces from "../../../components/tripDetail/SearchPlaces";
+
+import * as S from "./style";
 import {
   recommendPlaces,
   places,
   PlaceType,
 } from "../../../assets/data/Places";
-import * as S from "./style";
 
-import PageTemplate from "../../../components/common/PageTemplate";
-import Heading from "../../../components/common/Heading";
-import useSearchInput from "../../../hooks/useSearchInput";
-
-import BackButton from "../../../components/common/BackButton";
-import RecommendationListItem from "../../../components/tripDetail/RecommendationListItem";
-import SelectedLocations from "../../../components/tripDetail/SelectedPlaces";
-import RecommendationReviewItem from "../../../components/tripDetail/RecommendationReviewItem";
-import SearchPlaces from "../../../components/tripDetail/SearchPlaces";
-import { useParams } from "react-router-dom";
 
 function MyTripLocationSearchPage() {
   const { newPlace } = useParams();
@@ -50,7 +53,12 @@ function MyTripLocationSearchPage() {
       setIsSearching(true);
       setSearchedPlaces(searchResult(newPlace));
     }
+
+    //[SugarSyrup] @TODO: 내 여행지 추천 시 지역 정보 가져오기 
+    //[SugarSyrup] @TODO: 내 여행지 추천 시 지역 정보 가져오기 
+    //[SugarSyrup] @TODO: 내 여행지를 포함한 콘텐츠 가져오기
   }, []);
+
   return (
     <PageTemplate
       nav={
@@ -72,7 +80,7 @@ function MyTripLocationSearchPage() {
                 setTabNavIdx(1);
               }}
             >
-              장소 선택
+              <Typography.Title size="md" color="inherit">장소 선택</Typography.Title>
             </S.NavigationItem>
             <>
               <S.NavigationItem
@@ -81,7 +89,7 @@ function MyTripLocationSearchPage() {
                   setTabNavIdx(2);
                 }}
               >
-                저장한 장소
+                <Typography.Title size="md" color="inherit">저장한 장소</Typography.Title>
               </S.NavigationItem>
               <S.HighlightLine isHighlight={tabNavIdx === 1} />
             </>
@@ -98,19 +106,17 @@ function MyTripLocationSearchPage() {
       ) : (
         <>
           <S.Contents>
-            <Heading size="sm">실시간 부산 HOT 여행지</Heading>
+            <Typography.Title size="lg">부산 HOT 여행지</Typography.Title>
             <S.RecommendationList>
-              {recommendPlaces.map(({ name, theme, hearts, rating, id }) => (
+              {recommendPlaces.map(({ name, theme, id }) => (
                 <RecommendationListItem
                   name={name}
-                  hearts={hearts}
                   theme={theme}
-                  rating={rating}
                   id={id}
                 />
               ))}
             </S.RecommendationList>
-            <Heading size="sm">추가한 여행지를 포함한 리뷰가 있어요!</Heading>
+            <Heading size="sm">추가한 여행지를 포함한 콘텐츠 제공</Heading>
             <S.RecommendatoinReviewList>
               <RecommendationReviewItem
                 name="제목"
@@ -118,7 +124,6 @@ function MyTripLocationSearchPage() {
                 hearts={1}
                 comments={1}
                 scraps={1}
-                shares={1}
               />
               <RecommendationReviewItem
                 name="제목"
@@ -126,7 +131,6 @@ function MyTripLocationSearchPage() {
                 hearts={1}
                 comments={1}
                 scraps={1}
-                shares={1}
               />
               <RecommendationReviewItem
                 name="제목"
@@ -134,7 +138,6 @@ function MyTripLocationSearchPage() {
                 hearts={1}
                 comments={1}
                 scraps={1}
-                shares={1}
               />
             </S.RecommendatoinReviewList>
           </S.Contents>

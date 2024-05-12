@@ -11,12 +11,12 @@ export const Container = styled.div`
 
 export const LeftItems = styled.div`
     display: flex;
-    gap: 17px;
+    gap: 14px;
 `;
 
 export const Thumbnail = styled.div`
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
     border-radius: 100%;
 
     background-color: ${({ theme }) => theme.gray04};
@@ -26,35 +26,24 @@ export const Infomation = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 2px;
-
-    font-size: 11px;
-    font-weight: 400;
-
-    svg {
-        width: 14px;
-        height: 14px;
-    }
-`;
-
-export const Name = styled.span`
-    font-weight: 600;
-    line-height: 22px;
-    font-size: 14px;
-
-    display: inline-block;
-    max-width: 210px;
-    text-overflow: ellipsis;
-`;
-
-export const Desc = styled.div`
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 7px;
 `;
 
 
 export const HighlightName = styled.span`
     color:${({theme}) => theme.main};
+`
+
+export const Button = styled.button<{isActive: boolean}>`
+    background-color:${({isActive, theme}) => isActive && theme.main};
+    color: ${({theme, isActive}) => isActive && theme.white};
+
+    padding: 4px 15px;
+    border: none;
+    border-radius: 20px;
+
+    display: flex;
+    justify-content:center;
+    align-items:center;
+
+    cursor:pointer;
 `
