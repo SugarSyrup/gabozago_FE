@@ -13,13 +13,15 @@ interface Props {
     placeholder?: string,
     onInput?: React.FormEventHandler<HTMLInputElement>
     onButtonClick?: () => void,
+    maxLength?: number;
+    ref?: React.RefObject<HTMLInputElement>
 }
 
-function InputContainer({inputType, name, label, disabled,  required, explain, alert, value, placeholder, onButtonClick, onInput}: Props) {
+function InputContainer({inputType, name, label, disabled,  required, explain, alert, value, placeholder, onButtonClick, onInput, maxLength, ref}: Props) {
     return(
         <S.InputContainer>
             <S.Label htmlFor={name}>{label}</S.Label>
-            <S.Input type={inputType} name={name} id={name} disabled={disabled} required={required} defaultValue={value} placeholder={placeholder} onInput={onInput}/>
+            <S.Input type={inputType} name={name} id={name} disabled={disabled} required={required} defaultValue={value} placeholder={placeholder} onInput={onInput} maxLength={maxLength} ref={ref}/>
             {
                 explain &&
                 <S.InputExplain>
