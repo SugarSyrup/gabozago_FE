@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 
 interface Location {
-    thumbnuail?: string,
+    thumbnail?: string,
     id:string,
     name:string,
 }

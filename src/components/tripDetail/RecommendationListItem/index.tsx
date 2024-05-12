@@ -4,6 +4,7 @@ import { useRecoilState } from "recoil";
 
 import { selectedPlacesState } from "../../../recoil/mytrip/selectedPlacesState";
 
+
 import Typography from "../../common/Typography";
 import LocationRandomIcon from "../../mytrip/LocationRandomIcon";
 
@@ -40,12 +41,12 @@ function RecommendationListItem({
       );
     } else {
       setSelectedPlaces((prev) => [
+        ...prev,
         {
           name,
           thumbnail,
           id,
-        },
-        ...prev,
+        }
       ]);
     }
   }

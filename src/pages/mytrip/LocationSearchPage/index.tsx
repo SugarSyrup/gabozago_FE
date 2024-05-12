@@ -54,7 +54,7 @@ function MyTripLocationSearchPage() {
       setSearchedPlaces(searchResult(newPlace));
     }
 
-    //[SugarSyrup] @TODO: 내 여행지 추천 시 지역 정보 가져오기 
+    //[SugarSyrup] @TODO: mytrip 에서 지역정보를 가져오게끔 수정 -> 지역 정보를 검색에도 전달하기
     //[SugarSyrup] @TODO: 내 여행지 추천 시 지역 정보 가져오기 
     //[SugarSyrup] @TODO: 내 여행지를 포함한 콘텐츠 가져오기
   }, []);
