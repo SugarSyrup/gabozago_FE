@@ -105,7 +105,7 @@ export const Buttons = styled.div`
 
 export const Button = styled.div`
     width:100%;
-    padding:8px 32px;
+    padding:9px 27px;
 
     border-radius:6px;
     background-color:${({theme}) => theme.gray05};
@@ -120,84 +120,7 @@ export const Button = styled.div`
         height:18px;
 
         path {
-            fill:${({theme}) => theme.gray};
-        }
-    }
-
-    span {
-        color: ${({theme}) => theme.gray};
-        font-size: 11px;
-        font-weight: 400;
-        line-height: 22px;
-    }
-`
-
-export const RecommendArticleTitle = styled.span`
-    display:block;
-    margin-top:30px;
-
-    color: ${({theme}) => theme.black};
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 22px;
-
-    strong {
-        color:${({theme}) => theme.main};
-    }
-`
-
-export const RecommendArticleList = styled.div`
-    width:100%;
-    overflow-x:scroll;
-
-    margin-top:16px;
-
-    display:flex;
-    gap:20px;
-
-    -ms-overflow-style: none;
-    &::-webkit-scrollbar{
-        display:none;
-    }
-`
-
-export const RecommendArticleItem = styled.div`
-    display:flex;
-    flex-direction:column;
-    align-items:flex-start;
-    gap:8px;
-
-    img {
-        width:250px;
-        height:170px;
-        object-fit:contain;
-        border-radius:10px;
-    }
-
-    span{
-        color: ${({theme}) => theme.black};
-        font-size: 14px;
-        font-weight: 600;
-        line-height: 18px;
-        letter-spacing: 0.2px;
-
-        display:block;
-        width:207px;
-        white-space:nowrap;
-        overflow:hidden;
-        text-overflow:ellipsis;
-    }
-
-    span:last-child{
-        color: ${({theme}) => theme.gray01};
-        font-size: 12px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 9px;
-        letter-spacing: 0.2px;
-
-        strong {
-            color: ${({theme}) => theme.main};
+            fill:#A6A6A6;
         }
     }
 `
