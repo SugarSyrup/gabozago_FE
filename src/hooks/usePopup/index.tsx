@@ -1,5 +1,5 @@
 import { MouseEvent, ReactNode, useState } from "react";
-import * as S from "../styles/common/Popup.style";
+import * as S from "./style";
 
 function usePopup() {
   const [isOpend, setIsOpend] = useState(false);
@@ -16,7 +16,7 @@ function usePopup() {
     padding?: string;
   }
   const Popup = ({ children, padding }: Props) => (
-    <>
+    <S.PopupWrapper isOpened={isOpend}>
       {isOpend && (
         <S.PopupContainer onClick={popupClose}>
           <S.Popup
@@ -29,7 +29,7 @@ function usePopup() {
           </S.Popup>
         </S.PopupContainer>
       )}
-    </>
+    </S.PopupWrapper>
   );
   return { popupClose, popupOpen, Popup, isOpend };
 }
