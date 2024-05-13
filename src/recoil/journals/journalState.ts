@@ -3,7 +3,7 @@ import { atom, selector } from "recoil";
 type Range = [number, number] | [null, null];
 
 export interface TFilter {
-  sort: "추천순" | "인기순" | "최근 인기순" | "최신순";
+  sort: "담은순" | "최신순" | "조회순" | "최근 인기순" | "인기순";
   location: string[];
   headCount: Range;
   duration: Range;
@@ -13,7 +13,7 @@ export interface TFilter {
 }
 
 export const defaultFilter: TFilter = {
-  sort: "최신순",
+  sort: "담은순",
   location: [],
   headCount: [1, 30],
   duration: [1, 100],

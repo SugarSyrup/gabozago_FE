@@ -34,27 +34,30 @@ function Filter({
     sort: {
       title: "정렬",
       type: "select",
-      options: ["최신순", "추천순", "인기순", "최근 인기순"],
+      options: ["담은순", "최신순", "최근 인기순"],
     },
     // multi-select
     theme: {
-      title: "테마",
-      type: "multi-select",
+      title: "콘텐츠 테마",
+      // type: "multi-select",
+      type: "buttons",
       options: [
-        "미식 • 쇼핑",
-        "전시 • 행사",
-        "도보여행",
-        "자연",
-        "아웃도어 • 레저",
         "체류",
-        "가족여행",
-        "애견동반",
+        "미식",
+        "쇼핑",
+        "도보",
+        "자연",
+        "체험",
+        "전시∙행사",
+        "반려동물",
+        "연인",
+        "가족",
       ],
     },
     // location
     location: {
       title: "지역",
-      type: "multi-select",
+      type: "buttons",
       options: [
         "서울",
         "부산",
