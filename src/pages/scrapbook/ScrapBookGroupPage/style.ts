@@ -29,6 +29,11 @@ export const TabBarContainer = styled.div`
   }
 `;
 
+export const FilterContainer = styled.div`
+  width: 100%;
+  padding: 15px 20px 0;
+`;
+
 export const HeadingContainer = styled.div`
   text-align: center;
   width: 100%;
@@ -45,4 +50,10 @@ export const BackButtonContainer = styled.button`
   cursor: pointer;
 `;
 
-export const JournalList = styled.ol``;
+export const ContentsList = styled.ol`
+  margin-top: -5px;
+
+  li:hover h3 {
+    text-decoration: underline;
+  }
+`;
