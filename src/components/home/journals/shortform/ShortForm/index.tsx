@@ -1,28 +1,38 @@
 import * as S from "./style";
 import YouTube from "react-youtube";
 import { Link } from "react-router-dom";
-import { Suspense, useEffect, useRef } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import FollowBtn from "../../../../common/FollowBtn";
 import UserIcon from "../../../../../assets/icons/user.svg?react";
 import LocationIcon from "../../../../../assets/icons/location.svg?react";
 import BookMarkIcon from "../../../../../assets/icons/bookmark.svg?react";
+import FilledBookMarkIcon from "../../../../../assets/icons/bookmark_filled_white.svg?react";
 import CommentIcon from "../../../../../assets/icons/comment.svg?react";
 import LikeIcon from "../../../../../assets/icons/clap.svg?react";
+import FilledLikeIcon from "../../../../../assets/icons/clap_blue.svg?react";
 import ShareIcon from "../../../../../assets/icons/share.svg?react";
+import { post } from "../../../../../utils/api";
 
 export interface TShortForm {
   id: number;
   title: string;
-  location: string;
+  location: string[];
+  theme: string[];
+  place: string[];
   createdAt: string;
-  thumbnail: string;
   videoId: string;
+  content: string;
   userid: string;
   username: string;
   profileImage: string;
-  like: number;
+  clap: number;
+  isClapped: boolean;
   bookmark: number;
+  isBookmarked: boolean;
   commentCount: number;
+}
+
+export interface Props extends TShortForm {
   visible: boolean;
   modalOpen: () => void;
   popupOpen: () => void;
@@ -36,17 +46,28 @@ function ShortForm({
   userid,
   username,
   profileImage,
-  like,
-  bookmark,
+  clap: defaultClap,
+  isClapped: defaultIsClapped,
+  bookmark: defaultBookmark,
+  isBookmarked: defaultIsBookmarked,
   commentCount,
   visible,
   modalOpen,
   popupOpen,
-}: TShortForm) {
+}: Props) {
   // @todo: 유저정보에서 좋아요 정보 가져와 비교 => 좋아요 활성화/비활성화 관리
   // @todo: 스크랩 데이터에서 스크랩됐는지 비교 => 북마크 활성화/비활성화 관리
+  const [clap, setClap] = useState<{
+    count: number;
+    isActive: boolean;
+  }>({ count: defaultClap, isActive: defaultIsClapped });
+  const [bookmark, setBookmark] = useState<{
+    count: number;
+    isActive: boolean;
+  }>({ count: defaultBookmark, isActive: defaultIsBookmarked });
+  const containerRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<YouTube>(null);
-  const opts = {
+  const playerOpts = {
     autoplay: 1,
     controls: 0,
     showInfo: 0,
@@ -55,6 +76,33 @@ function ShortForm({
     loop: 1,
     autohide: 1,
     playlist: videoId,
+  };
+
+  const toggleClap = async () => {
+    post<{ community: string; postId: number }>("/clap/community", {
+      community: "short-form",
+      postId: id,
+    });
+    if (clap.isActive) {
+      setClap((prev) => ({ count: prev.count - 1, isActive: false }));
+    } else {
+      setClap((prev) => ({ count: prev.count + 1, isActive: true }));
+    }
+  };
+  const toggleBookmark = async () => {
+    post<{ community: string; postId: number; scrapFolderId: number | null }>(
+      "/folder/scrap/community",
+      {
+        community: "short-form",
+        postId: id,
+        scrapFolderId: null,
+      }
+    );
+    if (bookmark.isActive) {
+      setBookmark((prev) => ({ count: prev.count - 1, isActive: false }));
+    } else {
+      setBookmark((prev) => ({ count: prev.count + 1, isActive: true }));
+    }
   };
   const videoPlayControl = () => {
     const player = playerRef.current?.getInternalPlayer();
@@ -69,85 +117,80 @@ function ShortForm({
     videoPlayControl();
   }, [visible]);
 
-  return (
-    <>
-      <S.Container
-        onScroll={() => {
-          console.log("scroll");
-        }}
-      >
-        <S.YoutubeContainer>
-          <Suspense
-            fallback={<S.YoutubeFallback>로딩 중...</S.YoutubeFallback>}
-          >
-            <YouTube
-              videoId={videoId}
-              ref={playerRef}
-              loading="lazy"
-              opts={{
-                width: "100%",
-                height: "888px",
-                playerVars: opts,
-              }}
-              onEnd={() => {
-                playerRef.current?.resetPlayer();
-              }}
-              onReady={() => {
-                const player = playerRef.current?.getInternalPlayer();
-                player.setVolume(40);
+  useEffect(() => {
+    const { current: container } = containerRef;
+    playerRef.current
+      ?.getInternalPlayer()
+      .setSize("100%", container?.offsetHeight);
+  }, []);
 
-                videoPlayControl();
-              }}
-            />
-          </Suspense>
-        </S.YoutubeContainer>
-        <S.InfoBox>
-          <p>
-            <Link to={`profile/${userid}`}>
-              {profileImage ? (
-                <UserIcon />
-              ) : (
-                <S.ProfileImage src={profileImage} alt="" />
-              )}
-              <span>{username}</span>
-            </Link>
-            <FollowBtn isFollowing={false} />
-          </p>
-          <p>{title}</p>
-          <p>
-            <span>
-              <LocationIcon />
-              {location}
-            </span>
-          </p>
-        </S.InfoBox>
-        <S.ControlBox>
-          <S.IconButton
-            onClick={() => {
-              // @todo: ClickHandler 연결
+  return (
+    <S.Container
+      onScroll={() => {
+        console.log("scroll");
+      }}
+    >
+      <S.YoutubeContainer ref={containerRef}>
+        <Suspense fallback={<S.YoutubeFallback>로딩 중...</S.YoutubeFallback>}>
+          <YouTube
+            videoId={videoId}
+            ref={playerRef}
+            loading="lazy"
+            opts={{
+              width: "100%",
+              height: "100px",
+              playerVars: playerOpts,
             }}
-          >
-            <LikeIcon />
-            {like}
-          </S.IconButton>
-          <S.IconButton onClick={modalOpen}>
-            <CommentIcon />
-            {commentCount}
-          </S.IconButton>
-          <S.IconButton
-            onClick={() => {
-              // @todo: ClickHandler 연결
+            onEnd={() => {
+              playerRef.current?.resetPlayer();
             }}
-          >
-            <BookMarkIcon />
-            {bookmark}
-          </S.IconButton>
-          <S.IconButton onClick={popupOpen}>
-            <ShareIcon />
-          </S.IconButton>
-        </S.ControlBox>
-      </S.Container>
-    </>
+            onReady={() => {
+              const player = playerRef.current?.getInternalPlayer();
+              player.setVolume(40);
+
+              videoPlayControl();
+            }}
+          />
+        </Suspense>
+      </S.YoutubeContainer>
+      <S.InfoBox>
+        <p>
+          <Link to={`profile/${userid}`}>
+            {profileImage ? (
+              <UserIcon />
+            ) : (
+              <S.ProfileImage src={profileImage} alt="" />
+            )}
+            <span>{username}</span>
+          </Link>
+          <FollowBtn isFollowing={false} />
+        </p>
+        <p>{title}</p>
+        <p>
+          <span>
+            <LocationIcon />
+            {location}
+          </span>
+        </p>
+      </S.InfoBox>
+      <S.ControlBox>
+        <S.IconButton onClick={toggleClap}>
+          {clap.isActive ? <FilledLikeIcon /> : <LikeIcon />}
+          {clap.count}
+        </S.IconButton>
+        <S.IconButton onClick={modalOpen}>
+          <CommentIcon />
+          {commentCount}
+        </S.IconButton>
+        <S.IconButton onClick={toggleBookmark}>
+          {bookmark.isActive ? <FilledBookMarkIcon /> : <BookMarkIcon />}
+          {bookmark.count}
+        </S.IconButton>
+        <S.IconButton onClick={popupOpen}>
+          <ShareIcon />
+        </S.IconButton>
+      </S.ControlBox>
+    </S.Container>
   );
 }
 

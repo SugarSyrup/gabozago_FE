@@ -14,7 +14,7 @@ export const YoutubeContainer = styled.div`
   right: 0;
   bottom: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
 
   overflow: hidden;
   border-radius: 10px;
@@ -169,9 +169,9 @@ export const IconButton = styled.button`
     }
   }
 
-  &:first-child svg {
+  /* &:first-child svg {
     path {
       stroke: ${({ theme }) => theme.gray02};
     }
-  }
+  } */
 `;
