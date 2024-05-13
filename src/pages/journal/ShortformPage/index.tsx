@@ -10,16 +10,14 @@ import BottomNavBar from "../../../components/common/BottomNavBar";
 import useModal from "../../../hooks/useModal";
 import usePopup from "../../../hooks/usePopup";
 import Comment from "../../../components/journal/Comment";
+import { get } from "../../../utils/api";
+import { useParams } from "react-router-dom";
 
 function ShortFormPage() {
+  const { id } = useParams();
   const shortsListRef = useRef<HTMLDivElement>(null);
-  const [shortforms, setShortforms] = useState<TShortForm[]>([{ id: 0 }]);
+  const [shortforms, setShortforms] = useState<TShortForm[]>([]);
   const [focusIndex, setFocusindex] = useState<number>(0);
-  const createCopyURL = (id: number) => {
-    const arr = window.location.href.split("/").slice(0, -1);
-    arr.push(String(id));
-    return arr.join("/");
-  };
 
   const { Modal, modalOpen } = useModal({
     title: "",
@@ -28,52 +26,40 @@ function ShortFormPage() {
   });
   const { Popup, popupOpen } = usePopup();
 
+  const createCopyURL = (id: number) => {
+    const arr = window.location.href.split("/").slice(0, -1);
+    arr.push(String(id));
+    return arr.join("/");
+  };
+  const getShortformData = async (id: number) => {
+    const { data } = await get<TShortForm>(`/community/short-form/${id}`);
+    setShortforms((prev) => [...prev, data]);
+  };
+  const getShortformList = async () => {
+    const { data } = await get<{
+      next: string | null;
+      previous: string | null;
+      results: [
+        {
+          id: number;
+          title: string;
+          videoId: string;
+          region: string[];
+          theme: string[];
+          views: number;
+        }
+      ];
+    }>(`/community/short-form`);
+
+    data.results.map(({ id }) => {
+      getShortformData(id);
+    });
+  };
+
   useEffect(() => {
-    // 숏폼 정보 불러오기
-    return setShortforms([
-      {
-        id: 1,
-        title: "15초 여수 맛집투어 정리!",
-        location: "여수",
-        createdAt: "2024-02-13",
-        thumbnail: "https://placehold.co/400x600",
-        videoId: "8Ka1IaC9akw", // 숏폼 url
-        userid: "choiminshuk",
-        username: "최민석",
-        profileImage: "https://placehold.co/400x600",
-        like: 1,
-        bookmark: 1,
-        commentCount: 1,
-      },
-      {
-        id: 2,
-        title: "15초 여수 맛집투어 정리!",
-        location: "여수",
-        createdAt: "2024-02-13",
-        thumbnail: "https://placehold.co/400x600",
-        videoId: "NYpeVCtjvmI", // 숏폼 url
-        userid: "choiminshuk",
-        username: "최민석",
-        profileImage: "https://placehold.co/400x600",
-        like: 1,
-        bookmark: 1,
-        commentCount: 1,
-      },
-      {
-        id: 3,
-        title: "15초 여수 맛집투어 정리!",
-        location: "여수",
-        createdAt: "2024-02-13",
-        thumbnail: "https://placehold.co/400x600",
-        videoId: "8Ka1IaC9akw", // 숏폼 url
-        userid: "choiminshuk",
-        username: "최민석",
-        profileImage: "https://placehold.co/400x600",
-        like: 1,
-        bookmark: 1,
-        commentCount: 1,
-      },
-    ] as TShortForm[]);
+    getShortformData(Number(id));
+    getShortformList();
+    // @tood: 연관된 다른 숏폼 불러오기, 다 봤을 때 페이징
   }, []);
 
   return (
@@ -84,40 +70,47 @@ function ShortFormPage() {
           <KebabMenuIcon id="메뉴" />
         </S.IconButton>
       </S.Header>
-      <Modal>
-        <Comment id={shortforms[focusIndex].id} commentInputPosition="bottom" />
-      </Modal>
-      <Popup>
-        <S.UrlLabel htmlFor="urlCopy">
-          아래 링크를 복사해 공유해보세요!
-        </S.UrlLabel>
-        <S.UrlInput
-          type="url"
-          name="현재 링크 복사"
-          id="urlCopy"
-          value={createCopyURL(shortforms[focusIndex].id)}
-          disabled
-        />
-      </Popup>
-      <S.Container
-        ref={shortsListRef}
-        onScroll={(e) => {
-          setFocusindex(
-            Math.floor(
-              shortsListRef.current.scrollTop / (e.target.clientHeight - 80)
-            )
-          );
-        }}
-      >
-        {shortforms.map((item, index) => (
-          <ShortForm
-            {...item}
-            modalOpen={modalOpen}
-            popupOpen={popupOpen}
-            visible={index === focusIndex}
-          />
-        ))}
-      </S.Container>
+      {shortforms.length > 0 && (
+        <>
+          <Modal>
+            <Comment
+              id={shortforms[focusIndex].id}
+              commentInputPosition="bottom"
+            />
+          </Modal>
+          <Popup>
+            <S.UrlLabel htmlFor="urlCopy">
+              아래 링크를 복사해 공유해보세요!
+            </S.UrlLabel>
+            <S.UrlInput
+              type="url"
+              name="현재 링크 복사"
+              id="urlCopy"
+              value={createCopyURL(shortforms[focusIndex].id)}
+              disabled
+            />
+          </Popup>
+          <S.Container
+            ref={shortsListRef}
+            onScroll={(e) => {
+              setFocusindex(
+                Math.floor(
+                  shortsListRef.current.scrollTop / (e.target.clientHeight - 80)
+                )
+              );
+            }}
+          >
+            {shortforms.map((shortform, index) => (
+              <ShortForm
+                {...shortform}
+                modalOpen={modalOpen}
+                popupOpen={popupOpen}
+                visible={index === focusIndex}
+              />
+            ))}
+          </S.Container>
+        </>
+      )}
     </PageTemplate>
   );
 }

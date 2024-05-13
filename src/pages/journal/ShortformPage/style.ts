@@ -48,13 +48,14 @@ export const IconButton = styled.button`
 
 export const Container = styled.div`
   width: 100%;
-  min-height: 100%;
+  height: calc(100vh - 88px);
+  /* min-height: 100%; */
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  padding-bottom: 80px;
+  /* padding-bottom: 80px; */
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
   scroll-padding-top: var(--ytd-margin-6x);
