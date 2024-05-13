@@ -26,7 +26,6 @@ function ScrapedArticle({
   bookmark,
 }: Props) {
   const navigate = useNavigate();
-  console.log(thumbnailURL);
 
   return (
     <S.ArticleContainer

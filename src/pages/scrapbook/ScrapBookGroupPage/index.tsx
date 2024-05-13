@@ -117,7 +117,7 @@ function ScrapBookGroupPage() {
     ordering: orderingMap[filter.sort],
     location: filter.location.join(","),
     theme: filter.theme.join(","),
-    folder: id === "all" ? "" : id,
+    folder: id === "all" ? null : id,
     cursor: "",
   };
 

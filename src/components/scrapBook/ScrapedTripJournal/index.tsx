@@ -14,9 +14,7 @@ interface GroupInfo {
 function ScrapedTripJournal() {
   const navigate = useNavigate();
   const { Popup, popupOpen, popupClose } = usePopup();
-  const [groupList, setGroupList] = useState<GroupInfo[]>([
-    { id: 0, name: "모든 게시물" },
-  ]);
+  const [groupList, setGroupList] = useState<GroupInfo[]>([]);
   const newFolderNameInputRef = useRef<HTMLInputElement>(null);
 
   // 새 폴더 생성
@@ -53,9 +51,7 @@ function ScrapedTripJournal() {
   const getGroupList = async () => {
     const token = localStorage.getItem("access_token");
     if (token) {
-      const { data } = await get<GroupInfo[]>(
-        `${import.meta.env.BASE_URL}folder/community`
-      );
+      const { data } = await get<GroupInfo[]>(`folder/community`);
       console.log(data);
       setGroupList(data);
 
@@ -89,7 +85,7 @@ function ScrapedTripJournal() {
           key={0}
           background={""}
           onClick={() => {
-            navigate(`./${0}`);
+            navigate(`./all`);
           }}
         >
           <div></div>
