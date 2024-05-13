@@ -1,8 +1,9 @@
 import * as S from "./style";
 import Heading from "../../common/Heading";
 import SendIcon from "../../../assets/icons/send.svg?react";
-import CommentItem, { Comment } from "../CommentItem";
-import { MouseEventHandler, useEffect, useRef, useState } from "react";
+import CommentItem, { Comment as TComment } from "../CommentItem";
+import { useEffect, useState } from "react";
+import { get, post } from "../../../utils/api";
 
 interface Props {
   id: number;
@@ -10,34 +11,34 @@ interface Props {
 }
 
 function Comment({ id, commentInputPosition = "top" }: Props) {
-  const commentInputRef = useRef<HTMLInputElement>(null);
+  const [parentCommentId, setParentCommentId] = useState<number | null>(null);
   const [comment, setComment] = useState<string>("");
-  const [comments, setComments] = useState<Comment[]>([]);
+  const [comments, setComments] = useState<TComment[]>([]);
 
-  const submitComment: MouseEventHandler<HTMLInputElement> = (e) => {
-    e.preventDefault();
+  const getComments = async (id: number) => {
+    const { data } = await get<TComment[]>(
+      `community/short-form/${id}/comment`
+    );
+    setComments(data);
+  };
 
-    if (commentInputRef.current !== null) {
-      alert("전송: " + comment);
-      commentInputRef.current.value = "";
-      // @todo: 댓글 추가하기
-    }
+  const submitComment = async () => {
+    await post<{
+      shortformId: number;
+      parentCommentId: number | null;
+      content: string;
+    }>(`/community/short-form/comment`, {
+      shortformId: id,
+      parentCommentId: null,
+      content: comment,
+    });
+
+    getComments(id);
+    setComment("");
   };
 
   useEffect(() => {
-    // @todo: id 가져와 댓글 목록 업데이트하기
-    const comment = {
-      id: 12345567,
-      name: "상은수",
-      username: "user-wfd37gu",
-      profileImage: "https://placehold.co/100x100/png",
-      createDate: "2024-03-03/04:20:13",
-      like: 71,
-      text: "댓글내용",
-      parentCommentId: null,
-    };
-
-    setComments([comment, comment, comment]);
+    getComments(id);
   }, []);
 
   return (
@@ -47,19 +48,25 @@ function Comment({ id, commentInputPosition = "top" }: Props) {
           댓글 <S.CommentCountSpan>{comments.length}</S.CommentCountSpan>
         </Heading>
       </S.Header>
-      <S.CommentInputForm position={commentInputPosition}>
+      <S.CommentInputForm
+        position={commentInputPosition}
+        onSubmit={(e) => {
+          e.preventDefault();
+          submitComment();
+        }}
+      >
         <S.UserProfileImg />
         <S.CommentInputControlBox>
           <S.CommentInput
-            ref={commentInputRef}
             type="text"
             placeholder="댓글 달기..."
+            maxLength={1500}
+            value={comment}
             onChange={(e) => {
               setComment(e.target.value);
             }}
-            onSubmit={submitComment}
           />
-          <S.SendButton type="submit" onClick={submitComment}>
+          <S.SendButton disabled={comment.length === 0} type="submit">
             <SendIcon />
           </S.SendButton>
         </S.CommentInputControlBox>
@@ -68,7 +75,7 @@ function Comment({ id, commentInputPosition = "top" }: Props) {
         {comments && comments.length !== 0 ? (
           <S.CommentList>
             {comments.map((item) => (
-              <li>
+              <li key={`comment-shortform-${item.id}`}>
                 <CommentItem {...item} replys={[item, item, item]} />
               </li>
             ))}

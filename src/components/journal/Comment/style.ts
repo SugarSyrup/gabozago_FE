@@ -94,7 +94,7 @@ export const CommentInput = styled.input`
   }
 `;
 
-export const SendButton = styled.button`
+export const SendButton = styled.button<{ disabled: boolean }>`
   position: absolute;
   top: 50%;
   right: 12px;
@@ -103,7 +103,7 @@ export const SendButton = styled.button`
 
   transform: translateY(-50%);
 
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
   border: 0;
   background-color: transparent;
 
