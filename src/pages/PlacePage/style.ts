@@ -35,11 +35,6 @@ export const ContentContainer = styled.div`
     position:absolute;
     top:0px;
     left:0px;
-
-    img {
-        width:100%;
-        object-fit:contain;
-    }
 `
 
 export const ImgSlider = styled.div`

@@ -30,8 +30,8 @@ type TData = {
     opening_hours: string,
     website: string,
     image: string[],
-    // latitude: number,
-    // longitude: number,
+    latitude: number,
+    longitude: number,
 }
 
 
@@ -51,11 +51,11 @@ function PlacePage() {
 
     return(
         <PageTemplate header={<PageHeader LeftItem={<BackButton />}><S.TopBarText>{data && data.name}</S.TopBarText></PageHeader>} nav={false}>
-            <CourseModal />
-            <ScrapModal />
             {
                 data !== undefined && 
                 <S.ContentContainer>
+                    <CourseModal />
+                    <ScrapModal />
                     {
                         data.image.length === 0 && imageURL === ""?
                         <S.ImgRegistContainer>
@@ -115,11 +115,11 @@ function PlacePage() {
                         <PlaceGoogleMap
                             height="270px"
                             center={{
-                                lat:123,
-                                lng: 123
+                                lat: data.latitude,
+                                lng: data.longitude
                             }} markers={[{
-                                lat: 123,
-                                lng: 123
+                                lat: data.latitude,
+                                lng: data.longitude
                             }]}
                         />
                         <S.Buttons>
