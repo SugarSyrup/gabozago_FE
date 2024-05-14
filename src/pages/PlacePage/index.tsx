@@ -76,6 +76,7 @@ function PlacePage() {
                                     reqData.append('placeId', id as string);
                                     reqData.append('image', e.currentTarget.value);
 
+                                    // [SugarSyrup] @TODO: 해당 이미지 등록하는 부분 백엔드 미 배포로 테스트 불가
                                     post(`${import.meta.env.VITE_BASE_URL}/place/image`, reqData, {
                                         headers: {
                                             "Content-Type":"multipart/form-data"
@@ -112,6 +113,7 @@ function PlacePage() {
                                 <S.InfomationLink to={data.website}>인스타그램</S.InfomationLink>
                             </S.InfomationItem>
                         </S.InfomationList>
+                        {/* [SugarSyrup] @TODO: lat,lng 좌표 백엔드에서 받아오는 부분 아직 베포 안되서 test 진행 불가 */}
                         <PlaceGoogleMap
                             height="270px"
                             center={{

@@ -20,6 +20,8 @@ interface Props {
     id: number
 }
 
+
+// [SugarSyrup] @TODO: PM에서 대규모 수정 중
 function useScrapModal({id}: Props) {
     const [data, setScrapModalData] = useState<data>();
     const [isScrapCreate, setIsScrapCreate] = useState<boolean>(false);

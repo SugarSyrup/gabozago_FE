@@ -21,6 +21,7 @@ interface Props {
     id: number
 }
 
+// [SugarSyrup] @TODO: PM에서 대규모 수정 중
 function useCourseModal({id}: Props) {
     const [data, setCourseModalData] = useState<data>();
     const {Modal, modalOpen, modalClose} = useModal({
