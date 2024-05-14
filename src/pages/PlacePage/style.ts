@@ -29,7 +29,7 @@ export const TopBarText = styled.span`
     padding-top:14px;
 `
 
-export const ThumbnailWrapper = styled.div`
+export const ContentContainer = styled.div`
     width:100%;
 
     position:absolute;
@@ -42,10 +42,60 @@ export const ThumbnailWrapper = styled.div`
     }
 `
 
-export const ThumbnailEmpty = styled.div<{padding?: number}>`
+export const ImgSlider = styled.div`
     width:100%;
-    padding-top:${({padding}) => padding + "px"};
-`   
+    overflow:auto;
+    position:relative;
+
+    display:flex;
+    justify-content:flex-start;
+    align-items:center;
+    scroll-snap-type: x mandatory;
+
+    img {
+        width:100%;
+        height:300px;
+        scroll-snap-align: start;
+        object-fit:contain;
+        flex-shrink:0;
+        background-color:yellow;
+    }
+
+    &::-webkit-scrollbar {
+        display: none;
+        scrollbar-width: none;
+    }
+`
+
+export const ImgRegistContainer = styled.div`
+    width:100%;
+    height:200px;
+
+    background-color: #E4E4E4;
+    color: #A6A6A6;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:8px;
+
+    svg{
+        width:56px;
+        height:56px;
+        cursor:pointer;
+    }
+
+    input {
+        display:none;
+    }
+`;
+
+export const ContentList = styled.div`
+    width:100%;
+    padding-left:20px;
+    padding-right:20px;
+`
 
 export const InfomationList = styled.ol`
     width:100%;
@@ -69,7 +119,7 @@ export const InfomationItem = styled.li`
     svg {
         width:20px;
         height:20px;
-        path: {
+        path {
             fill:${({theme}) => theme.gray};
         }
     }

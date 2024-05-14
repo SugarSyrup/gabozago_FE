@@ -16,7 +16,11 @@ type data = {
     }[]
 }
 
-function useScrapModal() {
+interface Props {
+    id: number
+}
+
+function useScrapModal({id}: Props) {
     const [data, setScrapModalData] = useState<data>();
     const [isScrapCreate, setIsScrapCreate] = useState<boolean>(false);
     const {Modal, modalOpen, modalClose} = useModal({
