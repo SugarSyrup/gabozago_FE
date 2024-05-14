@@ -35,10 +35,9 @@ function ScrapedTripJournal() {
     }
     /* === Validation 끝 === */
 
-    const { data } = await post<GroupInfo>(
-      `${import.meta.env.BASE_URL}folder/community`,
-      { name: newFolderNameInputRef.current.value }
-    );
+    const { data } = await post<GroupInfo>(`folder/community`, {
+      name: newFolderNameInputRef.current.value,
+    });
     setGroupList((prev) => [...prev, data]);
 
     newFolderNameInputRef.current.value = ""; // 팝업 input 초기화
@@ -52,7 +51,6 @@ function ScrapedTripJournal() {
     const token = localStorage.getItem("access_token");
     if (token) {
       const { data } = await get<GroupInfo[]>(`folder/community`);
-      console.log(data);
       setGroupList(data);
 
       return;
