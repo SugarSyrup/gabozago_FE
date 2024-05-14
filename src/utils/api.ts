@@ -25,14 +25,28 @@ const onResponse = (res: AxiosResponse): AxiosResponse => {
     return res;
 }
 
-const onError = (error: AxiosError | Error): Promise<AxiosError> => {
+const onError = async (error: AxiosError | Error): Promise<AxiosError> => {
     if (axios.isAxiosError(error)) {
       const { method, url } = error.config as InternalAxiosRequestConfig;
       if (error.response) {
-        const { statusCode, message } = error.response.data;
+        const { status, data:{code, messages} } = error.response;
+        console.log(error.response.data);
         console.log(
-          `[API - ERROR] ${method?.toUpperCase()} ${url} | ${statusCode} : ${message}`,
+          `[API - ERROR] ${method?.toUpperCase()} ${url} | ${status} : ${code}`,
         );
+
+        if(status === 401 && messages[0].message === "Token is invalid or expired") {
+          const response = await axiosInstance.post<{
+            access: string,
+            access_expires_at: string
+          }>(`${import.meta.env.VITE_BASE_URL}/user/jwt-token-auth/refresh`, {
+            refresh: localStorage.getItem("refresh_token")
+          })
+
+          if(response.status === 200) {
+            return axiosInstance.request(error.config as InternalAxiosRequestConfig)
+          }
+        }
       }
     } else {
       console.log(`[API] | Error ${error.message}`);

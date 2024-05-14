@@ -77,7 +77,7 @@ function SignUpPage() {
         post<loginResponse>(`${import.meta.env.VITE_BASE_URL}user/sign-in`, body)
           .then((response) => {
             localStorage.setItem("access_token", response.data.access);
-            localStorage.setItem("refresh_token", response.data.access);
+            localStorage.setItem("refresh_token", response.data.refresh);
             navigate("/");
           });
       }}>
