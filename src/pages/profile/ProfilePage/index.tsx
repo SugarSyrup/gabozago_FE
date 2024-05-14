@@ -41,7 +41,7 @@ function ProfilePage() {
   }, [FixedHeaderRef.current]);
 
   useEffect(() => {
-    get<profileType>(`${import.meta.env.VITE_BASE_URL}user/profile`)
+    get<profileType>(`${import.meta.env.VITE_BASE_URL}/user/profile`)
       .then((response) => {
         //[SugarSyrup] @TODO: 백엔드 아직 미 업데이트! -> 유저 페이지 data 불러온 정보 표시
       })
