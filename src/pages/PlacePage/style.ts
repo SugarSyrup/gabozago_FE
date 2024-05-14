@@ -54,11 +54,9 @@ export const ImgSlider = styled.div`
 
     img {
         width:100%;
-        height:300px;
         scroll-snap-align: start;
         object-fit:contain;
         flex-shrink:0;
-        background-color:yellow;
     }
 
     &::-webkit-scrollbar {
