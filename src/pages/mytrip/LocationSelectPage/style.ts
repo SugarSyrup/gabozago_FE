@@ -16,6 +16,7 @@ export const LocationsHeader = styled.div`
 
 export const Locations = styled.div`
     width:100%;
+    padding-bottom:160px;
     position:relative;
 
     display:flex;
@@ -24,9 +25,12 @@ export const Locations = styled.div`
 `;
 
 export const Footer = styled.footer`
-    position: absolute;
-    bottom: 50px;
-    left: 0px;
+    position: fixed;
+    max-width: 500px;
+    bottom:0px;
+
+    padding: 15px 8px;
+    margin-left:-20px;
 
     display: flex;
     flex-direction: column;
@@ -38,13 +42,16 @@ export const Footer = styled.footer`
 
     width: 100%;
     overflow: auto;
+    background-color:white;
 `;
 
 export const LocationTags = styled.div`
     width: 100%;
-    overflow: hidden;
+    max-height:88px;
+    overflow: auto;
 
     display: flex;
+    flex-wrap:wrap;
     gap: 10px;
 `;
 
@@ -119,6 +126,15 @@ export const Button = styled.button<{
     }
 `
 
+export const PopupWrapper = styled.div`
+    position:fixed;
+    bottom:0px;
+    z-index:20;
+
+    width:100%;
+    max-width:500px;
+    margin-left:-20px;
+`
 
 export const ChangePopupContainer = styled.form`
     display:flex;

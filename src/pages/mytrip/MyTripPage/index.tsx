@@ -50,6 +50,7 @@ function MyTripPage() {
         (
           <S.NoUpCommingContainer>
             <S.HeadingContainer>
+              {/* [SugarSyrup] @TODO: Login 시 닉네임도 localStorage에 저장 -> 이후 불러오는 로직으로 변경 */}
               <Typography.Headline size="md">최민석 님</Typography.Headline>
               <Typography.Title size="lg"><S.TextHighlight>가보자고</S.TextHighlight>와 첫 여행 일정을 세워보세요!</Typography.Title>
             </S.HeadingContainer>

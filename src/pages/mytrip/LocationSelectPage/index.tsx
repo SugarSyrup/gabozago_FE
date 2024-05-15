@@ -1,22 +1,23 @@
 import { useEffect, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { useNavigate } from "react-router-dom";
 
 import { datesState, selectedLocationsState } from "../../../recoil/mytrip/createData";
 
+import LogoTextIcon from "../../../assets/icons/logo_small_blue04_text.svg?react";
+import Typography from "../../../components/common/Typography";
 import PageTemplate from "../../../components/common/PageTemplate";
+import BackButton from "../../../components/common/BackButton";
+
 import LocationIcon from "../../../assets/icons/location.svg?react";
 import LocationTag from "../../../components/mytrip/LocationTag";
-import BackButton from "../../../components/common/BackButton";
 import SearchedLocations from "../../../components/mytrip/SearchedLocations";
 
 import useSearchInput from "../../../hooks/useSearchInput";
+import usePopup from "../../../hooks/usePopup";
+import { get, post } from "../../../utils/api";
 
 import * as S from "./style";
-import Typography from "../../../components/common/Typography";
-import { get, post } from "../../../utils/api";
-import LogoTextIcon from "../../../assets/icons/logo_small_blue04_text.svg?react";
-import usePopup from "../../../hooks/usePopup";
-import { useNavigate } from "react-router-dom";
 
 export type locationResponseType = {
   id: number,
@@ -45,7 +46,7 @@ function MyTripLocationSelectPage() {
   });
 
   useEffect(() => {
-    get<locationResponseType[]>(`${import.meta.env.VITE_BASE_URL}region`)
+    get<locationResponseType[]>(`/region`)
       .then((response) => {
         setLocations(response.data);
       })
@@ -81,28 +82,34 @@ function MyTripLocationSelectPage() {
 
   return (
     <PageTemplate nav={false}>
-      <Popup>
-        <S.ChangePopupContainer>
-          <S.ChangePopupHeader>
-            <Typography.Title size="sm">일정 제목</Typography.Title>
-            <span onClick={() => {
-              post<{id:number}>(`${import.meta.env.VITE_BASE_URL}my-travel`, {
-                title: titleRef.current?.value,
-                departure_date: dates.startDate,
-                arrival_date: dates.endDate,
-                regions: selectedLocations.toString()
-              }).then(
-                (response) => {
-                  navigate(`/mytrip/${response.data.id}`)
-                }
-              )
-            }}>
-              <Typography.Title size="sm" color="#5276FA">저장</Typography.Title>
-            </span>
-          </S.ChangePopupHeader>
-          <S.ChangePopupInput maxLength={38} placeholder="여행 일정 제목을 입력해주세요." ref={titleRef}/>
-        </S.ChangePopupContainer>
-      </Popup>
+      <S.PopupWrapper>
+        <Popup>
+          <S.ChangePopupContainer>
+            <S.ChangePopupHeader>
+              <Typography.Title size="sm">일정 제목</Typography.Title>
+              <span onClick={() => {
+                post<{id:number}>(`/my-travel`, {
+                  title: titleRef.current?.value,
+                  departure_date: `${dates.startDate.slice(0,4)}-${dates.startDate.slice(4,6)}-${dates.startDate.slice(6,8)}`,
+                  arrival_date: `${dates.endDate.slice(0,4)}-${dates.endDate.slice(4,6)}-${dates.endDate.slice(6,8)}`,
+                  regions: selectedLocations.toString()
+                }).then(
+                  (response) => {
+                    navigate(`/mytrip/${response.data.id}`)
+                  }
+                )
+              }}
+                style={{
+                  cursor:'pointer'
+                }}
+              >
+                <Typography.Title size="sm" color="#5276FA">저장</Typography.Title>
+              </span>
+            </S.ChangePopupHeader>
+            <S.ChangePopupInput maxLength={38} placeholder="여행 일정 제목을 입력해주세요." ref={titleRef}/>
+          </S.ChangePopupContainer>
+        </Popup>
+      </S.PopupWrapper>
       <S.Header>
         <BackButton />
         <SearchInput />
@@ -164,6 +171,7 @@ function MyTripLocationSelectPage() {
           <S.Button 
               bgColor={selectedLocations.length > 0} 
               onClick={() => { 
+                console.log("worked");
                   popupOpen();
               }}
           >
