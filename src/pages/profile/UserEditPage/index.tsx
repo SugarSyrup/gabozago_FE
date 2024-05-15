@@ -9,7 +9,6 @@ import { userDataType } from "../../../assets/data/userData";
 import XIcon from "../../../assets/icons/x.svg?react";
 import UserIcon from "../../../assets/icons/user.svg?react";
 import CameraCircleIcon from "../../../assets/icons/camera_circle.svg?react";
-import RightChevronIcon from "../../../assets/icons/chevron_right.svg?react";
 import KakaoIcon from "../../../assets/icons/kakao.svg?react";
 import InputContainer from "../../../components/common/InputContainer";
 import ExtraButton from "../../../components/common/ExtraButton";

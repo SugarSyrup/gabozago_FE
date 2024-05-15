@@ -1,12 +1,13 @@
+import { useState } from "react";
+
 import KebabMenuIcon from "../../../assets/icons/menu_kebab.svg?react";
 import LocationIcon from "../../../assets/icons/location.svg?react";
 import CalendarIcon from "../../../assets/icons/calendar.svg?react";
 import SmallLogoIcon from "../../../assets/icons/logo_small.svg?react";
-
+import useMyTripModal from "../../../hooks/useMyTripModal";
 import Typography from "../../common/Typography";
 
 import * as S from "./style";
-import useMyTripModal from "../../../hooks/useMyTripModal";
 
 interface Props {
     id: number,

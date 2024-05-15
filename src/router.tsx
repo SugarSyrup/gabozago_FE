@@ -30,7 +30,9 @@ import VideoPage from "./pages/journal/VideoPage";
 import LoginPage from "./pages/auth/LoginPage";
 import SignUpPage from "./pages/auth/SignUpPage";
 import ArticlePage from "./pages/ArticlePage";
-
+import PlacePage from "./pages/PlacePage";
+import SettingsPage from "./pages/profile/SettingsPage";
+import TermsPage from "./pages/TermsPage";
 import ResignPage from "./pages/resign/ResignPage";
 import ResignDonePage from "./pages/resign/ResignDonePage";
 import AnnouncePage from "./pages/cscenter/AnnouncePage";
@@ -146,9 +148,51 @@ const router = createBrowserRouter([
     path: "/signup",
     element: <SignUpPage />,
   },
+  /* ---- 고객센터 페이지 ---- */
   {
+    // 고객센터/도움말
+    path: "/cscenter",
+    element: <CSCenterPage />,
+  },
+  {
+    // FAQ 페이지
+    path: "/cscenter/faq",
+    element: <FAQPage />,
+  },
+  {
+    // FAQ 상세 페이지
+    path: "/cscenter/faq/:id",
+    element: <FAQDetailPage />,
+  },
+  {
+    // 문의 하기
+    path: "/cscenter/inquiry",
+    element: <InquiryPage />,
+  },
+  {
+    // 내 문의 내역
+    path: "/cscenter/history",
+    element: <InquiryHistoryPage />,
+  },
+  {
+    // 공지사항
+    path: "/cscenter/announce",
+    element: <AnnouncePage />,
+  },
+  {
+    // 공지사항 상세보기
+    path: "/cscenter/announce/:id",
+    element: <AnnounceDetailPage />,
+  },
+  {
+    // 의견 보내기
+    path: "/cscenter/feedback",
+    element: <FeedBackPage />,
+  },
+  {
+    // 장소 페이지
     path: "/place/:id",
-    element: <PlacePage />
+    element: <PlacePage />,
   },
   /* ---- 고객센터 페이지 ---- */
   {
@@ -197,6 +241,11 @@ const router = createBrowserRouter([
     element: <PlacePage />,
   },
   // 기타
+  {
+    // 아티클 
+    path:"/article",
+    element:<ArticlePage />
+  },
   {
     // 약관
     path: "/terms/:id",
