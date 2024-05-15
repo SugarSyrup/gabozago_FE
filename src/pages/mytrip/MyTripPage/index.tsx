@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { datesState } from "../../../recoil/mytrip/createData";
 
-interface travelResponseType {
+type travelResponseType = {
   "id": number,
   "title": string,
   "departure_date": string
