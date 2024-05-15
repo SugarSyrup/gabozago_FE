@@ -86,6 +86,10 @@ const router = createBrowserRouter([
     element: <MyTripDetailPage />,
   },
   {
+    path: "/mytrip/:id/dateChange",
+    element: <MyTripDatesSelectPage />,
+  },
+  {
     path: "/mytrip/:id/search",
     element: <MyTripLocationSearchPage />,
   },

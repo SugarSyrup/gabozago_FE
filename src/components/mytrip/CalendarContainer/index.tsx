@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import CalendarAddIcon from "../../../assets/icons/calendar_add.svg?react";
 import { datesState } from "../../../recoil/mytrip/createData.ts";
@@ -9,10 +9,12 @@ import Typography from "../../common/Typography/index.tsx";
 import Calendar from "../Calendar/index.tsx";
 
 import * as S from "./style.ts";
+import { patch } from "../../../utils/api.ts";
 
 
 function CalendarContainer() {
     const navigate = useNavigate();
+    const {id} = useParams();
     const [dateClickFlag, setDateClickFlag] = useState<boolean>(true);
     const [dateDiff, setDateDiff] = useState<number>(-1);
 
@@ -22,6 +24,7 @@ function CalendarContainer() {
         if(dates.startDate !== "" && dates.endDate !== "") {
             setDateDiff(calculateDateDiff(dates.startDate, dates.endDate));
         }
+        console.log(dates);
     }, [])
 
     function onDateClick(date:string) {
@@ -80,7 +83,14 @@ function CalendarContainer() {
                 <S.Button 
                     bgColor={dates.startDate !== "" && dates.endDate !== ""} 
                     onClick={() => { 
-                        if(dates.startDate !== "" && dates.endDate !== "") {
+                        if(id) {
+                            patch('/my-travel', {
+                                id: Number(id),
+                                departure_date: `${dates.startDate.slice(0,4)}-${dates.startDate.slice(4,6)}-${dates.startDate.slice(6,8)}`,
+                                arrival_date: `${dates.endDate.slice(0,4)}-${dates.endDate.slice(4,6)}-${dates.endDate.slice(6,8)}`
+                            })
+                        }
+                        else if(dates.startDate !== "" && dates.endDate !== "") {
                             navigate('/mytrip/create/location');
                         }
                     }}

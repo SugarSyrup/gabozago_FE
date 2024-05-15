@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Typography from "../../components/common/Typography";
 import InfomationIcon from "../../assets/icons/exclamation_circle.svg?react";
@@ -8,6 +9,8 @@ import useModal from "../useModal";
 import usePopup from "../usePopup";
 
 import * as S from "./style";
+import { useSetRecoilState } from "recoil";
+import { datesState } from "../../recoil/mytrip/createData";
 
 interface Props {
     id: number,
@@ -17,9 +20,11 @@ interface Props {
 }
 
 function useMyTripModal({id, title, departureDate, arrivalDate}: Props) {
+    const navigate = useNavigate();
     const { Modal, modalOpen, modalClose, isOpend: isModalOpend } = useModal({});
     const { Popup, popupOpen, popupClose, isOpend: isPopupOpend } = usePopup();
     const [ popupType, setPopupType] = useState<"CHANGE" | "DELETE">("CHANGE");
+    const setDates = useSetRecoilState(datesState);
 
     function MyTripModal() {
         return (
@@ -86,7 +91,15 @@ function useMyTripModal({id, title, departureDate, arrivalDate}: Props) {
                         }}>
                             <Typography.Title size="lg" >여행 제목 변경</Typography.Title>
                         </div>
-                        <Typography.Title size="lg">여행 날짜 변경</Typography.Title>
+                        <div onClick={() => {
+                            setDates({
+                                startDate: "20240502",
+                                endDate: "20240503"
+                            })
+                            navigate(`/mytrip/${id}/dateChange`)}
+                        }>
+                            <Typography.Title size="lg">여행 날짜 변경</Typography.Title>
+                        </div>
                     </S.TravelSettings>
                 </Modal>
             </S.ModalWrapper>

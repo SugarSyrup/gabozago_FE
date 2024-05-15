@@ -11,7 +11,7 @@ function MyTripDatesSelectPage() {
   return (
     <>
       <PageTemplate nav={false}>
-        <Link to="/mytrip" style={{ cursor: "pointer" }}>
+        <Link to="-1" style={{ cursor: "pointer" }}>
           <XIcon />
         </Link>
         <S.HeadingWrapper>
