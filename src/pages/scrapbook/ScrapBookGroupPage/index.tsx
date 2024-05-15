@@ -100,7 +100,7 @@ function ScrapBookGroupPage() {
     },
   ]);
   const [focusedTabIndex, setFocusedTabIndex] = useState<number>(0);
-  const [filter, SetFilter] = useRecoilState<TFilter>(journalFilterState);
+  const [filter, setFilter] = useRecoilState<TFilter>(journalFilterState);
   const resetFilter = useResetRecoilState(journalFilterState);
   const tabs = [
     { id: "아티클", name: "아티클", filters: ["sort"] },
@@ -152,7 +152,6 @@ function ScrapBookGroupPage() {
     return;
   };
   const getData = () => {
-    console.log("getData");
     if (tabs[focusedTabIndex].name === "아티클") {
       getArticles();
     }
@@ -189,7 +188,7 @@ function ScrapBookGroupPage() {
             <FilterList
               filters={tabs[focusedTabIndex].filters}
               filterState={filter}
-              filterSetState={SetFilter}
+              filterSetState={setFilter}
             />
           </S.FilterContainer>
         </div>
