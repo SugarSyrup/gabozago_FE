@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import Typography from "../../components/common/Typography";
 import InfomationIcon from "../../assets/icons/exclamation_circle.svg?react";
+import { deletes, patch } from "../../utils/api";
 
 import useModal from "../useModal";
 import usePopup from "../usePopup";
@@ -28,27 +29,44 @@ function useMyTripModal({id, title, departureDate, arrivalDate}: Props) {
                         <S.PopupContainer>
                             <InfomationIcon />
                             <S.PopupText>
-                                <Typography.Headline size="sm">"{title}"을 삭제하시겠어요?</Typography.Headline>
-                                <Typography.Body size="lg">삭제한 여행 일정은 되돌릴 수 없습니다.</Typography.Body>
+                                <Typography.Headline size="sm" noOfLine={2}>"{title}"을 삭제하시겠어요?</Typography.Headline>
+                                <Typography.Body size="lg" color="#727272">삭제한 여행 일정은 되돌릴 수 없습니다.</Typography.Body>
                             </S.PopupText>
                             <S.PopupButtons>
                                 <S.PopupButton onClick={() => {popupClose()}}>
-                                    <Typography.Label size="lg">아니요</Typography.Label>
+                                    <Typography.Body size="lg">아니요</Typography.Body>
                                 </S.PopupButton>
                                 <S.PopupButton onClick={() => {
-                                    // @TODO: 삭제 엑션
+                                    deletes<{message: string}>(`/my-travel`, {id: id})
+                                        .then((response) => {
+                                            if(response.data.message === "DELETE SUCCESS") {
+                                                modalClose();
+                                                popupClose();
+                                            }
+                                        })
                                 }}>
-                                    <Typography.Label size="lg" color="#5276FA">네, 삭제할래요</Typography.Label>
+                                    <Typography.Body size="lg" color="#5276FA">네, 삭제할래요</Typography.Body>
                                 </S.PopupButton>
                             </S.PopupButtons>
                         </S.PopupContainer>
                         :
-                        <S.ChangePopupContainer>
+                        <S.ChangePopupContainer onSubmit={(e) => {
+                            e.preventDefault();
+                            const formData = new FormData(e.currentTarget);
+                            patch('/my-travel', {
+                                id: id,
+                                title: formData.get('title')
+                            }).then(() => {
+                                popupClose();
+                            })
+                        }}>
                             <S.ChangePopupHeader>
                                 <Typography.Title size="sm">일정 제목 변경</Typography.Title>
-                                <Typography.Title size="sm" color="#5276FA">저장</Typography.Title>
+                                <S.FormButton>
+                                    <Typography.Title size="sm" color="#5276FA">저장</Typography.Title>
+                                </S.FormButton>
                             </S.ChangePopupHeader>
-                            <S.ChangePopupInput defaultValue={title}/>
+                            <S.ChangePopupInput defaultValue={title} name="title" type="text" maxLength={38}/>
                         </S.ChangePopupContainer>
                     }
                 </Popup>
@@ -66,7 +84,7 @@ function useMyTripModal({id, title, departureDate, arrivalDate}: Props) {
                             setPopupType("CHANGE");
                             popupOpen();
                         }}>
-                            <Typography.Title size="lg" >여행 기록 변경</Typography.Title>
+                            <Typography.Title size="lg" >여행 제목 변경</Typography.Title>
                         </div>
                         <Typography.Title size="lg">여행 날짜 변경</Typography.Title>
                     </S.TravelSettings>

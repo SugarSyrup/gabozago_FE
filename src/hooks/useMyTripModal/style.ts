@@ -22,6 +22,10 @@ export const TravelSettings = styled.div`
     display:flex;
     flex-direction:column;
     gap:20px;
+
+    h3{
+        cursor: pointer;
+    }
 `
 
 
@@ -89,4 +93,11 @@ export const ChangePopupInput = styled.input`
 
     border:none;
     border-bottom:1px solid #e4e4e4;
+`
+
+export const FormButton = styled.button`
+    border:none;
+    background-color:inherit;
+    
+    cursor:pointer;
 `
