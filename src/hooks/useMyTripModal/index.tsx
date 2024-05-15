@@ -47,6 +47,7 @@ function useMyTripModal({id, title, departureDate, arrivalDate}: Props) {
                                             if(response.data.message === "DELETE SUCCESS") {
                                                 modalClose();
                                                 popupClose();
+                                                navigate(0);
                                             }
                                         })
                                 }}>
@@ -63,6 +64,7 @@ function useMyTripModal({id, title, departureDate, arrivalDate}: Props) {
                                 title: formData.get('title')
                             }).then(() => {
                                 popupClose();
+                                navigate(0);
                             })
                         }}>
                             <S.ChangePopupHeader>
@@ -93,11 +95,11 @@ function useMyTripModal({id, title, departureDate, arrivalDate}: Props) {
                         </div>
                         <div onClick={() => {
                             setDates({
-                                startDate: "20240502",
-                                endDate: "20240503"
+                                startDate: departureDate.replace("-", "").replace("-", ""),
+                                endDate: arrivalDate.replace("-", "").replace("-", ""),
                             })
-                            navigate(`/mytrip/${id}/dateChange`)}
-                        }>
+                            navigate(`/mytrip/${id}/dateChange`)
+                        }}>
                             <Typography.Title size="lg">여행 날짜 변경</Typography.Title>
                         </div>
                     </S.TravelSettings>

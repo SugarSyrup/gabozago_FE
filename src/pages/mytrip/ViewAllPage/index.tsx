@@ -24,8 +24,9 @@ function ViewAllPage() {
     const [tripData, setTripData] = useState<travelResponseType["results"]>([]);
 
     useEffect(() => {
-        get<travelResponseType>(`${import.meta.env.VITE_BASE_URL}my-travel/all`)
+        get<travelResponseType>(`/my-travel/all`)
         .then((response) => {
+            console.log(response);
             setTripData(response.data.results);
         })
     }, [])

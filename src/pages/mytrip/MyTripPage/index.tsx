@@ -31,14 +31,15 @@ function MyTripPage() {
   const [tripUpComing, setTripUpComing] = useState<travelResponseType>([]);
 
   useEffect(() => {
-    get<travelResponseType>(`${import.meta.env.VITE_BASE_URL}my-travel/upcoming`)
+    get<travelResponseType>(`/my-travel/upcoming`)
       .then((response) => {
-        setTripHistory(response.data);
+        console.log(response);
+        setTripUpComing(response.data);
       })
 
-    get<travelResponseType>(`${import.meta.env.VITE_BASE_URL}my-travel/past`)
+    get<travelResponseType>(`/my-travel/past`)
       .then((response) => {
-        setTripUpComing(response.data);
+        setTripHistory(response.data);
       })
   }, []);
 
@@ -66,7 +67,7 @@ function MyTripPage() {
               <CalendarAddIcon />
             </S.CreateMyTripButton>
 
-            <S.CreateMyTripTextButton onClick={() => {navigate('/mytrip/create')}} hasTripHistory={false}>
+            <S.CreateMyTripTextButton onClick={() => {navigate('/mytrip/create'); setDatesState({startDate: "", endDate: ""})}} hasTripHistory={false}>
               <CirclePlusIcon />
               <Typography.Title size="md" color="white">새로운 여행 일정 만들기</Typography.Title>
             </S.CreateMyTripTextButton>
@@ -87,7 +88,7 @@ function MyTripPage() {
               
             </S.ScheduleCardContainer>
 
-            <S.CreateMyTripTextButton onClick={() => {navigate('/mytrip/create')}} hasTripHistory={true}>
+            <S.CreateMyTripTextButton onClick={() => {navigate('/mytrip/create'); setDatesState({startDate: "", endDate: ""})}} hasTripHistory={true}>
               <CirclePlusIcon />
               <Typography.Title size="md" color="#484848">새로운 여행 일정 만들기</Typography.Title>
             </S.CreateMyTripTextButton>
@@ -96,7 +97,7 @@ function MyTripPage() {
       }
       
       {
-        tripHistory.length === 0 && 
+        tripHistory.length !== 0 && 
         <>
           <S.ContentHeadingWrappper>
             <Typography.Headline size="sm">지난 여행 기록</Typography.Headline>

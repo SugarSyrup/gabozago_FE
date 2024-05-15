@@ -24,7 +24,6 @@ function CalendarContainer() {
         if(dates.startDate !== "" && dates.endDate !== "") {
             setDateDiff(calculateDateDiff(dates.startDate, dates.endDate));
         }
-        console.log(dates);
     }, [])
 
     function onDateClick(date:string) {
