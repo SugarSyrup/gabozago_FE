@@ -7,7 +7,7 @@ import MyLastScheduleCard from "../../../components/mytrip/MyLastScheduleCard";
 import * as S from "./style";
 import { get } from "../../../utils/api";
 
-type travelResponseType = {
+interface travelResponseType {
     next: string | null,
     previous: string | null,
     results: {

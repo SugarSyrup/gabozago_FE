@@ -6,7 +6,7 @@ import ScrapBorderIcon from "../../../assets/icons/bookmark.svg?react";
 
 import * as S from "./style";
 
-type data = {
+interface  data {
     courseName : string;
     day: number;
     mytrips: {

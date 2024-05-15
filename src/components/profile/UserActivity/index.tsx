@@ -8,7 +8,7 @@ import UserCommentsList from "../UserCommentsList";
 
 import { post } from "../../../utils/api";
 
-export type articleResponseType = {
+export interface articleResponseType {
     next: string | null,
     previous: string | null,
     results: {
@@ -22,7 +22,7 @@ export type articleResponseType = {
     }[]
 }
 
-export type shortsResponseType = {
+export interface shortsResponseType {
     next: string | null,
     previous: string | null,
     results: {
@@ -36,7 +36,7 @@ export type shortsResponseType = {
     }[]
 }
 
-export type commentsResponseType = {
+export interface commentsResponseType {
     next: string | null,
     previous: string | null,
     results: {

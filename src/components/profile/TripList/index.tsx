@@ -5,7 +5,7 @@ import TripItem from "../TripItem";
 import * as S from "./style";
 import { get } from "../../../utils/api";
 
-type travelType = {
+interface travelType {
     id: number,
     title: string,
     departureDate: string,

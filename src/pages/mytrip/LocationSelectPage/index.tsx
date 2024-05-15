@@ -19,7 +19,7 @@ import { get, post } from "../../../utils/api";
 
 import * as S from "./style";
 
-export type locationResponseType = {
+export interface locationResponseType {
   id: number,
   name: string,
   category:string,
