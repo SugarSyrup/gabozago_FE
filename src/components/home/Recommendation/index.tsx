@@ -42,7 +42,7 @@ function Recommendation() {
     const [shortformData, setShortformData] = useState<TShortForms['results']>([]);
 
     useEffect(() => {
-        get<TArticle>('/community/article')
+        get<TArticle>('/community/article?ordering=weekly_popular')
             .then((response) => {
                 setArticleData(response.data.results);
             })

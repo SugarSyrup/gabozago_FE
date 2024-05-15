@@ -21,12 +21,6 @@ export const ThumbnailWrapper = styled.div`
 
     background-color:${({theme}) => theme.gray};
 
-    div{
-        position:absolute;
-        bottom:15px;
-        left:15px;
-    }
-
     svg{
         width:40px;
         height:40px;
