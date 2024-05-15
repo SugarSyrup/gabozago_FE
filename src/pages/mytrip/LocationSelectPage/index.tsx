@@ -86,10 +86,9 @@ function MyTripLocationSelectPage() {
           <S.ChangePopupHeader>
             <Typography.Title size="sm">일정 제목</Typography.Title>
             <span onClick={() => {
-              // [SugarSyrup] @TODO: 백엔드 미 배포 -> date string 형식 체크 필요
               post<{id:number}>(`${import.meta.env.VITE_BASE_URL}my-travel`, {
                 title: titleRef.current?.value,
-                deperature_date: dates.startDate,
+                departure_date: dates.startDate,
                 arrival_date: dates.endDate,
                 regions: selectedLocations.toString()
               }).then(
