@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 import {data} from "../../assets/data/articleData";
@@ -17,6 +17,24 @@ import InterviewProfile from "../../components/article/InterviewProfile";
 import Interview from "../../components/article/Interview";
 
 import * as S from "./style";
+
+interface TArticle {
+	"title": string,
+	"thumbnailURL": string,
+	"content": string,
+	"checkpoint": string,
+	
+    "isClapped": boolean,
+    "isBookmarked": boolean,
+    "claps": number,
+    "commentCount": number,
+    "bookmark": number,
+	
+	"nextArticle": {
+		"id": string,
+		"name": string,
+	}
+}
 
 
 function ArticlePage() {
@@ -42,14 +60,9 @@ function ArticlePage() {
             <S.StationContainer>
                 <S.StationTitle>Station 보기</S.StationTitle>
                 <StationContainer data={data.stations} refs={stationRefs}/>
-
-                <S.NextArticle>
-                    <span>2편 : <Link to={`/article/${data.nextArticle.id}`}>‘{data.nextArticle.name}’</Link> 이어보기</span>
-                </S.NextArticle>
-            </S.StationContainer>
-            <S.Content>
+                <S.Content>
                 {
-                    data.contents.map((content) => {
+                    data.contents.data.map((content) => {
                         switch (content.type){
                             case "station":
                                 return <ContentStation index={content.index} name={content.name} refs={stationRefs}/>
@@ -62,16 +75,17 @@ function ArticlePage() {
                             case "photo":
                                 return <PlacePhoto photoURLs={content.photoURLs} desc={content.desc} />
                             case "place":
-                                return <PlaceInfo placeId={1} imgURL={content.imageURL}/>
+                                return <PlaceInfo placeId={1} imageURL={content.imageURL}/>
                         }
                     })
                 }
-            </S.Content>
+                </S.Content>
 
-            <CheckPoints data={data.checkPonints} />
-            <S.NextArticle>
-                <span>2편 : <Link to={`/article/${data.nextArticle.id}`}>‘{data.nextArticle.name}’</Link> 이어보기</span>
-            </S.NextArticle>
+                <CheckPoints data={data.checkPonints.data} />
+                <S.NextArticle>
+                    <span>2편 : <Link to={`/article/${data.nextArticle.id}`}>‘{data.nextArticle.name}’</Link> 이어보기</span>
+                </S.NextArticle>
+            </S.StationContainer>
 
             <S.Empty />
         </PageTemplate>

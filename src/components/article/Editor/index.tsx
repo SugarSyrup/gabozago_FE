@@ -10,9 +10,7 @@ function Editor({content}: Props){
     return(
         <S.Container>
             <EditorIcon />
-            <S.Content>
-                {content}
-            </S.Content>
+            <S.Content dangerouslySetInnerHTML={{ __html: content}}/>
         </S.Container>
     )
 }

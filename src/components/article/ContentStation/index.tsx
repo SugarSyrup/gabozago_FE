@@ -1,5 +1,5 @@
-import { LegacyRef, useEffect } from "react";
 import DoubleCircleIcon from "../../../assets/icons/double_circle.svg?react";
+import Typography from "../../common/Typography";
 
 import * as S from "./style";
 
@@ -14,9 +14,9 @@ function ContentStation({index, name, refs} : Props){
         <S.Container id={`article_${index}`} ref={ele => refs.current[index] = ele}>
             <S.Index>
                 <DoubleCircleIcon />
-                <span>Station {index}</span>
+                <Typography.Title size="lg" color="inherit">Station {index}</Typography.Title>
             </S.Index>
-            <S.Title>{name}</S.Title>
+            <Typography.Headline size="sm">{name}</Typography.Headline>
         </S.Container>
     )
 }
