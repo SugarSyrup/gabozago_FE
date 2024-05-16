@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 export const BackButtonWrapper = styled.div`
     position:absolute;
@@ -79,7 +78,9 @@ export const NextArticle = styled.div`
     }
 `
 
-export const Content = styled.div`
+export const Content = styled.div<{isLogin: boolean}>`
+    max-height: ${({isLogin}) => !isLogin && '2390px'};
+    overflow-y: hidden;
     margin-top:70px;
 
     display:flex;
@@ -90,4 +91,43 @@ export const Content = styled.div`
 
 export const Empty = styled.div`
     padding-bottom: 160px;
+`
+
+export const IsLoginBlur = styled.div`
+    width: 100%;
+    height: 772px;
+    padding-top:50px;
+    padding-left:30px;
+    padding-right:30px;
+
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.00) 0%, #1F1E1E 100%);
+    backdrop-filter: blur(4px);
+
+    position:absolute;
+    left:0px;
+    top:1613px;
+    z-index:100;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:23px;
+    color:white;
+
+    h3{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        text-align:center;
+    }
+`
+
+export const LoginLinkButton = styled.div`
+    width: 100%;
+    padding: 10px 20px 15px 20px;
+    background-color: ${({theme}) => theme.main};
+    border-radius: 30px;
+    margin-top: 20px;
+    cursor: pointer;
 `
