@@ -18,11 +18,13 @@ import Interview from "../../components/article/Interview";
 
 import * as S from "./style";
 
+
 function ArticlePage() {
     const ThumbnailWrapperRef = useRef<HTMLDivElement>(null);
+    const stationRefs = useRef<null[] | HTMLDivElement[]>([]);
 
     return(
-        <PageTemplate nav={<BottomNav postId="123" isClap={data.isClapped} claps={data.claps} comment={data.comment} onCommentClick={() => {}} bookmark={data.bookmark} shares={1} />}>
+        <PageTemplate nav={<BottomNav postId="123" isClap={data.isClapped} claps={data.claps} comment={data.commentCount} onCommentClick={() => {}} bookmark={data.bookmark} shares={1} />}>
             <S.BackButtonWrapper>
                 <BackButton />
             </S.BackButtonWrapper>
@@ -39,7 +41,7 @@ function ArticlePage() {
             </S.Header>
             <S.StationContainer>
                 <S.StationTitle>Station 보기</S.StationTitle>
-                <StationContainer data={data.stations}/>
+                <StationContainer data={data.stations} refs={stationRefs}/>
 
                 <S.NextArticle>
                     <span>2편 : <Link to={`/article/${data.nextArticle.id}`}>‘{data.nextArticle.name}’</Link> 이어보기</span>
@@ -50,7 +52,7 @@ function ArticlePage() {
                     data.contents.map((content) => {
                         switch (content.type){
                             case "station":
-                                return <ContentStation index={content.index} name={content.name} />
+                                return <ContentStation index={content.index} name={content.name} refs={stationRefs}/>
                             case "editor" :
                                 return <Editor content={content.content !== undefined ? content.content : "error"} />
                             case "interview":

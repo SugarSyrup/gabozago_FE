@@ -180,7 +180,7 @@ const router = createBrowserRouter([
   // 기타
   {
     // 아티클 
-    path:"/article",
+    path:"/article/:id",
     element:<ArticlePage />
   },
   {

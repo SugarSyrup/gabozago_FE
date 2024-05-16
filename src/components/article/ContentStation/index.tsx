@@ -1,3 +1,4 @@
+import { LegacyRef, useEffect } from "react";
 import DoubleCircleIcon from "../../../assets/icons/double_circle.svg?react";
 
 import * as S from "./style";
@@ -5,11 +6,12 @@ import * as S from "./style";
 interface Props {
     index: number,
     name: string,
+    refs: React.MutableRefObject<null[] | HTMLDivElement[]>,
 }
 
-function ContentStation({index, name} : Props){
+function ContentStation({index, name, refs} : Props){
     return(
-        <S.Container>
+        <S.Container id={`article_${index}`} ref={ele => refs.current[index] = ele}>
             <S.Index>
                 <DoubleCircleIcon />
                 <span>Station {index}</span>

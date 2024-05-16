@@ -10,10 +10,9 @@ interface Props {
     id: number,
     title: string,
     desc: string,
-    writer: string,
 }
 
-function ArticleItem({id, title, desc, writer}: Props) {
+function ArticleItem({id, title, desc}: Props) {
     const navigate = useNavigate()
     const ContainerRef = useRef<HTMLDivElement>(null);
     const [opacity, setOpacity] = useState(0.3);
@@ -39,18 +38,25 @@ function ArticleItem({id, title, desc, writer}: Props) {
     });
 
     return (
-        <S.ArticleItem opacity={opacity} ref={ContainerRef} onClick={() => {navigate(`/article/${id}`)}}>
-            <S.ThumbnailWrapper>
-                <S.Thumbnail />
-                <BookMarkIcon />
-            </S.ThumbnailWrapper>
-            <div>
-                <Typography.Headline size="sm" noOfLine={2}>{title}</Typography.Headline>
-                <Typography.Title size="md" color="#A6A6A6">{desc}</Typography.Title>
-            </div>
-            <Typography.Title size="sm" color="#5276FA">by. {writer}</Typography.Title>
-        </S.ArticleItem>        
+        <>
+            <S.ArticleItem opacity={opacity} ref={ContainerRef} onClick={() => {navigate(`/article/${id}`)}}>
+                <S.ThumbnailWrapper>
+                    <S.Thumbnail />
+                    <BookMarkIcon />
+                </S.ThumbnailWrapper>
+                <div>
+                    <Typography.Headline size="sm" noOfLine={2}>{title}</Typography.Headline>
+                    <Typography.Title size="md" color="#A6A6A6">{desc}</Typography.Title>
+                </div>
+                <Typography.Title size="sm" color="#5276FA">by. 가보자고</Typography.Title>
+            </S.ArticleItem>        
+        </>
     )
 }
 
 export default ArticleItem;
+
+
+// TODO : 아티클 아이디 Bookmark 
+// TOOD : 아티클 개별 페이지 라우팅
+// TODO : 아티클 내부 UI 수정사항 있으면 반영

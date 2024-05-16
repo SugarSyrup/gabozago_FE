@@ -1,5 +1,6 @@
 import styled from "styled-components"
 
+
 export const ArticleItem = styled.div<{opacity: number}>`
     display:flex;
     flex-direction:column;

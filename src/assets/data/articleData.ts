@@ -5,12 +5,11 @@ export const data = {
     "isClapped": false,
     "isBookmarked": false,
     "claps": 123,
-    "comment": 123,
+    "commentCount": 123,
     "bookmark": 123,
   
 	"stations": [
         "진짜 로컬의 디저트는 무엇일까?",
-        "기본과 함께 성장한 그녀의 브랜드",
         "기본과 함께 성장한 그녀의 브랜드",
 	],
 	
