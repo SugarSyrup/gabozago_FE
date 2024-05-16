@@ -9,6 +9,7 @@ import { deletes, get, patch, post } from "../../../utils/api";
 import useTextInputPopup from "../../../hooks/useTextInputPopup";
 import useModal from "../../../hooks/useModal";
 import MenuOptionList from "../../common/MenuOptionList";
+import useConfirm from "../../../hooks/useConfirm";
 
 interface GroupInfo {
   id: number;
@@ -37,6 +38,13 @@ const ScrapedTripJournal = memo(function ScrapedTripJournal() {
     textInputPopupClose: editPopupClose,
     isOpend: isEditPopupOpend,
   } = useTextInputPopup("폴더 이름", 20, editingFolderName);
+  const { ConfirmPopup, confirmPopupOpen, confirmPopupClose } = useConfirm(
+    "폴더를 삭제하시겠어요?",
+    "폴더를 삭제하면, 폴더 안에 스크랩된 \n콘텐츠도 모두 삭제 돼요.",
+    null,
+    "아니요",
+    "네, 삭제할게요"
+  );
   const [groupList, setGroupList] = useState<GroupInfo[]>([]);
   const [targetGroupIndex, setTargetGroupIndex] = useState<number>(0);
 
@@ -55,6 +63,7 @@ const ScrapedTripJournal = memo(function ScrapedTripJournal() {
   };
   const handleDeleteFolderClick = () => {
     settingsModalClose();
+    confirmPopupOpen();
     // @todo: 폴더 삭제 alert 창 띄움
   };
   const settingMenus = [
@@ -142,6 +151,7 @@ const ScrapedTripJournal = memo(function ScrapedTripJournal() {
     });
     if (data.message === "DELETE SUCCESS") {
       getGroupList();
+      confirmPopupClose();
     } else {
       alert("삭제에 실패하였습니다.");
     }
@@ -155,6 +165,11 @@ const ScrapedTripJournal = memo(function ScrapedTripJournal() {
 
   return (
     <>
+      <ConfirmPopup
+        onConfirm={() => {
+          deleteFolder(groupList[targetGroupIndex].id);
+        }}
+      />
       <S.ModalWrapper
         isOpen={isSettingsModalOpend || isCreatePopupOpend || isEditPopupOpend}
       >
