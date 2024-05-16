@@ -1,15 +1,15 @@
 import * as S from "./style";
-import Select from "../Select";
-import Button from "../../Button";
 import { SetterOrUpdater } from "recoil";
 import { useState } from "react";
 import { TFilter } from "../../../../recoil/journals/journalState";
+import Select from "../Select";
+import Button from "../../Button";
 import Buttons from "../Buttons";
+import Location from "../Locations";
 import Range from "../Range";
 import HeadCountEC from "../extraControllers/HeadCountEC";
 import DurationEC from "../extraControllers/DurationEC";
 import BudgetEC from "../extraControllers/BudgetEC";
-
 interface Props {
   type: keyof TFilter | "total";
   filterState: TFilter;
@@ -57,7 +57,7 @@ function Filter({
     // location
     location: {
       title: "지역",
-      type: "buttons",
+      type: "location",
       options: [
         "서울",
         "부산",
@@ -135,6 +135,8 @@ function Filter({
           />
         );
         break;
+      case "location":
+        return <Location filter={tempFilter} setFilter={setTempFilter} />;
       case "range":
         return (
           <Range
