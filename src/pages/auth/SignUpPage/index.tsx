@@ -17,7 +17,7 @@ import AppleIcon from "../../../assets/icons/apple.svg?react";
 import * as S from "./style";
 import { post } from "../../../utils/api";
 
-type loginResponse = {
+interface loginResponse {
   status: "ACTIVE" | "INACTIVE";
   access: string;
   refresh: string;

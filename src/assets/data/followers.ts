@@ -1,4 +1,4 @@
-export type FollowerType = {
+export interface FollowerType {
     id:number,
     name:string,
     avatarURL?: string,

@@ -62,3 +62,24 @@ export const post = async <T>(
     const response = await axiosInstance.post(url, data, config);
     return response;
 };
+
+export const deletes = async <T>(
+  url: string,
+  data?: any,
+  config?: AxiosRequestConfig,
+): Promise<AxiosResponse<T>> => {
+  const response = await axiosInstance.delete(url, {
+    data: data,
+    ...config
+  });
+  return response;
+};
+
+export const patch = async <T>(
+  url: string,
+  data?: any,
+  config?: AxiosRequestConfig,
+): Promise<AxiosResponse<T>> => {
+  const response = await axiosInstance.patch(url, data, config);
+  return response;
+};

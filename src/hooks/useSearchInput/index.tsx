@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 
 import * as S from "./style";
 import SearchIcon from "../../assets/icons/search.svg?react";
@@ -11,8 +11,6 @@ interface Props {
     onChange?: () => void;
     backgroundColor: string;
     borderColor: string;
-    searchIconColor?: string;
-    placeholderColor?: string;
 }
 
 function useSearchInput({
@@ -22,10 +20,9 @@ function useSearchInput({
     onChange,
     backgroundColor,
     borderColor,
-    searchIconColor,
-    placeholderColor,
 }: Props): [React.RefObject<HTMLInputElement>, () => JSX.Element] {
     const inputRef = useRef<HTMLInputElement>(null);
+
     const SearchInput = useCallback(() => {
         const [hasValue, setHasValue] = useState(false);
 
@@ -40,9 +37,8 @@ function useSearchInput({
                     required={required}
                     ref={inputRef}
                     id="searchInput"
-                    placeholderColor={placeholderColor}
+                    placeholderColor={"#A6A6A6"}
                     onChange={(e) => {
-                        console.log("worked!");
                         if (e.currentTarget.value == "") {
                             setHasValue(false);
                         } else {
@@ -71,7 +67,7 @@ function useSearchInput({
                             }}
                         />
                     )}
-                    <S.SearchButton searchIconColor={searchIconColor}>
+                    <S.SearchButton searchIconColor={borderColor}>
                         <SearchIcon className="searchIcon" />
                     </S.SearchButton>
                 </S.Btns>

@@ -6,7 +6,7 @@ import LocationIcon from "../../../assets/icons/location.svg?react";
 
 import * as S from "./style";
 
-type data = {
+interface data {
     courseName : string;
     day: number;
     mytrips: {
