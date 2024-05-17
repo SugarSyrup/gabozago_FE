@@ -42,7 +42,41 @@ interface TArticle {
 	}
 }
 
+interface TStation {
+    index: number,
+    name: string,
+    type: "station"
+}
+ 
+interface TEditor {
+    content: string,
+    type: "editor"
+}
 
+interface TInterview {
+    content: string,
+    type: "interview"
+}
+
+interface TProfile {
+    photoURL: string,
+    name: string,
+    division: string,
+    desc: string,
+    type: "profile"
+}
+
+interface TPhoto {
+    photoURLs: string[],
+    desc: string,
+    type: "photo"
+}
+
+interface TPlace {
+    imageURL: string,
+    placeId: number,
+    type: "place"
+}
 
 function ArticlePage() {
     const navigate = useNavigate();
@@ -65,7 +99,7 @@ function ArticlePage() {
     // }, [])
 
     useEffect(() => {
-        console.log(JSON.stringify(data.checkpoint));
+        console.log(JSON.parse(data.content));
         if(localStorage.getItem('access_token')) {
             setIsLogin(true);
         } else {
@@ -100,10 +134,10 @@ function ArticlePage() {
                 </S.Header>
                 <S.StationContainer>
                     <S.StationTitle>Station 보기</S.StationTitle>
-                    <StationContainer data={JSON.parse(data.content).data.filter((content) => content.type === "station").map((content) => content.name)} refs={stationRefs}/>
+                    <StationContainer data={JSON.parse(data.content).data.filter((content : TEditor | TInterview | TPhoto | TPlace | TProfile | TStation) => content.type === "station").map((content: TStation) => content.name)} refs={stationRefs}/>
                     <S.Content isLogin={isLogin}>
                     {
-                        JSON.parse(data.content).data.map((content) => {
+                        JSON.parse(data.content).data.map((content : TEditor | TInterview | TPhoto | TPlace | TProfile | TStation) => {
                             switch (content.type){
                                 case "station":
                                     return <ContentStation index={content.index} name={content.name} refs={stationRefs}/>
