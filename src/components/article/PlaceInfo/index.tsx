@@ -54,10 +54,12 @@ function PlaceInfo({placeId, imageURL} : Props){
                         <S.Address>{data.address}</S.Address>
                     </S.TextContainer>
                     <S.Buttons>
+                        {/* [SugarSyrup] @TODO: 단일 장소 일정에 추가 로직 구현 */}
                         <S.Icon>
                             <CalendarAddIcon />
                             <span>일정에 추가</span>
                         </S.Icon>
+                        {/* [SugarSyrup] @TODO: 단일 장소 스크랩 로직 구현 */}
                         <S.Icon>
                             <BookMarkIcon />
                             <span>장소 스크랩</span>

@@ -34,6 +34,7 @@ import FAQPage from "./pages/cscenter/FAQPage";
 import FAQDetailPage from "./pages/cscenter/FAQDetailPage";
 import InquiryPage from "./pages/cscenter/InquiryPage";
 import InquiryHistoryPage from "./pages/cscenter/InquiryHistoryPage";
+import ArticleTestPage from "./pages/ArticleTestPage";
 
 const router = createBrowserRouter([
   {
@@ -177,9 +178,12 @@ const router = createBrowserRouter([
     path: "/place/:id",
     element: <PlacePage />,
   },
-  // 기타
+  // 아티클 
   {
-    // 아티클 
+    path:"/article/test",
+    element:<ArticleTestPage />
+  },
+  {
     path:"/article/:id",
     element:<ArticlePage />
   },
