@@ -8,7 +8,7 @@ interface LocationGroupByCategory {
   regions: string[];
 }
 
-interface Props {
+export interface Props {
   filter: string[];
   setFilter: React.Dispatch<React.SetStateAction<string[]>>;
 }
