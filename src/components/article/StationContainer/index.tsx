@@ -5,7 +5,7 @@ import * as S from "./style";
 import useModal from "../../../hooks/useModal";
 
 interface Props {
-    data: string[],
+    data: (string | undefined)[],
     refs: React.MutableRefObject<null[] | HTMLDivElement[]>,
 }
 

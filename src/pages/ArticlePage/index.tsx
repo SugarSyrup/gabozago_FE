@@ -43,11 +43,12 @@ interface TArticle {
 }
 
 
+
 function ArticlePage() {
     const navigate = useNavigate();
     const { id } = useParams();
     const [isLogin, setIsLogin] = useState<boolean>(false);
-    //const [data, setData] = useState<TArticle>();
+    // const [data, setData] = useState<TArticle>();
     const ThumbnailWrapperRef = useRef<HTMLDivElement>(null);
     const stationRefs = useRef<null[] | HTMLDivElement[]>([]);
 
@@ -64,6 +65,7 @@ function ArticlePage() {
     // }, [])
 
     useEffect(() => {
+        console.log(JSON.stringify(data.checkpoint));
         if(localStorage.getItem('access_token')) {
             setIsLogin(true);
         } else {
@@ -98,10 +100,10 @@ function ArticlePage() {
                 </S.Header>
                 <S.StationContainer>
                     <S.StationTitle>Station 보기</S.StationTitle>
-                    <StationContainer data={data.stations} refs={stationRefs}/>
+                    <StationContainer data={JSON.parse(data.content).data.filter((content) => content.type === "station").map((content) => content.name)} refs={stationRefs}/>
                     <S.Content isLogin={isLogin}>
                     {
-                        data.contents.data.map((content) => {
+                        JSON.parse(data.content).data.map((content) => {
                             switch (content.type){
                                 case "station":
                                     return <ContentStation index={content.index} name={content.name} refs={stationRefs}/>
@@ -118,7 +120,7 @@ function ArticlePage() {
                             }
                         })
                     }
-                    <CheckPoints data={data.checkPonints.data} />
+                    <CheckPoints data={JSON.parse(data.checkpoint).data} />
                     <S.NextArticle>
                         <span>2편 : <Link to={`/article/${data.nextArticle.id}`}>‘{data.nextArticle.name}’</Link> 이어보기</span>
                     </S.NextArticle>

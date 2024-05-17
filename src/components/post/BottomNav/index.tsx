@@ -1,4 +1,3 @@
-import Comment from "../../journal/Comment";
 import { post } from "../../../utils/api";
 
 import ClapIcon from "../../../assets/icons/clap.svg?react";
