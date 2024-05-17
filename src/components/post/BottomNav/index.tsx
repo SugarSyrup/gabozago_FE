@@ -1,4 +1,8 @@
+import Comment from "../../journal/Comment";
+import { post } from "../../../utils/api";
+
 import ClapIcon from "../../../assets/icons/clap.svg?react";
+import ClapMainIcon from "../../../assets/icons/clap_blue.svg?react";
 import CommentIcon from "../../../assets/icons/comment.svg?react";
 import BookMarkIcon from "../../../assets/icons/bookmark.svg?react";
 import ShareIcon from "../../../assets/icons/share.svg?react";
@@ -12,30 +16,47 @@ interface Props {
     comment:number;
     onCommentClick: () => void;
     bookmark:number;
-    shares: number;
+    onShareClick: () => void;
 }
 
-function BottomNav({postId, isClap, claps, comment, onCommentClick, bookmark, shares}: Props) {
-    // TODO: 각 BottomNav 클릭시 action 추가
-
+function BottomNav({postId, isClap, claps, comment, onCommentClick, bookmark, onShareClick}: Props) {
     return(
         <S.Navigation>
-            <S.NavigationItem>
-                {/* TODO: isClap 유무 확인하기 */}
-                <ClapIcon />
+            <S.NavigationItem onClick={() => {
+                post<{
+                    message: "CREATE SUCCESS" | "DELETE SUCCESS"
+                }>(`/clap/community`, {
+                    community: 'article',
+                    postId: postId
+                }).then((response) => {
+                    if(response.data.message == "CREATE SUCCESS" || response.data.message == "DELETE SUCCESS") {
+                        window.location.reload();
+                    }
+                });
+            }}>
+                {
+                    isClap ? 
+                    <ClapMainIcon />
+                    :
+                    <ClapIcon />
+                } 
                 <span>{claps}</span>
             </S.NavigationItem>
             <S.NavigationItem onClick={onCommentClick}>
                 <CommentIcon />
                 <span>{comment}</span>
             </S.NavigationItem>
-            <S.NavigationItem>
+            <S.NavigationItem onClick={() => {
+                //[SugarSyrup] @TODO: 북마크 기능 가져오기 from 숏폼
+            }}>
                 <BookMarkIcon />
                 <span>{bookmark}</span>
             </S.NavigationItem>
-            <S.NavigationItem>
+            <S.NavigationItem onClick={() => {
+                navigator.clipboard.writeText(window.location.href)
+                onShareClick();
+            }}>
                 <ShareIcon />
-                <span>{shares}</span>
             </S.NavigationItem>
         </S.Navigation>
     )

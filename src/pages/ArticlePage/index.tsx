@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import {data} from "../../assets/data/articleData";
 import DoubleChevronBottom from "../../assets/icons/double_chevron_bottom.svg?react";
@@ -19,6 +19,10 @@ import Interview from "../../components/article/Interview";
 import Typography from "../../components/common/Typography";
 
 import * as S from "./style";
+import { get } from "../../utils/api";
+import useModal from "../../hooks/useModal";
+import Comment from "../../components/journal/Comment";
+import useAlert from "../../hooks/useAlert";
 
 interface TArticle {
 	"title": string,
@@ -40,10 +44,24 @@ interface TArticle {
 
 
 function ArticlePage() {
+    const navigate = useNavigate();
+    const { id } = useParams();
+    const [isLogin, setIsLogin] = useState<boolean>(false);
+    //const [data, setData] = useState<TArticle>();
     const ThumbnailWrapperRef = useRef<HTMLDivElement>(null);
     const stationRefs = useRef<null[] | HTMLDivElement[]>([]);
-    const navigate = useNavigate();
-    const [isLogin, setIsLogin] = useState<boolean>(false);
+
+    const {Modal, modalOpen, modalClose, isOpend} = useModal({});
+    const {Alert, alertOpen, alertClose} = useAlert({
+        Content: <Typography.Title size="md" color="white">URL이 복사되었습니다.</Typography.Title>,
+    });
+
+    // useEffect(() => {
+    //     get<TArticle>(`/community/article/${id}`)
+    //         .then((response) => {
+    //             setData(response.data);
+    //         })
+    // }, [])
 
     useEffect(() => {
         if(localStorage.getItem('access_token')) {
@@ -54,60 +72,71 @@ function ArticlePage() {
     }, [])
 
     return(
-        <PageTemplate nav={<BottomNav postId="123" isClap={data.isClapped} claps={data.claps} comment={data.commentCount} onCommentClick={() => {}} bookmark={data.bookmark} shares={1} />}>
-            <S.BackButtonWrapper>
-                <BackButton />
-            </S.BackButtonWrapper>
-            <S.ThumbnailWrapper ref={ThumbnailWrapperRef}>
-                <img src="123.png" />
-            </S.ThumbnailWrapper>
-            <S.Header paddingTop={ThumbnailWrapperRef.current?.offsetHeight}>
-                <S.Type>
-                    Article by. 가보자고
-                </S.Type>
-                <S.Title>
-                    {data.title}
-                </S.Title>
-            </S.Header>
-            <S.StationContainer>
-                <S.StationTitle>Station 보기</S.StationTitle>
-                <StationContainer data={data.stations} refs={stationRefs}/>
-                <S.Content isLogin={isLogin}>
-                {
-                    data.contents.data.map((content) => {
-                        switch (content.type){
-                            case "station":
-                                return <ContentStation index={content.index} name={content.name} refs={stationRefs}/>
-                            case "editor" :
-                                return <Editor content={content.content !== undefined ? content.content : "error"} />
-                            case "interview":
-                                return <Interview content={content.content !== undefined ? content.content : "error"} />
-                            case "profile":
-                                return <InterviewProfile photoURL={content.photoURL} name={content.name} division={content.division} desc={content.desc} />
-                            case "photo":
-                                return <PlacePhoto photoURLs={content.photoURLs} desc={content.desc} />
-                            case "place":
-                                return <PlaceInfo placeId={1} imageURL={content.imageURL}/>
-                        }
-                    })
-                }
-                <CheckPoints data={data.checkPonints.data} />
-                <S.NextArticle>
-                    <span>2편 : <Link to={`/article/${data.nextArticle.id}`}>‘{data.nextArticle.name}’</Link> 이어보기</span>
-                </S.NextArticle>
-                </S.Content>
-            </S.StationContainer>
-                {
-                    !isLogin &&
-                    <S.IsLoginBlur>
-                        <Typography.Title size="lg" color="inherit" noOfLine={2}>아티클의 전문이 궁금하다면?<br />가보자고 회원으로 다양한 콘텐츠를 즐겨보세요!</Typography.Title>
-                        <DoubleChevronBottom />
-                        <S.LoginLinkButton onClick={() => {navigate("/login")}}>
-                            <Typography.Title size="lg" color="white">회원가입하고 모두 보기</Typography.Title>
-                        </S.LoginLinkButton>
-                    </S.IsLoginBlur>
-                }
-        </PageTemplate>
+        <>
+        {data && 
+            <PageTemplate nav={<BottomNav postId="123" isClap={data.isClapped} claps={data.claps} comment={data.commentCount} onCommentClick={() => {modalOpen()}} bookmark={data.bookmark} onShareClick={() => {alertOpen()}}/>}>
+                <Alert />
+                <S.ModalWrapper isOpen={isOpend}>
+                    <Modal>
+                        <Comment id={1} commentInputPosition="bottom"/>
+                    </Modal>
+                </S.ModalWrapper>
+
+                <S.BackButtonWrapper>
+                    <BackButton />
+                </S.BackButtonWrapper>
+                <S.ThumbnailWrapper ref={ThumbnailWrapperRef}>
+                    <img src="123.png" />
+                </S.ThumbnailWrapper>
+                <S.Header paddingTop={ThumbnailWrapperRef.current?.offsetHeight}>
+                    <S.Type>
+                        Article by. 가보자고
+                    </S.Type>
+                    <S.Title>
+                        {data.title}
+                    </S.Title>
+                </S.Header>
+                <S.StationContainer>
+                    <S.StationTitle>Station 보기</S.StationTitle>
+                    <StationContainer data={data.stations} refs={stationRefs}/>
+                    <S.Content isLogin={isLogin}>
+                    {
+                        data.contents.data.map((content) => {
+                            switch (content.type){
+                                case "station":
+                                    return <ContentStation index={content.index} name={content.name} refs={stationRefs}/>
+                                case "editor" :
+                                    return <Editor content={content.content !== undefined ? content.content : "error"} />
+                                case "interview":
+                                    return <Interview content={content.content !== undefined ? content.content : "error"} />
+                                case "profile":
+                                    return <InterviewProfile photoURL={content.photoURL} name={content.name} division={content.division} desc={content.desc} />
+                                case "photo":
+                                    return <PlacePhoto photoURLs={content.photoURLs} desc={content.desc} />
+                                case "place":
+                                    return <PlaceInfo placeId={1} imageURL={content.imageURL}/>
+                            }
+                        })
+                    }
+                    <CheckPoints data={data.checkPonints.data} />
+                    <S.NextArticle>
+                        <span>2편 : <Link to={`/article/${data.nextArticle.id}`}>‘{data.nextArticle.name}’</Link> 이어보기</span>
+                    </S.NextArticle>
+                    </S.Content>
+                </S.StationContainer>
+                    {
+                        !isLogin &&
+                        <S.IsLoginBlur>
+                            <Typography.Title size="lg" color="inherit" noOfLine={2}>아티클의 전문이 궁금하다면?<br />가보자고 회원으로 다양한 콘텐츠를 즐겨보세요!</Typography.Title>
+                            <DoubleChevronBottom />
+                            <S.LoginLinkButton onClick={() => {navigate("/login")}}>
+                                <Typography.Title size="lg" color="white">회원가입하고 모두 보기</Typography.Title>
+                            </S.LoginLinkButton>
+                        </S.IsLoginBlur>
+                    }
+            </PageTemplate>
+        }
+        </>
     )
 }
 

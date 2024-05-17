@@ -1,5 +1,16 @@
 import styled from "styled-components";
 
+export const ModalWrapper = styled.div<{isOpen: boolean}>`
+    position:fixed;
+    top:0;
+    width:100%;
+    max-width:500px;
+    height:100%;
+    z-index:${({isOpen}) => isOpen ? 100 : -1};
+
+    margin-left:-20px;
+`
+
 export const BackButtonWrapper = styled.div`
     position:absolute;
     top:16px;
