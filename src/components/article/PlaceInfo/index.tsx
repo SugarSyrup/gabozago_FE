@@ -8,27 +8,30 @@ import RightChevron from "../../../assets/icons/chevron_right.svg?react";
 
 import * as S from "./style";
 import { useNavigate } from "react-router-dom";
+import { get } from "../../../utils/api";
 
 interface Props {
     placeId: number,
     imageURL: string,
 }
 
+interface TPlace {
+    region: string,
+    name:string,
+    theme: string,
+    address: string,
+    number: string,
+    opening_hours: string,
+    website:string,
+    image: string[],
+}
+
 function PlaceInfo({placeId, imageURL} : Props){
     const navigate = useNavigate();
-    const [data, setData] = useState<{
-        region: string,
-        name:string,
-        theme: string,
-        address: string,
-        number: string,
-        opening_hours: string,
-        website:string,
-        image: string[],
-    }>();
+    const [data, setData] = useState<TPlace>();
 
     useEffect(() => {
-        axios.get(`${import.meta.env.VITE_BASE_URL}place/${placeId}`)
+        get<TPlace>(`/place/${placeId}`)
             .then((response) => {
                 setData(response.data);
             });
