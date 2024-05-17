@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    padding: 6px 13px;
+    padding: 6px 10px 6px 15px;
     color: ${({ theme }) => theme.main};
     background-color: ${({ theme }) => theme.blue05};
 
@@ -9,10 +9,14 @@ export const Container = styled.div`
     border-radius: 20px;
 
     display: flex;
-    gap: 12px;
+    justify-content:center;
+    align-items:center;
+    gap: 10px;
     flex-shrink: 0;
 
     svg {
+        width:10px;
+        height:10px;
         cursor: pointer;
     }
 `;

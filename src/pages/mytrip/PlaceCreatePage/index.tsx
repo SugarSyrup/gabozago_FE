@@ -1,13 +1,16 @@
 import { useNavigate, useParams } from "react-router-dom";
-import PageTemplate from "../../../components/common/PageTemplate";
-
-import * as S from "./style";
-import LeftChevronIcon from "../../../assets/icons/chevron_left.svg?react";
-import Button from "../../../components/common/Button";
-import Heading from "../../../components/common/Heading";
 import { useRef, useState } from "react";
 import { useSetRecoilState } from "recoil";
+
+import LeftChevronIcon from "../../../assets/icons/chevron_left.svg?react";
+import LocationIcon from "../../../assets/icons/location.svg?react";
+import InputContainer from "../../../components/common/InputContainer";
+import PageTemplate from "../../../components/common/PageTemplate";
+import Typography from "../../../components/common/Typography";
+import Heading from "../../../components/common/Heading";
+
 import { selectedPlacesState } from "../../../recoil/mytrip/selectedPlacesState";
+import * as S from "./style";
 
 function MyTripPlaceCreatePage() {
   const navigate = useNavigate();
@@ -26,6 +29,7 @@ function MyTripPlaceCreatePage() {
       <S.Form
         onSubmit={(e) => {
           e.preventDefault();
+          //[SugarSyrup] @TODO: 새로운 장소 추가하기 API 연결 (Backend 미구현)
           if (NameRef.current) {
             navigate(`/mytrip/${id}/search/${NameRef.current.value}`);
             setSelectedPlaces((prev) => [
@@ -39,11 +43,14 @@ function MyTripPlaceCreatePage() {
         }}
       >
         <S.InputList>
-          <S.Input
-            placeholder="장소를 입력하세요."
-            required
-            ref={NameRef}
-            type="text"
+          <InputContainer
+            inputType="text"
+            name="name"
+            label="장소명"
+            required={true}
+            placeholder="장소명을 입력해주세요."
+            maxLength={30}
+            disabled={false}
             onInput={(e) => {
               if (e.currentTarget.value === "") {
                 setIsNameEnter(false);
@@ -51,11 +58,15 @@ function MyTripPlaceCreatePage() {
                 setIsNameEnter(true);
               }
             }}
+            ref={NameRef}
           />
-          <S.Input
-            placeholder="주소를 입력하세요."
-            required
-            type="text"
+          <InputContainer
+            inputType="text"
+            name="name"
+            label="장소명"
+            required={true}
+            placeholder="주소를 입력해주세요."
+            disabled={false}
             onInput={(e) => {
               if (e.currentTarget.value === "") {
                 setIsAddrEnter(false);
@@ -64,14 +75,32 @@ function MyTripPlaceCreatePage() {
               }
             }}
           />
-          <S.Input placeholder="추가 정보를 알려주세요. (선택)" type="text" />
+          <InputContainer
+            inputType="text"
+            name="name"
+            label="장소명"
+            required={false}
+            placeholder="추가 정보를 알려주세요. (선택)"
+            disabled={false}
+            onInput={(e) => {
+              if (e.currentTarget.value === "") {
+                setIsAddrEnter(false);
+              } else {
+                setIsAddrEnter(true);
+              }
+            }}
+            maxLength={30}
+          />
         </S.InputList>
         <S.ButtonWrapper>
-          <Button size="lg" type="normal" active={isNameEnter && isAddrEnter}>
-            {isNameEnter && isAddrEnter
-              ? "새로운 장소로 등록할게요!"
-              : "정보를 입력해주세요."}
-          </Button>
+          <S.Button isActive={isNameEnter && isAddrEnter}>
+            <LocationIcon />
+            <Typography.Title size="lg" color="inherit">
+              {isNameEnter && isAddrEnter
+                ? "새로운 장소로 등록할게요!"
+                : "장소 정보를 입력해주세요."}
+            </Typography.Title>
+          </S.Button>
         </S.ButtonWrapper>
       </S.Form>
     </PageTemplate>

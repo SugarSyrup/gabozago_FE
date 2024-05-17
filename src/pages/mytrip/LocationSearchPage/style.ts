@@ -36,7 +36,7 @@ export const TabNavigation = styled.div`
     display: flex;
     justify-content: space-between;
 
-    padding: 10px 24px;
+    padding: 10px 0px;
     margin-top: 10px;
 `;
 
@@ -52,7 +52,7 @@ export const NavigationItem = styled.div<{ isHighlight: boolean }>`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 40%;
+    width: 50%;
 
     cursor: pointer;
     transition: color 0.2s ease-in-out;

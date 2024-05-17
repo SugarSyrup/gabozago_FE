@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 export const Card = styled.div`
-    width: 320px;
-    height: 140px;
+    width: 100%;
+    height: 98px;
     flex-shrink: 0;
     border-radius: 10px;
-    background-color: ${({ theme }) => theme.blue04};
+    background-color: ${({ theme }) => theme.gray06};
 
     position: relative;
 `;
@@ -21,15 +21,13 @@ export const InfoContainer = styled.div`
     justify-content: flex-start;
     align-items: center;
     gap: 10px;
-
-    border-bottom: ${({ theme }) => `.4px solid ${theme.white}`};
 `;
 
 export const ThumbnailWrapper = styled.div`
     width: 68px;
     height: 68px;
     flex-shrink: 0;
-    background-color: ${({ theme }) => theme.main};
+    background-color: ${({ theme }) => theme.blue04};
     border-radius: 100%;
 
     display:flex;
@@ -79,25 +77,3 @@ export const MenuIcon = styled.div`
     top: 15px;
 `;
 
-export const ButtonContainer = styled.div`
-    height:40px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`;
-
-export const ButtonValue = styled.div`
-    display:flex;
-    align-items:center;
-    gap:10px;
-
-    svg {
-        width:20px;
-        height:20px;
-
-        path {
-            fill: ${({theme}) => theme.main};
-        }
-    }
-`

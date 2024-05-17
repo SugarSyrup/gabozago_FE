@@ -1,14 +1,12 @@
-import { useNavigate } from "react-router-dom";
-
 import LocationIcon from "../../../assets/icons/location.svg?react";
 import KebabMenuIcon from "../../../assets/icons/menu_kebab.svg?react";
-import LogoSmallIcon from "../../../assets/icons/logo_small_text.svg?react";
+import LogoSmallIcon from "../../../assets/icons/logo_small_blue04_text.svg?react";
 import CalendarIcon from "../../../assets/icons/calendar.svg?react";
-import RightCircleIcon from "../../../assets/icons/chevron_right_circle.svg?react";
 
-import useMyTripModal from "../../../hooks/useMyTripModal";
 import Typography from "../../common/Typography";
 import * as S from "./style";
+import { useNavigate } from "react-router-dom";
+import useMyTripModal from "../../../hooks/useMyTripModal";
 
 
 interface Props {
@@ -19,7 +17,7 @@ interface Props {
     "regions": string[]
 }
 
-function MyScheduleCard({
+function MyLastScheduleCard({
     id,
     title,
     departure_date,
@@ -43,7 +41,7 @@ function MyScheduleCard({
                         <LogoSmallIcon />
                     </S.ThumbnailWrapper>
                     <S.TextContainer>
-                        <Typography.Title size="md">{title}</Typography.Title>
+                        <Typography.Title size="md" noOfLine={2}>{title}</Typography.Title>
                         <S.Infos>
                             <S.Info>
                                 <CalendarIcon />
@@ -55,19 +53,13 @@ function MyScheduleCard({
                             </S.Info>
                         </S.Infos>
                     </S.TextContainer>
-                    <S.MenuIcon  onClick={() => {modalOpen()}}>
-                        <KebabMenuIcon/>
+                    <S.MenuIcon onClick={() => {modalOpen()}}>
+                        <KebabMenuIcon />
                     </S.MenuIcon>
                 </S.InfoContainer>
-                <S.ButtonContainer>
-                    <S.ButtonValue onClick={() => {navigate(`/mytrip/${id}`)}}>
-                        <Typography.Label size="lg" color="#5276FA">일정 보러가기</Typography.Label>
-                        <RightCircleIcon />
-                    </S.ButtonValue>
-                </S.ButtonContainer>
             </S.Card>
         </>
     );
 }
 
-export default MyScheduleCard;
+export default MyLastScheduleCard;

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import * as S from "./style";
 import XIcon from "../../../assets/icons/grayx.svg?react";
@@ -8,12 +8,14 @@ import Heading from "../../../components/common/Heading";
 import CalendarContainer from "../../../components/mytrip/CalendarContainer";
 
 function MyTripDatesSelectPage() {
+  const navigate = useNavigate();
+  
   return (
     <>
       <PageTemplate nav={false}>
-        <Link to="/mytrip" style={{ cursor: "pointer" }}>
+        <div style={{ cursor: "pointer" }} onClick={() => {navigate(-1)}}>
           <XIcon />
-        </Link>
+        </div>
         <S.HeadingWrapper>
           <Heading size="sm">여행 날짜를 선택해주세요.</Heading>
         </S.HeadingWrapper>

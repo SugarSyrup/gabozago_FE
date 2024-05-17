@@ -13,7 +13,7 @@ import Typography from "../../../components/common/Typography";
 import * as S from "./style";
 import { get } from "../../../utils/api";
 
-type profileType = {
+interface profileType {
   nickname: string,
   description: string,
   avatarURL: string,
