@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import LogoSmallIcon from "../../../assets/icons/logo_small.svg?react";
 
@@ -9,6 +9,7 @@ import ScrapBorderIcon from "../../../assets/icons/bookmark.svg?react";
 import Typography from "../../common/Typography";
 import * as S from "./style";
 import { get, post } from "../../../utils/api";
+import usePopup from "../../../hooks/usePopup";
 
 type TScrapFolder = {
     id: number,
@@ -29,6 +30,8 @@ function useScrapModal({id, type}: Props) {
         handle: true,
         borderRadius: "30px",
     });
+    const {Popup, popupOpen, popupClose} = usePopup();
+    const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
         get<{
@@ -63,7 +66,7 @@ function useScrapModal({id, type}: Props) {
                             <S.TravelListHeader>
                                 <Typography.Title size="md">내 폴더</Typography.Title>
                                 <S.TravelCreate onClick={() => {
-                                    modalClose();
+                                    popupOpen();
                                     setIsScrapCreate(true);
                                 }}>
                                     <Typography.Title size="md" color="inherit">새 폴더 생성</Typography.Title>
@@ -102,14 +105,34 @@ function useScrapModal({id, type}: Props) {
                     </S.CourseModalContainer>
                 </Modal>
 
+
                 <S.CreateScrapFolder isOpen={isScrapCreate}>
-                    <S.CreateScrapFolderContainer>
-                        <S.CreateScrapHeader>
-                            <span>새 폴더 이름</span>
-                            <S.SaveText onClick={() => {setIsScrapCreate(false)}}>저장</S.SaveText>
-                        </S.CreateScrapHeader>
-                        <input type="text" />
-                    </S.CreateScrapFolderContainer>
+                    <Popup>
+                        <S.CreateScrapFolderContainer>
+                            <S.CreateScrapHeader>
+                                <Typography.Title size="sm">새 폴더 이름</Typography.Title>
+                                <S.SaveText onClick={() => {
+                                    post<{
+                                        id: number,
+                                        name: string,
+                                    }>('/folder/community', {
+                                        name: inputRef.current?.value
+                                    }).then((response) => {
+                                        setScrapFolderData(prev => [...prev, {
+                                            id: response.data.id,
+                                            name: response.data.name,
+                                            status: false
+                                        }])
+                                        setIsScrapCreate(false);
+                                        popupClose();
+                                    })
+                                }}>
+                                    <Typography.Title size="sm" color="inherit">저장</Typography.Title>
+                                </S.SaveText>
+                            </S.CreateScrapHeader>
+                            <input type="text" ref={inputRef} maxLength={30}/>
+                        </S.CreateScrapFolderContainer>
+                    </Popup>                    
                 </S.CreateScrapFolder>
             </S.ModalWrapper>
         )

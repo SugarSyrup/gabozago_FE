@@ -191,50 +191,26 @@ export const CreateScrapFolder = styled.div<{isOpen: boolean}>`
     align-items: center;
     
     overflow: hidden;
-    z-index: 40;
-    &::before {
-        content: "";
-        display: block;
-        position: absolute;
-        left: 0;
-        top:0;
-        bottom:0;
-        width: 100%;
-        height: 100vh;
-        opacity: 30%;
-        background-color: ${({ theme }) => theme.black};
-    }
+    z-index: 50;
 `
 
 export const CreateScrapFolderContainer = styled.div`
-    width: calc(100% - 40px);
-    background-color:white;
-    border-radius:10px;
-
-    padding: 18px 24px;
-
-    position:absolute;
-    bottom:12px;
-
-    position: absolute;
+    width:100%;
 
     display:flex;
     flex-direction:column;
-    gap: 13px;
+    gap: 14px;
 
     input {
         border:none;
         border-bottom:1px solid ${({theme}) => theme.gray03};
 
-        padding-top:5px;
-        padding-bottom:5px;
+        padding: 3px 0px;
 
         font-size: 14px;
         font-weight: 400;
-        line-height: 22px;
-        letter-spacing: 0.2px;
-
-        margin-bottom:12px;
+        line-height: 24px;
+        letter-spacing: 0.5px;
     }
 `
 
@@ -242,20 +218,8 @@ export const CreateScrapHeader = styled.div`
     display:flex;
     justify-content:space-between;
     align-items:center;
-
-    span {
-        font-size: 12px;
-        font-weight: 600;
-        line-height: 22px;
-        letter-spacing: 0.2px;
-    }
 `
 
 export const SaveText = styled.span`
     color:${({theme}) => theme.main};
-    text-align: right;
-    font-size: 12px;
-    font-weight: 600;
-    line-height: 22px;
-    letter-spacing: 0.2px;
 `
