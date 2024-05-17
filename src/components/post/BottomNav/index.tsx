@@ -16,9 +16,10 @@ interface Props {
     onCommentClick: () => void;
     bookmark:number;
     onShareClick: () => void;
+    onScrapClick: () => void;
 }
 
-function BottomNav({postId, isClap, claps, comment, onCommentClick, bookmark, onShareClick}: Props) {
+function BottomNav({postId, isClap, claps, comment, onCommentClick, bookmark, onShareClick, onScrapClick}: Props) {
     return(
         <S.Navigation>
             <S.NavigationItem onClick={() => {
@@ -46,7 +47,7 @@ function BottomNav({postId, isClap, claps, comment, onCommentClick, bookmark, on
                 <span>{comment}</span>
             </S.NavigationItem>
             <S.NavigationItem onClick={() => {
-                //[SugarSyrup] @TODO: 북마크 기능 가져오기 from 숏폼
+                onScrapClick();
             }}>
                 <BookMarkIcon />
                 <span>{bookmark}</span>

@@ -23,6 +23,7 @@ import { get } from "../../utils/api";
 import useModal from "../../hooks/useModal";
 import Comment from "../../components/journal/Comment";
 import useAlert from "../../hooks/useAlert";
+import useScrapModal from "../../components/video/useScrapModal";
 
 interface TArticle {
 	"title": string,
@@ -87,6 +88,10 @@ function ArticlePage() {
     const stationRefs = useRef<null[] | HTMLDivElement[]>([]);
 
     const {Modal, modalOpen, modalClose, isOpend} = useModal({});
+    const {ScrapModal, scrapModalOpen, scrapModalClose} = useScrapModal({
+        id: Number(id),
+        type: "article"
+    });
     const {Alert, alertOpen, alertClose} = useAlert({
         Content: <Typography.Title size="md" color="white">URL이 복사되었습니다.</Typography.Title>,
     });
@@ -99,7 +104,6 @@ function ArticlePage() {
     // }, [])
 
     useEffect(() => {
-        console.log(JSON.parse(data.content));
         if(localStorage.getItem('access_token')) {
             setIsLogin(true);
         } else {
@@ -110,8 +114,9 @@ function ArticlePage() {
     return(
         <>
         {data && 
-            <PageTemplate nav={<BottomNav postId="123" isClap={data.isClapped} claps={data.claps} comment={data.commentCount} onCommentClick={() => {modalOpen()}} bookmark={data.bookmark} onShareClick={() => {alertOpen()}}/>}>
+            <PageTemplate nav={<BottomNav postId="123" isClap={data.isClapped} claps={data.claps} comment={data.commentCount} onScrapClick={() => {scrapModalOpen()}} onCommentClick={() => {modalOpen()}} bookmark={data.bookmark} onShareClick={() => {alertOpen()}}/>}>
                 <Alert />
+                <ScrapModal />
                 <S.ModalWrapper isOpen={isOpend}>
                     <Modal>
                         <Comment id={1} commentInputPosition="bottom"/>
