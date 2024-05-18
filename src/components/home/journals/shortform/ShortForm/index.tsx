@@ -2,9 +2,9 @@ import * as S from "./style";
 import YouTube from "react-youtube";
 import { Link } from "react-router-dom";
 import { Suspense, useEffect, useRef, useState } from "react";
-import FollowBtn from "../../../../common/FollowBtn";
 import UserIcon from "../../../../../assets/icons/user.svg?react";
 import LocationIcon from "../../../../../assets/icons/location.svg?react";
+import ThemeIcon from "../../../../../assets/icons/theme.svg?react";
 import BookMarkIcon from "../../../../../assets/icons/bookmark.svg?react";
 import FilledBookMarkIcon from "../../../../../assets/icons/bookmark_filled_white.svg?react";
 import CommentIcon from "../../../../../assets/icons/comment.svg?react";
@@ -42,10 +42,12 @@ function ShortForm({
   id,
   title,
   location,
+  theme,
   videoId,
   userid,
   username,
   profileImage,
+  content,
   clap: defaultClap,
   isClapped: defaultIsClapped,
   bookmark: defaultBookmark,
@@ -77,6 +79,7 @@ function ShortForm({
     autohide: 1,
     playlist: videoId,
   };
+  const [isContentOpened, setIsContentOpened] = useState<boolean>(false);
 
   const toggleClap = async () => {
     post<{ community: string; postId: number }>("/clap/community", {
@@ -163,15 +166,30 @@ function ShortForm({
             )}
             <span>{username}</span>
           </Link>
-          <FollowBtn isFollowing={false} />
         </p>
         <p>{title}</p>
-        <p>
+        <S.ContentBox
+          isOpened={isContentOpened}
+          onClick={() => {
+            setIsContentOpened((prev) => !prev);
+          }}
+        >
+          {content.split("\n").map((line) => (
+            <p>{line}</p>
+          ))}
+        </S.ContentBox>
+        <S.BottomInfoContainer>
           <span>
             <LocationIcon />
             {location}
           </span>
-        </p>
+          {theme.length > 0 && (
+            <span>
+              <ThemeIcon />
+              {theme.join(", ")}
+            </span>
+          )}
+        </S.BottomInfoContainer>
       </S.InfoBox>
       <S.ControlBox>
         <S.IconButton onClick={toggleClap}>
