@@ -56,13 +56,14 @@ function Comment({ id, commentInputPosition = "top", type }: Props) {
       ({ parentCommentId }) => parentCommentId === null
     );
   };
+
   const getComments = async (id: number) => {
     const { data } = await get<TComment[]>(`community/${type}/${id}/comment`);
     console.dir(data);
     setComments(parseComments(data));
   };
 
-  const submitComment = async (parentCommentId = null) => {
+  const submitComment = async (parentCommentId: number | null) => {
     await post<{
       shortformId: number;
       parentCommentId: number | null;
@@ -91,7 +92,7 @@ function Comment({ id, commentInputPosition = "top", type }: Props) {
         position={commentInputPosition}
         onSubmit={(e) => {
           e.preventDefault();
-          submitComment(reply.isReplyMode && reply.parentCommentId);
+          submitComment(reply.isReplyMode ? reply.parentCommentId : null);
         }}
       >
         <S.UserProfileImg />
