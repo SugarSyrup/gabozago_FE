@@ -21,7 +21,7 @@ export const YoutubeContainer = styled.div`
 
   &::after {
     position: absolute;
-    bottom: 0;
+    bottom: 80px;
     content: "";
     display: block;
     width: 100%;
@@ -30,7 +30,7 @@ export const YoutubeContainer = styled.div`
       180deg,
       rgba(255, 255, 255, 0) 0%,
       rgba(0, 0, 0, 0.2) 30%,
-      rgba(0, 0, 0, 0.5) 80%
+      rgba(0, 0, 0, 0.8) 100%
     );
   }
 `;
