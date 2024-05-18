@@ -76,6 +76,7 @@ function ShortFormPage() {
             <Comment
               id={shortforms[focusIndex].id}
               commentInputPosition="bottom"
+              type={"short-form"}
             />
           </Modal>
           <Popup>

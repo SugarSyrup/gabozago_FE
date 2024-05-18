@@ -8,6 +8,7 @@ interface Props {
 
 interface Menu {
   icon: JSX.Element;
+  iconColor?: "gray";
   name: string;
   onClick: MouseEventHandler;
 }
@@ -15,8 +16,8 @@ interface Menu {
 function MenuOptionList({ menus }: Props) {
   return (
     <S.MenuList>
-      {menus.map(({ icon, name, onClick }) => (
-        <S.MenuItem onClick={onClick}>
+      {menus.map(({ icon, iconColor, name, onClick }) => (
+        <S.MenuItem color={iconColor} onClick={onClick}>
           {icon}
           <Typography.Body size="lg">{name}</Typography.Body>
         </S.MenuItem>

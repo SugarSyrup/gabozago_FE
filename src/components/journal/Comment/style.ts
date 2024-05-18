@@ -30,7 +30,7 @@ export const Contents = styled.div<{ position: "bottom" | "top" }>`
     position === "bottom"
       ? css`
           height: 80vh;
-          padding: 50px 15px 120px;
+          padding: 35px 0 120px;
           overflow-y: auto;
         `
       : css`
@@ -123,7 +123,6 @@ export const SendButton = styled.button<{ disabled: boolean }>`
 export const CommentList = styled.ol`
   display: flex;
   flex-direction: column;
-  gap: 15px;
 `;
 
 export const NoCommentBox = styled.div`

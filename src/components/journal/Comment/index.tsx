@@ -2,41 +2,80 @@ import * as S from "./style";
 import Heading from "../../common/Heading";
 import SendIcon from "../../../assets/icons/send.svg?react";
 import CommentItem, { Comment as TComment } from "../CommentItem";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { get, post } from "../../../utils/api";
+
+interface TParsedComment extends TComment {
+  replys: TComment[];
+}
 
 interface Props {
   id: number;
   commentInputPosition?: "bottom" | "top";
+  type: "short-form" | "article" | "video" | "report" | "travelog";
 }
 
-function Comment({ id, commentInputPosition = "top" }: Props) {
-  const [parentCommentId, setParentCommentId] = useState<number | null>(null);
+function Comment({ id, commentInputPosition = "top", type }: Props) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [reply, setReply] = useState<{
+    isReplyMode: boolean;
+    parentCommentId: number | null;
+  }>({
+    isReplyMode: false,
+    parentCommentId: null,
+  });
   const [comment, setComment] = useState<string>("");
-  const [comments, setComments] = useState<TComment[]>([]);
+  const [comments, setComments] = useState<TParsedComment[]>([]);
 
-  const getComments = async (id: number) => {
-    const { data } = await get<TComment[]>(
-      `community/short-form/${id}/comment`
+  const parseComments = (comments: TComment[]): TParsedComment[] => {
+    const parsedComments: TParsedComment[] = [];
+    const commentMap: { [key: number]: TParsedComment } = {};
+
+    // 1. 모든 댓글을 순회하며 commentMap에 저장
+    comments.forEach((comment) => {
+      const parsedComment: TParsedComment = {
+        ...comment,
+        replys: [],
+      };
+      commentMap[comment.id] = parsedComment;
+      parsedComments.push(parsedComment);
+    });
+
+    // 2. 모든 댓글을 다시 순회하며 대댓글 관계 설정
+    parsedComments.forEach((comment) => {
+      if (comment.parentCommentId !== null) {
+        const parentComment = commentMap[comment.parentCommentId];
+        if (parentComment && parentComment.id !== comment.id) {
+          parentComment.replys.push(comment);
+        }
+      }
+    });
+
+    // 3. 배열에서 parentCommentId 있는 댓글 제거
+    return parsedComments.filter(
+      ({ parentCommentId }) => parentCommentId === null
     );
-    setComments(data);
+  };
+  const getComments = async (id: number) => {
+    const { data } = await get<TComment[]>(`community/${type}/${id}/comment`);
+    console.dir(data);
+    setComments(parseComments(data));
   };
 
-  const submitComment = async () => {
+  const submitComment = async (parentCommentId = null) => {
     await post<{
       shortformId: number;
       parentCommentId: number | null;
       content: string;
-    }>(`/community/short-form/comment`, {
+    }>(`/community/${type}/comment`, {
       shortformId: id,
-      parentCommentId: null,
+      parentCommentId: parentCommentId,
       content: comment,
     });
 
     getComments(id);
     setComment("");
   };
-
   useEffect(() => {
     getComments(id);
   }, []);
@@ -52,7 +91,7 @@ function Comment({ id, commentInputPosition = "top" }: Props) {
         position={commentInputPosition}
         onSubmit={(e) => {
           e.preventDefault();
-          submitComment();
+          submitComment(reply.isReplyMode && reply.parentCommentId);
         }}
       >
         <S.UserProfileImg />
@@ -62,6 +101,7 @@ function Comment({ id, commentInputPosition = "top" }: Props) {
             placeholder="댓글 달기..."
             maxLength={1500}
             value={comment}
+            ref={inputRef}
             onChange={(e) => {
               setComment(e.target.value);
             }}
@@ -71,12 +111,27 @@ function Comment({ id, commentInputPosition = "top" }: Props) {
           </S.SendButton>
         </S.CommentInputControlBox>
       </S.CommentInputForm>
-      <S.Contents position={commentInputPosition}>
+      <S.Contents
+        position={commentInputPosition}
+        onClick={() => {
+          if (reply.isReplyMode) {
+            setReply({ isReplyMode: false, parentCommentId: null });
+          }
+        }}
+      >
         {comments && comments.length !== 0 ? (
           <S.CommentList>
             {comments.map((item) => (
               <li key={`comment-shortform-${item.id}`}>
-                <CommentItem {...item} replys={[item, item, item]} />
+                <CommentItem
+                  {...item}
+                  inputRef={inputRef}
+                  reply={reply}
+                  setReply={setReply}
+                  type={type}
+                  // isMine={false}
+                  isMine={true} // @todo: 현재 내 댓글인지 알 수 있는 방법이 없음, 추후 수정 필요
+                />
               </li>
             ))}
           </S.CommentList>
