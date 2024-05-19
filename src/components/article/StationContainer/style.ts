@@ -1,13 +1,29 @@
 import styled from "styled-components";
 
+export const ModalWrapper = styled.div<{isOpen: boolean}>`
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index:${({isOpen}) => isOpen? 0 : -10};
+
+    margin: auto;
+    max-width: 500px;
+    max-height: 100vh;
+    width: 100%;
+    height: 100vh;
+`
 
 export const StationList = styled.ol<{isBackground: boolean}>`
+
     display:flex;
     flex-direction:column;
     justify-content:flex-start;
 
     width:100%;
     padding:12px 20px;
+    padding-bottom:${({isBackground}) => !isBackground && '82px' };
     background-color:${({isBackground, theme}) => isBackground ? theme.blue05 : "white"};
     border-radius:6px;
 `
@@ -65,6 +81,7 @@ export const TextContainer = styled.a<{
     text-decoration:none;
 
     border-bottom:${({theme, isLast}) => !isLast && `1px solid ${theme.gray03}`};
+    cursor:pointer;
 `
 
 export const StationNumber = styled.span`

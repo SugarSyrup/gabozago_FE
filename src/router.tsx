@@ -40,6 +40,7 @@ import FAQPage from "./pages/cscenter/FAQPage";
 import FAQDetailPage from "./pages/cscenter/FAQDetailPage";
 import InquiryPage from "./pages/cscenter/InquiryPage";
 import InquiryHistoryPage from "./pages/cscenter/InquiryHistoryPage";
+import ArticleTestPage from "./pages/ArticleTestPage";
 
 const router = createBrowserRouter([
   {
@@ -191,56 +192,13 @@ const router = createBrowserRouter([
     path: "/place/:id",
     element: <PlacePage />,
   },
-  /* ---- 고객센터 페이지 ---- */
+  // 아티클 
   {
-    // 고객센터/도움말
-    path: "/cscenter",
-    element: <CSCenterPage />,
+    path:"/article/test",
+    element:<ArticleTestPage />
   },
   {
-    // FAQ 페이지
-    path: "/cscenter/faq",
-    element: <FAQPage />,
-  },
-  {
-    // FAQ 상세 페이지
-    path: "/cscenter/faq/:id",
-    element: <FAQDetailPage />,
-  },
-  {
-    // 문의 하기
-    path: "/cscenter/inquiry",
-    element: <InquiryPage />,
-  },
-  {
-    // 내 문의 내역
-    path: "/cscenter/history",
-    element: <InquiryHistoryPage />,
-  },
-  {
-    // 공지사항
-    path: "/cscenter/announce",
-    element: <AnnouncePage />,
-  },
-  {
-    // 공지사항 상세보기
-    path: "/cscenter/announce/:id",
-    element: <AnnounceDetailPage />,
-  },
-  {
-    // 의견 보내기
-    path: "/cscenter/feedback",
-    element: <FeedBackPage />,
-  },
-  {
-    // 장소 페이지
-    path: "/place/:id",
-    element: <PlacePage />,
-  },
-  // 기타
-  {
-    // 아티클 
-    path:"/article",
+    path:"/article/:id",
     element:<ArticlePage />
   },
   {

@@ -1,5 +1,6 @@
 import styled from "styled-components"
 
+
 export const ArticleItem = styled.div<{opacity: number}>`
     display:flex;
     flex-direction:column;
@@ -20,12 +21,6 @@ export const ThumbnailWrapper = styled.div`
     overflow:hidden;
 
     background-color:${({theme}) => theme.gray};
-
-    div{
-        position:absolute;
-        bottom:15px;
-        left:15px;
-    }
 
     svg{
         width:40px;

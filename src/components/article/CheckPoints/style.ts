@@ -1,37 +1,42 @@
 import styled from "styled-components";
 
 export const CheckPointList = styled.div`
+    width:100%;
     margin-top:30px;
     margin-bottom:15px;
 
     border-radius: 4px;
     border: 1px solid ${({theme}) => theme.main};
-    padding:14px 16px;
+    padding:10px 20px 15px 20px;
 
     display:flex;
     flex-direction:column;
     gap:14px;
 `
 
-export const CheckPointTitle = styled.span`
-    color: ${({theme}) => theme.black};
-    font-size: 14px;
-    font-weight: 700;
-
-    margin-bottom:-4px;
-`
 
 export const CheckPointItem = styled.div`
     display:flex;
     flex-direction:row;
     justify-content:flex-start;
-    align-items:center;
+    align-items:flex-start;
     gap:11px;
+
+    svg{
+        width:20px;
+        height:20px;
+
+        path{
+            fill:${({theme}) => theme.main};
+        }
+    }
 `
 
 export const CheckPointText = styled.div`
     display:flex;
     flex-direction:column;
+    justify-content:flex-start;
+    color: ${({theme}) => theme.black};
 `
 
 export const CheckPoint = styled.span`

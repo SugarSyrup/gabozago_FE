@@ -7,12 +7,11 @@ interface Props {
 }
 
 function Interview({content}:Props){
+
     return(
         <S.Container>
             <InterviewIcon />
-            <S.Content>
-                {content}
-            </S.Content>
+            <S.Content dangerouslySetInnerHTML={{ __html: content}} />
         </S.Container>
     )
 }

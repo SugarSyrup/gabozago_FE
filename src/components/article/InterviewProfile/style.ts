@@ -7,10 +7,12 @@ export const Container = styled.div`
     display:flex;
     flex-direction:column;
     align-items:center;
+    position:relative;
 `
 
 export const Img = styled.img`
-    width:100%;
+    display:block;
+    width: 100%;
     object-fit:contain;
 `
 
@@ -23,6 +25,8 @@ export const Infomation = styled.div`
     display:flex;
     flex-direction:column;
     align-items:flex-start;
+
+    color:${({theme}) => theme.main};
 `
 
 export const Name = styled.span`
@@ -38,8 +42,11 @@ export const Name = styled.span`
 `
 
 export const Division = styled.span`
-    color: ${({theme}) => theme.blue02};
+    color: ${({theme}) => theme.main};
+
     font-size: 12px;
+
+    font-weight: 600;
     line-height: 20px;
     letter-spacing: 0.1px;
 `

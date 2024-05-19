@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-import SearchIcon from "../../../assets/icons/search.svg?react";
 import PageTemplate from "../../../components/common/PageTemplate";
 import TabBar from "../../../components/common/TabBar";
 
@@ -30,13 +29,6 @@ function HomePage() {
             fontSize="20px"
             color="#424242"
           />
-          <S.SearchButton
-            onClick={() => {
-              alert("검색");
-            }}
-          >
-            <SearchIcon />
-          </S.SearchButton>
         </S.Header>
       }
     >
