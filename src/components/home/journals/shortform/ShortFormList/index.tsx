@@ -24,7 +24,7 @@ function ShortFormList({ data }: Props) {
         <S.ListItem>
           <Link to={`/journal/shortform/${id}`}>
             <S.Container>
-              <S.ThumbnailImage src={'http://img.youtube.com/vi/' + videoId + '/default.jpg'} alt="" />
+              <S.ThumbnailImage src={'http://img.youtube.com/vi/' + videoId + '/oar2.jpg'} alt="" />
               <S.Views>
                 <Typography.Label size="sm" color="white">조회수 {views}</Typography.Label>
               </S.Views>
