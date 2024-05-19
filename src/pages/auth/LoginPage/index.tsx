@@ -48,7 +48,7 @@ function LoginPage() {
 
     if (response.data.status === "ACTIVE") {
       localStorage.setItem("access_token", response.data.access);
-      localStorage.setItem("refresh_token", response.data.access);
+      localStorage.setItem("refresh_token", response.data.refresh);
       navigate("/");
     } else {
       if (response.data.user_data) {
