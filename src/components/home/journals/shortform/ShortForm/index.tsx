@@ -14,6 +14,7 @@ import PlaceIcon from "../../../../../assets/icons/place.svg?react";
 import ShareIcon from "../../../../../assets/icons/share.svg?react";
 import { post } from "../../../../../utils/api";
 import useModal from "../../../../../hooks/useModal";
+import useScrapModal from "../../../../video/useScrapModal";
 
 export interface TShortForm {
   id: number;
@@ -59,7 +60,6 @@ function ShortForm({
   modalOpen,
   popupOpen,
 }: Props) {
-  // @todo: 유저정보에서 좋아요 정보 가져와 비교 => 좋아요 활성화/비활성화 관리
   // @todo: 스크랩 데이터에서 스크랩됐는지 비교 => 북마크 활성화/비활성화 관리
   const [clap, setClap] = useState<{
     count: number;
@@ -90,13 +90,9 @@ function ShortForm({
     title: "",
     handle: true,
   });
-  const {
-    Modal: ScrapModal,
-    modalOpen: scrapModalOpen,
-    modalClose: scrapModalClose,
-  } = useModal({
-    title: "",
-    handle: true,
+  const { ScrapModal, scrapModalOpen, scrapModalClose } = useScrapModal({
+    id: id,
+    type: "short-form",
   });
 
   const toggleClap = async () => {
@@ -148,12 +144,8 @@ function ShortForm({
   return (
     <>
       <PlacesModal>장소 모달</PlacesModal>
-      <ScrapModal>스크랩 모달</ScrapModal>
-      <S.Container
-        onScroll={() => {
-          console.log("scroll");
-        }}
-      >
+      <ScrapModal />
+      <S.Container>
         <S.YoutubeContainer ref={containerRef}>
           <Suspense
             fallback={<S.YoutubeFallback>로딩 중...</S.YoutubeFallback>}
@@ -226,7 +218,7 @@ function ShortForm({
           <S.IconButton
             onClick={(e) => {
               e.preventDefault();
-              toggleBookmark();
+              // toggleBookmark();
               scrapModalOpen();
             }}
           >
