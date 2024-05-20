@@ -34,6 +34,7 @@ import FAQPage from "./pages/cscenter/FAQPage";
 import FAQDetailPage from "./pages/cscenter/FAQDetailPage";
 import InquiryPage from "./pages/cscenter/InquiryPage";
 import InquiryHistoryPage from "./pages/cscenter/InquiryHistoryPage";
+import PlaceAddPage from "./pages/mytrip/PlaceAddPage";
 
 const router = createBrowserRouter([
   {
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
   {
     path: "/mytrip/create/location",
     element: <MyTripLocationSelectPage />,
+  },
+  {
+    path: "/mytrip/place/:id",
+    element: <PlaceAddPage />,
   },
   {
     path: "/mytrip/:id",

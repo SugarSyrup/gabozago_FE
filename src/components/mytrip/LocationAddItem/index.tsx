@@ -1,32 +1,25 @@
-import * as S from "./style";
+import React, { Dispatch, useState } from "react";
 
 import LogoIcon from "../../../assets/icons/logo_small.svg?react";
 import CalendarIcon from "../../../assets/icons/calendar.svg?react";
 import LocationIcon from "../../../assets/icons/location.svg?react";
+import { TMyTravelItem } from "../../../pages/mytrip/PlaceAddPage";
+
 import Typography from "../../common/Typography";
-import { useState } from "react";
+
+import * as S from "./style";
 
 interface Props {
-    "id": number,
-    "name": string,
-    "departureDate": string,
-    "arrivalDate": string,
-    "location": string[],
-    "days": {
-        "day": number,
-        "date": string,
-        "dayOfWeek": string,
-    }[],
-    "thumbnailURL": string,
+    currentSelectedItemId: number;
+    setCurrentSelectedItem: Dispatch<React.SetStateAction<{id:number, day?:number}>>;
 }
 
-function LocationAddItem({id, name, departureDate, arrivalDate, location, days, thumbnailURL}: Props) {
-    const [isItemClick, setIsItemClick] = useState<boolean>(false);
+function LocationAddItem({id, name, departureDate, arrivalDate, location, days, thumbnailURL, currentSelectedItemId ,setCurrentSelectedItem}: TMyTravelItem & Props) {
     const [clickedDay, setClickedDay] = useState<number>(-1);
 
     return(
         <S.Container>
-            <S.InfoContainer onClick={() => {setIsItemClick(prev => !prev)}}>
+            <S.InfoContainer onClick={() => {setCurrentSelectedItem({id: id})}}>
                 <S.MyTravelItemThumbnailWrapper>
                     {
                         thumbnailURL !== "" ?
@@ -48,11 +41,14 @@ function LocationAddItem({id, name, departureDate, arrivalDate, location, days, 
                 </S.MyTravelItemTextContainer>
             </S.InfoContainer>
             {
-                isItemClick &&
+                currentSelectedItemId === id &&
                 <S.DayList>
                     {
                         days.map((day, index) => 
-                            <S.DayItem isClicked={index === clickedDay} onClick={() => {setClickedDay(index)}}>
+                            <S.DayItem isClicked={index === clickedDay} onClick={() => {
+                                    setClickedDay(index);
+                                    setCurrentSelectedItem({id: id, day: day.day});
+                                }}>
                                 <Typography.Label size="lg" color="inherit">Day {day.day}</Typography.Label>
                                 <Typography.Label size="sm">{day.date}({day.dayOfWeek})</Typography.Label>
                             </S.DayItem>

@@ -157,6 +157,7 @@ export const Button = styled.div`
     justify-content:center;
     align-items:center;
     gap:10px;
+    cursor:pointer;
 
     svg{
         width:18px;

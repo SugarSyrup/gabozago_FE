@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import LocationIcon from "../../assets/icons/location.svg?react";
 import PhoneIcon from "../../assets/icons/phone.svg?react";
@@ -36,11 +36,11 @@ type TData = {
 
 
 function PlacePage() {
+    const navigate = useNavigate();
     const {id} = useParams();
     const [data, setData] = useState<TData>();
     const [imageURL, setImageURL] = useState<string>("");
-    const {CourseModal, courseModalOpen, courseModalClose, setCourseModalData} = useCourseModal({id: Number(id)});
-    const {ScrapModal, scrapModalOpen, scrapModalClose, setScrapModalData} = useScrapModal({id: Number(id)});
+    //const {CourseModal, courseModalOpen, courseModalClose, setCourseModalData} = useCourseModal({id: Number(id)});
 
     useEffect(() => {
         get<TData>(`${import.meta.env.VITE_BASE_URL}/place/${id}`)
@@ -55,8 +55,6 @@ function PlacePage() {
             {
                 data !== undefined && 
                 <S.ContentContainer>
-                    <CourseModal />
-                    <ScrapModal />
                     {
                         data.image.length === 0 && imageURL === ""?
                         <S.ImgRegistContainer>
@@ -124,11 +122,11 @@ function PlacePage() {
                             }]}
                         />
                         <S.Buttons>
-                            <S.Button onClick={() => courseModalOpen()}>
+                            <S.Button onClick={() => {navigate(`/mytrip/place/${id}`)}}>
                                 <CalendarAddIcon />
                                 <Typography.Label size="lg">내 일정에 추가하기</Typography.Label>
                             </S.Button>
-                            <S.Button onClick={() => scrapModalOpen()}>
+                            <S.Button>
                                 <ScrapIcon />
                                 <Typography.Label size="lg">장소 스크랩에 저장</Typography.Label>
                             </S.Button>
