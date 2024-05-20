@@ -14,10 +14,12 @@ import * as S from "./style";
 import { Link } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { datesState } from "../../../recoil/mytrip/createData";
+import { createTravelState } from "../../../recoil/mytrip/createTravelState";
 
 function MyTripPage() {
   const FLAG = false;
   const setDates = useSetRecoilState(datesState);
+  const setCreactTravelState = useSetRecoilState(createTravelState);
 
   function initializeDates() {
     setDates({
@@ -55,7 +57,10 @@ function MyTripPage() {
               highlight={false}
             />
           </S.ScheduleCardContainer>
-          <Link to="/mytrip/create" onClick={() => initializeDates()}>
+          <Link to="/mytrip/create" onClick={() => {
+            setCreactTravelState("create");
+            initializeDates()
+          }}>
             <S.CreateMyTripScheduleBtn>
               <CirclePlusIcon />
               새로운 여행 일정 만들기
@@ -82,7 +87,10 @@ function MyTripPage() {
             </S.CreateMyTripTextWrapper>
             <S.SeperateLine />
             <S.ButtonWrapper>
-              <Link to="/mytrip/create" onClick={() => initializeDates()}>
+              <Link to="/mytrip/create" onClick={() => {
+                setCreactTravelState("create");
+                initializeDates()
+              }}>
                 <Button size="sm" type="text">
                   <S.ButtonText>
                     일정 생성하기
@@ -132,7 +140,10 @@ function MyTripPage() {
         />
       </S.ContentContainer>
 
-      <Link to="/mytrip/create" onClick={() => initializeDates()}>
+      <Link to="/mytrip/create" onClick={() => {
+        setCreactTravelState("create");
+        initializeDates()
+      }}>
         <S.FloatingBtnWrapper>
           <BlueCirclePlusIcon />
         </S.FloatingBtnWrapper>

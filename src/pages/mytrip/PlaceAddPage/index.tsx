@@ -1,17 +1,21 @@
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
 
 import InfomationIcon from "../../../assets/icons/exclamation_circle.svg?react";
 import XIcon from "../../../assets/icons/x.svg?react";
 import PageHeader from "../../../components/common/PageHeader";
 import PageTemplate from "../../../components/common/PageTemplate";
 import Typography from "../../../components/common/Typography";
-
-import * as S from "./style";
-import { useEffect, useState } from "react";
 import LocationAddItem from "../../../components/mytrip/LocationAddItem";
-import { get, post } from "../../../utils/api";
+
+import { createTravelState } from "../../../recoil/mytrip/createTravelState";
 import usePopup from "../../../hooks/usePopup";
 import useAlert from "../../../hooks/useAlert";
+import { get, post } from "../../../utils/api";
+
+import * as S from "./style";
+
 
 export interface TMyTravelItem {
     "id": number,
@@ -37,6 +41,7 @@ const PlaceAddPage = () => {
         name: string,
     }>();
     const [currentSelectedItem, setCurrentSelectedItem] = useState<{id: number, day?: number}>({id: -1});
+    const setCreateTravelState = useSetRecoilState(createTravelState);
 
     const {Popup, popupOpen, popupClose} = usePopup();
     const {Alert, alertOpen, alertClose} = useAlert({
@@ -152,7 +157,10 @@ const PlaceAddPage = () => {
             </S.Header>
             <S.MyTravelHeader>
                 <Typography.Title size="lg">{data.length !== 0 && "나의 다가오는 여행"}</Typography.Title>
-                <S.CreateNewTravelButton onClick={() => {navigate('/mytrip/create')}}>
+                <S.CreateNewTravelButton onClick={() => {
+                    setCreateTravelState('add');
+                    navigate('/mytrip/create')
+                }}>
                     <Typography.Label size="lg" color="inherit">새로운 여행 일정 만들기</Typography.Label>
                 </S.CreateNewTravelButton>
             </S.MyTravelHeader>

@@ -6,11 +6,14 @@ import { datesState } from "../../../recoil/mytrip/createData.ts";
 
 import Button from "../../common/Button/index.tsx";
 import Calendar from "../Calendar/index.tsx";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { createTravelState } from "../../../recoil/mytrip/createTravelState.ts";
 
+//[SugarSyrup] @TODO: CreateType에 따라 버튼의 동작 방식 변경
 function CalendarContainer() {
     const [dateClickFlag, setDateClickFlag] = useState<boolean>(true);
     const [dateDiff, setDateDiff] = useState<number>(-1);
+    const createType = useRecoilValue(createTravelState);
 
     const [dates, setDates] = useRecoilState(datesState);
 
