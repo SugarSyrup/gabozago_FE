@@ -14,8 +14,6 @@ import PageHeader from "../../components/common/PageHeader";
 import PageTemplate from "../../components/common/PageTemplate";
 import Typography from "../../components/common/Typography";
 import PlaceOperateTime from "../../components/journal/PlaceOperateTime";
-import useScrapModal from "../../components/video/useScrapModal";
-import useCourseModal from "../../components/video/useCourseModal";
 import PlaceGoogleMap from "../../components/journal/GoogleMap";
 import { get, post } from "../../utils/api";
 

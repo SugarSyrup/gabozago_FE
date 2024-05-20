@@ -19,7 +19,9 @@ function LocationAddItem({id, name, departureDate, arrivalDate, location, days, 
 
     return(
         <S.Container>
-            <S.InfoContainer onClick={() => {setCurrentSelectedItem({id: id})}}>
+            <S.InfoContainer onClick={() => {
+                setCurrentSelectedItem({id: id})
+            }}>
                 <S.MyTravelItemThumbnailWrapper>
                     {
                         thumbnailURL !== "" ?

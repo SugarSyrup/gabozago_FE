@@ -73,3 +73,66 @@ export const Button = styled.button<{isActive: boolean}>`
     justify-content: center;
     align-items: center;
 `
+
+export const PopupWrapper = styled.div`
+    width:100%;
+    height:100%;
+    max-width:500px;
+
+    margin-left:-20px;
+
+    position:fixed;
+    top:0;
+`
+
+export const PopupContentsContainer = styled.div`
+    width:100%;
+    padding:10px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+    align-items:center;
+    gap:20px;
+
+    svg{
+        width:40px;
+        height:40px;
+    }
+`
+
+export const PopupTextContainer = styled.div`
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+    span:last-child{
+        margin-top:10px;
+    }
+`
+
+export const PopupButtons = styled.div`
+    width:100%;
+    
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+`
+
+export const PopupButton = styled.button<{isMain: boolean}>`
+    width:100%;
+    padding-top:12px;
+    padding-bottom:12px;
+
+    border:none;
+    border-radius:30px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background-color: ${({isMain, theme}) => isMain ? "#F3F6FF" : theme.gray06};
+    color: ${({isMain, theme}) => isMain ? theme.main : theme.black};
+    cursor:pointer;
+`
