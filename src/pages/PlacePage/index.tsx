@@ -18,6 +18,7 @@ import PlaceGoogleMap from "../../components/journal/GoogleMap";
 import { get, post } from "../../utils/api";
 
 import * as S from "./style";
+import useAlert from "../../hooks/useAlert";
 
 type TData = {
     region: string,
@@ -38,7 +39,11 @@ function PlacePage() {
     const {id} = useParams();
     const [data, setData] = useState<TData>();
     const [imageURL, setImageURL] = useState<string>("");
-    //const {CourseModal, courseModalOpen, courseModalClose, setCourseModalData} = useCourseModal({id: Number(id)});
+
+    const [alertMessage, setAlertMessage] = useState<string>("");
+    const {Alert, alertOpen} = useAlert({
+        Content: <Typography.Body size="lg" color="white">{alertMessage}</Typography.Body>
+    });
 
     useEffect(() => {
         get<TData>(`${import.meta.env.VITE_BASE_URL}/place/${id}`)
@@ -50,6 +55,7 @@ function PlacePage() {
 
     return(
         <PageTemplate header={<PageHeader LeftItem={<BackButton />}><S.TopBarText>{data && data.name}</S.TopBarText></PageHeader>} nav={false}>
+            <Alert />
             {
                 data !== undefined && 
                 <S.ContentContainer>
@@ -124,7 +130,19 @@ function PlacePage() {
                                 <CalendarAddIcon />
                                 <Typography.Label size="lg">내 일정에 추가하기</Typography.Label>
                             </S.Button>
-                            <S.Button>
+                            <S.Button onClick={() => {
+                                post<{message: string}>('/folder/scrap/place', {
+                                    placeId: id
+                                }).then((response) => {
+                                    if(response.data.message === "Create Success") {
+                                        setAlertMessage(`${data.name}가 스크랩 되었습니다.`);
+                                    } else {
+                                        setAlertMessage(`${data.name}를 스크랩에서 삭제했습니다.`);
+                                    }
+
+                                    alertOpen();
+                                })
+                            }}>
                                 <ScrapIcon />
                                 <Typography.Label size="lg">장소 스크랩에 저장</Typography.Label>
                             </S.Button>
