@@ -3,6 +3,7 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 
 import SettingIcon from "../../../assets/icons/setting.svg?react";
 import UserIcon from "../../../assets/icons/user.svg?react";
+import { TUserProfile } from "../../../assets/types/TUserProfile";
 
 import PageTemplate from "../../../components/common/PageTemplate";
 import UserTrip from "../../../components/profile/UserTrip";
@@ -11,16 +12,6 @@ import Typography from "../../../components/common/Typography";
 
 import * as S from "./style";
 
-export interface TUserProfile {
-  id: number,
-  nickname: string,
-  description: string,
-  avatarURL: string,
-  clapCount: number,
-  scrapCount: number,
-  myTravelDay: number,
-  myTravelCount: number,
-}
 
 function ProfilePage() {
   const navigate = useNavigate();

@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 
+import { TUserProfile } from "./assets/types/TUserProfile";
 import MyTripPage from "./pages/mytrip/MyTripPage";
 import TestPage from "./pages/TestPage";
 import PlacePage from "./pages/PlacePage";
@@ -15,7 +16,7 @@ import ViewAllPage from "./pages/mytrip/ViewAllPage";
 import ScrapBookPage from "./pages/scrapbook/ScrapBookPage";
 import ScrapBookGroupPage from "./pages/scrapbook/ScrapBookGroupPage";
 
-import ProfilePage, { TUserProfile } from "./pages/profile/ProfilePage";
+import ProfilePage from "./pages/profile/ProfilePage";
 import UserEditPage from "./pages/profile/UserEditPage";
 import UserFollowPage from "./pages/profile/UserFollowPage";
 
@@ -118,6 +119,10 @@ const router = createBrowserRouter([
     // TODO : [LOGIN 기능 정의 이후] LOGIN 정보를 기반으로 접근 허용 / 거부
     path: "/profile/edit",
     element: <UserEditPage />,
+    loader: async () => {
+      const { data } = await get<TUserProfile>(`/user/profile`)
+      return data;
+    },
   },
   {
     path: "/profile/settings",

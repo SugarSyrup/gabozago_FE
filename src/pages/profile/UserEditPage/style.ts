@@ -22,6 +22,7 @@ export const SubmitBtn = styled.button<{ isActive: boolean }>`
   font-size: 16px;
   font-weight: ${({ isActive }) => (isActive ? 600 : 400)};
   letter-spacing: 0.2px;
+  cursor:pointer;
 `;
 
 export const Form = styled.form`
@@ -71,7 +72,7 @@ export const InputContainer = styled.div`
     letter-spacing: 0.2px;
   }
 
-  input {
+  input, textarea {
     width: 100%;
     padding: 10px 16px;
 
@@ -85,12 +86,18 @@ export const InputContainer = styled.div`
     box-shadow: none;
   }
 
-  input::placeholder {
+  input::placeholder,
+  textarea::placeholder {
     color: ${({ theme }) => theme.grey02};
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
     letter-spacing: 0.2px;
+  }
+
+  textarea {
+    height:84px;
+    resize:none;
   }
 `;
 
@@ -115,16 +122,17 @@ export const ExitButton = styled.button`
 `;
 
 export const PopupContainer = styled.div`
-  p {
-    text-align: center;
-    padding: 20px 0 38px;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 20px;
-    color: ${({ theme }) => theme.black};
-  }
+  width:100%;
+  padding-top:20px;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:30px;
 
   div {
+    width:calc(100% + 40px);
     margin: 0 -20px -20px;
     border-radius: 0 0 15px 15px;
     overflow: hidden;
@@ -142,9 +150,6 @@ export const PopupConfirmButton = styled.button<{
   border: 0;
   color: ${({ theme, type }) =>
     type === "secondary" ? theme.gray02 : theme.main};
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 20px;
   background-color: transparent;
 
   &:last-of-type {
