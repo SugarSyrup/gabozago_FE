@@ -9,11 +9,10 @@ import CalendarContainer from "../../../components/mytrip/CalendarContainer";
 
 function MyTripDatesSelectPage() {
   const navigate = useNavigate();
-  
   return (
     <>
       <PageTemplate nav={false}>
-        <div style={{ cursor: "pointer" }} onClick={() => {navigate(-1)}}>
+        <div style={{ cursor: "pointer" }} onClick={() => { navigate(-1) }}>
           <XIcon />
         </div>
         <S.HeadingWrapper>

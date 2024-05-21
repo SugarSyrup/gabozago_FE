@@ -1,4 +1,5 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 import LocationIcon from "../../assets/icons/location.svg?react";
 import PhoneIcon from "../../assets/icons/phone.svg?react";
@@ -6,84 +7,149 @@ import TimeIcon from "../../assets/icons/clock.svg?react";
 import LinkIcon from "../../assets/icons/web.svg?react";
 import CalendarAddIcon from "../../assets/icons/calendar_add_border.svg?react";
 import ScrapIcon from "../../assets/icons/bookmark.svg?react"
+import PlusIcon from "../../assets/icons/plus_circle_blue.svg?react";
 
 import BackButton from "../../components/common/BackButton";
 import PageHeader from "../../components/common/PageHeader";
 import PageTemplate from "../../components/common/PageTemplate";
+import Typography from "../../components/common/Typography";
 import PlaceOperateTime from "../../components/journal/PlaceOperateTime";
-import useScrapModal from "../../components/video/useScrapModal";
-import useCourseModal from "../../components/video/useCourseModal";
+import PlaceGoogleMap from "../../components/journal/GoogleMap";
+import { get, post } from "../../utils/api";
 
 import * as S from "./style";
-import PlaceGoogleMap from "../../components/journal/GoogleMap";
+import useAlert from "../../hooks/useAlert";
+
+type TData = {
+    region: string,
+    name: string,
+    theme: string,
+    address: string,
+    number: string,
+    opening_hours: string,
+    website: string,
+    image: string[],
+    latitude: string,
+    longitude: string,
+}
+
 
 function PlacePage() {
-    const thumbnailWrapperRef = useRef<HTMLDivElement>(null);
-    const {CourseModal, courseModalOpen, courseModalClose, setCourseModalData} = useCourseModal();
-    const {ScrapModal, scrapModalOpen, scrapModalClose, setScrapModalData} = useScrapModal();
+    const navigate = useNavigate();
+    const {id} = useParams();
+    const [data, setData] = useState<TData>();
+    const [imageURL, setImageURL] = useState<string>("");
+
+    const [alertMessage, setAlertMessage] = useState<string>("");
+    const {Alert, alertOpen} = useAlert({
+        Content: <Typography.Body size="lg" color="white">{alertMessage}</Typography.Body>
+    });
+
+    useEffect(() => {
+        get<TData>(`${import.meta.env.VITE_BASE_URL}/place/${id}`)
+            .then((response) => {
+                console.log(response.data);
+                setData(response.data)
+            });
+    }, [])
 
     return(
-        <PageTemplate header={<PageHeader LeftItem={<BackButton />}><S.TopBarText>모구모구 제과점</S.TopBarText></PageHeader>} nav={false}>
-            <CourseModal />
-            <ScrapModal />
-            <S.ThumbnailWrapper ref={thumbnailWrapperRef}>
-                <img src={"a.png"} />
-            </S.ThumbnailWrapper>
-            <S.ThumbnailEmpty padding={thumbnailWrapperRef.current?.offsetHeight}/>
-            <S.InfomationList>
-                <S.InfomationItem>
-                    <LocationIcon />
-                    <S.InfomationText>부산광역시 수영구 광안로49번길 27</S.InfomationText>
-                </S.InfomationItem>
-                <S.InfomationItem>
-                    <PhoneIcon />
-                    <S.InfomationText>070-8772-5959</S.InfomationText>
-                </S.InfomationItem>
-                <S.InfomationItem>
-                    <TimeIcon />
-                    <PlaceOperateTime />
-                </S.InfomationItem>
-                <S.InfomationItem>
-                    <LinkIcon />
-                    <S.InfomationLink to="/">인스타그램</S.InfomationLink>
-                </S.InfomationItem>
-            </S.InfomationList>
-            <PlaceGoogleMap center={{
-                lat: 37,
-                lng: 126
-            }} markers={[{
-                lat: 37,
-                lng: 126
-            }]}/>
-            <S.Buttons>
-                <S.Button onClick={() => courseModalOpen()}>
-                    <CalendarAddIcon />
-                    <span>내 일정에 추가하기</span>
-                </S.Button>
-                <S.Button onClick={() => scrapModalOpen()}>
-                    <ScrapIcon />
-                    <span>장소 스크랩에 저장</span>
-                </S.Button>
-            </S.Buttons>
-            <S.RecommendArticleTitle><strong>"모구모구 과자점"</strong>을 포함한 게시글이 있어요</S.RecommendArticleTitle>
-            <S.RecommendArticleList>
-                <S.RecommendArticleItem>
-                    <img src="a.png" />
-                    <span>10년지기 친구들과 다녀온 2박3일 123123123</span>
-                    <span>여기가 그 유명한 <strong>모구모구 과자점</strong>이였어요!</span>
-                </S.RecommendArticleItem>
-                <S.RecommendArticleItem>
-                    <img src="a.png" />
-                    <span>10년지기 친구들과 다녀온 2박3일 123123123</span>
-                    <span>여기가 그 유명한 <strong>모구모구 과자점</strong>이였어요!</span>
-                </S.RecommendArticleItem>
-                <S.RecommendArticleItem>
-                    <img src="a.png" />
-                    <span>10년지기 친구들과 다녀온 2박3일 123123123</span>
-                    <span>여기가 그 유명한 <strong>모구모구 과자점</strong>이였어요!</span>
-                </S.RecommendArticleItem>
-            </S.RecommendArticleList>
-            <S.ThumbnailEmpty padding={50}/>
+        <PageTemplate header={<PageHeader LeftItem={<BackButton />}><S.TopBarText>{data && data.name}</S.TopBarText></PageHeader>} nav={false}>
+            <Alert />
+            {
+                data !== undefined && 
+                <S.ContentContainer>
+                    {
+                        data.image.length === 0 && imageURL === ""?
+                        <S.ImgRegistContainer>
+                            <label htmlFor="placeImgRegist">
+                                <PlusIcon/>
+                            </label>
+                            <input id="placeImgRegist" type="file" accept="image/*" onInput={(e) => {
+                                if(e.currentTarget.files){
+                                    const file = e.currentTarget.files[0];
+                                    const reader = new FileReader();
+                      
+                                    reader.readAsDataURL(file);
+                                    reader.onloadend = () => {
+                                      setImageURL(reader.result as string);
+                                    }
+
+                                    const reqData = new FormData();
+                                    reqData.append('placeId', id as string);
+                                    reqData.append('image', e.currentTarget.value);
+                                    
+                                    post(`${import.meta.env.VITE_BASE_URL}/place/image`, reqData, {
+                                        headers: {
+                                            "Content-Type":"multipart/form-data"
+                                        }
+                                    })
+                                }
+                            }} />
+                            <Typography.Title size="md" color="inherit">이 장소의 첫 번째 사진을 등록해주세요!</Typography.Title>
+                        </S.ImgRegistContainer>
+                        :
+                        <S.ImgSlider>
+                            {data.image.map((img) => <img src={img} />)}
+                        </S.ImgSlider>
+                    }
+                    {imageURL && <img src={imageURL} />}
+                    <S.ContentList>
+                        <S.InfomationList>
+                            <S.InfomationItem>
+                                <LocationIcon />
+                                <S.InfomationText>{data.address}</S.InfomationText>
+                            </S.InfomationItem>
+                            <S.InfomationItem>
+                                <PhoneIcon />
+                                <S.InfomationText>{data.number}</S.InfomationText>
+                            </S.InfomationItem>
+                            { data.opening_hours !== "" &&
+                                <S.InfomationItem>
+                                    <TimeIcon />
+                                    <PlaceOperateTime opening_hours={data.opening_hours}/>
+                                </S.InfomationItem>
+                            }
+                            <S.InfomationItem>
+                                <LinkIcon />
+                                <S.InfomationLink to={data.website}>인스타그램</S.InfomationLink>
+                            </S.InfomationItem>
+                        </S.InfomationList>
+                        <PlaceGoogleMap
+                            height="270px"
+                            center={{
+                                lat: Number(data.latitude),
+                                lng: Number(data.longitude)
+                            }} markers={[{
+                                lat: Number(data.latitude),
+                                lng: Number(data.longitude)
+                            }]}
+                        />
+                        <S.Buttons>
+                            <S.Button onClick={() => {navigate(`/mytrip/place/${id}`)}}>
+                                <CalendarAddIcon />
+                                <Typography.Label size="lg">내 일정에 추가하기</Typography.Label>
+                            </S.Button>
+                            <S.Button onClick={() => {
+                                post<{message: string}>('/folder/scrap/place', {
+                                    placeId: id
+                                }).then((response) => {
+                                    if(response.data.message === "Create Success") {
+                                        setAlertMessage(`${data.name}가 스크랩 되었습니다.`);
+                                    } else {
+                                        setAlertMessage(`${data.name}를 스크랩에서 삭제했습니다.`);
+                                    }
+
+                                    alertOpen();
+                                })
+                            }}>
+                                <ScrapIcon />
+                                <Typography.Label size="lg">장소 스크랩에 저장</Typography.Label>
+                            </S.Button>
+                        </S.Buttons>
+                    </S.ContentList>
+                </S.ContentContainer>
+            }
         </PageTemplate>
     )
 }

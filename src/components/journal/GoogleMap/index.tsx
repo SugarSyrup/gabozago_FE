@@ -2,6 +2,8 @@ import { useJsApiLoader, GoogleMap, Marker } from "@react-google-maps/api";
 import { useCallback, useState } from "react";
 
 interface Props {
+    width?: string;
+    height?: string;
     markers?: {
         lat: number,
         lng: number,
@@ -12,7 +14,7 @@ interface Props {
     }
 }
 
-function PlaceGoogleMap({markers, center} : Props) {
+function PlaceGoogleMap({width, height, markers, center} : Props) {
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
         googleMapsApiKey: import.meta.env.VITE_GOOGLEMAP_KEY,
@@ -27,35 +29,37 @@ function PlaceGoogleMap({markers, center} : Props) {
     }, [])
     const onUnmount = useCallback(function callback(map: any) {
         setMap(null)
-      }, [])
+    }, [])
 
-      return(
-        <>
-            {
-                isLoaded && <GoogleMap
-                    mapContainerStyle={{
-                        width: '100%',
-                        height: '100px',
-                        borderRadius: '6px',
-                    }}
-                    center={center}
-                    onLoad={onLoad}
-                    onUnmount={onUnmount}
-                    options={{
-                        fullscreenControl:false,
-                        keyboardShortcuts:false,
-                        mapTypeControl:false,
-                    }}
-                >
-                    {
-                        markers?.map((marker) => 
-                            <Marker position={marker} />
-                        )
-                    }
-                </GoogleMap>
-            }
-        </>
-      )
+    return(
+    <>
+        {
+            isLoaded && <GoogleMap
+                mapContainerStyle={{
+                    width: `${width ? width : "100%"}`,
+                    height: `${height ? height : "100px"}`,
+                    borderRadius: '6px',
+                }}
+                center={center}
+                onLoad={onLoad}
+                onUnmount={onUnmount}
+                options={{
+                    fullscreenControl:false,
+                    keyboardShortcuts:false,
+                    mapTypeControl:false,
+                    zoomControl:false,
+                    streetViewControl:false,
+                }}
+            >
+                {
+                    markers?.map((marker) => 
+                        <Marker position={marker} />
+                    )
+                }
+            </GoogleMap>
+        }
+    </>
+    )
 }
 
 export default PlaceGoogleMap;
