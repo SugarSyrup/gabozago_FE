@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 
 export interface JournalGroup {
-  id: string;
+  id: number;
   title: string;
   createdAt: string;
   updatedAt: string;
@@ -9,7 +9,7 @@ export interface JournalGroup {
 }
 
 export interface Journal {
-  id: string;
+  id: number;
   title: string;
   createdAt: string;
   updatedAt: string;
@@ -28,13 +28,13 @@ export interface Journal {
 
 const defaultJournalGroups: JournalGroup[] = [
   {
-    id: "20221010120409",
+    id: 1,
     title: "부산",
     createdAt: "20221010120408",
     updatedAt: "20221010120410",
     journals: [
       {
-        id: "20221010120410",
+        id: 1,
         title: "서울다녀왔음",
         createdAt: "20221010120410",
         updatedAt: "20221010120410",
@@ -53,13 +53,13 @@ const defaultJournalGroups: JournalGroup[] = [
     ],
   },
   {
-    id: "20221010120408",
+    id: 2,
     title: "서울",
     createdAt: "20221010120408",
     updatedAt: "20221010120410",
     journals: [
       {
-        id: "20221010120410",
+        id: 1,
         title: "서울다녀왔음",
         createdAt: "20221010120410",
         updatedAt: "20221010120410",
@@ -78,13 +78,13 @@ const defaultJournalGroups: JournalGroup[] = [
     ],
   },
   {
-    id: "20221010120408",
+    id: 3,
     title: "서울",
     createdAt: "20221010120408",
     updatedAt: "20221010120410",
     journals: [
       {
-        id: "20221010120410",
+        id: 1,
         title: "서울다녀왔음",
         createdAt: "20221010120410",
         updatedAt: "20221010120410",

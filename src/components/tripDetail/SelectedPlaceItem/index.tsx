@@ -1,5 +1,6 @@
 import * as S from "./style";
 import CircleXIcon from "../../../assets/icons/circleX_white.svg?react";
+import Typography from "../../common/Typography";
 
 interface Props {
   name: string;
@@ -21,7 +22,7 @@ function SelectedPlaceItem({ id, name, thumbnail, onDelete }: Props) {
       <S.Thumbnail>
         <img src={thumbnail} />
       </S.Thumbnail>
-      <span>{name}</span>
+      <Typography.Body maxWidth={50} size="md">{name}</Typography.Body>
     </S.Container>
   );
 }

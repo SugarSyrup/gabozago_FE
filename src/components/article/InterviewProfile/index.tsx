@@ -1,3 +1,4 @@
+import Typography from "../../common/Typography";
 import * as S from "./style";
 
 interface Props {
@@ -12,7 +13,7 @@ function InterviewProfile({photoURL, name, division, desc}: Props){
         <S.Container>
             <S.Img src={photoURL} />
             <S.Infomation>
-                <S.Name>{name}<S.Division>{division}</S.Division></S.Name>
+                <Typography.Title size="lg" color="inherit">{name}<S.Division>{division}</S.Division></Typography.Title>
                 <S.Desc>{desc}</S.Desc>
             </S.Infomation>
         </S.Container>

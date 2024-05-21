@@ -6,8 +6,7 @@ import Button from "../../common/Button";
 import { selectedPlacesState } from "../../../recoil/mytrip/selectedPlacesState";
 
 function SelectedPlaces() {
-  const [selectedPlaces, setSelectedPlaces] =
-    useRecoilState(selectedPlacesState);
+  const [selectedPlaces, setSelectedPlaces] = useRecoilState(selectedPlacesState);
   const [hasSelectedPlaces, setHasSelectedPlaces] = useState<boolean>(false);
 
   function onDelete(id: string) {
@@ -35,6 +34,12 @@ function SelectedPlaces() {
             onDelete={onDelete}
           />
         ))}
+          <SelectedPlaceItem
+            name={'123'}
+            key={123}
+            id={"123"}
+            onDelete={onDelete}
+          />
       </S.SelectedPlaceList>
       <Button
         size="lg"

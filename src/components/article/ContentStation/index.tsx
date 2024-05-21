@@ -1,20 +1,22 @@
 import DoubleCircleIcon from "../../../assets/icons/double_circle.svg?react";
+import Typography from "../../common/Typography";
 
 import * as S from "./style";
 
 interface Props {
     index: number,
     name: string,
+    refs: React.MutableRefObject<null[] | HTMLDivElement[]>,
 }
 
-function ContentStation({index, name} : Props){
+function ContentStation({index, name, refs} : Props){
     return(
-        <S.Container>
+        <S.Container id={`article_${index}`} ref={ele => refs.current[index] = ele}>
             <S.Index>
                 <DoubleCircleIcon />
-                <span>Station {index}</span>
+                <Typography.Title size="lg" color="inherit">Station {index}</Typography.Title>
             </S.Index>
-            <S.Title>{name}</S.Title>
+            <Typography.Headline size="sm">{name}</Typography.Headline>
         </S.Container>
     )
 }

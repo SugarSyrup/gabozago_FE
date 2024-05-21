@@ -8,27 +8,30 @@ import RightChevron from "../../../assets/icons/chevron_right.svg?react";
 
 import * as S from "./style";
 import { useNavigate } from "react-router-dom";
+import { get } from "../../../utils/api";
 
 interface Props {
     placeId: number,
     imageURL: string,
 }
 
+interface TPlace {
+    region: string,
+    name:string,
+    theme: string,
+    address: string,
+    number: string,
+    opening_hours: string,
+    website:string,
+    image: string[],
+}
+
 function PlaceInfo({placeId, imageURL} : Props){
     const navigate = useNavigate();
-    const [data, setData] = useState<{
-        region: string,
-        name:string,
-        theme: string,
-        address: string,
-        number: string,
-        opening_hours: string,
-        website:string,
-        image: string[],
-    }>();
+    const [data, setData] = useState<TPlace>();
 
     useEffect(() => {
-        axios.get(`${import.meta.env.VITE_BASE_URL}place/${placeId}`)
+        get<TPlace>(`/place/${placeId}`)
             .then((response) => {
                 setData(response.data);
             });
@@ -51,10 +54,12 @@ function PlaceInfo({placeId, imageURL} : Props){
                         <S.Address>{data.address}</S.Address>
                     </S.TextContainer>
                     <S.Buttons>
+                        {/* [SugarSyrup] @TODO: 단일 장소 일정에 추가 로직 구현 */}
                         <S.Icon>
                             <CalendarAddIcon />
                             <span>일정에 추가</span>
                         </S.Icon>
+                        {/* [SugarSyrup] @TODO: 단일 장소 스크랩 로직 구현 */}
                         <S.Icon>
                             <BookMarkIcon />
                             <span>장소 스크랩</span>

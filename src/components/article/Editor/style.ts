@@ -8,6 +8,7 @@ export const Container = styled.div`
     flex-direction:column;
     justify-content:flex-start;
     align-items:flex-start;
+    gap:10px;
 
     svg{
         width:24px;
@@ -21,4 +22,9 @@ export const Content = styled.span`
     font-weight: 400;
     line-height: 24px;
     letter-spacing: 0.5px;
+    white-space: pre-line;
+    
+    strong{
+        font-weight:600;
+    }
 `

@@ -33,3 +33,15 @@ export const Desc = styled.span`
     line-height: 22px;
     letter-spacing: 0.2px;
 `;
+
+
+export const LocationSelectButton = styled.button<{isActive: boolean}>`
+    padding:4px 15px;
+
+    border:none;
+    border-radius:20px;
+    background-color:${({theme, isActive}) => isActive ? theme.main : theme.gray06 };
+    color:${({theme, isActive}) => isActive ? theme.white : theme.black };
+    
+    cursor:pointer;
+`

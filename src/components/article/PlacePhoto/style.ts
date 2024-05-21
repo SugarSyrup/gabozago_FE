@@ -5,8 +5,6 @@ export const Container = styled.div`
     flex-direction:column;
     align-items:flex-end;
     gap:5px;
-
-
 `
 
 export const ImgCarousel = styled.div`
@@ -14,8 +12,16 @@ export const ImgCarousel = styled.div`
     display:flex;
 
     overflow-x:hidden;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+
+    &::-webkit-scrollbar {
+        height:4px;
+        background-color:inherit
+    }
 
     img{
+        flex: 0 0 fit-content;
         flex-shrink:0;
         width:100%;
         object-fit:contain;

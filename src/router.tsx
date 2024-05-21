@@ -3,17 +3,26 @@ import { userData } from "./assets/data/userData";
 
 import MyTripPage from "./pages/mytrip/MyTripPage";
 import TestPage from "./pages/TestPage";
+import PlacePage from "./pages/PlacePage";
+import TermsPage from "./pages/TermsPage";
+
 import MyTripDetailPage from "./pages/mytrip/DetailPage";
 import MyTripLocationSelectPage from "./pages/mytrip/LocationSelectPage";
 import MyTripDatesSelectPage from "./pages/mytrip/DatesSelectPage";
 import MyTripLocationSearchPage from "./pages/mytrip/LocationSearchPage";
 import MyTripPlaceCreatePage from "./pages/mytrip/PlaceCreatePage";
+import ViewAllPage from "./pages/mytrip/ViewAllPage";
+
 import ScrapBookPage from "./pages/scrapbook/ScrapBookPage";
 import ScrapBookGroupPage from "./pages/scrapbook/ScrapBookGroupPage";
+
 import ProfilePage from "./pages/profile/ProfilePage";
 import UserEditPage from "./pages/profile/UserEditPage";
 import UserFollowPage from "./pages/profile/UserFollowPage";
+
 import HomePage from "./pages/home/HomePage";
+import SettingsPage from "./pages/profile/SettingsPage";
+
 import ShortFormPage from "./pages/journal/ShortformPage";
 import SnapshotPage from "./pages/journal/SnapshotPage";
 import PostPage from "./pages/journal/PostPage";
@@ -21,9 +30,6 @@ import VideoPage from "./pages/journal/VideoPage";
 import LoginPage from "./pages/auth/LoginPage";
 import SignUpPage from "./pages/auth/SignUpPage";
 import ArticlePage from "./pages/ArticlePage";
-import PlacePage from "./pages/PlacePage";
-import SettingsPage from "./pages/profile/SettingsPage";
-import TermsPage from "./pages/TermsPage";
 import ResignPage from "./pages/resign/ResignPage";
 import ResignDonePage from "./pages/resign/ResignDonePage";
 import AnnouncePage from "./pages/cscenter/AnnouncePage";
@@ -35,6 +41,7 @@ import FAQDetailPage from "./pages/cscenter/FAQDetailPage";
 import InquiryPage from "./pages/cscenter/InquiryPage";
 import InquiryHistoryPage from "./pages/cscenter/InquiryHistoryPage";
 import PlaceAddPage from "./pages/mytrip/PlaceAddPage";
+import ArticleTestPage from "./pages/ArticleTestPage";
 
 const router = createBrowserRouter([
   {
@@ -64,6 +71,10 @@ const router = createBrowserRouter([
     element: <MyTripPage />,
   },
   {
+    path: "/mytrip/all",
+    element: <ViewAllPage />
+  },
+  {
     path: "/mytrip/create",
     element: <MyTripDatesSelectPage />,
   },
@@ -78,6 +89,10 @@ const router = createBrowserRouter([
   {
     path: "/mytrip/:id",
     element: <MyTripDetailPage />,
+  },
+  {
+    path: "/mytrip/:id/dateChange",
+    element: <MyTripDatesSelectPage />,
   },
   {
     path: "/mytrip/:id/search",
@@ -182,10 +197,13 @@ const router = createBrowserRouter([
     path: "/place/:id",
     element: <PlacePage />,
   },
-  // 기타
+  // 아티클 
   {
-    // 아티클 
-    path:"/article",
+    path:"/article/test",
+    element:<ArticleTestPage />
+  },
+  {
+    path:"/article/:id",
     element:<ArticlePage />
   },
   {
@@ -205,6 +223,10 @@ const router = createBrowserRouter([
   },
   {
     // 테스트
+    path:"/article",
+    element:<ArticlePage />
+  },
+  {
     path: "/test",
     element: <TestPage />,
   },

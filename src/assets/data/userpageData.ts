@@ -1,27 +1,3 @@
-export const userTripData = [
-    {
-        id: "1",
-        name:"포레 워크샵",
-        location: "부산광역시",
-        startDate: "2024.1.5",
-        endDate: "2024.1.8"
-    },
-    {
-        id: "1",
-        name:"포레 워크샵",
-        location: "부산광역시",
-        startDate: "2024.1.5",
-        endDate: "2024.1.8"
-    },
-    {
-        id: "1",
-        name:"포레 워크샵",
-        location: "부산광역시",
-        startDate: "2024.1.5",
-        endDate: "2024.1.8"
-    },
-]
-
 export type userReviewType = {
     title: string;
     type: string;

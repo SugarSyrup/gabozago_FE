@@ -53,7 +53,7 @@ function UserClapsPostList({data, type}: Props) {
                     <S.Item>
                         <S.ThumbnailWrapper>
                             {videoId ? 
-                                <img src={'http://img.youtube.com/vi/' + videoId + '/default.jpg'} alt={title} /> 
+                                <img src={'http://img.youtube.com/vi/' + videoId + '/oar2.jpg'} alt={title} /> 
                                 : 
                                 <ImgIcon />
                             }

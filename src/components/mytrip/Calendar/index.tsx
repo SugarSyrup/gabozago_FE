@@ -57,23 +57,23 @@ function Calendar({year, month, startDate, endDate, onDateClick} : Props) {
     return(
         <div ref={calendarRef}>
             {isLoading ? 
-           <></>
-           :
-            <>
-                <S.CalendarHeader>
-                    {year}년 {month}월
-                </S.CalendarHeader>
-                <S.Calendar>
-                    <S.Day>SUN</S.Day>
-                    <S.Day>MON</S.Day>
-                    <S.Day>TUE</S.Day>
-                    <S.Day>WED</S.Day>
-                    <S.Day>THU</S.Day>
-                    <S.Day>FRI</S.Day>
-                    <S.Day>SAT</S.Day>
-                    {FillDate()}
-                </S.Calendar>
-            </>
+                <></>
+                :
+                    <>
+                        <S.CalendarHeader>
+                            {year}년 {month}월
+                        </S.CalendarHeader>
+                        <S.Calendar>
+                            <S.Day>SUN</S.Day>
+                            <S.Day>MON</S.Day>
+                            <S.Day>TUE</S.Day>
+                            <S.Day>WED</S.Day>
+                            <S.Day>THU</S.Day>
+                            <S.Day>FRI</S.Day>
+                            <S.Day>SAT</S.Day>
+                            {FillDate()}
+                        </S.Calendar>
+                    </>
         }
         </div>
     )

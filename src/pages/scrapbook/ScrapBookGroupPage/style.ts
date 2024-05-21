@@ -11,6 +11,29 @@ export const Header = styled.header`
   background-color: ${({ theme }) => theme.white};
 `;
 
+export const TabBarContainer = styled.div`
+  margin-top: 10px;
+  padding: 0 20px;
+  position: relative;
+
+  &::before {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    content: "";
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: ${({ theme }) => theme.gray04};
+  }
+`;
+
+export const FilterContainer = styled.div`
+  width: 100%;
+  padding: 15px 20px 0;
+`;
+
 export const HeadingContainer = styled.div`
   text-align: center;
   width: 100%;
@@ -27,4 +50,10 @@ export const BackButtonContainer = styled.button`
   cursor: pointer;
 `;
 
-export const JournalList = styled.ol``;
+export const ContentsList = styled.ol`
+  margin-top: -5px;
+
+  li:hover h3 {
+    text-decoration: underline;
+  }
+`;

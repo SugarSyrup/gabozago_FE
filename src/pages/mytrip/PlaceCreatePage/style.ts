@@ -43,8 +43,32 @@ export const Input = styled.input`
 `
 
 export const ButtonWrapper = styled.div`
-    width:100%;
+    width:calc(100% - 40px);
+    padding: 15px;
 
     position:absolute;
     bottom:40px;
+`
+
+export const Button = styled.div<{isActive: boolean}>`
+    width:100%;
+    padding: 10px 20px 15px 20px;
+    border-radius:30px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+
+    color:white;
+    background-color:${({isActive, theme}) => isActive ? theme.main : "#A6A6A6"};
+    cursor: pointer;
+
+    svg{
+        width:28px;
+        height: 28px;
+        path{
+            fill:white;
+        }
+    }
 `

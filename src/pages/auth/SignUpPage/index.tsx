@@ -17,7 +17,7 @@ import AppleIcon from "../../../assets/icons/apple.svg?react";
 import * as S from "./style";
 import { post } from "../../../utils/api";
 
-type loginResponse = {
+interface loginResponse {
   status: "ACTIVE" | "INACTIVE";
   access: string;
   refresh: string;
@@ -77,7 +77,7 @@ function SignUpPage() {
         post<loginResponse>(`${import.meta.env.VITE_BASE_URL}user/sign-in`, body)
           .then((response) => {
             localStorage.setItem("access_token", response.data.access);
-            localStorage.setItem("refresh_token", response.data.access);
+            localStorage.setItem("refresh_token", response.data.refresh);
             navigate("/");
           });
       }}>

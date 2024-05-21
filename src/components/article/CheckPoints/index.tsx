@@ -1,4 +1,5 @@
 import CheckPointIcon from "../../../assets/icons/checkpoint.svg?react";
+import Typography from "../../common/Typography";
 
 import * as S from "./style";
 
@@ -12,20 +13,18 @@ interface Props {
 function CheckPoints({data}: Props) {
     return(
         <S.CheckPointList>
-            <S.CheckPointTitle>
-                CHECK POINT
-            </S.CheckPointTitle>
+            <Typography.Title size="md">CHECK POINT</Typography.Title>
             {
                 data.map((checkpoint) => 
                     <S.CheckPointItem>
                         <CheckPointIcon />
                         <S.CheckPointText>
-                            <S.CheckPoint>
+                            <Typography.Title size="sm" color="inherit">
                                 {checkpoint.name}
-                            </S.CheckPoint>
-                            <S.CheckPointDesc>
+                            </Typography.Title>
+                            <Typography.Label size="sm" color="#424242">
                                 {checkpoint.desc}
-                            </S.CheckPointDesc>
+                            </Typography.Label>
                         </S.CheckPointText>
                     </S.CheckPointItem>
                 )

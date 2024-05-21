@@ -1,9 +1,9 @@
 import { useRecoilState } from "recoil";
 
 import { selectedLocationsState } from "../../../recoil/mytrip/createData";
-import * as S from "./style";
+import Typography from "../../common/Typography";
 
-import Button from "../../common/Button";
+import * as S from "./style";
 
 interface Props {
     name: string;
@@ -47,18 +47,16 @@ function SearchResultItem({ name, desc, keyword }: Props) {
                 </S.Name>
                 <S.Desc>{desc}</S.Desc>
             </S.Info>
-            <Button
-                size="xs"
-                type="normal"
-                active={selectedLocations.includes(name)}
+            <S.LocationSelectButton
+                isActive={selectedLocations.includes(name)}
                 onClick={() => {
                     selectedLocations.includes(name)
                         ? deleteLocation(name)
                         : selectLocation(name);
                 }}
             >
-                선택
-            </Button>
+                <Typography.Label size="lg" color="inherit">선택</Typography.Label>
+            </S.LocationSelectButton>
         </S.Container>
     );
 }
