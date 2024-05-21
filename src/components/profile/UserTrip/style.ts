@@ -13,7 +13,7 @@ export const Container = styled.div`
 export const Header = styled.div`
     width:100%;
     display:flex;
-    justify-content:space-between;
+    justify-content:flex-end;
     align-items:center;
 `
 

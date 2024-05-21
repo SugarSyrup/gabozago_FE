@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 
-import { userDataType } from "../../../assets/data/userData";
 import SettingIcon from "../../../assets/icons/setting.svg?react";
 import UserIcon from "../../../assets/icons/user.svg?react";
 
@@ -11,7 +10,6 @@ import UserActivity from "../../../components/profile/UserActivity";
 import Typography from "../../../components/common/Typography";
 
 import * as S from "./style";
-import { get } from "../../../utils/api";
 
 export interface TUserProfile {
   id: number,

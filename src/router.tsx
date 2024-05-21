@@ -1,5 +1,4 @@
 import { createBrowserRouter } from "react-router-dom";
-import { userData } from "./assets/data/userData";
 
 import MyTripPage from "./pages/mytrip/MyTripPage";
 import TestPage from "./pages/TestPage";
@@ -119,16 +118,10 @@ const router = createBrowserRouter([
     // TODO : [LOGIN 기능 정의 이후] LOGIN 정보를 기반으로 접근 허용 / 거부
     path: "/profile/edit",
     element: <UserEditPage />,
-    loader: async () => {
-      return userData;
-    },
   },
   {
     path: "/profile/settings",
     element: <SettingsPage />,
-    loader: async () => {
-      return userData;
-    },
   },
   /* ---- 스크랩 페이지 ---- */
   {

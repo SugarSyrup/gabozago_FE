@@ -12,7 +12,6 @@ function UserTrip() {
     <S.Container>
       <TripList />
       <S.Header>
-        <Typography.Title size="md" color="#424242">여행 날짜 순</Typography.Title>
         <S.TravelLink to="/mytrip/all">
           <Typography.Body size="lg" color="#424242">전체보기</Typography.Body>
           <ChevronRightIcon />
