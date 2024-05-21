@@ -23,7 +23,7 @@ function TermsPage() {
   const termsMap: TTerm[] = [
     {
       id: "01",
-      title: "서비스 이용약관",
+      title: "가보자고 이용약관",
       contents: [
         {
           heading: "제 1조(목적)",
@@ -65,7 +65,7 @@ function TermsPage() {
     },
     {
       id: "04",
-      title: "오픈소스 라이센스",
+      title: "오픈소스 라이선스",
       contents: [
         {
           heading: "제 1조(목적)",

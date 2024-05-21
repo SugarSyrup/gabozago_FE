@@ -16,25 +16,22 @@ export const OrderedList = styled.ol`
 `;
 
 export const ListItem = styled.li`
-  padding: 14px 18px;
+  padding: 15px 20px;
   border-bottom: 1px solid ${({ theme }) => theme.gray04};
 
   a {
-    text-decoration: none;
-    line-height: 22px;
-    font-weight: 400;
     color: ${({ theme }) => theme.black};
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+    text-decoration: none;
 
     &:hover {
       text-decoration: underline;
     }
   }
 
-  p.title {
-    font-size: 14px;
-  }
   p.date {
-    font-size: 12px;
-    color: ${({ theme }) => theme.gray01};
+    color: #A6A6A6;
   }
 `;

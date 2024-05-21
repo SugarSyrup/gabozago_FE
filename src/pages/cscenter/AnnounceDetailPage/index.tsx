@@ -4,6 +4,7 @@ import PageTemplate from "../../../components/common/PageTemplate";
 import PageHeader from "../../../components/common/PageHeader";
 import { useParams } from "react-router-dom";
 import { get } from "../../../utils/api";
+import Typography from "../../../components/common/Typography";
 
 interface TData {
   title: string;
@@ -21,23 +22,20 @@ function AnnounceDetailPage() {
   });
 
   useEffect(() => {
-    get<{
-      next: string;
-      previous: string;
-      results: TData;
-    }>(
-      `/settings/support/announcement/${id}`
-    ).then(({ data }) => setData(data.results));
+    get<TData>(`/settings/support/announcement/${id}`
+    ).then(({ data }) => setData(data));
   }, []);
 
   return (
-    <PageTemplate nav={false} header={<PageHeader>{data.title}</PageHeader>}>
+    <PageTemplate nav={false} header={<PageHeader><Typography.Title size="lg">{data.title}</Typography.Title></PageHeader>}>
       <S.Container>
         <S.InfoContainer>
-          <p className="title">{data.title}</p>
-          <p className="date">{data.createdAt}</p>
+                <p className="title"><Typography.Title size="md" color="inherit">{data.title}</Typography.Title></p>
+                <p className="date"><Typography.Label size="lg" color="inherit">{data.createdAt.replace("-", ". ").replace("-", ". ")}</Typography.Label></p>
         </S.InfoContainer>
-        <S.ContentsContainer>{data.content}</S.ContentsContainer>
+        <S.ContentsContainer>
+          <Typography.Body size="md" color="inherit" noOfLine={1000}>{data.content}</Typography.Body>
+        </S.ContentsContainer>
       </S.Container>
     </PageTemplate>
   );
