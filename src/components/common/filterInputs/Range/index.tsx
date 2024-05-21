@@ -2,7 +2,7 @@ import * as S from "./style";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 
-interface Props {
+export interface Props {
   filter: [number, number];
   setFilter: React.Dispatch<
     React.SetStateAction<[number, number] | [null, null]>
