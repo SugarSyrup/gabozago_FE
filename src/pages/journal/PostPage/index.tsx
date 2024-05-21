@@ -21,9 +21,9 @@ import * as S from "./style";
 function PostPage() {
     const navigate = useNavigate();
 
-    const {CourseModal, courseModalOpen, courseModalClose, setCourseModalData} = useCourseModal();
+    const {CourseModal, courseModalOpen, courseModalClose, setCourseModalData} = useCourseModal({id:1});
     const {PlaceModal, placeModalOpen, placeModalClose, setPlaceModalData} = usePlaceModal();
-    const {ScrapModal, scrapModalOpen, scrapModalClose, setScrapModalData} = useScrapModal();
+    const {ScrapModal, scrapModalOpen, scrapModalClose, setScrapModalData} = useScrapModal({id:1});
 
     const {ScrapAlert, scrapAlertOpen, scrapAlertClose} = useScrapAlert({
         onClick: scrapModalOpen

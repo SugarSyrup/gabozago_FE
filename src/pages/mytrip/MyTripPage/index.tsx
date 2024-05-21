@@ -15,6 +15,7 @@ import MyLastScheduleCard from "../../../components/mytrip/MyLastScheduleCard";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { datesState } from "../../../recoil/mytrip/createData";
+import { createTravelState } from "../../../recoil/mytrip/createTravelState";
 
 type travelResponseType = {
   "id": number,

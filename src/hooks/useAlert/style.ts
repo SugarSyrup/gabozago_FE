@@ -45,7 +45,7 @@ export const Alert = styled.div<{isOpen: boolean}>`
 
     position:absolute;
     bottom:100px;
-    left: 32px;
+    left: 12px;
 
     animation:${({isOpen}) => isOpen ? fadeIn : fadeOut} 0.15s ease-out;
     display:${({isOpen}) => isOpen ? "flex" : "none"};

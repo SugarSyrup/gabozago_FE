@@ -1,7 +1,7 @@
 import React from "react";
 import * as S from "./style";
 
-interface Props {
+export interface Props {
   filter: string[] | string;
   setFilter: React.Dispatch<React.SetStateAction<string[] | string>>;
   options: string[];

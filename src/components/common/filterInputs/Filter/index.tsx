@@ -1,17 +1,18 @@
 import * as S from "./style";
-import Select from "../Select";
-import Button from "../../Button";
 import { SetterOrUpdater } from "recoil";
 import { useState } from "react";
 import { TFilter } from "../../../../recoil/journals/journalState";
-import Buttons from "../Buttons";
-import Range from "../Range";
+import Select, { Props as SelectProps } from "../Select";
+import Buttons, { Props as ButtonsProps } from "../Buttons";
+import Location, { Props as LocationsProps } from "../Locations";
+import Range, { Props as RangeProps } from "../Range";
 import HeadCountEC from "../extraControllers/HeadCountEC";
 import DurationEC from "../extraControllers/DurationEC";
 import BudgetEC from "../extraControllers/BudgetEC";
+import Button from "../../Button";
 
 interface Props {
-  type: keyof TFilter | "total";
+  type: keyof TFilter;
   filterState: TFilter;
   filterSetState: SetterOrUpdater<TFilter>;
   setModal: SetterOrUpdater<{
@@ -21,6 +22,14 @@ interface Props {
   }>;
 }
 
+interface FilterMap {
+  [key: string]: {
+    title: string;
+    component: React.FC<any>;
+    props: SelectProps | ButtonsProps | LocationsProps | RangeProps;
+  };
+}
+
 function Filter({
   type,
   filterState: filter,
@@ -28,139 +37,132 @@ function Filter({
   setModal,
 }: Props) {
   const [tempFilter, setTempFilter] = useState(filter[type]);
-
-  const filterMap = {
+  const filterMap: FilterMap = {
     // select
     sort: {
       title: "정렬",
-      type: "select",
-      options: ["최신순", "추천순", "인기순", "최근 인기순"],
-    },
-    // multi-select
-    theme: {
-      title: "테마",
-      type: "multi-select",
-      options: [
-        "미식 • 쇼핑",
-        "전시 • 행사",
-        "도보여행",
-        "자연",
-        "아웃도어 • 레저",
-        "체류",
-        "가족여행",
-        "애견동반",
-      ],
+      component: Select,
+      props: {
+        filter: tempFilter,
+        setFilter: setTempFilter,
+        multiple: false,
+        options: ["담은순", "최신순", "최근 인기순"],
+      } as SelectProps,
     },
     // location
     location: {
       title: "지역",
-      type: "multi-select",
-      options: [
-        "서울",
-        "부산",
-        "대구",
-        "인천",
-        "광주",
-        "대전",
-        "울산",
-        "세종",
-        "경기",
-        "강원",
-        "충북",
-      ],
+      component: Location,
+      props: {
+        filter: tempFilter,
+        setFilter: setTempFilter,
+        options: [
+          "서울",
+          "부산",
+          "대구",
+          "인천",
+          "광주",
+          "대전",
+          "울산",
+          "세종",
+          "경기",
+          "강원",
+          "충북",
+        ],
+      } as LocationsProps,
     },
     // range
     headCount: {
       title: "인원",
-      type: "range",
-      min: 1,
-      max: 30,
-      step: 1,
-      unit: "인",
-      extraControler: (
-        <HeadCountEC filter={tempFilter} setFilter={setTempFilter} max={30} />
-      ),
+      component: Range,
+      props: {
+        filter: tempFilter,
+        setFilter: setTempFilter,
+        min: 1,
+        max: 30,
+        step: 1,
+        unit: "인",
+        extraControler: (
+          <HeadCountEC filter={tempFilter} setFilter={setTempFilter} max={30} />
+        ),
+      } as RangeProps,
     },
     duration: {
       title: "일정",
-      type: "range",
-      min: 1,
-      max: 100,
-      step: 1,
-      unit: "일",
-      extraControler: (
-        <DurationEC filter={tempFilter} setFilter={setTempFilter} />
-      ),
+      component: Range,
+      props: {
+        filter: tempFilter,
+        setFilter: setTempFilter,
+        min: 1,
+        max: 100,
+        step: 1,
+        unit: "일",
+        extraControler: (
+          <DurationEC filter={tempFilter} setFilter={setTempFilter} />
+        ),
+      } as RangeProps,
     },
     budget: {
       title: "경비",
-      type: "range",
-      min: 1,
-      max: 1000,
-      step: 1,
-      unit: "만원",
-      extraControler: (
-        <BudgetEC filter={tempFilter} setFilter={setTempFilter} step={10000} />
-      ),
+      component: Range,
+      props: {
+        filter: tempFilter,
+        setFilter: setTempFilter,
+        type: "range",
+        min: 1,
+        max: 1000,
+        step: 1,
+        unit: "만원",
+        extraControler: (
+          <BudgetEC
+            filter={tempFilter}
+            setFilter={setTempFilter}
+            step={10000}
+          />
+        ),
+      } as RangeProps,
     },
     // buttons
     season: {
       title: "계절",
-      type: "buttons",
-      options: ["사계절", "봄", "여름", "가을", "겨울"],
+      component: Buttons,
+      props: {
+        filter: tempFilter,
+        setFilter: setTempFilter,
+        options: ["봄", "여름", "가을", "겨울"],
+      } as ButtonsProps,
+    },
+    theme: {
+      title: "콘텐츠 테마",
+      component: Buttons,
+      props: {
+        filter: tempFilter,
+        setFilter: setTempFilter,
+        options: [
+          "체류",
+          "미식",
+          "쇼핑",
+          "도보",
+          "자연",
+          "체험",
+          "전시∙행사",
+          "반려동물",
+          "연인",
+          "가족",
+        ],
+      } as ButtonsProps,
     },
   };
-  const renderFilterContents = () => {
-    switch (filterMap[type].type) {
-      case "select":
-        return (
-          <Select
-            filter={tempFilter}
-            setFilter={setTempFilter}
-            options={filterMap[type].options || []}
-            multiple={false}
-          />
-        );
-        break;
-      case "multi-select":
-        return (
-          <Select
-            filter={tempFilter}
-            setFilter={setTempFilter}
-            options={filterMap[type].options || []}
-            multiple={true}
-          />
-        );
-        break;
-      case "range":
-        return (
-          <Range
-            filter={tempFilter}
-            setFilter={setTempFilter}
-            name={filterMap[type].title}
-            unit={filterMap[type].unit}
-            min={filterMap[type].min}
-            max={filterMap[type].max}
-            step={filterMap[type].step}
-            extraControlerComponent={filterMap[type].extraControler}
-          />
-        );
-        break;
-      case "buttons":
-        return (
-          <Buttons
-            filter={tempFilter}
-            setFilter={setTempFilter}
-            options={filterMap[type].options || []}
-          />
-        );
-        break;
-    }
+  const renderComponent = () => {
+    const Component = filterMap[type].component;
+    const props = filterMap[type].props;
+
+    return <Component {...props} />;
   };
 
   return (
     <S.Form>
-      {renderFilterContents()}
+      {renderComponent()}
       <S.SubmitButtonContainer>
         <Button
           type="normal"
