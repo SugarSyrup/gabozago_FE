@@ -1,10 +1,15 @@
-import * as S from "./style";
 import { ChangeEventHandler, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import PageTemplate from "../../../components/common/PageTemplate";
 import PageHeader from "../../../components/common/PageHeader";
 import Button from "../../../components/common/Button";
+import Typography from "../../../components/common/Typography";
+
 import { post } from "../../../utils/api";
-import { useNavigate } from "react-router-dom";
+import usePopup from "../../../hooks/usePopup";
+
+import * as S from "./style";
 
 function FeedBackPage() {
   const navigate = useNavigate();
@@ -16,8 +21,25 @@ function FeedBackPage() {
       setText(e.target.value);
     }
   };
+  const {Popup, popupOpen} = usePopup();
 
   return (
+    <>
+    <Popup>
+      <S.PopupContainer>
+        <Typography.Title size="lg" noOfLine={2}>의견을 남겨주셔서 <br/> 감사합니다.</Typography.Title>
+        <Typography.Body size="lg" color="#545454">더욱 발전하는 가보자고가 되겠습니다:)</Typography.Body>
+        <div>
+          <S.PopupConfirmButton
+            onClick={() => {
+              navigate(-1);
+            }}
+          >
+            <Typography.Label size="lg" color="inherit">확인</Typography.Label>
+          </S.PopupConfirmButton>
+        </div>
+      </S.PopupContainer>
+    </Popup>
     <PageTemplate
       nav={
         <S.ButtonContainer>
@@ -27,25 +49,20 @@ function FeedBackPage() {
             type="normal"
             width="100%"
             onClick={() => {
-              const token = localStorage.getItem("access_token");
-
-              if (token) {
-                post<string>(
-                  `/settings/support/opinion`,
-                  { content: text }
-                );
-
-                alert("접수되었습니다. 고객님의 소중한 의견 감사합니다.");
-                navigate(-1);
-              }
+              post<string>(
+                `/settings/support/opinion`,
+                { content: text }
+              );
+              popupOpen();
             }}
           >
             제출하기
           </Button>
         </S.ButtonContainer>
       }
-      header={<PageHeader>의견 보내기</PageHeader>}
+      header={<PageHeader><Typography.Title size="lg">의견 보내기</Typography.Title></PageHeader>}
     >
+      
       <S.Container>
         <div>
           <S.TitleParagraph>
@@ -67,6 +84,7 @@ function FeedBackPage() {
         </div>
       </S.Container>
     </PageTemplate>
+    </>
   );
 }
 
