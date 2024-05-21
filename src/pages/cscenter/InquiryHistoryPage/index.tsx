@@ -50,7 +50,7 @@ function InquiryHistoryPage() {
           {data.map(({ id, title, createdAt, status }) => (
             <li onClick={() => {
               if(status === "답변대기") {
-                navigate(`./${id}`);
+                navigate(`/cscenter/inquiry/${id}`);
               }
             }}>
               <p>{title}</p>

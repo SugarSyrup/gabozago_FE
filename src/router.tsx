@@ -42,6 +42,7 @@ import InquiryPage from "./pages/cscenter/InquiryPage";
 import InquiryHistoryPage from "./pages/cscenter/InquiryHistoryPage";
 import ArticleTestPage from "./pages/ArticleTestPage";
 import { get } from "./utils/api";
+import InquiryDetailPage from "./pages/cscenter/InquiryDetailPage";
 
 const router = createBrowserRouter([
   {
@@ -174,6 +175,11 @@ const router = createBrowserRouter([
       const { data } = await get<TUserProfile>(`/user/profile`)
       return data.nickname;
     },
+  },
+  {
+    // 내 문의 detail page
+    path: "/cscenter/inquiry/:id",
+    element: <InquiryDetailPage />,
   },
   {
     // 내 문의 내역
