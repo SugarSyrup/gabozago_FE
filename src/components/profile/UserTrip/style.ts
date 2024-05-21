@@ -7,7 +7,7 @@ export const Container = styled.div`
     display:flex;
     flex-direction:column;
     align-items:flex-start;
-    gap:15px;
+    gap:10px;
 `
 
 export const Header = styled.div`

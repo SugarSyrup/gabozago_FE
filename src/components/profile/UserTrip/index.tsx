@@ -10,6 +10,7 @@ import * as S from "./style";
 function UserTrip() {
   return (
     <S.Container>
+      <TripList />
       <S.Header>
         <Typography.Title size="md" color="#424242">여행 날짜 순</Typography.Title>
         <S.TravelLink to="/mytrip/all">
@@ -17,9 +18,6 @@ function UserTrip() {
           <ChevronRightIcon />
         </S.TravelLink>
       </S.Header>
-
-      <TripList />
-
       <S.CreateMyTrip to="/mytrip/create">
         <Button type="text" size="md">
           <CirclePlusIcon />
