@@ -57,6 +57,12 @@ export const UserProfile = styled.div`
             fill:${({theme}) => theme.main};
         }
     }
+
+    img {
+        width:44px;
+        height:44px;
+        border-radius:100%;
+    }
 `
 
 export const ProfileEditBtn = styled.button`

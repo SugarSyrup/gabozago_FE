@@ -16,7 +16,7 @@ import ViewAllPage from "./pages/mytrip/ViewAllPage";
 import ScrapBookPage from "./pages/scrapbook/ScrapBookPage";
 import ScrapBookGroupPage from "./pages/scrapbook/ScrapBookGroupPage";
 
-import ProfilePage from "./pages/profile/ProfilePage";
+import ProfilePage, { TUserProfile } from "./pages/profile/ProfilePage";
 import UserEditPage from "./pages/profile/UserEditPage";
 import UserFollowPage from "./pages/profile/UserFollowPage";
 
@@ -41,6 +41,7 @@ import FAQDetailPage from "./pages/cscenter/FAQDetailPage";
 import InquiryPage from "./pages/cscenter/InquiryPage";
 import InquiryHistoryPage from "./pages/cscenter/InquiryHistoryPage";
 import ArticleTestPage from "./pages/ArticleTestPage";
+import { get } from "./utils/api";
 
 const router = createBrowserRouter([
   {
@@ -106,7 +107,8 @@ const router = createBrowserRouter([
     path: "/profile",
     element: <ProfilePage />,
     loader: async () => {
-      return userData;
+      const { data } = await get<TUserProfile>(`/user/profile`)
+      return data;
     },
   },
   {
