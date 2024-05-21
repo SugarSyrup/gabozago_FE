@@ -13,14 +13,14 @@ function UserActivityFilter({setActFilter, setPostFilter} : Props) {
             <S.FilterItem onInput={(e) => {
                 setActFilter(e.currentTarget.value as "clap" | "comment");
             }}>
-                <option value="claps">공감한 글</option>
-                <option value="comments">댓글 단 글</option>
+                <option value="clap">공감한 글</option>
+                <option value="comment">댓글 단 글</option>
             </S.FilterItem>
             <S.FilterItem onInput={(e) => {
                 setPostFilter(e.currentTarget.value as "short-form" | "article");
             }}>
                 <option value="article">아티클</option>
-                <option value="shorts">숏폼</option>
+                <option value="short-form">숏폼</option>
             </S.FilterItem>
         </S.FilterList>
     );
