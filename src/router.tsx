@@ -127,6 +127,10 @@ const router = createBrowserRouter([
   {
     path: "/profile/settings",
     element: <SettingsPage />,
+    loader: async () => {
+      const { data } = await get<TUserProfile>(`/user/profile`)
+      return data;
+    },
   },
   /* ---- 스크랩 페이지 ---- */
   {
