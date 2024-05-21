@@ -137,6 +137,7 @@ export const TextArea = styled.textarea`
   font-weight: 400;
   line-height: 22px;
   letter-spacing: 0.2px;
+  resize: none;
 `;
 
 const fileBoxCSS = css`
@@ -182,6 +183,10 @@ export const FileList = styled.ol`
   gap: 10px;
   flex-wrap: nowrap;
   overflow-x: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const FileBox = styled.div<{ image: string }>`
@@ -216,5 +221,45 @@ export const FileBox = styled.div<{ image: string }>`
     height: 20px;
     background: url(${xSvg});
     background-position: center;
+  }
+`;
+
+
+export const PopupContainer = styled.div`
+  width:100%;
+  padding-top:20px;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:3px;
+  text-align:center;
+
+  div {
+    width:calc(100% + 40px);
+    margin: 30px -20px -20px;
+    border-radius: 0 0 15px 15px;
+    overflow: hidden;
+    display: flex;
+    border-top: 1px solid ${({ theme }) => theme.gray04};
+  }
+
+  svg{
+    width:40px;
+    height:40px;
+  }
+`;
+
+export const PopupConfirmButton = styled.button`
+  cursor: pointer;
+  flex: 1 1 100%;
+  padding: 14px;
+  border: 0;
+  color: ${({ theme }) => theme.main};
+  background-color: transparent;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.gray06};
   }
 `;

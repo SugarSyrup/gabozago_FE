@@ -170,6 +170,10 @@ const router = createBrowserRouter([
     // 문의 하기
     path: "/cscenter/inquiry",
     element: <InquiryPage />,
+    loader: async () => {
+      const { data } = await get<TUserProfile>(`/user/profile`)
+      return data.nickname;
+    },
   },
   {
     // 내 문의 내역
