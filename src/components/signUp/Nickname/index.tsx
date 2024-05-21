@@ -17,7 +17,7 @@ function Nickname({setIsNicknameOk}: Props) {
     const [nicknameAlert, setNicknameAlert] = useState("");
 
     useEffect(() => {
-      get<{message: "POSSIBLE" | "IMPOSSIBLE"}>(`${import.meta.env.VITE_BASE_URL}user/nickname/${nickname}`)
+      get<{message: "POSSIBLE" | "IMPOSSIBLE"}>(`/user/nickname/${nickname}`)
         .then((res) => {
           if(res.data.message === "POSSIBLE") {
             setNicknameAlert(`사용 가능한 닉네임이에요!`);
@@ -51,7 +51,7 @@ function Nickname({setIsNicknameOk}: Props) {
             setIsNicknameOk(false);
           }}
           onButtonClick={() => {
-            get<{message: "POSSIBLE" | "IMPOSSIBLE"}>(`${import.meta.env.VITE_BASE_URL}user/nickname/${nickname}`)
+            get<{message: "POSSIBLE" | "IMPOSSIBLE"}>(`/user/nickname/${nickname}`)
               .then((res) => {
                 if(res.data.message === "POSSIBLE") {
                   setNicknameAlert(`사용 가능한 닉네임이에요!`)

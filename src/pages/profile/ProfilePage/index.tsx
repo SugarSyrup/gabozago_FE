@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 
-import { userDataType } from "../../../assets/data/userData";
 import SettingIcon from "../../../assets/icons/setting.svg?react";
 import UserIcon from "../../../assets/icons/user.svg?react";
+import { TUserProfile } from "../../../assets/types/TUserProfile";
 
 import PageTemplate from "../../../components/common/PageTemplate";
 import UserTrip from "../../../components/profile/UserTrip";
@@ -11,17 +11,7 @@ import UserActivity from "../../../components/profile/UserActivity";
 import Typography from "../../../components/common/Typography";
 
 import * as S from "./style";
-import { get } from "../../../utils/api";
 
-interface profileType {
-  nickname: string,
-  description: string,
-  avatarURL: string,
-  clapCount: number,
-  scrapCount: number,
-  myTravelDay: number,
-  myTravelCount: number,
-}
 
 function ProfilePage() {
   const navigate = useNavigate();
@@ -30,8 +20,8 @@ function ProfilePage() {
     "trip"
   );
 
-  const { name, follower, following, reviews, hearts, views, desc } =
-    useLoaderData() as userDataType;
+  const { id, nickname, description, avatarURL, clapCount, scrapCount, myTravelCount, myTravelDay } =
+    useLoaderData() as TUserProfile;
   const FixedHeaderRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -39,14 +29,6 @@ function ProfilePage() {
       setHeaderHeight(FixedHeaderRef.current.offsetHeight);
     }
   }, [FixedHeaderRef.current]);
-
-  useEffect(() => {
-    get<profileType>(`${import.meta.env.VITE_BASE_URL}/user/profile`)
-      .then((response) => {
-        //[SugarSyrup] @TODO: 백엔드 아직 미 업데이트! -> 유저 페이지 data 불러온 정보 표시
-      })
-
-  }, [])
 
   return (
     <PageTemplate>
@@ -56,8 +38,13 @@ function ProfilePage() {
       <S.FixedContainer ref={FixedHeaderRef}>
         <S.Header>
           <S.UserProfile>
-            <UserIcon />
-            <Typography.Title size="lg">{name}</Typography.Title>
+            {
+              avatarURL ?
+              <img src={avatarURL} />
+              :
+              <UserIcon />
+            }
+            <Typography.Title size="lg">{nickname}</Typography.Title>
           </S.UserProfile>
             <S.ProfileEditBtn
               onClick={() => {
@@ -69,7 +56,7 @@ function ProfilePage() {
         </S.Header>
 
         <S.UserIntroduce>
-          <Typography.Body size="md" noOfLine={5}>{desc}</Typography.Body>
+          <Typography.Body size="md" noOfLine={5}>{description}</Typography.Body>
         </S.UserIntroduce>
 
         <S.Statics>
@@ -78,7 +65,7 @@ function ProfilePage() {
               <Typography.Title size="md" color="inherit">공감 수</Typography.Title>
             </S.StaticItemName>
             <S.StaticItemStat>
-              <Typography.Title size="md" color="inherit">{views}</Typography.Title>  
+              <Typography.Title size="md" color="inherit">{clapCount}</Typography.Title>  
             </S.StaticItemStat>
           </S.StaticItem>
           <S.StaticItem>
@@ -86,7 +73,7 @@ function ProfilePage() {
               <Typography.Title size="md" color="inherit">스그랩 수</Typography.Title>
             </S.StaticItemName>
             <S.StaticItemStat>
-              <Typography.Title size="md" color="inherit">{views}</Typography.Title>  
+              <Typography.Title size="md" color="inherit">{scrapCount}</Typography.Title>  
             </S.StaticItemStat>
           </S.StaticItem>
           <S.StaticItem>
@@ -94,7 +81,7 @@ function ProfilePage() {
               <Typography.Title size="md" color="inherit">여행 일</Typography.Title>
             </S.StaticItemName>
             <S.StaticItemStat>
-              <Typography.Title size="md" color="inherit">{views}</Typography.Title>  
+              <Typography.Title size="md" color="inherit">{myTravelDay}</Typography.Title>  
             </S.StaticItemStat>
           </S.StaticItem>
           <S.StaticItem>
@@ -102,7 +89,7 @@ function ProfilePage() {
               <Typography.Title size="md" color="inherit">여행 수</Typography.Title>
             </S.StaticItemName>
             <S.StaticItemStat>
-              <Typography.Title size="md" color="inherit">{views}</Typography.Title>  
+              <Typography.Title size="md" color="inherit">{myTravelCount}</Typography.Title>  
             </S.StaticItemStat>
           </S.StaticItem>
         </S.Statics>

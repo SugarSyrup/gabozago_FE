@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
-import { userData } from "./assets/data/userData";
 
+import { TUserProfile } from "./assets/types/TUserProfile";
 import MyTripPage from "./pages/mytrip/MyTripPage";
 import TestPage from "./pages/TestPage";
 import PlacePage from "./pages/PlacePage";
@@ -42,6 +42,8 @@ import InquiryPage from "./pages/cscenter/InquiryPage";
 import InquiryHistoryPage from "./pages/cscenter/InquiryHistoryPage";
 import PlaceAddPage from "./pages/mytrip/PlaceAddPage";
 import ArticleTestPage from "./pages/ArticleTestPage";
+import { get } from "./utils/api";
+import InquiryDetailPage from "./pages/cscenter/InquiryDetailPage";
 
 const router = createBrowserRouter([
   {
@@ -111,7 +113,8 @@ const router = createBrowserRouter([
     path: "/profile",
     element: <ProfilePage />,
     loader: async () => {
-      return userData;
+      const { data } = await get<TUserProfile>(`/user/profile`)
+      return data;
     },
   },
   {
@@ -123,14 +126,16 @@ const router = createBrowserRouter([
     path: "/profile/edit",
     element: <UserEditPage />,
     loader: async () => {
-      return userData;
+      const { data } = await get<TUserProfile>(`/user/profile`)
+      return data;
     },
   },
   {
     path: "/profile/settings",
     element: <SettingsPage />,
     loader: async () => {
-      return userData;
+      const { data } = await get<TUserProfile>(`/user/profile`)
+      return data;
     },
   },
   /* ---- 스크랩 페이지 ---- */
@@ -171,6 +176,15 @@ const router = createBrowserRouter([
     // 문의 하기
     path: "/cscenter/inquiry",
     element: <InquiryPage />,
+    loader: async () => {
+      const { data } = await get<TUserProfile>(`/user/profile`)
+      return data.nickname;
+    },
+  },
+  {
+    // 내 문의 detail page
+    path: "/cscenter/inquiry/:id",
+    element: <InquiryDetailPage />,
   },
   {
     // 내 문의 내역
@@ -215,6 +229,10 @@ const router = createBrowserRouter([
     // 탈퇴하기
     path: "/leave",
     element: <ResignPage />,
+    loader: async () => {
+      const { data } = await get<TUserProfile>(`/user/profile`)
+      return data;
+    },
   },
   {
     // 탈퇴 완료

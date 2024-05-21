@@ -28,7 +28,7 @@ interface  loginResponse {
 
 async function login() {
   const response = await post<loginResponse>(
-    `${import.meta.env.VITE_BASE_URL}/user/app/login`,
+    `/user/app/login`,
     {
       uid: 1234321,
       provider: "google",

@@ -5,7 +5,7 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import PageTemplate from "../../../components/common/PageTemplate";
 import Heading from "../../../components/common/Heading";
 
-import { userDataType } from "../../../assets/data/userData";
+import { TUserProfile } from "../../../assets/types/TUserProfile";
 import XIcon from "../../../assets/icons/x.svg?react";
 import UserIcon from "../../../assets/icons/user.svg?react";
 import CameraCircleIcon from "../../../assets/icons/camera_circle.svg?react";
@@ -14,21 +14,23 @@ import InputContainer from "../../../components/common/InputContainer";
 import ExtraButton from "../../../components/common/ExtraButton";
 import usePopup from "../../../hooks/usePopup";
 import { BrandIcon } from "../../auth/SignUpPage/style";
+import Typography from "../../../components/common/Typography";
+import { patch } from "../../../utils/api";
 
 function UserEditPage() {
-  const { name, desc } = useLoaderData() as userDataType;
+  const { id, nickname, description, avatarURL, clapCount, scrapCount, myTravelCount, myTravelDay } = useLoaderData() as TUserProfile;
   const { Popup, popupOpen, popupClose } = usePopup();
-  const [nameValue, setNameValue] = useState(name);
-  const [descValue, setDescValue] = useState(desc);
+  const [nameValue, setNameValue] = useState(nickname);
+  const [descValue, setDescValue] = useState(description);
   const navigate = useNavigate();
 
-  const [avatarURL, setAvatarURL] = useState("");
+  const [userAvatarURL, setUserAvatarURL] = useState(avatarURL);
 
   return (
     <PageTemplate nav={null}>
       <Popup>
         <S.PopupContainer>
-          <p>정말 로그아웃 하시겠습니까?</p>
+          <Typography.Title size="lg">정말 로그아웃 하시겠습니까?</Typography.Title>
           <div>
             <S.PopupConfirmButton
               type={"secondary"}
@@ -36,7 +38,7 @@ function UserEditPage() {
                 popupClose();
               }}
             >
-              취소
+              <Typography.Label size="lg" color="inherit">취소</Typography.Label>
             </S.PopupConfirmButton>
             <S.PopupConfirmButton
               type={"primary"}
@@ -47,7 +49,7 @@ function UserEditPage() {
                 navigate("/");
               }}
             >
-              확인
+              <Typography.Label size="lg" color="inherit">확인</Typography.Label>
             </S.PopupConfirmButton>
           </div>
         </S.PopupContainer>
@@ -62,10 +64,15 @@ function UserEditPage() {
         </S.CloseIconWrapper>
         <Heading size="sm">프로필 수정</Heading>
         <S.SubmitBtn
-          isActive={nameValue !== name || descValue !== desc}
+          isActive={nameValue !== nickname || descValue !== description}
           onClick={() => {
-            if (nameValue !== name || descValue !== desc) {
-              // TODO : [백엔드] 조건 달성 시, POST
+            if (nameValue !== nickname || descValue !== description) {
+              patch('/user/profile', {
+                avatarURL: userAvatarURL,
+                nickname: nameValue,
+                desc: descValue,
+              })
+              window.location.reload();
             }
           }}
         >
@@ -75,10 +82,10 @@ function UserEditPage() {
       <S.Form>
         <S.AvatarWrapper>
           {
-            avatarURL === "" ?
+            userAvatarURL === "" ?
             <UserIcon width={90} height={90} />
             :
-            <img src={avatarURL} style={{
+            <img src={userAvatarURL} style={{
               width:"90px",
               height:"90px",
               borderRadius:"100%",
@@ -94,7 +101,7 @@ function UserEditPage() {
 
               reader.readAsDataURL(file);
               reader.onloadend = () => {
-                setAvatarURL(reader.result);
+                setUserAvatarURL(reader.result as string);
               }
             }
           }}/>
@@ -102,7 +109,7 @@ function UserEditPage() {
         <S.InputContainer>
           <label htmlFor="username">이름</label>
           <input
-            defaultValue={name}
+            defaultValue={nickname}
             onChange={(e) => {
               setNameValue(e.currentTarget.value);
             }}
@@ -111,16 +118,16 @@ function UserEditPage() {
           ></input>
         </S.InputContainer>
         <S.InputContainer>
-          <label htmlFor="desc">한 줄 소개</label>
-          <input
-            defaultValue={desc}
+          <label htmlFor="desc">소개</label>
+          <textarea
+            defaultValue={description}
             onInput={(e) => {
               setDescValue(e.currentTarget.value);
             }}
-            placeholder="나를 한 줄로 소개해보세요!(선택)"
+            placeholder="나를 한 줄로 소개해보세요! (선택)"
             id="desc"
             name="desc"
-          ></input>
+          ></textarea>
           <InputContainer
             inputType="email"
             name="account"

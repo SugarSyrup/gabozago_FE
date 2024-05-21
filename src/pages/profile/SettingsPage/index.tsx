@@ -1,14 +1,18 @@
-import * as S from "./style";
+import { useLoaderData, useNavigate } from "react-router-dom";
+
+import ChevronRightIcon from "../../../assets/icons/chevron_right.svg?react";
+import UserIcon from "../../../assets/icons/user.svg?react";
+import { TUserProfile } from "../../../assets/types/TUserProfile";
+
 import PageTemplate from "../../../components/common/PageTemplate";
 import PageHeader from "../../../components/common/PageHeader";
-import { useNavigate } from "react-router-dom";
-import ChevronRightIcon from "../../../assets/icons/chevron_right.svg?react";
-import { useEffect, useState } from "react";
-import { get } from "../../../utils/api";
+import Typography from "../../../components/common/Typography";
+
+import * as S from "./style";
 
 function SettingsPage() {
+  const { id, nickname, description, avatarURL, clapCount, scrapCount, myTravelCount, myTravelDay } = useLoaderData() as TUserProfile;
   const navigate = useNavigate();
-  const [username, setUsername] = useState<string>("-");
   const settings = [
     {
       title: "고객 지원",
@@ -39,10 +43,6 @@ function SettingsPage() {
           path: "/terms/02",
         },
         {
-          text: "위치 서비스 이용 동의",
-          path: "/terms/03",
-        },
-        {
           text: "오픈소스 라이센스",
           path: "/terms/04",
         },
@@ -50,34 +50,27 @@ function SettingsPage() {
     },
   ];
 
-  useEffect(() => {
-    const token = localStorage.getItem("access_token");
-    console.log(token);
-    if (token) {
-      get<{
-        avatarURL: string;
-        name: string;
-        desc: string;
-      }>(`${import.meta.env.VITE_BASE_URL}user/profile`);
-    } else {
-      alert("유저 정보 가져오기 실패: 로그인이 필요합니다.");
-    }
-  }, []);
-
   return (
-    <PageTemplate header={<PageHeader>설정</PageHeader>}>
+    <PageTemplate header={<PageHeader><Typography.Title size="lg">설정</Typography.Title></PageHeader>}>
       <S.ContentsWrapper>
         <S.UserSettingButton onClick={() => navigate(`/profile/edit`)}>
-          <div>
-            <p>{username}</p>
-            <p>프로필 및 계정 설정</p>
-          </div>
+          <S.UserSettingLeftItems>
+            {
+              avatarURL ? <img src={avatarURL} alt="user avatar" /> : <UserIcon />
+            }
+            <div>
+              <Typography.Title size="lg">{nickname}</Typography.Title>
+              <Typography.Label size="lg">프로필 및 계정 설정</Typography.Label>
+            </div>
+          </S.UserSettingLeftItems>
           <ChevronRightIcon />
         </S.UserSettingButton>
         <S.SettingsContainer>
           {settings.map((group) => (
             <div>
-              <S.SettingTitleParagraph>{group.title}</S.SettingTitleParagraph>
+              <S.SettingTitleParagraph>
+                <Typography.Title size="lg">{group.title}</Typography.Title>
+              </S.SettingTitleParagraph>
               <ol>
                 {group.items.map((item) => (
                   <S.SettingItem
@@ -85,7 +78,7 @@ function SettingsPage() {
                       navigate(item.path);
                     }}
                   >
-                    {item.text}
+                    <Typography.Body size="md" color="inherit">{item.text}</Typography.Body>
                     <ChevronRightIcon />
                   </S.SettingItem>
                 ))}
@@ -97,7 +90,7 @@ function SettingsPage() {
               navigate("/leave");
             }}
           >
-            탈퇴하기
+            <Typography.Body size="lg" color="inherit">탈퇴하기</Typography.Body>
           </S.LeaveButton>
         </S.SettingsContainer>
       </S.ContentsWrapper>
