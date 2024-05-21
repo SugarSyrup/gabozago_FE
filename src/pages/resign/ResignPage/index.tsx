@@ -1,12 +1,16 @@
-import * as S from "./style";
+import { ChangeEventHandler, useState } from "react";
+import { useLoaderData, useNavigate } from "react-router-dom";
+
+import Typography from "../../../components/common/Typography";
 import PageTemplate from "../../../components/common/PageTemplate";
 import PageHeader from "../../../components/common/PageHeader";
 import CheckBoxItem from "../../../components/common/CheckBox";
-import { ChangeEventHandler, useState } from "react";
-import { useLoaderData, useNavigate } from "react-router-dom";
+
 import { post } from "../../../utils/api";
 import { TUserProfile } from "../../../assets/types/TUserProfile";
-import Typography from "../../../components/common/Typography";
+
+import * as S from "./style";
+
 
 interface TReason {
   value: string;
@@ -92,7 +96,7 @@ function ResignPage() {
           </S.ConfirmButton>
         </S.ConfirmButtonsContainer>
       }
-      header={<PageHeader>탈퇴하기</PageHeader>}
+      header={<PageHeader><Typography.Title size="lg">탈퇴하기</Typography.Title></PageHeader>}
     >
       <S.NoticeContainer>
         <S.TitleHeading>정말로 탈퇴하시겠어요?</S.TitleHeading>

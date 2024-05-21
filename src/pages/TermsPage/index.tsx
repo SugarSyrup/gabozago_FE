@@ -1,8 +1,12 @@
-import * as S from "./style";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+
 import PageTemplate from "../../components/common/PageTemplate";
 import PageHeader from "../../components/common/PageHeader";
+import Typography from "../../components/common/Typography";
+
+import * as S from "./style";
+
 
 interface TTerm {
   id: string;
@@ -85,7 +89,7 @@ function TermsPage() {
 
   return (
     data && (
-      <PageTemplate nav={false} header={<PageHeader>{data.title}</PageHeader>}>
+      <PageTemplate nav={false} header={<PageHeader><Typography.Title size="lg">{data.title}</Typography.Title></PageHeader>}>
         {data.contents.map(({ heading, text }) => (
           <>
             {heading && <S.Heading>{heading}</S.Heading>}
