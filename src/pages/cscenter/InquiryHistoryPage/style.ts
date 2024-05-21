@@ -12,6 +12,7 @@ export const List = styled.ol`
   li {
     padding: 10px 20px;
     border-bottom: 1px solid ${({ theme }) => theme.gray04};
+    cursor: pointer;
 
     p {
       margin-bottom: 6px;
@@ -30,7 +31,7 @@ export const List = styled.ol`
     div {
       display: flex;
       justify-content: space-between;
-      align-items: end;
+      align-items: center;
     }
   }
 `;
