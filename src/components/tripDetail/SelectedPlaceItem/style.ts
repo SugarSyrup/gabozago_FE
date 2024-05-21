@@ -5,10 +5,11 @@ export const Container = styled.li`
 
     display: flex;
     flex-direction: column;
-
-    font-size: 13px;
-    font-weight: 400;
+    
     color: ${({ theme }) => theme.gray01};
+
+    padding-top:8px;
+    padding-right:8px;
 `;
 
 export const Name = styled.span`
@@ -26,6 +27,6 @@ export const Thumbnail = styled.div`
 
 export const DeleteIcon = styled.div`
     position: absolute;
-    right: -8px;
-    top: -8px;
+    right: 0px;
+    top: 0px;
 `;

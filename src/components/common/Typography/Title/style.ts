@@ -48,4 +48,5 @@ export const Title = styled.h3<Props>`
   display: -webkit-box;
   -webkit-line-clamp: ${({ noOfLine }) => (noOfLine ? noOfLine : 1)};
   -webkit-box-orient: vertical;
+
 `;

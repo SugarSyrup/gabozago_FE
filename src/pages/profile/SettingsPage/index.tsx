@@ -3,16 +3,12 @@ import PageTemplate from "../../../components/common/PageTemplate";
 import PageHeader from "../../../components/common/PageHeader";
 import { useNavigate } from "react-router-dom";
 import ChevronRightIcon from "../../../assets/icons/chevron_right.svg?react";
-import { useState } from "react";
-import NotificationToggleButton from "../../../components/profile/settings/NotificationToggleButton";
-import usePopup from "../../../hooks/usePopup";
+import { useEffect, useState } from "react";
+import { get } from "../../../utils/api";
 
 function SettingsPage() {
   const navigate = useNavigate();
-  const { Popup, popupOpen, popupClose } = usePopup();
-  const [isActivityNotiAllowed, setIsActivityNotiAllowed] =
-    useState<boolean>(false);
-  const username = "최민석";
+  const [username, setUsername] = useState<string>("-");
   const settings = [
     {
       title: "고객 지원",
@@ -23,7 +19,7 @@ function SettingsPage() {
         },
         {
           text: "고객센터 • 도움말",
-          path: "/cscenter/help",
+          path: "/cscenter",
         },
         {
           text: "의견보내기",
@@ -54,32 +50,22 @@ function SettingsPage() {
     },
   ];
 
+  useEffect(() => {
+    const token = localStorage.getItem("access_token");
+    console.log(token);
+    if (token) {
+      get<{
+        avatarURL: string;
+        name: string;
+        desc: string;
+      }>(`${import.meta.env.VITE_BASE_URL}user/profile`);
+    } else {
+      alert("유저 정보 가져오기 실패: 로그인이 필요합니다.");
+    }
+  }, []);
+
   return (
     <PageTemplate header={<PageHeader>설정</PageHeader>}>
-      <Popup>
-        <S.PopupContainer>
-          <p>정말 로그아웃 하시겠습니까?</p>
-          <div>
-            <S.PopupConfirmButton
-              type={"secondary"}
-              onClick={() => {
-                popupClose();
-              }}
-            >
-              취소
-            </S.PopupConfirmButton>
-            <S.PopupConfirmButton
-              type={"primary"}
-              onClick={() => {
-                popupClose();
-                // @todo: 로그아웃
-              }}
-            >
-              확인
-            </S.PopupConfirmButton>
-          </div>
-        </S.PopupContainer>
-      </Popup>
       <S.ContentsWrapper>
         <S.UserSettingButton onClick={() => navigate(`/profile/edit`)}>
           <div>
@@ -89,18 +75,6 @@ function SettingsPage() {
           <ChevronRightIcon />
         </S.UserSettingButton>
         <S.SettingsContainer>
-          {/* @todo: 알림 설정 개발 전까지 표시X  */}
-          {/* <div>
-            <S.SettingTitleParagraph>알림 설정</S.SettingTitleParagraph>
-            <NotificationToggleButton
-              name="활동 알림"
-              desc="좋아요, 댓글, 팔로우 등 내 활동에 대한 알림이에요."
-              active={isActivityNotiAllowed}
-              onClick={() => {
-                setIsActivityNotiAllowed((prev) => !prev);
-              }}
-            />
-          </div> */}
           {settings.map((group) => (
             <div>
               <S.SettingTitleParagraph>{group.title}</S.SettingTitleParagraph>
@@ -118,13 +92,13 @@ function SettingsPage() {
               </ol>
             </div>
           ))}
-          <S.LogOutButton
+          <S.LeaveButton
             onClick={() => {
-              popupOpen();
+              navigate("/leave");
             }}
           >
-            로그아웃
-          </S.LogOutButton>
+            탈퇴하기
+          </S.LeaveButton>
         </S.SettingsContainer>
       </S.ContentsWrapper>
     </PageTemplate>

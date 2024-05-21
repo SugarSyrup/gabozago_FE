@@ -25,14 +25,33 @@ const onResponse = (res: AxiosResponse): AxiosResponse => {
     return res;
 }
 
-const onError = (error: AxiosError | Error): Promise<AxiosError> => {
+const onError = async (error: AxiosError | Error): Promise<AxiosError> => {
     if (axios.isAxiosError(error)) {
       const { method, url } = error.config as InternalAxiosRequestConfig;
       if (error.response) {
-        const { statusCode, message } = error.response.data;
+        const { status, data:{code, messages} } = error.response;
+        console.log(error.response.data);
         console.log(
-          `[API - ERROR] ${method?.toUpperCase()} ${url} | ${statusCode} : ${message}`,
+          `[API - ERROR] ${method?.toUpperCase()} ${url} | ${status} : ${code}`,
         );
+
+        if(status === 401 && messages[0].message === "Token is invalid or expired") {
+          const response = await axiosInstance.post<{
+            access: string,
+            access_expires_at: string
+          }>(`${import.meta.env.VITE_BASE_URL}/user/jwt-token-auth/refresh`, {
+            refresh: localStorage.getItem("refresh_token")
+          })
+
+          if(response.status === 200) {
+            localStorage.setItem("access_token", response.data.access);
+            return axiosInstance.request(error.config as InternalAxiosRequestConfig)
+          } else if( response.status === 401) {
+            localStorage.removeItem("access_token");
+            localStorage.removeItem("refresh_token");
+            window.location.href = "/login";
+          }
+        }
       }
     } else {
       console.log(`[API] | Error ${error.message}`);
@@ -61,4 +80,25 @@ export const post = async <T>(
 ): Promise<AxiosResponse<T>> => {
     const response = await axiosInstance.post(url, data, config);
     return response;
+};
+
+export const deletes = async <T>(
+  url: string,
+  data?: any,
+  config?: AxiosRequestConfig,
+): Promise<AxiosResponse<T>> => {
+  const response = await axiosInstance.delete(url, {
+    data: data,
+    ...config
+  });
+  return response;
+};
+
+export const patch = async <T>(
+  url: string,
+  data?: any,
+  config?: AxiosRequestConfig,
+): Promise<AxiosResponse<T>> => {
+  const response = await axiosInstance.patch(url, data, config);
+  return response;
 };

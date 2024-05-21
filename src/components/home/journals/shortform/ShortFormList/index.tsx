@@ -1,5 +1,5 @@
-import * as S from "./style";
 import { Link } from "react-router-dom";
+
 import LocationIcon from "../../../../../assets/icons/location.svg?react";
 import ThemeIcon from "../../../../../assets/icons/theme.svg?react";
 import Typography from "../../../../common/Typography";

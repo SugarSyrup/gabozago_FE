@@ -4,6 +4,7 @@ import PageHeader from "../../../components/common/PageHeader";
 import CheckBoxItem from "../../../components/common/CheckBox";
 import { ChangeEventHandler, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { post } from "../../../utils/api";
 
 interface TReason {
   value: string;
@@ -13,6 +14,9 @@ interface TReason {
 function ResignPage() {
   const navigate = useNavigate();
   const [selectedReason, setSelectedReason] = useState<string[]>([]);
+  const [suggestionText, setSuggestionText] = useState<string>("");
+
+  // 탈퇴 사유 선택
   const toggleReason: ChangeEventHandler<HTMLInputElement> = (e) => {
     const value = e.target.id;
 
@@ -22,13 +26,41 @@ function ResignPage() {
       setSelectedReason((prev) => [...prev, value]);
     }
   };
-
-  const [suggestionText, setSuggestionText] = useState<string>("");
+  // 서비스 제안
   const suggestionChangeHandler: ChangeEventHandler<HTMLTextAreaElement> = (
     e
   ) => {
     if (suggestionText.length <= 200) {
       setSuggestionText(e.target.value);
+    }
+  };
+  // 탈퇴하기
+  const onSubmit = async () => {
+    if (selectedReason.length === 0) {
+      alert("탈퇴 사유를 선택해 주세요.");
+      return;
+    }
+
+    const { data } = await post<{
+      message: "INACTIVATE SUCCESS" | "INACTIVATE FAILED";
+    }>(
+      `${import.meta.env.VITE_BASE_URL}user/profile/withdraw`,
+      {},
+      {
+        params: {
+          // @todo: 탈퇴사유 API 오류 수정되면 selectedReason 배열 전체 전송
+          // reason: selectedReason.map(item => `WDRL${item}`),
+          reason: `WDRL${selectedReason[0]}`,
+          suggestion: suggestionText,
+        },
+      }
+    );
+
+    if (data.message === "INACTIVATE SUCCESS") {
+      localStorage.clear(); // 로그아웃
+      navigate("/leave/done");
+    } else {
+      alert("ERROR: 오류가 발생했습니다.");
     }
   };
 
@@ -47,18 +79,7 @@ function ResignPage() {
     <PageTemplate
       nav={
         <S.ConfirmButtonsContainer>
-          <S.ConfirmButton
-            styleTheme="secondary"
-            onClick={() => {
-              if (selectedReason.length === 0) {
-                alert("탈퇴 사유를 선택해 주세요.");
-                return;
-              }
-              // @todo: API를 통한 회원 탈퇴 요청
-              // @todo: 로그아웃(토큰 없애기)
-              navigate("/leave/done");
-            }}
-          >
+          <S.ConfirmButton styleTheme="secondary" onClick={onSubmit}>
             탈퇴하기
           </S.ConfirmButton>
           <S.ConfirmButton
