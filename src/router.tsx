@@ -214,6 +214,10 @@ const router = createBrowserRouter([
     // 탈퇴하기
     path: "/leave",
     element: <ResignPage />,
+    loader: async () => {
+      const { data } = await get<TUserProfile>(`/user/profile`)
+      return data;
+    },
   },
   {
     // 탈퇴 완료

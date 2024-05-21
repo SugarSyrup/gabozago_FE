@@ -9,7 +9,7 @@ const borderCSS = css`
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 5px;
 `;
 
 export const ConfirmButtonsContainer = styled.div`
@@ -49,6 +49,7 @@ export const NoticeContainer = styled(Container)`
 export const TitleHeading = styled.h2`
   font-size: 20px;
   font-weight: 500;
+  margin-bottom:10px;
 `;
 
 export const DescParagraph = styled.p`
@@ -56,10 +57,11 @@ export const DescParagraph = styled.p`
   font-weight: 400;
   line-height: 22px;
   color: ${({ theme }) => theme.gray01};
+  margin-bottom:20px;
 
-  span {
-    color: ${({ theme }) => theme.gray};
-    font-weight: 500;
+  strong {
+    color: #424242;
+    font-weight:400;
   }
 `;
 

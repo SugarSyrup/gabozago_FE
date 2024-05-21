@@ -3,8 +3,10 @@ import PageTemplate from "../../../components/common/PageTemplate";
 import PageHeader from "../../../components/common/PageHeader";
 import CheckBoxItem from "../../../components/common/CheckBox";
 import { ChangeEventHandler, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { post } from "../../../utils/api";
+import { TUserProfile } from "../../../assets/types/TUserProfile";
+import Typography from "../../../components/common/Typography";
 
 interface TReason {
   value: string;
@@ -12,6 +14,7 @@ interface TReason {
 }
 
 function ResignPage() {
+  const { id, nickname, description, avatarURL, clapCount, scrapCount, myTravelCount, myTravelDay } = useLoaderData() as TUserProfile;
   const navigate = useNavigate();
   const [selectedReason, setSelectedReason] = useState<string[]>([]);
   const [suggestionText, setSuggestionText] = useState<string>("");
@@ -41,20 +44,19 @@ function ResignPage() {
       return;
     }
 
+    // TODO : API 미구현으로 테스트 진행 못함
+    const reqData = suggestionText === "" ? 
+    {
+      reason: selectedReason.map(item => `WDRL${item}`),
+    }
+    :
+    {
+      reason: selectedReason.map(item => `WDRL${item}`),
+      suggestion: suggestionText,
+    }
     const { data } = await post<{
       message: "INACTIVATE SUCCESS" | "INACTIVATE FAILED";
-    }>(
-      `/user/profile/withdraw`,
-      {},
-      {
-        params: {
-          // @todo: 탈퇴사유 API 오류 수정되면 selectedReason 배열 전체 전송
-          // reason: selectedReason.map(item => `WDRL${item}`),
-          reason: `WDRL${selectedReason[0]}`,
-          suggestion: suggestionText,
-        },
-      }
-    );
+      }>(`/user/profile/withdraw`, reqData);
 
     if (data.message === "INACTIVATE SUCCESS") {
       localStorage.clear(); // 로그아웃
@@ -64,8 +66,6 @@ function ResignPage() {
     }
   };
 
-  // @todo: 로그인 유저 정보 가져오기
-  const username = "최민석";
   const reasonMap: TReason[] = [
     { value: "01", text: "재가입" },
     { value: "02", text: "이용 빈도 및 기대감이 낮음" },
@@ -97,21 +97,22 @@ function ResignPage() {
       <S.NoticeContainer>
         <S.TitleHeading>정말로 탈퇴하시겠어요?</S.TitleHeading>
         <S.DescParagraph>
-          <span>{username}</span>님의 아래 정보는 모두 삭제되며, 탈퇴 시 정보
-          복구가 어려워요.
+          <Typography.Body size="lg" color="inherit" noOfLine={2}>
+            <strong>{nickname}</strong>님의 아래 정보는 모두 삭제되며,<br /> 탈퇴 시 정보 복구가 어려워요.
+          </Typography.Body>
         </S.DescParagraph>
         <S.InfoContainer>
           <S.InfoTitleParagraph>회원 탈퇴 시 삭제될 정보</S.InfoTitleParagraph>
           <ul className="info">
-            <li>계정 및 프로필 정보</li>
-            <li>내 여행 및 장소 저장 정보</li>
-            <li>내 여행 일정 정보</li>
-            <li>작성한 글, 댓글 편집 권한 등</li>
+            <li><Typography.Body size="lg" color="inherit">계정 및 프로필 정보</Typography.Body></li>
+            <li><Typography.Body size="lg" color="inherit">내 여행 및 장소 저장 정보</Typography.Body></li>
+            <li><Typography.Body size="lg" color="inherit">내 여행 일정 정보</Typography.Body></li>
+            <li><Typography.Body size="lg" color="inherit">작성한 글, 댓글 편집 권한 등</Typography.Body></li>
           </ul>
           <S.InfoTitleParagraph>회원 탈퇴 시 유지될 정보</S.InfoTitleParagraph>
           <ul className="info">
-            <li>작성한 게시글 및 댓글, 후기 전체</li>
-            <li>서비스 이용 로그 등</li>
+            <li><Typography.Body size="lg" color="inherit">작성한 게시글 및 댓글, 후기 전체</Typography.Body></li>
+            <li><Typography.Body size="lg" color="inherit">서비스 이용 로그 등</Typography.Body></li>
           </ul>
         </S.InfoContainer>
       </S.NoticeContainer>
