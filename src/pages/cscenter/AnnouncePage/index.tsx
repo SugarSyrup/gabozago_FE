@@ -30,7 +30,7 @@ function AnnouncePage() {
       next: string;
       previous: string;
       results: TData[];
-    }>(`${import.meta.env.VITE_BASE_URL}settings/support/announcement`).then(
+    }>(`/settings/support/announcement`).then(
       ({ data }) => setData(data.results)
     );
   }, []);

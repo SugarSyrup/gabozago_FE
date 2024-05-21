@@ -54,7 +54,7 @@ function UserActivity() {
     const dataContainerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        post<articleResponseType | shortsResponseType | commentsResponseType>(`${import.meta.env.VITE_BASE_URL}user/profile/my-activity`, {
+        post<articleResponseType | shortsResponseType | commentsResponseType>(`/user/profile/my-activity`, {
             sort: actFilter,
             community: postFilter,
         }).then((response) => {

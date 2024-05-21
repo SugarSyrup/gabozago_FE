@@ -31,7 +31,7 @@ function FeedBackPage() {
 
               if (token) {
                 post<string>(
-                  `${import.meta.env.VITE_BASE_URL}settings/support/opinion`,
+                  `/settings/support/opinion`,
                   { content: text }
                 );
 

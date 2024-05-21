@@ -53,7 +53,7 @@ function InquiryPage() {
         formData.append("image", file);
 
         const { data } = await post<{ id: number; imageURL: string }>(
-          `${import.meta.env.VITE_BASE_URL}settings/image`,
+          `/settings/image`,
           formData
         );
         imageIds.push(data.id);
@@ -74,7 +74,7 @@ function InquiryPage() {
         title: string;
         content: string;
         images: number[];
-      }>(`${import.meta.env.VITE_BASE_URL}settings/support/help/ask`, body);
+      }>(`/settings/support/help/ask`, body);
       alert(
         "문의가 등록되었습니다. /n 문의하신 내용은 빠른 시간 내에 답변을 드리도록 하겠습니다."
       );

@@ -44,7 +44,7 @@ function ResignPage() {
     const { data } = await post<{
       message: "INACTIVATE SUCCESS" | "INACTIVATE FAILED";
     }>(
-      `${import.meta.env.VITE_BASE_URL}user/profile/withdraw`,
+      `/user/profile/withdraw`,
       {},
       {
         params: {

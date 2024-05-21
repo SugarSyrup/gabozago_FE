@@ -39,7 +39,7 @@ const onError = async (error: AxiosError | Error): Promise<AxiosError> => {
           const response = await axiosInstance.post<{
             access: string,
             access_expires_at: string
-          }>(`${import.meta.env.VITE_BASE_URL}/user/jwt-token-auth/refresh`, {
+          }>(`/user/jwt-token-auth/refresh`, {
             refresh: localStorage.getItem("refresh_token")
           })
 

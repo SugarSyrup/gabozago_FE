@@ -26,7 +26,7 @@ function AnnounceDetailPage() {
       previous: string;
       results: TData;
     }>(
-      `${import.meta.env.VITE_BASE_URL}settings/support/announcement/${id}`
+      `/settings/support/announcement/${id}`
     ).then(({ data }) => setData(data.results));
   }, []);
 

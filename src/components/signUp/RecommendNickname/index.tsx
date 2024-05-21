@@ -32,7 +32,7 @@ function RecommendNickname() {
             setRecommendAlert("");
           }}
           onButtonClick={() => {
-            get<{message: "POSSIBLE" | "IMPOSSIBLE"}>(`${import.meta.env.VITE_BASE_URL}user/nickname/${recommend}`)
+            get<{message: "POSSIBLE" | "IMPOSSIBLE"}>(`/user/nickname/${recommend}`)
               .then((res) => {
                 if(res.data.message === "POSSIBLE") {
                   setRecommendAlert(`유효하지 않은 유저입니다.`)

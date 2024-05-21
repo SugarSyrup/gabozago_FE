@@ -26,7 +26,7 @@ function FAQDetailPage() {
       next: string;
       previous: string;
       results: TData;
-    }>(`${import.meta.env.VITE_BASE_URL}settings/support/help/faq/${id}`).then(
+    }>(`/settings/support/help/faq/${id}`).then(
       ({ data }) => setData(data.results)
     );
   }, []);

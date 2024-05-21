@@ -42,7 +42,7 @@ function CSCenterPage() {
       next: string;
       previous: string;
       results: { id: number; category: string; title: string }[];
-    }>(`${import.meta.env.VITE_BASE_URL}settings/support/help/faq`, {
+    }>(`/settings/support/help/faq`, {
       params: { category: `FAQ${focusedCategory}` },
     }).then(({ data }) => setQuestions(data.results));
   }, [focusedCategory]);

@@ -58,7 +58,7 @@ function SettingsPage() {
         avatarURL: string;
         name: string;
         desc: string;
-      }>(`${import.meta.env.VITE_BASE_URL}user/profile`);
+      }>(`/user/profile`);
     } else {
       alert("유저 정보 가져오기 실패: 로그인이 필요합니다.");
     }
