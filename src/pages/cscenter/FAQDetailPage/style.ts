@@ -12,7 +12,7 @@ export const Container = styled.div`
 `;
 
 export const InfoContainer = styled.div`
-  padding: 18px;
+  padding: 15px 20px;
   border-bottom: 1px solid ${({ theme }) => theme.gray04};
 
   p.title {

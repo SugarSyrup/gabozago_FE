@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 export const Header = styled.header`
     width:100%;
-    padding:6px 20px;
+    padding:20px 20px;
     position:relative;
 
     display:flex;

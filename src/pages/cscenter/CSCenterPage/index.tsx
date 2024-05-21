@@ -1,16 +1,21 @@
-import * as S from "./style";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
+import Typography from "../../../components/common/Typography";
 import PageTemplate from "../../../components/common/PageTemplate";
 import PageHeader from "../../../components/common/PageHeader";
-import ExtraButton from "../../../components/common/ExtraButton";
+import Button from "../../../components/common/Button";
+
 import QuestionsIcon from "../../../assets/icons/cs-questions.svg?react";
 import SettingsIcon from "../../../assets/icons/cs-settings.svg?react";
 import ServicesIcon from "../../../assets/icons/cs-services.svg?react";
 import RightChevron from "../../../assets/icons/chevron_right.svg?react";
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import Button from "../../../components/common/Button";
+
 import { get } from "../../../utils/api";
+
+import * as S from "./style";
+
 
 function CSCenterPage() {
   const [focusedCategory, setFocusedCategory] = useState<string>("01");
@@ -64,18 +69,12 @@ function CSCenterPage() {
           </Button>
         </S.ButtonContainer>
       }
-      header={<PageHeader>고객센터/도움말</PageHeader>}
+      header={<PageHeader><Typography.Title size="lg">고객센터•도움말</Typography.Title></PageHeader>}
     >
       <S.Container>
         <div>
           <S.HeadingContainer>
             <S.Heading>자주 묻는 질문</S.Heading>
-            <ExtraButton
-              label="전체보기"
-              onClick={() => {
-                navigate("./faq");
-              }}
-            />
           </S.HeadingContainer>
           <S.CategoryButtonList>
             {categoryMap.map(({ value, text, icon }) => (

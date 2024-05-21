@@ -1,9 +1,12 @@
-import * as S from "./style";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
 import PageTemplate from "../../../components/common/PageTemplate";
 import PageHeader from "../../../components/common/PageHeader";
-import { useParams } from "react-router-dom";
+import Typography from "../../../components/common/Typography";
 import { get } from "../../../utils/api";
+
+import * as S from "./style";
 
 interface TData {
   title: string;
@@ -32,11 +35,11 @@ function FAQDetailPage() {
   }, []);
 
   return (
-    <PageTemplate nav={false} header={<PageHeader>고객센터/도움말</PageHeader>}>
+    <PageTemplate nav={false} header={<PageHeader><Typography.Title size="lg">고객센터/도움말</Typography.Title></PageHeader>}>
       <S.Container>
         <S.InfoContainer>
-          <p className="title">{data.title}</p>
-          <p className="date">{data.createdAt}</p>
+                <p className="title"><Typography.Title size="md" color="inherit">{data.title}</Typography.Title></p>
+                <p className="date"><Typography.Label size="lg" color="inherit">{data.createdAt.replace("-", ". ").replace("-", ". ")}</Typography.Label></p>
         </S.InfoContainer>
         <S.ContentsContainer>
           {data.content.split("\n").map((line) => (
