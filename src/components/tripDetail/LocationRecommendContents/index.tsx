@@ -35,6 +35,7 @@ interface TRecommendData {
 function LocationRecommendContents({locations} : Props) {
     const [data, setData] = useState<TRecommendData>();
 
+    // [SugarSyrup] @TODO: 백엔드 더미데이터 없음 + 500 Error
     useEffect(() => {
         get<TRecommendData>(`my-travel/location/content?location=${locations.toLocaleString()}`)
             .then((response) => {
