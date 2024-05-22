@@ -22,6 +22,7 @@ function RecommendationListItem({
   theme,
   id,
   keyword,
+  location
 }: Props) {
   const [selectedPlaces, setSelectedPlaces] = useRecoilState(selectedPlacesState);
   const [isActive, setIsActive] = useState<boolean>(false);
@@ -45,6 +46,7 @@ function RecommendationListItem({
           name,
           thumbnail,
           id,
+          location: location
         }
       ]);
     }

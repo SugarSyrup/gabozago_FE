@@ -89,14 +89,18 @@ function ScrapedPlace() {
                   prev.filter((SelectedPlace) => SelectedPlace.id !== item.id)
                 );
               } else {
-                setSelectedPlaces((prev) => [
-                  ...prev,
-                  {
-                    name: item.name,
-                    thumbnail: "",
-                    id: item.id,
-                  }
-                ]);
+                get<{region: string}>(`/place/${item.id}`)
+                  .then((response) => {
+                    setSelectedPlaces((prev) => [
+                      ...prev,
+                      {
+                        name: item.name,
+                        thumbnail: "",
+                        id: item.id,
+                        location: [response.data.region],
+                      }
+                    ]);
+                  })
               }
             }}>
               <Typography.Label size="lg" color="inherit">선택</Typography.Label>

@@ -58,7 +58,7 @@ function MyTripPlaceCreatePage() {
               {
                 id: response.data.id,
                 name: formData.get("name") as string,
-                location: response.data.location,
+                location: [response.data.location],
               },
             ]);
           })
