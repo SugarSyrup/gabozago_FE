@@ -25,6 +25,7 @@ interface TPlace {
 function SearchPlaces({ keyword, location }: Props) {
   const [selectedPlaces, setSelectedPlaces] = useRecoilState(selectedPlacesState);
   const [searchedPlaces, setSearchedPlaces] = useState<TPlace[]>([]);
+  const keywords = useDebounce(keyword, 500);
   const navigate = useNavigate();
 
   function onDelete(id: number) {
@@ -35,11 +36,11 @@ function SearchPlaces({ keyword, location }: Props) {
 
   useEffect(() => {
     console.log('worked?')
-    get<TPlace[]>(`/place/list-search?location=${location.toString()}&query=${keyword}`)
+    get<TPlace[]>(`/place/list-search?location=${location.toString()}&query=${keywords}`)
       .then((response) => {
         setSearchedPlaces(response.data);
       })
-  }, [useDebounce(keyword, 500)])
+  }, [keywords])
 
   return (
     <>

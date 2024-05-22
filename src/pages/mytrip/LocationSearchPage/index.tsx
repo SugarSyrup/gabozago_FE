@@ -1,8 +1,9 @@
 import { useEffect, useLayoutEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+
+import LeftChevronIcon from "../../../assets/icons/chevron_left.svg?react";
 
 import PageTemplate from "../../../components/common/PageTemplate";
-import BackButton from "../../../components/common/BackButton";
 import Typography from "../../../components/common/Typography";
 import useSearchInput from "../../../hooks/useSearchInput";
 
@@ -13,11 +14,13 @@ import LocationRecommendContents from "../../../components/tripDetail/LocationRe
 import { get } from "../../../utils/api";
 
 import * as S from "./style";
+import { isElement } from "react-dom/test-utils";
 
 
 
 function MyTripLocationSearchPage() {
   const { id, newPlace } = useParams();
+  const navigate = useNavigate();
   const [tabNavIdx, setTabNavIdx] = useState<number>(1);
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const [locations, setLocations] = useState<string[]>();
@@ -67,7 +70,16 @@ function MyTripLocationSearchPage() {
     >
       <S.Header>
         <S.SearchBar>
-          <BackButton></BackButton>
+          <LeftChevronIcon 
+            onClick={() => {
+              if(isSearching && inputRef.current) {
+                inputRef.current.value = "";
+                setIsSearching(false);
+              } else {
+                navigate(-1);
+              }
+            }}
+          />
           <SearchInput />
         </S.SearchBar>
         {!isSearching && (
