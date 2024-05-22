@@ -3,14 +3,13 @@ import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 
 import { TFilter, journalFilterState} from "../../../recoil/journals/journalState";
+import { selectedPlacesState } from "../../../recoil/mytrip/selectedPlacesState";
 import BookMarkIcon from "../../../assets/icons/bookmark_filled.svg?react";
-import RightChevronIcon from "../../../assets/icons/chevron_right.svg?react";
 import { get, post } from "../../../utils/api";
 
 import FilterList from "../../common/FilterList";
 import Typography from "../../common/Typography";
 import * as S from "./style";
-import { selectedPlacesState } from "../../../recoil/mytrip/selectedPlacesState";
 
 interface Place {
   id: number;

@@ -4,7 +4,6 @@ import { useRecoilState } from "recoil";
 
 import { selectedPlacesState } from "../../../recoil/mytrip/selectedPlacesState";
 
-
 import Typography from "../../common/Typography";
 import LocationRandomIcon from "../../mytrip/LocationRandomIcon";
 

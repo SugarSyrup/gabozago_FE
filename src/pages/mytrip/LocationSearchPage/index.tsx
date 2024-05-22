@@ -112,7 +112,7 @@ function MyTripLocationSearchPage() {
       }
       <S.Contents>
       {
-        !isSearching && tabNavIdx === 1 ? (
+        !isSearching && tabNavIdx === 1 &&
           <>
               {
                 locations &&
@@ -122,10 +122,10 @@ function MyTripLocationSearchPage() {
                 </>
               }
           </>
-        ) : 
-        (
+      }
+      {
+        !isSearching && tabNavIdx === 2 &&
           <ScrapedPlace />
-        )
       }
       </S.Contents>
     </PageTemplate>

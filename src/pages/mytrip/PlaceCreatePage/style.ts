@@ -50,7 +50,7 @@ export const ButtonWrapper = styled.div`
     bottom:40px;
 `
 
-export const Button = styled.div<{isActive: boolean}>`
+export const Button = styled.button<{isActive: boolean}>`
     width:100%;
     padding: 10px 20px 15px 20px;
     border-radius:30px;
@@ -63,6 +63,7 @@ export const Button = styled.div<{isActive: boolean}>`
     color:white;
     background-color:${({isActive, theme}) => isActive ? theme.main : "#A6A6A6"};
     cursor: pointer;
+    border:none;
 
     svg{
         width:28px;
