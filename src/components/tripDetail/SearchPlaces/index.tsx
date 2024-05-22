@@ -5,34 +5,51 @@ import SearchIcon from "../../../assets/icons/search.svg?react";
 import RecommendationListItem from "../RecommendationListItem";
 import SelectedPlaceItem from "../SelectedPlaceItem";
 import { selectedPlacesState } from "../../../recoil/mytrip/selectedPlacesState";
-import { PlaceType } from "../../../assets/data/Places";
+import { useEffect, useState } from "react";
+import { get } from "../../../utils/api";
+import useDebounce from "../../../hooks/useDebounce";
 
 interface Props {
-  searchedPlaces: PlaceType[];
-  keyword?: string;
+  location: string[];
+  keyword: string;
 }
 
-function SearchPlaces({ searchedPlaces, keyword }: Props) {
-  const [selectedPlaces, setSelectedPlaces] =
-    useRecoilState(selectedPlacesState);
+interface TPlace {
+  id: number,
+  image: null | string,
+  location: string,
+  name: string,
+  theme: string,
+}
+
+function SearchPlaces({ keyword, location }: Props) {
+  const [selectedPlaces, setSelectedPlaces] = useRecoilState(selectedPlacesState);
+  const [searchedPlaces, setSearchedPlaces] = useState<TPlace[]>([]);
   const navigate = useNavigate();
 
-  function onDelete(id: string) {
+  function onDelete(id: number) {
     setSelectedPlaces((prev) =>
       prev.filter((SelectedPlace) => SelectedPlace.id !== id)
     );
   }
 
+  useEffect(() => {
+    console.log('worked?')
+    get<TPlace[]>(`/place/list-search?location=${location.toString()}&query=${keyword}`)
+      .then((response) => {
+        setSearchedPlaces(response.data);
+      })
+  }, [useDebounce(keyword, 500)])
+
   return (
     <>
       {searchedPlaces.length !== 0 ? (
         <S.SearchPlacesList>
-          {searchedPlaces.map(({ name, theme, hearts, rating, id }) => (
+          {searchedPlaces.map(({ name, theme, id }) => (
             <RecommendationListItem
               name={name}
-              hearts={hearts}
               theme={theme}
-              rating={rating}
+              location={location}
               id={id}
               keyword={keyword}
             />

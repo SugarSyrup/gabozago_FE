@@ -34,12 +34,6 @@ function SelectedPlaces() {
             onDelete={onDelete}
           />
         ))}
-          <SelectedPlaceItem
-            name={'123'}
-            key={123}
-            id={"123"}
-            onDelete={onDelete}
-          />
       </S.SelectedPlaceList>
       <Button
         size="lg"

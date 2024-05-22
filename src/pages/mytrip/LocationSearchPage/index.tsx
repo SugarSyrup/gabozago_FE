@@ -9,24 +9,19 @@ import useSearchInput from "../../../hooks/useSearchInput";
 import SelectedLocations from "../../../components/tripDetail/SelectedPlaces";
 import SearchPlaces from "../../../components/tripDetail/SearchPlaces";
 import LocationHotPlaces from "../../../components/tripDetail/LocationHotPlaces";
+import LocationRecommendContents from "../../../components/tripDetail/LocationRecommendContents";
 import { get } from "../../../utils/api";
 
 import * as S from "./style";
 
-//삭제 예정
-import {
-  places,
-  PlaceType,
-} from "../../../assets/data/Places";
-import LocationRecommendContents from "../../../components/tripDetail/LocationRecommendContents";
 
 
 function MyTripLocationSearchPage() {
   const { id, newPlace } = useParams();
   const [tabNavIdx, setTabNavIdx] = useState<number>(1);
   const [isSearching, setIsSearching] = useState<boolean>(false);
-  const [searchedPlaces, setSearchedPlaces] = useState<PlaceType[]>([]);
   const [locations, setLocations] = useState<string[]>();
+  const [keyword, setKeyword] = useState<string>("");
   const [inputRef, SearchInput] = useSearchInput({
     placeholder: "장소명을 입력하세요",
     onChange: onChange,
@@ -39,22 +34,18 @@ function MyTripLocationSearchPage() {
       if (inputRef.current.value === "") {
         setIsSearching(false);
       } else {
-        setIsSearching(true); 
-        setSearchedPlaces(searchResult(inputRef.current.value));
+        setIsSearching(true);
+        setKeyword(inputRef.current.value);
       }
     }
   }
 
-  function searchResult(keyword: string) {
-    return places.filter((place) => place.name.includes(keyword));
-  }
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     get<{
       location: string[];
     }>(`/my-travel/${id}`)
       .then((response) => {
-        console.log(response.data.location);
         setLocations(response.data.location);
       })
   }, [])
@@ -63,7 +54,6 @@ function MyTripLocationSearchPage() {
     if (newPlace && inputRef.current) {
       inputRef.current.value = newPlace;
       setIsSearching(true);
-      setSearchedPlaces(searchResult(newPlace));
     }
   }, []);
 
@@ -107,12 +97,11 @@ function MyTripLocationSearchPage() {
       {isSearching ? (
         <>
           <SearchPlaces
-            searchedPlaces={searchedPlaces}
-            keyword={inputRef.current?.value}
+            location={locations === undefined ? [] : locations}
+            keyword={keyword}
           />
         </>
       ) : (
-        // Default, 장소 선택 탭
         <>
           <S.Contents>
             {

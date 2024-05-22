@@ -5,8 +5,8 @@ import Typography from "../../common/Typography";
 interface Props {
   name: string;
   thumbnail?: string;
-  id: string;
-  onDelete: (id: string) => void;
+  id: number;
+  onDelete: (id: number) => void;
 }
 
 function SelectedPlaceItem({ id, name, thumbnail, onDelete }: Props) {
