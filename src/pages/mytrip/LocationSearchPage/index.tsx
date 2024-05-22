@@ -60,7 +60,7 @@ function MyTripLocationSearchPage() {
     <PageTemplate
       nav={
         <S.Footer>
-          <SelectedLocations />
+          <SelectedLocations locations={locations !== undefined ? locations : []}/>
         </S.Footer>
       }
     >

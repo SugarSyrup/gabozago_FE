@@ -35,6 +35,7 @@ function SearchPlaces({ keyword, location }: Props) {
   }
 
   useEffect(() => {
+    //[SugarSyrup] @TODO: 두개 이상의 지역시, 검색이 안되는? 500에러 뜨는 중인데 아직 백엔드 작업중인것 같아서 스킵
     get<TPlace[]>(`/place/list-search?location=${location.toString()}&query=${keywords}`)
       .then((response) => {
         setSearchedPlaces(response.data);
