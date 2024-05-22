@@ -77,14 +77,6 @@ export const Contents = styled.div`
     align-items: flex-start;
 `;
 
-export const RecommendatoinReviewList = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
-
-    width: 100%;
-    gap: 10px;
-`;
 
 export const Footer = styled.footer`
     position: relative;

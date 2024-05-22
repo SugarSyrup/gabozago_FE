@@ -21,8 +21,9 @@ function LocationHotPlaces({locations}: Props) {
     const [recommendPlaces, setRecommendPlaces] = useState<TPlace[]>([]);
 
     useEffect(() => {
-        //[SugarSyrup] @TODO: 500 Error
-        get<TPlace[]>('/my-travel/location/hot')
+        //[SugarSyrup] @TODO: 더미 데이터가 없음
+        get<TPlace[]>(`/my-travel/location/hot?location=${locations.toString()}`
+        )
             .then((response) => {
                 setRecommendPlaces(response.data);
             })
