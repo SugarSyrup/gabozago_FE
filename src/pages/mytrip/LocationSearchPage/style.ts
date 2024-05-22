@@ -70,7 +70,8 @@ export const HighlightLine = styled.div<{ isHighlight: boolean }>`
 `;
 
 export const Contents = styled.div`
-    padding-top: 120px;
+    width:100%;
+    padding-top: 110px;
 
     display: flex;
     flex-direction: column;
@@ -96,3 +97,8 @@ export const Footer = styled.footer`
     justify-content: center;
     align-items: flex-start;
 `;
+
+export const ScrapContent = styled.div`
+    width:100%;
+    padding-top:100px;
+`

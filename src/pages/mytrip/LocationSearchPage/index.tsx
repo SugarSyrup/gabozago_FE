@@ -1,7 +1,9 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import LeftChevronIcon from "../../../assets/icons/chevron_left.svg?react";
+import { activeJournalFilterListState, journalFilterState } from "../../../recoil/journals/journalState";
 
 import PageTemplate from "../../../components/common/PageTemplate";
 import Typography from "../../../components/common/Typography";
@@ -11,6 +13,7 @@ import SelectedLocations from "../../../components/tripDetail/SelectedPlaces";
 import SearchPlaces from "../../../components/tripDetail/SearchPlaces";
 import LocationHotPlaces from "../../../components/tripDetail/LocationHotPlaces";
 import LocationRecommendContents from "../../../components/tripDetail/LocationRecommendContents";
+import ScrapedPlace from "../../../components/tripDetail/ScrapedPlace";
 import { get } from "../../../utils/api";
 
 import * as S from "./style";
@@ -24,6 +27,7 @@ function MyTripLocationSearchPage() {
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const [locations, setLocations] = useState<string[]>();
   const [keyword, setKeyword] = useState<string>("");
+  const setActiveFilters = useSetRecoilState(journalFilterState);
   const [inputRef, SearchInput] = useSearchInput({
     placeholder: "장소명을 입력하세요",
     onChange: onChange,
@@ -48,6 +52,7 @@ function MyTripLocationSearchPage() {
     }>(`/my-travel/${id}`)
       .then((response) => {
         setLocations(response.data.location);
+        setActiveFilters(prev => ({ ...prev, ["location"]: response.data.location }))
       })
   }, [])
 
@@ -97,26 +102,32 @@ function MyTripLocationSearchPage() {
           </S.TabNavigation>
         )}
       </S.Header>
-      {isSearching ? (
+      {isSearching &&
         <>
           <SearchPlaces
             location={locations === undefined ? [] : locations}
             keyword={keyword}
           />
         </>
-      ) : (
-        <>
-          <S.Contents>
-            {
-              locations &&
-              <>
-                <LocationHotPlaces locations={locations} />
-                <LocationRecommendContents locations={locations} />
-              </>
-            }
-          </S.Contents>
-        </>
-      )}
+      }
+      <S.Contents>
+      {
+        !isSearching && tabNavIdx === 1 ? (
+          <>
+              {
+                locations &&
+                <>
+                  <LocationHotPlaces locations={locations} />
+                  <LocationRecommendContents locations={locations} />
+                </>
+              }
+          </>
+        ) : 
+        (
+          <ScrapedPlace />
+        )
+      }
+      </S.Contents>
     </PageTemplate>
   );
 }
