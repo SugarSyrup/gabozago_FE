@@ -22,3 +22,17 @@ export const SelectedPlaceList = styled.div`
     overflow:hidden;
 `;
 
+export const Button = styled.button<{isActive: boolean}>`
+    width:100%;
+    border:none;
+    border-radius:30px;
+    padding:10px 0px 15px 0px;
+
+    background-color:${({isActive, theme}) => isActive ? theme.main : "#A6A6A6"};
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:5px;
+    cursor:pointer;
+`

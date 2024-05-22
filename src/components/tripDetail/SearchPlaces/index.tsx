@@ -35,7 +35,6 @@ function SearchPlaces({ keyword, location }: Props) {
   }
 
   useEffect(() => {
-    console.log('worked?')
     get<TPlace[]>(`/place/list-search?location=${location.toString()}&query=${keywords}`)
       .then((response) => {
         setSearchedPlaces(response.data);

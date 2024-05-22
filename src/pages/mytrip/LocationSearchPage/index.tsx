@@ -14,12 +14,11 @@ import LocationRecommendContents from "../../../components/tripDetail/LocationRe
 import { get } from "../../../utils/api";
 
 import * as S from "./style";
-import { isElement } from "react-dom/test-utils";
 
 
 
 function MyTripLocationSearchPage() {
-  const { id, newPlace } = useParams();
+  const { id, day } = useParams();
   const navigate = useNavigate();
   const [tabNavIdx, setTabNavIdx] = useState<number>(1);
   const [isSearching, setIsSearching] = useState<boolean>(false);
@@ -43,7 +42,6 @@ function MyTripLocationSearchPage() {
     }
   }
 
-
   useEffect(() => {
     get<{
       location: string[];
@@ -52,13 +50,6 @@ function MyTripLocationSearchPage() {
         setLocations(response.data.location);
       })
   }, [])
-
-  useEffect(() => {
-    if (newPlace && inputRef.current) {
-      inputRef.current.value = newPlace;
-      setIsSearching(true);
-    }
-  }, []);
 
   return (
     <PageTemplate
