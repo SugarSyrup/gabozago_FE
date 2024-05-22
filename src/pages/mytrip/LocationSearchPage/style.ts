@@ -77,15 +77,6 @@ export const Contents = styled.div`
     align-items: flex-start;
 `;
 
-export const RecommendationList = styled.div`
-    width: 100%;
-    margin-top: 24px;
-    margin-bottom: 40px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-`;
-
 export const RecommendatoinReviewList = styled.div`
     display: flex;
     flex-direction: column;

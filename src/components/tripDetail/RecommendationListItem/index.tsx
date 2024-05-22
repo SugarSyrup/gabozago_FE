@@ -9,11 +9,12 @@ import Typography from "../../common/Typography";
 import LocationRandomIcon from "../../mytrip/LocationRandomIcon";
 
 interface Props {
-  id: string;
+  id: number;
   name: string;
   theme: string;
   thumbnail?: string;
   keyword?: string;
+  location: string[];
 }
 
 function RecommendationListItem({
@@ -23,8 +24,7 @@ function RecommendationListItem({
   id,
   keyword,
 }: Props) {
-  const [selectedPlaces, setSelectedPlaces] =
-    useRecoilState(selectedPlacesState);
+  const [selectedPlaces, setSelectedPlaces] = useRecoilState(selectedPlacesState);
   const [isActive, setIsActive] = useState<boolean>(false);
 
   useEffect(() => {
@@ -59,7 +59,7 @@ function RecommendationListItem({
             thumbnail ? 
             <img src={thumbnail} />
             :
-            <LocationRandomIcon type={1}/>
+            <LocationRandomIcon type={(id % 5 + 1) as 1|2|3|4|5}/>
           }
         </S.Thumbnail>
         <S.Infomation>

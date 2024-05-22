@@ -2,7 +2,7 @@ import { atom } from "recoil";
 
 interface Location {
     thumbnail?: string,
-    id:string,
+    id:number,
     name:string,
 }
 

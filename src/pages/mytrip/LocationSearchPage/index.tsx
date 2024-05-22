@@ -4,27 +4,30 @@ import { useParams } from "react-router-dom";
 import PageTemplate from "../../../components/common/PageTemplate";
 import Heading from "../../../components/common/Heading";
 import BackButton from "../../../components/common/BackButton";
-import useSearchInput from "../../../hooks/useSearchInput";
 import Typography from "../../../components/common/Typography";
+import useSearchInput from "../../../hooks/useSearchInput";
 
-import RecommendationListItem from "../../../components/tripDetail/RecommendationListItem";
 import SelectedLocations from "../../../components/tripDetail/SelectedPlaces";
 import RecommendationReviewItem from "../../../components/tripDetail/RecommendationReviewItem";
 import SearchPlaces from "../../../components/tripDetail/SearchPlaces";
+import LocationHotPlaces from "../../../components/tripDetail/LocationHotPlaces";
+import { get } from "../../../utils/api";
 
 import * as S from "./style";
+
+//삭제 예정
 import {
-  recommendPlaces,
   places,
   PlaceType,
 } from "../../../assets/data/Places";
 
 
 function MyTripLocationSearchPage() {
-  const { newPlace } = useParams();
+  const { id, newPlace } = useParams();
   const [tabNavIdx, setTabNavIdx] = useState<number>(1);
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const [searchedPlaces, setSearchedPlaces] = useState<PlaceType[]>([]);
+  const [locations, setLocations] = useState<string[]>([]);
   const [inputRef, SearchInput] = useSearchInput({
     placeholder: "장소명을 입력하세요",
     onChange: onChange,
@@ -46,6 +49,16 @@ function MyTripLocationSearchPage() {
   function searchResult(keyword: string) {
     return places.filter((place) => place.name.includes(keyword));
   }
+
+  useEffect(() => {
+    get<{
+      location: string[];
+    }>(`/my-travel/${id}`)
+      .then((response) => {
+        console.log(response.data.location);
+        setLocations(response.data.location);
+      })
+  }, [])
 
   useEffect(() => {
     if (newPlace && inputRef.current) {
@@ -106,16 +119,7 @@ function MyTripLocationSearchPage() {
       ) : (
         <>
           <S.Contents>
-            <Typography.Title size="lg">부산 HOT 여행지</Typography.Title>
-            <S.RecommendationList>
-              {recommendPlaces.map(({ name, theme, id }) => (
-                <RecommendationListItem
-                  name={name}
-                  theme={theme}
-                  id={id}
-                />
-              ))}
-            </S.RecommendationList>
+            <LocationHotPlaces locations={locations} />
             <Heading size="sm">추가한 여행지를 포함한 콘텐츠 제공</Heading>
             <S.RecommendatoinReviewList>
               <RecommendationReviewItem

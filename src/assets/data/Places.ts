@@ -6,29 +6,6 @@ export interface PlaceType {
     theme:string;
 }
 
-export const recommendPlaces:PlaceType[] = [
-    {
-        id:"1",
-        name:"가나다",
-        hearts:1,
-        rating:1,
-        theme:"테마"
-    },
-    {
-        id:"2",
-        name:"나다라",
-        hearts:1,
-        rating:1,
-        theme:"테마"
-    },
-    {
-        id:"4",
-        name:"라마가",
-        hearts:1,
-        rating:1,
-        theme:"테마"
-    }
-];
 
 export const places:PlaceType[] = [
     {
