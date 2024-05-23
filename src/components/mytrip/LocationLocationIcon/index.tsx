@@ -12,7 +12,7 @@ const TypeColor = {
     5 : '#6F6F6F'
 }
 
-function LocationRandomIcon({type}: Props) {
+function LocationLocationIcon({type}: Props) {
     return(
         <S.IconWrapper type={type}>
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="12" viewBox="0 0 32 12" fill="none">
@@ -27,4 +27,4 @@ function LocationRandomIcon({type}: Props) {
     )
 }
 
-export default LocationRandomIcon;
+export default LocationLocationIcon;

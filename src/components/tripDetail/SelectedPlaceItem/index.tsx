@@ -1,7 +1,7 @@
 import * as S from "./style";
 import CircleXIcon from "../../../assets/icons/circleX_white.svg?react";
 import Typography from "../../common/Typography";
-import LocationRandomIcon from "../../mytrip/LocationRandomIcon";
+import LocationLocationIcon from "../../mytrip/LocationLocationIcon";
 
 interface Props {
   name: string;
@@ -25,7 +25,7 @@ function SelectedPlaceItem({ id, name, thumbnail, onDelete }: Props) {
           thumbnail ? 
           <img src={thumbnail} />
           :
-          <LocationRandomIcon type={id % 5 + 1 as 1|2|3|4|5}/>
+          <LocationLocationIcon type={id % 5 + 1 as 1|2|3|4|5}/>
         }
       </S.Thumbnail>
       <Typography.Body maxWidth={50} size="md">{name}</Typography.Body>

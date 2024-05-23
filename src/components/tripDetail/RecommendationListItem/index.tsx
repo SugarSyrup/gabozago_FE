@@ -5,7 +5,7 @@ import { useRecoilState } from "recoil";
 import { selectedPlacesState } from "../../../recoil/mytrip/selectedPlacesState";
 
 import Typography from "../../common/Typography";
-import LocationRandomIcon from "../../mytrip/LocationRandomIcon";
+import LocationLocationIcon from "../../mytrip/LocationLocationIcon";
 
 interface Props {
   id: number;
@@ -60,7 +60,7 @@ function RecommendationListItem({
             thumbnail ? 
             <img src={thumbnail} />
             :
-            <LocationRandomIcon type={(id % 5 + 1) as 1|2|3|4|5}/>
+            <LocationLocationIcon type={(id % 5 + 1) as 1|2|3|4|5}/>
           }
         </S.Thumbnail>
         <S.Infomation>
