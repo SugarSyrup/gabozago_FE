@@ -4,16 +4,16 @@ import { useRecoilState } from "recoil";
 
 import { selectedPlacesState } from "../../../recoil/mytrip/selectedPlacesState";
 
-
 import Typography from "../../common/Typography";
-import LocationRandomIcon from "../../mytrip/LocationRandomIcon";
+import LocationPlaceholderIcon from "../../mytrip/LocationPlaceholderIcon";
 
 interface Props {
-  id: string;
+  id: number;
   name: string;
   theme: string;
   thumbnail?: string;
   keyword?: string;
+  location: string[];
 }
 
 function RecommendationListItem({
@@ -22,9 +22,9 @@ function RecommendationListItem({
   theme,
   id,
   keyword,
+  location
 }: Props) {
-  const [selectedPlaces, setSelectedPlaces] =
-    useRecoilState(selectedPlacesState);
+  const [selectedPlaces, setSelectedPlaces] = useRecoilState(selectedPlacesState);
   const [isActive, setIsActive] = useState<boolean>(false);
 
   useEffect(() => {
@@ -46,6 +46,7 @@ function RecommendationListItem({
           name,
           thumbnail,
           id,
+          location: location
         }
       ]);
     }
@@ -59,7 +60,7 @@ function RecommendationListItem({
             thumbnail ? 
             <img src={thumbnail} />
             :
-            <LocationRandomIcon type={1}/>
+            <LocationPlaceholderIcon type={(id % 5 + 1) as 1|2|3|4|5}/>
           }
         </S.Thumbnail>
         <S.Infomation>

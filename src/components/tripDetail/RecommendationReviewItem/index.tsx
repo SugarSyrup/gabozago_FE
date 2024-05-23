@@ -6,30 +6,44 @@ import RightChevronIcon from "../../../assets/icons/chevron_right.svg?react";
 import LogoIcon from "../../../assets/icons/logo_small.svg?react";
 import LocationIcon from "../../../assets/icons/location.svg?react";
 import Typography from "../../common/Typography";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
+  type: "short-form" | "article";
+  id: number;
+  videoId?: string;
+  thumbnailURL?: string;
   name: string;
-  location: string;
+  location: string[];
   hearts: number;
   comments: number;
   scraps: number;
-  thumbnail?: string;
 }
 
 function RecommendationReviewItem({
+  type,
+  id,
   name,
   location,
   hearts,
   comments,
   scraps,
-  thumbnail,
+  thumbnailURL,
+  videoId,
 }: Props) {
+  const navigate = useNavigate();
   return (
-    <S.Container>
+    <S.Container >
       <S.Thumbnail>
         {
-          thumbnail ? 
-          <img src={thumbnail} />
+          type === "article" && thumbnailURL ? 
+          <img src={thumbnailURL} />
+          :
+          <LogoIcon />
+        }
+        {
+          type === "short-form" && thumbnailURL ? 
+          <img src={`https://i.ytimg.com/vi/${videoId}/oardefault.jpg`} />
           :
           <LogoIcon />
         }
@@ -61,7 +75,13 @@ function RecommendationReviewItem({
           </S.DescItem>
         </S.Desc>
       </S.Infomation>
-      <S.LinkIcon>
+      <S.LinkIcon onClick={() => {
+        if(type === "article") {
+          navigate(`/article/${id}`);
+        } else {
+          navigate(`journal/shortform/${id}`);
+        }
+      }}>
         <RightChevronIcon />
       </S.LinkIcon>
     </S.Container>

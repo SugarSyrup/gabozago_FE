@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
 import { useNavigate, useParams } from "react-router-dom";
 
 import CalendarAddIcon from "../../../assets/icons/calendar_add.svg?react";

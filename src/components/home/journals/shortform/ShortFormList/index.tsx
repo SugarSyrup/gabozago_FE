@@ -4,6 +4,8 @@ import LocationIcon from "../../../../../assets/icons/location.svg?react";
 import ThemeIcon from "../../../../../assets/icons/theme.svg?react";
 import Typography from "../../../../common/Typography";
 
+import * as S from "./style";
+
 export interface ShortForm {
   id: number;
   title: string;

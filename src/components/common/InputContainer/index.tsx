@@ -13,11 +13,12 @@ interface Props {
     placeholder?: string,
     onInput?: React.FormEventHandler<HTMLInputElement>
     onButtonClick?: () => void,
+    buttonLabel?: string,
     maxLength?: number;
     ref?: React.RefObject<HTMLInputElement>
 }
 
-function InputContainer({inputType, name, label, disabled,  required, explain, alert, value, placeholder, onButtonClick, onInput, maxLength, ref}: Props) {
+function InputContainer({inputType, name, label, disabled,  required, explain, alert, value, placeholder, onButtonClick, onInput, maxLength, ref, buttonLabel}: Props) {
     return(
         <S.InputContainer>
             <S.Label htmlFor={name}>{label}</S.Label>
@@ -40,7 +41,7 @@ function InputContainer({inputType, name, label, disabled,  required, explain, a
 
                     onButtonClick();
                 }}>
-                    확인
+                    {buttonLabel ? buttonLabel : "확인"}
                 </S.ConfirmButton>
             }
         </S.InputContainer>

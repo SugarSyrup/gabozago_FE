@@ -5,34 +5,52 @@ import SearchIcon from "../../../assets/icons/search.svg?react";
 import RecommendationListItem from "../RecommendationListItem";
 import SelectedPlaceItem from "../SelectedPlaceItem";
 import { selectedPlacesState } from "../../../recoil/mytrip/selectedPlacesState";
-import { PlaceType } from "../../../assets/data/Places";
+import { useEffect, useState } from "react";
+import { get } from "../../../utils/api";
+import useDebounce from "../../../hooks/useDebounce";
 
 interface Props {
-  searchedPlaces: PlaceType[];
-  keyword?: string;
+  location: string[];
+  keyword: string;
 }
 
-function SearchPlaces({ searchedPlaces, keyword }: Props) {
-  const [selectedPlaces, setSelectedPlaces] =
-    useRecoilState(selectedPlacesState);
+interface TPlace {
+  id: number,
+  image: null | string,
+  location: string,
+  name: string,
+  theme: string,
+}
+
+function SearchPlaces({ keyword, location }: Props) {
+  const [selectedPlaces, setSelectedPlaces] = useRecoilState(selectedPlacesState);
+  const [searchedPlaces, setSearchedPlaces] = useState<TPlace[]>([]);
+  const keywords = useDebounce(keyword, 500);
   const navigate = useNavigate();
 
-  function onDelete(id: string) {
+  function onDelete(id: number) {
     setSelectedPlaces((prev) =>
       prev.filter((SelectedPlace) => SelectedPlace.id !== id)
     );
   }
 
+  useEffect(() => {
+    //[SugarSyrup] @TODO: 두개 이상의 지역시, 검색이 안되는? 500에러 뜨는 중인데 아직 백엔드 작업중인것 같아서 스킵
+    get<TPlace[]>(`/place/list-search?location=${location.toString()}&query=${keywords}`)
+      .then((response) => {
+        setSearchedPlaces(response.data);
+      })
+  }, [keywords])
+
   return (
     <>
       {searchedPlaces.length !== 0 ? (
         <S.SearchPlacesList>
-          {searchedPlaces.map(({ name, theme, hearts, rating, id }) => (
+          {searchedPlaces.map(({ name, theme, id }) => (
             <RecommendationListItem
               name={name}
-              hearts={hearts}
               theme={theme}
-              rating={rating}
+              location={location}
               id={id}
               keyword={keyword}
             />

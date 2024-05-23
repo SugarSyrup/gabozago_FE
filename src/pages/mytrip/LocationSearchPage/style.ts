@@ -70,30 +70,14 @@ export const HighlightLine = styled.div<{ isHighlight: boolean }>`
 `;
 
 export const Contents = styled.div`
-    padding-top: 120px;
+    width:100%;
+    padding-top: 110px;
 
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 `;
 
-export const RecommendationList = styled.div`
-    width: 100%;
-    margin-top: 24px;
-    margin-bottom: 40px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-`;
-
-export const RecommendatoinReviewList = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
-
-    width: 100%;
-    gap: 10px;
-`;
 
 export const Footer = styled.footer`
     position: relative;
@@ -113,3 +97,8 @@ export const Footer = styled.footer`
     justify-content: center;
     align-items: flex-start;
 `;
+
+export const ScrapContent = styled.div`
+    width:100%;
+    padding-top:100px;
+`
