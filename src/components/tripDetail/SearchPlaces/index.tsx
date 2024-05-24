@@ -10,6 +10,7 @@ import { get } from "../../../utils/api";
 import useDebounce from "../../../hooks/useDebounce";
 
 interface Props {
+  tripId: number;
   location: string[];
   keyword: string;
   popupOpen: () => void;
@@ -24,7 +25,7 @@ interface TPlace {
   theme: string,
 }
 
-function SearchPlaces({ keyword, location, popupOpen, setNewLocation }: Props) {
+function SearchPlaces({ tripId, keyword, location, popupOpen, setNewLocation }: Props) {
   const [selectedPlaces, setSelectedPlaces] = useRecoilState(selectedPlacesState);
   const [searchedPlaces, setSearchedPlaces] = useState<TPlace[]>([]);
   const keywords = useDebounce(keyword, 500);
@@ -67,7 +68,7 @@ function SearchPlaces({ keyword, location, popupOpen, setNewLocation }: Props) {
             </S.Explain>
             <S.Button
               onClick={() => {
-                navigate("/mytrip/123/create");
+                navigate(`/mytrip/${tripId}/create`);
               }}
             >
               새로운 장소 추가하기
@@ -81,7 +82,7 @@ function SearchPlaces({ keyword, location, popupOpen, setNewLocation }: Props) {
           <S.Desc>찾으시는 장소가 없나요?직접 등록해보세요!</S.Desc>
           <S.Button
             onClick={() => {
-              navigate("/mytrip/123/create");
+              navigate(`/mytrip/${tripId}/create`);
             }}
           >
             새로운 장소 추가하기

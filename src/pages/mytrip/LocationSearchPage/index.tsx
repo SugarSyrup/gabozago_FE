@@ -143,6 +143,7 @@ function MyTripLocationSearchPage() {
       {isSearching &&
         <>
           <SearchPlaces
+            tripId={Number(id)}
             location={locations === undefined ? [] : locations}
             keyword={keyword}
             popupOpen={popupOpen}
