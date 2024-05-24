@@ -11,6 +11,12 @@ import FilterList from "../../common/FilterList";
 import Typography from "../../common/Typography";
 import * as S from "./style";
 
+interface Props {
+  popupOpen: () => void;
+  setNewLocation: React.Dispatch<React.SetStateAction<string>>;
+  locations: string[] | undefined;
+}
+
 interface Place {
   id: number;
   name: string;
@@ -18,7 +24,7 @@ interface Place {
   address: string;
 }
 
-function ScrapedPlace() {
+function ScrapedPlace({ popupOpen, setNewLocation, locations }: Props) {
   const navigate = useNavigate();
   const [filter, setFilter] = useRecoilState<TFilter>(journalFilterState);
   const [places, setPlaces] = useState<Place[]>([]);
@@ -41,16 +47,6 @@ function ScrapedPlace() {
 
       return;
     }
-  };
-
-  const toggleBookmark = (id: number) => {
-      post<{
-        next: string | null;
-        previous: string | null;
-        results: Place[];
-      }>(`folder/scrap/place`, {
-        placeId: id,
-      });
   };
 
   useEffect(() => {
@@ -97,9 +93,14 @@ function ScrapedPlace() {
                         name: item.name,
                         thumbnail: "",
                         id: item.id,
-                        location: [response.data.region],
+                        location: response.data.region,
                       }
                     ]);
+
+                    if (locations && !locations.includes(response.data.region)) {
+                      setNewLocation(response.data.region);
+                      popupOpen();
+                    }
                   })
               }
             }}>

@@ -12,6 +12,8 @@ import useDebounce from "../../../hooks/useDebounce";
 interface Props {
   location: string[];
   keyword: string;
+  popupOpen: () => void;
+  setNewLocation: React.Dispatch<React.SetStateAction<string>>;
 }
 
 interface TPlace {
@@ -22,7 +24,7 @@ interface TPlace {
   theme: string,
 }
 
-function SearchPlaces({ keyword, location }: Props) {
+function SearchPlaces({ keyword, location, popupOpen, setNewLocation }: Props) {
   const [selectedPlaces, setSelectedPlaces] = useRecoilState(selectedPlacesState);
   const [searchedPlaces, setSearchedPlaces] = useState<TPlace[]>([]);
   const keywords = useDebounce(keyword, 500);
@@ -36,7 +38,7 @@ function SearchPlaces({ keyword, location }: Props) {
 
   useEffect(() => {
     //[SugarSyrup] @TODO: 두개 이상의 지역시, 검색이 안되는? 500에러 뜨는 중인데 아직 백엔드 작업중인것 같아서 스킵
-    get<TPlace[]>(`/place/list-search?location=${location.toString()}&query=${keywords}`)
+    get<TPlace[]>(`/place/list-search?location=${location.toLocaleString()}&query=${keywords}`)
       .then((response) => {
         setSearchedPlaces(response.data);
       })
@@ -46,13 +48,16 @@ function SearchPlaces({ keyword, location }: Props) {
     <>
       {searchedPlaces.length !== 0 ? (
         <S.SearchPlacesList>
-          {searchedPlaces.map(({ name, theme, id }) => (
+          {searchedPlaces.map(({ name, theme, id, location: placeLocation }) => (
             <RecommendationListItem
               name={name}
               theme={theme}
-              location={location}
+              location={placeLocation}
               id={id}
               keyword={keyword}
+              setNewLocation={setNewLocation}
+              popupOpen={popupOpen}
+              locations={location}
             />
           ))}
           <S.AddPlace>
