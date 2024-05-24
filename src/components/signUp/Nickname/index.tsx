@@ -51,6 +51,9 @@ function Nickname({setIsNicknameOk}: Props) {
           required={true}
           value={nickname ? nickname : ""}
           placeholder="닉네임을 입력하세요. (중복 불가)"
+          minLength={2}
+          maxLength={15}
+          pattern="^(?=.*[a-z0-9가-힣])[a-z0-9가-힣_.]{2,16}$"
           alert={
             <S.AlertMessage color={nicknameAlert.length > 14 ? "red" : "blue"}>
               {nicknameAlert}

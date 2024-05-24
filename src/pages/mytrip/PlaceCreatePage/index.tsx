@@ -79,7 +79,6 @@ function MyTripPlaceCreatePage() {
       </S.Header>
       <S.Form
         onSubmit={(e) => {
-          //[SugarSyrup] @TODO : 백엔드 미 베포 기능 -> 테스트 못해봄
           e.preventDefault();
           const formData = new FormData(e.currentTarget);
           post<{

@@ -25,6 +25,9 @@ function RecommendNickname({setIsRecommendarOk}: Props) {
           }
           disabled={false}
           required={false}
+          minLength={2}
+          maxLength={15}
+          pattern="^(?=.*[a-z0-9가-힣])[a-z0-9가-힣_.]{2,16}$"
           placeholder="추천인 닉네임 입력"
           alert={
             <S.AlertMessage color={recommendAlert.length > 13 ? "red" : "blue"}>

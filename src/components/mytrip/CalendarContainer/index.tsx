@@ -11,7 +11,6 @@ import { addLocationState, createTravelState } from "../../../recoil/mytrip/crea
 import * as S from "./style.ts";
 import { patch, post } from "../../../utils/api.ts";
 
-//[SugarSyrup] @TODO: CreateType에 따라 버튼의 동작 방식 변경
 function CalendarContainer() {
     const navigate = useNavigate();
     const {id} = useParams();
