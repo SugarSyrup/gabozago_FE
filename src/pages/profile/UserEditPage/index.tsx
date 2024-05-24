@@ -22,6 +22,7 @@ function UserEditPage() {
   const { Popup, popupOpen, popupClose } = usePopup();
   const [nameValue, setNameValue] = useState(nickname);
   const [descValue, setDescValue] = useState(description);
+  const [isAvatarChanged, setIsAvatarChanged] = useState(false);
   const navigate = useNavigate();
 
   const [userAvatarURL, setUserAvatarURL] = useState(avatarURL);
@@ -64,9 +65,9 @@ function UserEditPage() {
         </S.CloseIconWrapper>
         <Heading size="sm">프로필 수정</Heading>
         <S.SubmitBtn
-          isActive={nameValue !== nickname || descValue !== description}
+          isActive={nameValue !== nickname || descValue !== description || isAvatarChanged}
           onClick={() => {
-            if (nameValue !== nickname || descValue !== description) {
+            if (nameValue !== nickname || descValue !== description || isAvatarChanged) {
               patch('/user/profile', {
                 avatarURL: userAvatarURL,
                 nickname: nameValue,
@@ -102,6 +103,7 @@ function UserEditPage() {
               reader.readAsDataURL(file);
               reader.onloadend = () => {
                 setUserAvatarURL(reader.result as string);
+                setIsAvatarChanged(true);
               }
             }
           }}/>
