@@ -71,6 +71,12 @@ export const DayList = styled.div`
     justify-content:flex-start;
     align-items:center;
     gap:10px;
+
+    overflow-x:auto;
+
+    &::-webkit-scrollbar{
+        display:none;
+    }
 `
 
 export const DayItem = styled.div<{isClicked: boolean}>`

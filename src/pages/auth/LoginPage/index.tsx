@@ -94,7 +94,7 @@ function LoginPage() {
           <input type="email" name="email" placeholder="email 입력해주세요 (임시)"/>
           <button type="submit">로그인</button>
           </form>
-          {/* <S.MessageContainer>
+          <S.MessageContainer>
             <S.FloatingMessage>
               <ThunderMoveIcon />
               <span>3초만에 빠른 시작하기</span>
@@ -134,7 +134,7 @@ function LoginPage() {
             >
               <AppleIcon width={40} height={40} />
             </S.OAuthCircleButton>
-          </S.OAuthButtons> */}
+          </S.OAuthButtons>
         </S.Container>
       </PageTemplate>
     </AuthCheck>

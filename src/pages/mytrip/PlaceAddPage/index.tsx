@@ -43,7 +43,7 @@ const PlaceAddPage = () => {
     const [currentSelectedItem, setCurrentSelectedItem] = useState<{id: number, day?: number}>({id: -1});
     const setCreateTravelState = useSetRecoilState(createTravelState);
 
-    const {Popup, popupOpen, popupClose} = usePopup();
+    const {Popup, popupOpen, popupClose, isOpend} = usePopup();
     const {Alert, alertOpen, alertClose} = useAlert({
         Content: <Typography.Body size="lg" color="white">장소가 추가되었습니다.</Typography.Body>
     });
@@ -88,10 +88,10 @@ const PlaceAddPage = () => {
                             myTravelId: currentSelectedItem.id,
                             day: currentSelectedItem.day
                         }).then((response) => {
-                            if(response.status === 400) {
+                            alertOpen();
+                        }).catch((err) => {
+                            if(err.response.status === 400) {
                                 popupOpen();
-                            } else {
-                                alertOpen();
                             }
                         })
                     }}
@@ -101,15 +101,14 @@ const PlaceAddPage = () => {
             </S.Footer>
         }>
             <Alert />
-            <Popup>
-                <S.PopupWrapper>
+            <S.PopupWrapper isOpend={isOpend}>
+                <Popup>
                     <S.PopupContentsContainer>
                         <InfomationIcon />
                         <S.PopupTextContainer>
                             <Typography.Headline size="sm">지역윽 추가하시겠어요?</Typography.Headline>
-                            {/* [SugarSyrup] @TODO: 백엔드 response가 현재 미 완료, 추후 확인 후 반영 */}
-                            {/* <Typography.Body size="lg" color="inherit">선택하신 여행 장소는 {data.filter((item) => item.id === currentSelectedItem.id)[0].location}을 벗어나요.</Typography.Body> */}
-                            <Typography.Body size="lg" color="inherit">{placeData?.name}도 여행 계획에 추가하시겠어요?</Typography.Body>
+                            <Typography.Body size="lg" color="inherit">선택하신 여행 장소는 {currentSelectedItem.id !== -1 && data.filter((item) => item.id === currentSelectedItem.id)[0].location.toLocaleString()}을 벗어나요.</Typography.Body>
+                            <Typography.Body size="lg" color="inherit">{placeData?.region}도 여행 계획에 추가하시겠어요?</Typography.Body>
                             <Typography.Body size="md" color="#FA5252">*지역을 추가하지 않으면, 해당 장소도 추가되지 않아요.</Typography.Body>
                         </S.PopupTextContainer>
                         <S.PopupButtons>
@@ -149,8 +148,8 @@ const PlaceAddPage = () => {
                             </S.PopupButton>
                         </S.PopupButtons>
                     </S.PopupContentsContainer>
-                </S.PopupWrapper>
-            </Popup>
+                </Popup>
+            </S.PopupWrapper>
             <S.Header>
                 <Typography.Headline size="md">장소를 추가할</Typography.Headline>
                 <Typography.Headline size="md">여행 일정을 선택해주세요.</Typography.Headline>
@@ -165,7 +164,6 @@ const PlaceAddPage = () => {
                 </S.CreateNewTravelButton>
             </S.MyTravelHeader>
             <S.MyTravelList>
-                {/* [SugarSyrup] @TODO: 백엔드 response가 현재 미 완료, 추후 확인 후 반영 */}
                 {
                     data.map((item) => 
                         <LocationAddItem {...item} currentSelectedItemId={currentSelectedItem.id} setCurrentSelectedItem={setCurrentSelectedItem}/>

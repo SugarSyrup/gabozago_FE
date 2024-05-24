@@ -38,7 +38,7 @@ function LocationAddItem({id, name, departureDate, arrivalDate, location, days, 
                     </S.MyTravelItemText>
                     <S.MyTravelItemText>
                         <LocationIcon />
-                        <Typography.Label size="md" color="inherit">{location}</Typography.Label>
+                        <Typography.Label size="md" color="inherit">{location.toLocaleString()}</Typography.Label>
                     </S.MyTravelItemText>
                 </S.MyTravelItemTextContainer>
             </S.InfoContainer>
@@ -52,7 +52,7 @@ function LocationAddItem({id, name, departureDate, arrivalDate, location, days, 
                                     setCurrentSelectedItem({id: id, day: day.day});
                                 }}>
                                 <Typography.Label size="lg" color="inherit">Day {day.day}</Typography.Label>
-                                <Typography.Label size="sm">{day.date}({day.dayOfWeek})</Typography.Label>
+                                <Typography.Label size="sm">{day.date.slice(5,10).replace("-",".")}({day.dayOfWeek})</Typography.Label>
                             </S.DayItem>
                         )
                     }
