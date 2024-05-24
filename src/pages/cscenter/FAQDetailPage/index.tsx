@@ -25,13 +25,11 @@ function FAQDetailPage() {
   });
 
   useEffect(() => {
-    get<{
-      next: string;
-      previous: string;
-      results: TData;
-    }>(`/settings/support/help/faq/${id}`).then(
-      ({ data }) => setData(data.results)
-    );
+    get<TData>(`/settings/support/help/faq/${id}`).then(
+      (response) => {
+        console.log(response);
+        setData(response.data);
+      })
   }, []);
 
   return (
@@ -39,7 +37,7 @@ function FAQDetailPage() {
       <S.Container>
         <S.InfoContainer>
                 <p className="title"><Typography.Title size="md" color="inherit">{data.title}</Typography.Title></p>
-                <p className="date"><Typography.Label size="lg" color="inherit">{data.createdAt.replace("-", ". ").replace("-", ". ")}</Typography.Label></p>
+                <p className="date"><Typography.Label size="lg" color="inherit">{data.category}</Typography.Label></p>
         </S.InfoContainer>
         <S.ContentsContainer>
           {data.content.split("\n").map((line) => (
