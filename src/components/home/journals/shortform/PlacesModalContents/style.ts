@@ -77,8 +77,7 @@ export const IconButton = styled.button<{
 
     path {
       fill: ${({ type, theme }) => type === "addToPlan" && theme.gray02};
-      fill: ${({ type, isActive, theme }) =>
-        type === "bookmark" && isActive ? theme.main : theme.gray02};
+      fill: ${({ isActive, theme }) => (isActive ? theme.main : theme.gray02)};
     }
   }
 

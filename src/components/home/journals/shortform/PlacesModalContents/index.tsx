@@ -80,6 +80,7 @@ function PlacesModalContents({ id }: Props) {
               <S.ButtonBox>
                 <S.IconButton
                   type="addToPlan"
+                  isActive={isMyTravelAdded}
                   onClick={(e) => {
                     e.preventDefault();
                     navigate(`/mytrip/place/${placeId}`);
