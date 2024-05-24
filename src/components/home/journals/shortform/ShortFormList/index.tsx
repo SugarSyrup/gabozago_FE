@@ -12,7 +12,6 @@ export interface ShortForm {
   videoId: string;
   region: string[];
   theme: string[];
-  thumbnailURL: string;
   views: number;
 }
 
@@ -23,11 +22,11 @@ interface Props {
 function ShortFormList({ data }: Props) {
   return (
     <S.List>
-      {data.map(({ id, title, region, thumbnailURL, views, theme }) => (
-        <S.ListItem>
+      {data.map(({ id, title, region, views, theme, videoId }) => (
+        <S.ListItem key={id}>
           <Link to={`/journal/shortform/${id}`}>
             <S.Container>
-              <S.ThumbnailImage src={thumbnailURL} alt="" />
+              <S.ThumbnailImage src={'http://img.youtube.com/vi/' + videoId + '/oar2.jpg'} alt="" />
               <S.Views>
                 <Typography.Label size="sm" color="white">
                   조회수 {views}
@@ -38,7 +37,7 @@ function ShortFormList({ data }: Props) {
                   <LocationIcon />
                   {region !== undefined
                     ? region.map((item) => (
-                        <Typography.Label size="md" color="white">
+                        <Typography.Label size="md" color="white" key={id + item}>
                           {item}
                         </Typography.Label>
                       ))
@@ -46,7 +45,7 @@ function ShortFormList({ data }: Props) {
                   <ThemeIcon />
                   {theme !== undefined
                     ? theme.map((item) => (
-                        <Typography.Label size="md" color="white">
+                        <Typography.Label size="md" color="white" key={id + item}>
                           {item}
                         </Typography.Label>
                       ))
