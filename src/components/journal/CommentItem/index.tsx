@@ -11,8 +11,9 @@ import ExclamationIcon from "../../../assets/icons/exclamation_circle.svg?react"
 import DeleteIcon from "../../../assets/icons/delete.svg?react";
 import useModal from "../../../hooks/useModal";
 import MenuOptionList from "../../../components/common/MenuOptionList";
-import { deletes, post } from "../../../utils/api";
+import { post } from "../../../utils/api";
 import useConfirm from "../../../hooks/useConfirm";
+import useReportPopup from "../../../hooks/useReportPopup";
 
 export interface Comment {
   id: number;
@@ -83,6 +84,10 @@ function CommentItem({
     "아니요",
     "네, 삭제할래요"
   );
+  const { ReportPopup, reportPopupOpen, reportPopupClose } = useReportPopup({
+    type: type,
+    commentId: id,
+  });
 
   const toggleLike = async () => {
     try {
@@ -119,6 +124,7 @@ function CommentItem({
       icon: <ExclamationIcon />,
       name: "신고하기",
       onClick: () => {
+        reportPopupOpen();
         commentMenuModalClose();
       },
     },
@@ -134,6 +140,7 @@ function CommentItem({
         }
       }}
     >
+      <ReportPopup />
       <ConfirmPopup
         onConfirm={() => {
           deleteComments(id);
