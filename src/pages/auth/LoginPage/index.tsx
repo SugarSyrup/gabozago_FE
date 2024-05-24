@@ -46,9 +46,9 @@ function LoginPage() {
   async function developLogin(type: string) {
     const response = await login();
 
+    localStorage.setItem("access_token", response.data.access);
+    localStorage.setItem("refresh_token", response.data.refresh);
     if (response.data.status === "ACTIVE") {
-      localStorage.setItem("access_token", response.data.access);
-      localStorage.setItem("refresh_token", response.data.refresh);
       navigate("/");
     } else {
       if (response.data.user_data) {
@@ -78,10 +78,10 @@ function LoginPage() {
                 provider: "naver",
                 email: formdata.get("email"),
               }
-            ).then((response) => {
+            ).then((response) => {              
+              localStorage.setItem("access_token", response.data.access);
+              localStorage.setItem("refresh_token", response.data.refresh);
               if (response.data.status === "ACTIVE") {
-                localStorage.setItem("access_token", response.data.access);
-                localStorage.setItem("refresh_token", response.data.refresh);
                 navigate("/");
               } else {
                   navigate(`/signup?type=naver&email=${formdata.get("email")}&nickname=`);

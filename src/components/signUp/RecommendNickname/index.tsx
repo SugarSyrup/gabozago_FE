@@ -6,7 +6,7 @@ import { get } from "../../../utils/api";
 import * as S from "./style";
 
 interface Props {
-  setIsRecommendarOk: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsRecommendarOk: React.Dispatch<React.SetStateAction<number>>;
 }
 
 function RecommendNickname({setIsRecommendarOk}: Props) {
@@ -36,18 +36,30 @@ function RecommendNickname({setIsRecommendarOk}: Props) {
             setRecommendAlert("");
           }}
           onButtonClick={() => {
-            get(`/user/sign-in/recommender/${recommend}`)
+            const access = localStorage.getItem('access_token');
+            const refresh = localStorage.getItem('refresh_token');
+            
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('refresh_token');
+
+            get<{
+              id: number;
+            }>(`/user/sign-in/recommender/${recommend}`)
               .then((res) => {
+                console.log(res);
                 if(res.status === 200) {
                   setRecommendAlert(`확인되었습니다.`)
-                  setIsRecommendarOk(true);
+                  setIsRecommendarOk(res.data.id);
                 }
               }).catch((err) => {
                 if(err.response.status === 404) {
                   setRecommendAlert(`유효하지 않은 유저입니다.`)
-                  setIsRecommendarOk(false);
+                  setIsRecommendarOk(-1);
                 }
-              });
+              }).finally(() => {
+                localStorage.setItem('access_token', access as string);
+                localStorage.setItem('refresh_token', refresh as string);
+              });;
           }}
         />
     )

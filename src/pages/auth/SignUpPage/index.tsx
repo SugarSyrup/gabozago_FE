@@ -38,7 +38,7 @@ function SignUpPage() {
   const [isNicknameOk, setIsNicknameOk] = useState<boolean>(false);
   const [checkboxActive, setCheckboxActive] = useState(false);
   const [isButtonActive, setIsButtonActive] = useState(false);
-  const [isRecommenderOk, setIsRecommendarOk] = useState(false);
+  const [isRecommenderOk, setIsRecommendarOk] = useState(-1);
 
   useEffect(() => {
     if(isNicknameOk && checkboxActive) {
@@ -68,21 +68,19 @@ function SignUpPage() {
           body = {
             email: email,
             nickname: nickname,
-            eventAgreement: formData.get("eventCheck") === "on",
-            recommender: 1
+            eventAgreement: formData.get("eventCheck") === "on"
           }
         } else {
           body = {
             nickname: nickname,
-            eventAgreement: formData.get("eventCheck") === "on",
-            recommender: 1
+            eventAgreement: formData.get("eventCheck") === "on"
           }
         }
 
-        if(isRecommenderOk){
+        if(isRecommenderOk !== -1){
           body = {
             ...body,
-            recommender: recommendName
+            recommender: isRecommenderOk
           }
         }
 
