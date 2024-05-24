@@ -34,7 +34,7 @@ export const UrlLabel = styled.label`
 
 export const UrlInput = styled.input`
   width: 100%;
-  padding: 5px 10px;
+  padding: 10px 15px;
 `;
 
 export const IconButton = styled.button`

@@ -12,6 +12,7 @@ import usePopup from "../../../hooks/usePopup";
 import Comment from "../../../components/journal/Comment";
 import { get } from "../../../utils/api";
 import { useParams } from "react-router-dom";
+import Typography from "../../../components/common/Typography";
 
 function ShortFormPage() {
   const { id } = useParams();
@@ -66,9 +67,10 @@ function ShortFormPage() {
     <PageTemplate nav={<BottomNavBar style="black" />}>
       <S.Header>
         <BackButton />
-        <S.IconButton>
+        {/* @todo: 추후 사용자가 숏폼 업로드 가능할 때 메뉴 구현 */}
+        {/* <S.IconButton>
           <KebabMenuIcon id="메뉴" />
-        </S.IconButton>
+        </S.IconButton> */}
       </S.Header>
       {shortforms.length > 0 && (
         <>
@@ -82,7 +84,9 @@ function ShortFormPage() {
           </Modal>
           <Popup>
             <S.UrlLabel htmlFor="urlCopy">
-              아래 링크를 복사해 공유해보세요!
+              <Typography.Title size="md">
+                아래 링크를 복사해 공유해보세요!
+              </Typography.Title>
             </S.UrlLabel>
             <S.UrlInput
               type="url"
