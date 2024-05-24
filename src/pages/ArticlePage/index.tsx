@@ -28,7 +28,7 @@ interface TArticle {
 	"title": string,
 	"thumbnailURL": string,
 	"content": string,
-	"checkpoint": string,
+	"checkpoint": string | undefined,
 	
     "isClapped": boolean,
     "isBookmarked": boolean,
@@ -138,7 +138,7 @@ function ArticlePage() {
                 </S.Header>
                 <S.StationContainer>
                     <S.StationTitle>Station 보기</S.StationTitle>
-                    <StationContainer data={JSON.parse(data.content).data.filter((content : TEditor | TInterview | TPhoto | TPlace | TProfile | TStation) => content.type === "station").map((content: TStation) => content.name)} refs={stationRefs}/>
+                    <StationContainer data={JSON.parse(data.content).data.filter((content : TEditor | TInterview | TPhoto | TPlace | TProfile | TStation) => content.type === "station")} refs={stationRefs}/>
                     <S.Content isLogin={isLogin}>
                     {
                         JSON.parse(data.content).data.map((content : TEditor | TInterview | TPhoto | TPlace | TProfile | TStation) => {
@@ -158,7 +158,9 @@ function ArticlePage() {
                             }
                         })
                     }
-                    <CheckPoints data={JSON.parse(data.checkpoint).data} />
+                    {
+                        data.checkpoint && <CheckPoints data={JSON.parse(data.checkpoint).data} />
+                    }
                     {
                         data.nextArticle &&
                         <S.NextArticle>
