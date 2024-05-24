@@ -21,7 +21,7 @@ interface Props {
 }
 
 function BottomNav({postId, isClap, claps, comment, onCommentClick, bookmark, onShareClick, onScrapClick}: Props) {
-    const {Popup, popupOpen} = usePopup();
+    const {Popup, popupOpen, popupClose} = usePopup();
 
     return(
         <>
@@ -34,9 +34,9 @@ function BottomNav({postId, isClap, claps, comment, onCommentClick, bookmark, on
                     name="현재 링크 복사"
                     id="urlCopy"
                     value={window.location.href}
-                    disabled
                     onClick={() => {
-                        navigator.clipboard.writeText(window.location.href)
+                        navigator.clipboard.writeText(window.location.href);
+                        popupClose();
                         onShareClick();
                     }}
                 />
