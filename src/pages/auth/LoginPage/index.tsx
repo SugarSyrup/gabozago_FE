@@ -68,7 +68,33 @@ function LoginPage() {
             <span>타인의 여행후기를</span>
             <span>나만의 여행으로 만드는 새로운 방법</span>
           </S.BrandCopy>
-          <S.MessageContainer>
+          <form onSubmit={(e) => {
+            e.preventDefault();
+            const formdata = new FormData(e.currentTarget);
+            post<loginResponse>(
+              `/user/app/login`,
+              {
+                uid: Number(formdata.get("uid")),
+                provider: "naver",
+                email: formdata.get("email"),
+              }
+            ).then((response) => {
+              if (response.data.status === "ACTIVE") {
+                localStorage.setItem("access_token", response.data.access);
+                localStorage.setItem("refresh_token", response.data.refresh);
+                navigate("/");
+              } else {
+                  navigate(`/signup?type=naver&email=${formdata.get("email")}&nickname=`);
+              }
+            })
+            
+
+          }}>
+          <input type="number" name="uid" placeholder="uid입력 란 입니다. 임의의 숫자를 입력해주세요 (숫자) (임시)"/>
+          <input type="email" name="email" placeholder="email 입력해주세요 (임시)"/>
+          <button type="submit">로그인</button>
+          </form>
+          {/* <S.MessageContainer>
             <S.FloatingMessage>
               <ThunderMoveIcon />
               <span>3초만에 빠른 시작하기</span>
@@ -108,7 +134,7 @@ function LoginPage() {
             >
               <AppleIcon width={40} height={40} />
             </S.OAuthCircleButton>
-          </S.OAuthButtons>
+          </S.OAuthButtons> */}
         </S.Container>
       </PageTemplate>
     </AuthCheck>
