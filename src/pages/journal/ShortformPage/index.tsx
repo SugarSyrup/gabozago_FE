@@ -77,6 +77,7 @@ function ShortFormPage() {
               id={shortforms[focusIndex].id}
               commentInputPosition="bottom"
               type={"short-form"}
+              commentCount={shortforms[focusIndex].commentCount}
             />
           </Modal>
           <Popup>

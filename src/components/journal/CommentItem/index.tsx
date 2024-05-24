@@ -1,6 +1,6 @@
 import * as S from "./style";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import UserIcon from "../../../assets/icons/user.svg?react";
 import ChatBubbleIcon from "../../../assets/icons/chatBubble.svg?react";
@@ -17,6 +17,8 @@ export interface Comment {
   id: number;
   name: string;
   userId: number;
+  isClapped: boolean;
+  isMine: boolean;
   profileImage: string;
   createDate: string;
   like: number;
@@ -25,7 +27,6 @@ export interface Comment {
 }
 
 interface Props extends Comment {
-  isMine: boolean;
   isReply?: boolean;
   replys?: Comment[] | null;
   reply?: {
@@ -57,9 +58,11 @@ function CommentItem({
   reply,
   setReply,
   isMine,
+  isClapped,
   type,
 }: Props) {
-  const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [likeCount, setLikeCount] = useState<number>(like);
+  const [isLiked, setIsLiked] = useState<boolean>(isClapped);
   const [isReplyOpened, setIsReplyOpened] = useState<boolean>(false);
   const {
     Modal: CommentMenuModal,
@@ -74,25 +77,19 @@ function CommentItem({
   const toggleLike = async () => {
     // @todo: 좋아요 버튼 토글 요청
     try {
-      const response = await post<{ message: string }>(
+      const { data } = await post<{ clap: number }>(
         `community/${type}/comment/${id}/like`
       );
-      if (response.message.include("SUCCESS")) {
-        setIsLiked((prev) => !prev);
-      }
+      setIsLiked((prev) => !prev);
+      setLikeCount(data.clap);
     } catch (error) {
+      console.log(error);
       console.log(error.response.data.message);
       if (error.response.data.message === "It's your comment!") {
         alert("내가 작성한 댓글은 좋아요 할 수 없습니다.");
       }
     }
   };
-
-  useEffect(() => {
-    console.log(text);
-    console.log(parentCommentId);
-    // @todo: 유저 정보에서 좋아요 클릭한 댓글 정보 불러와 isLiked 설정하기
-  }, []);
 
   const myCommentMenus = [
     {
@@ -162,7 +159,7 @@ function CommentItem({
               }}
             >
               {isLiked ? <ClapBlueIcon /> : <ClapIcon />}
-              {like}
+              {likeCount}
             </S.IconButton>
             {parentCommentId === null && (
               <S.IconButton
@@ -188,7 +185,7 @@ function CommentItem({
             <>
               <S.ReplyList>
                 {replys.map((item) => (
-                  <CommentItem {...item} isReply={true} />
+                  <CommentItem {...item} isReply={true} type={type} />
                 ))}
               </S.ReplyList>
               <S.ReplyToggleButton

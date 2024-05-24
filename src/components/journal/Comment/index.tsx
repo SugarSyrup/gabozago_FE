@@ -13,9 +13,15 @@ interface Props {
   id: number;
   commentInputPosition?: "bottom" | "top";
   type: "short-form" | "article" | "video" | "report" | "travelog";
+  commentCount: number;
 }
 
-function Comment({ id, commentInputPosition = "top", type }: Props) {
+function Comment({
+  id,
+  commentInputPosition = "top",
+  type,
+  commentCount,
+}: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [reply, setReply] = useState<{
     isReplyMode: boolean;
@@ -59,7 +65,6 @@ function Comment({ id, commentInputPosition = "top", type }: Props) {
 
   const getComments = async (id: number) => {
     const { data } = await get<TComment[]>(`community/${type}/${id}/comment`);
-    console.dir(data);
     setComments(parseComments(data));
   };
 
@@ -85,7 +90,7 @@ function Comment({ id, commentInputPosition = "top", type }: Props) {
     <>
       <S.Header position={commentInputPosition}>
         <Heading size="sm">
-          댓글 <S.CommentCountSpan>{comments.length}</S.CommentCountSpan>
+          댓글 <S.CommentCountSpan>{commentCount}</S.CommentCountSpan>
         </Heading>
       </S.Header>
       <S.CommentInputForm
@@ -130,8 +135,6 @@ function Comment({ id, commentInputPosition = "top", type }: Props) {
                   reply={reply}
                   setReply={setReply}
                   type={type}
-                  // isMine={false}
-                  isMine={true} // @todo: 현재 내 댓글인지 알 수 있는 방법이 없음, 추후 수정 필요
                 />
               </li>
             ))}
