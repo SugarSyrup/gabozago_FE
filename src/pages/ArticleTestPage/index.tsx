@@ -93,7 +93,7 @@ function ArticleTestPage() {
                 <ScrapModal />
                 <S.ModalWrapper isOpen={isOpend}>
                     <Modal>
-                        <Comment id={1} commentInputPosition="bottom"/>
+                        <Comment id={5} commentInputPosition="bottom"/>
                     </Modal>
                 </S.ModalWrapper>
 

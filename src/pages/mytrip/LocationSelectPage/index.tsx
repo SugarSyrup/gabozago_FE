@@ -26,6 +26,8 @@ export interface locationResponseType {
   image: string | null,
 }
 
+
+const defaultLocations = ["서울", "부산", "인천", "양평/가평", "양양/강릉/속초", "여수/순천", "경주", "포항", "통영/거제", "제주"];
 function MyTripLocationSelectPage() {
   const navigate = useNavigate();
   const [locations, setLocations] = useState<locationResponseType[]>([]);
@@ -125,34 +127,40 @@ function MyTripLocationSelectPage() {
             <Typography.Headline size="sm">지역을 선택해주세요.</Typography.Headline>
           </S.LocationsHeader>
           <S.Locations>
-            {locations.map((location) => {
-              const isActive = selectedLocations.includes(location.name);
-              return (
-                <S.LocationItem>
-                  <S.LocationInfomation>
-                    <S.LocationImgWrapper>
-                      {location.image ?
-                        <img src={location.image} alt={`${location.name} image`} />
-                        :
-                        <LogoTextIcon />
-                      } 
-                    </S.LocationImgWrapper>
-                    <Typography.Title size="lg">{location.name}</Typography.Title>
-                  </S.LocationInfomation>
-                  <S.LocationSelectButton 
-                    isActive={isActive}
-                    onClick={() => {
-                      isActive ? 
-                        deleteLocation(location.name)
-                        : 
-                        selectLocation(location.name)
-                      }}
-                    >
-                    <Typography.Label size="lg" color="inherit">선택</Typography.Label>
-                  </S.LocationSelectButton>
-                </S.LocationItem>
-              );
-            })}
+            {
+              defaultLocations.map((defaultLocation) => {
+                const rednerLocation = locations.find((location) => location.name === defaultLocation);
+                const isActive = selectedLocations.includes(defaultLocation);
+
+                if(rednerLocation){
+                  return (
+                    <S.LocationItem>
+                      <S.LocationInfomation>
+                        <S.LocationImgWrapper>
+                          {rednerLocation.image ?
+                            <img src={rednerLocation.image} alt={`${rednerLocation.name} image`} />
+                            :
+                            <LogoTextIcon />
+                          } 
+                        </S.LocationImgWrapper>
+                        <Typography.Title size="lg">{rednerLocation.name}</Typography.Title>
+                      </S.LocationInfomation>
+                      <S.LocationSelectButton 
+                        isActive={isActive}
+                        onClick={() => {
+                          isActive ? 
+                            deleteLocation(rednerLocation.name)
+                            : 
+                            selectLocation(rednerLocation.name)
+                          }}
+                        >
+                        <Typography.Label size="lg" color="inherit">선택</Typography.Label>
+                      </S.LocationSelectButton>
+                    </S.LocationItem>
+                  )
+                }
+              })
+            }
           </S.Locations>
         </>
       )}

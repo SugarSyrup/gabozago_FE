@@ -17,7 +17,6 @@ function TripList() {
     useEffect(() => {
         get<travelType[]>(`/user/profile/my-travel`)
             .then((response) => {
-            //[SugarSyrup] @TODO: 백엔드 아직 미 업데이트! -> 유저 여행 계획 data 불러온 정보 표시
                 setData(response.data);
             })
     }, [])
