@@ -87,6 +87,13 @@ export const LocationImgWrapper = styled.div`
         width:24px;
         height:24px;
     }
+
+    img{
+        width:100%;
+        height:100%;
+        object-fit:contain;
+        border-radius:100%;
+    }
 `
 
 export const LocationSelectButton = styled.button<{isActive: boolean}>`
