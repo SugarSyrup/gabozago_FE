@@ -38,6 +38,7 @@ function SignUpPage() {
   const [isNicknameOk, setIsNicknameOk] = useState<boolean>(false);
   const [checkboxActive, setCheckboxActive] = useState(false);
   const [isButtonActive, setIsButtonActive] = useState(false);
+  const [isRecommenderOk, setIsRecommendarOk] = useState(false);
 
   useEffect(() => {
     if(isNicknameOk && checkboxActive) {
@@ -67,14 +68,25 @@ function SignUpPage() {
           body = {
             email: email,
             nickname: nickname,
+            eventAgreement: formData.get("eventCheck") === "on",
+            recommender: 1
           }
         } else {
           body = {
-            nickname: nickname
+            nickname: nickname,
+            eventAgreement: formData.get("eventCheck") === "on",
+            recommender: 1
           }
         }
 
-        post<loginResponse>(`/sign-in`, body)
+        if(isRecommenderOk){
+          body = {
+            ...body,
+            recommender: recommendName
+          }
+        }
+
+        post<loginResponse>(`/user/sign-in`, body)
           .then((response) => {
             localStorage.setItem("access_token", response.data.access);
             localStorage.setItem("refresh_token", response.data.refresh);
@@ -85,7 +97,8 @@ function SignUpPage() {
           inputType="email"
           name="email"
           label="연결된 계정"
-          disabled={type === "naver" ? false : true}
+          disabled={false}
+          readonly={true}
           required={true}
           value={email ? email : ""}
           explain={
@@ -130,7 +143,7 @@ function SignUpPage() {
         <Nickname setIsNicknameOk={setIsNicknameOk}/>
         <CheckBoxs setCheckboxActive={setCheckboxActive} />
 
-        <RecommendNickname />
+        <RecommendNickname setIsRecommendarOk={setIsRecommendarOk}/>
         <S.ButtonWrapper formAction="" type="submit" disabled={!isButtonActive}>
             회원가입 완료
         </S.ButtonWrapper>

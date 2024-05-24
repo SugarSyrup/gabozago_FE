@@ -5,7 +5,11 @@ import { get } from "../../../utils/api";
 
 import * as S from "./style";
 
-function RecommendNickname() {
+interface Props {
+  setIsRecommendarOk: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function RecommendNickname({setIsRecommendarOk}: Props) {
     const [recommend, setRecommend] = useState("");
     const [recommendAlert, setRecommendAlert] = useState("");
 
@@ -32,12 +36,16 @@ function RecommendNickname() {
             setRecommendAlert("");
           }}
           onButtonClick={() => {
-            get<{message: "POSSIBLE" | "IMPOSSIBLE"}>(`/user/nickname/${recommend}`)
+            get(`/user/sign-in/recommender/${recommend}`)
               .then((res) => {
-                if(res.data.message === "POSSIBLE") {
+                if(res.status === 200) {
+                  setRecommendAlert(`확인되었습니다.`)
+                  setIsRecommendarOk(true);
+                }
+              }).catch((err) => {
+                if(err.response.status === 404) {
                   setRecommendAlert(`유효하지 않은 유저입니다.`)
-                } else {
-                  setRecommendAlert(`추천 가능한 유저입니다.`)
+                  setIsRecommendarOk(false);
                 }
               });
           }}

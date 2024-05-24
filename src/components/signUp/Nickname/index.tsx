@@ -53,10 +53,13 @@ function Nickname({setIsNicknameOk}: Props) {
           onButtonClick={() => {
             get<{message: "POSSIBLE" | "IMPOSSIBLE"}>(`/user/nickname/${nickname}`)
               .then((res) => {
+                console.log(124)
                 if(res.data.message === "POSSIBLE") {
                   setNicknameAlert(`사용 가능한 닉네임이에요!`)
                   setIsNicknameOk(true);
-                } else {
+                }
+              }).catch((err) => { 
+                if(err.response.data.message === "IMPOSSIBLE") {
                   setNicknameAlert(`사용 불가능한 닉네임이에요!`)
                   setIsNicknameOk(false);
                 }
