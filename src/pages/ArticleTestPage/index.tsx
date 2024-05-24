@@ -129,7 +129,7 @@ function ArticleTestPage() {
                                 case "photo":
                                     return <PlacePhoto photoURLs={content.photoURLs} desc={content.desc} />
                                 case "place":
-                                    return <PlaceInfo placeId={1} imageURL={content.imageURL}/>
+                                    return <PlaceInfo placeId={content.placeId} imageURL={content.imageURL}/>
                             }
                         })
                     }

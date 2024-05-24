@@ -16,7 +16,7 @@ function ContentStation({index, name, refs} : Props){
                 <DoubleCircleIcon />
                 <Typography.Title size="lg" color="inherit">Station {index}</Typography.Title>
             </S.Index>
-            <Typography.Headline size="sm">{name}</Typography.Headline>
+            <Typography.Headline size="sm" noOfLine={3}><span dangerouslySetInnerHTML={{ __html: name}}></span></Typography.Headline>
         </S.Container>
     )
 }
