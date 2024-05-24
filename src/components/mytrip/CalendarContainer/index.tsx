@@ -62,10 +62,20 @@ function CalendarContainer() {
     function drawCalendars() {
         const elements = [];
         const currentDateInfo = new Date();
-        for(let month = currentDateInfo.getMonth() + 1; month<=12; month++) {
+        let month = currentDateInfo.getMonth() + 1;
+        let year = currentDateInfo.getFullYear();
+
+        if(Number(dates.startDate.slice(0,4)) <= year) {
+            year = Number(dates.startDate.slice(0,4));
+            if(Number(dates.startDate.slice(4,6)) < month)  {
+                month = Number(dates.startDate.slice(4,6));
+            }
+        }
+
+        for(month; month<=12; month++) {
             elements.push(<Calendar year={currentDateInfo.getFullYear()} month={month} onDateClick={onDateClick} startDate={dates.startDate} endDate={dates.endDate}/>)
         }
-        for(let year = currentDateInfo.getFullYear() + 1; year<=currentDateInfo.getFullYear() + 10; year++) {
+        for(year; year<=currentDateInfo.getFullYear() + 10; year++) {
             for(let month = 1; month<=12; month++) {
                 elements.push(<Calendar year={year} month={month} onDateClick={onDateClick} startDate={dates.startDate} endDate={dates.endDate}/>)
             }
@@ -97,7 +107,7 @@ function CalendarContainer() {
                                         regions: addLocation
                                     }).then(
                                         (response) => {
-                                        navigate(`/mytrip/${response.data.id}`)
+                                            navigate(`/mytrip/${response.data.id}`)
                                         }
                                     )
                                     return;
