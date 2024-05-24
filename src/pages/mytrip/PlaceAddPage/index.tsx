@@ -9,7 +9,7 @@ import PageTemplate from "../../../components/common/PageTemplate";
 import Typography from "../../../components/common/Typography";
 import LocationAddItem from "../../../components/mytrip/LocationAddItem";
 
-import { createTravelState } from "../../../recoil/mytrip/createTravelState";
+import { addLocationState, createTravelState } from "../../../recoil/mytrip/createTravelState";
 import usePopup from "../../../hooks/usePopup";
 import useAlert from "../../../hooks/useAlert";
 import { get, post } from "../../../utils/api";
@@ -42,6 +42,7 @@ const PlaceAddPage = () => {
     }>();
     const [currentSelectedItem, setCurrentSelectedItem] = useState<{id: number, day?: number}>({id: -1});
     const setCreateTravelState = useSetRecoilState(createTravelState);
+    const setAddLocationState = useSetRecoilState(addLocationState);
 
     const {Popup, popupOpen, popupClose, isOpend} = usePopup();
     const {Alert, alertOpen, alertClose} = useAlert({
@@ -157,7 +158,10 @@ const PlaceAddPage = () => {
             <S.MyTravelHeader>
                 <Typography.Title size="lg">{data.length !== 0 && "나의 다가오는 여행"}</Typography.Title>
                 <S.CreateNewTravelButton onClick={() => {
+                    if(placeData === undefined) return;
+                    
                     setCreateTravelState('add');
+                    setAddLocationState(placeData.region);
                     navigate('/mytrip/create')
                 }}>
                     <Typography.Label size="lg" color="inherit">새로운 여행 일정 만들기</Typography.Label>

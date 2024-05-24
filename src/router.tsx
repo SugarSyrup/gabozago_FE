@@ -112,20 +112,22 @@ const router = createBrowserRouter([
     path: "/profile",
     element: (<IsLoginTemplate><ProfilePage /></IsLoginTemplate>),
     loader: async () => {
-      if(localStorage.getItem("access")){
+      if(localStorage.getItem("access_token")){
         const { data } = await get<TUserProfile>(`/user/profile`)
         return data;
       }
-      return {
-        id: -1,
-        nickname: "string",
-        description: "string",
-        avatarURL: "1",
-        clapCount: -1,
-        scrapCount: -1,
-        myTravelDay: -1,
-        myTravelCount: -1,
-      };
+      else {
+        return {
+          id: -1,
+          nickname: "string",
+          description: "string",
+          avatarURL: "1",
+          clapCount: -1,
+          scrapCount: -1,
+          myTravelDay: -1,
+          myTravelCount: -1,
+        };
+      }
     },
   },
   {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
 
 import PageTemplate from "../../../components/common/PageTemplate";
@@ -17,7 +17,7 @@ import { loginAlertState } from "../../../recoil/loginAlertState";
 function HomePage() {
   const [focusedTabIndex, setFocusedTabIndex] = useState<number>(0);
   const navigate = useNavigate();
-  const isLoginAlertState = useRecoilValue(loginAlertState);
+  const [isLoginAlertState, setIsLoginAlertState] = useRecoilState(loginAlertState);
   const {Alert, alertOpen} = useAlert({
     Content: <Typography.Body size="lg" color="white">로그인이 필요합니다</Typography.Body>,
     RightContent: <Typography.Body size="lg" color="white"><span style={{textDecoration:"underline", cursor:"pointer"}} onClick={() => {navigate("/login")}}>로그인 하러가기</span></Typography.Body>
@@ -31,6 +31,7 @@ function HomePage() {
   useEffect(() => {
     if(isLoginAlertState) {
       alertOpen();
+      setIsLoginAlertState(false);
     }
   }, [])
 
