@@ -31,7 +31,6 @@ function BottomNavBar({ style = "white" }: Props) {
           <S.ListItem
             active={isMatches(item.path)}
             activeColor={style === "black" ? "white" : "main"}
-            key={item.title}
           >
             <Link to={item.path}>
               {item.icon}
