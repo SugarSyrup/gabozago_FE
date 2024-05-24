@@ -15,6 +15,7 @@ import ShareIcon from "../../../../../assets/icons/share.svg?react";
 import { post } from "../../../../../utils/api";
 import useModal from "../../../../../hooks/useModal";
 import useScrapModal from "../../../../video/useScrapModal";
+import PlacesModalContents from "../PlacesModalContents";
 
 export interface TShortForm {
   id: number;
@@ -87,7 +88,7 @@ function ShortForm({
     modalOpen: placesModalOpen,
     modalClose: placesModalClose,
   } = useModal({
-    title: "",
+    title: "태그된 장소",
     handle: true,
   });
   const { ScrapModal, scrapModalOpen, scrapModalClose } = useScrapModal({
@@ -143,7 +144,9 @@ function ShortForm({
 
   return (
     <>
-      <PlacesModal>장소 모달</PlacesModal>
+      <PlacesModal>
+        <PlacesModalContents id={id} />
+      </PlacesModal>
       <ScrapModal />
       <S.Container>
         <S.YoutubeContainer ref={containerRef}>

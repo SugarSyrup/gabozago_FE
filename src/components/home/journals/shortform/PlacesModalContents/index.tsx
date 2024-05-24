@@ -78,7 +78,13 @@ function PlacesModalContents({ id }: Props) {
                 </S.TextInfoBox>
               </S.LeftBox>
               <S.ButtonBox>
-                <S.IconButton type="addToPlan">
+                <S.IconButton
+                  type="addToPlan"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigate(`/mytrip/place/${placeId}`);
+                  }}
+                >
                   <AddPlaceIcon />
                 </S.IconButton>
                 <S.IconButton
