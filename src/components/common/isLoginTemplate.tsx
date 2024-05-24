@@ -1,23 +1,29 @@
-// import React, { useEffect } from 'react';
-// import { useHistory } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 
-// const isLoginTemplate: React.FC = () => {
-//     const history = useHistory();
+import { loginAlertState } from '../../recoil/loginAlertState';
 
-//     useEffect(() => {
-//         const access_token = localStorage.getItem('access_token');
+interface Props {
+    children: React.ReactNode;
+}
 
-//         if (access_token) {
-//             // User is logged in, display the content
-//             // Replace the following line with your actual content component
-//             return <div>Welcome to the logged-in content!</div>;
-//         } else {
-//             // User is not logged in, navigate to the login page
-//             history.push('/login');
-//         }
-//     }, [history]);
+const IsLoginTemplate= ({children}: Props) => {
+    const navigate = useNavigate();
+    const setIsLoginAlert = useSetRecoilState(loginAlertState);
 
-//     return null; // or you can return a loading spinner or placeholder component
-// };
+    useEffect(() => {
+        const access_token = localStorage.getItem('access_token');
 
-// export default isLoginTemplate;
+        if (!access_token) {
+            setIsLoginAlert(true);
+            navigate('/');
+        } 
+    }, []);
+
+    return <>
+        {children}
+    </>;
+};
+
+export default IsLoginTemplate;
