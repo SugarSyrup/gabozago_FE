@@ -11,7 +11,8 @@ import ExclamationIcon from "../../../assets/icons/exclamation_circle.svg?react"
 import DeleteIcon from "../../../assets/icons/delete.svg?react";
 import useModal from "../../../hooks/useModal";
 import MenuOptionList from "../../../components/common/MenuOptionList";
-import { post } from "../../../utils/api";
+import { deletes, post } from "../../../utils/api";
+import useConfirm from "../../../hooks/useConfirm";
 
 export interface Comment {
   id: number;
@@ -41,6 +42,7 @@ interface Props extends Comment {
   >;
   inputRef?: React.RefObject<HTMLInputElement>;
   type: "short-form" | "article" | "video" | "report" | "travelog";
+  deleteComments: (commentId: number) => void;
 }
 
 function CommentItem({
@@ -60,6 +62,7 @@ function CommentItem({
   isMine,
   isClapped,
   type,
+  deleteComments,
 }: Props) {
   const [likeCount, setLikeCount] = useState<number>(like);
   const [isLiked, setIsLiked] = useState<boolean>(isClapped);
@@ -73,9 +76,15 @@ function CommentItem({
     handle: true,
     borderRadius: "16px",
   });
+  const { ConfirmPopup, confirmPopupOpen, confirmPopupClose } = useConfirm(
+    "댓글을 삭제하시겠어요?",
+    "삭제한 댓글은 되돌릴 수 없습니다.",
+    null,
+    "아니요",
+    "네, 삭제할래요"
+  );
 
   const toggleLike = async () => {
-    // @todo: 좋아요 버튼 토글 요청
     try {
       const { data } = await post<{ clap: number }>(
         `community/${type}/comment/${id}/like`
@@ -100,6 +109,7 @@ function CommentItem({
       ),
       name: "삭제하기",
       onClick: () => {
+        confirmPopupOpen();
         commentMenuModalClose();
       },
     },
@@ -124,6 +134,11 @@ function CommentItem({
         }
       }}
     >
+      <ConfirmPopup
+        onConfirm={() => {
+          deleteComments(id);
+        }}
+      />
       <CommentMenuModal>
         <MenuOptionList menus={isMine ? myCommentMenus : notMyCommentMenus} />
       </CommentMenuModal>

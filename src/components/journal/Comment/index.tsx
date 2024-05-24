@@ -3,7 +3,7 @@ import Heading from "../../common/Heading";
 import SendIcon from "../../../assets/icons/send.svg?react";
 import CommentItem, { Comment as TComment } from "../CommentItem";
 import { useEffect, useRef, useState } from "react";
-import { get, post } from "../../../utils/api";
+import { deletes, get, post } from "../../../utils/api";
 
 interface TParsedComment extends TComment {
   replys: TComment[];
@@ -67,6 +67,11 @@ function Comment({
     const { data } = await get<TComment[]>(`community/${type}/${id}/comment`);
     setComments(parseComments(data));
   };
+  const deleteComments = async (commentId: number) => {
+    deletes(`community/${type}/comment`, { commentId: commentId }).then(() => {
+      getComments(id);
+    });
+  };
 
   const submitComment = async (parentCommentId: number | null) => {
     await post<{
@@ -82,6 +87,7 @@ function Comment({
     getComments(id);
     setComment("");
   };
+
   useEffect(() => {
     getComments(id);
   }, []);
@@ -135,6 +141,7 @@ function Comment({
                   reply={reply}
                   setReply={setReply}
                   type={type}
+                  deleteComments={deleteComments}
                 />
               </li>
             ))}
