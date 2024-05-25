@@ -5,6 +5,7 @@ export interface DateObject {
   month: number;
   day: number;
   dayOfWeek: DayOfWeek;
+  dateString: string;
 }
 
 export function parseDateString(dateString: string): DateObject | null {
@@ -23,6 +24,7 @@ export function parseDateString(dateString: string): DateObject | null {
       month: Number(month),
       day: Number(day),
       dayOfWeek,
+      dateString: dateString,
     };
   } else {
     console.error("날짜 형식이 yyyy-mm-dd와 일치하지 않아 변환할 수 없습니다.");
