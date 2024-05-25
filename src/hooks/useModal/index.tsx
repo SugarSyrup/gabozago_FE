@@ -1,5 +1,5 @@
 import { ReactNode, useState } from "react";
-import * as S from "../styles/common/Modal.style";
+import * as S from "./style";
 
 interface Options {
   title?: string;
@@ -23,7 +23,7 @@ function useModal({
   };
 
   const Modal = ({ children }: { children?: ReactNode }) => (
-    <>
+    <S.ModalWrapper isOpened={isOpend}>
       {isOpend && (
         <S.ModalContainer onClick={modalClose}>
           <S.Modal
@@ -42,7 +42,7 @@ function useModal({
           </S.Modal>
         </S.ModalContainer>
       )}
-    </>
+    </S.ModalWrapper>
   );
 
   return { isOpend, modalOpen, modalClose, Modal };

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Container = styled.div`
   position: relative;
@@ -14,14 +14,14 @@ export const YoutubeContainer = styled.div`
   right: 0;
   bottom: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
 
   overflow: hidden;
   border-radius: 10px;
 
   &::after {
     position: absolute;
-    bottom: 0;
+    bottom: 80px;
     content: "";
     display: block;
     width: 100%;
@@ -30,7 +30,7 @@ export const YoutubeContainer = styled.div`
       180deg,
       rgba(255, 255, 255, 0) 0%,
       rgba(0, 0, 0, 0.2) 30%,
-      rgba(0, 0, 0, 0.5) 80%
+      rgba(0, 0, 0, 0.8) 100%
     );
   }
 `;
@@ -58,9 +58,9 @@ export const InfoBox = styled.div`
   width: 80%;
   display: flex;
   flex-direction: column;
-  gap: 11px;
+  gap: 5px;
 
-  p:first-child {
+  & > p:first-child {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -93,34 +93,75 @@ export const InfoBox = styled.div`
       cursor: pointer;
     }
   }
-  p:nth-child(2) {
+  & > p:nth-child(2) {
     padding-left: 2px;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 22px;
     word-break: keep-all;
     color: ${({ theme }) => theme.white};
   }
-  p:nth-child(3) {
-    display: flex;
-    gap: 20px;
+`;
 
-    font-size: 13px;
+export const ContentBox = styled.p<{ isOpened: boolean }>`
+  width: 100%;
+  max-height: 30px;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: transparent;
+
+  ${({ isOpened }) =>
+    isOpened &&
+    css`
+      display: block;
+      max-height: 240px;
+      overflow-y: auto;
+      text-overflow: clip;
+      background-color: #00000050;
+    `};
+
+  &:hover {
+    background-color: #00000050;
+  }
+
+  p {
+    padding: ${({ isOpened }) => (isOpened ? "5px" : 0)};
     color: ${({ theme }) => theme.white};
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.25px;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+`;
 
-    span {
-      display: flex;
-      align-items: center;
-      line-height: 23px;
-    }
+export const BottomInfoContainer = styled.div`
+  display: flex;
+  gap: 20px;
 
-    svg {
-      width: 16px;
-      height: 16px;
-      margin-right: 6px;
-      path {
-        fill: ${({ theme }) => theme.white};
-      }
+  font-size: 13px;
+  color: ${({ theme }) => theme.white};
+
+  span {
+    display: flex;
+    align-items: center;
+    line-height: 23px;
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+    path {
+      fill: ${({ theme }) => theme.white};
     }
   }
 `;
@@ -169,9 +210,9 @@ export const IconButton = styled.button`
     }
   }
 
-  &:first-child svg {
+  /* &:first-child svg {
     path {
       stroke: ${({ theme }) => theme.gray02};
     }
-  }
+  } */
 `;

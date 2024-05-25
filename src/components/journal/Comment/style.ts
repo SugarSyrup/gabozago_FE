@@ -30,7 +30,7 @@ export const Contents = styled.div<{ position: "bottom" | "top" }>`
     position === "bottom"
       ? css`
           height: 80vh;
-          padding: 50px 15px 120px;
+          padding: 35px 0 120px;
           overflow-y: auto;
         `
       : css`
@@ -94,7 +94,7 @@ export const CommentInput = styled.input`
   }
 `;
 
-export const SendButton = styled.button`
+export const SendButton = styled.button<{ disabled: boolean }>`
   position: absolute;
   top: 50%;
   right: 12px;
@@ -103,7 +103,7 @@ export const SendButton = styled.button`
 
   transform: translateY(-50%);
 
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
   border: 0;
   background-color: transparent;
 
@@ -123,7 +123,6 @@ export const SendButton = styled.button`
 export const CommentList = styled.ol`
   display: flex;
   flex-direction: column;
-  gap: 15px;
 `;
 
 export const NoCommentBox = styled.div`

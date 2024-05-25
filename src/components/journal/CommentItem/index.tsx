@@ -1,54 +1,156 @@
 import * as S from "./style";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import UserIcon from "../../../assets/icons/user.svg?react";
 import ChatBubbleIcon from "../../../assets/icons/chatBubble.svg?react";
 import ClapIcon from "../../../assets/icons/clap.svg?react";
 import ClapBlueIcon from "../../../assets/icons/clap_blue.svg?react";
 import KebabMenuIcon from "../../../assets/icons/menu_kebab.svg?react";
+import ExclamationIcon from "../../../assets/icons/exclamation_circle.svg?react";
+import DeleteIcon from "../../../assets/icons/delete.svg?react";
+import useModal from "../../../hooks/useModal";
+import MenuOptionList from "../../../components/common/MenuOptionList";
+import { post } from "../../../utils/api";
+import useConfirm from "../../../hooks/useConfirm";
+import useReportPopup from "../../../hooks/useReportPopup";
 
 export interface Comment {
   id: number;
   name: string;
-  username: string;
+  userId: number;
+  isClapped: boolean;
+  isMine: boolean;
   profileImage: string;
   createDate: string;
-  text: string;
   like: number;
-  replys?: Comment[];
+  text: string;
+  parentCommentId: null | number;
+}
+
+interface Props extends Comment {
+  isReply?: boolean;
+  replys?: Comment[] | null;
+  reply?: {
+    isReplyMode: boolean;
+    parentCommentId: number | null;
+  };
+  setReply?: React.Dispatch<
+    React.SetStateAction<{
+      isReplyMode: boolean;
+      parentCommentId: number | null;
+    }>
+  >;
+  inputRef?: React.RefObject<HTMLInputElement>;
+  type: "short-form" | "article" | "video" | "report" | "travelog";
+  deleteComments: (commentId: number) => void;
 }
 
 function CommentItem({
   id,
   name,
-  username,
+  userId,
   profileImage,
   createDate,
-  text,
   like,
-  replys,
+  text,
+  parentCommentId,
+  inputRef,
+  isReply = false,
+  replys = [],
+  reply,
+  setReply,
+  isMine,
+  isClapped,
+  type,
+  deleteComments,
 }: Props) {
-  const [isLiked, setIsLiked] = useState<boolean>(false);
-  const [isReplyOpend, setIsReplyOpend] = useState<boolean>(false);
+  const [likeCount, setLikeCount] = useState<number>(like);
+  const [isLiked, setIsLiked] = useState<boolean>(isClapped);
+  const [isReplyOpened, setIsReplyOpened] = useState<boolean>(false);
+  const {
+    Modal: CommentMenuModal,
+    modalOpen: commentMenuModalOpen,
+    modalClose: commentMenuModalClose,
+  } = useModal({
+    title: "댓글",
+    handle: true,
+    borderRadius: "16px",
+  });
+  const { ConfirmPopup, confirmPopupOpen, confirmPopupClose } = useConfirm(
+    "댓글을 삭제하시겠어요?",
+    "삭제한 댓글은 되돌릴 수 없습니다.",
+    null,
+    "아니요",
+    "네, 삭제할래요"
+  );
+  const { ReportPopup, reportPopupOpen, reportPopupClose } = useReportPopup({
+    type: type,
+    commentId: id,
+  });
 
-  const toggleLike = () => {
-    // @todo: 좋아요 버튼 토글 요청
-    alert("좋아요 누름");
-  };
-  const addReply = () => {
-    // @todo: id에 맞게 답글달기 비동기 요청
-    alert("id: " + id);
+  const toggleLike = async () => {
+    try {
+      const { data } = await post<{ clap: number }>(
+        `community/${type}/comment/${id}/like`
+      );
+      setIsLiked((prev) => !prev);
+      setLikeCount(data.clap);
+    } catch (error) {
+      console.log(error);
+      console.log(error.response.data.message);
+      if (error.response.data.message === "It's your comment!") {
+        alert("내가 작성한 댓글은 좋아요 할 수 없습니다.");
+      }
+    }
   };
 
-  useEffect(() => {
-    // @todo: 유저 정보에서 좋아요 클릭한 댓글 정보 불러와 isLiked 설정하기
-  }, []);
+  const myCommentMenus = [
+    {
+      icon: (
+        <S.GrayColoredIcon>
+          <DeleteIcon />
+        </S.GrayColoredIcon>
+      ),
+      name: "삭제하기",
+      onClick: () => {
+        confirmPopupOpen();
+        commentMenuModalClose();
+      },
+    },
+  ];
+  const notMyCommentMenus = [
+    {
+      icon: <ExclamationIcon />,
+      name: "신고하기",
+      onClick: () => {
+        reportPopupOpen();
+        commentMenuModalClose();
+      },
+    },
+  ];
 
   return (
-    <S.Container>
+    <S.Container
+      isReply={isReply}
+      isFocused={reply?.isReplyMode === true && reply?.parentCommentId === id}
+      onClick={() => {
+        if (setReply && reply?.isReplyMode) {
+          setReply({ isReplyMode: false, parentCommentId: null });
+        }
+      }}
+    >
+      <ReportPopup />
+      <ConfirmPopup
+        onConfirm={() => {
+          deleteComments(id);
+        }}
+      />
+      <CommentMenuModal>
+        <MenuOptionList menus={isMine ? myCommentMenus : notMyCommentMenus} />
+      </CommentMenuModal>
       <S.CommentBox>
-        <Link to={`/profile/${username}`}>
+        <Link to={`/profile/${userId}`}>
           <S.UserProfileImgBox>
             {profileImage ? (
               <S.UserProfileImg src={profileImage} />
@@ -60,14 +162,13 @@ function CommentItem({
         <S.ContentsBox>
           <S.MenuButton
             onClick={() => {
-              // @todo: 삭제 혹은 신고
-              alert("@todo: 삭제 혹은 신고");
+              commentMenuModalOpen();
             }}
           >
             <KebabMenuIcon />
           </S.MenuButton>
           <div>
-            <Link to={`/profile/${username}`}>
+            <Link to={`/profile/${userId}`}>
               <S.UserNameSpan>{name}</S.UserNameSpan>
             </Link>
             <S.TimestampSpan>{createDate}</S.TimestampSpan>
@@ -76,32 +177,42 @@ function CommentItem({
           <S.ActionBox>
             <S.IconButton
               onClick={() => {
-                setIsLiked((prev) => !prev);
                 toggleLike();
               }}
             >
               {isLiked ? <ClapBlueIcon /> : <ClapIcon />}
-              <span>{like}</span>
+              {likeCount}
             </S.IconButton>
-            <S.IconButton onClick={addReply}>
-              <ChatBubbleIcon />
-              <span>답글달기</span>
-            </S.IconButton>
+            {parentCommentId === null && (
+              <S.IconButton
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  if (setReply && inputRef?.current) {
+                    setReply({ isReplyMode: true, parentCommentId: id });
+                    inputRef.current.focus();
+                  }
+                }}
+              >
+                <ChatBubbleIcon />
+                답글달기
+              </S.IconButton>
+            )}
           </S.ActionBox>
         </S.ContentsBox>
       </S.CommentBox>
       {replys && replys.length !== 0 && (
         <S.ReplyBox>
-          {isReplyOpend ? (
+          {isReplyOpened ? (
             <>
               <S.ReplyList>
                 {replys.map((item) => (
-                  <CommentItem {...item} />
+                  <CommentItem {...item} isReply={true} type={type} />
                 ))}
               </S.ReplyList>
               <S.ReplyToggleButton
                 onClick={() => {
-                  setIsReplyOpend((prev) => !prev);
+                  setIsReplyOpened((prev) => !prev);
                 }}
               >
                 접기
@@ -110,7 +221,7 @@ function CommentItem({
           ) : (
             <S.ReplyToggleButton
               onClick={() => {
-                setIsReplyOpend((prev) => !prev);
+                setIsReplyOpened((prev) => !prev);
               }}
             >
               {replys.length}개 답글보기

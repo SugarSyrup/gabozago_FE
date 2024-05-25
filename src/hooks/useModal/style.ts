@@ -1,5 +1,20 @@
 import styled from "styled-components";
 
+export const ModalWrapper = styled.div<{ isOpened: boolean }>`
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: ${({ isOpened }) => (isOpened ? 40 : -10)};
+
+  margin: auto;
+  max-width: 500px;
+  max-height: 100vh;
+  width: 100%;
+  height: 100vh;
+`;
+
 export const ModalContainer = styled.div`
   position: absolute;
   width: 100%;
