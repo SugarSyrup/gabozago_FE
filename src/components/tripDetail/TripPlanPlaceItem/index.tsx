@@ -4,6 +4,7 @@ import ThemeIcon from "../../../assets/icons/theme.svg?react";
 import LocationIcon from "../../../assets/icons/location.svg?react";
 import EditIcon from "../../../assets/icons/edit.svg?react";
 import Typography from "../../common/Typography";
+import { useNavigate } from "react-router-dom";
 
 export interface PlaceData {
   detailRouteId: number;
@@ -28,15 +29,12 @@ function TripPlanPlaceItem({
   placeName,
   placeTheme,
   placeId,
-  googlePlaceId,
-  placeImage,
-  latitude,
-  longitude,
   memo,
   day,
   index,
   setIsEditMode,
 }: Props) {
+  const navigate = useNavigate();
   memo =
     "Lorem Ipsum is simply dummy text of the printing and type set ti asd ng setting industry.. ";
   const onLongClick = useLongPress(
@@ -45,7 +43,7 @@ function TripPlanPlaceItem({
       setIsEditMode(true);
     },
     {
-      threshold: 500, // ms
+      threshold: 600, // ms
       captureEvent: true, // 첫번째 인자로 들어온 callback 함수가 react MouseEvent를 도와주게 설정
       cancelOnMovement: false, // 꾹 눌렀다가 옆으로 이동했을때 취소
     }
@@ -54,7 +52,11 @@ function TripPlanPlaceItem({
   return (
     <S.PlaceBox {...onLongClick()}>
       <S.TitleBox>
-        <div>
+        <div
+          onClick={() => {
+            navigate(`/place/${placeId}`);
+          }}
+        >
           <Typography.Title size="md" noOfLine={3}>
             {placeName}
           </Typography.Title>
