@@ -47,9 +47,6 @@ function PlanMap({ isEditMode }: Props) {
   };
 
   useEffect(() => {
-    if (isEditMode) {
-      setMapOpend(false);
-    }
     plan?.map(({ route }) => {
       route?.map(({ placeName, position }) => {
         setMarkers((prev) => [
@@ -62,6 +59,13 @@ function PlanMap({ isEditMode }: Props) {
       });
     });
   }, []);
+  useEffect(() => {
+    if (isEditMode) {
+      setMapOpend(false);
+    } else {
+      setMapOpend(true);
+    }
+  }, [isEditMode]);
 
   return (
     <S.Container>
