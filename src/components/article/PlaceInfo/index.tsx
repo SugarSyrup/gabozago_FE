@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 
 import MarketIcon from "../../../assets/icons/market.svg?react";
 import CalendarAddIcon from "../../../assets/icons/calendar_add_border.svg?react";

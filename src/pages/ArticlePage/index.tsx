@@ -3,26 +3,27 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 
 import DoubleChevronBottom from "../../assets/icons/double_chevron_bottom.svg?react";
 
-import StationContainer from "../../components/article/StationContainer";
 import BackButton from "../../components/common/BackButton";
 import PageTemplate from "../../components/common/PageTemplate";
-import BottomNav from "../../components/post/BottomNav";
-import CheckPoints from "../../components/article/CheckPoints";
-
-import ContentStation from "../../components/article/ContentStation";
-import Editor from "../../components/article/Editor";
-import PlacePhoto from "../../components/article/PlacePhoto";
-import PlaceInfo from "../../components/article/PlaceInfo";
-import InterviewProfile from "../../components/article/InterviewProfile";
-import Interview from "../../components/article/Interview";
 import Typography from "../../components/common/Typography";
+import BottomNav from "../../components/post/BottomNav";
+import Comment from "../../components/journal/Comment";
+import useScrapModal from "../../components/video/useScrapModal";
 
-import * as S from "./style";
+import Editor from "../../components/article/Editor";
+import Interview from "../../components/article/Interview";
+import PlaceInfo from "../../components/article/PlaceInfo";
+import PlacePhoto from "../../components/article/PlacePhoto";
+import CheckPoints from "../../components/article/CheckPoints";
+import AbroadPlace from "../../components/article/AbroadPlace";
+import ContentStation from "../../components/article/ContentStation";
+import StationContainer from "../../components/article/StationContainer";
+import InterviewProfile from "../../components/article/InterviewProfile";
+
 import { get } from "../../utils/api";
 import useModal from "../../hooks/useModal";
-import Comment from "../../components/journal/Comment";
 import useAlert from "../../hooks/useAlert";
-import useScrapModal from "../../components/video/useScrapModal";
+import * as S from "./style";
 
 interface TArticle {
 	"title": string,
@@ -76,6 +77,13 @@ interface TPlace {
     imageURL: string,
     placeId: number,
     type: "place"
+}
+
+interface TAbroadPlace {
+    thumbnailURL: string,
+    name: string,
+    address: string,
+    type: "abroadPlace"
 }
 
 function ArticlePage() {
@@ -141,7 +149,7 @@ function ArticlePage() {
                     <StationContainer data={JSON.parse(data.content).data.filter((content : TEditor | TInterview | TPhoto | TPlace | TProfile | TStation) => content.type === "station")} refs={stationRefs}/>
                     <S.Content isLogin={isLogin}>
                     {
-                        JSON.parse(data.content).data.map((content : TEditor | TInterview | TPhoto | TPlace | TProfile | TStation) => {
+                        JSON.parse(data.content).data.map((content : TEditor | TInterview | TPhoto | TPlace | TProfile | TStation | TAbroadPlace) => {
                             switch (content.type){
                                 case "station":
                                     return <ContentStation index={content.index} name={content.name} refs={stationRefs}/>
@@ -155,6 +163,8 @@ function ArticlePage() {
                                     return <PlacePhoto photoURLs={content.photoURLs} desc={content.desc} />
                                 case "place":
                                     return <PlaceInfo placeId={1} imageURL={content.imageURL}/>
+                                case "abroadPlace":
+                                    return <AbroadPlace thumbnailURL={content.thumbnailURL} name={content.name} address={content.address} />
                             }
                         })
                     }
