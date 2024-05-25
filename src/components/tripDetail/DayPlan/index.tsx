@@ -2,6 +2,7 @@ import * as S from "./style";
 import { DateObject, parseDateString } from "../../../utils/parseDateString";
 import TripPlanPlaceItem, { PlaceData } from "../TripPlanPlaceItem";
 import AddPlaceButton from "../AddPlaceButton";
+import { useNavigate } from "react-router-dom";
 interface Props {
   data: PlaceData[];
   day: number;
@@ -9,6 +10,7 @@ interface Props {
   setIsEditMode: React.Dispatch<React.SetStateAction<boolean>>;
 }
 function DayPlan({ data, day, date: dateString, setIsEditMode }: Props) {
+  const navigate = useNavigate();
   const date = parseDateString(dateString);
   const markerColors = [
     "#5276FA",
@@ -19,6 +21,10 @@ function DayPlan({ data, day, date: dateString, setIsEditMode }: Props) {
     "#F29661",
     "#78CBA2",
   ];
+
+  const clickAddPlaceButtonHandler = () => {
+    navigate(`./${day}/search`);
+  };
 
   return (
     <S.Container>
@@ -37,7 +43,7 @@ function DayPlan({ data, day, date: dateString, setIsEditMode }: Props) {
       </S.DayInfo>
       <S.PlaceList>
         {data.length === 0 ? (
-          <AddPlaceButton />
+          <AddPlaceButton onClick={clickAddPlaceButtonHandler} />
         ) : (
           <>
             {data.map((place, index) => (
@@ -56,7 +62,10 @@ function DayPlan({ data, day, date: dateString, setIsEditMode }: Props) {
             ))}
             <S.PlaceItem>
               <div></div>
-              <AddPlaceButton size="small" />
+              <AddPlaceButton
+                size="small"
+                onClick={clickAddPlaceButtonHandler}
+              />
             </S.PlaceItem>
           </>
         )}
