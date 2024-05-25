@@ -5,6 +5,13 @@ export const DayInfo = styled.p`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  & > div {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
   margin-bottom: 20px;
   font-weight: 600;
   font-size: 14px;

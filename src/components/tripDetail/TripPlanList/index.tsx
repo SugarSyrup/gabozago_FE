@@ -39,12 +39,11 @@ function TripPlanList({ data, isEditMode, setIsEditMode }: Props) {
         )}
         {isEditMode
           ? data.plan.map((dayPlan) => (
-              // <DayPlanEdit
-              //   day={dayPlan.day}
-              //   route={dayPlan.route}
-              //   setPlan={setPlan}
-              // />
-              <></>
+              <DayPlanEdit
+                day={dayPlan.day}
+                date={dayPlan.date}
+                route={dayPlan.route}
+              />
             ))
           : data.plan.map((dayPlan) => (
               <DayPlan
