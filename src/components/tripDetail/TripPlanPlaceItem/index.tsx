@@ -1,5 +1,9 @@
 import * as S from "./style";
 import { useLongPress } from "use-long-press";
+import ThemeIcon from "../../../assets/icons/theme.svg?react";
+import LocationIcon from "../../../assets/icons/location.svg?react";
+import EditIcon from "../../../assets/icons/edit.svg?react";
+import Typography from "../../common/Typography";
 
 export interface PlaceData {
   detailRouteId: number;
@@ -33,7 +37,8 @@ function TripPlanPlaceItem({
   index,
   setIsEditMode,
 }: Props) {
-  const hasMemo = memo !== "";
+  memo =
+    "Lorem Ipsum is simply dummy text of the printing and type set ti asd ng setting industry.. ";
   const onLongClick = useLongPress(
     () => {
       console.log("longClick");
@@ -47,17 +52,35 @@ function TripPlanPlaceItem({
   );
 
   return (
-    // <S.PlaceItem >
     <S.PlaceBox {...onLongClick()}>
-      <S.PlaceTextBox hasMemo={hasMemo}>
+      <S.TitleBox>
         <div>
-          <S.PlaceNameParagraph>{placeName}</S.PlaceNameParagraph>
-          <S.PlaceThemeParagraph>{placeTheme}</S.PlaceThemeParagraph>
+          <Typography.Title size="md" noOfLine={3}>
+            {placeName}
+          </Typography.Title>
+          <S.InfoContainer>
+            <S.InfoSpan>
+              {/* @todo: API에 지역 없음 */}
+              <LocationIcon />
+              지역
+            </S.InfoSpan>
+            <S.InfoSpan>
+              <ThemeIcon />
+              {placeTheme}
+            </S.InfoSpan>
+          </S.InfoContainer>
         </div>
-        {hasMemo && <S.PlaceMemoParagraph>{memo}</S.PlaceMemoParagraph>}
-      </S.PlaceTextBox>
+        <S.MemoButton
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
+          메모하기
+          <EditIcon />
+        </S.MemoButton>
+      </S.TitleBox>
+      {memo && memo.length >= 0 && <S.MemoParagraph>{memo}</S.MemoParagraph>}
     </S.PlaceBox>
-    // </S.PlaceItem>
   );
 }
 

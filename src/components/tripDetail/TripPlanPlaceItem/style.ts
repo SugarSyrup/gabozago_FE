@@ -1,91 +1,17 @@
-import styled, { css } from "styled-components";
-import line from "../../../assets/icons/line.svg";
+import styled from "styled-components";
 
-// const lineCss = css`
-//   content: "";
-//   flex-grow: 2;
-//   display: block;
-//   width: 1.6px;
-//   background-image: url(${line});
-//   background-repeat: repeat-y;
-//   background-size: unset;
-// `;
-
-// export const PlaceItem = styled.li`
-//   width: 100%;
-//   display: grid;
-//   grid-template-columns: min-content 1fr;
-//   align-items: center;
-//   gap: 10px;
-
-//   &:not(:last-of-type) {
-//     padding-bottom: 10px;
-
-//     // 숫자마커 위, 아래 라인
-//     & > div:first-of-type > div {
-//       &::before,
-//       &::after {
-//         ${lineCss}
-//       }
-//     }
-//   }
-// `;
-
-// export const MarkerBox = styled.div<{ color: string }>`
-//   width: 18px;
-//   height: 18px;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   gap: 8px;
-
-//   background-color: ${({ color }) => color};
-//   border-radius: 50%;
-//   line-height: 0;
-// `;
-// export const NumberSpan = styled.span`
-//   margin: auto;
-//   line-height: 0;
-
-//   font-weight: 500;
-//   font-size: 11px;
-//   color: ${({ theme }) => theme.white};
-// `;
-
-export const TransportBox = styled.div`
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3px;
-
-  font-size: 10px;
-  font-weight: 500;
-  text-align: center;
-  color: ${({ theme }) => theme.gray02};
-  word-break: keep-all;
-
-  p {
-    margin: 3px 0;
-    // 스크린리더 지원 텍스트
-    span:first-of-type {
-      visibility: hidden;
-      position: absolute;
-    }
-    svg {
-      margin-bottom: 2px;
-    }
-  }
-`;
 export const PlaceBox = styled.div`
   width: 100%;
-  padding: 12px 20px;
-  margin-bottom: 20px;
   height: fit-content;
-  display: grid;
-  grid-template-columns: 1fr 38px;
-  gap: 10px;
-  align-items: center;
+  margin-bottom: 20px;
+  padding: 12px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  cursor: pointer;
+  text-align: left;
+  border: 0;
   background-color: ${({ theme }) => theme.blue05};
   border-radius: 10px;
 
@@ -94,31 +20,78 @@ export const PlaceBox = styled.div`
     height: 38px;
     border-radius: 50%;
   }
-`;
 
-export const PlaceTextBox = styled.div<{ hasMemo: boolean }>`
-  word-break: keep-all;
-
-  div {
-    display: flex;
-    flex-direction: ${({ hasMemo }) => (hasMemo ? "row" : "column")};
-    align-items: ${({ hasMemo }) => (hasMemo ? "flex-end" : "flex-start")};
-    gap: ${({ hasMemo }) => (hasMemo ? "7px" : "0")};
+  &:active {
+    outline: 3px solid ${({ theme }) => theme.blue04};
+    box-shadow: 0 5px 10px #849fff70;
   }
 `;
-export const PlaceNameParagraph = styled.p`
-  line-height: 22px;
-  font-weight: 600;
-  font-size: 14px;
-  color: ${({ theme }) => theme.black};
+
+export const TitleBox = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  word-break: keep-all;
 `;
-export const PlaceThemeParagraph = styled.p`
+
+export const MemoButton = styled.button`
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+
+  cursor: pointer;
+  font-size: 12px;
+  border: 1px solid ${({ theme }) => theme.blue04};
+  border-radius: 8px;
+
+  color: ${({ theme }) => theme.main};
+  background-color: transparent;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.blue04};
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+    path {
+      fill: ${({ theme }) => theme.main};
+    }
+  }
+`;
+export const InfoContainer = styled.div`
+  margin-top: 5px;
+  display: flex;
+  gap: 7px;
+`;
+
+export const InfoSpan = styled.span`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  color: ${({ theme }) => theme.gray02};
   font-size: 11px;
-  line-height: 18px;
+  font-style: normal;
   font-weight: 400;
-  color: ${({ theme }) => theme.gray01};
+  line-height: 16px; /* 145.455% */
+  letter-spacing: 0.5px;
+
+  svg {
+    width: 16px;
+    height: 16px;
+
+    path {
+      fill: ${({ theme }) => theme.gray02};
+    }
+  }
 `;
-export const PlaceMemoParagraph = styled.p`
+export const MemoParagraph = styled.p`
+  padding: 8px 0 10px;
   font-size: 11px;
   line-height: 18px;
   font-weight: 400;
