@@ -1,40 +1,19 @@
 import * as S from "./style";
 import { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
 import { useLoaderData, useParams } from "react-router-dom";
-
 import { get } from "../../../utils/api";
 import { parseDateString, DateObject } from "../../../utils/parseDateString";
-import { tripPlanState } from "../../../recoil/tripState";
-import { planViewModeState } from "../../../recoil/planViewModeState";
 
 import PageTemplate from "../../../components/common/PageTemplate";
-import TripPlanList from "../../../components/tripDetail/TripPlanList";
+import TripPlanList, {
+  DayPlan,
+} from "../../../components/tripDetail/TripPlanList";
 import PlanMap from "../../../components/tripDetail/PlanMap";
 import EditModeBottomControlBox from "../../../components/tripDetail/EditModeBottomControlBox";
 import Typography from "../../../components/common/Typography";
 import CalendarIcon from "../../../assets/icons/calendar.svg?react";
 
-interface PlaceData {
-  detailRouteId: number;
-  placeName: string;
-  placeTheme: string;
-  placeId: number;
-  googlePlaceId: string;
-  placeImage: string;
-  latitude: number;
-  longitude: number;
-  memo: string;
-}
-
-interface DayPlan {
-  day: number;
-  date: string;
-  dayOfWeek: "일" | "월" | "화" | "수" | "목" | "금" | "토";
-  route: PlaceData[];
-}
-
-interface TripData {
+export interface TripData {
   id: number;
   title: string;
   departure_date: string;
@@ -47,10 +26,7 @@ interface TripData {
 function MyTripDetailPage() {
   const { id } = useParams(); // 파라미터에 게시글 ID
   const nickname = useLoaderData() as string;
-
-  const [viewMode, setViewMode] = useRecoilState(planViewModeState);
-  const tripPlan = useRecoilValue(tripPlanState);
-
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [data, setData] = useState<TripData>({
     id: -1,
     title: "",
@@ -123,12 +99,11 @@ function MyTripDetailPage() {
 
   useEffect(() => {
     getData(Number(id));
-    setViewMode("NOPLAN");
   }, []);
 
   return (
     <PageTemplate
-      nav={viewMode === "EDIT" ? <EditModeBottomControlBox /> : "default"}
+      nav={isEditMode ? <EditModeBottomControlBox /> : "default"}
       header={
         <S.Header>
           <Typography.Headline size="md">{data.title}</Typography.Headline>
@@ -141,8 +116,7 @@ function MyTripDetailPage() {
         </S.Header>
       }
     >
-      {false ? (
-        // {data.plan.length > 0 ? (
+      {data.plan.length > 0 ? (
         <PlanMap />
       ) : (
         <S.MessageBox>
@@ -152,7 +126,11 @@ function MyTripDetailPage() {
           </Typography.Body>
         </S.MessageBox>
       )}
-      <TripPlanList />
+      <TripPlanList
+        data={data}
+        isEditMode={isEditMode}
+        setIsEditMode={setIsEditMode}
+      />
     </PageTemplate>
   );
 }

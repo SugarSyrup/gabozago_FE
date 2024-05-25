@@ -1,59 +1,57 @@
 import styled, { css } from "styled-components";
 import line from "../../../assets/icons/line.svg";
 
-const lineCss = css`
-  content: "";
-  flex-grow: 2;
-  display: block;
-  width: 1.6px;
-  background-image: url(${line});
-  background-repeat: repeat-y;
-  background-size: unset;
-`;
+// const lineCss = css`
+//   content: "";
+//   flex-grow: 2;
+//   display: block;
+//   width: 1.6px;
+//   background-image: url(${line});
+//   background-repeat: repeat-y;
+//   background-size: unset;
+// `;
 
-export const PlaceItem = styled.li`
-  width: 100%;
-  display: grid;
-  grid-template-columns: min-content 1fr;
-  align-items: center;
-  gap: 10px;
+// export const PlaceItem = styled.li`
+//   width: 100%;
+//   display: grid;
+//   grid-template-columns: min-content 1fr;
+//   align-items: center;
+//   gap: 10px;
 
-  &:not(:last-of-type) {
-    padding-bottom: 10px;
+//   &:not(:last-of-type) {
+//     padding-bottom: 10px;
 
-    // 숫자마커 위, 아래 라인
-    & > div:first-of-type > div {
-      &::before,
-      &::after {
-        ${lineCss}
-      }
-    }
-  }
-`;
+//     // 숫자마커 위, 아래 라인
+//     & > div:first-of-type > div {
+//       &::before,
+//       &::after {
+//         ${lineCss}
+//       }
+//     }
+//   }
+// `;
 
-export const MarkerBox = styled.div`
-  display: grid;
-  grid-template-rows: fit-content(100%) 1fr;
-  height: 100%;
-  gap: 8px;
-  flex-direction: column;
-  align-items: center;
-`;
-export const NumberSpan = styled.span`
-  display: flex;
-  margin: auto;
-  align-items: center;
-  justify-content: center;
-  padding-top: 2px;
-  width: 18px;
-  height: 18px;
+// export const MarkerBox = styled.div<{ color: string }>`
+//   width: 18px;
+//   height: 18px;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   gap: 8px;
 
-  font-weight: 500;
-  font-size: 11px;
-  border-radius: 50%;
-  background-color: ${({ theme }) => theme.main};
-  color: ${({ theme }) => theme.white};
-`;
+//   background-color: ${({ color }) => color};
+//   border-radius: 50%;
+//   line-height: 0;
+// `;
+// export const NumberSpan = styled.span`
+//   margin: auto;
+//   line-height: 0;
+
+//   font-weight: 500;
+//   font-size: 11px;
+//   color: ${({ theme }) => theme.white};
+// `;
+
 export const TransportBox = styled.div`
   height: 100%;
   display: flex;
@@ -80,6 +78,7 @@ export const TransportBox = styled.div`
   }
 `;
 export const PlaceBox = styled.div`
+  width: 100%;
   padding: 12px 20px;
   height: fit-content;
   display: grid;

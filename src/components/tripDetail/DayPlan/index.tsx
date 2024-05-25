@@ -1,50 +1,57 @@
 import * as S from "./style";
-import { useSetRecoilState } from "recoil";
-import TripPlanPlaceItem from "../TripPlanPlaceItem";
+import { parseDateString } from "../../../utils/parseDateString";
+import TripPlanPlaceItem, { PlaceData } from "../TripPlanPlaceItem";
 import AddPlaceButton from "../AddPlaceButton";
-
-import { planViewModeState } from "../../../recoil/planViewModeState";
-import { Place } from "../../../assets/data/tripPlanData";
-
 interface Props {
+  data: PlaceData[];
   day: number;
-  date: Date;
-  route: Place[];
+  date: string;
+  setIsEditMode: React.Dispatch<React.SetStateAction<boolean>>;
 }
-function DayPlan({ day, date, route }: Props) {
-  const setViewMode = useSetRecoilState(planViewModeState);
-  const dateToString = (date: Date) => {
-    const days = ["일", "월", "화", "수", "목", "금", "토"];
-    return `${date.getUTCMonth() + 1}.${date.getUTCDate()}/${
-      days[date.getUTCDay()]
-    }`;
-  };
+function DayPlan({ data, day, date: dateString, setIsEditMode }: Props) {
+  const date = parseDateString(dateString);
+  const markerColors = [
+    "#5276FA",
+    "#FFAF37",
+    "#BA75FF",
+    "#FA5252",
+    "#30A9DE",
+    "#F29661",
+    "#78CBA2",
+  ];
 
   return (
     <S.Container>
       <S.DayInfo>
         <div>
           Day {day}
-          <span>{dateToString(date)}</span>
+          <span>{`${date?.month}. ${date?.day}(${date?.dayOfWeek})`}</span>
         </div>
         <S.EditButton
           onClick={() => {
-            setViewMode("EDIT");
+            setIsEditMode(true);
           }}
         >
           일정 편집
         </S.EditButton>
       </S.DayInfo>
       <S.PlaceList>
-        {route.length !== 0 ? (
+        {data.length !== 0 ? (
           <>
-            {route.map((place, index) => (
-              <TripPlanPlaceItem
-                place={place}
-                index={index}
-                addPlaceButton={index === route.length - 1 && true}
-              />
+            {data.map((place, index) => (
+              <S.PlaceItem>
+                <S.MarkerBox color={markerColors[day - (1 % 7)]}>
+                  <S.NumberSpan>{index + 1}</S.NumberSpan>
+                </S.MarkerBox>
+                <TripPlanPlaceItem
+                  {...place}
+                  day={day}
+                  index={index}
+                  setIsEditMode={setIsEditMode}
+                />
+              </S.PlaceItem>
             ))}
+            <AddPlaceButton size="small" />
           </>
         ) : (
           <AddPlaceButton />
