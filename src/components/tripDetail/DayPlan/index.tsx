@@ -36,7 +36,9 @@ function DayPlan({ data, day, date: dateString, setIsEditMode }: Props) {
         </S.EditButton>
       </S.DayInfo>
       <S.PlaceList>
-        {data.length !== 0 ? (
+        {data.length === 0 ? (
+          <AddPlaceButton />
+        ) : (
           <>
             {data.map((place, index) => (
               <S.PlaceItem>
@@ -51,10 +53,11 @@ function DayPlan({ data, day, date: dateString, setIsEditMode }: Props) {
                 />
               </S.PlaceItem>
             ))}
-            <AddPlaceButton size="small" />
+            <S.PlaceItem>
+              <div></div>
+              <AddPlaceButton size="small" />
+            </S.PlaceItem>
           </>
-        ) : (
-          <AddPlaceButton />
         )}
       </S.PlaceList>
     </S.Container>

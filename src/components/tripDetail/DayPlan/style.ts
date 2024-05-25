@@ -39,7 +39,6 @@ export const EditButton = styled.button`
 export const PlaceList = styled.ol`
   display: flex;
   flex-direction: column;
-  gap: 20px;
 `;
 
 export const PlaceItem = styled.li`

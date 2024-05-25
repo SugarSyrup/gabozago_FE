@@ -80,6 +80,7 @@ export const TransportBox = styled.div`
 export const PlaceBox = styled.div`
   width: 100%;
   padding: 12px 20px;
+  margin-bottom: 20px;
   height: fit-content;
   display: grid;
   grid-template-columns: 1fr 38px;
