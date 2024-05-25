@@ -38,8 +38,6 @@ function TripPlanPlaceItem({
   setIsEditMode,
 }: Props) {
   const navigate = useNavigate();
-  memo =
-    "Lorem Ipsum is simply dummy text of the printing and type set ti asd ng setting industry.. ";
   const onLongClick = useLongPress(
     () => {
       console.log("longClick");
@@ -85,7 +83,7 @@ function TripPlanPlaceItem({
                 day: String(day),
                 placeName: placeName,
                 date: `${date.month}. ${date.day}(${date.dayOfWeek})`,
-                text: memo,
+                text: memo || "",
               }).toString(),
             });
           }}
