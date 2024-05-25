@@ -117,7 +117,7 @@ function MyTripDetailPage() {
       }
     >
       {data.plan.length > 0 ? (
-        <PlanMap />
+        <PlanMap isEditMode={isEditMode} />
       ) : (
         <S.MessageBox>
           <Typography.Body size="md" color="#5276FA">

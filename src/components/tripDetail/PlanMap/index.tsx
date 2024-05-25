@@ -7,13 +7,15 @@ import GoogleMap from "../../common/GoogleMap";
 import ChevronBottomIcon from "../../../assets/icons/chevron_bottom.svg?react";
 import ChevronTopIcon from "../../../assets/icons/chevron_top.svg?react";
 
-import { planViewModeState } from "../../../recoil/planViewModeState";
 import { tripPlanState } from "../../../recoil/tripState";
 
-function PlanMap() {
+interface Props {
+  isEditMode: boolean;
+}
+
+function PlanMap({ isEditMode }: Props) {
   const [markers, setMarkers] = useState<MarkerProps[]>([]);
   const [mapOpened, setMapOpend] = useState<boolean>(true);
-  const viewMode = useRecoilValue(planViewModeState);
   const plan = useRecoilValue(tripPlanState);
   const findMidLatLng = () => {
     const result = {
@@ -45,14 +47,9 @@ function PlanMap() {
   };
 
   useEffect(() => {
-    if (viewMode === "EDIT") {
+    if (isEditMode) {
       setMapOpend(false);
-    } else {
-      setMapOpend(true);
     }
-  }, [viewMode]);
-
-  useEffect(() => {
     plan?.map(({ route }) => {
       route?.map(({ placeName, position }) => {
         setMarkers((prev) => [
