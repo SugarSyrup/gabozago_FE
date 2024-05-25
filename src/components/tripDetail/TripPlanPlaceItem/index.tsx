@@ -4,7 +4,8 @@ import ThemeIcon from "../../../assets/icons/theme.svg?react";
 import LocationIcon from "../../../assets/icons/location.svg?react";
 import EditIcon from "../../../assets/icons/edit.svg?react";
 import Typography from "../../common/Typography";
-import { useNavigate } from "react-router-dom";
+import { createSearchParams, useNavigate } from "react-router-dom";
+import { DateObject } from "../../../utils/parseDateString";
 
 export interface PlaceData {
   detailRouteId: number;
@@ -20,6 +21,7 @@ export interface PlaceData {
 
 interface Props extends PlaceData {
   day: number;
+  date: DateObject;
   index: number;
   setIsEditMode: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -31,6 +33,7 @@ function TripPlanPlaceItem({
   placeId,
   memo,
   day,
+  date,
   index,
   setIsEditMode,
 }: Props) {
@@ -75,6 +78,16 @@ function TripPlanPlaceItem({
         <S.MemoButton
           onClick={(e) => {
             e.stopPropagation();
+            navigate({
+              pathname: `./memo`,
+              search: createSearchParams({
+                detailRouteId: String(detailRouteId),
+                day: String(day),
+                placeName: placeName,
+                date: `${date.month}. ${date.day}(${date.dayOfWeek})`,
+                text: memo,
+              }).toString(),
+            });
           }}
         >
           메모하기

@@ -2,7 +2,6 @@ import { createBrowserRouter } from "react-router-dom";
 
 import { TUserProfile } from "./assets/types/TUserProfile";
 import MyTripPage from "./pages/mytrip/MyTripPage";
-import TestPage from "./pages/TestPage";
 import PlacePage from "./pages/PlacePage";
 import TermsPage from "./pages/TermsPage";
 
@@ -12,21 +11,17 @@ import MyTripDatesSelectPage from "./pages/mytrip/DatesSelectPage";
 import MyTripLocationSearchPage from "./pages/mytrip/LocationSearchPage";
 import MyTripPlaceCreatePage from "./pages/mytrip/PlaceCreatePage";
 import ViewAllPage from "./pages/mytrip/ViewAllPage";
-
 import ScrapBookPage from "./pages/scrapbook/ScrapBookPage";
 import ScrapBookGroupPage from "./pages/scrapbook/ScrapBookGroupPage";
-
 import ProfilePage from "./pages/profile/ProfilePage";
 import UserEditPage from "./pages/profile/UserEditPage";
 import UserFollowPage from "./pages/profile/UserFollowPage";
-
 import HomePage from "./pages/home/HomePage";
 import SettingsPage from "./pages/profile/SettingsPage";
-
 import ShortFormPage from "./pages/journal/ShortformPage";
-import SnapshotPage from "./pages/journal/SnapshotPage";
-import PostPage from "./pages/journal/PostPage";
-import VideoPage from "./pages/journal/VideoPage";
+// import SnapshotPage from "./pages/journal/SnapshotPage";
+// import PostPage from "./pages/journal/PostPage";
+// import VideoPage from "./pages/journal/VideoPage";
 import LoginPage from "./pages/auth/LoginPage";
 import SignUpPage from "./pages/auth/SignUpPage";
 import ArticlePage from "./pages/ArticlePage";
@@ -45,6 +40,7 @@ import ArticleTestPage from "./pages/ArticleTestPage";
 import { get } from "./utils/api";
 import InquiryDetailPage from "./pages/cscenter/InquiryDetailPage";
 import IsLoginTemplate from "./components/common/isLoginTemplate";
+import MemoPage from "./pages/mytrip/MemoPage";
 
 const router = createBrowserRouter([
   {
@@ -120,6 +116,14 @@ const router = createBrowserRouter([
       const { data } = await get<TUserProfile>(`/user/profile`);
       return data.nickname;
     },
+  },
+  {
+    path: "/mytrip/:id/memo",
+    element: (
+      <IsLoginTemplate>
+        <MemoPage />
+      </IsLoginTemplate>
+    ),
   },
   {
     path: "/mytrip/:id/dateChange",

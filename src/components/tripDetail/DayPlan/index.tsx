@@ -1,5 +1,5 @@
 import * as S from "./style";
-import { parseDateString } from "../../../utils/parseDateString";
+import { DateObject, parseDateString } from "../../../utils/parseDateString";
 import TripPlanPlaceItem, { PlaceData } from "../TripPlanPlaceItem";
 import AddPlaceButton from "../AddPlaceButton";
 interface Props {
@@ -48,6 +48,7 @@ function DayPlan({ data, day, date: dateString, setIsEditMode }: Props) {
                 <TripPlanPlaceItem
                   {...place}
                   day={day}
+                  date={date as DateObject}
                   index={index}
                   setIsEditMode={setIsEditMode}
                 />
