@@ -11,6 +11,7 @@ import usePopup from "../usePopup";
 import * as S from "./style";
 import { useSetRecoilState } from "recoil";
 import { datesState } from "../../recoil/mytrip/createData";
+import { createTravelState } from "../../recoil/mytrip/createTravelState";
 
 interface Props {
     id: number,
@@ -21,6 +22,7 @@ interface Props {
 
 function useMyTripModal({id, title, departureDate, arrivalDate}: Props) {
     const navigate = useNavigate();
+    const setCreateTravelState = useSetRecoilState(createTravelState);
     const { Modal, modalOpen, modalClose, isOpend: isModalOpend } = useModal({});
     const { Popup, popupOpen, popupClose, isOpend: isPopupOpend } = usePopup();
     const [ popupType, setPopupType] = useState<"CHANGE" | "DELETE">("CHANGE");
@@ -98,6 +100,7 @@ function useMyTripModal({id, title, departureDate, arrivalDate}: Props) {
                                 startDate: departureDate.replace("-", "").replace("-", ""),
                                 endDate: arrivalDate.replace("-", "").replace("-", ""),
                             })
+                            setCreateTravelState('edit');
                             navigate(`/mytrip/${id}/dateChange`)
                         }}>
                             <Typography.Title size="lg">여행 날짜 변경</Typography.Title>

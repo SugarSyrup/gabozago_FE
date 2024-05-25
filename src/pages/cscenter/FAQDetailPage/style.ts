@@ -15,18 +15,15 @@ export const InfoContainer = styled.div`
   padding: 15px 20px;
   border-bottom: 1px solid ${({ theme }) => theme.gray04};
 
+  display:flex;
+  flex-direction: column;
+  gap:5px;
+
   p.title {
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 22px;
     color: ${({ theme }) => theme.black};
   }
 
   p.date {
-    margin-top: 2px;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 22px;
     color: ${({ theme }) => theme.gray01};
   }
 `;

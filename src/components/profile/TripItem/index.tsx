@@ -35,7 +35,7 @@ function TripItem({id, title, location, departureDate, arrivalDate}: Props) {
                 <S.Info>
                     <S.Name><Typography.Title size="md">{title}</Typography.Title></S.Name>
                     <S.Desc><CalendarIcon /> <Typography.Label size="md" color="#424242">{departureDate} ~ {arrivalDate}</Typography.Label></S.Desc>
-                    <S.Desc><LocationIcon /> <Typography.Label size="md" color="#424242">{location}</Typography.Label></S.Desc>
+                    <S.Desc><LocationIcon /> <Typography.Label size="md" color="#424242">{location.toLocaleString()}</Typography.Label></S.Desc>
                 </S.Info>
                 <S.OptionWrapper onClick={() => {
                         modalOpen();

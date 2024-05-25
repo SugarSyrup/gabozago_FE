@@ -87,6 +87,13 @@ export const LocationImgWrapper = styled.div`
         width:24px;
         height:24px;
     }
+
+    img{
+        width:100%;
+        height:100%;
+        object-fit:contain;
+        border-radius:100%;
+    }
 `
 
 export const LocationSelectButton = styled.button<{isActive: boolean}>`
@@ -124,39 +131,4 @@ export const Button = styled.button<{
             fill:white;
         }
     }
-`
-
-export const PopupWrapper = styled.div`
-    position:fixed;
-    bottom:0px;
-    z-index:20;
-
-    width:100%;
-    max-width:500px;
-    margin-left:-20px;
-`
-
-export const ChangePopupContainer = styled.form`
-    display:flex;
-    flex-direction:column;
-    gap:14px;
-`
-
-export const ChangePopupHeader = styled.div`
-    width:100%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-`
-
-export const ChangePopupInput = styled.input`
-    width:100%;
-    height:28px;
-    color: ${({theme}) => theme.gray};
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 24px;
-    letter-spacing: 0.5px;
-    border:none;
-    border-bottom:1px solid #e4e4e4;
 `

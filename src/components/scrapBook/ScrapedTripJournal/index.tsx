@@ -80,21 +80,8 @@ const ScrapedTripJournal = memo(function ScrapedTripJournal() {
   ];
   /* === 케밥 메뉴 끝 === */
 
-  const authCheck = () => {
-    const token = localStorage.getItem("access_token");
-
-    if (!token) {
-      alert("로그인이 필요합니다.");
-      return false;
-    } else {
-      return true;
-    }
-  };
   // 콘텐츠 그룹 목록 불러오기
   const getGroupList = async () => {
-    if (authCheck() === false) {
-      return;
-    }
     const { data } = await get<GroupInfo[]>(`folder/community`);
     setGroupList(data);
 
@@ -102,9 +89,6 @@ const ScrapedTripJournal = memo(function ScrapedTripJournal() {
   };
   // 새 폴더 생성
   const createNewFolder = async (name: string) => {
-    if (authCheck() === false) {
-      return;
-    }
     if (!name || name === "") {
       alert("폴더 이름을 입력해주세요.");
       return;
@@ -121,9 +105,6 @@ const ScrapedTripJournal = memo(function ScrapedTripJournal() {
   };
   // 폴더 이름 수정
   const editFolderName = async (id: number, name: string) => {
-    if (authCheck() === false) {
-      return;
-    }
     if (!name || name === "") {
       alert("폴더 이름을 입력해주세요.");
       return;
@@ -143,9 +124,6 @@ const ScrapedTripJournal = memo(function ScrapedTripJournal() {
   };
   // 폴더 삭제
   const deleteFolder = async (id: number) => {
-    if (authCheck() === false) {
-      return;
-    }
     const { data } = await deletes<{ message: string }>(`folder/community`, {
       id: id,
     });

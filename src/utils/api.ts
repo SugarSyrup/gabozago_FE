@@ -34,6 +34,11 @@ const onError = async (error: AxiosError | Error): Promise<AxiosError> => {
         console.log(
           `[API - ERROR] ${method?.toUpperCase()} ${url} | ${status} : ${code}`,
         );
+        if(status === 401 && code === "user_inactive") {
+          localStorage.removeItem("access_token");
+          localStorage.removeItem("refresh_token");
+          window.location.href = "/login";
+        }
 
         if(status === 401 && messages[0].message === "Token is invalid or expired") {
           const response = await axiosInstance.post<{

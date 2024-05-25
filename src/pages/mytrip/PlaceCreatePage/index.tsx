@@ -1,7 +1,10 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useRef, useState } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { useDaumPostcodePopup } from "react-daum-postcode";
+import { postcodeScriptUrl } from "react-daum-postcode/lib/loadPostcode";
 
+import InfomationIcon from "../../../assets/icons/exclamation_circle.svg?react";
 import LeftChevronIcon from "../../../assets/icons/chevron_left.svg?react";
 import LocationIcon from "../../../assets/icons/location.svg?react";
 import InputContainer from "../../../components/common/InputContainer";
@@ -9,11 +12,10 @@ import PageTemplate from "../../../components/common/PageTemplate";
 import Typography from "../../../components/common/Typography";
 import Heading from "../../../components/common/Heading";
 
+import { get, post } from "../../../utils/api";
+import usePopup from "../../../hooks/usePopup";
 import { selectedPlacesState } from "../../../recoil/mytrip/selectedPlacesState";
 import * as S from "./style";
-import { useDaumPostcodePopup } from "react-daum-postcode";
-import { postcodeScriptUrl } from "react-daum-postcode/lib/loadPostcode";
-import { post } from "../../../utils/api";
 
 function MyTripPlaceCreatePage() {
   const navigate = useNavigate();
@@ -24,6 +26,10 @@ function MyTripPlaceCreatePage() {
   const [ addrInfo, setAddrInfo] = useState<string>();
   const setSelectedPlaces = useSetRecoilState(selectedPlacesState);
   const NameRef = useRef<HTMLInputElement>(null);
+  const {Popup, popupOpen, popupClose, isOpend} = usePopup();
+  const [newLocation, setNewLocation] = useState<string>("");
+  const [newLocationName, setNewLocationName] = useState<string>("");
+  const [locations, setLocations] = useState<string[]>();
 
   const handleComplete = (data:any) => {
     let {roadAddress} = data;
@@ -35,13 +41,44 @@ function MyTripPlaceCreatePage() {
 
   return (
     <PageTemplate nav={false}>
+      <S.PopupWrapper isOpen={isOpend}>
+        <Popup>
+            <S.PopupContentsContainer>
+                <InfomationIcon />
+                <S.PopupTextContainer>
+                    <Typography.Headline size="sm">지역윽 추가하시겠어요?</Typography.Headline>
+                    <Typography.Body size="lg" color="inherit" noOfLine={3}>선택하신 여행 장소는 {locations?.toLocaleString()}을 벗어나요.</Typography.Body>
+                    <Typography.Body size="lg" color="inherit">{newLocation}도 여행 계획에 추가하시겠어요?</Typography.Body>
+                    <Typography.Body size="md" color="#FA5252">*지역을 추가하지 않으면, 해당 장소도 추가되지 않아요.</Typography.Body>
+                </S.PopupTextContainer>
+                <S.PopupButtons>
+                    <S.PopupButton isMain={false} onClick={() => {
+                        setSelectedPlaces((prev) => prev.filter((selectedPlace) => selectedPlace.name !== newLocationName));
+                        popupClose();
+                    }}>
+                        <Typography.Body size="lg" color="inherit">아니요</Typography.Body>
+                    </S.PopupButton>
+                    <S.PopupButton isMain={true} onClick={() => {
+                        post<{message: string}>('/my-travel/location', {
+                            myTravelId: id,
+                            location: newLocation,
+                        }).then((response) => {
+                            navigate(-1);
+                        })
+                        popupClose();
+                    }}>
+                        <Typography.Body size="lg" color="inherit">네, 추가할게요</Typography.Body>
+                    </S.PopupButton>
+                </S.PopupButtons>
+            </S.PopupContentsContainer>
+        </Popup>
+      </S.PopupWrapper>
       <S.Header>
         <LeftChevronIcon onClick={() => navigate(-1)} />
         <Heading size="sm">새로운 장소 추가하기</Heading>
       </S.Header>
       <S.Form
         onSubmit={(e) => {
-          //[SugarSyrup] @TODO : 백엔드 미 베포 기능 -> 테스트 못해봄
           e.preventDefault();
           const formData = new FormData(e.currentTarget);
           post<{
@@ -52,15 +89,28 @@ function MyTripPlaceCreatePage() {
             address: addrInfo,
             additionalInformation: formData.get("additionalInformation"),
           }).then((response) => {
-            navigate(-1);
+            const { id:newLocationId, location: newLocation } = response.data;
+            setNewLocation(newLocation);
             setSelectedPlaces((prev) => [
               ...prev,
               {
-                id: response.data.id,
+                id: newLocationId,
                 name: formData.get("name") as string,
-                location: [response.data.location],
+                location: newLocation,
               },
             ]);
+
+            setNewLocationName(formData.get("name") as string);
+
+            get<{
+              location: string[];
+            }>(`/my-travel/${id}`)
+              .then((response) => {
+                setLocations(response.data.location);
+                if(!response.data.location.includes(newLocation)){
+                  popupOpen();
+                }
+              })
           })
         }}
       >

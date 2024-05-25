@@ -21,7 +21,6 @@ export const ImgCarousel = styled.div`
     }
 
     img{
-        flex: 0 0 fit-content;
         flex-shrink:0;
         width:100%;
         object-fit:contain;

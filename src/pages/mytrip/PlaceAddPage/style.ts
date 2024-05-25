@@ -74,7 +74,7 @@ export const Button = styled.button<{isActive: boolean}>`
     align-items: center;
 `
 
-export const PopupWrapper = styled.div`
+export const PopupWrapper = styled.div<{isOpend: boolean}>`
     width:100%;
     height:100%;
     max-width:500px;
@@ -83,6 +83,7 @@ export const PopupWrapper = styled.div`
 
     position:fixed;
     top:0;
+    z-index:${({isOpend}) => isOpend ? 100 : -1};
 `
 
 export const PopupContentsContainer = styled.div`

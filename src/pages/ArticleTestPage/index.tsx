@@ -93,7 +93,7 @@ function ArticleTestPage() {
                 <ScrapModal />
                 <S.ModalWrapper isOpen={isOpend}>
                     <Modal>
-                        <Comment id={1} commentInputPosition="bottom"/>
+                        <Comment id={5} commentInputPosition="bottom"/>
                     </Modal>
                 </S.ModalWrapper>
 
@@ -113,7 +113,7 @@ function ArticleTestPage() {
                 </S.Header>
                 <S.StationContainer>
                     <S.StationTitle>Station 보기</S.StationTitle>
-                    <StationContainer data={JSON.parse(data.content).data.filter((content : TEditor | TInterview | TPhoto | TPlace | TProfile | TStation) => content.type === "station").map((content: TStation) => content.name)} refs={stationRefs}/>
+                    <StationContainer data={JSON.parse(data.content).data.filter((content : TEditor | TInterview | TPhoto | TPlace | TProfile | TStation) => content.type === "station")} refs={stationRefs}/>
                     <S.Content isLogin={isLogin}>
                     {
                         JSON.parse(data.content).data.map((content : TEditor | TInterview | TPhoto | TPlace | TProfile | TStation) => {
@@ -129,7 +129,7 @@ function ArticleTestPage() {
                                 case "photo":
                                     return <PlacePhoto photoURLs={content.photoURLs} desc={content.desc} />
                                 case "place":
-                                    return <PlaceInfo placeId={1} imageURL={content.imageURL}/>
+                                    return <PlaceInfo placeId={content.placeId} imageURL={content.imageURL}/>
                             }
                         })
                     }

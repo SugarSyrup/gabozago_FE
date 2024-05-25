@@ -16,13 +16,14 @@ interface Props {
     buttonLabel?: string,
     maxLength?: number;
     ref?: React.RefObject<HTMLInputElement>
+    readonly?: boolean;
 }
 
-function InputContainer({inputType, name, label, disabled,  required, explain, alert, value, placeholder, onButtonClick, onInput, maxLength, ref, buttonLabel}: Props) {
+function InputContainer({inputType, name, label, disabled,  required, explain, alert, value, placeholder, onButtonClick, onInput, maxLength, ref, buttonLabel, readonly, minLength, pattern}: Props & React.InputHTMLAttributes<HTMLInputElement>) {
     return(
         <S.InputContainer>
             <S.Label htmlFor={name}>{label}</S.Label>
-            <S.Input type={inputType} name={name} id={name} disabled={disabled} required={required} defaultValue={value} placeholder={placeholder} onInput={onInput} maxLength={maxLength} ref={ref}/>
+            <S.Input type={inputType} name={name} id={name} disabled={disabled} required={required} defaultValue={value} placeholder={placeholder} onInput={onInput} maxLength={maxLength} ref={ref} readOnly={readonly} minLength={minLength} pattern={pattern} />
             {
                 explain &&
                 <S.InputExplain>

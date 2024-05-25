@@ -13,7 +13,10 @@ interface Props {
   theme: string;
   thumbnail?: string;
   keyword?: string;
-  location: string[];
+  location: string;
+  locations: string[];
+  popupOpen: () => void;
+  setNewLocation: React.Dispatch<React.SetStateAction<string>>
 }
 
 function RecommendationListItem({
@@ -22,7 +25,10 @@ function RecommendationListItem({
   theme,
   id,
   keyword,
-  location
+  location,
+  popupOpen,
+  setNewLocation,
+  locations
 }: Props) {
   const [selectedPlaces, setSelectedPlaces] = useRecoilState(selectedPlacesState);
   const [isActive, setIsActive] = useState<boolean>(false);
@@ -49,6 +55,11 @@ function RecommendationListItem({
           location: location
         }
       ]);
+
+      if(!locations.includes(location)){
+        setNewLocation(location);
+        popupOpen();
+      }
     }
   }
 

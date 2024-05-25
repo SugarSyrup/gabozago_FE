@@ -46,7 +46,7 @@ function Recommendation() {
             .then((response) => {
                 setArticleData(response.data.results);
             })
-        get<TShortForms>('/community/short-from?ordering=alltime_popular')
+        get<TShortForms>('/community/short-form?ordering=alltime_popular')
             .then((response) => {
                 setShortformData(response.data.results);
             })

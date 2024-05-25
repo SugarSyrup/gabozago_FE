@@ -44,6 +44,7 @@ import PlaceAddPage from "./pages/mytrip/PlaceAddPage";
 import ArticleTestPage from "./pages/ArticleTestPage";
 import { get } from "./utils/api";
 import InquiryDetailPage from "./pages/cscenter/InquiryDetailPage";
+import IsLoginTemplate from "./components/common/isLoginTemplate";
 
 const router = createBrowserRouter([
   {
@@ -55,72 +56,88 @@ const router = createBrowserRouter([
     path: "/journal/shortform/:id",
     element: <ShortFormPage />,
   },
-  {
-    path: "/journal/snapshot/:id",
-    element: <SnapshotPage />,
-  },
-  {
-    path: "/journal/post/:id",
-    element: <PostPage />,
-  },
-  {
-    path: "/journal/video/:id",
-    element: <VideoPage />,
-  },
+  // {
+  //   path: "/journal/snapshot/:id",
+  //   element: <SnapshotPage />,
+  // },
+  // {
+  //   path: "/journal/post/:id",
+  //   element: <PostPage />,
+  // },
+  // {
+  //   path: "/journal/video/:id",
+  //   element: <VideoPage />,
+  // },
   /* ---- 내 여행 페이지 ---- */
   {
     path: "/mytrip",
-    element: <MyTripPage />,
+    element: <IsLoginTemplate>
+      <MyTripPage />
+    </IsLoginTemplate>,
   },
   {
     path: "/mytrip/all",
-    element: <ViewAllPage />
+    element: <IsLoginTemplate><ViewAllPage /></IsLoginTemplate>
   },
   {
     path: "/mytrip/create",
-    element: <MyTripDatesSelectPage />,
+    element: <IsLoginTemplate><MyTripDatesSelectPage /></IsLoginTemplate>,
   },
   {
     path: "/mytrip/create/location",
-    element: <MyTripLocationSelectPage />,
+    element: <IsLoginTemplate><MyTripLocationSelectPage /></IsLoginTemplate>,
   },
   {
     path: "/mytrip/place/:id",
-    element: <PlaceAddPage />,
+    element: <IsLoginTemplate><PlaceAddPage /></IsLoginTemplate>,
   },
   {
     path: "/mytrip/:id",
-    element: <MyTripDetailPage />,
+    element: <IsLoginTemplate><MyTripDetailPage /></IsLoginTemplate>,
   },
   {
     path: "/mytrip/:id/dateChange",
-    element: <MyTripDatesSelectPage />,
+    element: <IsLoginTemplate><MyTripDatesSelectPage /></IsLoginTemplate>,
   },
   {
     path: "/mytrip/:id/:day/search",
-    element: <MyTripLocationSearchPage />,
+    element: <IsLoginTemplate><MyTripLocationSearchPage /></IsLoginTemplate>,
   },
   {
     path: "/mytrip/:id/create",
-    element: <MyTripPlaceCreatePage />,
+    element: <IsLoginTemplate><MyTripPlaceCreatePage /></IsLoginTemplate>,
   },
   /* ---- 유저 프로필 페이지 ---- */
   {
     path: "/profile",
-    element: <ProfilePage />,
+    element: (<IsLoginTemplate><ProfilePage /></IsLoginTemplate>),
     loader: async () => {
-      const { data } = await get<TUserProfile>(`/user/profile`)
-      return data;
+      if(localStorage.getItem("access_token")){
+        const { data } = await get<TUserProfile>(`/user/profile`)
+        return data;
+      }
+      else {
+        return {
+          id: -1,
+          nickname: "string",
+          description: "string",
+          avatarURL: "1",
+          clapCount: -1,
+          scrapCount: -1,
+          myTravelDay: -1,
+          myTravelCount: -1,
+        };
+      }
     },
   },
   {
     path: "/profile/:uid/follow",
-    element: <UserFollowPage />,
+    element: <IsLoginTemplate><UserFollowPage /></IsLoginTemplate>,
   },
   {
     // TODO : [LOGIN 기능 정의 이후] LOGIN 정보를 기반으로 접근 허용 / 거부
     path: "/profile/edit",
-    element: <UserEditPage />,
+    element: <IsLoginTemplate><UserEditPage /></IsLoginTemplate>,
     loader: async () => {
       const { data } = await get<TUserProfile>(`/user/profile`)
       return data;
@@ -128,7 +145,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/profile/settings",
-    element: <SettingsPage />,
+    element: <IsLoginTemplate><SettingsPage /></IsLoginTemplate>,
     loader: async () => {
       const { data } = await get<TUserProfile>(`/user/profile`)
       return data;
@@ -137,11 +154,11 @@ const router = createBrowserRouter([
   /* ---- 스크랩 페이지 ---- */
   {
     path: "/scrapbook",
-    element: <ScrapBookPage />,
+    element: <IsLoginTemplate><ScrapBookPage /></IsLoginTemplate>,
   },
   {
     path: "/scrapbook/:id",
-    element: <ScrapBookGroupPage />,
+    element: <IsLoginTemplate><ScrapBookGroupPage /></IsLoginTemplate>,
   },
   /* ---- 로그인 페이지 ---- */
   {
@@ -156,17 +173,17 @@ const router = createBrowserRouter([
   {
     // 고객센터/도움말
     path: "/cscenter",
-    element: <CSCenterPage />,
+    element: <IsLoginTemplate><CSCenterPage /></IsLoginTemplate>,
   },
   {
     // FAQ 페이지
     path: "/cscenter/faq",
-    element: <FAQPage />,
+    element: <IsLoginTemplate><FAQPage /></IsLoginTemplate>,
   },
   {
     // FAQ 상세 페이지
     path: "/cscenter/faq/:id",
-    element: <FAQDetailPage />,
+    element: <IsLoginTemplate><FAQDetailPage /></IsLoginTemplate>,
   },
   {
     // 문의 하기
@@ -180,32 +197,32 @@ const router = createBrowserRouter([
   {
     // 내 문의 detail page
     path: "/cscenter/inquiry/:id",
-    element: <InquiryDetailPage />,
+    element: <IsLoginTemplate><InquiryDetailPage /></IsLoginTemplate>,
   },
   {
     // 내 문의 내역
     path: "/cscenter/history",
-    element: <InquiryHistoryPage />,
+    element: <IsLoginTemplate><InquiryHistoryPage /></IsLoginTemplate>,
   },
   {
     // 공지사항
     path: "/cscenter/announce",
-    element: <AnnouncePage />,
+    element: <IsLoginTemplate><AnnouncePage /></IsLoginTemplate>,
   },
   {
     // 공지사항 상세보기
     path: "/cscenter/announce/:id",
-    element: <AnnounceDetailPage />,
+    element: <IsLoginTemplate><AnnounceDetailPage /></IsLoginTemplate>,
   },
   {
     // 의견 보내기
     path: "/cscenter/feedback",
-    element: <FeedBackPage />,
+    element: <IsLoginTemplate><FeedBackPage /></IsLoginTemplate>,
   },
   {
     // 장소 페이지
     path: "/place/:id",
-    element: <PlacePage />,
+    element: <IsLoginTemplate><PlacePage /></IsLoginTemplate>,
   },
   // 아티클 
   {
@@ -224,7 +241,7 @@ const router = createBrowserRouter([
   {
     // 탈퇴하기
     path: "/leave",
-    element: <ResignPage />,
+    element: <IsLoginTemplate><ResignPage /></IsLoginTemplate>,
     loader: async () => {
       const { data } = await get<TUserProfile>(`/user/profile`)
       return data;
@@ -233,16 +250,7 @@ const router = createBrowserRouter([
   {
     // 탈퇴 완료
     path: "/leave/done",
-    element: <ResignDonePage />,
-  },
-  {
-    // 테스트
-    path:"/article",
-    element:<ArticlePage />
-  },
-  {
-    path: "/test",
-    element: <TestPage />,
+    element: <IsLoginTemplate><ResignDonePage /></IsLoginTemplate>,
   },
 ]);
 

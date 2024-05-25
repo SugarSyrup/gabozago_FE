@@ -2,7 +2,7 @@ import React, { useState, useRef, useCallback, useEffect } from "react";
 
 import * as S from "./style";
 import SearchIcon from "../../assets/icons/search.svg?react";
-import CircleXIcon from "../../assets/icons/circlex.svg?react";
+import CircleXIcon from "../../assets/icons/circleX.svg?react";
 
 interface Props {
     placeholder?: string;

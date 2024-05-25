@@ -17,6 +17,14 @@ function Nickname({setIsNicknameOk}: Props) {
     const [nicknameAlert, setNicknameAlert] = useState("");
 
     useEffect(() => {
+      const access = localStorage.getItem('access_token');
+      const refresh = localStorage.getItem('refresh_token');
+
+      console.log(access);
+      
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
+
       get<{message: "POSSIBLE" | "IMPOSSIBLE"}>(`/user/nickname/${nickname}`)
         .then((res) => {
           if(res.data.message === "POSSIBLE") {
@@ -27,6 +35,9 @@ function Nickname({setIsNicknameOk}: Props) {
             setIsNicknameOk(false);
           }
         });
+      
+      localStorage.setItem('access_token', access as string);
+      localStorage.setItem('refresh_token', refresh as string);
     }, [])
 
     return(
@@ -40,6 +51,9 @@ function Nickname({setIsNicknameOk}: Props) {
           required={true}
           value={nickname ? nickname : ""}
           placeholder="닉네임을 입력하세요. (중복 불가)"
+          minLength={2}
+          maxLength={15}
+          pattern="^(?=.*[a-z0-9가-힣])[a-z0-9가-힣_.]{2,16}$"
           alert={
             <S.AlertMessage color={nicknameAlert.length > 14 ? "red" : "blue"}>
               {nicknameAlert}
@@ -51,15 +65,24 @@ function Nickname({setIsNicknameOk}: Props) {
             setIsNicknameOk(false);
           }}
           onButtonClick={() => {
+            const access = localStorage.getItem('access_token');
+            const refresh = localStorage.getItem('refresh_token');
+            
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('refresh_token');
+
             get<{message: "POSSIBLE" | "IMPOSSIBLE"}>(`/user/nickname/${nickname}`)
               .then((res) => {
                 if(res.data.message === "POSSIBLE") {
-                  setNicknameAlert(`사용 가능한 닉네임이에요!`)
+                  setNicknameAlert(`사용 가능한 닉네임이에요!`);
                   setIsNicknameOk(true);
-                } else {
-                  setNicknameAlert(`사용 불가능한 닉네임이에요!`)
-                  setIsNicknameOk(false);
-                }
+                } 
+              }).catch((err) => {
+                setNicknameAlert(`사용 불가능한 닉네임이에요!`);
+                setIsNicknameOk(false);
+              }).finally(() => {
+                localStorage.setItem('access_token', access as string);
+                localStorage.setItem('refresh_token', refresh as string);
               });
           }}
         />

@@ -7,21 +7,22 @@ import RecommendationListItem from "../RecommendationListItem";
 import * as S from "./style";
 
 interface Props {
-    locations: string[],
+    popupOpen: () => void;
+    setNewLocation: React.Dispatch<React.SetStateAction<string>>;
+    locations: string[];
 }
 
 interface TPlace {
     id: number,
     name: string,
     theme: string,
-    location: string[],
+    location: string,
 }
 
-function LocationHotPlaces({locations}: Props) {
+function LocationHotPlaces({locations, setNewLocation, popupOpen}: Props) {
     const [recommendPlaces, setRecommendPlaces] = useState<TPlace[]>([]);
 
     useEffect(() => {
-        //[SugarSyrup] @TODO: 더미 데이터가 없음
         get<TPlace[]>(`/my-travel/location/hot?location=${locations.toString()}`
         )
             .then((response) => {
@@ -31,7 +32,7 @@ function LocationHotPlaces({locations}: Props) {
 
     return (
         <>
-            {recommendPlaces.length !== 0 && <Typography.Title size="lg">{locations} HOT 여행지</Typography.Title>}
+            {recommendPlaces.length !== 0 && <Typography.Title size="lg">{locations.toLocaleString()} HOT 여행지</Typography.Title>}
             <S.RecommendationList>
                 {recommendPlaces.map(({ name, theme, id, location }) => (
                     <RecommendationListItem
@@ -39,6 +40,9 @@ function LocationHotPlaces({locations}: Props) {
                         theme={theme}
                         location={location}
                         id={id}
+                        popupOpen={popupOpen}
+                        setNewLocation={setNewLocation}
+                        locations={locations}
                     />
                 ))}
             </S.RecommendationList>

@@ -59,7 +59,7 @@ export const DateSpan = styled.span`
 `;
 
 export const Contents = styled.div`
-    padding: 90px 20px 15px 20px;
+    padding: 90px 0px 15px 0px;
 `
 
 export const ImgContainer = styled.div`

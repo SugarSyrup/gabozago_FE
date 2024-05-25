@@ -3,14 +3,23 @@ import BookIcon from "../../../assets/icons/book.svg?react";
 
 import * as S from "./style";
 import useModal from "../../../hooks/useModal";
+import { useEffect } from "react";
 
 interface Props {
-    data: (string | undefined)[],
+    data: {
+        index: number,
+        name: string,
+        type: "station"
+    }[],
     refs: React.MutableRefObject<null[] | HTMLDivElement[]>,
 }
 
 function StationContainer({data, refs}: Props) {
     const {Modal, modalOpen, modalClose, isOpend} = useModal({});
+
+    useEffect(() => {
+        console.log(data);
+    }, [])
 
     return(
         <>
@@ -19,7 +28,7 @@ function StationContainer({data, refs}: Props) {
                     <S.ModalTitle>Station 보기</S.ModalTitle>
                     <S.StationList isBackground={false}>
                         {
-                            data.map((station, index) => 
+                            data !== undefined && data.map((station, index) => 
                                 <S.StationItem>
                                     <S.Linker isFirst={index === 0} isLast={index+1===data.length}>
                                         <DoubleCircleIcon />
@@ -30,8 +39,8 @@ function StationContainer({data, refs}: Props) {
                                         });
                                         modalClose()
                                     }}>
-                                        <S.StationNumber>Station {index}</S.StationNumber>
-                                        <S.StationName>{station}</S.StationName>
+                                        <S.StationNumber>Station {station.index}</S.StationNumber>
+                                        <S.StationName>{station.name}</S.StationName>
                                     </S.TextContainer>
                                 </S.StationItem>
                             )
@@ -52,8 +61,8 @@ function StationContainer({data, refs}: Props) {
                                     });
                                     modalClose();
                                 }}>
-                                <S.StationNumber>Station {index}</S.StationNumber>
-                                <S.StationName>{station}</S.StationName>
+                                <S.StationNumber>Station {station.index}</S.StationNumber>
+                                <S.StationName>{station.name}</S.StationName>
                             </S.TextContainer>
                         </S.StationItem>
                     )

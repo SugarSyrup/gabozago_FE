@@ -7,17 +7,17 @@ import { datesState } from "../../../recoil/mytrip/createData.ts";
 import Typography from "../../common/Typography/index.tsx";
 import Calendar from "../Calendar/index.tsx";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { createTravelState } from "../../../recoil/mytrip/createTravelState.ts";
+import { addLocationState, createTravelState } from "../../../recoil/mytrip/createTravelState.ts";
 import * as S from "./style.ts";
-import { patch } from "../../../utils/api.ts";
+import { patch, post } from "../../../utils/api.ts";
 
-//[SugarSyrup] @TODO: CreateType에 따라 버튼의 동작 방식 변경
 function CalendarContainer() {
     const navigate = useNavigate();
     const {id} = useParams();
     const [dateClickFlag, setDateClickFlag] = useState<boolean>(true);
     const [dateDiff, setDateDiff] = useState<number>(-1);
     const createType = useRecoilValue(createTravelState);
+    const addLocation = useRecoilValue(addLocationState);
 
     const [dates, setDates] = useRecoilState(datesState);
 
@@ -61,10 +61,20 @@ function CalendarContainer() {
     function drawCalendars() {
         const elements = [];
         const currentDateInfo = new Date();
-        for(let month = currentDateInfo.getMonth(); month<=12; month++) {
+        let month = currentDateInfo.getMonth() + 1;
+        let year = currentDateInfo.getFullYear();
+
+        if(Number(dates.startDate.slice(0,4)) <= year) {
+            year = Number(dates.startDate.slice(0,4));
+            if(Number(dates.startDate.slice(4,6)) < month)  {
+                month = Number(dates.startDate.slice(4,6));
+            }
+        }
+
+        for(month; month<=12; month++) {
             elements.push(<Calendar year={currentDateInfo.getFullYear()} month={month} onDateClick={onDateClick} startDate={dates.startDate} endDate={dates.endDate}/>)
         }
-        for(let year = currentDateInfo.getFullYear() + 1; year<=currentDateInfo.getFullYear() + 10; year++) {
+        for(year; year<=currentDateInfo.getFullYear() + 10; year++) {
             for(let month = 1; month<=12; month++) {
                 elements.push(<Calendar year={year} month={month} onDateClick={onDateClick} startDate={dates.startDate} endDate={dates.endDate}/>)
             }
@@ -83,15 +93,33 @@ function CalendarContainer() {
                 <S.Button 
                     bgColor={dates.startDate !== "" && dates.endDate !== ""} 
                     onClick={() => { 
-                        if(id) {
-                            patch('/my-travel', {
-                                id: Number(id),
-                                departure_date: `${dates.startDate.slice(0,4)}-${dates.startDate.slice(4,6)}-${dates.startDate.slice(6,8)}`,
-                                arrival_date: `${dates.endDate.slice(0,4)}-${dates.endDate.slice(4,6)}-${dates.endDate.slice(6,8)}`
-                            })
-                        }
-                        else if(dates.startDate !== "" && dates.endDate !== "") {
-                            navigate('/mytrip/create/location');
+                        if(dates.startDate !== "" && dates.endDate !== ""){ 
+                            switch(createType) {
+                                case "create":
+                                    navigate('/mytrip/create/location');
+                                    return;
+                                case "add":
+                                    post<{id:number}>(`/my-travel`, {
+                                        title: `${addLocation} 여행`,
+                                        departure_date: `${dates.startDate.slice(0,4)}-${dates.startDate.slice(4,6)}-${dates.startDate.slice(6,8)}`,
+                                        arrival_date: `${dates.endDate.slice(0,4)}-${dates.endDate.slice(4,6)}-${dates.endDate.slice(6,8)}`,
+                                        regions: addLocation
+                                    }).then(
+                                        (response) => {
+                                            navigate(`/mytrip/${response.data.id}`)
+                                        }
+                                    )
+                                    return;
+                                case "edit":
+                                    patch('/my-travel', {
+                                        id: Number(id),
+                                        departureDate: `${dates.startDate.slice(0,4)}-${dates.startDate.slice(4,6)}-${dates.startDate.slice(6,8)}`,
+                                        arrivalDate: `${dates.endDate.slice(0,4)}-${dates.endDate.slice(4,6)}-${dates.endDate.slice(6,8)}`
+                                    }).then((response) => {
+                                        navigate(-1);
+                                    })
+                                    return;
+                            }
                         }
                     }}
                 >

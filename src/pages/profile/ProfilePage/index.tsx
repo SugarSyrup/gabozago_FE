@@ -70,7 +70,7 @@ function ProfilePage() {
           </S.StaticItem>
           <S.StaticItem>
             <S.StaticItemName>
-              <Typography.Title size="md" color="inherit">스그랩 수</Typography.Title>
+              <Typography.Title size="md" color="inherit">스크랩 수</Typography.Title>
             </S.StaticItemName>
             <S.StaticItemStat>
               <Typography.Title size="md" color="inherit">{scrapCount}</Typography.Title>  
