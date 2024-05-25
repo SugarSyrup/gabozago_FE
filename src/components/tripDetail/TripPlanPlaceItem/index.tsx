@@ -12,6 +12,7 @@ export interface PlaceData {
   placeName: string;
   placeTheme: string;
   placeId: number;
+  location: string;
   googlePlaceId: string;
   placeImage: string;
   latitude: number;
@@ -34,13 +35,13 @@ function TripPlanPlaceItem({
   memo,
   day,
   date,
+  location,
   index,
   setIsEditMode,
 }: Props) {
   const navigate = useNavigate();
   const onLongClick = useLongPress(
     () => {
-      console.log("longClick");
       setIsEditMode(true);
     },
     {
@@ -63,9 +64,8 @@ function TripPlanPlaceItem({
           </Typography.Title>
           <S.InfoContainer>
             <S.InfoSpan>
-              {/* @todo: API에 지역 없음 */}
               <LocationIcon />
-              지역
+              {location}
             </S.InfoSpan>
             <S.InfoSpan>
               <ThemeIcon />

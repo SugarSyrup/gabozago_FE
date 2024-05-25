@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
+  background-color: ${({ theme }) => theme.white};
 `;
 export const DayFilterButton = styled.button`
   margin-bottom: 10px;
@@ -9,13 +10,14 @@ export const DayFilterButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  cursor: pointer;
   border-radius: 8px;
   border: 0;
   background-color: transparent;
   font-size: 13px;
   line-height: 22px;
   font-weight: 700;
-  cursor: pointer;
 
   &:hover {
     background-color: ${({ theme }) => theme.gray05};
