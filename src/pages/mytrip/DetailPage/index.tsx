@@ -13,6 +13,16 @@ import EditModeBottomControlBox from "../../../components/tripDetail/EditModeBot
 import Typography from "../../../components/common/Typography";
 import CalendarIcon from "../../../assets/icons/calendar.svg?react";
 
+export const markerColors = [
+  "#5276FA",
+  "#FFAF37",
+  "#BA75FF",
+  "#FA5252",
+  "#30A9DE",
+  "#F29661",
+  "#78CBA2",
+];
+
 export interface TripData {
   id: number;
   title: string;
@@ -117,7 +127,7 @@ function MyTripDetailPage() {
       }
     >
       {data.plan.length > 0 ? (
-        <PlanMap isEditMode={isEditMode} />
+        <PlanMap isEditMode={isEditMode} data={data.plan} />
       ) : (
         <S.MessageBox>
           <Typography.Body size="md" color="#5276FA">
