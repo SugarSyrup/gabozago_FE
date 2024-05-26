@@ -7,7 +7,9 @@ import RightChevron from "../../../assets/icons/chevron_right.svg?react";
 
 import * as S from "./style";
 import { useNavigate } from "react-router-dom";
-import { get } from "../../../utils/api";
+import { get, post } from "../../../utils/api";
+import useAlert from "../../../hooks/useAlert";
+import Typography from "../../common/Typography";
 
 interface Props {
     placeId: number,
@@ -28,6 +30,10 @@ interface TPlace {
 function PlaceInfo({placeId, imageURL} : Props){
     const navigate = useNavigate();
     const [data, setData] = useState<TPlace>();
+    const [alertMessage, setAlertMessage] = useState<string>("");
+    const {Alert, alertOpen} = useAlert({
+        Content: <Typography.Body size="lg" color="white">{alertMessage}</Typography.Body>
+    });
 
     useEffect(() => {
         get<TPlace>(`/place/${placeId}`)
@@ -38,13 +44,14 @@ function PlaceInfo({placeId, imageURL} : Props){
 
     return(
         <S.Container>
+            <Alert />
             {data && 
             <>
                 <img src={imageURL}/>
                 <S.Infomation>
                     <S.TextContainer>
                         <S.Name onClick={() => {
-                            navigate("/")
+                            navigate(`/place/${placeId}`)
                         }}>    
                             <MarketIcon />
                             <span>{data.name}</span>
@@ -53,13 +60,23 @@ function PlaceInfo({placeId, imageURL} : Props){
                         <S.Address>{data.address}</S.Address>
                     </S.TextContainer>
                     <S.Buttons>
-                        {/* [SugarSyrup] @TODO: 단일 장소 일정에 추가 로직 구현 */}
-                        <S.Icon>
+                        <S.Icon onClick={() => {navigate(`/mytrip/place/${placeId}`)}}>
                             <CalendarAddIcon />
                             <span>일정에 추가</span>
                         </S.Icon>
-                        {/* [SugarSyrup] @TODO: 단일 장소 스크랩 로직 구현 */}
-                        <S.Icon>
+                        <S.Icon onClick={() => {
+                                post<{message: string}>('/folder/scrap/place', {
+                                    placeId: placeId
+                                }).then((response) => {
+                                    if(response.data.message === "Create Success") {
+                                        setAlertMessage(`${data.name}가 스크랩 되었습니다.`);
+                                    } else {
+                                        setAlertMessage(`${data.name}를 스크랩에서 삭제했습니다.`);
+                                    }
+
+                                    alertOpen();
+                                })
+                            }}>
                             <BookMarkIcon />
                             <span>장소 스크랩</span>
                         </S.Icon>

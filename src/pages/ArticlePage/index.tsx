@@ -121,7 +121,7 @@ function ArticlePage() {
     return(
         <>
         {data && 
-            <PageTemplate nav={<BottomNav postId="123" isClap={data.isClapped} claps={data.claps} comment={data.commentCount} onScrapClick={() => {scrapModalOpen()}} onCommentClick={() => {modalOpen()}} bookmark={data.bookmark} onShareClick={() => {alertOpen()}}/>}>
+            <PageTemplate nav={<BottomNav postId={id} isClap={data.isClapped} claps={data.claps} comment={data.commentCount} onScrapClick={() => {scrapModalOpen()}} onCommentClick={() => {modalOpen()}} bookmark={data.bookmark} onShareClick={() => {alertOpen()}}/>}>
                 <Alert />
                 <ScrapModal />
                 <S.ModalWrapper isOpen={isOpend}>
@@ -161,7 +161,7 @@ function ArticlePage() {
                                 case "photo":
                                     return <PlacePhoto photoURLs={content.photoURLs} desc={content.desc} />
                                 case "place":
-                                    return <PlaceInfo placeId={1} imageURL={content.imageURL}/>
+                                    return <PlaceInfo placeId={content.placeId} imageURL={content.imageURL}/>
                                 case "abroadPlace":
                                     return <AbroadPlace imageURL={content.imageURL} name={content.name} address={content.address} />
                             }
