@@ -1,37 +1,44 @@
 import * as S from "./style";
-import { useEffect, useState } from "react";
-import { Marker, MarkerProps, Polyline } from "@react-google-maps/api";
-
-import GoogleMap from "../../common/GoogleMap";
+import { useCallback, useEffect, useState } from "react";
 import ChevronBottomIcon from "../../../assets/icons/chevron_bottom.svg?react";
 import ChevronTopIcon from "../../../assets/icons/chevron_top.svg?react";
 import { DayPlan } from "../TripPlanList";
 import { markerColors } from "../../../pages/mytrip/DetailPage";
+import MarkerWithInfoWindow from "../MarkerWithInfoWindow";
+import { Map, useMap, useMapsLibrary } from "@vis.gl/react-google-maps";
 
 interface Props {
   isEditMode: boolean;
   data: DayPlan[];
 }
 
-interface TMarker extends MarkerProps {
-  day: number;
-}
-
 function PlanMap({ isEditMode, data = [] }: Props) {
-  const [markers, setMarkers] = useState<TMarker[]>([]);
   const [mapOpened, setMapOpend] = useState<boolean>(true);
+  const map = useMap();
+  const maps = useMapsLibrary("maps");
 
-  useEffect(() => {
-    data.map(({ day, route }) => {
-      console.dir(route);
-      const markers = route.map(({ placeName, latitude, longitude }) => ({
-        day: day,
-        position: { lat: latitude, lng: longitude },
-        label: { text: placeName, className: "marker-label" },
-      }));
-      setMarkers(markers);
+  const renderPolyLine = useCallback(() => {
+    // marker들 간에 라인 그리기
+    const placePositions: { lat: number; lng: number }[] = [];
+
+    data.map((day) => {
+      day.route.map((place) => {
+        placePositions.push({ lat: place.latitude, lng: place.longitude });
+      });
     });
-  }, [data]);
+
+    console.log(placePositions);
+
+    const placePath = new maps.Polyline({
+      path: placePositions,
+      geodesic: true,
+      strokeColor: "#FF0000",
+      strokeOpacity: 1.0,
+      strokeWeight: 2,
+    });
+
+    placePath.setMap(map);
+  }, []);
 
   useEffect(() => {
     if (isEditMode) {
@@ -42,42 +49,35 @@ function PlanMap({ isEditMode, data = [] }: Props) {
   }, [isEditMode]);
 
   useEffect(() => {
-    console.log(markers);
-  }, [markers]);
+    renderPolyLine();
+  }, [data]);
 
   return (
     <S.Container>
-      <GoogleMap
-        height={mapOpened ? "275px" : "0px"}
-        center={{ lat: 35.1855, lng: 129.0741 }}
-        markers={markers}
+      <Map
+        style={{ width: "100%", height: mapOpened ? "275px" : "0px" }}
+        defaultCenter={{ lat: 35.1855, lng: 129.0741 }}
+        defaultZoom={12}
+        gestureHandling={"greedy"}
+        disableDefaultUI={true}
+        mapId={import.meta.env.VITE_GOOGLEMAP_MAP_ID}
       >
         {data.map((day, dayIndex) => (
           <>
             {day.route.map((place, placeIndex) => (
-              <Marker
+              <MarkerWithInfoWindow
                 key={`marker-${dayIndex}-${placeIndex}`}
                 position={{ lat: place.latitude, lng: place.longitude }}
-                // icon={{
-                //   url: ``
-                // }}
+                color={markerColors[dayIndex % markerColors.length]}
+                index={placeIndex + 1}
+                placeId={place.placeId}
+                placeName={place.placeName}
+                placeTheme={place.placeTheme}
               />
             ))}
-            <Polyline
-              key={`line-${dayIndex}`}
-              path={day.route.map((place) => ({
-                lat: place.latitude,
-                lng: place.longitude,
-              }))}
-              options={{
-                strokeColor: markerColors[(dayIndex + 1) % markerColors.length],
-                strokeOpacity: 0.8,
-                strokeWeight: 2,
-              }}
-            />
           </>
         ))}
-      </GoogleMap>
+      </Map>
       <S.MapOpenButton
         onClick={() => {
           setMapOpend((prev) => !prev);
