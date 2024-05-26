@@ -30,10 +30,11 @@ export const ThumbnailWrapper = styled.div`
     }
 `
 
-export const Header = styled.div<{paddingTop?:number}>`
+export const Header = styled.div`
     width:100%;
-    margin-top:9px;
-    padding-top:${({paddingTop}) => `${paddingTop}px`};
+    padding-top:20px;
+    padding-left:20px;
+    padding-right:20px;
 
     display:flex;
     flex-direction:column;
@@ -56,6 +57,8 @@ export const Title = styled.span`
 
 export const StationContainer = styled.div`
     margin-top:20px;
+    padding-left:20px;
+    padding-right:20px;
 
     display:flex;
     flex-direction:column;

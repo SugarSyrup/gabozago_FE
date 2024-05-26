@@ -3,15 +3,15 @@ import MarketIcon from "../../../assets/icons/market.svg?react";
 import * as S from "./style";
 
 interface Props {
-    thumbnailURL: string,
+    imageURL: string,
     name: string,
     address: string,
 }
 
-function AbroadPlace({thumbnailURL, name, address}: Props) {
+function AbroadPlace({imageURL, name, address}: Props) {
     return(
         <S.Container>
-                <img src={thumbnailURL}/>
+                <img src={imageURL}/>
                 <S.Infomation>
                     <S.TextContainer>
                         <S.Name>    

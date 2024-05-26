@@ -80,7 +80,7 @@ interface TPlace {
 }
 
 interface TAbroadPlace {
-    thumbnailURL: string,
+    imageURL: string,
     name: string,
     address: string,
     type: "abroadPlace"
@@ -126,17 +126,16 @@ function ArticlePage() {
                 <ScrapModal />
                 <S.ModalWrapper isOpen={isOpend}>
                     <Modal>
-                        <Comment id={1} commentInputPosition="bottom"/>
+                        <Comment id={1} commentInputPosition="bottom" type="article" commentCount={data.commentCount} />
                     </Modal>
                 </S.ModalWrapper>
 
                 <S.BackButtonWrapper>
                     <BackButton />
                 </S.BackButtonWrapper>
-                <S.ThumbnailWrapper ref={ThumbnailWrapperRef}>
-                    <img src="123.png" />
-                </S.ThumbnailWrapper>
-                <S.Header paddingTop={ThumbnailWrapperRef.current?.offsetHeight}>
+                <S.ThumbnailWrapper>
+                    <img src={data.thumbnailURL} />
+                    <S.Header>
                     <S.Type>
                         Article by. 가보자고
                     </S.Type>
@@ -164,7 +163,7 @@ function ArticlePage() {
                                 case "place":
                                     return <PlaceInfo placeId={1} imageURL={content.imageURL}/>
                                 case "abroadPlace":
-                                    return <AbroadPlace thumbnailURL={content.thumbnailURL} name={content.name} address={content.address} />
+                                    return <AbroadPlace imageURL={content.imageURL} name={content.name} address={content.address} />
                             }
                         })
                     }
@@ -179,6 +178,8 @@ function ArticlePage() {
                     }
                     </S.Content>
                 </S.StationContainer>
+                </S.ThumbnailWrapper>
+                
                     {
                         !isLogin &&
                         <S.IsLoginBlur>
