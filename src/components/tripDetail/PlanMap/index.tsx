@@ -49,7 +49,9 @@ function PlanMap({ isEditMode, data = [] }: Props) {
   }, [isEditMode]);
 
   useEffect(() => {
-    renderPolyLine();
+    if (data && map && maps) {
+      renderPolyLine();
+    }
   }, [data]);
 
   return (
