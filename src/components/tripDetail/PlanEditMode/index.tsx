@@ -25,7 +25,10 @@ function PlanEditMode({ data, setIsEditMode }: Props) {
     <>
       <S.EditComplateButton
         onClick={() => {
-          if (tripData.plan.toString() !== tempData.toString()) {
+          const isDiff =
+            JSON.stringify(tripData.plan) !== JSON.stringify(tempData);
+
+          if (isDiff) {
             patchTripPlan(tempData);
             setTripData((prev) => ({ ...prev, plan: tempData }));
           }
