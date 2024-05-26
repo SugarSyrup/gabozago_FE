@@ -70,7 +70,7 @@ function PlanMap({ isEditMode }: Props) {
   return (
     <S.Container>
       <GoogleMap
-        height={mapOpened ? "220px" : "0px"}
+        height={mapOpened ? "275px" : "0px"}
         center={findMidLatLng()}
         markers={markers}
       />
