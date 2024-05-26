@@ -12,6 +12,8 @@ import PlanMap from "../../../components/tripDetail/PlanMap";
 import EditModeBottomControlBox from "../../../components/tripDetail/EditModeBottomControlBox";
 import Typography from "../../../components/common/Typography";
 import CalendarIcon from "../../../assets/icons/calendar.svg?react";
+import { useRecoilState } from "recoil";
+import { tripState } from "../../../recoil/tripState";
 
 export const markerColors = [
   "#5276FA",
@@ -37,15 +39,7 @@ function MyTripDetailPage() {
   const { id } = useParams(); // 파라미터에 게시글 ID
   const nickname = useLoaderData() as string;
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
-  const [data, setData] = useState<TripData>({
-    id: -1,
-    title: "",
-    departure_date: "",
-    arrival_date: "",
-    days: -1,
-    location: [],
-    plan: [],
-  });
+  const [data, setData] = useRecoilState(tripState);
   const [duration, setDuration] = useState<{
     departure: DateObject;
     arrival: DateObject;
@@ -136,11 +130,7 @@ function MyTripDetailPage() {
           </Typography.Body>
         </S.MessageBox>
       )}
-      <TripPlanList
-        data={data}
-        isEditMode={isEditMode}
-        setIsEditMode={setIsEditMode}
-      />
+      <TripPlanList isEditMode={isEditMode} setIsEditMode={setIsEditMode} />
     </PageTemplate>
   );
 }
