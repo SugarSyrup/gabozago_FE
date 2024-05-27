@@ -2,7 +2,6 @@ import * as S from "./style";
 import { useEffect, useState } from "react";
 import { ReactSortable } from "react-sortablejs";
 import EditablePlaceItem from "../EditablePlaceItem";
-import { PlaceData } from "../TripPlanPlaceItem";
 import { parseDateString } from "../../../utils/parseDateString";
 import { useRecoilState } from "recoil";
 import { SortableRoute, editingTripPlanState } from "../../../recoil/tripState";

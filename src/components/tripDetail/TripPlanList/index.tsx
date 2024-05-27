@@ -31,7 +31,7 @@ function TripPlanList({ isEditMode, setIsEditMode }: Props) {
       )}
       <S.PlaceListContainer>
         {isEditMode ? (
-          <PlanEditMode data={data.plan} setIsEditMode={setIsEditMode} />
+          <PlanEditMode setIsEditMode={setIsEditMode} />
         ) : (
           data.plan.map((dayPlan) => (
             <DayPlan
