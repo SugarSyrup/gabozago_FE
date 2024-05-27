@@ -42,13 +42,6 @@ export const ThumbnailWrapper = styled.div`
             fill: #a6a6a6;
         }
     }
-
-    img {
-        width:100%;
-        height:100%;
-        border-radius:6px;
-        object-fit:cover;
-    }
 `
 
 export const TextContainer = styled.div`
@@ -84,12 +77,6 @@ export const User = styled.span`
         path{
             fill:${({theme}) => theme.main};
         }
-    }
-    img {
-        width:16px;
-        height:16px;
-        border-radius:100%;
-        object-fit:cover;
     }
 `
 

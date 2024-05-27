@@ -36,6 +36,7 @@ import FAQDetailPage from "./pages/cscenter/FAQDetailPage";
 import InquiryPage from "./pages/cscenter/InquiryPage";
 import InquiryHistoryPage from "./pages/cscenter/InquiryHistoryPage";
 import PlaceAddPage from "./pages/mytrip/PlaceAddPage";
+import ArticleTestPage from "./pages/ArticleTestPage";
 import { get } from "./utils/api";
 import InquiryDetailPage from "./pages/cscenter/InquiryDetailPage";
 import IsLoginTemplate from "./components/common/isLoginTemplate";
