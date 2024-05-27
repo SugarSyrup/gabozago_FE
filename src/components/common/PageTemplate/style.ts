@@ -24,5 +24,6 @@ export const Content = styled.div<{ header: boolean }>`
   position: relative;
   width: 100%;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: ${({ header }) => (header ? "0 20px" : "40px 20px")};
 `;

@@ -1,5 +1,18 @@
 import styled from "styled-components";
 
+export const Header = styled.header`
+  padding: 15px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+`;
+
+export const DateParagraph = styled.p`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+`;
+
 export const MessageBox = styled.div`
   margin-bottom: 20px;
   padding: 16px 20px;

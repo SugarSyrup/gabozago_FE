@@ -2,7 +2,6 @@ import { createBrowserRouter } from "react-router-dom";
 
 import { TUserProfile } from "./assets/types/TUserProfile";
 import MyTripPage from "./pages/mytrip/MyTripPage";
-import TestPage from "./pages/TestPage";
 import PlacePage from "./pages/PlacePage";
 import TermsPage from "./pages/TermsPage";
 
@@ -12,21 +11,17 @@ import MyTripDatesSelectPage from "./pages/mytrip/DatesSelectPage";
 import MyTripLocationSearchPage from "./pages/mytrip/LocationSearchPage";
 import MyTripPlaceCreatePage from "./pages/mytrip/PlaceCreatePage";
 import ViewAllPage from "./pages/mytrip/ViewAllPage";
-
 import ScrapBookPage from "./pages/scrapbook/ScrapBookPage";
 import ScrapBookGroupPage from "./pages/scrapbook/ScrapBookGroupPage";
-
 import ProfilePage from "./pages/profile/ProfilePage";
 import UserEditPage from "./pages/profile/UserEditPage";
 import UserFollowPage from "./pages/profile/UserFollowPage";
-
 import HomePage from "./pages/home/HomePage";
 import SettingsPage from "./pages/profile/SettingsPage";
-
 import ShortFormPage from "./pages/journal/ShortformPage";
-import SnapshotPage from "./pages/journal/SnapshotPage";
-import PostPage from "./pages/journal/PostPage";
-import VideoPage from "./pages/journal/VideoPage";
+// import SnapshotPage from "./pages/journal/SnapshotPage";
+// import PostPage from "./pages/journal/PostPage";
+// import VideoPage from "./pages/journal/VideoPage";
 import LoginPage from "./pages/auth/LoginPage";
 import SignUpPage from "./pages/auth/SignUpPage";
 import ArticlePage from "./pages/ArticlePage";
@@ -45,6 +40,7 @@ import ArticleTestPage from "./pages/ArticleTestPage";
 import { get } from "./utils/api";
 import InquiryDetailPage from "./pages/cscenter/InquiryDetailPage";
 import IsLoginTemplate from "./components/common/isLoginTemplate";
+import MemoPage from "./pages/mytrip/MemoPage";
 
 const router = createBrowserRouter([
   {
@@ -71,52 +67,101 @@ const router = createBrowserRouter([
   /* ---- 내 여행 페이지 ---- */
   {
     path: "/mytrip",
-    element: <IsLoginTemplate>
-      <MyTripPage />
-    </IsLoginTemplate>,
+    element: (
+      <IsLoginTemplate>
+        <MyTripPage />
+      </IsLoginTemplate>
+    ),
   },
   {
     path: "/mytrip/all",
-    element: <IsLoginTemplate><ViewAllPage /></IsLoginTemplate>
+    element: (
+      <IsLoginTemplate>
+        <ViewAllPage />
+      </IsLoginTemplate>
+    ),
   },
   {
     path: "/mytrip/create",
-    element: <IsLoginTemplate><MyTripDatesSelectPage /></IsLoginTemplate>,
+    element: (
+      <IsLoginTemplate>
+        <MyTripDatesSelectPage />
+      </IsLoginTemplate>
+    ),
   },
   {
     path: "/mytrip/create/location",
-    element: <IsLoginTemplate><MyTripLocationSelectPage /></IsLoginTemplate>,
+    element: (
+      <IsLoginTemplate>
+        <MyTripLocationSelectPage />
+      </IsLoginTemplate>
+    ),
   },
   {
     path: "/mytrip/place/:id",
-    element: <IsLoginTemplate><PlaceAddPage /></IsLoginTemplate>,
+    element: (
+      <IsLoginTemplate>
+        <PlaceAddPage />
+      </IsLoginTemplate>
+    ),
   },
   {
     path: "/mytrip/:id",
-    element: <IsLoginTemplate><MyTripDetailPage /></IsLoginTemplate>,
+    element: (
+      <IsLoginTemplate>
+        <MyTripDetailPage />
+      </IsLoginTemplate>
+    ),
+    loader: async () => {
+      const { data } = await get<TUserProfile>(`/user/profile`);
+      return data.nickname;
+    },
+  },
+  {
+    path: "/mytrip/:id/memo",
+    element: (
+      <IsLoginTemplate>
+        <MemoPage />
+      </IsLoginTemplate>
+    ),
   },
   {
     path: "/mytrip/:id/dateChange",
-    element: <IsLoginTemplate><MyTripDatesSelectPage /></IsLoginTemplate>,
+    element: (
+      <IsLoginTemplate>
+        <MyTripDatesSelectPage />
+      </IsLoginTemplate>
+    ),
   },
   {
     path: "/mytrip/:id/:day/search",
-    element: <IsLoginTemplate><MyTripLocationSearchPage /></IsLoginTemplate>,
+    element: (
+      <IsLoginTemplate>
+        <MyTripLocationSearchPage />
+      </IsLoginTemplate>
+    ),
   },
   {
     path: "/mytrip/:id/create",
-    element: <IsLoginTemplate><MyTripPlaceCreatePage /></IsLoginTemplate>,
+    element: (
+      <IsLoginTemplate>
+        <MyTripPlaceCreatePage />
+      </IsLoginTemplate>
+    ),
   },
   /* ---- 유저 프로필 페이지 ---- */
   {
     path: "/profile",
-    element: (<IsLoginTemplate><ProfilePage /></IsLoginTemplate>),
+    element: (
+      <IsLoginTemplate>
+        <ProfilePage />
+      </IsLoginTemplate>
+    ),
     loader: async () => {
-      if(localStorage.getItem("access_token")){
-        const { data } = await get<TUserProfile>(`/user/profile`)
+      if (localStorage.getItem("access_token")) {
+        const { data } = await get<TUserProfile>(`/user/profile`);
         return data;
-      }
-      else {
+      } else {
         return {
           id: -1,
           nickname: "string",
@@ -132,33 +177,53 @@ const router = createBrowserRouter([
   },
   {
     path: "/profile/:uid/follow",
-    element: <IsLoginTemplate><UserFollowPage /></IsLoginTemplate>,
+    element: (
+      <IsLoginTemplate>
+        <UserFollowPage />
+      </IsLoginTemplate>
+    ),
   },
   {
     // TODO : [LOGIN 기능 정의 이후] LOGIN 정보를 기반으로 접근 허용 / 거부
     path: "/profile/edit",
-    element: <IsLoginTemplate><UserEditPage /></IsLoginTemplate>,
+    element: (
+      <IsLoginTemplate>
+        <UserEditPage />
+      </IsLoginTemplate>
+    ),
     loader: async () => {
-      const { data } = await get<TUserProfile>(`/user/profile`)
+      const { data } = await get<TUserProfile>(`/user/profile`);
       return data;
     },
   },
   {
     path: "/profile/settings",
-    element: <IsLoginTemplate><SettingsPage /></IsLoginTemplate>,
+    element: (
+      <IsLoginTemplate>
+        <SettingsPage />
+      </IsLoginTemplate>
+    ),
     loader: async () => {
-      const { data } = await get<TUserProfile>(`/user/profile`)
+      const { data } = await get<TUserProfile>(`/user/profile`);
       return data;
     },
   },
   /* ---- 스크랩 페이지 ---- */
   {
     path: "/scrapbook",
-    element: <IsLoginTemplate><ScrapBookPage /></IsLoginTemplate>,
+    element: (
+      <IsLoginTemplate>
+        <ScrapBookPage />
+      </IsLoginTemplate>
+    ),
   },
   {
     path: "/scrapbook/:id",
-    element: <IsLoginTemplate><ScrapBookGroupPage /></IsLoginTemplate>,
+    element: (
+      <IsLoginTemplate>
+        <ScrapBookGroupPage />
+      </IsLoginTemplate>
+    ),
   },
   /* ---- 로그인 페이지 ---- */
   {
@@ -173,65 +238,102 @@ const router = createBrowserRouter([
   {
     // 고객센터/도움말
     path: "/cscenter",
-    element: <IsLoginTemplate><CSCenterPage /></IsLoginTemplate>,
+    element: (
+      <IsLoginTemplate>
+        <CSCenterPage />
+      </IsLoginTemplate>
+    ),
   },
   {
     // FAQ 페이지
     path: "/cscenter/faq",
-    element: <IsLoginTemplate><FAQPage /></IsLoginTemplate>,
+    element: (
+      <IsLoginTemplate>
+        <FAQPage />
+      </IsLoginTemplate>
+    ),
   },
   {
     // FAQ 상세 페이지
     path: "/cscenter/faq/:id",
-    element: <IsLoginTemplate><FAQDetailPage /></IsLoginTemplate>,
+    element: (
+      <IsLoginTemplate>
+        <FAQDetailPage />
+      </IsLoginTemplate>
+    ),
   },
   {
     // 문의 하기
     path: "/cscenter/inquiry",
     element: <InquiryPage />,
     loader: async () => {
-      const { data } = await get<TUserProfile>(`/user/profile`)
+      const { data } = await get<TUserProfile>(`/user/profile`);
+      console.dir(data);
       return data.nickname;
     },
   },
   {
     // 내 문의 detail page
     path: "/cscenter/inquiry/:id",
-    element: <IsLoginTemplate><InquiryDetailPage /></IsLoginTemplate>,
+    element: (
+      <IsLoginTemplate>
+        <InquiryDetailPage />
+      </IsLoginTemplate>
+    ),
   },
   {
     // 내 문의 내역
     path: "/cscenter/history",
-    element: <IsLoginTemplate><InquiryHistoryPage /></IsLoginTemplate>,
+    element: (
+      <IsLoginTemplate>
+        <InquiryHistoryPage />
+      </IsLoginTemplate>
+    ),
   },
   {
     // 공지사항
     path: "/cscenter/announce",
-    element: <IsLoginTemplate><AnnouncePage /></IsLoginTemplate>,
+    element: (
+      <IsLoginTemplate>
+        <AnnouncePage />
+      </IsLoginTemplate>
+    ),
   },
   {
     // 공지사항 상세보기
     path: "/cscenter/announce/:id",
-    element: <IsLoginTemplate><AnnounceDetailPage /></IsLoginTemplate>,
+    element: (
+      <IsLoginTemplate>
+        <AnnounceDetailPage />
+      </IsLoginTemplate>
+    ),
   },
   {
     // 의견 보내기
     path: "/cscenter/feedback",
-    element: <IsLoginTemplate><FeedBackPage /></IsLoginTemplate>,
+    element: (
+      <IsLoginTemplate>
+        <FeedBackPage />
+      </IsLoginTemplate>
+    ),
   },
   {
     // 장소 페이지
     path: "/place/:id",
-    element: <IsLoginTemplate><PlacePage /></IsLoginTemplate>,
+    element: (
+      <IsLoginTemplate>
+        <PlacePage />
+      </IsLoginTemplate>
+    ),
   },
-  // 아티클 
+  // 아티클
   {
-    path:"/article/test",
-    element:<ArticleTestPage />
+    path: "/article/test",
+    element: <ArticleTestPage />,
   },
   {
-    path:"/article/:id",
-    element:<ArticlePage />
+    path: "/article/:id",
+    element: <ArticlePage />,
   },
   {
     // 약관
@@ -241,16 +343,24 @@ const router = createBrowserRouter([
   {
     // 탈퇴하기
     path: "/leave",
-    element: <IsLoginTemplate><ResignPage /></IsLoginTemplate>,
+    element: (
+      <IsLoginTemplate>
+        <ResignPage />
+      </IsLoginTemplate>
+    ),
     loader: async () => {
-      const { data } = await get<TUserProfile>(`/user/profile`)
+      const { data } = await get<TUserProfile>(`/user/profile`);
       return data;
     },
   },
   {
     // 탈퇴 완료
     path: "/leave/done",
-    element: <IsLoginTemplate><ResignDonePage /></IsLoginTemplate>,
+    element: (
+      <IsLoginTemplate>
+        <ResignDonePage />
+      </IsLoginTemplate>
+    ),
   },
 ]);
 
