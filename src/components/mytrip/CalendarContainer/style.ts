@@ -31,6 +31,7 @@ export const Footer = styled.footer`
     gap: 14px;
 
     padding:15px 30px;
+    padding-bottom:40px;
 
     width: 100%;
     overflow: auto;
