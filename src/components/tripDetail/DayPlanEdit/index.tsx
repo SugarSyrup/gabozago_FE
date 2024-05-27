@@ -1,46 +1,44 @@
 import * as S from "./style";
 import { useEffect, useState } from "react";
-import { ItemInterface, ReactSortable } from "react-sortablejs";
+import { ReactSortable } from "react-sortablejs";
 import EditablePlaceItem from "../EditablePlaceItem";
-import { PlaceData } from "../TripPlanPlaceItem";
 import { parseDateString } from "../../../utils/parseDateString";
-import { DayPlan } from "../TripPlanList";
+import { useRecoilState } from "recoil";
+import { SortableRoute, editingTripPlanState } from "../../../recoil/tripState";
 
 interface Props {
   day: number;
   date: string;
-  route: PlaceData[];
-  tempData: DayPlan[];
-  setTempData: React.Dispatch<React.SetStateAction<DayPlan[]>>;
 }
-type SortableRoute = ItemInterface & PlaceData;
-function DayPlanEdit({
-  day,
-  date: dateString,
-  route: routeProp,
-  tempData,
-  setTempData,
-}: Props) {
+
+function DayPlanEdit({ day, date: dateString }: Props) {
   const date = parseDateString(dateString);
-  const [route, setRoute] = useState<SortableRoute[]>([]);
+  const [tempData, setTempData] = useRecoilState(editingTripPlanState);
+  const [route, setRoute] = useState<SortableRoute[]>(
+    // tempData[day - 1].route || []
+    []
+  );
 
   useEffect(() => {
-    setRoute(
-      routeProp.map((place) => ({ ...place, chosen: false, id: place.placeId }))
-    );
-  }, []);
-
-  useEffect(() => {
-    if (tempData[day - 1].route !== route) {
-      setTempData((prev) => {
-        const temp = [...prev];
-        temp[day - 1] = {
-          ...temp[day - 1],
-          route: [...route],
-        };
-        return temp;
-      });
+    if (
+      tempData &&
+      tempData[day - 1] &&
+      tempData[day - 1].route.toLocaleString() !== route.toLocaleString()
+    ) {
+      setRoute(tempData[day - 1].route);
     }
+  }, [tempData]);
+
+  useEffect(() => {
+    setTempData((prev) =>
+      prev.map((dayPlan) => {
+        if (dayPlan.day === day) {
+          return { ...dayPlan, route: route };
+        } else {
+          return dayPlan;
+        }
+      })
+    );
   }, [route]);
 
   return (
@@ -57,9 +55,16 @@ function DayPlanEdit({
           animation={150}
           handle=".handle"
         >
-          {route.map((item, index) => (
-            <EditablePlaceItem key={item.id} place={item} index={index} />
-          ))}
+          {tempData &&
+            route.map((place, index) => (
+              <EditablePlaceItem
+                key={place.id}
+                day={day}
+                place={place}
+                index={index}
+                setRoute={setRoute}
+              />
+            ))}
         </ReactSortable>
       </S.PlaceList>
     </S.Container>

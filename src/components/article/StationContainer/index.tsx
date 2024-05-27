@@ -5,16 +5,16 @@ import * as S from "./style";
 import useModal from "../../../hooks/useModal";
 
 interface Props {
-    data: {
-        index: number,
-        name: string,
-        type: "station"
-    }[],
-    refs: React.MutableRefObject<null[] | HTMLDivElement[]>,
+  data: {
+    index: number;
+    name: string;
+    type: "station";
+  }[];
+  refs: React.MutableRefObject<null[] | HTMLDivElement[]>;
 }
 
-function StationContainer({data, refs}: Props) {
-    const {Modal, modalOpen, modalClose, isOpend} = useModal({});
+function StationContainer({ data, refs }: Props) {
+  const { Modal, modalOpen, modalClose, isOpend } = useModal({});
 
     return(
         <>
@@ -70,4 +70,4 @@ function StationContainer({data, refs}: Props) {
     )
 }
 
-export default StationContainer
+export default StationContainer;

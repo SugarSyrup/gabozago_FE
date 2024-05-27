@@ -8,29 +8,28 @@ import * as S from "./style";
 import { useNavigate } from "react-router-dom";
 import useMyTripModal from "../../../hooks/useMyTripModal";
 
-
 interface Props {
-    "id": number,
-    "title": string,
-    "departure_date": string
-    "arrival_date": string,
-    "regions": string[]
+  id: number;
+  title: string;
+  departure_date: string;
+  arrival_date: string;
+  regions: string[];
 }
 
 function MyLastScheduleCard({
-    id,
-    title,
-    departure_date,
-    arrival_date,
-    regions,
+  id,
+  title,
+  departure_date,
+  arrival_date,
+  regions,
 }: Props) {
-    const navigate = useNavigate();
-    const {MyTripModal, modalOpen, modalClose, isModalOpend} = useMyTripModal({
-        id: id,
-        title: title,
-        departureDate: departure_date,
-        arrivalDate: arrival_date,
-    })
+  const navigate = useNavigate();
+  const { MyTripModal, modalOpen, modalClose, isModalOpend } = useMyTripModal({
+    id: id,
+    title: title,
+    departureDate: departure_date,
+    arrivalDate: arrival_date,
+  });
 
     return (
         <>

@@ -26,57 +26,57 @@ import useAlert from "../../hooks/useAlert";
 import * as S from "./style";
 
 interface TArticle {
-	"title": string,
-	"thumbnailURL": string,
-	"content": string,
-	"checkpoint": string | undefined,
-	
-    "isClapped": boolean,
-    "isBookmarked": boolean,
-    "claps": number,
-    "commentCount": number,
-    "bookmark": number,
-	
-	"nextArticle": {
-		"id": string,
-		"name": string,
-	}
+  title: string;
+  thumbnailURL: string;
+  content: string;
+  checkpoint: string | undefined;
+
+  isClapped: boolean;
+  isBookmarked: boolean;
+  claps: number;
+  commentCount: number;
+  bookmark: number;
+
+  nextArticle: {
+    id: string;
+    name: string;
+  };
 }
 
 interface TStation {
-    index: number,
-    name: string,
-    type: "station"
+  index: number;
+  name: string;
+  type: "station";
 }
- 
+
 interface TEditor {
-    content: string,
-    type: "editor"
+  content: string;
+  type: "editor";
 }
 
 interface TInterview {
-    content: string,
-    type: "interview"
+  content: string;
+  type: "interview";
 }
 
 interface TProfile {
-    photoURL: string,
-    name: string,
-    division: string,
-    desc: string,
-    type: "profile"
+  photoURL: string;
+  name: string;
+  division: string;
+  desc: string;
+  type: "profile";
 }
 
 interface TPhoto {
-    photoURLs: string[],
-    desc: string,
-    type: "photo"
+  photoURLs: string[];
+  desc: string;
+  type: "photo";
 }
 
 interface TPlace {
-    imageURL: string,
-    placeId: number,
-    type: "place"
+  imageURL: string;
+  placeId: number;
+  type: "place";
 }
 
 interface TAbroadPlace {
@@ -105,6 +105,15 @@ function ArticlePage() {
     const {Alert, alertOpen, alertClose} = useAlert({
         Content: <Typography.Title size="md" color="white">URL이 복사되었습니다.</Typography.Title>,
     });
+  }, []);
+
+  useEffect(() => {
+    if (localStorage.getItem("access_token")) {
+      setIsLogin(true);
+    } else {
+      setIsLogin(false);
+    }
+  }, []);
 
     useEffect(() => {
         get<TArticle>(`/community/article/${id}`)
