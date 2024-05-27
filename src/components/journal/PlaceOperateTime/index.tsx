@@ -16,7 +16,7 @@ function PlaceOperateTime({opening_hours}: Props) {
     const date = new Date();
 
     useEffect(() => {
-            setData(opening_hours.split("\n").map((item) => item.split(": ")))
+        setData(opening_hours.split("\n").map((item) => item.split(": ")))
     }, []);
 
     useEffect(() => {

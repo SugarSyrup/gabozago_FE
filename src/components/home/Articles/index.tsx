@@ -29,19 +29,15 @@ function Articles() {
     return (
         <S.Container>
             <S.ArticleList>
-                <ArticleItem 
-                    id={1}
-                    title="2년만에 15개 점포로 확장한, 제과점 대표의 ‘디저트’와 함께하는 여행방법"
-                    desc="로컬 디저트, 성장한 브랜드, 여행지 선택 방법에 대한 이야기"
-                />
                 {
                     articleData.map((article) => <ArticleItem 
                         id={article.id}
                         title={article.title}
                         desc={article.subtitle}
+                        thumbnailURL={article.thumbnailURL}
+                        isBookmarked={article.isBookmarked}
                     />)
                 }
-                
             </S.ArticleList>
         </S.Container>
     )
