@@ -105,7 +105,6 @@ function ArticlePage() {
     const {Alert, alertOpen, alertClose} = useAlert({
         Content: <Typography.Title size="md" color="white">URL이 복사되었습니다.</Typography.Title>,
     });
-  }, []);
 
   useEffect(() => {
     if (localStorage.getItem("access_token")) {
