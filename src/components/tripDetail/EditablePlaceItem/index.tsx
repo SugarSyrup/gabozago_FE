@@ -5,6 +5,8 @@ import SelectFilledIcon from "../../../assets/icons/select_filled.svg?react";
 import HamburgerIcon from "../../../assets/icons/hamburger.svg?react";
 import { PlaceData } from "../TripPlanPlaceItem";
 import { SortableRoute } from "../DayPlanEdit";
+import { useRecoilState } from "recoil";
+import { selectedPlacesState } from "../../../recoil/tripState";
 
 interface Props {
   day: number;
@@ -14,17 +16,36 @@ interface Props {
 }
 function EditablePlaceItem({ place, setRoute, day, index }: Props) {
   const [isSelected, setIsSelected] = useState(false);
+  const [selectedPlaces, setSelectedPlaces] =
+    useRecoilState(selectedPlacesState);
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [startX, setStartX] = useState(0);
   const [translateX, setTranslateX] = useState(0);
+
+  const toggleSelected = () => {
+    if (isSelected === false) {
+      setIsSelected(true);
+      setSelectedPlaces((prev) => {
+        const temp = [...prev];
+        temp.push({ day: day, placeIndex: index });
+
+        return temp;
+      });
+    } else {
+      setIsSelected(false);
+      setSelectedPlaces((prev) =>
+        prev.filter(
+          ({ day, placeIndex }) => !(day === day && placeIndex === index)
+        )
+      );
+    }
+  };
 
   return (
     <S.ListItem>
       <S.Wrapper
         isSelected={isSelected}
-        onClick={() => {
-          setIsSelected((prev) => !prev);
-        }}
+        onClick={toggleSelected}
         onMouseDown={(e) => {
           setStartX(e.clientX);
           setIsMouseDown(true);
@@ -42,7 +63,7 @@ function EditablePlaceItem({ place, setRoute, day, index }: Props) {
           }
         }}
         onMouseUp={() => {
-          if (isMouseDown && translateX < 40) {
+          if (isMouseDown && translateX < -40) {
             setRoute((prev) => {
               const temp = [...prev];
               temp.splice(index, 1);
