@@ -13,7 +13,7 @@ import EditModeBottomControlBox from "../../../components/tripDetail/EditModeBot
 import Typography from "../../../components/common/Typography";
 import CalendarIcon from "../../../assets/icons/calendar.svg?react";
 import { useRecoilState, useResetRecoilState } from "recoil";
-import { tripState } from "../../../recoil/tripState";
+import { editingTripPlanState, tripState } from "../../../recoil/tripState";
 
 export const markerColors = [
   "#5276FA",
@@ -41,6 +41,7 @@ function MyTripDetailPage() {
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [data, setData] = useRecoilState(tripState);
   const resetData = useResetRecoilState(tripState);
+  const [, setTempData] = useRecoilState(editingTripPlanState);
   const [duration, setDuration] = useState<{
     departure: DateObject;
     arrival: DateObject;
@@ -110,6 +111,19 @@ function MyTripDetailPage() {
     resetData();
     getData(Number(id));
   }, []);
+
+  useEffect(() => {
+    setTempData(
+      data.plan.map((dayPlan) => {
+        const newRoute = dayPlan.route.map((place) => ({
+          ...place,
+          chosen: false,
+          id: `${dayPlan.day}-${place.detailRouteId}`,
+        }));
+        return { ...dayPlan, route: newRoute };
+      })
+    );
+  }, [data]);
 
   return (
     <PageTemplate

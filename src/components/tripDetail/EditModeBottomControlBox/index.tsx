@@ -1,16 +1,16 @@
 import * as S from "./style";
 import ArrowSwapIcon from "../../../assets/icons/arrow_swap.svg?react";
 import DeleteIcon from "../../../assets/icons/delete.svg?react";
-import { useRecoilState } from "recoil";
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
 import {
   editingTripPlanState,
   selectedPlacesState,
 } from "../../../recoil/tripState";
 
 function EditModeBottomControlBox() {
-  const [selectedPlaces, setSelectedPlaces] =
-    useRecoilState(selectedPlacesState);
-  const [, setTempData] = useRecoilState(editingTripPlanState);
+  const selectedPlaces = useRecoilValue(selectedPlacesState);
+  const resetSelectedPlaces = useResetRecoilState(selectedPlacesState);
+  const setTempData = useSetRecoilState(editingTripPlanState);
 
   const deleteItems = () => {
     setTempData((prev) => {
@@ -24,7 +24,7 @@ function EditModeBottomControlBox() {
         return { ...item, route: updatedRoute };
       });
     });
-    setSelectedPlaces([]);
+    resetSelectedPlaces();
   };
 
   return (

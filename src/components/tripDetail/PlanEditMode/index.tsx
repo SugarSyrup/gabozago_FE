@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import DayPlanEdit from "../DayPlanEdit";
 import { DayPlan } from "../TripPlanList";
 import * as S from "./style";
@@ -14,28 +13,11 @@ interface Props {
 function PlanEditMode({ setIsEditMode }: Props) {
   const { id } = useParams();
   const [tripData, setTripData] = useRecoilState(tripState);
-  const [tempData, setTempData] = useRecoilState(editingTripPlanState);
+  const [tempData] = useRecoilState(editingTripPlanState);
 
   const patchTripPlan = (data: DayPlan[]) => {
     patch<DayPlan[]>(`my-travel/${id}`, data);
   };
-
-  useEffect(() => {
-    setTempData(
-      tripData.plan.map((dayPlan) => {
-        const newRoute = dayPlan.route.map((place) => ({
-          ...place,
-          chosen: false,
-          id: `${dayPlan.day}-${place.detailRouteId}`,
-        }));
-        return { ...dayPlan, route: newRoute };
-      })
-    );
-  }, [tripData]);
-  useEffect(() => {
-    console.dir(tempData);
-  }, [tempData]);
-
   return (
     <>
       <S.EditComplateButton
