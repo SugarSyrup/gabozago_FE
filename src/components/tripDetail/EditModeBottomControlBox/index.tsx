@@ -10,10 +10,10 @@ import {
 function EditModeBottomControlBox() {
   const [selectedPlaces, setSelectedPlaces] =
     useRecoilState(selectedPlacesState);
-  const [tempState, setTempState] = useRecoilState(editingTripPlanState);
+  const [, setTempData] = useRecoilState(editingTripPlanState);
 
   const deleteItems = () => {
-    setTempState((prev) => {
+    setTempData((prev) => {
       return prev.map((item) => {
         const updatedRoute = item.route.filter((place, index) => {
           return !selectedPlaces.some(

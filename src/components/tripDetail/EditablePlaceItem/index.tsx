@@ -16,8 +16,7 @@ interface Props {
 }
 function EditablePlaceItem({ place, setRoute, day, index }: Props) {
   const [isSelected, setIsSelected] = useState(false);
-  const [selectedPlaces, setSelectedPlaces] =
-    useRecoilState(selectedPlacesState);
+  const [, setSelectedPlaces] = useRecoilState(selectedPlacesState);
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [startX, setStartX] = useState(0);
   const [translateX, setTranslateX] = useState(0);

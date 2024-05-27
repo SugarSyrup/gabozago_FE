@@ -1,6 +1,8 @@
 import { atom } from "recoil";
 import { TripData } from "../pages/mytrip/DetailPage";
 import { DayPlan } from "../components/tripDetail/TripPlanList";
+import { PlaceData } from "../components/tripDetail/TripPlanPlaceItem";
+import { ItemInterface } from "react-sortablejs";
 
 export const tripState = atom<TripData>({
   key: "tripState",
@@ -20,7 +22,12 @@ export const selectedPlacesState = atom<{ day: number; placeIndex: number }[]>({
   default: [],
 });
 
-export const editingTripPlanState = atom<DayPlan[]>({
+export type SortableRoute = ItemInterface & PlaceData;
+interface SortableDayPlan extends DayPlan {
+  route: SortableRoute[];
+}
+
+export const editingTripPlanState = atom<SortableDayPlan[]>({
   key: "editingTripPlanState",
   default: [],
 });

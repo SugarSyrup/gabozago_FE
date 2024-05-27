@@ -21,8 +21,20 @@ function PlanEditMode({ setIsEditMode }: Props) {
   };
 
   useEffect(() => {
-    setTempData(tripData.plan);
+    setTempData(
+      tripData.plan.map((dayPlan) => {
+        const newRoute = dayPlan.route.map((place) => ({
+          ...place,
+          chosen: false,
+          id: `${dayPlan.day}-${place.detailRouteId}`,
+        }));
+        return { ...dayPlan, route: newRoute };
+      })
+    );
   }, [tripData]);
+  useEffect(() => {
+    console.dir(tempData);
+  }, [tempData]);
 
   return (
     <>
@@ -43,12 +55,7 @@ function PlanEditMode({ setIsEditMode }: Props) {
       </S.EditComplateButton>
       {tempData &&
         tempData.map((dayPlan) => (
-          <DayPlanEdit
-            day={dayPlan.day}
-            date={dayPlan.date}
-            route={dayPlan.route}
-            setTempData={setTempData}
-          />
+          <DayPlanEdit day={dayPlan.day} date={dayPlan.date} />
         ))}
     </>
   );
