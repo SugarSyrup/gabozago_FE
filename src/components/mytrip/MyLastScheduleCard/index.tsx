@@ -37,7 +37,7 @@ function MyLastScheduleCard({
       <S.Card>
         <S.InfoContainer
           onClick={() => {
-            navigate(`./${id}`);
+            navigate(`/mytrip/${id}`);
           }}
         >
           <S.ThumbnailWrapper>
