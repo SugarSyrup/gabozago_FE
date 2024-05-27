@@ -86,6 +86,7 @@ interface TAbroadPlace {
     type: "abroadPlace"
 }
 
+// article
 function ArticlePage() {
     const navigate = useNavigate();
     const { id } = useParams();
