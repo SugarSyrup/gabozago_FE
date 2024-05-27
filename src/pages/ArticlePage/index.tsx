@@ -128,7 +128,7 @@ function ArticlePage() {
                 <Alert />
                 <ScrapModal />
                 <Modal>
-                    <Comment id={1} commentInputPosition="bottom" type="article" commentCount={data.commentCount} />
+                    <Comment id={id} commentInputPosition="bottom" type="article" commentCount={data.commentCount} />
                 </Modal>
 
                 <S.BackButtonWrapper>

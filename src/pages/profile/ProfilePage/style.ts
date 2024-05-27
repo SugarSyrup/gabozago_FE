@@ -88,19 +88,31 @@ export const Statics = styled.ol`
     margin-top:10px;
     margin-bottom:6px;
 
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(0px, 1fr));
+
+    @media screen and (max-width: 470px){
+        grid-template-columns: repeat(2, minmax(0px, 2fr));
+        grid-template-rows: repeat(2, minmax(0px, 2fr));
+    }
+
+    @media screen and (max-width: 220px){
+    grid-template-columns: repeat(1, minmax(0px, 1fr));
+        grid-template-rows: repeat(4, minmax(0px, 1fr));
+    }
     gap:10px;
 `
 
 export const StaticItem = styled.li<{isHover?: boolean}>`
-    width:22%;
+    width:100%;
+    min-width:90px;
     padding: 6px 17px;
+
     display: flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
+    flex-grow:1;
 
     border-radius:10px;
     background-color:${({theme}) => theme.gray06};

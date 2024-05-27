@@ -74,6 +74,7 @@ export const Info = styled.span`
 export const MenuIcon = styled.div`
     cursor:pointer;
     position: absolute;
+    z-index:10;
     right: 15px;
     top: 15px;
 `;

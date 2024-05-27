@@ -35,12 +35,12 @@ function MyLastScheduleCard({
     return (
         <>
             <MyTripModal />
-            <S.Card  onClick={() => {navigate(`/mytrip/${id}`)}}>
+            <S.Card>
                 <S.InfoContainer>
                     <S.ThumbnailWrapper>
                         <LogoSmallIcon />
                     </S.ThumbnailWrapper>
-                    <S.TextContainer>
+                    <S.TextContainer  onClick={() => {navigate(`/mytrip/${id}`)}}>
                         <Typography.Title size="md" noOfLine={2}>{title}</Typography.Title>
                         <S.Infos>
                             <S.Info>
@@ -53,7 +53,7 @@ function MyLastScheduleCard({
                             </S.Info>
                         </S.Infos>
                     </S.TextContainer>
-                    <S.MenuIcon onClick={() => {modalOpen()}}>
+                    <S.MenuIcon onClick={(e) => {e.preventDefault(); modalOpen()}}>
                         <KebabMenuIcon />
                     </S.MenuIcon>
                 </S.InfoContainer>
