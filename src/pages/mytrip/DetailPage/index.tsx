@@ -63,13 +63,12 @@ function MyTripDetailPage() {
 
   const getData = async (id: number) => {
     const { data } = await get<TripData>(`/my-travel/${id}`);
-    console.dir(data);
+
     setData(data);
     setDuration({
       departure: parseDateString(data.departure_date) as DateObject,
       arrival: parseDateString(data.arrival_date) as DateObject,
     });
-    console.log(data.plan.length);
   };
 
   const getDurationString = (departure: DateObject, arrival: DateObject) => {
@@ -127,7 +126,7 @@ function MyTripDetailPage() {
         </S.Header>
       }
     >
-      {hasNonEmptyRoute(data) > 0 ? (
+      {hasNonEmptyRoute(data) ? (
         <PlanMap isEditMode={isEditMode} data={data.plan} />
       ) : (
         <S.MessageBox>

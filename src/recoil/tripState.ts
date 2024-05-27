@@ -15,6 +15,11 @@ export const tripState = atom<TripData>({
   },
 });
 
+export const selectedPlacesState = atom<{ day: number; placeIndex: number }[]>({
+  key: "selectedPlacesState",
+  default: [],
+});
+
 export const editingTripPlanState = atom<DayPlan[]>({
   key: "editingTripPlanState",
   default: [],
