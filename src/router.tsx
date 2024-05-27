@@ -327,10 +327,6 @@ const router = createBrowserRouter([
   },
   // 아티클
   {
-    path: "/article/test",
-    element: <ArticleTestPage />,
-  },
-  {
     path: "/article/:id",
     element: <ArticlePage />,
   },
