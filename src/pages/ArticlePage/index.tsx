@@ -91,7 +91,6 @@ function ArticlePage() {
     const { id } = useParams();
     const [isLogin, setIsLogin] = useState<boolean>(false);
     const [data, setData] = useState<TArticle>();
-    const ThumbnailWrapperRef = useRef<HTMLDivElement>(null);
     const stationRefs = useRef<null[] | HTMLDivElement[]>([]);
 
     const {Modal, modalOpen, modalClose, isOpend} = useModal({});

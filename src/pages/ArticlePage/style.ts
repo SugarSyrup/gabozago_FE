@@ -59,6 +59,7 @@ export const StationContainer = styled.div`
     margin-top:20px;
     padding-left:20px;
     padding-right:20px;
+    padding-bottom:100px;
 
     display:flex;
     flex-direction:column;
