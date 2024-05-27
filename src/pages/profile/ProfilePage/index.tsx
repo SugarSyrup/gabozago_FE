@@ -25,10 +25,15 @@ function ProfilePage() {
   const FixedHeaderRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (FixedHeaderRef.current) {
-      setHeaderHeight(FixedHeaderRef.current.offsetHeight);
-    }
+    if(!FixedHeaderRef.current) return;
+    const resizeObserver = new ResizeObserver((entries) => {
+      setHeaderHeight(entries[0].target.clientHeight);
+    });
+    resizeObserver.observe(FixedHeaderRef.current);
+    
+    return () => resizeObserver.disconnect();
   }, [FixedHeaderRef.current]);
+
 
   return (
     <PageTemplate>

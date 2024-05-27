@@ -14,6 +14,11 @@ export const Slider = styled.div`
   gap:10px;
 
   padding-top:15px;
+
+  overflow-x:scroll;
+  &::-webkit-scrollbar{
+    display:none;
+  }
 `
 
 export const TopSliderItem = styled.div`
@@ -42,7 +47,6 @@ export const TopSliderItem = styled.div`
 export const SliderImg = styled.img`
   width:100%;
   height: 166px;
-  background-color:#E4E4E4;
   border-radius:8px;
 
   object-fit:contain;

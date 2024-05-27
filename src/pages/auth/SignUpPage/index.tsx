@@ -50,7 +50,8 @@ function SignUpPage() {
 
   return (
     <PageTemplate
-      nav={false}
+      nav={false
+      }
       header={
         <PageHeader>
           <S.HeaderText>회원 가입</S.HeaderText>
@@ -142,8 +143,11 @@ function SignUpPage() {
         <CheckBoxs setCheckboxActive={setCheckboxActive} />
 
         <RecommendNickname setIsRecommendarOk={setIsRecommendarOk}/>
-        <S.ButtonWrapper formAction="" type="submit" disabled={!isButtonActive}>
-            회원가입 완료
+        
+        <S.ButtonWrapper>
+          <S.Button formAction="" type="submit" disabled={!isButtonActive}>
+              회원가입 완료
+          </S.Button>
         </S.ButtonWrapper>
       </S.FormContainer>
     </PageTemplate>

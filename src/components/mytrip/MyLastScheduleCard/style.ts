@@ -7,7 +7,8 @@ export const Card = styled.div`
   border-radius: 10px;
   background-color: ${({ theme }) => theme.gray06};
 
-  position: relative;
+    position: relative;
+    cursor: pointer;
 `;
 
 export const InfoContainer = styled.div`
@@ -72,8 +73,9 @@ export const Info = styled.span`
 `;
 
 export const MenuIcon = styled.div`
-  cursor: pointer;
-  position: absolute;
-  right: 15px;
-  top: 15px;
+    cursor:pointer;
+    position: absolute;
+    z-index:10;
+    right: 15px;
+    top: 15px;
 `;

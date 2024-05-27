@@ -64,7 +64,8 @@ function CalendarContainer() {
         let month = currentDateInfo.getMonth() + 1;
         let year = currentDateInfo.getFullYear();
 
-        if(Number(dates.startDate.slice(0,4)) <= year) {
+
+        if(createType !== "create" && Number(dates.startDate.slice(0,4)) <= year) {
             year = Number(dates.startDate.slice(0,4));
             if(Number(dates.startDate.slice(4,6)) < month)  {
                 month = Number(dates.startDate.slice(4,6));
@@ -74,6 +75,8 @@ function CalendarContainer() {
         for(month; month<=12; month++) {
             elements.push(<Calendar year={currentDateInfo.getFullYear()} month={month} onDateClick={onDateClick} startDate={dates.startDate} endDate={dates.endDate}/>)
         }
+        year += 1;
+
         for(year; year<=currentDateInfo.getFullYear() + 10; year++) {
             for(let month = 1; month<=12; month++) {
                 elements.push(<Calendar year={year} month={month} onDateClick={onDateClick} startDate={dates.startDate} endDate={dates.endDate}/>)

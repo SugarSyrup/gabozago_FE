@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 
 export const FormContainer = styled.form`
     padding-top:24px;
+    padding-bottom:140px;
 
     display:flex;
     flex-direction:column;
@@ -18,8 +19,15 @@ export const HeaderText = styled.span`
     letter-spacing: 0.2px;
 `
 
+export const ButtonWrapper = styled.div`
+    position:fixed;
+    bottom:0;
+    width:100%;
+    max-width:480px;
+    background-color:white;
+`
 
-export const ButtonWrapper = styled.button`
+export const Button = styled.button`
     position:absolute;
     bottom:45px;
 

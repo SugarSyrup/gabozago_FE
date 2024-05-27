@@ -1,3 +1,4 @@
+import { BrowserView, MobileView } from "react-device-detect";
 import BackButton from "../BackButton";
 
 import * as S from "./style";
@@ -10,15 +11,30 @@ interface Props {
 
 function PageHeader({LeftItem = <BackButton />, children, RightItem = <></>}: Props) {
     return(
-        <S.Header>
-            <S.LeftItemWrapper>
-                {LeftItem}
-            </S.LeftItemWrapper>
-            {children}
-            <S.RightItemWrapper>
-                {RightItem}
-            </S.RightItemWrapper>
-        </S.Header>
+        <>
+        <BrowserView>
+            <S.Header>
+                <S.LeftItemWrapper>
+                    {LeftItem}
+                </S.LeftItemWrapper>
+                {children}
+                <S.RightItemWrapper>
+                    {RightItem}
+                </S.RightItemWrapper>
+            </S.Header>
+        </BrowserView>
+        <MobileView>
+            <S.MobileHeader>
+                <S.LeftItemWrapper>
+                    {LeftItem}
+                </S.LeftItemWrapper>
+                {children}
+                <S.RightItemWrapper>
+                    {RightItem}
+                </S.RightItemWrapper>
+            </S.MobileHeader>
+        </MobileView>
+        </>
     )
 }
 
