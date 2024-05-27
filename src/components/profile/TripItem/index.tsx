@@ -8,6 +8,7 @@ import useMyTripModal from "../../../hooks/useMyTripModal";
 import Typography from "../../common/Typography";
 
 import * as S from "./style";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
     id: number,
@@ -18,6 +19,7 @@ interface Props {
 }
 
 function TripItem({id, title, location, departureDate, arrivalDate}: Props) {
+    const navigate = useNavigate();
     const {MyTripModal, modalOpen, modalClose, isModalOpend} = useMyTripModal({
         id: id,
         title: title,
@@ -28,7 +30,7 @@ function TripItem({id, title, location, departureDate, arrivalDate}: Props) {
     return(
         <>
             <MyTripModal />
-            <S.Container>
+            <S.Container onClick={() => {navigate(`/mytrip/${id}`)}}>
                 <S.ThumbnailWrapper>
                     <SmallLogoIcon />
                 </S.ThumbnailWrapper>

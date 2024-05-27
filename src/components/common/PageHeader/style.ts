@@ -11,6 +11,18 @@ export const Header = styled.header`
     align-items:center;
 `
 
+export const MobileHeader = styled.header`
+    width:100%;
+    padding:20px 20px;
+    padding-top:40px;
+    position:relative;
+
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    align-items:center;
+`
+
 export const LeftItemWrapper = styled.div`
     position:absolute;
     left:20px;
