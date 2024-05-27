@@ -10,15 +10,15 @@ interface Props {
   day: number;
   date: string;
   route: PlaceData[];
-  tempData: DayPlan[];
   setTempData: React.Dispatch<React.SetStateAction<DayPlan[]>>;
 }
-type SortableRoute = ItemInterface & PlaceData;
+
+export type SortableRoute = ItemInterface & PlaceData;
+
 function DayPlanEdit({
   day,
   date: dateString,
-  route: routeProp,
-  tempData,
+  route: planRoute,
   setTempData,
 }: Props) {
   const date = parseDateString(dateString);
@@ -26,12 +26,12 @@ function DayPlanEdit({
 
   useEffect(() => {
     setRoute(
-      routeProp.map((place) => ({ ...place, chosen: false, id: place.placeId }))
+      planRoute.map((place) => ({ ...place, chosen: false, id: place.placeId }))
     );
   }, []);
 
   useEffect(() => {
-    if (tempData[day - 1].route !== route) {
+    if (planRoute !== route) {
       setTempData((prev) => {
         const temp = [...prev];
         temp[day - 1] = {
@@ -58,7 +58,13 @@ function DayPlanEdit({
           handle=".handle"
         >
           {route.map((item, index) => (
-            <EditablePlaceItem key={item.id} place={item} index={index} />
+            <EditablePlaceItem
+              key={item.id}
+              day={day}
+              place={item}
+              index={index}
+              setRoute={setRoute}
+            />
           ))}
         </ReactSortable>
       </S.PlaceList>

@@ -4,12 +4,15 @@ import SelectIcon from "../../../assets/icons/select.svg?react";
 import SelectFilledIcon from "../../../assets/icons/select_filled.svg?react";
 import HamburgerIcon from "../../../assets/icons/hamburger.svg?react";
 import { PlaceData } from "../TripPlanPlaceItem";
+import { SortableRoute } from "../DayPlanEdit";
 
 interface Props {
+  day: number;
   place: PlaceData;
   index: number;
+  setRoute: React.Dispatch<React.SetStateAction<SortableRoute[]>>;
 }
-function EditablePlaceItem({ place, index }: Props) {
+function EditablePlaceItem({ place, setRoute, day, index }: Props) {
   const [isSelected, setIsSelected] = useState(false);
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -40,7 +43,11 @@ function EditablePlaceItem({ place, index }: Props) {
         }}
         onMouseUp={() => {
           if (isMouseDown && translateX < 40) {
-            // @todo: 아이템 삭제
+            setRoute((prev) => {
+              const temp = [...prev];
+              temp.splice(index, 1);
+              return temp;
+            });
           }
           setTranslateX(0);
           setIsMouseDown(false);
@@ -53,7 +60,6 @@ function EditablePlaceItem({ place, index }: Props) {
       >
         {isSelected ? <SelectFilledIcon /> : <SelectIcon />}
         <S.PlaceInfo>
-          {/* <span>{index + 1}</span> */}
           <div>
             <p>{place.placeName}</p>
             <p>{place.placeTheme}</p>

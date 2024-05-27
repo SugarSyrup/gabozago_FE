@@ -1,5 +1,6 @@
-import { atom, selector } from "recoil";
+import { atom } from "recoil";
 import { TripData } from "../pages/mytrip/DetailPage";
+import { DayPlan } from "../components/tripDetail/TripPlanList";
 
 export const tripState = atom<TripData>({
   key: "tripState",
@@ -12,4 +13,9 @@ export const tripState = atom<TripData>({
     location: [],
     plan: [],
   },
+});
+
+export const editingTripPlanState = atom<DayPlan[]>({
+  key: "editingTripPlanState",
+  default: [],
 });
