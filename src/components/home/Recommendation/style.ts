@@ -14,6 +14,11 @@ export const Slider = styled.div`
   gap:10px;
 
   padding-top:15px;
+
+  overflow-x:scroll;
+  &::-webkit-scrollbar{
+    display:none;
+  }
 `
 
 export const TopSliderItem = styled.div`
