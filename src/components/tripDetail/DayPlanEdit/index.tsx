@@ -4,14 +4,23 @@ import { ItemInterface, ReactSortable } from "react-sortablejs";
 import EditablePlaceItem from "../EditablePlaceItem";
 import { PlaceData } from "../TripPlanPlaceItem";
 import { parseDateString } from "../../../utils/parseDateString";
+import { DayPlan } from "../TripPlanList";
 
 interface Props {
   day: number;
   date: string;
   route: PlaceData[];
+  tempData: DayPlan[];
+  setTempData: React.Dispatch<React.SetStateAction<DayPlan[]>>;
 }
 type SortableRoute = ItemInterface & PlaceData;
-function DayPlanEdit({ day, date: dateString, route: routeProp }: Props) {
+function DayPlanEdit({
+  day,
+  date: dateString,
+  route: routeProp,
+  tempData,
+  setTempData,
+}: Props) {
   const date = parseDateString(dateString);
   const [route, setRoute] = useState<SortableRoute[]>([]);
 
@@ -20,8 +29,18 @@ function DayPlanEdit({ day, date: dateString, route: routeProp }: Props) {
       routeProp.map((place) => ({ ...place, chosen: false, id: place.placeId }))
     );
   }, []);
+
   useEffect(() => {
-    console.dir(route);
+    if (tempData[day - 1].route !== route) {
+      setTempData((prev) => {
+        const temp = [...prev];
+        temp[day - 1] = {
+          ...temp[day - 1],
+          route: [...route],
+        };
+        return temp;
+      });
+    }
   }, [route]);
 
   return (

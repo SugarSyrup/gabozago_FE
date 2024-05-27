@@ -12,6 +12,18 @@ import PlanMap from "../../../components/tripDetail/PlanMap";
 import EditModeBottomControlBox from "../../../components/tripDetail/EditModeBottomControlBox";
 import Typography from "../../../components/common/Typography";
 import CalendarIcon from "../../../assets/icons/calendar.svg?react";
+import { useRecoilState, useResetRecoilState } from "recoil";
+import { tripState } from "../../../recoil/tripState";
+
+export const markerColors = [
+  "#5276FA",
+  "#FFAF37",
+  "#BA75FF",
+  "#FA5252",
+  "#30A9DE",
+  "#F29661",
+  "#78CBA2",
+];
 
 export interface TripData {
   id: number;
@@ -27,15 +39,8 @@ function MyTripDetailPage() {
   const { id } = useParams(); // 파라미터에 게시글 ID
   const nickname = useLoaderData() as string;
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
-  const [data, setData] = useState<TripData>({
-    id: -1,
-    title: "",
-    departure_date: "",
-    arrival_date: "",
-    days: -1,
-    location: [],
-    plan: [],
-  });
+  const [data, setData] = useRecoilState(tripState);
+  const resetData = useResetRecoilState(tripState);
   const [duration, setDuration] = useState<{
     departure: DateObject;
     arrival: DateObject;
@@ -64,6 +69,7 @@ function MyTripDetailPage() {
       departure: parseDateString(data.departure_date) as DateObject,
       arrival: parseDateString(data.arrival_date) as DateObject,
     });
+    console.log(data.plan.length);
   };
 
   const getDurationString = (departure: DateObject, arrival: DateObject) => {
@@ -97,7 +103,12 @@ function MyTripDetailPage() {
     return `${dateString} / ${durationString}`;
   };
 
+  function hasNonEmptyRoute(data: TripData) {
+    return data.plan.some((dayPlan) => dayPlan.route.length > 0);
+  }
+
   useEffect(() => {
+    resetData();
     getData(Number(id));
   }, []);
 
@@ -116,8 +127,8 @@ function MyTripDetailPage() {
         </S.Header>
       }
     >
-      {data.plan.length > 0 ? (
-        <PlanMap isEditMode={isEditMode} />
+      {hasNonEmptyRoute(data) > 0 ? (
+        <PlanMap isEditMode={isEditMode} data={data.plan} />
       ) : (
         <S.MessageBox>
           <Typography.Body size="md" color="#5276FA">
@@ -126,11 +137,7 @@ function MyTripDetailPage() {
           </Typography.Body>
         </S.MessageBox>
       )}
-      <TripPlanList
-        data={data}
-        isEditMode={isEditMode}
-        setIsEditMode={setIsEditMode}
-      />
+      <TripPlanList isEditMode={isEditMode} setIsEditMode={setIsEditMode} />
     </PageTemplate>
   );
 }

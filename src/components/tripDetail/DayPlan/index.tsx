@@ -38,7 +38,7 @@ function DayPlan({ data, day, date: dateString, setIsEditMode }: Props) {
             setIsEditMode(true);
           }}
         >
-          일정 편집
+          편집
         </S.EditButton>
       </S.DayInfo>
       <S.PlaceList>

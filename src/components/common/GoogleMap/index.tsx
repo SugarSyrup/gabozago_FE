@@ -11,19 +11,32 @@ export interface Position {
   lat: number;
   lng: number;
 }
+
 interface Props {
   width?: string;
   height?: string;
   center: Position;
   children?: ReactNode;
   markers?: MarkerProps[];
+  options?: google.maps.MapOptions;
 }
+
+const mapDefaultOptions: google.maps.MapOptions = {
+  mapTypeControl: false,
+  scaleControl: true,
+  streetViewControl: false,
+  minZoom: 4,
+  maxZoom: 18,
+  disableDefaultUI: true,
+};
+
 function GoogleMap({
   width = "100%",
-  height = "100%",
-  center = { lat: 0, lng: 0 },
+  height = "275px",
+  center = { lat: 35.1855, lng: 129.0741 },
   children,
   markers,
+  options = mapDefaultOptions,
 }: Props) {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -51,20 +64,12 @@ function GoogleMap({
 
     setMap(map);
     // 아래 주석을 해제하여 콘솔에서 map의 프로퍼티나 메소드를 확인할 수 있습니다.
-    // console.dir(map);
+    console.dir(map);
   }, []);
+
   const onUnmount = React.useCallback((map) => {
     setMap(null);
   }, []);
-
-  const mapOptions = {
-    mapTypeControl: false,
-    scaleControl: true,
-    streetViewControl: false,
-    minZoom: 4,
-    maxZoom: 18,
-    disableDefaultUI: true,
-  };
 
   return (
     <S.MapWrapper height={height}>
@@ -75,15 +80,15 @@ function GoogleMap({
           zoom={14}
           onLoad={onLoad}
           onUnmount={onUnmount}
-          options={mapOptions}
+          options={options}
         >
           {children}
         </GoogleMapBox>
       ) : (
-        <></>
+        <>Loading...</>
       )}
     </S.MapWrapper>
   );
 }
 
-export default React.memo(GoogleMap);
+export default GoogleMap;
