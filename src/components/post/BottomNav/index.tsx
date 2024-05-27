@@ -8,9 +8,10 @@ import ShareIcon from "../../../assets/icons/share.svg?react";
 
 import * as S from "./style";
 import usePopup from "../../../hooks/usePopup";
+import { useState } from "react";
 
 interface Props {
-    postId: string;
+    postId: number;
     isClap: boolean;
     claps:number;
     comment:number;
@@ -22,6 +23,8 @@ interface Props {
 
 function BottomNav({postId, isClap, claps, comment, onCommentClick, bookmark, onShareClick, onScrapClick}: Props) {
     const {Popup, popupOpen, popupClose} = usePopup();
+    const [isUserClap, setIsUserClap] = useState<boolean>(isClap);
+    const [isUserClpas, setIsUserClpas] = useState<number>(claps);
 
     return(
         <>
@@ -49,18 +52,22 @@ function BottomNav({postId, isClap, claps, comment, onCommentClick, bookmark, on
                         community: 'article',
                         postId: postId
                     }).then((response) => {
-                        if(response.data.message == "CREATE SUCCESS" || response.data.message == "DELETE SUCCESS") {
-                            window.location.reload();
+                        if(response.data.message == "CREATE SUCCESS" ) {
+                            setIsUserClap(true);
+                            setIsUserClpas(prev => prev + 1);
+                        } else {
+                            setIsUserClap(false);
+                            setIsUserClpas(prev => prev - 1);
                         }
                     });
                 }}>
                     {
-                        isClap ? 
+                        isUserClap ? 
                         <ClapMainIcon />
                         :
                         <ClapIcon />
                     } 
-                    <span>{claps}</span>
+                    <span>{isUserClpas}</span>
                 </S.NavigationItem>
                 <S.NavigationItem onClick={onCommentClick}>
                     <CommentIcon />

@@ -74,15 +74,27 @@ function Comment({
   };
 
   const submitComment = async (parentCommentId: number | null) => {
-    await post<{
-      shortformId: number;
-      parentCommentId: number | null;
-      content: string;
-    }>(`/community/${type}/comment`, {
-      shortformId: id,
-      parentCommentId: parentCommentId,
-      content: comment,
-    });
+    if(type === "short-form") {
+      await post<{
+        shortformId: number;
+        parentCommentId: number | null;
+        content: string;
+      }>(`/community/${type}/comment`, {
+        shortformId: id,
+        parentCommentId: parentCommentId,
+        content: comment,
+      });
+    } else if(type === "article") {
+      await post<{
+        articleId: number;
+        parentCommentId: number | null;
+        content: string;
+      }>(`/community/${type}/comment`, {
+        articleId: id,
+        parentCommentId: parentCommentId,
+        content: comment,
+      });
+    }
 
     getComments(id);
     setComment("");

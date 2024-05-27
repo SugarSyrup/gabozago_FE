@@ -129,6 +129,7 @@ function UserEditPage() {
             placeholder="나를 한 줄로 소개해보세요! (선택)"
             id="desc"
             name="desc"
+            maxLength={60}
           ></textarea>
           <InputContainer
             inputType="email"
