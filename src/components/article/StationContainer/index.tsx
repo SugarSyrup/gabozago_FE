@@ -3,7 +3,6 @@ import BookIcon from "../../../assets/icons/book.svg?react";
 
 import * as S from "./style";
 import useModal from "../../../hooks/useModal";
-import { useEffect } from "react";
 
 interface Props {
     data: {
@@ -16,10 +15,6 @@ interface Props {
 
 function StationContainer({data, refs}: Props) {
     const {Modal, modalOpen, modalClose, isOpend} = useModal({});
-
-    useEffect(() => {
-        console.log(data);
-    }, [])
 
     return(
         <>
@@ -40,7 +35,7 @@ function StationContainer({data, refs}: Props) {
                                         modalClose()
                                     }}>
                                         <S.StationNumber>Station {station.index}</S.StationNumber>
-                                        <S.StationName>{station.name}</S.StationName>
+                                        <S.StationName dangerouslySetInnerHTML={{__html: station.name}} />
                                     </S.TextContainer>
                                 </S.StationItem>
                             )
@@ -62,7 +57,7 @@ function StationContainer({data, refs}: Props) {
                                     modalClose();
                                 }}>
                                 <S.StationNumber>Station {station.index}</S.StationNumber>
-                                <S.StationName>{station.name}</S.StationName>
+                                <S.StationName dangerouslySetInnerHTML={{__html: station.name}} />
                             </S.TextContainer>
                         </S.StationItem>
                     )

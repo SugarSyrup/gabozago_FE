@@ -5,17 +5,25 @@ import BookMarkIcon from "../../../assets/icons/bookmark.svg?react";
 import Typography from "../../common/Typography";
 
 import * as S from "./style";
+import useScrapModal from "../../video/useScrapModal";
 
 interface Props {
     id: number,
     title: string,
     desc: string,
+    thumbnailURL: string,
+    isBookmarked: boolean;
 }
 
-function ArticleItem({id, title, desc}: Props) {
+function ArticleItem({id, title, desc, thumbnailURL, isBookmarked}: Props) {
     const navigate = useNavigate()
     const ContainerRef = useRef<HTMLDivElement>(null);
+    const [isUserBookmarked, setIsUserBookmarked] = useState(isBookmarked);
     const [opacity, setOpacity] = useState(0.3);
+    const {ScrapModal, scrapModalOpen, scrapModalClose} = useScrapModal({
+        id: Number(id),
+        type: "article"
+    });
 
     useEffect(() => {
         if(!ContainerRef.current) return;
@@ -35,16 +43,26 @@ function ArticleItem({id, title, desc}: Props) {
             threshold: [0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7]
         });
         observer.observe(ContainerRef.current);
-    });
+    }, []);
 
     return (
         <>
-            <S.ArticleItem opacity={opacity} ref={ContainerRef} onClick={() => {navigate(`/article/${id}`)}}>
+            <ScrapModal />
+            <S.ArticleItem opacity={opacity} ref={ContainerRef}>
                 <S.ThumbnailWrapper>
-                    <S.Thumbnail />
-                    <BookMarkIcon />
+                    <S.Thumbnail src={thumbnailURL} onClick={() => {navigate(`/article/${id}`)}} />
+                    <div onClick={() => {
+                        scrapModalOpen();
+                    }}>
+                        {
+                            isUserBookmarked ?
+                            <BookMarkIcon style={{"fill": "#5276FA"}} />
+                            :
+                            <BookMarkIcon />
+                        }
+                    </div>
                 </S.ThumbnailWrapper>
-                <div>
+                <div  onClick={() => {navigate(`/article/${id}`)}} >
                     <Typography.Headline size="sm" noOfLine={2}>{title}</Typography.Headline>
                     <Typography.Title size="md" color="#A6A6A6">{desc}</Typography.Title>
                 </div>

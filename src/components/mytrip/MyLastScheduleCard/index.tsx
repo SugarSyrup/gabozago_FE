@@ -35,7 +35,7 @@ function MyLastScheduleCard({
     return (
         <>
             <MyTripModal />
-            <S.Card>
+            <S.Card  onClick={() => {navigate(`/mytrip/${id}`)}}>
                 <S.InfoContainer>
                     <S.ThumbnailWrapper>
                         <LogoSmallIcon />

@@ -8,6 +8,7 @@ export const Card = styled.div`
     background-color: ${({ theme }) => theme.gray06};
 
     position: relative;
+    cursor: pointer;
 `;
 
 export const InfoContainer = styled.div`
