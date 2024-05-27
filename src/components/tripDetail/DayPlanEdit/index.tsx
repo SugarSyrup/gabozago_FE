@@ -14,10 +14,7 @@ interface Props {
 function DayPlanEdit({ day, date: dateString }: Props) {
   const date = parseDateString(dateString);
   const [tempData, setTempData] = useRecoilState(editingTripPlanState);
-  const [route, setRoute] = useState<SortableRoute[]>(
-    // tempData[day - 1].route || []
-    []
-  );
+  const [route, setRoute] = useState<SortableRoute[]>([]);
 
   useEffect(() => {
     if (
@@ -58,7 +55,7 @@ function DayPlanEdit({ day, date: dateString }: Props) {
           {tempData &&
             route.map((place, index) => (
               <EditablePlaceItem
-                key={place.id}
+                key={`edit-place-${place.detailRouteId}`}
                 day={day}
                 place={place}
                 index={index}

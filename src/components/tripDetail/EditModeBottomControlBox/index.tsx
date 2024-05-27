@@ -48,7 +48,6 @@ function EditModeBottomControlBox() {
       tempData.map((dayPlan) => {
         // 옮겨질 장소들을 targetPlaces에 저장
         dayPlan.route.map((place, index) => {
-          console.log(place);
           if (
             selectedPlaces.some(
               (selected) =>

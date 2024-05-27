@@ -4,7 +4,7 @@ import SelectIcon from "../../../assets/icons/select.svg?react";
 import SelectFilledIcon from "../../../assets/icons/select_filled.svg?react";
 import HamburgerIcon from "../../../assets/icons/hamburger.svg?react";
 import { PlaceData } from "../TripPlanPlaceItem";
-import { SortableRoute } from "../DayPlanEdit";
+import { SortableRoute } from "../../../recoil/tripState";
 import { useRecoilState } from "recoil";
 import { selectedPlacesState } from "../../../recoil/tripState";
 
