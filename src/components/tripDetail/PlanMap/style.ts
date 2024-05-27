@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  width: calc(100% + 40px);
+  transform: translateX(-20px);
+`;
 export const MapOpenButton = styled.button`
   display: block;
   border: 0;

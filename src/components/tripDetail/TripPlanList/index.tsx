@@ -1,46 +1,47 @@
 import * as S from "./style";
-import { useRecoilState } from "recoil";
 import DayPlan from "../DayPlan";
-import DayPlanEdit from "../DayPlanEdit";
 import ArrowBottomIcon from "../../../assets/icons/arrow_bottom.svg?react";
-import { planViewModeState } from "../../../recoil/planViewModeState";
-import { tripPlanState } from "../../../recoil/tripState";
+import { PlaceData } from "../TripPlanPlaceItem";
+import PlanEditMode from "../PlanEditMode";
+import { useRecoilValue } from "recoil";
+import { tripState } from "../../../recoil/tripState";
 
-function TripPlanList() {
-  const [viewMode, setViewMode] = useRecoilState(planViewModeState);
-  const [plan, setPlan] = useRecoilState(tripPlanState);
+export interface DayPlan {
+  day: number;
+  date: string;
+  dayOfWeek: "일" | "월" | "화" | "수" | "목" | "금" | "토";
+  route: PlaceData[];
+}
+
+interface Props {
+  isEditMode: boolean;
+  setIsEditMode: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function TripPlanList({ isEditMode, setIsEditMode }: Props) {
+  const data = useRecoilValue(tripState);
 
   return (
     <S.Container>
-      <S.DayFilterButton onClick={() => {}}>
-        전체 일정
-        <ArrowBottomIcon />
-      </S.DayFilterButton>
+      {data.plan.length >= 0 && (
+        <S.DayFilterButton onClick={() => {}}>
+          전체 일정
+          <ArrowBottomIcon />
+        </S.DayFilterButton>
+      )}
       <S.PlaceListContainer>
-        {viewMode === "EDIT" && (
-          <S.EditComplateButton
-            onClick={() => {
-              setViewMode("PLAN");
-            }}
-          >
-            완료
-          </S.EditComplateButton>
+        {isEditMode ? (
+          <PlanEditMode data={data.plan} setIsEditMode={setIsEditMode} />
+        ) : (
+          data.plan.map((dayPlan) => (
+            <DayPlan
+              day={dayPlan.day}
+              date={dayPlan.date}
+              data={dayPlan.route}
+              setIsEditMode={setIsEditMode}
+            />
+          ))
         )}
-        {viewMode === "EDIT"
-          ? plan?.map((dayPlan) => (
-              <DayPlanEdit
-                day={dayPlan.day}
-                route={dayPlan.route}
-                setPlan={setPlan}
-              />
-            ))
-          : plan?.map((dayPlan) => (
-              <DayPlan
-                day={dayPlan.day}
-                date={dayPlan.date}
-                route={dayPlan.route}
-              />
-            ))}
       </S.PlaceListContainer>
     </S.Container>
   );

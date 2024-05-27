@@ -3,11 +3,10 @@ import { useState } from "react";
 import SelectIcon from "../../../assets/icons/select.svg?react";
 import SelectFilledIcon from "../../../assets/icons/select_filled.svg?react";
 import HamburgerIcon from "../../../assets/icons/hamburger.svg?react";
-
-import { Place } from "../../../assets/data/tripPlanData";
+import { PlaceData } from "../TripPlanPlaceItem";
 
 interface Props {
-  place: Place;
+  place: PlaceData;
   index: number;
 }
 function EditablePlaceItem({ place, index }: Props) {
@@ -54,10 +53,10 @@ function EditablePlaceItem({ place, index }: Props) {
       >
         {isSelected ? <SelectFilledIcon /> : <SelectIcon />}
         <S.PlaceInfo>
-          <span>{index + 1}</span>
+          {/* <span>{index + 1}</span> */}
           <div>
             <p>{place.placeName}</p>
-            <p>{place.theme}</p>
+            <p>{place.placeTheme}</p>
           </div>
         </S.PlaceInfo>
         <HamburgerIcon className="handle" />
