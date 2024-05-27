@@ -93,7 +93,11 @@ function ArticlePage() {
     const [data, setData] = useState<TArticle>();
     const stationRefs = useRef<null[] | HTMLDivElement[]>([]);
 
-    const {Modal, modalOpen, modalClose, isOpend} = useModal({});
+    const {Modal, modalOpen, modalClose, isOpend} = useModal({
+        title: "",
+        handle: false,
+        borderRadius: "16px"
+    });
     const {ScrapModal, scrapModalOpen, scrapModalClose} = useScrapModal({
         id: Number(id),
         type: "article"
@@ -123,11 +127,9 @@ function ArticlePage() {
             <PageTemplate nav={<BottomNav postId={id} isClap={data.isClapped} claps={data.claps} comment={data.commentCount} onScrapClick={() => {scrapModalOpen()}} onCommentClick={() => {modalOpen()}} bookmark={data.bookmark} onShareClick={() => {alertOpen()}}/>}>
                 <Alert />
                 <ScrapModal />
-                <S.ModalWrapper isOpen={isOpend}>
-                    <Modal>
-                        <Comment id={1} commentInputPosition="bottom" type="article" commentCount={data.commentCount} />
-                    </Modal>
-                </S.ModalWrapper>
+                <Modal>
+                    <Comment id={1} commentInputPosition="bottom" type="article" commentCount={data.commentCount} />
+                </Modal>
 
                 <S.BackButtonWrapper>
                     <BackButton />
