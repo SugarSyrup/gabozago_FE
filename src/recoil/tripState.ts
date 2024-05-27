@@ -23,7 +23,7 @@ export const selectedPlacesState = atom<{ day: number; placeIndex: number }[]>({
 });
 
 export type SortableRoute = ItemInterface & PlaceData;
-interface SortableDayPlan extends DayPlan {
+export interface SortableDayPlan extends DayPlan {
   route: SortableRoute[];
 }
 
