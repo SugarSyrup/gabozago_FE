@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
+import {data} from "../../assets/data/articleData";
 import DoubleChevronBottom from "../../assets/icons/double_chevron_bottom.svg?react";
 
 import StationContainer from "../../components/article/StationContainer";
@@ -17,30 +18,12 @@ import InterviewProfile from "../../components/article/InterviewProfile";
 import Interview from "../../components/article/Interview";
 import Typography from "../../components/common/Typography";
 
-import * as S from "./style";
-import { get } from "../../utils/api";
+import * as S from "../ArticlePage/style";
 import useModal from "../../hooks/useModal";
 import Comment from "../../components/journal/Comment";
 import useAlert from "../../hooks/useAlert";
 import useScrapModal from "../../components/video/useScrapModal";
 
-interface TArticle {
-	"title": string,
-	"thumbnailURL": string,
-	"content": string,
-	"checkpoint": string | undefined,
-	
-    "isClapped": boolean,
-    "isBookmarked": boolean,
-    "claps": number,
-    "commentCount": number,
-    "bookmark": number,
-	
-	"nextArticle": {
-		"id": string,
-		"name": string,
-	}
-}
 
 interface TStation {
     index: number,
@@ -78,11 +61,10 @@ interface TPlace {
     type: "place"
 }
 
-function ArticlePage() {
+function ArticleTestPage() {
     const navigate = useNavigate();
     const { id } = useParams();
     const [isLogin, setIsLogin] = useState<boolean>(false);
-    const [data, setData] = useState<TArticle>();
     const ThumbnailWrapperRef = useRef<HTMLDivElement>(null);
     const stationRefs = useRef<null[] | HTMLDivElement[]>([]);
 
@@ -94,13 +76,6 @@ function ArticlePage() {
     const {Alert, alertOpen, alertClose} = useAlert({
         Content: <Typography.Title size="md" color="white">URL이 복사되었습니다.</Typography.Title>,
     });
-
-    useEffect(() => {
-        get<TArticle>(`/community/article/${id}`)
-            .then((response) => {
-                setData(response.data);
-            })
-    }, [])
 
     useEffect(() => {
         if(localStorage.getItem('access_token')) {
@@ -118,7 +93,7 @@ function ArticlePage() {
                 <ScrapModal />
                 <S.ModalWrapper isOpen={isOpend}>
                     <Modal>
-                        <Comment id={1} commentInputPosition="bottom"/>
+                        <Comment id={5} commentInputPosition="bottom"/>
                     </Modal>
                 </S.ModalWrapper>
 
@@ -154,19 +129,14 @@ function ArticlePage() {
                                 case "photo":
                                     return <PlacePhoto photoURLs={content.photoURLs} desc={content.desc} />
                                 case "place":
-                                    return <PlaceInfo placeId={1} imageURL={content.imageURL}/>
+                                    return <PlaceInfo placeId={content.placeId} imageURL={content.imageURL}/>
                             }
                         })
                     }
-                    {
-                        data.checkpoint && <CheckPoints data={JSON.parse(data.checkpoint).data} />
-                    }
-                    {
-                        data.nextArticle &&
-                        <S.NextArticle>
-                            <span>2편 : <Link to={`/article/${data.nextArticle.id}`}>‘{data.nextArticle.name}’</Link> 이어보기</span>
-                        </S.NextArticle>
-                    }
+                    <CheckPoints data={JSON.parse(data.checkpoint).data} />
+                    <S.NextArticle>
+                        <span>2편 : <Link to={`/article/${data.nextArticle.id}`}>‘{data.nextArticle.name}’</Link> 이어보기</span>
+                    </S.NextArticle>
                     </S.Content>
                 </S.StationContainer>
                     {
@@ -185,4 +155,4 @@ function ArticlePage() {
     )
 }
 
-export default ArticlePage;
+export default ArticleTestPage;

@@ -32,7 +32,7 @@ export const Title = styled.h3<Props>`
           color: ${COLOR};
           font-size: 12px;
           font-weight: 600;
-          line-height: 20px;
+          line-height: 32px;
           letter-spacing: 0.1px;
         `;
     }
