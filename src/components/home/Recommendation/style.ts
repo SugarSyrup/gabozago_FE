@@ -47,7 +47,6 @@ export const TopSliderItem = styled.div`
 export const SliderImg = styled.img`
   width:100%;
   height: 166px;
-  background-color:#E4E4E4;
   border-radius:8px;
 
   object-fit:contain;
