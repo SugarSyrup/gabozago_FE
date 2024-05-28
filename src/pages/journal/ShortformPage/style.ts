@@ -35,6 +35,15 @@ export const UrlLabel = styled.label`
 export const UrlInput = styled.input`
   width: 100%;
   padding: 10px 15px;
+  border-radius: 15px;
+  border: 0;
+
+  cursor: pointer;
+  background-color: ${({ theme }) => theme.gray05};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.gray04};
+  }
 `;
 
 export const IconButton = styled.button`

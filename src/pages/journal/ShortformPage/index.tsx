@@ -25,7 +25,7 @@ function ShortFormPage() {
     handle: false,
     borderRadius: "16px",
   });
-  const { Popup, popupOpen } = usePopup();
+  const { Popup, popupOpen, popupClose } = usePopup();
 
   const createCopyURL = (id: number) => {
     const arr = window.location.href.split("/").slice(0, -1);
@@ -93,7 +93,16 @@ function ShortFormPage() {
               name="현재 링크 복사"
               id="urlCopy"
               value={createCopyURL(shortforms[focusIndex].id)}
-              disabled
+              onClick={(e) => {
+                e.preventDefault();
+                navigator.clipboard.writeText(
+                  `${shortforms[focusIndex].title}\n${createCopyURL(
+                    shortforms[focusIndex].id
+                  )}`
+                );
+                alert("복사되었습니다.");
+                popupClose();
+              }}
             />
           </Popup>
           <S.Container
