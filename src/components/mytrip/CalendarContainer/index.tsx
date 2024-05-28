@@ -64,8 +64,7 @@ function CalendarContainer() {
         let month = currentDateInfo.getMonth() + 1;
         let year = currentDateInfo.getFullYear();
 
-
-        if(createType !== "create" && Number(dates.startDate.slice(0,4)) <= year) {
+        if(createType === "edit" && Number(dates.startDate.slice(0,4)) <= year) {
             year = Number(dates.startDate.slice(0,4));
             if(Number(dates.startDate.slice(4,6)) < month)  {
                 month = Number(dates.startDate.slice(4,6));
@@ -109,7 +108,7 @@ function CalendarContainer() {
                                         regions: addLocation
                                     }).then(
                                         (response) => {
-                                            navigate(`/mytrip/${response.data.id}`)
+                                            navigate(-1);
                                         }
                                     )
                                     return;
