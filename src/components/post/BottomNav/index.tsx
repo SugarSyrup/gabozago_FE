@@ -33,7 +33,7 @@ function BottomNav({
   onShareClick,
   onScrapClick,
   title,
- isBookmarked
+  isBookmarked,
 }: Props) {
   const { Popup, popupOpen, popupClose } = usePopup();
   const [isUserClap, setIsUserClap] = useState<boolean>(isClap);
@@ -61,7 +61,7 @@ function BottomNav({
       <S.Navigation>
         <S.NavigationItem
           onClick={() => {
-            if(localStorage.getItem('access_token')) {
+            if (localStorage.getItem("access_token")) {
               post<{
                 message: "CREATE SUCCESS" | "DELETE SUCCESS";
               }>(`/clap/community`, {
@@ -82,30 +82,38 @@ function BottomNav({
           {isUserClap ? <ClapMainIcon /> : <ClapIcon />}
           <span>{isUserClpas}</span>
         </S.NavigationItem>
-        <S.NavigationItem onClick={() => {
-          if(localStorage.getItem('access_token')){
-            onCommentClick();
-          }
-        }>
+        <S.NavigationItem
+          onClick={() => {
+            if (localStorage.getItem("access_token")) {
+              onCommentClick();
+            }
+          }}
+        >
           <CommentIcon />
           <span>{comment}</span>
         </S.NavigationItem>
-        <S.NavigationItem isBookmarked={isBookmarked}
+        <S.NavigationItem
+          isBookmarked={isBookmarked}
           onClick={() => {
-            if(isBookmarked) {
-              post<{ message: "Create Success" | "Delete Success" }>(`/folder/scrap/community`, {
-                community: "article",
-                postId: postId
-              }).then(() => {
+            if (isBookmarked) {
+              post<{ message: "Create Success" | "Delete Success" }>(
+                `/folder/scrap/community`,
+                {
+                  community: "article",
+                  postId: postId,
+                }
+              ).then(() => {
                 window.location.reload();
               });
-            }
-            else {
-              if(localStorage.getItem('access_token')){
-                post<{ message: "Create Success" | "Delete Success" }>(`/folder/scrap/community`, {
-                  community: "article",
-                  postId: postId
-                }).then(() => {
+            } else {
+              if (localStorage.getItem("access_token")) {
+                post<{ message: "Create Success" | "Delete Success" }>(
+                  `/folder/scrap/community`,
+                  {
+                    community: "article",
+                    postId: postId,
+                  }
+                ).then(() => {
                   window.location.reload();
                 });
                 onScrapClick();
