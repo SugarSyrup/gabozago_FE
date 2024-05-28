@@ -15,18 +15,7 @@ interface TData {
 }
 
 function AnnouncePage() {
-  const [data, setData] = useState<TData[]>([
-    {
-      id: 2,
-      title: "공지사항2",
-      createdAt: "2024-04-12",
-    },
-    {
-      id: 1,
-      title: "공지사항1",
-      createdAt: "2024-04-12",
-    },
-  ]);
+  const [data, setData] = useState<TData[]>([]);
 
   useEffect(() => {
     get<{
