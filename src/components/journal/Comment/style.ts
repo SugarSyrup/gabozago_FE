@@ -70,6 +70,11 @@ export const UserProfileImgBox = styled.div`
   width: 33px;
   height: 33px;
   overflow: hidden;
+
+  & > svg {
+    width: 33px;
+    height: 33px;
+  }
 `;
 
 export const UserProfileImg = styled.img`
