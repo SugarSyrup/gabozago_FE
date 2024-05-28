@@ -22,6 +22,7 @@ export const Item = styled.li`
     border-bottom: 1px solid ${({theme}) => theme.gray04};
 
     svg{
+        flex-shrink:0;
         width:24px;
         height:24px;
 

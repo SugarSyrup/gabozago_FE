@@ -7,6 +7,7 @@ import LogoIcon from "../../../assets/icons/logo_small.svg?react";
 import LocationIcon from "../../../assets/icons/location.svg?react";
 import Typography from "../../common/Typography";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 interface Props {
   type: "short-form" | "article";
@@ -32,18 +33,16 @@ function RecommendationReviewItem({
   videoId,
 }: Props) {
   const navigate = useNavigate();
+  useEffect(() => {
+    console.log(name);
+  })
+
   return (
     <S.Container >
       <S.Thumbnail>
         {
-          type === "article" && thumbnailURL ? 
-          <img src={thumbnailURL} />
-          :
-          <LogoIcon />
-        }
-        {
-          type === "short-form" && thumbnailURL ? 
-          <img src={`https://i.ytimg.com/vi/${videoId}/oardefault.jpg`} />
+          thumbnailURL ? 
+          <img src={type === "short-form" ? `https://i.ytimg.com/vi/${videoId}/oardefault.jpg` : thumbnailURL} />
           :
           <LogoIcon />
         }

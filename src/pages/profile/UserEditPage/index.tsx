@@ -16,13 +16,16 @@ import usePopup from "../../../hooks/usePopup";
 import { BrandIcon } from "../../auth/SignUpPage/style";
 import Typography from "../../../components/common/Typography";
 import { patch } from "../../../utils/api";
+import Nickname from "../../../components/signUp/Nickname";
 
 function UserEditPage() {
   const { id, nickname, description, avatarURL, clapCount, scrapCount, myTravelCount, myTravelDay } = useLoaderData() as TUserProfile;
   const { Popup, popupOpen, popupClose } = usePopup();
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [nameValue, setNameValue] = useState(nickname);
   const [descValue, setDescValue] = useState(description);
   const [isAvatarChanged, setIsAvatarChanged] = useState(false);
+  const [isNicknameOk, setIsNicknameOk] = useState(false);
   const navigate = useNavigate();
 
   const [userAvatarURL, setUserAvatarURL] = useState(avatarURL);
@@ -55,32 +58,31 @@ function UserEditPage() {
           </div>
         </S.PopupContainer>
       </Popup>
-      <S.Header>
-        <S.CloseIconWrapper>
-          <XIcon
-            onClick={() => {
-              navigate(-1);
-            }}
-          />
-        </S.CloseIconWrapper>
-        <Heading size="sm">프로필 수정</Heading>
-        <S.SubmitBtn
-          isActive={nameValue !== nickname || descValue !== description || isAvatarChanged}
-          onClick={() => {
-            if (nameValue !== nickname || descValue !== description || isAvatarChanged) {
-              patch('/user/profile', {
-                avatarURL: userAvatarURL,
-                nickname: nameValue,
-                desc: descValue,
-              })
-              window.location.reload();
+      <S.Form 
+          onSubmit={(e) => {
+            e.preventDefault();
+            const formdata = new FormData(e.currentTarget);
+            if (isNicknameOk || descValue !== description || isAvatarChanged) {
+              patch('/user/profile', formdata);
             }
           }}
         >
-          완료
-        </S.SubmitBtn>
-      </S.Header>
-      <S.Form>
+        <S.Header>
+          <S.CloseIconWrapper>
+            <XIcon
+              onClick={() => {
+                navigate(-1);
+              }}
+            />
+          </S.CloseIconWrapper>
+          <Heading size="sm">프로필 수정</Heading>
+          <S.SubmitBtn
+            type="submit"
+            isActive={nameValue !== nickname || descValue !== description || isAvatarChanged}
+          >
+            완료
+          </S.SubmitBtn>
+        </S.Header>
         <S.AvatarWrapper>
           {
             userAvatarURL === "" ?
@@ -92,10 +94,10 @@ function UserEditPage() {
               borderRadius:"100%",
             }}/>
           }
-          <S.CameraIconWrapper htmlFor="avatarURL">
+          <S.CameraIconWrapper htmlFor="avatar">
             <CameraCircleIcon width={24} height={24} />
           </S.CameraIconWrapper>
-          <input type="file" name="avatarURL" id="avatarURL" accept="image/*" onInput={(e) => {
+          <input type="file" name="avatar" id="avatar" accept="image/*" onInput={(e) => {
             if(e.currentTarget.files){
               const file = e.currentTarget.files[0];
               const reader = new FileReader();
@@ -103,22 +105,13 @@ function UserEditPage() {
               reader.readAsDataURL(file);
               reader.onloadend = () => {
                 setUserAvatarURL(reader.result as string);
+                setAvatarFile(file);
                 setIsAvatarChanged(true);
               }
             }
           }}/>
         </S.AvatarWrapper>
-        <S.InputContainer>
-          <label htmlFor="username">이름</label>
-          <input
-            defaultValue={nickname}
-            onChange={(e) => {
-              setNameValue(e.currentTarget.value);
-            }}
-            name="username"
-            id="username"
-          ></input>
-        </S.InputContainer>
+       <Nickname setIsNicknameOk={setIsNicknameOk} defaultValue={nickname}/>
         <S.InputContainer>
           <label htmlFor="desc">소개</label>
           <textarea

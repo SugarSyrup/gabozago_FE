@@ -37,6 +37,9 @@ function MyTripLocationSearchPage() {
     onChange: onChange,
     backgroundColor: "white",
     borderColor: "#ADADAD",
+    onSubmit: (e) => {
+      e.preventDefault();
+    }
   });
   const {Popup, popupOpen, popupClose, isOpend} = usePopup();
   const [selectedPlaces, setSelectedPlaces] = useRecoilState(selectedPlacesState);

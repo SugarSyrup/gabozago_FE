@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { get } from "../../../utils/api";
 import ArticleItem from "../ArticleItem";
 
@@ -18,13 +18,42 @@ interface TArticle {
 
 function Articles() {
     const [articleData, setArticleData] = useState<TArticle['results']>([]);
+    const [next, setNext] = useState<TArticle['next']>(null);
+    const infiniteRef = React.useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         get<TArticle>('/community/article?ordering=latest')
             .then((response) => {
                 setArticleData(response.data.results);
+                setNext(response.data.next);
             })
     }, [])
+
+    useEffect(() => {
+        const options = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if(entry.isIntersecting && next) {
+                    get<TArticle>(next)
+                        .then((response) => {
+                            setArticleData([...articleData, ...response.data.results]);
+                            setNext(response.data.next);
+                        })
+                }
+            })
+        }, options)
+
+        if(infiniteRef.current) {
+            observer.observe(infiniteRef.current);
+        }
+
+        return () => observer.disconnect();
+    })
 
     return (
         <S.Container>
@@ -38,6 +67,7 @@ function Articles() {
                         isBookmarked={article.isBookmarked}
                     />)
                 }
+                <div ref={infiniteRef}/>
             </S.ArticleList>
         </S.Container>
     )

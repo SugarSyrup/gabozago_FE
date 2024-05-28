@@ -15,10 +15,11 @@ interface Props {
     title: string,
     departureDate: string,
     arrivalDate: string,
-    location: string[]
+    location: string[],
+    thumbnailURL: string,
 }
 
-function TripItem({id, title, location, departureDate, arrivalDate}: Props) {
+function TripItem({id, title, location, departureDate, arrivalDate, thumbnailURL}: Props) {
     const navigate = useNavigate();
     const {MyTripModal, modalOpen, modalClose, isModalOpend} = useMyTripModal({
         id: id,
@@ -32,7 +33,12 @@ function TripItem({id, title, location, departureDate, arrivalDate}: Props) {
             <MyTripModal />
             <S.Container onClick={() => {navigate(`/mytrip/${id}`)}}>
                 <S.ThumbnailWrapper>
-                    <SmallLogoIcon />
+                    {
+                        thumbnailURL ?
+                        <img src={thumbnailURL} alt="thumbnail" />
+                        :
+                        <SmallLogoIcon />
+                    }
                 </S.ThumbnailWrapper>
                 <S.Info>
                     <S.Name><Typography.Title size="md">{title}</Typography.Title></S.Name>

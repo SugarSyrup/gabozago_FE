@@ -40,6 +40,12 @@ export const ThumbnailWrapper = styled.div`
         width:24px;
         height:24px;
     }
+
+    img{
+        width:100%;
+        height:100%;
+        border-radius: 100%;
+    }
 `;
 
 export const TextContainer = styled.div`

@@ -15,6 +15,7 @@ import useAlert from "../../../hooks/useAlert";
 import { get, post } from "../../../utils/api";
 
 import * as S from "./style";
+import { datesState } from "../../../recoil/mytrip/createData";
 
 
 export interface TMyTravelItem {
@@ -36,6 +37,7 @@ const PlaceAddPage = () => {
     const navigate = useNavigate();
 
     const [data, setData] = useState<TMyTravelItem[]>([]);
+    const setDates = useSetRecoilState(datesState);
     const [placeData, setPlaceData] = useState<{
         region: string,
         name: string,
@@ -159,7 +161,10 @@ const PlaceAddPage = () => {
                 <Typography.Title size="lg">{data.length !== 0 && "나의 다가오는 여행"}</Typography.Title>
                 <S.CreateNewTravelButton onClick={() => {
                     if(placeData === undefined) return;
-                    
+                    setDates({
+                        startDate: "",
+                        endDate: ""
+                    })
                     setCreateTravelState('add');
                     setAddLocationState(placeData.region);
                     navigate('/mytrip/create')

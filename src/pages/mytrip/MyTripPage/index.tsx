@@ -22,7 +22,8 @@ type travelResponseType = {
   "title": string,
   "departure_date": string
   "arrival_date": string,
-  "regions": string[]
+  "regions": string[],
+  "thumbnailURL": string,
 }[]
 
 function MyTripPage() {
@@ -58,7 +59,13 @@ function MyTripPage() {
           <S.NoUpCommingContainer>
             <S.HeadingContainer>
               <Typography.Headline size="md">{nickname} 님</Typography.Headline>
-              <Typography.Title size="lg"><S.TextHighlight>가보자고</S.TextHighlight>와 첫 여행 일정을 세워보세요!</Typography.Title>
+              {
+                tripHistory.length !== 0 ?
+                <Typography.Title size="lg"><S.TextHighlight>가보자고</S.TextHighlight>와 첫 여행 일정을 세워보세요!</Typography.Title>
+                :
+                <Typography.Title size="lg">아직 여행 일정이 없어요!</Typography.Title>
+              }
+              
             </S.HeadingContainer>
 
             <S.CreateMyTripButton>
@@ -88,7 +95,7 @@ function MyTripPage() {
         (
           <S.ContainerWithPlan>
             <S.HeadingContainer>
-              <Typography.Headline size="md">최민석 님</Typography.Headline>
+              <Typography.Headline size="md">{nickname} 님</Typography.Headline>
               <Typography.Title size="lg">다가오는 여행이 있어요!</Typography.Title>
             </S.HeadingContainer>
 

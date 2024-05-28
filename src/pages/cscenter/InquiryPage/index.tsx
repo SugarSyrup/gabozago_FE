@@ -214,6 +214,7 @@ function InquiryPage() {
             required={true}
             value={form.title}
             placeholder="제목을 입력하세요."
+            maxLength={30}
             onChange={(e) => {
               setForm((prev) => ({ ...prev, title: e.target.value }));
             }}

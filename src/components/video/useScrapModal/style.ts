@@ -154,34 +154,9 @@ export const SeperateLine = styled.div`
   margin-left: -20px;
 `;
 
-const fadeIn = keyframes`
-  0% {
-    opacity: 0;
-    display: none;
-  }
-  100% {
-    opacity: 1;
-    display:flex;
-  }
-`;
-
-const fadeOut = keyframes`
-  0% {
-    opacity: 1;
-    display:flex;
-  }
-  100% {
-    opacity: 0;
-    display:none;
-  }
-`;
 
 export const CreateScrapFolder = styled.div<{ isOpen: boolean }>`
-  animation: ${({ isOpen }) => (isOpen ? fadeIn : fadeOut)} 0.15s ease-out;
   display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
-  width: 100%;
-  /* 추가 */
-  height: 100dvh;
   left: 0;
   right: 0;
   bottom: 0;

@@ -57,6 +57,7 @@ function SelectedPlaces() {
               day: day
           }).then((response) => {
               if(response.status === 201) {
+                  setSelectedPlaces([]);
                   navigate(-1);
               }
           })

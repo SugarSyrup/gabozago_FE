@@ -8,17 +8,18 @@ import ShareIcon from "../../../assets/icons/share.svg?react";
 
 import * as S from "./style";
 import usePopup from "../../../hooks/usePopup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Props {
   postId: number;
   isClap: boolean;
+  isBookmarked: boolean;
   claps: number;
   comment: number;
   onCommentClick: () => void;
   bookmark: number;
-  onShareClick?: () => void;
-  onScrapClick?: () => void;
+  onShareClick: () => void;
+  onScrapClick: () => void;
   title?: string;
 }
 
@@ -32,6 +33,7 @@ function BottomNav({
   onShareClick,
   onScrapClick,
   title,
+ isBookmarked
 }: Props) {
   const { Popup, popupOpen, popupClose } = usePopup();
   const [isUserClap, setIsUserClap] = useState<boolean>(isClap);
@@ -59,32 +61,56 @@ function BottomNav({
       <S.Navigation>
         <S.NavigationItem
           onClick={() => {
-            post<{
-              message: "CREATE SUCCESS" | "DELETE SUCCESS";
-            }>(`/clap/community`, {
-              community: "article",
-              postId: postId,
-            }).then((response) => {
-              if (response.data.message == "CREATE SUCCESS") {
-                setIsUserClap(true);
-                setIsUserClpas((prev) => prev + 1);
-              } else {
-                setIsUserClap(false);
-                setIsUserClpas((prev) => prev - 1);
-              }
-            });
+            if(localStorage.getItem('access_token')) {
+              post<{
+                message: "CREATE SUCCESS" | "DELETE SUCCESS";
+              }>(`/clap/community`, {
+                community: "article",
+                postId: postId,
+              }).then((response) => {
+                if (response.data.message == "CREATE SUCCESS") {
+                  setIsUserClap(true);
+                  setIsUserClpas((prev) => prev + 1);
+                } else {
+                  setIsUserClap(false);
+                  setIsUserClpas((prev) => prev - 1);
+                }
+              });
+            }
           }}
         >
           {isUserClap ? <ClapMainIcon /> : <ClapIcon />}
           <span>{isUserClpas}</span>
         </S.NavigationItem>
-        <S.NavigationItem onClick={onCommentClick}>
+        <S.NavigationItem onClick={() => {
+          if(localStorage.getItem('access_token')){
+            onCommentClick();
+          }
+        }>
           <CommentIcon />
           <span>{comment}</span>
         </S.NavigationItem>
-        <S.NavigationItem
+        <S.NavigationItem isBookmarked={isBookmarked}
           onClick={() => {
-            onScrapClick && onScrapClick();
+            if(isBookmarked) {
+              post<{ message: "Create Success" | "Delete Success" }>(`/folder/scrap/community`, {
+                community: "article",
+                postId: postId
+              }).then(() => {
+                window.location.reload();
+              });
+            }
+            else {
+              if(localStorage.getItem('access_token')){
+                post<{ message: "Create Success" | "Delete Success" }>(`/folder/scrap/community`, {
+                  community: "article",
+                  postId: postId
+                }).then(() => {
+                  window.location.reload();
+                });
+                onScrapClick();
+              }
+            }
           }}
         >
           <BookMarkIcon />

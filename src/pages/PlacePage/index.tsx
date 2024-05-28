@@ -46,9 +46,8 @@ function PlacePage() {
     });
 
     useEffect(() => {
-        get<TData>(`${import.meta.env.VITE_BASE_URL}/place/${id}`)
+        get<TData>(`/place/${id}`)
             .then((response) => {
-                console.log(response.data);
                 setData(response.data)
             });
     }, [])
@@ -77,9 +76,9 @@ function PlacePage() {
 
                                     const reqData = new FormData();
                                     reqData.append('placeId', id as string);
-                                    reqData.append('image', e.currentTarget.value);
+                                    reqData.append('image', file);
                                     
-                                    post(`${import.meta.env.VITE_BASE_URL}/place/image`, reqData, {
+                                    post(`/place/image`, reqData, {
                                         headers: {
                                             "Content-Type":"multipart/form-data"
                                         }
