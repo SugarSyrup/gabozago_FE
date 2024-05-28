@@ -10,9 +10,9 @@ export const ModalWrapper = styled.div<{ isOpened: boolean }>`
 
   margin: auto;
   max-width: 500px;
-  max-height: 100vh;
+  max-height: 100dvh;
   width: 100%;
-  height: 100vh;
+  height: 100dvh;
 `;
 
 export const ModalContainer = styled.div`
@@ -28,7 +28,7 @@ export const ModalContainer = styled.div`
     content: "";
     display: block;
     width: 100%;
-    height: 100vh;
+    height: 100dvh;
     opacity: 30%;
     background-color: ${({ theme }) => theme.black};
   }
@@ -39,7 +39,7 @@ export const Modal = styled.div<{ borderRadius: string }>`
   position: absolute;
   bottom: 0;
   width: 100%;
-  max-height: 80vh;
+  max-height: 80dvh;
   background-color: ${({ theme }) => theme.white};
   border-radius: ${({ borderRadius }) =>
     `${borderRadius} ${borderRadius} 0px 0px`};

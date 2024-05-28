@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const SelectContainer = styled.div`
-  max-height: 60vh;
+  max-height: 60dvh;
   overflow-y: auto;
 `;
 

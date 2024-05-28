@@ -14,9 +14,9 @@ export const Container = styled.div<{ header: boolean }>`
   grid-template-columns: 100%;
   margin: auto;
   max-width: 500px;
-  max-height: 100vh;
+  max-height: 100dvh;
   width: 100%;
-  height: 100vh;
+  height: 100dvh;
   background-color: ${({ theme }) => theme.white};
 `;
 
