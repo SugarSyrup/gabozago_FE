@@ -26,9 +26,6 @@ export const ThumbnailWrapper = styled.div`
         width:40px;
         height:40px;
 
-        position:absolute;
-        right:20px;
-        top:20px;
     }
 `
 
@@ -40,7 +37,7 @@ export const Thumbnail = styled.img`
 export const BookMarkWrapper = styled.div<{isBookmark:boolean}>`
     position:absolute;
     right:10px;
-    bottom:50px;
+    bottom:10px;
     z-index:20;
 
     svg{
