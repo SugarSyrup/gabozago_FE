@@ -12,7 +12,13 @@ interface Options {
 }
 
 function useReportPopup({ type, postId = null, commentId = null }: Options) {
-  const { Alert, alertOpen } = useAlert({ Content: "신고가 접수되었습니다." });
+  const { Alert, alertOpen } = useAlert({
+    Content: (
+      <Typography.Body size="lg" color="white">
+        신고가 접수되었습니다.
+      </Typography.Body>
+    ),
+  });
   const { Popup, popupOpen, popupClose } = usePopup();
   const [isDone, setIsDone] = useState<boolean>(false);
   const reasons = [

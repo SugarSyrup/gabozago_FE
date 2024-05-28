@@ -123,6 +123,7 @@ function CommentItem({
     {
       icon: <ExclamationIcon />,
       name: "신고하기",
+      iconColor: "white",
       onClick: () => {
         reportPopupOpen();
         commentMenuModalClose();
@@ -207,7 +208,12 @@ function CommentItem({
             <>
               <S.ReplyList>
                 {replys.map((item) => (
-                  <CommentItem {...item} isReply={true} type={type} />
+                  <CommentItem
+                    {...item}
+                    isReply={true}
+                    type={type}
+                    deleteComments={deleteComments}
+                  />
                 ))}
               </S.ReplyList>
               <S.ReplyToggleButton
