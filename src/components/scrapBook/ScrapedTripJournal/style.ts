@@ -10,9 +10,9 @@ export const ModalWrapper = styled.div<{ isOpen: boolean }>`
 
   margin: auto;
   max-width: 500px;
-  max-height: 100vh;
+  max-height: 100dvh;
   width: 100%;
-  height: 100vh;
+  height: 100dvh;
 `;
 
 export const GroupList = styled.ol`

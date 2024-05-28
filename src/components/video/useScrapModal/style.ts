@@ -57,7 +57,7 @@ export const TravelListHeader = styled.div`
 `;
 
 export const TravelList = styled.ol`
-  max-height: 40vh;
+  max-height: 40dvh;
   width: 100%;
   padding-bottom: 10px;
 
@@ -181,7 +181,7 @@ export const CreateScrapFolder = styled.div<{ isOpen: boolean }>`
   display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
   width: 100%;
   /* 추가 */
-  height: 100vh;
+  height: 100dvh;
   left: 0;
   right: 0;
   bottom: 0;

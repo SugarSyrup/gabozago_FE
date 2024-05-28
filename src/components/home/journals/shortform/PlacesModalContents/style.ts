@@ -8,7 +8,7 @@ export const PlaceList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 5px;
-  max-height: 40vh;
+  max-height: 40dvh;
   overflow-y: auto;
 `;
 

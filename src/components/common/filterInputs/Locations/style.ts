@@ -6,7 +6,7 @@ export const LocationContainer = styled.div`
   display: grid;
   width: 100%;
   height: 400px;
-  max-height: 80vh;
+  max-height: 80dvh;
   overflow-y: auto;
   grid-template-columns: 140px 1fr;
   grid-template-rows: 1fr;
