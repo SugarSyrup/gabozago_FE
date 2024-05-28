@@ -8,7 +8,7 @@ export const MenuList = styled.ul`
   padding-bottom: 10px;
 `;
 
-export const MenuItem = styled.li<{ color?: "gray" }>`
+export const MenuItem = styled.li<{ color?: string }>`
   padding: 5px 0;
   display: grid;
   grid-template-columns: 24px 1fr;
@@ -28,7 +28,7 @@ export const MenuItem = styled.li<{ color?: "gray" }>`
     line-height: 0;
 
     path {
-      fill: ${({ color, theme }) => (color === "gray" ? theme.gray01 : "")};
+      fill: ${({ color, theme }) => (color ? color : theme.gray01)};
     }
   }
 `;
