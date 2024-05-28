@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const List = styled.ol`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, auto));
+  grid-template-columns: repeat(2, minmax(150px, 1fr));
   gap: 20px 20px;
 `;
 
@@ -39,10 +39,10 @@ export const InfoBox = styled.div`
       }
     }
 
-    display:flex;
-    align-items:center;
-    justify-content:flex-start;
-    gap:5px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 5px;
   }
 
   p:nth-child(2) {
