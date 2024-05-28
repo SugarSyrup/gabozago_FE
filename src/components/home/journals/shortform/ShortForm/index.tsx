@@ -71,6 +71,7 @@ function ShortForm({
     isActive: boolean;
   }>({ count: defaultBookmark, isActive: defaultIsBookmarked });
   const containerRef = useRef<HTMLDivElement>(null);
+  const contentContainerRef = useRef<HTMLParagraphElement>(null);
   const playerRef = useRef<YouTube>(null);
   const playerOpts = {
     autoplay: 1,
@@ -83,15 +84,11 @@ function ShortForm({
     playlist: videoId,
   };
   const [isContentOpened, setIsContentOpened] = useState<boolean>(false);
-  const {
-    Modal: PlacesModal,
-    modalOpen: placesModalOpen,
-    modalClose: placesModalClose,
-  } = useModal({
+  const { Modal: PlacesModal, modalOpen: placesModalOpen } = useModal({
     title: "태그된 장소",
     handle: true,
   });
-  const { ScrapModal, scrapModalOpen, scrapModalClose } = useScrapModal({
+  const { ScrapModal, scrapModalOpen } = useScrapModal({
     id: id,
     type: "short-form",
   });
@@ -136,6 +133,12 @@ function ShortForm({
   }, [visible]);
 
   useEffect(() => {
+    if (!isContentOpened && contentContainerRef.current !== null) {
+      contentContainerRef.current.scrollTop = 0;
+    }
+  }, [isContentOpened]);
+
+  useEffect(() => {
     const { current: container } = containerRef;
     playerRef.current
       ?.getInternalPlayer()
@@ -177,24 +180,29 @@ function ShortForm({
         <S.InfoBox>
           <p>
             <Link to={`profile/${userid}`}>
-              {profileImage ? (
-                <UserIcon />
-              ) : (
-                <S.ProfileImage src={profileImage} alt="" />
-              )}
+              <S.ProgileImageBox>
+                {profileImage ? (
+                  <img src={profileImage} alt="" />
+                ) : (
+                  <UserIcon />
+                )}
+              </S.ProgileImageBox>
               <span>{username}</span>
             </Link>
           </p>
           <p>{title}</p>
           <S.ContentBox
+            ref={contentContainerRef}
             isOpened={isContentOpened}
             onClick={() => {
               setIsContentOpened((prev) => !prev);
             }}
           >
-            {content.split("\n").map((line) => (
-              <p>{line}</p>
-            ))}
+            {isContentOpened ? (
+              content.split("\n").map((line) => <p>{line}</p>)
+            ) : (
+              <p>{content.split("\n")[0]}</p>
+            )}
           </S.ContentBox>
           <S.BottomInfoContainer>
             <span>
@@ -221,7 +229,6 @@ function ShortForm({
           <S.IconButton
             onClick={(e) => {
               e.preventDefault();
-              // toggleBookmark();
               scrapModalOpen();
             }}
           >
