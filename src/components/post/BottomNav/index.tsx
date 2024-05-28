@@ -8,11 +8,12 @@ import ShareIcon from "../../../assets/icons/share.svg?react";
 
 import * as S from "./style";
 import usePopup from "../../../hooks/usePopup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Props {
     postId: number;
     isClap: boolean;
+    isBookmarked: boolean;
     claps:number;
     comment:number;
     onCommentClick: () => void;
@@ -21,10 +22,14 @@ interface Props {
     onScrapClick: () => void;
 }
 
-function BottomNav({postId, isClap, claps, comment, onCommentClick, bookmark, onShareClick, onScrapClick}: Props) {
+function BottomNav({postId, isClap, claps, comment, onCommentClick, bookmark, onShareClick, onScrapClick, isBookmarked}: Props) {
     const {Popup, popupOpen, popupClose} = usePopup();
     const [isUserClap, setIsUserClap] = useState<boolean>(isClap);
     const [isUserClpas, setIsUserClpas] = useState<number>(claps);
+
+    useEffect(() => {
+        console.log(isBookmarked);
+    })
 
     return(
         <>
@@ -79,9 +84,24 @@ function BottomNav({postId, isClap, claps, comment, onCommentClick, bookmark, on
                     <CommentIcon />
                     <span>{comment}</span>
                 </S.NavigationItem>
-                <S.NavigationItem onClick={() => {
-                    if(localStorage.getItem('access_token')){
-                        onScrapClick();
+                <S.NavigationItem isBookmarked={isBookmarked}
+                onClick={() => {
+                    if(isBookmarked) {
+                        post<{ message: "Create Success" | "Delete Success" }>(`/folder/scrap/community`, {
+                            community: "article",
+                            postId: postId
+                        }).then(() => {
+                            window.location.reload();
+                        });
+                    }
+                    else {
+                        if(localStorage.getItem('access_token')){
+                            post<{ message: "Create Success" | "Delete Success" }>(`/folder/scrap/community`, {
+                                community: "article",
+                                postId: postId
+                            });
+                            onScrapClick();
+                        }
                     }
                 }}>
                     <BookMarkIcon />

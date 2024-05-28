@@ -46,14 +46,9 @@ function useScrapModal({ id, type }: Props) {
     getFolders();
   }, []);
 
-  useEffect(() => {
-    post<{ message: "Create Success" | "Delete Success" }>(`/folder/scrap/community`, {
-      community: type,
-      postId: id
-    });
-  }, [])
 
   function ScrapModal() {
+
     return (
       <>
         <Modal>

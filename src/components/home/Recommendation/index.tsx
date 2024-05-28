@@ -81,6 +81,10 @@ function Recommendation() {
                                     }
                                     else {
                                         if(localStorage.getItem("access_token")) {
+                                            post<{ message: "Create Success" | "Delete Success" }>(`/folder/scrap/community`, {
+                                                community: "article",
+                                                postId: article.id
+                                            });
                                             setCurrentArticleId(article.id);
                                             scrapModalOpen();
                                         }
@@ -113,6 +117,10 @@ function Recommendation() {
                                     }
                                     else {
                                         if(localStorage.getItem("access_token")) {
+                                            post<{ message: "Create Success" | "Delete Success" }>(`/folder/scrap/community`, {
+                                                community: "article",
+                                                postId: article.id
+                                            });
                                             setCurrentArticleId(article.id);
                                             scrapModalOpen();
                                         }

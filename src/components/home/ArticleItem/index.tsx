@@ -62,6 +62,10 @@ function ArticleItem({id, title, desc, thumbnailURL, isBookmarked}: Props) {
                         }
                         else {
                             if(localStorage.getItem("access_token")) {
+                                post<{ message: "Create Success" | "Delete Success" }>(`/folder/scrap/community`, {
+                                    community: "article",
+                                    postId: id
+                                });
                                 scrapModalOpen();
                             }
                         }
