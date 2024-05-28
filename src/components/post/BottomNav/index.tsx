@@ -99,6 +99,8 @@ function BottomNav({postId, isClap, claps, comment, onCommentClick, bookmark, on
                             post<{ message: "Create Success" | "Delete Success" }>(`/folder/scrap/community`, {
                                 community: "article",
                                 postId: postId
+                            }).then(() => {
+                                window.location.reload();
                             });
                             onScrapClick();
                         }
