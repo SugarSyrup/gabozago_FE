@@ -67,10 +67,12 @@ function TripPlanPlaceItem({
               <LocationIcon />
               {location}
             </S.InfoSpan>
-            <S.InfoSpan>
-              <ThemeIcon />
-              {placeTheme}
-            </S.InfoSpan>
+            {placeTheme && (
+              <S.InfoSpan>
+                <ThemeIcon />
+                {placeTheme}
+              </S.InfoSpan>
+            )}
           </S.InfoContainer>
         </div>
         <S.MemoButton
