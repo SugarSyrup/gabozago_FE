@@ -1,9 +1,11 @@
 import * as S from "./style";
 import Heading from "../../common/Heading";
 import SendIcon from "../../../assets/icons/send.svg?react";
+import UserIcon from "../../../assets/icons/user.svg?react";
 import CommentItem, { Comment as TComment } from "../CommentItem";
 import { useEffect, useRef, useState } from "react";
 import { deletes, get, post } from "../../../utils/api";
+import { useLoaderData } from "react-router-dom";
 
 interface TParsedComment extends TComment {
   replys: TComment[];
@@ -22,6 +24,7 @@ function Comment({
   type,
   commentCount,
 }: Props) {
+  const profileImage = useLoaderData() as string;
   const inputRef = useRef<HTMLInputElement>(null);
   const [reply, setReply] = useState<{
     isReplyMode: boolean;
@@ -74,7 +77,7 @@ function Comment({
   };
 
   const submitComment = async (parentCommentId: number | null) => {
-    if(type === "short-form") {
+    if (type === "short-form") {
       await post<{
         shortformId: number;
         parentCommentId: number | null;
@@ -84,7 +87,7 @@ function Comment({
         parentCommentId: parentCommentId,
         content: comment,
       });
-    } else if(type === "article") {
+    } else if (type === "article") {
       await post<{
         articleId: number;
         parentCommentId: number | null;
@@ -118,7 +121,13 @@ function Comment({
           submitComment(reply.isReplyMode ? reply.parentCommentId : null);
         }}
       >
-        <S.UserProfileImg />
+        <S.UserProfileImgBox>
+          {profileImage ? (
+            <S.UserProfileImg src={profileImage} />
+          ) : (
+            <UserIcon />
+          )}
+        </S.UserProfileImgBox>
         <S.CommentInputControlBox>
           <S.CommentInput
             type="text"

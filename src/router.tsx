@@ -50,6 +50,10 @@ const router = createBrowserRouter([
   {
     path: "/journal/shortform/:id",
     element: <ShortFormPage />,
+    loader: async () => {
+      const { data } = await get<TUserProfile>(`/user/profile`);
+      return data.avatarURL;
+    },
   },
   // {
   //   path: "/journal/snapshot/:id",
