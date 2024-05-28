@@ -40,9 +40,17 @@ function useScrapModal({ id, type }: Props) {
       setScrapFolderData(response.data.folder);
     });
   };
+
   useEffect(() => {
     getFolders();
   }, []);
+
+  useEffect(() => {
+    post<{ message: "Create Success" | "Delete Success" }>(`/folder/scrap/community`, {
+      community: type,
+      postId: id
+    });
+  }, [])
 
   function ScrapModal() {
     return (

@@ -36,3 +36,16 @@ export const Thumbnail = styled.img`
     width:100%;
     position:absolute;
 `
+
+export const BookMarkWrapper = styled.div<{isBookmark:boolean}>`
+    position:absolute;
+    right:10px;
+    bottom:50px;
+    z-index:20;
+
+    svg{
+      path{
+        fill:${({theme, isBookmark}) => isBookmark && theme.main };
+      }
+    }
+`

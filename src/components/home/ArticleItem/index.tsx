@@ -6,6 +6,7 @@ import Typography from "../../common/Typography";
 
 import * as S from "./style";
 import useScrapModal from "../../video/useScrapModal";
+import { post } from "../../../utils/api";
 
 interface Props {
     id: number,
@@ -18,7 +19,6 @@ interface Props {
 function ArticleItem({id, title, desc, thumbnailURL, isBookmarked}: Props) {
     const navigate = useNavigate()
     const ContainerRef = useRef<HTMLDivElement>(null);
-    const [isUserBookmarked, setIsUserBookmarked] = useState(isBookmarked);
     const [opacity, setOpacity] = useState(0.3);
     const {ScrapModal, scrapModalOpen, scrapModalClose} = useScrapModal({
         id: Number(id),
@@ -51,16 +51,23 @@ function ArticleItem({id, title, desc, thumbnailURL, isBookmarked}: Props) {
             <S.ArticleItem opacity={opacity} ref={ContainerRef}>
                 <S.ThumbnailWrapper>
                     <S.Thumbnail src={thumbnailURL} onClick={() => {navigate(`/article/${id}`)}} />
-                    <div onClick={() => {
-                        scrapModalOpen();
-                    }}>
-                        {
-                            isUserBookmarked ?
-                            <BookMarkIcon style={{"fill": "#5276FA"}} />
-                            :
-                            <BookMarkIcon />
+                    <S.BookMarkWrapper isBookmark={isBookmarked} onClick={() => {
+                        if(isBookmarked) {
+                            post<{ message: "Create Success" | "Delete Success" }>(`/folder/scrap/community`, {
+                                community: "article",
+                                postId: id
+                            }).then(() => {
+                                window.location.reload();
+                            });
                         }
-                    </div>
+                        else {
+                            if(localStorage.getItem("access_token")) {
+                                scrapModalOpen();
+                            }
+                        }
+                    }}>
+                        <BookMarkIcon/>
+                    </S.BookMarkWrapper>
                 </S.ThumbnailWrapper>
                 <div  onClick={() => {navigate(`/article/${id}`)}} >
                     <Typography.Headline size="sm" noOfLine={2}>{title}</Typography.Headline>

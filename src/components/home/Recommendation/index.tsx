@@ -8,7 +8,7 @@ import BookMarkIcon from "../../../assets/icons/bookmark.svg?react";
 
 import * as S from "./style";
 import ShortFormList from "../journals/shortform/ShortFormList";
-import { get } from "../../../utils/api";
+import { get, post } from "../../../utils/api";
 import useScrapModal from "../../video/useScrapModal";
 import { useNavigate } from "react-router-dom";
 
@@ -70,10 +70,20 @@ function Recommendation() {
                                 <div onClick={() => {navigate(`/article/${article.id}`)}}>
                                     <Label size="lg" noOfLine={2} >{article.title}</Label>
                                 </div>
-                                <S.BookMarkWrapper  onClick={() => {
-                                    if(localStorage.getItem("access_token")) {
-                                        setCurrentArticleId(article.id);
-                                        scrapModalOpen();
+                                <S.BookMarkWrapper isBookmark={article.isBookmarked} onClick={() => {
+                                    if(article.isBookmarked) {
+                                        post<{ message: "Create Success" | "Delete Success" }>(`/folder/scrap/community`, {
+                                            community: "article",
+                                            postId: article.id
+                                        }).then(() => {
+                                            window.location.reload();
+                                        });
+                                    }
+                                    else {
+                                        if(localStorage.getItem("access_token")) {
+                                            setCurrentArticleId(article.id);
+                                            scrapModalOpen();
+                                        }
                                     }
                                 }}>
                                     <BookMarkIcon/>
@@ -92,10 +102,20 @@ function Recommendation() {
                                 <div onClick={() => {navigate(`/article/${article.id}`)}}>
                                     <Label size="lg" noOfLine={2} >{article.title}</Label>
                                 </div>
-                                <S.BookMarkWrapper  onClick={() => {
-                                    if(localStorage.getItem("access_token")) {
-                                        setCurrentArticleId(article.id);
-                                        scrapModalOpen();
+                                <S.BookMarkWrapper isBookmark={article.isBookmarked} onClick={() => {
+                                    if(article.isBookmarked) {
+                                        post<{ message: "Create Success" | "Delete Success" }>(`/folder/scrap/community`, {
+                                            community: "article",
+                                            postId: article.id
+                                        }).then(() => {
+                                            window.location.reload();
+                                        });
+                                    }
+                                    else {
+                                        if(localStorage.getItem("access_token")) {
+                                            setCurrentArticleId(article.id);
+                                            scrapModalOpen();
+                                        }
                                     }
                                 }}>
                                     <BookMarkIcon/>
