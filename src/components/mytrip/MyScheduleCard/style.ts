@@ -36,9 +36,15 @@ export const ThumbnailWrapper = styled.div`
     justify-content:center;
     align-items:center;
 
-    svg, img{
+    svg{
         width:24px;
         height:24px;
+    }
+
+    img{
+        width:100%;
+        height:100%;
+        border-radius: 100%;
     }
 `;
 

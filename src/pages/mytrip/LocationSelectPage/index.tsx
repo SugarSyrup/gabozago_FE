@@ -40,6 +40,9 @@ function MyTripLocationSelectPage() {
     onChange: onChange,
     backgroundColor: "white",
     borderColor: "#ADADAD",
+    onSubmit: (e) => {
+      e.preventDefault();
+    }
   });
 
   function selectLocation(location: string) {
