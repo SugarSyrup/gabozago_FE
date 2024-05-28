@@ -53,7 +53,6 @@ function Nickname({setIsNicknameOk}: Props) {
           placeholder="닉네임을 입력하세요. (중복 불가)"
           minLength={2}
           maxLength={15}
-          pattern="^(?=.*[a-z0-9가-힣])[a-z0-9가-힣_.]{2,16}$"
           alert={
             <S.AlertMessage color={nicknameAlert.length > 14 ? "red" : "blue"}>
               {nicknameAlert}
@@ -65,6 +64,11 @@ function Nickname({setIsNicknameOk}: Props) {
             setIsNicknameOk(false);
           }}
           onButtonClick={() => {
+            if(!nickname?.match("^(?=.*[a-z0-9가-힣])[a-z0-9가-힣_.]{2,16}$")) {
+              setNicknameAlert(`닉네임은 한글, 영문, 숫자, 밑줄, 마침표로 2자 이상 16자 이하로 입력해주세요.`);
+              return;
+            }
+
             const access = localStorage.getItem('access_token');
             const refresh = localStorage.getItem('refresh_token');
             
