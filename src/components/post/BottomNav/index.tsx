@@ -51,7 +51,6 @@ function BottomNav({
           onClick={() => {
             navigator.clipboard.writeText(window.location.href);
             navigator.clipboard.writeText(`${title}\n${window.location.href}`);
-            alert("복사되었습니다.");
             popupClose();
             onShareClick && onShareClick();
           }}
