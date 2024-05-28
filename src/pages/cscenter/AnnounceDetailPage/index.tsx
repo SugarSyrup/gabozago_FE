@@ -17,24 +17,43 @@ function AnnounceDetailPage() {
   const [data, setData] = useState<TData>({
     title: "",
     createdAt: "",
-    content:
-      "",
+    content: "",
   });
 
   useEffect(() => {
-    get<TData>(`/settings/support/announcement/${id}`
-    ).then(({ data }) => setData(data));
+    get<TData>(`/settings/support/announcement/${id}`).then(({ data }) =>
+      setData(data)
+    );
   }, []);
 
   return (
-    <PageTemplate nav={false} header={<PageHeader><Typography.Title size="lg">{data.title}</Typography.Title></PageHeader>}>
+    <PageTemplate
+      nav={false}
+      header={
+        <PageHeader>
+          <Typography.Title size="lg">공지사항</Typography.Title>
+        </PageHeader>
+      }
+    >
       <S.Container>
         <S.InfoContainer>
-                <p className="title"><Typography.Title size="md" color="inherit">{data.title}</Typography.Title></p>
-                <p className="date"><Typography.Label size="lg" color="inherit">{data.createdAt.replace("-", ". ").replace("-", ". ")}</Typography.Label></p>
+          <p className="title">
+            <Typography.Title size="md" color="inherit">
+              {data.title}
+            </Typography.Title>
+          </p>
+          <p className="date">
+            <Typography.Label size="lg" color="inherit">
+              {data.createdAt.replace("-", ". ").replace("-", ". ")}
+            </Typography.Label>
+          </p>
         </S.InfoContainer>
         <S.ContentsContainer>
-          <Typography.Body size="md" color="inherit" noOfLine={1000}>{data.content}</Typography.Body>
+          <Typography.Body size="md" color="inherit" noOfLine={1000}>
+            {data.content.split("\n").map((line) => (
+              <p>{line}</p>
+            ))}
+          </Typography.Body>
         </S.ContentsContainer>
       </S.Container>
     </PageTemplate>
