@@ -26,9 +26,15 @@ export const Thumbnail = styled.div`
 
     background-color: ${({ theme }) => theme.blue04};
 
-    svg, img{
+    svg{
         width:16px;
         height:16px;
+    }
+
+    img {
+        width:100%;
+        height:100%;
+        border-radius:100%;
     }
 
     img{
