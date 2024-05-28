@@ -13,6 +13,7 @@ import Comment from "../../../components/journal/Comment";
 import { get } from "../../../utils/api";
 import { useParams } from "react-router-dom";
 import Typography from "../../../components/common/Typography";
+import useAlert from "../../../hooks/useAlert";
 
 function ShortFormPage() {
   const { id } = useParams();
@@ -26,6 +27,13 @@ function ShortFormPage() {
     borderRadius: "16px",
   });
   const { Popup, popupOpen, popupClose } = usePopup();
+  const { Alert, alertOpen } = useAlert({
+    Content: (
+      <Typography.Title size="md" color="white">
+        URL이 복사되었습니다.
+      </Typography.Title>
+    ),
+  });
 
   const createCopyURL = (id: number) => {
     const arr = window.location.href.split("/").slice(0, -1);
@@ -65,6 +73,7 @@ function ShortFormPage() {
 
   return (
     <PageTemplate nav={<BottomNavBar style="black" />}>
+      <Alert />
       <S.Header>
         <BackButton />
         {/* @todo: 추후 사용자가 숏폼 업로드 가능할 때 메뉴 구현 */}
@@ -100,7 +109,7 @@ function ShortFormPage() {
                     shortforms[focusIndex].id
                   )}`
                 );
-                alert("복사되었습니다.");
+                alertOpen();
                 popupClose();
               }}
             />

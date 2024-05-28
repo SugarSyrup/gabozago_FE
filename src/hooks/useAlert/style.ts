@@ -28,8 +28,9 @@ export const AlertWrapper = styled.div`
   align-items: center;
 
   position: fixed;
-  left: 0;
   bottom: 0px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 40;
 `;
 
