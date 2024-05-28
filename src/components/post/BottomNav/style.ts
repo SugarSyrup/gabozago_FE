@@ -18,7 +18,7 @@ export const Navigation = styled.nav`
     bottom:0px;
 `
 
-export const NavigationItem = styled.div`
+export const NavigationItem = styled.div<{isBookmarked?: boolean}>`
     display:flex;
     justify-content:space-between;
     align-items:center;
@@ -28,16 +28,20 @@ export const NavigationItem = styled.div`
     text-align: center;
     font-size: 13px;
 
-    svg {
-        width:24px;
-        height:22px;
-    }
-
     &:not(:first-child) svg {   
         path {
             fill: ${({theme}) => theme.gray};
         }
     }
+
+    svg {
+        width:24px;
+        height:22px;
+        path {
+            fill: ${({theme, isBookmarked}) => isBookmarked && theme.main } !important;
+        }
+    }
+
 `
 
 

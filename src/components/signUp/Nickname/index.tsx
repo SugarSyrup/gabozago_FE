@@ -7,10 +7,11 @@ import { get } from "../../../utils/api";
 import * as S from "./style";
 
 interface Props {
-  setIsNicknameOk: React.Dispatch<React.SetStateAction<boolean>>
+  setIsNicknameOk: React.Dispatch<React.SetStateAction<boolean>>,
+  defaultValue?: string,
 }
 
-function Nickname({setIsNicknameOk}: Props) {
+function Nickname({setIsNicknameOk, defaultValue}: Props) {
     const [searchParams, setSearchParams] = useSearchParams();
 
     const [nickname, setNicknameState] = useState(searchParams.get("nickname"));
@@ -49,7 +50,7 @@ function Nickname({setIsNicknameOk}: Props) {
           label="닉네임"
           disabled={false}
           required={true}
-          value={nickname ? nickname : ""}
+          value={nickname ? nickname : defaultValue}
           placeholder="닉네임을 입력하세요. (중복 불가)"
           minLength={2}
           maxLength={15}

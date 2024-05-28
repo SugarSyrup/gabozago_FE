@@ -20,8 +20,8 @@ interface TRecommendData {
         "claps": number,
         "comment": number,
         "bookmark": number
-    },
-    "short-form":{
+    }[],
+    "short_form":{
         "id": number,
         "title": string,
         "location": string[],
@@ -29,16 +29,16 @@ interface TRecommendData {
         "claps": number,
         "comment": number,
         "bookmark": number
-    }
+    }[]
 }
 
 function LocationRecommendContents({locations} : Props) {
-    const [data, setData] = useState<TRecommendData>();
+    const [data, setData] = useState<TRecommendData[]>();
 
-    // [SugarSyrup] @TODO: 백엔드 더미데이터 없음 + 500 Error
     useEffect(() => {
-        get<TRecommendData>(`my-travel/location/content?location=${locations.toLocaleString()}`)
+        get<TRecommendData[]>(`my-travel/location/content?name=${locations.toLocaleString()}`)
             .then((response) => {
+                console.log(response.data[1]["short_form"]);
                 setData(response.data);
             })
     }, [])
@@ -53,23 +53,23 @@ function LocationRecommendContents({locations} : Props) {
                     <>
                         <RecommendationReviewItem
                             type="article"
-                            id={data.article.id}
-                            name={data.article.title}
-                            location={data.article.location}
-                            thumbnailURL={data.article.thumbnailURL}
-                            hearts={data.article.claps}
-                            comments={data.article.comment}
-                            scraps={data.article.bookmark}
+                            id={data[0].article[0].id}
+                            name={data[0].article[0].title}
+                            location={data[0].article[0].location}
+                            thumbnailURL={data[0].article[0].thumbnailURL}
+                            hearts={data[0].article[0].claps}
+                            comments={data[0].article[0].comment}
+                            scraps={data[0].article[0].bookmark}
                         />
                         <RecommendationReviewItem
                             type="short-form"
-                            id={data["short-form"].id}
-                            videoId={data["short-form"].videoId}
-                            name={data["short-form"].title}
-                            location={data["short-form"].location}
-                            hearts={data["short-form"].claps}
-                            comments={data["short-form"].comment}
-                            scraps={data["short-form"].bookmark}
+                            id={data[1]["short_form"][0].id}
+                            videoId={data[1]["short_form"][0].videoId}
+                            name={data[1]["short_form"][0].title}
+                            location={data[1]["short_form"][0].location}
+                            hearts={data[1]["short_form"][0].claps}
+                            comments={data[1]["short_form"][0].comment}
+                            scraps={data[1]["short_form"][0].bookmark}
                         />
                     </>
                 }

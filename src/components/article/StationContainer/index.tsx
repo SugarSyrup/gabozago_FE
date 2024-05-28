@@ -29,7 +29,7 @@ function StationContainer({ data, refs }: Props) {
                                         <DoubleCircleIcon />
                                     </S.Linker>
                                     <S.TextContainer isLast={index+1===data.length} onClick={() => {
-                                        refs.current[index]?.scrollIntoView({
+                                        refs.current[station.index]?.scrollIntoView({
                                             behavior: "smooth",
                                         });
                                         modalClose()
@@ -51,7 +51,7 @@ function StationContainer({ data, refs }: Props) {
                                 <DoubleCircleIcon />
                             </S.Linker>
                             <S.TextContainer isLast={index+1===data.length}  onClick={() => {
-                                    refs.current[index]?.scrollIntoView({
+                                    refs.current[station.index]?.scrollIntoView({
                                       behavior: "smooth",
                                     });
                                     modalClose();

@@ -14,6 +14,7 @@ interface Props {
   departure_date: string;
   arrival_date: string;
   regions: string[];
+  thumbnailURL: string;
 }
 
 function MyLastScheduleCard({
@@ -22,6 +23,7 @@ function MyLastScheduleCard({
   departure_date,
   arrival_date,
   regions,
+  thumbnailURL,
 }: Props) {
   const navigate = useNavigate();
   const { MyTripModal, modalOpen, modalClose, isModalOpend } = useMyTripModal({
@@ -37,10 +39,15 @@ function MyLastScheduleCard({
             <S.Card>
                 <S.InfoContainer>
                     <S.ThumbnailWrapper>
-                        <LogoSmallIcon />
+                        {
+                            thumbnailURL ? 
+                            <img src={thumbnailURL} alt="thumbnail" /> 
+                            :
+                            <LogoSmallIcon />
+                        }
                     </S.ThumbnailWrapper>
                     <S.TextContainer  onClick={() => {navigate(`/mytrip/${id}`)}}>
-                        <Typography.Title size="md" noOfLine={2}>{title}</Typography.Title>
+                        <Typography.Title size="md" noOfLine={2} maxWidth={300}>{title}</Typography.Title>
                         <S.Infos>
                             <S.Info>
                                 <CalendarIcon />

@@ -34,10 +34,6 @@ export const TopSliderItem = styled.div`
     width:30px;
     height:30px;
 
-    position:absolute;
-    right:10px;
-    top:126px;
-
     path{
       fill:white;
     }
@@ -49,7 +45,7 @@ export const SliderImg = styled.img`
   height: 166px;
   border-radius:8px;
 
-  object-fit:contain;
+  object-fit:cover;
 `
 
 export const SliderItem = styled.div`
@@ -66,14 +62,23 @@ export const SliderItem = styled.div`
     width:30px;
     height:30px;
 
-    position:absolute;
-    right:10px;
-    top:126px;
-
     path{
       fill:white;
     }
   }
+`
+
+export const BookMarkWrapper = styled.div<{isBookmark:boolean}>`
+    position:absolute;
+    right:10px;
+    bottom:50px;
+    z-index:20;
+
+    svg{
+      path{
+        fill:${({theme, isBookmark}) => isBookmark && theme.main };
+      }
+    }
 `
 
 export const ShortFormListContainer = styled.div`

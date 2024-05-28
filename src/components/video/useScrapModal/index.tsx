@@ -10,6 +10,7 @@ import Typography from "../../common/Typography";
 import * as S from "./style";
 import { get, post } from "../../../utils/api";
 import usePopup from "../../../hooks/usePopup";
+import useTextInputPopup from "../../../hooks/useTextInputPopup";
 
 type TScrapFolder = {
   id: number;
@@ -24,14 +25,13 @@ interface Props {
 
 function useScrapModal({ id, type }: Props) {
   const [scrapFolderData, setScrapFolderData] = useState<TScrapFolder[]>([]);
-  const [isScrapCreate, setIsScrapCreate] = useState<boolean>(false);
   const { Modal, modalOpen, modalClose } = useModal({
     title: "",
     handle: true,
     borderRadius: "30px",
   });
-  const { Popup, popupOpen, popupClose } = usePopup();
-  const inputRef = useRef<HTMLInputElement>(null);
+  const {TextInputPopup,inputRef,textInputPopupOpen,textInputPopupClose} = useTextInputPopup("새 폴더 이름", 30);
+  //const inputRef = useRef<HTMLInputElement>(null);
 
   const getFolders = async () => {
     get<{
@@ -41,11 +41,14 @@ function useScrapModal({ id, type }: Props) {
       setScrapFolderData(response.data.folder);
     });
   };
+
   useEffect(() => {
     getFolders();
   }, []);
 
+
   function ScrapModal() {
+
     return (
       <>
         <Modal>
@@ -66,8 +69,7 @@ function useScrapModal({ id, type }: Props) {
               <Typography.Title size="md">내 폴더</Typography.Title>
               <S.TravelCreate
                 onClick={() => {
-                  popupOpen();
-                  setIsScrapCreate(true);
+                  textInputPopupOpen();
                 }}
               >
                 <Typography.Title size="md" color="inherit">
@@ -124,41 +126,24 @@ function useScrapModal({ id, type }: Props) {
             </S.TravelList>
           </S.CourseModalContainer>
         </Modal>
-        <S.CreateScrapFolder isOpen={isScrapCreate}>
-          <Popup>
-            <S.CreateScrapFolderContainer>
-              <S.CreateScrapHeader>
-                <Typography.Title size="sm">새 폴더 이름</Typography.Title>
-                <S.SaveText
-                  onClick={() => {
-                    post<{
-                      id: number;
-                      name: string;
-                    }>("/folder/community", {
-                      name: inputRef.current?.value,
-                    }).then((response) => {
-                      setScrapFolderData((prev) => [
-                        ...prev,
-                        {
-                          id: response.data.id,
-                          name: response.data.name,
-                          status: false,
-                        },
-                      ]);
-                      setIsScrapCreate(false);
-                      popupClose();
-                    });
-                  }}
-                >
-                  <Typography.Title size="sm" color="inherit">
-                    저장
-                  </Typography.Title>
-                </S.SaveText>
-              </S.CreateScrapHeader>
-              <input type="text" ref={inputRef} maxLength={30} />
-            </S.CreateScrapFolderContainer>
-          </Popup>
-        </S.CreateScrapFolder>
+        <TextInputPopup onSubmit={() => {
+            post<{
+              id: number;
+              name: string;
+            }>("/folder/community", {
+              name: inputRef.current?.value,
+            }).then((response) => {
+              setScrapFolderData((prev) => [
+                ...prev,
+                {
+                  id: response.data.id,
+                  name: response.data.name,
+                  status: false,
+                },
+              ]);
+              textInputPopupClose();
+            });
+        }}/>
       </>
     );
   }

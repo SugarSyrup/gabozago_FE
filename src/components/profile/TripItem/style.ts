@@ -18,13 +18,21 @@ export const Container = styled.li`
 export const ThumbnailWrapper = styled.div`
     width:70px;
     height:70px;
+    position:relative;
 
+    flex-shrink:0;
     border-radius:100%;
     background-color:${({theme}) => theme.gray03};
 
     display:flex;
     justify-content:center;
     align-items:center;
+
+    img{
+        width:100%;
+        height:100%;
+        border-radius:100%;
+    }
 `
 
 export const Info = styled.div`

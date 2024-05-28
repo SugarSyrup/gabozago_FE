@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 
 import { datesState, selectedLocationsState } from "../../../recoil/mytrip/createData";
 
@@ -28,8 +28,8 @@ export interface locationResponseType {
 
 const defaultLocations = ["서울", "부산", "인천", "양평/가평", "양양/강릉/속초", "여수/순천", "경주", "포항", "통영/거제", "제주"];
 function MyTripLocationSelectPage() {
+  const locations = useLoaderData() as locationResponseType[];
   const navigate = useNavigate();
-  const [locations, setLocations] = useState<locationResponseType[]>([]);
   const [selectedLocations, setSelectedLocations] = useRecoilState(selectedLocationsState);
   const [searchedLocations, setSearchedLocations] = useState<locationResponseType[]>([]);
   const [isSearching, setIsSearching] = useState<boolean>(false);
@@ -40,14 +40,10 @@ function MyTripLocationSelectPage() {
     onChange: onChange,
     backgroundColor: "white",
     borderColor: "#ADADAD",
+    onSubmit: (e) => {
+      e.preventDefault();
+    }
   });
-
-  useEffect(() => {
-    get<locationResponseType[]>(`/region`)
-      .then((response) => {
-        setLocations(response.data);
-      })
-  }, [])
 
   function selectLocation(location: string) {
     setSelectedLocations((prev) => {

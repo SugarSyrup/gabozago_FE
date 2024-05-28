@@ -8,7 +8,8 @@ import BookMarkIcon from "../../../assets/icons/bookmark.svg?react";
 
 import * as S from "./style";
 import ShortFormList from "../journals/shortform/ShortFormList";
-import { get } from "../../../utils/api";
+import { get, post } from "../../../utils/api";
+import useScrapModal from "../../video/useScrapModal";
 import { useNavigate } from "react-router-dom";
 
 interface TArticle {
@@ -40,6 +41,11 @@ function Recommendation() {
     const navigate = useNavigate();
     const [articleData, setArticleData] = useState<TArticle['results']>([]);
     const [shortformData, setShortformData] = useState<TShortForms['results']>([]);
+    const [currentArticleId, setCurrentArticleId] = useState<number>(0);
+    const {ScrapModal, scrapModalOpen, scrapModalClose} = useScrapModal({
+        id: currentArticleId,
+        type: "article",
+    });
 
     useEffect(() => {
         get<TArticle>('/community/article?ordering=weekly_popular&size=10')
@@ -54,14 +60,38 @@ function Recommendation() {
 
     return(
         <>
+            <ScrapModal />
             <S.ContentsContainer>
                 <Headline size="sm">금주 인기 아티클 Top 5 🔥</Headline>
                 <S.Slider>
                     {
-                        articleData?.slice(0,5).map((article) => <S.TopSliderItem onClick={() => {navigate(`/article/${article.id}`)}}>
-                                <S.SliderImg src={article.thumbnailURL}/>
-                                <Label size="lg" noOfLine={2}>{article.title}</Label>
-                                <BookMarkIcon />
+                        articleData?.slice(0,5).map((article) => <S.TopSliderItem>
+                                <S.SliderImg src={article.thumbnailURL} onClick={() => {navigate(`/article/${article.id}`)}} />
+                                <div onClick={() => {navigate(`/article/${article.id}`)}}>
+                                    <Label size="lg" noOfLine={2} >{article.title}</Label>
+                                </div>
+                                <S.BookMarkWrapper isBookmark={article.isBookmarked} onClick={() => {
+                                    if(article.isBookmarked) {
+                                        post<{ message: "Create Success" | "Delete Success" }>(`/folder/scrap/community`, {
+                                            community: "article",
+                                            postId: article.id
+                                        }).then(() => {
+                                            window.location.reload();
+                                        });
+                                    }
+                                    else {
+                                        if(localStorage.getItem("access_token")) {
+                                            post<{ message: "Create Success" | "Delete Success" }>(`/folder/scrap/community`, {
+                                                community: "article",
+                                                postId: article.id
+                                            });
+                                            setCurrentArticleId(article.id);
+                                            scrapModalOpen();
+                                        }
+                                    }
+                                }}>
+                                    <BookMarkIcon/>
+                                </S.BookMarkWrapper>
                             </S.TopSliderItem>
                         )
                     }
@@ -71,10 +101,33 @@ function Recommendation() {
                 <Title size="lg">인기 Top 6-10 아티클</Title>
                 <S.Slider>
                     {
-                        articleData?.slice(5,articleData.length).map((article) => <S.SliderItem onClick={() => {navigate(`/article/${article.id}`)}}>
-                                <S.SliderImg src={article.thumbnailURL}/>
-                                <Label size="lg" noOfLine={2}>{article.title}</Label>
-                                <BookMarkIcon />
+                        articleData?.slice(5,articleData.length).map((article) => <S.SliderItem>
+                                <S.SliderImg src={article.thumbnailURL} onClick={() => {navigate(`/article/${article.id}`)}} />
+                                <div onClick={() => {navigate(`/article/${article.id}`)}}>
+                                    <Label size="lg" noOfLine={2} >{article.title}</Label>
+                                </div>
+                                <S.BookMarkWrapper isBookmark={article.isBookmarked} onClick={() => {
+                                    if(article.isBookmarked) {
+                                        post<{ message: "Create Success" | "Delete Success" }>(`/folder/scrap/community`, {
+                                            community: "article",
+                                            postId: article.id
+                                        }).then(() => {
+                                            window.location.reload();
+                                        });
+                                    }
+                                    else {
+                                        if(localStorage.getItem("access_token")) {
+                                            post<{ message: "Create Success" | "Delete Success" }>(`/folder/scrap/community`, {
+                                                community: "article",
+                                                postId: article.id
+                                            });
+                                            setCurrentArticleId(article.id);
+                                            scrapModalOpen();
+                                        }
+                                    }
+                                }}>
+                                    <BookMarkIcon/>
+                                </S.BookMarkWrapper>
                             </S.SliderItem>
                         )
                     }
