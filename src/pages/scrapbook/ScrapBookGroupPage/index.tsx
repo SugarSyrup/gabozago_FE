@@ -7,6 +7,7 @@ import { useRecoilState, useResetRecoilState } from "recoil";
 import {
   TFilter,
   journalFilterState,
+  themeCodeMap,
 } from "../../../recoil/journals/journalState";
 import PageTemplate from "../../../components/common/PageTemplate";
 import PageHeader from "../../../components/common/PageHeader";
@@ -48,7 +49,7 @@ function ScrapBookGroupPage() {
   const params = {
     ordering: orderingMap[filter.sort],
     location: filter.location.join(","),
-    theme: filter.theme.join(","),
+    theme: filter.theme.map((item) => `${themeCodeMap.get(item)}`),
     folder: id === "all" ? null : id,
     cursor: "",
   };
