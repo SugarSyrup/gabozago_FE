@@ -71,8 +71,10 @@ function Recommendation() {
                                     <Label size="lg" noOfLine={2} >{article.title}</Label>
                                 </div>
                                 <S.BookMarkWrapper  onClick={() => {
-                                    setCurrentArticleId(article.id);
-                                    scrapModalOpen();
+                                    if(localStorage.getItem("access_token")) {
+                                        setCurrentArticleId(article.id);
+                                        scrapModalOpen();
+                                    }
                                 }}>
                                     <BookMarkIcon/>
                                 </S.BookMarkWrapper>
@@ -91,8 +93,10 @@ function Recommendation() {
                                     <Label size="lg" noOfLine={2} >{article.title}</Label>
                                 </div>
                                 <S.BookMarkWrapper  onClick={() => {
-                                    setCurrentArticleId(article.id);
-                                    scrapModalOpen();
+                                    if(localStorage.getItem("access_token")) {
+                                        setCurrentArticleId(article.id);
+                                        scrapModalOpen();
+                                    }
                                 }}>
                                     <BookMarkIcon/>
                                 </S.BookMarkWrapper>
