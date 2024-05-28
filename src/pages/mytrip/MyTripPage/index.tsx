@@ -88,7 +88,7 @@ function MyTripPage() {
         (
           <S.ContainerWithPlan>
             <S.HeadingContainer>
-              <Typography.Headline size="md">최민석 님</Typography.Headline>
+              <Typography.Headline size="md">{nickname} 님</Typography.Headline>
               <Typography.Title size="lg">다가오는 여행이 있어요!</Typography.Title>
             </S.HeadingContainer>
 
