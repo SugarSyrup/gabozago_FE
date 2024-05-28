@@ -36,7 +36,7 @@ export const ThumbnailWrapper = styled.div`
   justify-content: center;
   align-items: center;
 
-  svg {
+  svg, img {
     width: 24px;
     height: 24px;
   }
