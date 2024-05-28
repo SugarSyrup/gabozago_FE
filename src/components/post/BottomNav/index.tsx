@@ -46,20 +46,22 @@ function BottomNav({postId, isClap, claps, comment, onCommentClick, bookmark, on
             </Popup>
             <S.Navigation>
                 <S.NavigationItem onClick={() => {
-                    post<{
-                        message: "CREATE SUCCESS" | "DELETE SUCCESS"
-                    }>(`/clap/community`, {
-                        community: 'article',
-                        postId: postId
-                    }).then((response) => {
-                        if(response.data.message == "CREATE SUCCESS" ) {
-                            setIsUserClap(true);
-                            setIsUserClpas(prev => prev + 1);
-                        } else {
-                            setIsUserClap(false);
-                            setIsUserClpas(prev => prev - 1);
-                        }
-                    });
+                    if(localStorage.getItem('access_token')) {
+                        post<{
+                            message: "CREATE SUCCESS" | "DELETE SUCCESS"
+                        }>(`/clap/community`, {
+                            community: 'article',
+                            postId: postId
+                        }).then((response) => {
+                            if(response.data.message == "CREATE SUCCESS" ) {
+                                setIsUserClap(true);
+                                setIsUserClpas(prev => prev + 1);
+                            } else {
+                                setIsUserClap(false);
+                                setIsUserClpas(prev => prev - 1);
+                            }
+                        });
+                    }
                 }}>
                     {
                         isUserClap ? 
@@ -69,12 +71,18 @@ function BottomNav({postId, isClap, claps, comment, onCommentClick, bookmark, on
                     } 
                     <span>{isUserClpas}</span>
                 </S.NavigationItem>
-                <S.NavigationItem onClick={onCommentClick}>
+                <S.NavigationItem onClick={() => {
+                    if(localStorage.getItem('access_token')){
+                        onCommentClick();
+                    }
+                }}>
                     <CommentIcon />
                     <span>{comment}</span>
                 </S.NavigationItem>
                 <S.NavigationItem onClick={() => {
-                    onScrapClick();
+                    if(localStorage.getItem('access_token')){
+                        onScrapClick();
+                    }
                 }}>
                     <BookMarkIcon />
                     <span>{bookmark}</span>
