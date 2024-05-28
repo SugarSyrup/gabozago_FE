@@ -9,7 +9,8 @@ interface travelType {
     title: string,
     departureDate: string,
     arrivalDate: string,
-    location: string[]
+    location: string[],
+    thumbnailURL: string,
 }
 
 function TripList() {
