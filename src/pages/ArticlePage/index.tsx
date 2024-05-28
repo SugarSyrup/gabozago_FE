@@ -188,7 +188,6 @@ function ArticlePage() {
                     </S.Content>
                 </S.StationContainer>
                 </S.ThumbnailWrapper>
-                
                     {
                         !isLogin &&
                         <S.IsLoginBlur>

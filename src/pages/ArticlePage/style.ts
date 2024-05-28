@@ -120,7 +120,7 @@ export const IsLoginBlur = styled.div`
 
     position:absolute;
     left:0px;
-    top:1613px;
+    top:2613px;
     z-index:100;
 
     display:flex;

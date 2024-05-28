@@ -66,6 +66,7 @@ function Nickname({setIsNicknameOk}: Props) {
           onButtonClick={() => {
             if(!nickname?.match("^(?=.*[a-z0-9가-힣])[a-z0-9가-힣_.]{2,16}$")) {
               setNicknameAlert(`닉네임은 한글, 영문, 숫자, 밑줄, 마침표로 2자 이상 16자 이하로 입력해주세요.`);
+              setIsNicknameOk(false);
               return;
             }
 
