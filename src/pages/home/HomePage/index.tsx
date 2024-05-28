@@ -17,11 +17,27 @@ import { loginAlertState } from "../../../recoil/loginAlertState";
 function HomePage() {
   const [focusedTabIndex, setFocusedTabIndex] = useState<number>(0);
   const navigate = useNavigate();
-  const [isLoginAlertState, setIsLoginAlertState] = useRecoilState(loginAlertState);
-  const {Alert, alertOpen} = useAlert({
-    Content: <Typography.Body size="lg" color="white">로그인이 필요합니다</Typography.Body>,
-    RightContent: <Typography.Body size="lg" color="white"><span style={{textDecoration:"underline", cursor:"pointer"}} onClick={() => {navigate("/login")}}>로그인 하러가기</span></Typography.Body>
-  })
+  const [isLoginAlertState, setIsLoginAlertState] =
+    useRecoilState(loginAlertState);
+  const { Alert, alertOpen } = useAlert({
+    Content: (
+      <Typography.Body size="lg" color="white">
+        로그인이 필요한 서비스에요.
+      </Typography.Body>
+    ),
+    RightContent: (
+      <Typography.Body size="lg" color="white">
+        <span
+          style={{ textDecoration: "underline", cursor: "pointer" }}
+          onClick={() => {
+            navigate("/login");
+          }}
+        >
+          로그인 하러가기
+        </span>
+      </Typography.Body>
+    ),
+  });
   const tabs = [
     { id: "추천", name: "추천", content: <Recommendation /> },
     { id: "아티클", name: "아티클", content: <Articles /> },
@@ -29,11 +45,11 @@ function HomePage() {
   ];
 
   useEffect(() => {
-    if(isLoginAlertState) {
+    if (isLoginAlertState) {
       alertOpen();
       setIsLoginAlertState(false);
     }
-  }, [])
+  }, []);
 
   return (
     <PageTemplate
