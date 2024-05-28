@@ -56,19 +56,6 @@ function Filter({
       props: {
         filter: tempFilter,
         setFilter: setTempFilter,
-        options: [
-          "서울",
-          "부산",
-          "대구",
-          "인천",
-          "광주",
-          "대전",
-          "울산",
-          "세종",
-          "경기",
-          "강원",
-          "충북",
-        ],
       } as LocationsProps,
     },
     // range

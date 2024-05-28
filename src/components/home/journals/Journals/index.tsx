@@ -3,7 +3,10 @@ import ShortFormList, { ShortForm } from "../shortform/ShortFormList";
 import * as S from "./style";
 import FilterList, { TFilterName } from "../../../common/FilterList";
 import { useRecoilState } from "recoil";
-import { journalFilterState } from "../../../../recoil/journals/journalState";
+import {
+  journalFilterState,
+  themeCodeMap,
+} from "../../../../recoil/journals/journalState";
 import { get } from "../../../../utils/api";
 
 function Journals() {
@@ -31,7 +34,7 @@ function Journals() {
       params: {
         ordering: filter.sort,
         location: filter.location.join(","),
-        theme: filter.theme.join(","),
+        theme: filter.theme.map((item) => `${themeCodeMap.get(item)}`),
       },
     });
 
