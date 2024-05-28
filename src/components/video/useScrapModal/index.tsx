@@ -24,13 +24,12 @@ interface Props {
 
 function useScrapModal({ id, type }: Props) {
   const [scrapFolderData, setScrapFolderData] = useState<TScrapFolder[]>([]);
-  const [isScrapCreate, setIsScrapCreate] = useState<boolean>(false);
   const { Modal, modalOpen, modalClose } = useModal({
     title: "",
     handle: true,
     borderRadius: "30px",
   });
-  const { Popup, popupOpen, popupClose } = usePopup();
+  const { Popup, popupOpen, popupClose, isOpend } = usePopup();
   const inputRef = useRef<HTMLInputElement>(null);
 
   const getFolders = async () => {
@@ -67,7 +66,6 @@ function useScrapModal({ id, type }: Props) {
               <S.TravelCreate
                 onClick={() => {
                   popupOpen();
-                  setIsScrapCreate(true);
                 }}
               >
                 <Typography.Title size="md" color="inherit">
@@ -124,7 +122,7 @@ function useScrapModal({ id, type }: Props) {
             </S.TravelList>
           </S.CourseModalContainer>
         </Modal>
-        <S.CreateScrapFolder isOpen={isScrapCreate}>
+
           <Popup>
             <S.CreateScrapFolderContainer>
               <S.CreateScrapHeader>
@@ -145,7 +143,6 @@ function useScrapModal({ id, type }: Props) {
                           status: false,
                         },
                       ]);
-                      setIsScrapCreate(false);
                       popupClose();
                     });
                   }}
@@ -158,7 +155,6 @@ function useScrapModal({ id, type }: Props) {
               <input type="text" ref={inputRef} maxLength={30} />
             </S.CreateScrapFolderContainer>
           </Popup>
-        </S.CreateScrapFolder>
       </>
     );
   }

@@ -73,8 +73,3 @@ function ArticleItem({id, title, desc, thumbnailURL, isBookmarked}: Props) {
 }
 
 export default ArticleItem;
-
-
-// TODO : 아티클 아이디 Bookmark 
-// TOOD : 아티클 개별 페이지 라우팅
-// TODO : 아티클 내부 UI 수정사항 있으면 반영
