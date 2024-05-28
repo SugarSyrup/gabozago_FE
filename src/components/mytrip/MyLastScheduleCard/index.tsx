@@ -40,7 +40,7 @@ function MyLastScheduleCard({
                         <LogoSmallIcon />
                     </S.ThumbnailWrapper>
                     <S.TextContainer  onClick={() => {navigate(`/mytrip/${id}`)}}>
-                        <Typography.Title size="md" noOfLine={2}>{title}</Typography.Title>
+                        <Typography.Title size="md" noOfLine={2} maxWidth={300}>{title}</Typography.Title>
                         <S.Infos>
                             <S.Info>
                                 <CalendarIcon />

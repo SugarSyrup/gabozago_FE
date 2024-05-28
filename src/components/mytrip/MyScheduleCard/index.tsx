@@ -43,7 +43,7 @@ function MyScheduleCard({
                         <LogoSmallIcon />
                     </S.ThumbnailWrapper>
                     <S.TextContainer>
-                        <Typography.Title size="md">{title}</Typography.Title>
+                        <Typography.Title size="md" maxWidth={300}>{title}</Typography.Title>
                         <S.Infos>
                             <S.Info>
                                 <CalendarIcon />
