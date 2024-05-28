@@ -6,7 +6,7 @@ export const ModalWrapper = styled.div<{ isOpen: boolean }>`
   right: 0;
   top: 0;
   bottom: 0;
-  z-index: ${({ isOpen }) => (isOpen ? 0 : -10)};
+  z-index: ${({ isOpen }) => (isOpen ? 100 : -10)};
 
   margin: auto;
   max-width: 500px;
@@ -22,7 +22,6 @@ export const StationList = styled.ol<{ isBackground: boolean }>`
 
   width: 100%;
   padding: 12px 20px;
-  padding-bottom: ${({ isBackground }) => !isBackground && "82px"};
   background-color: ${({ isBackground, theme }) =>
     isBackground ? theme.blue05 : "white"};
   border-radius: 6px;
