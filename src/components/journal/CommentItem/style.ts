@@ -7,9 +7,10 @@ export const GrayColoredIcon = styled.span`
 `;
 
 export const Container = styled.div<{ isReply: boolean; isFocused: boolean }>`
+  width: 100%;
   padding: ${({ isReply }) => (isReply ? "0" : "8px 15px")};
   background-color: ${({ isFocused, theme }) =>
-    isFocused ? theme.blue05 : "transpert"};
+    isFocused ? theme.blue05 : "transparent"};
   a {
     text-decoration: none;
     color: inherit;
@@ -17,6 +18,7 @@ export const Container = styled.div<{ isReply: boolean; isFocused: boolean }>`
 `;
 
 export const CommentBox = styled.div`
+  max-width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -75,11 +77,13 @@ export const TimestampSpan = styled.span`
 export const CommentParagraph = styled.p`
   margin-top: 6px;
   margin-bottom: 3px;
+  padding-right: 20px;
   width: 100%;
-  line-height: 14px;
+  line-height: 20px;
   font-size: 12px;
   font-weight: 400;
   word-break: keep-all;
+  overflow-wrap: anywhere;
 `;
 
 export const ActionBox = styled.div`

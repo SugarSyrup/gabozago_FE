@@ -27,6 +27,19 @@ export const journalFilterState = atom<TFilter>({
   default: defaultFilter,
 });
 
+export const themeCodeMap = new Map([
+  ["01", "체류"],
+  ["02", "미식"],
+  ["03", "쇼핑"],
+  ["04", "도보"],
+  ["05", "자연"],
+  ["06", "체험"],
+  ["07", "전시·행사"],
+  ["08", "반려동물"],
+  ["09", "연인"],
+  ["10", "가족"],
+]);
+
 export const activeJournalFilterListState = selector({
   key: "activeJournalFilterListState",
   get: ({ get }) => {
@@ -91,18 +104,9 @@ export const activeJournalFilterListState = selector({
     );
 
     // 계절
-    if (
-      filter.season.includes("봄") &&
-      filter.season.includes("여름") &&
-      filter.season.includes("가을") &&
-      filter.season.includes("겨울")
-    ) {
-      activeFilterValues.push({ type: "season", value: "사계절" });
-    } else {
-      filter.season.map((item) =>
-        activeFilterValues.push({ type: "season", value: item })
-      );
-    }
+    filter.season.map((item) =>
+      activeFilterValues.push({ type: "season", value: item })
+    );
 
     // 테마
     filter.theme.map((item) =>

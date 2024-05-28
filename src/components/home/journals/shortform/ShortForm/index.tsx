@@ -1,6 +1,6 @@
 import * as S from "./style";
 import YouTube from "react-youtube";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Suspense, useEffect, useRef, useState } from "react";
 import UserIcon from "../../../../../assets/icons/user.svg?react";
 import LocationIcon from "../../../../../assets/icons/location.svg?react";
@@ -16,6 +16,8 @@ import { post } from "../../../../../utils/api";
 import useModal from "../../../../../hooks/useModal";
 import useScrapModal from "../../../../video/useScrapModal";
 import PlacesModalContents from "../PlacesModalContents";
+import useAlert from "../../../../../hooks/useAlert";
+import Typography from "../../../../common/Typography";
 
 export interface TShortForm {
   id: number;
@@ -71,6 +73,7 @@ function ShortForm({
     isActive: boolean;
   }>({ count: defaultBookmark, isActive: defaultIsBookmarked });
   const containerRef = useRef<HTMLDivElement>(null);
+  const contentContainerRef = useRef<HTMLParagraphElement>(null);
   const playerRef = useRef<YouTube>(null);
   const playerOpts = {
     autoplay: 1,
@@ -83,17 +86,33 @@ function ShortForm({
     playlist: videoId,
   };
   const [isContentOpened, setIsContentOpened] = useState<boolean>(false);
-  const {
-    Modal: PlacesModal,
-    modalOpen: placesModalOpen,
-    modalClose: placesModalClose,
-  } = useModal({
+  const { Modal: PlacesModal, modalOpen: placesModalOpen } = useModal({
     title: "태그된 장소",
     handle: true,
   });
-  const { ScrapModal, scrapModalOpen, scrapModalClose } = useScrapModal({
+  const { ScrapModal, scrapModalOpen } = useScrapModal({
     id: id,
     type: "short-form",
+  });
+  const navigate = useNavigate();
+  const { Alert, alertOpen } = useAlert({
+    Content: (
+      <Typography.Body size="lg" color="white">
+        로그인이 필요한 서비스에요.
+      </Typography.Body>
+    ),
+    RightContent: (
+      <Typography.Body size="lg" color="white">
+        <span
+          style={{ textDecoration: "underline", cursor: "pointer" }}
+          onClick={() => {
+            navigate("/login");
+          }}
+        >
+          로그인 하러가기
+        </span>
+      </Typography.Body>
+    ),
   });
 
   const toggleClap = async () => {
@@ -136,6 +155,12 @@ function ShortForm({
   }, [visible]);
 
   useEffect(() => {
+    if (!isContentOpened && contentContainerRef.current !== null) {
+      contentContainerRef.current.scrollTop = 0;
+    }
+  }, [isContentOpened]);
+
+  useEffect(() => {
     const { current: container } = containerRef;
     playerRef.current
       ?.getInternalPlayer()
@@ -144,6 +169,7 @@ function ShortForm({
 
   return (
     <>
+      <Alert />
       <PlacesModal>
         <PlacesModalContents id={id} />
       </PlacesModal>
@@ -177,24 +203,29 @@ function ShortForm({
         <S.InfoBox>
           <p>
             <Link to={`profile/${userid}`}>
-              {profileImage ? (
-                <UserIcon />
-              ) : (
-                <S.ProfileImage src={profileImage} alt="" />
-              )}
+              <S.ProgileImageBox>
+                {profileImage ? (
+                  <img src={profileImage} alt="" />
+                ) : (
+                  <UserIcon />
+                )}
+              </S.ProgileImageBox>
               <span>{username}</span>
             </Link>
           </p>
           <p>{title}</p>
           <S.ContentBox
+            ref={contentContainerRef}
             isOpened={isContentOpened}
             onClick={() => {
               setIsContentOpened((prev) => !prev);
             }}
           >
-            {content.split("\n").map((line) => (
-              <p>{line}</p>
-            ))}
+            {isContentOpened ? (
+              content.split("\n").map((line) => <p>{line}</p>)
+            ) : (
+              <p>{content.split("\n")[0]}</p>
+            )}
           </S.ContentBox>
           <S.BottomInfoContainer>
             <span>
@@ -210,25 +241,52 @@ function ShortForm({
           </S.BottomInfoContainer>
         </S.InfoBox>
         <S.ControlBox>
-          <S.IconButton onClick={toggleClap}>
+          <S.IconButton
+            onClick={() => {
+              if (localStorage.getItem("access_token")) {
+                toggleClap();
+              } else {
+                alertOpen();
+              }
+            }}
+          >
             {clap.isActive ? <FilledLikeIcon /> : <LikeIcon />}
             {clap.count}
           </S.IconButton>
-          <S.IconButton onClick={modalOpen}>
+          <S.IconButton
+            onClick={() => {
+              if (localStorage.getItem("access_token")) {
+                modalOpen();
+              } else {
+                alertOpen();
+              }
+            }}
+          >
             <CommentIcon />
             {commentCount}
           </S.IconButton>
           <S.IconButton
             onClick={(e) => {
               e.preventDefault();
-              // toggleBookmark();
-              scrapModalOpen();
+              if (localStorage.getItem("access_token")) {
+                scrapModalOpen();
+              } else {
+                alertOpen();
+              }
             }}
           >
             {bookmark.isActive ? <FilledBookMarkIcon /> : <BookMarkIcon />}
             {bookmark.count}
           </S.IconButton>
-          <S.IconButton onClick={placesModalOpen}>
+          <S.IconButton
+            onClick={() => {
+              if (localStorage.getItem("access_token")) {
+                placesModalOpen();
+              } else {
+                alertOpen();
+              }
+            }}
+          >
             <PlaceIcon />
           </S.IconButton>
           <S.IconButton onClick={popupOpen}>

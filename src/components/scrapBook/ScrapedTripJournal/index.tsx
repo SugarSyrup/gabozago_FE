@@ -31,13 +31,13 @@ const ScrapedTripJournal = memo(function ScrapedTripJournal() {
     textInputPopupOpen: createPopupOpen,
     textInputPopupClose: createPopupClose,
     isOpend: isCreatePopupOpend,
-  } = useTextInputPopup("새 폴더 추가", 20);
+  } = useTextInputPopup("새 폴더 추가", 38);
   const {
     TextInputPopup: EditFolderPopup,
     textInputPopupOpen: editPopupOpen,
     textInputPopupClose: editPopupClose,
     isOpend: isEditPopupOpend,
-  } = useTextInputPopup("폴더 이름", 20, editingFolderName);
+  } = useTextInputPopup("폴더 이름", 38, editingFolderName);
   const { ConfirmPopup, confirmPopupOpen, confirmPopupClose } = useConfirm(
     "폴더를 삭제하시겠어요?",
     "폴더를 삭제하면, 폴더 안에 스크랩된 \n콘텐츠도 모두 삭제 돼요.",

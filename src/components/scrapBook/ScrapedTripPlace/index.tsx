@@ -22,20 +22,7 @@ interface Place {
 function ScrapedTripPlace() {
   const navigate = useNavigate();
   const [filter, setFilter] = useRecoilState<TFilter>(journalFilterState);
-  const [places, setPlaces] = useState<Place[]>([
-    {
-      id: 40,
-      name: "네이밍카페 커피고 난곡점",
-      theme: ["반려동물"],
-      address: "서울특별시 관악구 신림동 538-1",
-    },
-    {
-      id: 80,
-      name: "김밥천국",
-      theme: ["미식"],
-      address: "서울특별시 관악구 미성동 1680-51",
-    },
-  ]);
+  const [places, setPlaces] = useState<Place[]>([]);
 
   const getPlaces = async () => {
     const token = localStorage.getItem("access_token");

@@ -1,7 +1,7 @@
 import * as S from "./style";
 import { ReactNode, useEffect } from "react";
 import BottomNavBar from "../BottomNavBar";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { modalState } from "../../../recoil/modalState";
 import useModal from "../../../hooks/useModal";
 
@@ -12,7 +12,7 @@ interface Props {
 }
 
 function PageTemplate({ children, nav = "default", header }: Props) {
-  const modal = useRecoilValue(modalState);
+  const [modal, setModal] = useRecoilState(modalState);
   const { Modal, modalOpen, modalClose } = useModal({
     title: modal.title,
   });
@@ -24,6 +24,10 @@ function PageTemplate({ children, nav = "default", header }: Props) {
       modalClose();
     }
   }, [modal]);
+
+  useEffect(() => {
+    setModal((prev) => ({ ...prev, isOpend: false }));
+  }, [children]);
 
   return (
     <S.Container header={header ? true : false}>

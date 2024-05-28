@@ -20,21 +20,31 @@ function PlanEditMode({ setIsEditMode }: Props) {
   };
   return (
     <>
-      <S.EditComplateButton
-        onClick={() => {
-          // 변경된 내용이 있을 경우에만 patch 수행
-          const isDiff =
-            JSON.stringify(tripData.plan) !== JSON.stringify(tempData);
+      <S.ButtonContainer>
+        <S.EditComplateButton
+          onClick={() => {
+            setIsEditMode(false);
+          }}
+          color="#a6a6a6"
+        >
+          취소
+        </S.EditComplateButton>
+        <S.EditComplateButton
+          onClick={() => {
+            // 변경된 내용이 있을 경우에만 patch 수행
+            const isDiff =
+              JSON.stringify(tripData.plan) !== JSON.stringify(tempData);
 
-          if (isDiff) {
-            patchTripPlan(tempData);
-            setTripData((prev) => ({ ...prev, plan: tempData }));
-          }
-          setIsEditMode(false);
-        }}
-      >
-        완료
-      </S.EditComplateButton>
+            if (isDiff) {
+              patchTripPlan(tempData);
+              setTripData((prev) => ({ ...prev, plan: tempData }));
+            }
+            setIsEditMode(false);
+          }}
+        >
+          완료
+        </S.EditComplateButton>
+      </S.ButtonContainer>
       {tempData &&
         tempData.map((dayPlan) => (
           <DayPlanEdit day={dayPlan.day} date={dayPlan.date} />

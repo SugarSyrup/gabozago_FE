@@ -8,7 +8,7 @@ interface Props {
 
 interface Menu {
   icon: JSX.Element;
-  iconColor?: "gray";
+  iconColor?: string;
   name: string;
   onClick: MouseEventHandler;
 }

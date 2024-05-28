@@ -65,16 +65,19 @@ export const CommentInputForm = styled.form<{ position: "bottom" | "top" }>`
         `}
 `;
 
-export const UserProfileImg = styled(UserIcon)`
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-
-  path {
-    fill: ${({ theme }) => theme.gray03};
-  }
+export const UserProfileImgBox = styled.div`
+  flex: 0 0 fit-content;
+  width: 33px;
+  height: 33px;
+  overflow: hidden;
 `;
 
+export const UserProfileImg = styled.img`
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+  object-fit: cover;
+`;
 export const CommentInputControlBox = styled.div`
   position: relative;
   flex: 1 1 100%;

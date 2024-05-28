@@ -75,14 +75,6 @@ export const InfoBox = styled.div`
       font-weight: 500;
       text-decoration: none;
       color: ${({ theme }) => theme.white};
-
-      svg {
-        width: 30px;
-        height: 30px;
-        path {
-          fill: ${({ theme }) => theme.white};
-        }
-      }
     }
 
     button {
@@ -124,11 +116,11 @@ export const ContentBox = styled.p<{ isOpened: boolean }>`
       max-height: 240px;
       overflow-y: auto;
       text-overflow: clip;
-      background-color: #00000050;
+      /* background-color: #00000050; */
     `};
 
   &:hover {
-    background-color: #00000050;
+    /* background-color: #00000050; */
   }
 
   p {
@@ -166,10 +158,17 @@ export const BottomInfoContainer = styled.div`
   }
 `;
 
-export const ProfileImage = styled.image`
-  width: 24px;
-  height: 24px;
-  object-fit: cover;
+export const ProgileImageBox = styled.div`
+  & > img,
+  & > svg {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  & > svg path {
+    fill: ${({ theme }) => theme.white};
+  }
 `;
 
 export const FollowButton = styled.button`

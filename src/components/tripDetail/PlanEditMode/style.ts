@@ -1,9 +1,14 @@
 import styled from "styled-components";
 
-export const EditComplateButton = styled.button`
+export const ButtonContainer = styled.div`
+  display: flex;
+  gap: 5px;
   position: absolute;
   right: 0;
   padding: 0;
+`;
+
+export const EditComplateButton = styled.button<{ color?: string }>`
   border: 0;
   border-radius: 5px;
   background-color: transparent;
@@ -12,7 +17,7 @@ export const EditComplateButton = styled.button`
   font-weight: 600;
   text-decoration: underline;
   cursor: pointer;
-  color: ${({ theme }) => theme.main};
+  color: ${({ color, theme }) => (color ? color : theme.main)};
 
   &:hover {
     background-color: ${({ theme }) => theme.blue05};
