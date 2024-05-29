@@ -4,6 +4,8 @@ const axiosInstance = axios.create({
     baseURL: `${import.meta.env.VITE_BASE_URL}`,
 })
 
+axiosInstance.defaults.withCredentials = true;
+
 const onRequest = (
     config: InternalAxiosRequestConfig,
 ): InternalAxiosRequestConfig => {
@@ -15,6 +17,7 @@ const onRequest = (
       config.headers.Authorization = `Bearer ${token}`;
     }
 
+    config.withCredentials = true;
     return config;
 }
 
