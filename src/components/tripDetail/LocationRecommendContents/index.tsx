@@ -62,7 +62,7 @@ function LocationRecommendContents({locations} : Props) {
                         />
                 }
                 {
-                    data && data[0].short_form && 
+                    data && data[1].short_form && 
                         <RecommendationReviewItem
                             type="short-form"
                             id={data[1]["short_form"][0].id}
