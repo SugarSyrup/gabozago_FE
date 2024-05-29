@@ -149,6 +149,7 @@ function MyTripLocationSelectPage() {
                   regions: selectedLocations.toString()
                 }).then(
                   (response) => {
+                    setSelectedLocations([]);
                     navigate(`/mytrip/${response.data.id}`)
                   }
                 )
