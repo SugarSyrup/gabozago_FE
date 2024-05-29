@@ -90,6 +90,7 @@ function ArticlePage() {
     const navigate = useNavigate();
     const { id } = useParams();
     const [isLogin, setIsLogin] = useState<boolean>(false);
+    const [isReload, setIsReload] = useState<boolean>(true);
     const [data, setData] = useState<TArticle>();
     const [isUserBookmarked, setIsUserBookmarked] = useState<boolean>(false);
     const stationRefs = useRef<null[] | HTMLDivElement[]>([]);
@@ -106,6 +107,13 @@ function ArticlePage() {
     const {Alert, alertOpen, alertClose} = useAlert({
         Content: <Typography.Title size="md" color="white">URL이 복사되었습니다.</Typography.Title>,
     });
+
+    useEffect(() => {
+        setIsReload(false);
+        if(!isReload) {
+            window.location.reload();
+        }
+    }, [location.pathname])
 
   useEffect(() => {
     if (localStorage.getItem("access_token")) {
@@ -183,7 +191,7 @@ function ArticlePage() {
                     }
                     {
                         data.nextArticle &&
-                        <S.NextArticle>
+                        <S.NextArticle onClick={() => {setIsReload(false)}}>
                             <span>2편 : <Link to={`/article/${data.nextArticle.id}`}>‘{data.nextArticle.name}’</Link> 이어보기</span>
                         </S.NextArticle>
                     }
