@@ -68,7 +68,7 @@ function useScrapModal({ id, type, setIsScraped }: Props) {
               </S.HeaderLeftItems>
               <S.ScrapIconWrapper isScraped={isUserScraped}  onClick={() => {
                   post<{ message: "Create Success" | "Delete Success" }>(`/folder/scrap/community`, {
-                    community: "article",
+                    community: type,
                     postId: id
                   }).then(() => {  
                     if(isUserScraped) {

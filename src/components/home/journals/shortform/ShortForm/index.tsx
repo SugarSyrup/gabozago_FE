@@ -74,6 +74,9 @@ function ShortForm({
   const { ScrapModal, scrapModalOpen } = useScrapModal({
     id: shortFormId,
     type: "short-form",
+    setIsScraped: () => {
+      setBookmark((prev) => ({ count: prev.isActive ? prev.count - 1 : prev.count + 1, isActive: !prev.isActive }));
+    },
   });
   const navigate = useNavigate();
   const { Alert: LoginALlert, alertOpen: loginAlertOpen } = useAlert({
@@ -108,21 +111,6 @@ function ShortForm({
     }
   };
   
-  const toggleBookmark = async (scrapFolderId: number | null = null) => {
-    post<{ community: string; postId: number; scrapFolderId: number | null }>(
-      "/folder/scrap/community",
-      {
-        community: "short-form",
-        postId: shortFormId,
-        scrapFolderId: scrapFolderId,
-      }
-    );
-    if (bookmark.isActive) {
-      setBookmark((prev) => ({ count: prev.count - 1, isActive: false }));
-    } else {
-      setBookmark((prev) => ({ count: prev.count + 1, isActive: true }));
-    }
-  };
 
   const videoPlayControl = () => {
     if(playerRef.current === null) return;
@@ -344,6 +332,17 @@ function ShortForm({
             onClick={(e) => {
               e.preventDefault();
               if (localStorage.getItem("access_token")) {
+                if(!bookmark.isActive) {
+                  post<{ message: "Create Success" | "Delete Success" }>(
+                    `/folder/scrap/community`,
+                    {
+                      community: "short-form",
+                      postId: shortFormId,
+                    }
+                  ).then(() => {
+                    setBookmark((prev) => ({count: prev.count + 1, isActive: true}));
+                  });
+                }
                 scrapModalOpen();
               } else {
                 loginAlertOpen();
