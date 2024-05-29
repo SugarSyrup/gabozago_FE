@@ -6,7 +6,9 @@ import PlacePage from "./pages/PlacePage";
 import TermsPage from "./pages/TermsPage";
 
 import MyTripDetailPage from "./pages/mytrip/DetailPage";
-import MyTripLocationSelectPage, { locationResponseType } from "./pages/mytrip/LocationSelectPage";
+import MyTripLocationSelectPage, {
+  locationResponseType,
+} from "./pages/mytrip/LocationSelectPage";
 import MyTripDatesSelectPage from "./pages/mytrip/DatesSelectPage";
 import MyTripLocationSearchPage from "./pages/mytrip/LocationSearchPage";
 import MyTripPlaceCreatePage from "./pages/mytrip/PlaceCreatePage";
@@ -337,6 +339,10 @@ const router = createBrowserRouter([
   {
     path: "/article/:id",
     element: <ArticlePage />,
+    loader: async () => {
+      const { data } = await get<TUserProfile>(`/user/profile`);
+      return data.avatarURL;
+    },
   },
   {
     // 약관

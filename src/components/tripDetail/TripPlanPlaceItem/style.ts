@@ -91,9 +91,12 @@ export const InfoSpan = styled.span`
   }
 `;
 export const MemoParagraph = styled.p`
+  width: 100%;
   padding: 8px 0 10px;
   font-size: 11px;
   line-height: 18px;
   font-weight: 400;
   color: ${({ theme }) => theme.main};
+  word-break: keep-all;
+  overflow-wrap: anywhere;
 `;
