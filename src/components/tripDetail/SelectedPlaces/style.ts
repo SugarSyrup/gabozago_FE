@@ -20,7 +20,11 @@ export const SelectedPlaceList = styled.div`
     
     max-width:100%;
     max-height:140px;
-    overflow:hidden;
+    overflow:scroll;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 `;
 
 export const Button = styled.button<{isActive: boolean}>`
