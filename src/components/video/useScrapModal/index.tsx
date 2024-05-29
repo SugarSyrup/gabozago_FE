@@ -21,10 +21,12 @@ type TScrapFolder = {
 interface Props {
   id: number;
   type: "short-form" | "article";
+  setIsScraped?: () => void;
 }
 
-function useScrapModal({ id, type }: Props) {
+function useScrapModal({ id, type, setIsScraped }: Props) {
   const [scrapFolderData, setScrapFolderData] = useState<TScrapFolder[]>([]);
+  const [isUserScraped, setIsUserScraped] = useState<boolean>(true);
   const { Modal, modalOpen, modalClose } = useModal({
     title: "",
     handle: true,
@@ -43,6 +45,7 @@ function useScrapModal({ id, type }: Props) {
 
   useEffect(() => {
     getFolders();
+    setIsUserScraped(true);
   }, []);
 
 
@@ -61,7 +64,30 @@ function useScrapModal({ id, type }: Props) {
                   {type === "short-form" ? "숏폼이 저장됨" : "아티클이 저장됨"}
                 </Typography.Title>
               </S.HeaderLeftItems>
-              <ScrapIcon />
+              <S.ScrapIconWrapper isScraped={isUserScraped}  onClick={() => {
+                  post<{ message: "Create Success" | "Delete Success" }>(`/folder/scrap/community`, {
+                    community: "article",
+                    postId: id
+                  }).then(() => {  
+                    if(isUserScraped) {
+                      setScrapFolderData((prev) => {
+                        return prev.map((folder) => {
+                          return {
+                            ...folder,
+                            status: false,
+                          };
+                        });
+                      });
+                    }
+                    
+                    if(setIsScraped){
+                      setIsScraped();
+                    }
+                    setIsUserScraped(prev => !prev);
+                  });
+                }}>
+                <ScrapIcon />
+              </S.ScrapIconWrapper>
             </S.ScrapModalHeader>
             <S.SeperateLine />
             <S.TravelListHeader>

@@ -8,7 +8,6 @@ import PageTemplate from "../../components/common/PageTemplate";
 import Typography from "../../components/common/Typography";
 import BottomNav from "../../components/post/BottomNav";
 import Comment from "../../components/journal/Comment";
-import useScrapModal from "../../components/video/useScrapModal";
 
 import Editor from "../../components/article/Editor";
 import Interview from "../../components/article/Interview";
@@ -99,10 +98,6 @@ function ArticlePage() {
         handle: false,
         borderRadius: "16px"
     });
-    const {ScrapModal, scrapModalOpen, scrapModalClose} = useScrapModal({
-        id: Number(id),
-        type: "article"
-    });
     const {Alert, alertOpen, alertClose} = useAlert({
         Content: <Typography.Title size="md" color="white">URL이 복사되었습니다.</Typography.Title>,
     });
@@ -140,9 +135,8 @@ function ArticlePage() {
     return(
         <>
         {data && 
-            <PageTemplate nav={<BottomNav title={data.title} postId={id} isClap={data.isClapped} claps={data.claps} comment={data.commentCount} isBookmarked={data.isBookmarked} onScrapClick={() => {scrapModalOpen()}} onCommentClick={() => {modalOpen()}} bookmark={data.bookmark} onShareClick={() => {alertOpen()}}/>}>
+            <PageTemplate nav={<BottomNav title={data.title} postId={id} isClap={data.isClapped} claps={data.claps} comment={data.commentCount} isBookmarked={data.isBookmarked} onCommentClick={() => {modalOpen()}} bookmark={data.bookmark} onShareClick={() => {alertOpen()}}/>}>
                 <Alert />
-                <ScrapModal />
                 <Modal>
                     <Comment id={id} commentInputPosition="bottom" type="article" commentCount={data.commentCount} />
                 </Modal>

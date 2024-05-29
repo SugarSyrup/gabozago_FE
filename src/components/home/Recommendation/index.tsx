@@ -28,12 +28,12 @@ interface TShortForms {
     "next": string | null,
     "previous": string | null,
     "results": {
-        "id": number,
-        "title": string,
-        "videoId": string,
-        "region": string[],
-        "theme": string[],
-        "views": number
+        id: number;
+        title: string;
+        videoId: string;
+        location: string[];
+        theme: string[];
+        views: number;
     }[]
 }
 
@@ -46,6 +46,10 @@ function Recommendation() {
     const {ScrapModal, scrapModalOpen, scrapModalClose} = useScrapModal({
         id: currentArticleId,
         type: "article",
+        setIsScraped: () => {setIsUserScrapedList((prev) => {
+            prev[currentArticleId] = !prev[currentArticleId];
+            return [...prev];
+        })},
     });
 
     useEffect(() => {
@@ -102,29 +106,26 @@ function Recommendation() {
                 <Title size="lg">인기 Top 6-10 아티클</Title>
                 <S.Slider>
                     {
-                        articleData?.slice(5,articleData.length).map((article) => <S.SliderItem>
+                        articleData?.slice(5,articleData.length).map((article, idx) => <S.SliderItem>
                                 <S.SliderImg src={article.thumbnailURL} onClick={() => {navigate(`/article/${article.id}`)}} />
                                 <div onClick={() => {navigate(`/article/${article.id}`)}}>
                                     <Label size="lg" noOfLine={2} >{article.title}</Label>
                                 </div>
                                 <S.BookMarkWrapper isBookmark={article.isBookmarked} onClick={() => {
-                                    if(article.isBookmarked) {
-                                        post<{ message: "Create Success" | "Delete Success" }>(`/folder/scrap/community`, {
-                                            community: "article",
-                                            postId: article.id
-                                        }).then(() => {
-                                            window.location.reload();
-                                        });
-                                    }
-                                    else {
-                                        if(localStorage.getItem("access_token")) {
+                                    if(localStorage.getItem("access_token")) {
+                                        if(!article.isBookmarked) {
                                             post<{ message: "Create Success" | "Delete Success" }>(`/folder/scrap/community`, {
                                                 community: "article",
                                                 postId: article.id
+                                            }).then(() => {
+                                                setIsUserScrapedList((prev) => {
+                                                    prev[idx] = !prev[idx];
+                                                    return [...prev];
+                                                });
                                             });
-                                            setCurrentArticleId(article.id);
-                                            scrapModalOpen();
                                         }
+                                        setCurrentArticleId(article.id);
+                                        scrapModalOpen();
                                     }
                                 }}>
                                     <BookMarkIcon/>
