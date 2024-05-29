@@ -46,11 +46,10 @@ function LocationRecommendContents({locations} : Props) {
     return(
         <>
             
-            { data &&  <Typography.Title size="lg">추가한 여행지를 포함한 콘텐츠 제공</Typography.Title> }
+            { data && (data[0].article || data[0].short_form) &&  <Typography.Title size="lg">추가한 여행지를 포함한 콘텐츠 제공</Typography.Title> }
             <S.RecommendatoinReviewList>
                 {
-                    data && 
-                    <>
+                    data && data[0].article && 
                         <RecommendationReviewItem
                             type="article"
                             id={data[0].article[0].id}
@@ -61,6 +60,9 @@ function LocationRecommendContents({locations} : Props) {
                             comments={data[0].article[0].comment}
                             scraps={data[0].article[0].bookmark}
                         />
+                }
+                {
+                    data && data[0].short_form && 
                         <RecommendationReviewItem
                             type="short-form"
                             id={data[1]["short_form"][0].id}
@@ -71,7 +73,6 @@ function LocationRecommendContents({locations} : Props) {
                             comments={data[1]["short_form"][0].comment}
                             scraps={data[1]["short_form"][0].bookmark}
                         />
-                    </>
                 }
             </S.RecommendatoinReviewList>
         </>
