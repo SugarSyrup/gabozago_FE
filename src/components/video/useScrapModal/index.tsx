@@ -27,7 +27,7 @@ interface Props {
 function useScrapModal({ id, type, setIsScraped }: Props) {
   const [scrapFolderData, setScrapFolderData] = useState<TScrapFolder[]>([]);
   const [isUserScraped, setIsUserScraped] = useState<boolean>(true);
-  const { Modal, modalOpen, modalClose } = useModal({
+  const { Modal, modalOpen, modalClose, isOpend } = useModal({
     title: "",
     handle: true,
     borderRadius: "30px",
@@ -44,9 +44,11 @@ function useScrapModal({ id, type, setIsScraped }: Props) {
   };
 
   useEffect(() => {
-    getFolders();
-    setIsUserScraped(true);
-  }, []);
+    if(isOpend){
+      getFolders();
+      setIsUserScraped(true);
+    }
+  }, [isOpend]);
 
 
   function ScrapModal() {

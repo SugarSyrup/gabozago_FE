@@ -23,7 +23,10 @@ function ArticleItem({id, title, desc, thumbnailURL, isBookmarked}: Props) {
     const [isUserScraped, setIsUserScraped] = useState<boolean>(isBookmarked);
     const {ScrapModal, scrapModalOpen, scrapModalClose} = useScrapModal({
         id: Number(id),
-        type: "article"
+        type: "article",
+        setIsScraped: () => {
+            setIsUserScraped(prev => !prev);
+        }
     });
 
     useEffect(() => {
@@ -63,6 +66,7 @@ function ArticleItem({id, title, desc, thumbnailURL, isBookmarked}: Props) {
                                 });
                             }
                             
+                            setIsUserScraped(true);
                             scrapModalOpen();
                         }
                     }}>

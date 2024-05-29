@@ -42,12 +42,13 @@ function Recommendation() {
     const [articleData, setArticleData] = useState<TArticle['results']>([]);
     const [shortformData, setShortformData] = useState<TShortForms['results']>([]);
     const [currentArticleId, setCurrentArticleId] = useState<number>(0);
+    const [currentArticleIdx, setCurrentArticleIdx] = useState<number>(0);
     const [isUserScrapedList, setIsUserScrapedList] = useState<boolean[]>([]);
     const {ScrapModal, scrapModalOpen, scrapModalClose} = useScrapModal({
         id: currentArticleId,
         type: "article",
         setIsScraped: () => {setIsUserScrapedList((prev) => {
-            prev[currentArticleId] = !prev[currentArticleId];
+            prev[currentArticleIdx] = !prev[currentArticleIdx];
             return [...prev];
         })},
     });
@@ -79,6 +80,7 @@ function Recommendation() {
                                     <Label size="lg" noOfLine={2} >{article.title}</Label>
                                 </div>
                                 <S.BookMarkWrapper isBookmark={isUserScrapedList[idx]} onClick={() => {
+                                    setCurrentArticleIdx(idx);
                                     if(localStorage.getItem("access_token")) {
                                         if(!article.isBookmarked) {
                                             post<{ message: "Create Success" | "Delete Success" }>(`/folder/scrap/community`, {
@@ -86,7 +88,7 @@ function Recommendation() {
                                                 postId: article.id
                                             }).then(() => {
                                                 setIsUserScrapedList((prev) => {
-                                                    prev[idx] = !prev[idx];
+                                                    prev[idx] = true;
                                                     return [...prev];
                                                 });
                                             });
@@ -111,19 +113,20 @@ function Recommendation() {
                                 <div onClick={() => {navigate(`/article/${article.id}`)}}>
                                     <Label size="lg" noOfLine={2} >{article.title}</Label>
                                 </div>
-                                <S.BookMarkWrapper isBookmark={article.isBookmarked} onClick={() => {
+                                <S.BookMarkWrapper isBookmark={isUserScrapedList[idx+5]} onClick={() => {
+                                    setCurrentArticleIdx(idx+5);
                                     if(localStorage.getItem("access_token")) {
                                         if(!article.isBookmarked) {
                                             post<{ message: "Create Success" | "Delete Success" }>(`/folder/scrap/community`, {
                                                 community: "article",
                                                 postId: article.id
                                             }).then(() => {
-                                                setIsUserScrapedList((prev) => {
-                                                    prev[idx] = !prev[idx];
-                                                    return [...prev];
-                                                });
                                             });
                                         }
+                                        setIsUserScrapedList((prev) => {
+                                            prev[idx+5] = true;
+                                            return [...prev];
+                                        });
                                         setCurrentArticleId(article.id);
                                         scrapModalOpen();
                                     }
