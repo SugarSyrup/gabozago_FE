@@ -92,7 +92,6 @@ function ArticlePage() {
     const [isLogin, setIsLogin] = useState<boolean>(false);
     const [isReload, setIsReload] = useState<boolean>(true);
     const [data, setData] = useState<TArticle>();
-    const [isUserBookmarked, setIsUserBookmarked] = useState<boolean>(false);
     const stationRefs = useRef<null[] | HTMLDivElement[]>([]);
 
     const {Modal, modalOpen, modalClose, isOpend} = useModal({
@@ -127,7 +126,6 @@ function ArticlePage() {
         get<TArticle>(`/community/article/${id}`)
             .then((response) => {
                 setData(response.data);
-                setIsUserBookmarked(response.data.isBookmarked);
             })
     }, [])
 
@@ -142,7 +140,7 @@ function ArticlePage() {
     return(
         <>
         {data && 
-            <PageTemplate nav={<BottomNav title={data.title} postId={id} isClap={data.isClapped} claps={data.claps} comment={data.commentCount} isBookmarked={isUserBookmarked} onScrapClick={() => {scrapModalOpen()}} onCommentClick={() => {modalOpen()}} bookmark={data.bookmark} onShareClick={() => {alertOpen()}}/>}>
+            <PageTemplate nav={<BottomNav title={data.title} postId={id} isClap={data.isClapped} claps={data.claps} comment={data.commentCount} isBookmarked={data.isBookmarked} onScrapClick={() => {scrapModalOpen()}} onCommentClick={() => {modalOpen()}} bookmark={data.bookmark} onShareClick={() => {alertOpen()}}/>}>
                 <Alert />
                 <ScrapModal />
                 <Modal>

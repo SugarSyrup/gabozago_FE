@@ -20,6 +20,7 @@ function ArticleItem({id, title, desc, thumbnailURL, isBookmarked}: Props) {
     const navigate = useNavigate()
     const ContainerRef = useRef<HTMLDivElement>(null);
     const [opacity, setOpacity] = useState(0.3);
+    const [isUserScraped, setIsUserScraped] = useState<boolean>(isBookmarked);
     const {ScrapModal, scrapModalOpen, scrapModalClose} = useScrapModal({
         id: Number(id),
         type: "article"
@@ -51,23 +52,18 @@ function ArticleItem({id, title, desc, thumbnailURL, isBookmarked}: Props) {
             <S.ArticleItem opacity={opacity} ref={ContainerRef}>
                 <S.ThumbnailWrapper>
                     <S.Thumbnail src={thumbnailURL} onClick={() => {navigate(`/article/${id}`)}} />
-                    <S.BookMarkWrapper isBookmark={isBookmarked} onClick={() => {
-                        if(isBookmarked) {
-                            post<{ message: "Create Success" | "Delete Success" }>(`/folder/scrap/community`, {
-                                community: "article",
-                                postId: id
-                            }).then(() => {
-                                window.location.reload();
-                            });
-                        }
-                        else {
-                            if(localStorage.getItem("access_token")) {
+                    <S.BookMarkWrapper isBookmark={isUserScraped} onClick={() => {
+                        if(localStorage.getItem("access_token")) {
+                            if(!isUserScraped) {
                                 post<{ message: "Create Success" | "Delete Success" }>(`/folder/scrap/community`, {
                                     community: "article",
                                     postId: id
+                                }).then(() => {
+                                    setIsUserScraped(true);
                                 });
-                                scrapModalOpen();
                             }
+                            
+                            scrapModalOpen();
                         }
                     }}>
                         <BookMarkIcon/>

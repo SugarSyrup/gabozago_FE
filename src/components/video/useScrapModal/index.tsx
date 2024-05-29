@@ -31,7 +31,6 @@ function useScrapModal({ id, type }: Props) {
     borderRadius: "30px",
   });
   const {TextInputPopup,inputRef,textInputPopupOpen,textInputPopupClose} = useTextInputPopup("새 폴더 이름", 30);
-  //const inputRef = useRef<HTMLInputElement>(null);
 
   const getFolders = async () => {
     get<{

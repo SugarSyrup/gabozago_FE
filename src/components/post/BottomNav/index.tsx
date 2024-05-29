@@ -36,6 +36,7 @@ function BottomNav({
   isBookmarked,
 }: Props) {
   const { Popup, popupOpen, popupClose } = usePopup();
+  const [isUserScraped, setIsUserScraped] = useState<boolean>(isBookmarked);
   const [isUserClap, setIsUserClap] = useState<boolean>(isClap);
   const [isUserClpas, setIsUserClpas] = useState<number>(claps);
 
@@ -92,9 +93,9 @@ function BottomNav({
           <span>{comment}</span>
         </S.NavigationItem>
         <S.NavigationItem
-          isBookmarked={isBookmarked}
+          isBookmarked={isUserScraped}
           onClick={() => {
-            if (isBookmarked) {
+            if(!isUserScraped && localStorage.getItem("access_token")) {
               post<{ message: "Create Success" | "Delete Success" }>(
                 `/folder/scrap/community`,
                 {
@@ -102,26 +103,14 @@ function BottomNav({
                   postId: postId,
                 }
               ).then(() => {
-                window.location.reload();
+                setIsUserScraped(true);
               });
-            } else {
-              if (localStorage.getItem("access_token")) {
-                post<{ message: "Create Success" | "Delete Success" }>(
-                  `/folder/scrap/community`,
-                  {
-                    community: "article",
-                    postId: postId,
-                  }
-                ).then(() => {
-                  window.location.reload();
-                });
-                onScrapClick();
-              }
             }
+            onScrapClick();
           }}
         >
           <BookMarkIcon />
-          <span>{bookmark}</span>
+          <span>{(!isBookmarked && isUserScraped) ? bookmark + 1 : bookmark}</span>
         </S.NavigationItem>
         <S.NavigationItem
           onClick={() => {
