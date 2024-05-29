@@ -103,7 +103,7 @@ function PlacePage() {
                                 <PhoneIcon />
                                 <S.InfomationText>{data.number}</S.InfomationText>
                             </S.InfomationItem>
-                            { data.opening_hours !== "" &&
+                            { data.opening_hours &&
                                 <S.InfomationItem>
                                     <TimeIcon />
                                     <PlaceOperateTime opening_hours={data.opening_hours}/>
