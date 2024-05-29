@@ -51,7 +51,6 @@ function BottomNav({
           id="urlCopy"
           value={window.location.href}
           onClick={() => {
-            navigator.clipboard.writeText(window.location.href);
             navigator.clipboard.writeText(`${title}\n${window.location.href}`);
             popupClose();
             onShareClick && onShareClick();

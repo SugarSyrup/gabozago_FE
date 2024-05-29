@@ -142,7 +142,7 @@ function ArticlePage() {
     return(
         <>
         {data && 
-            <PageTemplate nav={<BottomNav postId={id} isClap={data.isClapped} claps={data.claps} comment={data.commentCount} isBookmarked={isUserBookmarked} onScrapClick={() => {scrapModalOpen()}} onCommentClick={() => {modalOpen()}} bookmark={data.bookmark} onShareClick={() => {alertOpen()}}/>}>
+            <PageTemplate nav={<BottomNav title={data.title} postId={id} isClap={data.isClapped} claps={data.claps} comment={data.commentCount} isBookmarked={isUserBookmarked} onScrapClick={() => {scrapModalOpen()}} onCommentClick={() => {modalOpen()}} bookmark={data.bookmark} onShareClick={() => {alertOpen()}}/>}>
                 <Alert />
                 <ScrapModal />
                 <Modal>
