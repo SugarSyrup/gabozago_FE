@@ -30,7 +30,7 @@ function UserClapsPostList({data, type}: Props) {
                             }
                         </S.ThumbnailWrapper>
                         <S.TextContainer>
-                            <Link to={`journal/shortform/${id}`}>
+                            <Link to={`/article/${id}`}>
                                 <Typography.Title size="md" noOfLine={3}>{title}</Typography.Title>
                             </Link>
                             <S.User>
@@ -49,7 +49,7 @@ function UserClapsPostList({data, type}: Props) {
                 )
                 :
 
-                (data as shortsResponseType['results']).map(({id, title, nickname, avatarURL, videoId, reactionCount, commentCount}) => 
+                (data as shortsResponseType['results']).map(({id, title, nickname, avatarURL, videoId, clapCount, commentCount}) => 
                     <S.Item>
                         <S.ThumbnailWrapper>
                             {videoId ? 
@@ -59,7 +59,7 @@ function UserClapsPostList({data, type}: Props) {
                             }
                         </S.ThumbnailWrapper>
                         <S.TextContainer>
-                            <Link to={`/article/${id}`}>
+                            <Link to={`/journal/shortform/${id}`}>
                                 <Typography.Title size="md" noOfLine={3}>{title}</Typography.Title>
                             </Link>
                             <S.User>
@@ -70,7 +70,7 @@ function UserClapsPostList({data, type}: Props) {
                                 <Typography.Label size="md" color="inherit">{nickname}</Typography.Label>
                             </S.User>
                             <S.Info>
-                                <span><ClapIcon /><Typography.Label size="md">{reactionCount}개</Typography.Label></span>
+                                <span><ClapIcon /><Typography.Label size="md">{clapCount}개</Typography.Label></span>
                                 <span><CommentIcon /><Typography.Label size="md">{commentCount}개</Typography.Label></span>
                             </S.Info>
                         </S.TextContainer>

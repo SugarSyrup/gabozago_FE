@@ -31,7 +31,7 @@ export interface shortsResponseType {
         nickname: string,
         avatarURL: string,
         videoId: string,
-        reactionCount: number,
+        clapCount: number,
         commentCount: number,
     }[]
 }
