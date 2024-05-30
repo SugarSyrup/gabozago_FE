@@ -16,6 +16,7 @@ interface Props {
   commentInputPosition?: "bottom" | "top";
   type: "short-form" | "article" | "video" | "report" | "travelog";
   commentCount: number;
+  setContentsCommentCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
 function Comment({
@@ -23,6 +24,7 @@ function Comment({
   commentInputPosition = "top",
   type,
   commentCount: commentCountProp,
+  setContentsCommentCount,
 }: Props) {
   const profileImage = useLoaderData() as string;
   const inputRef = useRef<HTMLInputElement>(null);
@@ -70,6 +72,7 @@ function Comment({
   const getComments = async (id: number) => {
     const { data } = await get<TComment[]>(`community/${type}/${id}/comment`);
     setCommentCount(data.length);
+    setContentsCommentCount(data.length);
     setComments(parseComments(data));
   };
   const deleteComments = async (commentId: number) => {

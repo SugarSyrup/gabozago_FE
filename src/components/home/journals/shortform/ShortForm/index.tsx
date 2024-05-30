@@ -57,6 +57,7 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
     count: number;
     isActive: boolean;
   }>({ count: 0, isActive: false });
+  const [contentsCommentCount, setContentsCommentCount] = useState<number>(0);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const loadingRef = useRef<HTMLDivElement>(null);
@@ -172,6 +173,7 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
               `/community/short-form/${shortFormId}`
             );
             setData(data);
+            setContentsCommentCount(data.commentCount);
             setClap({ count: data.clap, isActive: data.isClapped });
             setBookmark({ count: data.bookmark, isActive: data.isBookmarked });
           };
@@ -203,6 +205,7 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
               commentInputPosition="bottom"
               type={"short-form"}
               commentCount={data.commentCount}
+              setContentsCommentCount={setContentsCommentCount}
             />
           </Modal>
           <Popup>
@@ -328,7 +331,7 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
                 }}
               >
                 <CommentIcon />
-                {data.commentCount}
+                {contentsCommentCount}
               </S.IconButton>
               <S.IconButton
                 onClick={(e) => {

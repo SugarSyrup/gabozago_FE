@@ -91,6 +91,7 @@ function ArticlePage() {
     const [isLogin, setIsLogin] = useState<boolean>(false);
     const [isReload, setIsReload] = useState<boolean>(true);
     const [data, setData] = useState<TArticle>();
+    const [userCommentCount, setUserCommentCount] = useState<number>(0);
     const stationRefs = useRef<null[] | HTMLDivElement[]>([]);
 
     const {Modal, modalOpen, modalClose, isOpend} = useModal({
@@ -121,6 +122,7 @@ function ArticlePage() {
         get<TArticle>(`/community/article/${id}`)
             .then((response) => {
                 setData(response.data);
+                setUserCommentCount(response.data.commentCount);
             })
     }, [])
 
@@ -135,10 +137,10 @@ function ArticlePage() {
     return(
         <>
         {data && 
-            <PageTemplate nav={<BottomNav title={data.title} postId={id} isClap={data.isClapped} claps={data.claps} comment={data.commentCount} isBookmarked={data.isBookmarked} onCommentClick={() => {modalOpen()}} bookmark={data.bookmark} onShareClick={() => {alertOpen()}}/>}>
+            <PageTemplate nav={<BottomNav title={data.title} postId={id} isClap={data.isClapped} claps={data.claps} comment={userCommentCount} isBookmarked={data.isBookmarked} onCommentClick={() => {modalOpen()}} bookmark={data.bookmark} onShareClick={() => {alertOpen()}}/>}>
                 <Alert />
                 <Modal>
-                    <Comment id={id} commentInputPosition="bottom" type="article" commentCount={data.commentCount} />
+                    <Comment id={id} commentInputPosition="bottom" type="article" commentCount={data.commentCount} setContentsCommentCount={setUserCommentCount} />
                 </Modal>
 
                 <S.BackButtonWrapper>
