@@ -108,7 +108,7 @@ export const Empty = styled.div`
     padding-bottom: 160px;
 `
 
-export const IsLoginBlur = styled.div`
+export const IsLoginBlur = styled.div<{top: number}>`
     width: 100%;
     height: 772px;
     padding-top:50px;
@@ -120,7 +120,8 @@ export const IsLoginBlur = styled.div`
 
     position:absolute;
     left:0px;
-    top:2613px;
+    bottom:0px;
+    top:${({top}) => `${top * 54 + 2390 + 24 + 34}px`};
     z-index:100;
 
     display:flex;

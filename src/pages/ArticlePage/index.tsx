@@ -192,7 +192,7 @@ function ArticlePage() {
                 </S.ThumbnailWrapper>
                     {
                         !isLogin &&
-                        <S.IsLoginBlur>
+                        <S.IsLoginBlur  top={JSON.parse(data.content).data.filter((content : TEditor | TInterview | TPhoto | TPlace | TProfile | TStation) => content.type === "station").length}>
                             <Typography.Title size="lg" color="inherit" noOfLine={2}>아티클의 전문이 궁금하다면?<br />가보자고 회원으로 다양한 콘텐츠를 즐겨보세요!</Typography.Title>
                             <DoubleChevronBottom />
                             <S.LoginLinkButton onClick={() => {navigate("/login")}}>
