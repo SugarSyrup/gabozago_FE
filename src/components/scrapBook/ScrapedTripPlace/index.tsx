@@ -2,7 +2,7 @@ import * as S from "./style";
 import BookMarkIcon from "../../../assets/icons/bookmark_filled.svg?react";
 import { useEffect, useState } from "react";
 import { get, post } from "../../../utils/api";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 import FilterList from "../../common/FilterList";
 import RightChevronIcon from "../../../assets/icons/chevron_right.svg?react";
 import Typography from "../../common/Typography";
@@ -24,6 +24,7 @@ function ScrapedTripPlace() {
   const navigate = useNavigate();
   const [filter, setFilter] = useRecoilState<TFilter>(scrapPlaceFilterState);
   const activeFilter = useRecoilValue(activeScrapPlaceFilterListState);
+  const resetFilter = useResetRecoilState(scrapPlaceFilterState);
   const [places, setPlaces] = useState<Place[]>([]);
 
   const getPlaces = async () => {
@@ -64,6 +65,9 @@ function ScrapedTripPlace() {
   useEffect(() => {
     getPlaces();
   }, [filter]);
+  useEffect(() => {
+    resetFilter();
+  }, []);
 
   return (
     <>

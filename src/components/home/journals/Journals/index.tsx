@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ShortFormList, { ShortForm } from "../shortform/ShortFormList";
 import * as S from "./style";
 import FilterList from "../../../common/FilterList";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 import {
   activeJournalFilterListState,
   journalFilterState,
@@ -23,6 +23,7 @@ import {
 function Journals() {
   const [shortForms, setShortForms] = useState<ShortForm[]>([]);
   const [filter, setFilter] = useRecoilState(journalFilterState);
+  const resetFilter = useResetRecoilState(journalFilterState);
   const activeFilter = useRecoilValue(activeJournalFilterListState);
   const [activeCategoryIndex, setActiveCategoryIndex] = useState<number>(0);
   const [next, setNext] = useState<string>("");
@@ -89,6 +90,10 @@ function Journals() {
 
     return () => observer.disconnect();
   });
+
+  useEffect(() => {
+    resetFilter();
+  }, []);
 
   return (
     <S.Container>

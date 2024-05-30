@@ -3,7 +3,7 @@ import * as S from "./style";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { get } from "../../../utils/api";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 import PageTemplate from "../../../components/common/PageTemplate";
 import PageHeader from "../../../components/common/PageHeader";
 import TabBar from "../../../components/common/TabBar";
@@ -55,6 +55,7 @@ function ScrapBookGroupPage() {
     scrapArticleFilterState
   );
   const activeArticleFilter = useRecoilValue(activeScrapArticleFilterListState);
+  const resetArticleFilter = useResetRecoilState(scrapArticleFilterState);
 
   /* 숏폼 */
   const [shortFormFilter, setShortFormFilter] = useRecoilState<TFilter>(
@@ -63,6 +64,7 @@ function ScrapBookGroupPage() {
   const activeShortFormFilter = useRecoilValue(
     activeScrapShortFormFilterListState
   );
+  const resetShortFormFilter = useResetRecoilState(scrapShortFormFilterState);
 
   const tabs: { id: string; name: string; filters: TFilterAndOptions[] }[] = [
     {
@@ -100,7 +102,7 @@ function ScrapBookGroupPage() {
 
   // 아티클 불러오기
   const getArticles = async () => {
-    if(localStorage.getItem("access_token") === null) return;
+    if (localStorage.getItem("access_token") === null) return;
     const params = {
       ordering: orderingOptionMap.get(articleFilter.sort),
       folder: id === "all" ? null : id,
@@ -144,6 +146,10 @@ function ScrapBookGroupPage() {
   useEffect(() => {
     getShortForms();
   }, [shortFormFilter]);
+  useEffect(() => {
+    resetArticleFilter();
+    resetShortFormFilter();
+  }, []);
 
   return (
     <PageTemplate
