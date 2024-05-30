@@ -2,14 +2,18 @@ import React, { useEffect, useState } from "react";
 import ShortFormList, { ShortForm } from "../shortform/ShortFormList";
 import * as S from "./style";
 import FilterList from "../../../common/FilterList";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 import {
   activeJournalFilterListState,
   journalFilterState,
   journalOrderingOptions,
 } from "../../../../recoil/filters/journalState";
 import { get } from "../../../../utils/api";
-import { themeOptions } from "../../../../recoil/filters/codeMap";
+import {
+  orderingOptionMap,
+  themeCodeMap,
+  themeOptions,
+} from "../../../../recoil/filters/codeMap";
 import {
   ButtonsOptions,
   SelectOptions,
@@ -19,6 +23,7 @@ import {
 function Journals() {
   const [shortForms, setShortForms] = useState<ShortForm[]>([]);
   const [filter, setFilter] = useRecoilState(journalFilterState);
+  const resetFilter = useResetRecoilState(journalFilterState);
   const activeFilter = useRecoilValue(activeJournalFilterListState);
   const [activeCategoryIndex, setActiveCategoryIndex] = useState<number>(0);
   const [next, setNext] = useState<string>("");
@@ -56,9 +61,9 @@ function Journals() {
       results: ShortForm[];
     }>(`community/short-form`, {
       params: {
-        ordering: filter.sort,
+        ordering: orderingOptionMap.get(filter.sort),
         location: filter.location.join(","),
-        theme: filter.theme.join(","),
+        theme: filter.theme.map((item) => themeCodeMap.get(item)).join(","),
       },
     });
 
@@ -85,6 +90,10 @@ function Journals() {
 
     return () => observer.disconnect();
   });
+
+  useEffect(() => {
+    resetFilter();
+  }, []);
 
   return (
     <S.Container>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 import { selectedPlacesState } from "../../../recoil/mytrip/selectedPlacesState";
 import BookMarkIcon from "../../../assets/icons/bookmark_filled.svg?react";
 import { get } from "../../../utils/api";
@@ -28,6 +28,7 @@ interface Place {
 function ScrapedPlace({ popupOpen, setNewLocation, locations }: Props) {
   const [filter, setFilter] = useRecoilState<TFilter>(scrapPlaceFilterState);
   const activeFilter = useRecoilValue(activeScrapPlaceFilterListState);
+  const resetFilter = useResetRecoilState(scrapPlaceFilterState);
   const [places, setPlaces] = useState<Place[]>([]);
   const [selectedPlaces, setSelectedPlaces] =
     useRecoilState(selectedPlacesState);
@@ -53,6 +54,9 @@ function ScrapedPlace({ popupOpen, setNewLocation, locations }: Props) {
   useEffect(() => {
     getPlaces();
   }, [filter]);
+  useEffect(() => {
+    resetFilter();
+  }, []);
 
   return (
     <>

@@ -151,7 +151,8 @@ function CommentItem({
         <MenuOptionList menus={isMine ? myCommentMenus : notMyCommentMenus} />
       </CommentMenuModal>
       <S.CommentBox>
-        <Link to={`/profile/${userId}`}>
+        {/* <Link to={`/profile/${userId}`}> */}
+        <Link to={`./`}>
           <S.UserProfileImgBox>
             {profileImage ? (
               <S.UserProfileImg src={profileImage} />
