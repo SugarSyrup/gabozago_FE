@@ -274,7 +274,7 @@ function ShortForm({
                   <UserIcon />
                 )}
               </S.ProgileImageBox>
-              <span>{data.username}</span>
+              <Typography.Body size="lg" color="white">{data.username}</Typography.Body>
           </p>
           <p>{data.title}</p>
           <S.ContentBox

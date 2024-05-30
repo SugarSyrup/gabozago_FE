@@ -24,7 +24,7 @@ export const YoutubeContainer = styled.div`
 
   &::after {
     position: absolute;
-    bottom: 80px;
+    bottom: 78px;
     content: "";
     display: block;
     width: 100%;
