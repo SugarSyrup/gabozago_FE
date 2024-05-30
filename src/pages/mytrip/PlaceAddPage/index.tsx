@@ -109,7 +109,7 @@ const PlaceAddPage = () => {
                     <S.PopupContentsContainer>
                         <InfomationIcon />
                         <S.PopupTextContainer>
-                            <Typography.Headline size="sm">지역윽 추가하시겠어요?</Typography.Headline>
+                            <Typography.Headline size="sm">지역을 추가하시겠어요?</Typography.Headline>
                             <Typography.Body size="lg" color="inherit">선택하신 여행 장소는 {currentSelectedItem.id !== -1 && data.filter((item) => item.id === currentSelectedItem.id)[0].location.toLocaleString()}을 벗어나요.</Typography.Body>
                             <Typography.Body size="lg" color="inherit">{placeData?.region}도 여행 계획에 추가하시겠어요?</Typography.Body>
                             <Typography.Body size="md" color="#FA5252">*지역을 추가하지 않으면, 해당 장소도 추가되지 않아요.</Typography.Body>
