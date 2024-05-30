@@ -1,11 +1,12 @@
 import React from "react";
 import * as S from "./style";
+import { ButtonsOptions } from "../../../../assets/types/FilterTypes";
 
-export interface Props {
+export interface Props extends ButtonsOptions {
   filter: string[];
   setFilter: React.Dispatch<React.SetStateAction<string[]>>;
-  options: string[];
 }
+
 function Buttons({ filter, setFilter, options }: Props) {
   const toggleItem = (item: string) => {
     if (filter.includes(item)) {
@@ -17,17 +18,17 @@ function Buttons({ filter, setFilter, options }: Props) {
 
   return (
     <S.List>
-      {options.map((item) => (
-        <S.Item checked={filter.includes(item)}>
+      {options.map(({ label, value }) => (
+        <S.Item checked={filter.includes(value)}>
           <S.CheckboxInput
             type={"checkbox"}
-            id={item}
-            checked={filter.includes(item)}
+            id={value}
+            checked={filter.includes(value)}
             onChange={() => {
-              toggleItem(item);
+              toggleItem(value);
             }}
           />
-          <label htmlFor={item}>{item}</label>
+          <label htmlFor={value}>{label}</label>
         </S.Item>
       ))}
     </S.List>

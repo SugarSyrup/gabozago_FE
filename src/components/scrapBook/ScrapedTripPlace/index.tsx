@@ -2,15 +2,16 @@ import * as S from "./style";
 import BookMarkIcon from "../../../assets/icons/bookmark_filled.svg?react";
 import { useEffect, useState } from "react";
 import { get, post } from "../../../utils/api";
-import { useRecoilState } from "recoil";
-import {
-  TFilter,
-  journalFilterState,
-} from "../../../recoil/journals/journalState";
+import { useRecoilState, useRecoilValue } from "recoil";
 import FilterList from "../../common/FilterList";
 import RightChevronIcon from "../../../assets/icons/chevron_right.svg?react";
 import Typography from "../../common/Typography";
 import { useNavigate } from "react-router-dom";
+import {
+  activeScrapPlaceFilterListState,
+  scrapPlaceFilterState,
+} from "../../../recoil/filters/scrapPlaceFilterState";
+import { TFilter } from "../../../assets/types/FilterTypes";
 
 interface Place {
   id: number;
@@ -21,7 +22,8 @@ interface Place {
 
 function ScrapedTripPlace() {
   const navigate = useNavigate();
-  const [filter, setFilter] = useRecoilState<TFilter>(journalFilterState);
+  const [filter, setFilter] = useRecoilState<TFilter>(scrapPlaceFilterState);
+  const activeFilter = useRecoilValue(activeScrapPlaceFilterListState);
   const [places, setPlaces] = useState<Place[]>([]);
 
   const getPlaces = async () => {
@@ -67,9 +69,11 @@ function ScrapedTripPlace() {
     <>
       <S.FilterContainer>
         <FilterList
-          filters={["location"]}
+          filterType="scrapPlace"
+          filters={[{ name: "location", options: null }]}
           filterState={filter}
-          filterSetState={setFilter}
+          setFilterState={setFilter}
+          activeFilterState={activeFilter}
         />
       </S.FilterContainer>
       <S.PlaceList>

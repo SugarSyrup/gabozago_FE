@@ -13,11 +13,11 @@ export type ThemeOptions =
   | "가족";
 
 export type OrderingOptions =
-  | "scraped"
-  | "latest"
-  | "most-viewed"
-  | "weekly_popular"
-  | "alltime_popular";
+  | "담은순"
+  | "최신순"
+  | "조회순"
+  | "인기순"
+  | "최근 인기순";
 
 export interface TFilter {
   sort: OrderingOptions;

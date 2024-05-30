@@ -1,12 +1,16 @@
 import { atom, selector } from "recoil";
 import { TFilter } from "../../assets/types/FilterTypes";
-import { orderingOptionMap } from "./codeMap";
+import { orderingOptions } from "./codeMap";
 
 // 스크랩-아티클 필터
 // [필터 종류]: 정렬
 
+export const articleOrderingOptions = orderingOptions.filter(({ label }) =>
+  ["담은순", "최신순", "최근 인기순"].includes(label)
+);
+
 export const defaultFilter: TFilter = {
-  sort: "scraped",
+  sort: "담은순",
 };
 
 export const scrapArticleFilterState = atom<TFilter>({
@@ -24,7 +28,7 @@ export const activeScrapArticleFilterListState = selector({
     if (filter.sort !== defaultFilter.sort) {
       activeFilterValues.push({
         type: "sort",
-        value: orderingOptionMap.get(filter.sort) as string,
+        value: filter.sort,
       });
     }
 

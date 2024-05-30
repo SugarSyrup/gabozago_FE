@@ -5,25 +5,79 @@ import Location from "../../components/common/filterInputs/Locations";
 import Buttons from "../../components/common/filterInputs/Buttons";
 
 export const themeCodeMap = new Map([
-  ["01", "체류"],
-  ["02", "미식"],
-  ["03", "쇼핑"],
-  ["04", "도보"],
-  ["05", "자연"],
-  ["06", "체험"],
-  ["07", "전시·행사"],
-  ["08", "반려동물"],
-  ["09", "연인"],
-  ["10", "가족"],
+  ["체류", "THM01"],
+  ["미식", "THM02"],
+  ["쇼핑", "THM03"],
+  ["도보", "THM04"],
+  ["자연", "THM05"],
+  ["체험", "THM06"],
+  ["전시·행사", "THM07"],
+  ["반려동물", "THM08"],
+  ["연인", "THM09"],
+  ["가족", "THM10"],
 ]);
 
+export const themeOptions = [
+  {
+    label: "체류",
+    value: "체류",
+  },
+  {
+    label: "미식",
+    value: "미식",
+  },
+  {
+    label: "쇼핑",
+    value: "쇼핑",
+  },
+  {
+    label: "도보",
+    value: "도보",
+  },
+  {
+    label: "자연",
+    value: "자연",
+  },
+  {
+    label: "체험",
+    value: "체험",
+  },
+  {
+    label: "전시·행사",
+    value: "전시·행사",
+  },
+  {
+    label: "반려동물",
+    value: "반려동물",
+  },
+  {
+    label: "연인",
+    value: "연인",
+  },
+  {
+    label: "가족",
+    value: "가족",
+  },
+];
+
 export const orderingOptionMap = new Map([
-  ["scraped", "담은순"],
-  ["latest", "최신순"],
-  ["most_viewed", "조회순"],
-  ["weekly_popular", "최근 인기순"],
-  ["alltime_popular", "인기순"],
+  ["담은순", "scraped"],
+  ["최신순", "latest"],
+  ["조회순", "most_viewed"],
+  ["인기순", "alltime_popular"],
+  ["최근 인기순", "weekly_popular"],
 ]);
+
+export const orderingOptions = [
+  { label: "담은순", value: "담은순" },
+  { label: "최신순", value: "최신순" },
+  { label: "조회순", value: "조회순" },
+  { label: "인기순", value: "인기순" },
+  {
+    label: "최근 인기순",
+    value: "최근 인기순",
+  },
+];
 
 export const filterNameMap = new Map<TFilterName, string>([
   ["all", "필터"],

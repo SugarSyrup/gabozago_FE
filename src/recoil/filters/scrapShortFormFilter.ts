@@ -1,12 +1,16 @@
 import { atom, selector } from "recoil";
 import { TFilter } from "../../assets/types/FilterTypes";
-import { orderingOptionMap, themeCodeMap } from "./codeMap";
+import { orderingOptions } from "./codeMap";
 
 // 스크랩-숏폼 필터
 // [필터 종류]: 정렬, 지역, 테마
 
+export const shortFormOrderingOptions = orderingOptions.filter(({ label }) =>
+  ["담은순", "최신순", "조회순", "인기순", "최근 인기순"].includes(label)
+);
+
 export const defaultFilter: TFilter = {
-  sort: "scraped",
+  sort: "담은순",
   location: [],
   theme: [],
 };
@@ -26,7 +30,7 @@ export const activeScrapShortFormFilterListState = selector({
     if (filter.sort !== defaultFilter.sort) {
       activeFilterValues.push({
         type: "sort",
-        value: orderingOptionMap.get(filter.sort) as string,
+        value: filter.sort,
       });
     }
 
@@ -42,7 +46,7 @@ export const activeScrapShortFormFilterListState = selector({
       filter.theme.map((item) =>
         activeFilterValues.push({
           type: "theme",
-          value: themeCodeMap.get(item) as string,
+          value: item,
         })
       );
     }

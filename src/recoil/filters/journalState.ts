@@ -1,12 +1,16 @@
 import { atom, selector } from "recoil";
 import { TFilter } from "../../assets/types/FilterTypes";
-import { orderingOptionMap, themeCodeMap } from "./codeMap";
+import { orderingOptionMap, orderingOptions, themeCodeMap } from "./codeMap";
 
 // 숏폼 필터
 // [필터 종류]: 정렬, 지역, 테마
 
+export const journalOrderingOptions = orderingOptions.filter(({ label }) =>
+  ["최신순", "조회순", "인기순", "최근 인기순"].includes(label)
+);
+
 export const defaultFilter: TFilter = {
-  sort: "latest",
+  sort: "최신순",
   location: [],
   theme: [],
   // headCount: [1, 30],
@@ -32,7 +36,7 @@ export const activeJournalFilterListState = selector({
       console.dir(orderingOptionMap.get(filter.sort));
       activeFilterValues.push({
         type: "sort",
-        value: orderingOptionMap.get(filter.sort) as string,
+        value: filter.sort,
       });
     }
 
@@ -48,7 +52,7 @@ export const activeJournalFilterListState = selector({
       filter.theme.map((item) =>
         activeFilterValues.push({
           type: "theme",
-          value: themeCodeMap.get(item) as string,
+          value: item,
         })
       );
     }
