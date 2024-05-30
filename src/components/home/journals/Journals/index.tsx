@@ -9,7 +9,11 @@ import {
   journalOrderingOptions,
 } from "../../../../recoil/filters/journalState";
 import { get } from "../../../../utils/api";
-import { themeOptions } from "../../../../recoil/filters/codeMap";
+import {
+  orderingOptionMap,
+  themeCodeMap,
+  themeOptions,
+} from "../../../../recoil/filters/codeMap";
 import {
   ButtonsOptions,
   SelectOptions,
@@ -56,9 +60,9 @@ function Journals() {
       results: ShortForm[];
     }>(`community/short-form`, {
       params: {
-        ordering: filter.sort,
+        ordering: orderingOptionMap.get(filter.sort),
         location: filter.location.join(","),
-        theme: filter.theme.join(","),
+        theme: filter.theme.map((item) => themeCodeMap.get(item)).join(","),
       },
     });
 

@@ -1,6 +1,6 @@
 import { atom, selector } from "recoil";
 import { TFilter } from "../../assets/types/FilterTypes";
-import { orderingOptionMap, orderingOptions, themeCodeMap } from "./codeMap";
+import { orderingOptionMap, orderingOptions } from "./codeMap";
 
 // 숏폼 필터
 // [필터 종류]: 정렬, 지역, 테마
