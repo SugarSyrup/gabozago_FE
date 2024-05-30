@@ -38,7 +38,6 @@ function SearchPlaces({ tripId, keyword, location, popupOpen, setNewLocation }: 
   }
 
   useEffect(() => {
-    //[SugarSyrup] @TODO: 두개 이상의 지역시, 검색이 안되는? 500에러 뜨는 중인데 아직 백엔드 작업중인것 같아서 스킵
     get<TPlace[]>(`/place/list-search?location=${location.toLocaleString()}&query=${keywords}`)
       .then((response) => {
         setSearchedPlaces(response.data);
@@ -89,11 +88,6 @@ function SearchPlaces({ tripId, keyword, location, popupOpen, setNewLocation }: 
           </S.Button>
         </S.SearchedNotFounded>
       )}
-      <S.SelectedPlacesList>
-        {selectedPlaces.map(({ name, id }) => (
-          <SelectedPlaceItem name={name} key={id} id={id} onDelete={onDelete} />
-        ))}
-      </S.SelectedPlacesList>
     </>
   );
 }

@@ -38,7 +38,13 @@ function RecommendationReviewItem({
   })
 
   return (
-    <S.Container >
+    <S.Container onClick={() => {
+      if(type === "article") {
+        navigate(`/article/${id}`);
+      } else {
+        navigate(`/journal/shortform/${id}`);
+      }
+    }}>
       <S.Thumbnail>
         {
           thumbnailURL ? 
@@ -74,13 +80,7 @@ function RecommendationReviewItem({
           </S.DescItem>
         </S.Desc>
       </S.Infomation>
-      <S.LinkIcon onClick={() => {
-        if(type === "article") {
-          navigate(`/article/${id}`);
-        } else {
-          navigate(`journal/shortform/${id}`);
-        }
-      }}>
+      <S.LinkIcon >
         <RightChevronIcon />
       </S.LinkIcon>
     </S.Container>

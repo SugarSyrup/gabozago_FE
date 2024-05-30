@@ -63,7 +63,10 @@ function UserEditPage() {
             e.preventDefault();
             const formdata = new FormData(e.currentTarget);
             if (isNicknameOk || descValue !== description || isAvatarChanged) {
-              patch('/user/profile', formdata);
+              patch('/user/profile', formdata)
+                .then(() => {
+                  navigate(-1);
+                });
             }
           }}
         >

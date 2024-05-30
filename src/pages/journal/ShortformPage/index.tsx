@@ -1,49 +1,26 @@
 import * as S from "./style";
 import { useEffect, useRef, useState } from "react";
 import PageTemplate from "../../../components/common/PageTemplate";
-import ShortForm, {
-  TShortForm,
-} from "../../../components/home/journals/shortform/ShortForm";
 import BackButton from "../../../components/common/BackButton";
-import KebabMenuIcon from "../../../assets/icons/menu_kebab.svg?react";
 import BottomNavBar from "../../../components/common/BottomNavBar";
-import useModal from "../../../hooks/useModal";
-import usePopup from "../../../hooks/usePopup";
-import Comment from "../../../components/journal/Comment";
 import { get } from "../../../utils/api";
+import ShortForm from "../../../components/home/journals/shortform/ShortForm";
 import { useParams } from "react-router-dom";
-import Typography from "../../../components/common/Typography";
-import useAlert from "../../../hooks/useAlert";
 
 function ShortFormPage() {
-  const { id } = useParams();
+  const {id} = useParams<{id: string}>();
   const shortsListRef = useRef<HTMLDivElement>(null);
-  const [shortforms, setShortforms] = useState<TShortForm[]>([]);
+  const [shortforms, setShortforms] = useState<{
+    id: number;
+    title: string;
+    videoId: string;
+    region: string[];
+    theme: string[];
+    views: number;
+  }[]>([]);
   const [focusIndex, setFocusindex] = useState<number>(0);
 
-  const { Modal, modalOpen } = useModal({
-    title: "",
-    handle: false,
-    borderRadius: "16px",
-  });
-  const { Popup, popupOpen, popupClose } = usePopup();
-  const { Alert, alertOpen } = useAlert({
-    Content: (
-      <Typography.Title size="md" color="white">
-        URL이 복사되었습니다.
-      </Typography.Title>
-    ),
-  });
-
-  const createCopyURL = (id: number) => {
-    const arr = window.location.href.split("/").slice(0, -1);
-    arr.push(String(id));
-    return arr.join("/");
-  };
-  const getShortformData = async (id: number) => {
-    const { data } = await get<TShortForm>(`/community/short-form/${id}`);
-    setShortforms((prev) => [...prev, data]);
-  };
+  //숏폼 리스트 불러오는 Fn
   const getShortformList = async () => {
     const { data } = await get<{
       next: string | null;
@@ -60,20 +37,27 @@ function ShortFormPage() {
       ];
     }>(`/community/short-form`);
 
-    data.results.map(({ id }) => {
-      getShortformData(id);
+    setShortforms([]);
+    let currentIdx  = 0;
+    data.results.map((shorform, idx) => {
+      const { id: shortformId } = shorform;
+      if(shortformId !== Number(id)) {
+        setShortforms(prev => [...prev, {...shorform}]);
+      }
+      else {
+        currentIdx = idx;
+      }
     });
+    setShortforms(prev => prev.sort(() => Math.random() - 0.5));
+    setShortforms(prev => [{...data.results[currentIdx]}, ...prev]);
   };
-
   useEffect(() => {
-    getShortformData(Number(id));
     getShortformList();
     // @tood: 연관된 다른 숏폼 불러오기, 다 봤을 때 페이징
   }, []);
 
   return (
     <PageTemplate nav={<BottomNavBar style="black" />}>
-      <Alert />
       <S.Header>
         <BackButton />
         {/* @todo: 추후 사용자가 숏폼 업로드 가능할 때 메뉴 구현 */}
@@ -83,37 +67,6 @@ function ShortFormPage() {
       </S.Header>
       {shortforms.length > 0 && (
         <>
-          <Modal>
-            <Comment
-              id={shortforms[focusIndex].id}
-              commentInputPosition="bottom"
-              type={"short-form"}
-              commentCount={shortforms[focusIndex].commentCount}
-            />
-          </Modal>
-          <Popup>
-            <S.UrlLabel htmlFor="urlCopy">
-              <Typography.Title size="md">
-                아래 링크를 복사해 공유해보세요!
-              </Typography.Title>
-            </S.UrlLabel>
-            <S.UrlInput
-              type="url"
-              name="현재 링크 복사"
-              id="urlCopy"
-              value={createCopyURL(shortforms[focusIndex].id)}
-              onClick={(e) => {
-                e.preventDefault();
-                navigator.clipboard.writeText(
-                  `${shortforms[focusIndex].title}\n${createCopyURL(
-                    shortforms[focusIndex].id
-                  )}`
-                );
-                alertOpen();
-                popupClose();
-              }}
-            />
-          </Popup>
           <S.Container
             ref={shortsListRef}
             onScroll={(e) => {
@@ -126,9 +79,8 @@ function ShortFormPage() {
           >
             {shortforms.map((shortform, index) => (
               <ShortForm
-                {...shortform}
-                modalOpen={modalOpen}
-                popupOpen={popupOpen}
+                shortFormId={shortform.id}
+                videoId={shortform.videoId}
                 visible={index === focusIndex}
               />
             ))}

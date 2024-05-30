@@ -8,7 +8,6 @@ import PageTemplate from "../../components/common/PageTemplate";
 import Typography from "../../components/common/Typography";
 import BottomNav from "../../components/post/BottomNav";
 import Comment from "../../components/journal/Comment";
-import useScrapModal from "../../components/video/useScrapModal";
 
 import Editor from "../../components/article/Editor";
 import Interview from "../../components/article/Interview";
@@ -90,8 +89,8 @@ function ArticlePage() {
     const navigate = useNavigate();
     const { id } = useParams();
     const [isLogin, setIsLogin] = useState<boolean>(false);
+    const [isReload, setIsReload] = useState<boolean>(true);
     const [data, setData] = useState<TArticle>();
-    const [isUserBookmarked, setIsUserBookmarked] = useState<boolean>(false);
     const stationRefs = useRef<null[] | HTMLDivElement[]>([]);
 
     const {Modal, modalOpen, modalClose, isOpend} = useModal({
@@ -99,13 +98,16 @@ function ArticlePage() {
         handle: false,
         borderRadius: "16px"
     });
-    const {ScrapModal, scrapModalOpen, scrapModalClose} = useScrapModal({
-        id: Number(id),
-        type: "article"
-    });
     const {Alert, alertOpen, alertClose} = useAlert({
         Content: <Typography.Title size="md" color="white">URL이 복사되었습니다.</Typography.Title>,
     });
+
+    useEffect(() => {
+        setIsReload(false);
+        if(!isReload) {
+            window.location.reload();
+        }
+    }, [location.pathname])
 
   useEffect(() => {
     if (localStorage.getItem("access_token")) {
@@ -119,7 +121,6 @@ function ArticlePage() {
         get<TArticle>(`/community/article/${id}`)
             .then((response) => {
                 setData(response.data);
-                setIsUserBookmarked(response.data.isBookmarked);
             })
     }, [])
 
@@ -134,9 +135,8 @@ function ArticlePage() {
     return(
         <>
         {data && 
-            <PageTemplate nav={<BottomNav postId={id} isClap={data.isClapped} claps={data.claps} comment={data.commentCount} isBookmarked={isUserBookmarked} onScrapClick={() => {scrapModalOpen()}} onCommentClick={() => {modalOpen()}} bookmark={data.bookmark} onShareClick={() => {alertOpen()}}/>}>
+            <PageTemplate nav={<BottomNav title={data.title} postId={id} isClap={data.isClapped} claps={data.claps} comment={data.commentCount} isBookmarked={data.isBookmarked} onCommentClick={() => {modalOpen()}} bookmark={data.bookmark} onShareClick={() => {alertOpen()}}/>}>
                 <Alert />
-                <ScrapModal />
                 <Modal>
                     <Comment id={id} commentInputPosition="bottom" type="article" commentCount={data.commentCount} />
                 </Modal>
@@ -183,7 +183,7 @@ function ArticlePage() {
                     }
                     {
                         data.nextArticle &&
-                        <S.NextArticle>
+                        <S.NextArticle onClick={() => {setIsReload(false)}}>
                             <span>2편 : <Link to={`/article/${data.nextArticle.id}`}>‘{data.nextArticle.name}’</Link> 이어보기</span>
                         </S.NextArticle>
                     }

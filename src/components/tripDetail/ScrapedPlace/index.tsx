@@ -42,7 +42,6 @@ function ScrapedPlace({ popupOpen, setNewLocation, locations }: Props) {
           location: filter.location.join(","),
         },
       });
-      console.log(data);
       setPlaces(data.results);
 
       return;

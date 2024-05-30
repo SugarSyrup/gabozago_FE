@@ -31,7 +31,13 @@ function TripItem({id, title, location, departureDate, arrivalDate, thumbnailURL
     return(
         <>
             <MyTripModal />
-            <S.Container onClick={() => {navigate(`/mytrip/${id}`)}}>
+            <S.Container onClick={(e) => {
+                if (e.target.tagName == "svg" || e.target.tagName == "path"){
+                    modalOpen();
+                } else {
+                    navigate(`/mytrip/${id}`)
+                }
+            }}>
                 <S.ThumbnailWrapper>
                     {
                         thumbnailURL ?
@@ -45,9 +51,7 @@ function TripItem({id, title, location, departureDate, arrivalDate, thumbnailURL
                     <S.Desc><CalendarIcon /> <Typography.Label size="md" color="#424242">{departureDate} ~ {arrivalDate}</Typography.Label></S.Desc>
                     <S.Desc><LocationIcon /> <Typography.Label size="md" color="#424242">{location.toLocaleString()}</Typography.Label></S.Desc>
                 </S.Info>
-                <S.OptionWrapper onClick={() => {
-                        modalOpen();
-                    }}>
+                <S.OptionWrapper >
                     <KebabMenuIcon />
                 </S.OptionWrapper>
             </S.Container>

@@ -154,6 +154,19 @@ export const SeperateLine = styled.div`
   margin-left: -20px;
 `;
 
+export const ScrapIconWrapper = styled.div<{isScraped: boolean}>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 30px;
+    height: 30px;
+    path{
+      fill: ${({ theme, isScraped }) => isScraped ? theme.main : theme.gray01};
+    }
+  }
+`;
 
 export const CreateScrapFolder = styled.div<{ isOpen: boolean }>`
   display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
