@@ -53,8 +53,12 @@ const router = createBrowserRouter([
     path: "/journal/shortform/:id",
     element: <ShortFormPage />,
     loader: async () => {
-      const { data } = await get<TUserProfile>(`/user/profile`);
-      return data.avatarURL;
+      if(localStorage.getItem("access_token")) {
+        const { data } = await get<TUserProfile>(`/user/profile`);
+        return data.avatarURL;
+      } else {
+        return "";
+      }
     },
   },
   // {
@@ -340,8 +344,12 @@ const router = createBrowserRouter([
     path: "/article/:id",
     element: <ArticlePage />,
     loader: async () => {
-      const { data } = await get<TUserProfile>(`/user/profile`);
-      return data.avatarURL;
+      if(localStorage.getItem("access_token")) {
+        const { data } = await get<TUserProfile>(`/user/profile`);
+        return data.avatarURL;
+      } else {
+        return "";
+      }
     },
   },
   {
@@ -358,8 +366,12 @@ const router = createBrowserRouter([
       </IsLoginTemplate>
     ),
     loader: async () => {
-      const { data } = await get<TUserProfile>(`/user/profile`);
-      return data;
+      if(localStorage.getItem("access_token")) {
+        const { data } = await get<TUserProfile>(`/user/profile`);
+        return data.avatarURL;
+      } else {
+        return "";
+      }
     },
   },
   {

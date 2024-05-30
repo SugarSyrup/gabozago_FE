@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import LocationIcon from "../../assets/icons/location.svg?react";
@@ -40,9 +40,9 @@ function PlacePage() {
     const [data, setData] = useState<TData>();
     const [imageURL, setImageURL] = useState<string>("");
 
-    const [alertMessage, setAlertMessage] = useState<string>("");
+    const [alertMessage, setAlertMessage] = useState<React.ReactNode>();
     const {Alert, alertOpen} = useAlert({
-        Content: <Typography.Body size="lg" color="white">{alertMessage}</Typography.Body>
+        Content:alertMessage
     });
 
     useEffect(() => {
@@ -134,9 +134,9 @@ function PlacePage() {
                                     placeId: id
                                 }).then((response) => {
                                     if(response.data.message === "Create Success") {
-                                        setAlertMessage(`${data.name}가 스크랩 되었습니다.`);
+                                        setAlertMessage( <S.AlertMessageContainer><S.AlertMessageName>{data.name}</S.AlertMessageName><Typography.Body size="lg" color="white">가 스크랩 되었습니다.</Typography.Body></S.AlertMessageContainer>);
                                     } else {
-                                        setAlertMessage(`${data.name}를 스크랩에서 삭제했습니다.`);
+                                        setAlertMessage( <S.AlertMessageContainer><S.AlertMessageName>{data.name}</S.AlertMessageName><Typography.Body size="lg" color="white">가 스크랩 삭제했습니다.</Typography.Body></S.AlertMessageContainer>);
                                     }
 
                                     alertOpen();

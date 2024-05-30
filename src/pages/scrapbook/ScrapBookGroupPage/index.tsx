@@ -56,6 +56,7 @@ function ScrapBookGroupPage() {
 
   // 아티클 불러오기
   const getArticles = async () => {
+    if(localStorage.getItem("access_token") === null) return;
     const { data } = await get<{
       next: string | null;
       previous: string | null;

@@ -13,6 +13,9 @@ export const ModalWrapper = styled.div<{ isOpen: boolean }>`
   max-height: 100dvh;
   width: 100%;
   height: 100dvh;
+ @supports (-webkit-touch-callout: none) {
+  height: -webkit-fill-available;
+}
 `;
 
 export const TravelSettings = styled.div`

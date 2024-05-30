@@ -12,6 +12,9 @@ export const Container = styled.div`
   max-width: 500px;
   width: 100%;
   height: 100dvh;
+ @supports (-webkit-touch-callout: none) {
+  height: -webkit-fill-available;
+}
 
   overflow: auto;
 
