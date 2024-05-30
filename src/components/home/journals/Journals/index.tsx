@@ -1,28 +1,51 @@
 import React, { useEffect, useState } from "react";
 import ShortFormList, { ShortForm } from "../shortform/ShortFormList";
 import * as S from "./style";
-import FilterList, { TFilterName } from "../../../common/FilterList";
-import { useRecoilState } from "recoil";
+import FilterList from "../../../common/FilterList";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
+  activeJournalFilterListState,
   journalFilterState,
-  themeCodeMap,
-} from "../../../../recoil/journals/journalState";
+  journalOrderingOptions,
+} from "../../../../recoil/filters/journalState";
 import { get } from "../../../../utils/api";
+import { themeOptions } from "../../../../recoil/filters/codeMap";
+import {
+  ButtonsOptions,
+  SelectOptions,
+  TFilterAndOptions,
+} from "../../../../assets/types/FilterTypes";
 
 function Journals() {
   const [shortForms, setShortForms] = useState<ShortForm[]>([]);
   const [filter, setFilter] = useRecoilState(journalFilterState);
+  const activeFilter = useRecoilValue(activeJournalFilterListState);
   const [activeCategoryIndex, setActiveCategoryIndex] = useState<number>(0);
   const [next, setNext] = useState<string>("");
   const infiniteRef = React.useRef<HTMLDivElement>(null);
   const categories: {
+  const tabs: {
     text: string;
-    filters: TFilterName[];
+    filters: TFilterAndOptions[];
     contents: JSX.Element;
   }[] = [
     {
       text: "숏폼",
-      filters: ["sort", "location", "theme"],
+      filters: [
+        {
+          name: "sort",
+          options: {
+            options: journalOrderingOptions,
+          } as SelectOptions,
+        },
+        { name: "location", options: null },
+        {
+          name: "theme",
+          options: {
+            options: themeOptions,
+          } as ButtonsOptions,
+        },
+      ],
       contents: <ShortFormList data={shortForms} />,
     },
   ];
@@ -36,7 +59,7 @@ function Journals() {
       params: {
         ordering: filter.sort,
         location: filter.location.join(","),
-        theme: filter.theme.map((item) => `${themeCodeMap.get(item)}`),
+        theme: filter.theme.join(","),
       },
     });
 
@@ -70,13 +93,15 @@ function Journals() {
     <S.Container>
       <S.FixedControlBox>
         <FilterList
-          filters={categories[activeCategoryIndex].filters}
+          filters={tabs[activeCategoryIndex].filters}
           filterState={filter}
-          filterSetState={setFilter}
+          setFilterState={setFilter}
+          activeFilterState={activeFilter}
+          filterType="Journal"
         />
       </S.FixedControlBox>
       <S.ContentBox>
-        {categories[activeCategoryIndex].contents}
+        {tabs[activeCategoryIndex].contents}
         <div ref={infiniteRef} style={{height: "50px"}}/>
       </S.ContentBox>
     </S.Container>

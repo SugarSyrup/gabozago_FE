@@ -29,10 +29,8 @@ function useModal({
           <S.Modal
             onClick={(e) => {
               e.stopPropagation();
-              //   alert("click");
             }}
             borderRadius={borderRadius}
-            // height={height}
           >
             {handle && <S.CloseHandle onClick={modalClose} />}
             <S.Contents>

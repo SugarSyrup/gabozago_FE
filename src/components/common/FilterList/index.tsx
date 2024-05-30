@@ -1,99 +1,82 @@
 import * as S from "./style";
-import { SetterOrUpdater, useRecoilValue, useSetRecoilState } from "recoil";
+import { SetterOrUpdater, useSetRecoilState } from "recoil";
 
-import OptionsIcon from "../../../assets/icons/options.svg?react";
+// import OptionsIcon from "../../../assets/icons/options.svg?react";
 import DeleteIcon from "../../../assets/icons/x.svg?react";
 import FilterButton from "../FilterButton";
-import Filter from "../filterInputs/Filter";
-
+import FilterModalContent from "../filterInputs/FilterModalContent";
+import { modalState } from "../../../recoil/modalState";
 import {
   TFilter,
-  activeJournalFilterListState,
-  defaultFilter,
-} from "../../../recoil/journals/journalState";
-import { modalState } from "../../../recoil/modalState";
+  TFilterAndOptions,
+  TFilterName,
+} from "../../../assets/types/FilterTypes";
+import { filterMap, filterNameMap } from "../../../recoil/filters/codeMap";
+import { defaultFilter as journalDefaultFilter } from "../../../recoil/filters/journalState";
+import { defaultFilter as scrapArticleDefaultFilter } from "../../../recoil/filters/scrapArticleFilter";
+import { defaultFilter as scrapShortFormDefaultFilter } from "../../../recoil/filters/scrapShortFormFilter";
 
-export type TFilterName =
-  | "sort"
-  | "location"
-  | "headCount"
-  | "duration"
-  | "season"
-  | "theme"
-  | "budget";
 interface Props {
-  filters: TFilterName[];
+  filters: TFilterAndOptions[];
   filterState: TFilter;
-  filterSetState: SetterOrUpdater<TFilter>;
+  setFilterState: SetterOrUpdater<TFilter>;
+  activeFilterState: { type: keyof TFilter; value: string }[];
+  filterType: "scrapArticle" | "scrapShortForm" | "Journal" | "scrapPlace";
 }
 
 function FilterList({
   filters,
-  filterState: filter,
-  filterSetState: setFilter,
+  filterState,
+  setFilterState,
+  activeFilterState,
+  filterType,
 }: Props) {
+  const defaultFilter =
+    filterType === "Journal"
+      ? journalDefaultFilter
+      : filterType === "scrapArticle"
+      ? scrapArticleDefaultFilter
+      : scrapShortFormDefaultFilter;
   const setModal = useSetRecoilState(modalState);
-  const filterTypeMap = {
-    sort: "정렬",
-    location: "지역",
-    headCount: "인원",
-    duration: "일정",
-    season: "계절",
-    theme: "테마",
-    budget: "경비",
-  };
-  const activeFilters = useRecoilValue(activeJournalFilterListState);
   const deleteFilterChip = (type: keyof TFilter, value: string): void => {
-    setFilter((prev) => {
+    setFilterState((prev) => {
       switch (type) {
         case "season":
-          if (
-            prev.season.includes("사계절") ||
-            (prev.season.includes("봄") &&
-              prev.season.includes("여름") &&
-              prev.season.includes("가을") &&
-              prev.season.includes("겨울"))
-          ) {
-            return {
-              ...prev,
-              season: [],
-            };
-          } else {
-            return {
-              ...prev,
-              season: prev[type].filter((item) => item !== value),
-            };
-          }
+          return {
+            ...prev,
+            season: prev[type].filter((item) => item !== value),
+          };
           break;
-
         case "location":
         case "theme":
+          console.log(value);
           return {
             ...prev,
             [type]: prev[type].filter((item) => item !== value),
           };
           break;
-
-        case "headCount":
-        case "duration":
-        case "budget":
+        // case "headCount":
+        // case "duration":
+        // case "budget":
         case "sort":
-          return { ...prev, [type]: defaultFilter[type] };
+          return { ...prev, [type]: defaultFilter.sort };
           break;
       }
 
       return prev;
     });
   };
-  const filterButtonClickHandler = (item: TFilterName) => {
+
+  const filterButtonClickHandler = (filter: TFilterAndOptions) => {
     setModal(() => ({
-      title: filterTypeMap[item],
+      title: filterMap.get(filter.name)?.title as TFilterName,
       isOpend: true,
       contents: (
-        <Filter
-          type={item}
-          filterState={filter}
-          filterSetState={setFilter}
+        <FilterModalContent
+          type={filter.name}
+          filters={filters}
+          filterState={filterState}
+          setFilterState={setFilterState}
           setModal={setModal}
         />
       ),
@@ -103,25 +86,23 @@ function FilterList({
   return (
     <>
       <S.FilterList>
-        <S.FilterItem>
-          <S.AllFilterButton onClick={() => alert("전체 필터 보기")}>
-            <OptionsIcon />
-          </S.AllFilterButton>
-        </S.FilterItem>
-        {filters.map((item) => (
+        {filters.map((filter) => (
           <S.FilterItem>
             <FilterButton
-              name={filterTypeMap[item]}
-              type={item}
+              name={filterNameMap.get(filter.name) as TFilterName}
               onClick={() => {
-                filterButtonClickHandler(item);
+                filterButtonClickHandler(filter);
               }}
+              isActive={
+                activeFilterState.filter(({ type }) => type === filter.name)
+                  .length !== 0
+              }
             />
           </S.FilterItem>
         ))}
       </S.FilterList>
       <S.ActiveFilterList>
-        {activeFilters.map(({ type, value }) => (
+        {activeFilterState.map(({ type, value }) => (
           <S.ActiveFilterChip
             onClick={() => {
               deleteFilterChip(type, value);

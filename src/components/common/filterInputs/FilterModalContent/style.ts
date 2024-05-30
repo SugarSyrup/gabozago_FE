@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Form = styled.form`
   height: 100%;
   overflow-y: auto;
-  padding-bottom: 90px;
+  padding-bottom: 100px;
 `;
 
 export const SubmitButtonContainer = styled.div`

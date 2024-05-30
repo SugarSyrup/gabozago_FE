@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export const FilterContainer = styled.div``;
 
 export const PlaceList = styled.ol`
-  width:100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -57,6 +57,7 @@ export const TopInfoBox = styled.div`
   width: 100%;
   margin-bottom: 7px;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 8px;
 `;
@@ -83,18 +84,17 @@ export const AddressParagraph = styled.p`
   color: ${({ theme }) => theme.gray01};
 `;
 
+export const Button = styled.button<{ isActive: boolean }>`
+  background-color: ${({ isActive, theme }) => isActive && theme.main};
+  color: ${({ theme, isActive }) => isActive && theme.white};
 
-export const Button = styled.button<{isActive: boolean}>`
-    background-color:${({isActive, theme}) => isActive && theme.main};
-    color: ${({theme, isActive}) => isActive && theme.white};
+  padding: 4px 15px;
+  border: none;
+  border-radius: 20px;
 
-    padding: 4px 15px;
-    border: none;
-    border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    display: flex;
-    justify-content:center;
-    align-items:center;
-
-    cursor:pointer;
-`
+  cursor: pointer;
+`;

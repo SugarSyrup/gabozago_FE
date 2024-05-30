@@ -1,26 +1,16 @@
 import * as S from "./style";
 import ChevronBottomIcon from "../../../assets/icons/chevron_bottom_small.svg?react";
-import { useRecoilValue } from "recoil";
-import { activeJournalFilterListState } from "../../../recoil/journals/journalState";
 import { MouseEventHandler } from "react";
 
 interface Props {
-  type: string;
   name: string;
   onClick: MouseEventHandler;
+  isActive: boolean;
 }
 
-function FilterButton({ type: filterType, name, onClick }: Props) {
-  const activeFilters = useRecoilValue(activeJournalFilterListState);
-
+function FilterButton({ name, onClick, isActive }: Props) {
   return (
-    <S.FilterButton
-      onClick={onClick}
-      className={`${
-        activeFilters.filter(({ type }) => type === filterType).length !== 0 &&
-        "active"
-      }`}
-    >
+    <S.FilterButton onClick={onClick} className={isActive ? "active" : ""}>
       {name}
       <ChevronBottomIcon />
     </S.FilterButton>
