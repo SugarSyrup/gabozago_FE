@@ -15,6 +15,7 @@ import { TFilter } from "../../../assets/types/FilterTypes";
 interface Props {
   popupOpen: () => void;
   setNewLocation: React.Dispatch<React.SetStateAction<string>>;
+  setNewRegion: React.Dispatch<React.SetStateAction<string>>;
   locations: string[] | undefined;
 }
 
@@ -25,7 +26,7 @@ interface Place {
   address: string;
 }
 
-function ScrapedPlace({ popupOpen, setNewLocation, locations }: Props) {
+function ScrapedPlace({ popupOpen, setNewLocation, setNewRegion, locations }: Props) {
   const [filter, setFilter] = useRecoilState<TFilter>(scrapPlaceFilterState);
   const activeFilter = useRecoilValue(activeScrapPlaceFilterListState);
   const [places, setPlaces] = useState<Place[]>([]);
@@ -115,6 +116,7 @@ function ScrapedPlace({ popupOpen, setNewLocation, locations }: Props) {
                         !locations.includes(response.data.region)
                       ) {
                         setNewLocation(response.data.region);
+                        setNewRegion(item.name);
                         popupOpen();
                       }
                     }
