@@ -44,6 +44,22 @@ function BottomNav({
     type: "article",
     setIsScraped: () => {setIsUserScraped(prev => !prev)},
   });
+
+  function countScraps() {
+    if(isBookmarked) {
+      if(isUserScraped){
+        return bookmark;
+      } else {
+        return bookmark - 1;
+      }
+    } else {
+      if(isUserScraped){
+        return bookmark + 1;
+      } else {
+        return bookmark;
+      }
+    }
+  }
   return (
     <>
       <ScrapModal />
@@ -117,7 +133,7 @@ function BottomNav({
           }}
         >
           <BookMarkIcon />
-          <span>{(!isBookmarked && isUserScraped) ? bookmark + 1 : bookmark}</span>
+          <span>{countScraps()}</span>
         </S.NavigationItem>
         <S.NavigationItem
           onClick={() => {
