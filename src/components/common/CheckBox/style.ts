@@ -15,7 +15,7 @@ export const CheckBoxInputContainer = styled.div`
 
     &:checked {
       border: 1px solid ${({ theme }) => theme.main};
-      background: center no-repeat url("/icons/check.svg");
+      background: center no-repeat url("/check.svg");
       background-size: contain;
     }
   }

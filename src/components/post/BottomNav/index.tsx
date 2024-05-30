@@ -111,7 +111,9 @@ function BottomNav({
                 setIsUserScraped(true);
               });
             }
-            scrapModalOpen();
+            if(localStorage.getItem("access_token")){
+              scrapModalOpen();
+            }
           }}
         >
           <BookMarkIcon />

@@ -20,6 +20,7 @@ import { get, post } from "../../../utils/api";
 import * as S from "./style";
 import usePopup from "../../../hooks/usePopup";
 import { selectedPlacesState } from "../../../recoil/mytrip/selectedPlacesState";
+import { scrapPlaceFilterState } from "../../../recoil/filters/scrapPlaceFilterState";
 
 function MyTripLocationSearchPage() {
   const { id } = useParams();
@@ -29,7 +30,8 @@ function MyTripLocationSearchPage() {
   const [locations, setLocations] = useState<string[]>();
   const [keyword, setKeyword] = useState<string>("");
   const [newLocation, setNewLocation] = useState<string>("");
-  const setActiveFilters = useSetRecoilState(journalFilterState);
+  const [newRegion, setNewRegion] = useState<string>("");
+  const setActiveFilters = useSetRecoilState(scrapPlaceFilterState);
   const [inputRef, SearchInput] = useSearchInput({
     placeholder: "장소명을 입력하세요",
     onChange: onChange,
@@ -79,7 +81,7 @@ function MyTripLocationSearchPage() {
             <InfomationIcon />
             <S.PopupTextContainer>
               <Typography.Headline size="sm">
-                지역윽 추가하시겠어요?
+                지역을 추가하시겠어요?
               </Typography.Headline>
               <Typography.Body size="lg" color="inherit" noOfLine={3}>
                 선택하신 여행 장소는 {locations?.toLocaleString()}을 벗어나요.
@@ -97,7 +99,7 @@ function MyTripLocationSearchPage() {
                 onClick={() => {
                   setSelectedPlaces((prev) =>
                     prev.filter(
-                      (selectedPlace) => selectedPlace.name !== newLocation
+                      (selectedPlace) => selectedPlace.name !== newRegion
                     )
                   );
                   popupClose();
@@ -198,6 +200,7 @@ function MyTripLocationSearchPage() {
         {!isSearching && tabNavIdx === 2 && (
           <ScrapedPlace
             popupOpen={popupOpen}
+            setNewRegion={setNewRegion}
             setNewLocation={setNewLocation}
             locations={locations}
           />

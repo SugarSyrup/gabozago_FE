@@ -20,7 +20,7 @@ export type OrderingOptions =
   | "최근 인기순";
 
 export interface TFilter {
-  sort: OrderingOptions;
+  sort?: OrderingOptions;
   location?: string[];
   headCount?: Range;
   duration?: Range;

@@ -290,6 +290,7 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
                 ) : (
                   <p>{data.content.split("\n")[0]}</p>
                 )}
+
               </S.ContentBox>
               <S.BottomInfoContainer>
                 <span>
