@@ -22,7 +22,7 @@ function Comment({
   id,
   commentInputPosition = "top",
   type,
-  commentCount,
+  commentCount: commentCountProp,
 }: Props) {
   const profileImage = useLoaderData() as string;
   const inputRef = useRef<HTMLInputElement>(null);
@@ -34,6 +34,7 @@ function Comment({
     parentCommentId: null,
   });
   const [comment, setComment] = useState<string>("");
+  const [commentCount, setCommentCount] = useState<number>(commentCountProp);
   const [comments, setComments] = useState<TParsedComment[]>([]);
 
   const parseComments = (comments: TComment[]): TParsedComment[] => {
@@ -68,6 +69,7 @@ function Comment({
 
   const getComments = async (id: number) => {
     const { data } = await get<TComment[]>(`community/${type}/${id}/comment`);
+    setCommentCount(data.length);
     setComments(parseComments(data));
   };
   const deleteComments = async (commentId: number) => {
