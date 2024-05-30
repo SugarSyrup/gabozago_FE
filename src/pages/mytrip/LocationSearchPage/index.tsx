@@ -1,10 +1,10 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 
 import InfomationIcon from "../../../assets/icons/exclamation_circle.svg?react";
 import LeftChevronIcon from "../../../assets/icons/chevron_left.svg?react";
-import { activeJournalFilterListState, journalFilterState } from "../../../recoil/journals/journalState";
+import { journalFilterState } from "../../../recoil/filters/journalState";
 
 import PageTemplate from "../../../components/common/PageTemplate";
 import Typography from "../../../components/common/Typography";
@@ -21,10 +21,8 @@ import * as S from "./style";
 import usePopup from "../../../hooks/usePopup";
 import { selectedPlacesState } from "../../../recoil/mytrip/selectedPlacesState";
 
-
-
 function MyTripLocationSearchPage() {
-  const { id, day } = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
   const [tabNavIdx, setTabNavIdx] = useState<number>(1);
   const [isSearching, setIsSearching] = useState<boolean>(false);
@@ -39,10 +37,10 @@ function MyTripLocationSearchPage() {
     borderColor: "#ADADAD",
     onSubmit: (e) => {
       e.preventDefault();
-    }
+    },
   });
-  const {Popup, popupOpen, popupClose, isOpend} = usePopup();
-  const [selectedPlaces, setSelectedPlaces] = useRecoilState(selectedPlacesState);
+  const { Popup, popupOpen, popupClose, isOpend } = usePopup();
+  const [, setSelectedPlaces] = useRecoilState(selectedPlacesState);
 
   function onChange() {
     if (inputRef.current) {
@@ -58,58 +56,82 @@ function MyTripLocationSearchPage() {
   useEffect(() => {
     get<{
       location: string[];
-    }>(`/my-travel/${id}`)
-      .then((response) => {
-        setLocations(response.data.location);
-        setActiveFilters(prev => ({ ...prev, ["location"]: response.data.location }))
-      })
-  }, [])
+    }>(`/my-travel/${id}`).then((response) => {
+      setLocations(response.data.location);
+      setActiveFilters((prev) => ({
+        ...prev,
+        ["location"]: response.data.location,
+      }));
+    });
+  }, []);
 
   return (
     <PageTemplate
       nav={
         <S.Footer>
-          <SelectedLocations/>
+          <SelectedLocations />
         </S.Footer>
       }
     >
       <S.PopupWrapper isOpen={isOpend}>
         <Popup>
-            <S.PopupContentsContainer>
-                <InfomationIcon />
-                <S.PopupTextContainer>
-                    <Typography.Headline size="sm">지역윽 추가하시겠어요?</Typography.Headline>
-                    <Typography.Body size="lg" color="inherit" noOfLine={3}>선택하신 여행 장소는 {locations?.toLocaleString()}을 벗어나요.</Typography.Body>
-                    <Typography.Body size="lg" color="inherit">{newLocation}도 여행 계획에 추가하시겠어요?</Typography.Body>
-                    <Typography.Body size="md" color="#FA5252">*지역을 추가하지 않으면, 해당 장소도 추가되지 않아요.</Typography.Body>
-                </S.PopupTextContainer>
-                <S.PopupButtons>
-                    <S.PopupButton isMain={false} onClick={() => {
-                        setSelectedPlaces((prev) => prev.filter((selectedPlace) => selectedPlace.name !== newLocation));
-                        popupClose();
-                    }}>
-                        <Typography.Body size="lg" color="inherit">아니요</Typography.Body>
-                    </S.PopupButton>
-                    <S.PopupButton isMain={true} onClick={() => {
-                        post<{message: string}>('/my-travel/location', {
-                            myTravelId: id,
-                            location: newLocation,
-                        }).then((response) => {
-                            console.log(response.data);
-                        })
-                        popupClose();
-                    }}>
-                        <Typography.Body size="lg" color="inherit">네, 추가할게요</Typography.Body>
-                    </S.PopupButton>
-                </S.PopupButtons>
-            </S.PopupContentsContainer>
+          <S.PopupContentsContainer>
+            <InfomationIcon />
+            <S.PopupTextContainer>
+              <Typography.Headline size="sm">
+                지역윽 추가하시겠어요?
+              </Typography.Headline>
+              <Typography.Body size="lg" color="inherit" noOfLine={3}>
+                선택하신 여행 장소는 {locations?.toLocaleString()}을 벗어나요.
+              </Typography.Body>
+              <Typography.Body size="lg" color="inherit">
+                {newLocation}도 여행 계획에 추가하시겠어요?
+              </Typography.Body>
+              <Typography.Body size="md" color="#FA5252">
+                *지역을 추가하지 않으면, 해당 장소도 추가되지 않아요.
+              </Typography.Body>
+            </S.PopupTextContainer>
+            <S.PopupButtons>
+              <S.PopupButton
+                isMain={false}
+                onClick={() => {
+                  setSelectedPlaces((prev) =>
+                    prev.filter(
+                      (selectedPlace) => selectedPlace.name !== newLocation
+                    )
+                  );
+                  popupClose();
+                }}
+              >
+                <Typography.Body size="lg" color="inherit">
+                  아니요
+                </Typography.Body>
+              </S.PopupButton>
+              <S.PopupButton
+                isMain={true}
+                onClick={() => {
+                  post<{ message: string }>("/my-travel/location", {
+                    myTravelId: id,
+                    location: newLocation,
+                  }).then((response) => {
+                    console.log(response.data);
+                  });
+                  popupClose();
+                }}
+              >
+                <Typography.Body size="lg" color="inherit">
+                  네, 추가할게요
+                </Typography.Body>
+              </S.PopupButton>
+            </S.PopupButtons>
+          </S.PopupContentsContainer>
         </Popup>
       </S.PopupWrapper>
       <S.Header>
         <S.SearchBar>
-          <LeftChevronIcon 
+          <LeftChevronIcon
             onClick={() => {
-              if(isSearching && inputRef.current) {
+              if (isSearching && inputRef.current) {
                 inputRef.current.value = "";
                 setIsSearching(false);
               } else {
@@ -127,7 +149,9 @@ function MyTripLocationSearchPage() {
                 setTabNavIdx(1);
               }}
             >
-              <Typography.Title size="md" color="inherit">장소 선택</Typography.Title>
+              <Typography.Title size="md" color="inherit">
+                장소 선택
+              </Typography.Title>
             </S.NavigationItem>
             <>
               <S.NavigationItem
@@ -136,14 +160,16 @@ function MyTripLocationSearchPage() {
                   setTabNavIdx(2);
                 }}
               >
-                <Typography.Title size="md" color="inherit">저장한 장소</Typography.Title>
+                <Typography.Title size="md" color="inherit">
+                  저장한 장소
+                </Typography.Title>
               </S.NavigationItem>
               <S.HighlightLine isHighlight={tabNavIdx === 1} />
             </>
           </S.TabNavigation>
         )}
       </S.Header>
-      {isSearching &&
+      {isSearching && (
         <>
           <SearchPlaces
             tripId={Number(id)}
@@ -153,28 +179,29 @@ function MyTripLocationSearchPage() {
             setNewLocation={setNewLocation}
           />
         </>
-      }
+      )}
       <S.Contents>
-      {
-        !isSearching && tabNavIdx === 1 &&
+        {!isSearching && tabNavIdx === 1 && (
           <>
-              {
-                locations &&
-                <>
-                  <LocationHotPlaces locations={locations} popupOpen={popupOpen} setNewLocation={setNewLocation}/>
-                  <LocationRecommendContents locations={locations} />
-                </>
-              }
+            {locations && (
+              <>
+                <LocationHotPlaces
+                  locations={locations}
+                  popupOpen={popupOpen}
+                  setNewLocation={setNewLocation}
+                />
+                <LocationRecommendContents locations={locations} />
+              </>
+            )}
           </>
-      }
-      {
-        !isSearching && tabNavIdx === 2 &&
-          <ScrapedPlace 
+        )}
+        {!isSearching && tabNavIdx === 2 && (
+          <ScrapedPlace
             popupOpen={popupOpen}
             setNewLocation={setNewLocation}
             locations={locations}
           />
-      }
+        )}
       </S.Contents>
     </PageTemplate>
   );

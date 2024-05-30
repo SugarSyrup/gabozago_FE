@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 
 import PageTemplate from "../../../components/common/PageTemplate";

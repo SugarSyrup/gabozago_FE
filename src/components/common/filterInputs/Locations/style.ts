@@ -13,7 +13,6 @@ export const LocationContainer = styled.div`
 
   border-top: 1px solid ${({ theme }) => theme.gray04};
   border-bottom: 1px solid ${({ theme }) => theme.gray04};
-  background-color: aliceblue;
 `;
 
 export const CategoryList = styled.ul`
@@ -68,8 +67,10 @@ export const RegionItem = styled.li<{ active: boolean }>`
 `;
 
 export const LocationTags = styled.div`
+  max-height: 200px;
   width: 100%;
-  padding: 15px 30px 10px;
+  padding: 15px 28px 10px;
+  overflow-y: auto;
 
   display: flex;
   flex-wrap: wrap;
