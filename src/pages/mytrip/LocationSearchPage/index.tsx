@@ -79,7 +79,7 @@ function MyTripLocationSearchPage() {
             <InfomationIcon />
             <S.PopupTextContainer>
               <Typography.Headline size="sm">
-                지역윽 추가하시겠어요?
+                지역을 추가하시겠어요?
               </Typography.Headline>
               <Typography.Body size="lg" color="inherit" noOfLine={3}>
                 선택하신 여행 장소는 {locations?.toLocaleString()}을 벗어나요.
