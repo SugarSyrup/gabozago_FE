@@ -16,10 +16,12 @@ export const Container = styled.div<{ header: boolean }>`
   max-width: 500px;
   max-height: 100dvh;
   width: 100%;
-  height: 100dvh;
- @supports (-webkit-touch-callout: none) {
-  height: -webkit-fill-available;
-}
+  /* height: 100dvh; */
+ /* @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+  } */
+  height: auto;
+  min-height: 100dvh;
   background-color: ${({ theme }) => theme.white};
 `;
 
