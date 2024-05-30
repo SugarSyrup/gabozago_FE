@@ -18,10 +18,9 @@ export const SelectedPlaceList = styled.div`
     flex-wrap: wrap;
     gap: 10px;
     
-    max-width:100%;
+    width:100%;
     max-height:150px;
-    overflow-y:scroll;
-
+    overflow-y:auto;
 `;
 
 export const Button = styled.button<{isActive: boolean}>`
