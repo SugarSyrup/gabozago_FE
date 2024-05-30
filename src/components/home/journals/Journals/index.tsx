@@ -77,7 +77,19 @@ function Journals() {
       threshold: 0,
     };
 
-    const observer = new IntersectionObserver((entries) => {}, options);
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && next) {
+        get<{
+          next: string;
+          previous: string;
+          results: ShortForm[];
+        }>(next)
+          .then((response) => {
+            setShortForms([...shortForms, ...response.data.results]);
+            setNext(response.data.next);
+          });
+      }
+    }, options);
 
     if (infiniteRef.current) {
       observer.observe(infiniteRef.current);
