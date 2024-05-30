@@ -20,6 +20,7 @@ import { get, post } from "../../../utils/api";
 import * as S from "./style";
 import usePopup from "../../../hooks/usePopup";
 import { selectedPlacesState } from "../../../recoil/mytrip/selectedPlacesState";
+import { scrapPlaceFilterState } from "../../../recoil/filters/scrapPlaceFilterState";
 
 function MyTripLocationSearchPage() {
   const { id } = useParams();
@@ -30,7 +31,7 @@ function MyTripLocationSearchPage() {
   const [keyword, setKeyword] = useState<string>("");
   const [newLocation, setNewLocation] = useState<string>("");
   const [newRegion, setNewRegion] = useState<string>("");
-  const setActiveFilters = useSetRecoilState(journalFilterState);
+  const setActiveFilters = useSetRecoilState(scrapPlaceFilterState);
   const [inputRef, SearchInput] = useSearchInput({
     placeholder: "장소명을 입력하세요",
     onChange: onChange,

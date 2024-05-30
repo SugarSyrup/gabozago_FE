@@ -33,9 +33,6 @@ function RecommendationReviewItem({
   videoId,
 }: Props) {
   const navigate = useNavigate();
-  useEffect(() => {
-    console.log(name);
-  })
 
   return (
     <S.Container onClick={() => {

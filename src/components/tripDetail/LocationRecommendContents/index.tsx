@@ -38,7 +38,6 @@ function LocationRecommendContents({locations} : Props) {
     useEffect(() => {
         get<TRecommendData[]>(`my-travel/location/content?name=${locations.toLocaleString()}`)
             .then((response) => {
-                console.log(response.data[1]["short_form"]);
                 setData(response.data);
             })
     }, [])
