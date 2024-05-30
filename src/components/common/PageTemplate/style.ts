@@ -17,6 +17,9 @@ export const Container = styled.div<{ header: boolean }>`
   max-height: 100dvh;
   width: 100%;
   height: 100dvh;
+ @supports (-webkit-touch-callout: none) {
+  height: -webkit-fill-available;
+}
   background-color: ${({ theme }) => theme.white};
 `;
 

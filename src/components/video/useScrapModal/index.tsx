@@ -21,17 +21,18 @@ type TScrapFolder = {
 interface Props {
   id: number;
   type: "short-form" | "article";
+  setIsScraped?: () => void;
 }
 
-function useScrapModal({ id, type }: Props) {
+function useScrapModal({ id, type, setIsScraped }: Props) {
   const [scrapFolderData, setScrapFolderData] = useState<TScrapFolder[]>([]);
-  const { Modal, modalOpen, modalClose } = useModal({
+  const [isUserScraped, setIsUserScraped] = useState<boolean>(true);
+  const { Modal, modalOpen, modalClose, isOpend } = useModal({
     title: "",
     handle: true,
     borderRadius: "30px",
   });
   const {TextInputPopup,inputRef,textInputPopupOpen,textInputPopupClose} = useTextInputPopup("새 폴더 이름", 30);
-  //const inputRef = useRef<HTMLInputElement>(null);
 
   const getFolders = async () => {
     get<{
@@ -43,8 +44,11 @@ function useScrapModal({ id, type }: Props) {
   };
 
   useEffect(() => {
-    getFolders();
-  }, []);
+    if(isOpend){
+      getFolders();
+      setIsUserScraped(true);
+    }
+  }, [isOpend]);
 
 
   function ScrapModal() {
@@ -62,7 +66,30 @@ function useScrapModal({ id, type }: Props) {
                   {type === "short-form" ? "숏폼이 저장됨" : "아티클이 저장됨"}
                 </Typography.Title>
               </S.HeaderLeftItems>
-              <ScrapIcon />
+              <S.ScrapIconWrapper isScraped={isUserScraped}  onClick={() => {
+                  post<{ message: "Create Success" | "Delete Success" }>(`/folder/scrap/community`, {
+                    community: type,
+                    postId: id
+                  }).then(() => {  
+                    if(isUserScraped) {
+                      setScrapFolderData((prev) => {
+                        return prev.map((folder) => {
+                          return {
+                            ...folder,
+                            status: false,
+                          };
+                        });
+                      });
+                    }
+                    
+                    if(setIsScraped){
+                      setIsScraped();
+                    }
+                    setIsUserScraped(prev => !prev);
+                  });
+                }}>
+                <ScrapIcon />
+              </S.ScrapIconWrapper>
             </S.ScrapModalHeader>
             <S.SeperateLine />
             <S.TravelListHeader>

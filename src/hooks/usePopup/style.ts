@@ -13,6 +13,9 @@ export const PopupWrapper = styled.div<{ isOpened: boolean }>`
   max-height: 100dvh;
   width: 100%;
   height: 100dvh;
+ @supports (-webkit-touch-callout: none) {
+  height: -webkit-fill-available;
+}
 `;
 
 export const PopupContainer = styled.div`
@@ -20,6 +23,9 @@ export const PopupContainer = styled.div`
   width: 100%;
   /* 추가 */
   height: 100dvh;
+ @supports (-webkit-touch-callout: none) {
+  height: -webkit-fill-available;
+}
   left: 0;
   right: 0;
   bottom: 0;
@@ -38,6 +44,9 @@ export const PopupContainer = styled.div`
     bottom: 0;
     width: 100%;
     height: 100dvh;
+ @supports (-webkit-touch-callout: none) {
+  height: -webkit-fill-available;
+}
     opacity: 30%;
     background-color: ${({ theme }) => theme.black};
   }

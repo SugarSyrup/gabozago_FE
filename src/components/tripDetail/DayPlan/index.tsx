@@ -3,6 +3,8 @@ import { DateObject, parseDateString } from "../../../utils/parseDateString";
 import TripPlanPlaceItem, { PlaceData } from "../TripPlanPlaceItem";
 import AddPlaceButton from "../AddPlaceButton";
 import { useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { selectedPlacesState } from "../../../recoil/mytrip/selectedPlacesState";
 interface Props {
   data: PlaceData[];
   day: number;
@@ -11,6 +13,7 @@ interface Props {
 }
 function DayPlan({ data, day, date: dateString, setIsEditMode }: Props) {
   const navigate = useNavigate();
+  const setSelectedPlaces = useSetRecoilState(selectedPlacesState);
   const date = parseDateString(dateString);
   const markerColors = [
     "#5276FA",
@@ -23,6 +26,7 @@ function DayPlan({ data, day, date: dateString, setIsEditMode }: Props) {
   ];
 
   const clickAddPlaceButtonHandler = () => {
+    setSelectedPlaces([]);
     navigate(`./${day}/search`);
   };
 

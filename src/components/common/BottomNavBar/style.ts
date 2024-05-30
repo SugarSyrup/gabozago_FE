@@ -8,7 +8,7 @@ export const Nav = styled.nav<{ backgroundColor: string }>`
 
 export const NavList = styled.ul`
   margin: auto;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);

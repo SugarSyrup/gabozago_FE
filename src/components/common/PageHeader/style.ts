@@ -14,7 +14,8 @@ export const Header = styled.header`
 export const MobileHeader = styled.header`
     width:100%;
     padding:20px 20px;
-    padding-top:40px;
+    padding-top: constant(safe-area-inset-top, 20px); 
+    padding-bottom: constant(safe-area-inset-top, 20px); 
     position:relative;
 
     display:flex;

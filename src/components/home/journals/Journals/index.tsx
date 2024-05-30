@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ShortFormList, { ShortForm } from "../shortform/ShortFormList";
 import * as S from "./style";
 import FilterList from "../../../common/FilterList";
@@ -21,7 +21,9 @@ function Journals() {
   const [filter, setFilter] = useRecoilState(journalFilterState);
   const activeFilter = useRecoilValue(activeJournalFilterListState);
   const [activeCategoryIndex, setActiveCategoryIndex] = useState<number>(0);
-
+  const [next, setNext] = useState<string>("");
+  const infiniteRef = React.useRef<HTMLDivElement>(null);
+  const categories: {
   const tabs: {
     text: string;
     filters: TFilterAndOptions[];
@@ -62,11 +64,30 @@ function Journals() {
     });
 
     setShortForms(data.results);
+    setNext(data.next);
   };
 
   useEffect(() => {
     getShortForm();
   }, [filter]);
+
+
+  useEffect(() => {
+    const options = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+    }, options)
+
+    if(infiniteRef.current) {
+        observer.observe(infiniteRef.current);
+    }
+
+    return () => observer.disconnect();
+  })
 
   return (
     <S.Container>
@@ -79,7 +100,10 @@ function Journals() {
           filterType="Journal"
         />
       </S.FixedControlBox>
-      <S.ContentBox>{tabs[activeCategoryIndex].contents}</S.ContentBox>
+      <S.ContentBox>
+        {tabs[activeCategoryIndex].contents}
+        <div ref={infiniteRef} style={{height: "50px"}}/>
+      </S.ContentBox>
     </S.Container>
   );
 }

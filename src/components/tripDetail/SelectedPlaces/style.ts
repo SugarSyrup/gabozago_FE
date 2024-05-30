@@ -19,8 +19,9 @@ export const SelectedPlaceList = styled.div`
     gap: 10px;
     
     max-width:100%;
-    max-height:140px;
-    overflow:hidden;
+    max-height:150px;
+    overflow-y:scroll;
+
 `;
 
 export const Button = styled.button<{isActive: boolean}>`

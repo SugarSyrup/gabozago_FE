@@ -15,7 +15,8 @@ interface travelResponseType {
         "title": string,
         "departure_date": string
         "arrival_date": string,
-        "regions": string[]
+        "regions": string[],
+        "thumbnailURL": string
     }[]
 }
 
