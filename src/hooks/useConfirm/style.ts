@@ -13,6 +13,9 @@ export const PopupWrapper = styled.div<{ isOpened: boolean }>`
   max-height: 100dvh;
   width: 100%;
   height: 100dvh;
+ @supports (-webkit-touch-callout: none) {
+  height: -webkit-fill-available;
+}
 `;
 
 export const PopupContentsContainer = styled.div`

@@ -14,6 +14,9 @@ export const ModalContainer = styled.div`
   max-height: 100dvh;
   width: 100%;
   height: 100dvh;
+ @supports (-webkit-touch-callout: none) {
+  height: -webkit-fill-available;
+}
 
   background-color: ${({ theme }) => theme.white};
   z-index: 0;

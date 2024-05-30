@@ -15,6 +15,9 @@ export const YoutubeContainer = styled.div`
   bottom: 0;
   width: 100%;
   height: 100dvh;
+ @supports (-webkit-touch-callout: none) {
+  height: -webkit-fill-available;
+}
 
   overflow: hidden;
   border-radius: 10px;
