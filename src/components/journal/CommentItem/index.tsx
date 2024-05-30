@@ -131,6 +131,22 @@ function CommentItem({
     },
   ];
 
+  function createDateString(date: string) {
+    const parsedDate = new Date(date);
+    const currentDate = new Date();
+    
+    const diffMSec = currentDate.getTime() - parsedDate.getTime();
+    const diffHours = Math.floor(diffMSec / ( 60 * 60 * 1000));
+
+    if(diffHours === 0) {
+      return `${Math.floor(diffMSec / ( 60 * 1000))}분 전`;  
+    } else if(diffHours < 24) {
+      return `${diffHours}시간 전`;  
+    } else {
+      return `${Math.floor(diffHours / 24)}일 전`;  
+    }
+  }
+
   return (
     <S.Container
       isReply={isReply}
@@ -152,7 +168,7 @@ function CommentItem({
       </CommentMenuModal>
       <S.CommentBox>
         {/* <Link to={`/profile/${userId}`}> */}
-        <Link to={`./`}>
+        <div>
           <S.UserProfileImgBox>
             {profileImage ? (
               <S.UserProfileImg src={profileImage} />
@@ -160,7 +176,7 @@ function CommentItem({
               <UserIcon />
             )}
           </S.UserProfileImgBox>
-        </Link>
+        </div>
         <S.ContentsBox>
           <S.MenuButton
             onClick={() => {
@@ -173,7 +189,7 @@ function CommentItem({
             <Link to={`/profile/${userId}`}>
               <S.UserNameSpan>{name}</S.UserNameSpan>
             </Link>
-            <S.TimestampSpan>{createDate}</S.TimestampSpan>
+            <S.TimestampSpan>{createDateString(createDate)}</S.TimestampSpan>
           </div>
           <S.CommentParagraph>{text}</S.CommentParagraph>
           <S.ActionBox>
