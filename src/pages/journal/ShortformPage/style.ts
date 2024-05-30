@@ -36,7 +36,7 @@ export const IconButton = styled.button`
 
 export const Container = styled.div`
   width: 100%;
-  height: calc(100dvh - 88px);
+  height: calc(100dvh - 78px);
   /* min-height: 100%; */
   position: absolute;
   top: 0;

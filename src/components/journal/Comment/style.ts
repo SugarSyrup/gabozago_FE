@@ -52,6 +52,8 @@ export const CommentInputForm = styled.form<{ position: "bottom" | "top" }>`
       ? css`
           position: absolute;
           padding: 17px 16px 27px 10px;
+          padding-top: constant(safe-area-inset-bottom, 27px);
+          padding-bottom: constant(safe-area-inset-bottom, 27px);
           bottom: 0;
           left: 0;
           right: 0;
