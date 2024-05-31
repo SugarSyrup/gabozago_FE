@@ -15,6 +15,16 @@ export const BackButtonWrapper = styled.div`
     position:absolute;
     top:16px;
     left:20px;
+    z-index:100;
+
+    svg{
+        width: 30px;
+        height: 30px;
+        
+        path{
+            fill: white;
+        }
+    }
 `
 
 export const ThumbnailWrapper = styled.div`
