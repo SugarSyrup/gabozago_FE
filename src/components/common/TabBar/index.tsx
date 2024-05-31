@@ -48,7 +48,9 @@ function TabBar({
             ref={tabRefs[index]}
             onClick={() => {
               setFocusedTabIndex(index);
-              navigate(`/${index}`);
+              if (window.location.pathname === "/") {
+                navigate(`/${index}`);
+              }
             }}
             focused={index === focusedTabIndex}
             widthStyle={widthStyle}
