@@ -13,7 +13,7 @@ export const ModalWrapper = styled.div<{isOpen: boolean}>`
 
 export const BackButtonWrapper = styled.div`
     position:absolute;
-    top:16px;
+    top:20px;
     left:20px;
     z-index:100;
 
