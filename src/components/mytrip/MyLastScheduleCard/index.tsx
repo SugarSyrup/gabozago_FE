@@ -33,39 +33,53 @@ function MyLastScheduleCard({
     arrivalDate: arrival_date,
   });
 
-    return (
-        <>
-            <MyTripModal />
-            <S.Card>
-                <S.InfoContainer>
-                    <S.ThumbnailWrapper>
-                        {
-                            thumbnailURL ? 
-                            <img src={thumbnailURL} alt="thumbnail" /> 
-                            :
-                            <LogoSmallIcon />
-                        }
-                    </S.ThumbnailWrapper>
-                    <S.TextContainer  onClick={() => {navigate(`/mytrip/${id}`)}}>
-                        <Typography.Title size="md" noOfLine={2} maxWidth={300}>{title}</Typography.Title>
-                        <S.Infos>
-                            <S.Info>
-                                <CalendarIcon />
-                                <Typography.Label size="md" color="#424242">{departure_date} ~ {arrival_date}</Typography.Label>
-                            </S.Info>
-                            <S.Info>
-                                <LocationIcon />
-                                {regions.map((region, idx) => <Typography.Label size="md" color="#424242">{region}{idx !== regions.length - 1 && ','}</Typography.Label>)}    
-                            </S.Info>
-                        </S.Infos>
-                    </S.TextContainer>
-                    <S.MenuIcon onClick={(e) => {e.preventDefault(); modalOpen()}}>
-                        <KebabMenuIcon />
-                    </S.MenuIcon>
-                </S.InfoContainer>
-            </S.Card>
-        </>
-    );
+  return (
+    <>
+      <MyTripModal />
+      <S.Card>
+        <S.InfoContainer>
+          <S.ThumbnailWrapper>
+            {thumbnailURL ? (
+              <img src={thumbnailURL} alt="thumbnail" />
+            ) : (
+              <LogoSmallIcon />
+            )}
+          </S.ThumbnailWrapper>
+          <S.TextContainer
+            onClick={() => {
+              navigate(`/mytrip/${id}`);
+            }}
+          >
+            <Typography.Title size="md" noOfLine={2} maxWidth={300}>
+              {title}
+            </Typography.Title>
+            <S.Infos>
+              <S.Info>
+                <CalendarIcon />
+                <Typography.Label size="md" color="#424242">
+                  {departure_date} ~ {arrival_date}
+                </Typography.Label>
+              </S.Info>
+              <S.Info>
+                <LocationIcon />
+                <Typography.Label size="md" color="#424242">
+                  {regions.join(", ")}
+                </Typography.Label>
+              </S.Info>
+            </S.Infos>
+          </S.TextContainer>
+          <S.MenuIcon
+            onClick={(e) => {
+              e.preventDefault();
+              modalOpen();
+            }}
+          >
+            <KebabMenuIcon />
+          </S.MenuIcon>
+        </S.InfoContainer>
+      </S.Card>
+    </>
+  );
 }
 
 export default MyLastScheduleCard;

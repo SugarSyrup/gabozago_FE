@@ -8,6 +8,7 @@ function BackButton() {
       onClick={() => {
         navigate(-1);
       }}
+      style={{ cursor: "pointer" }}
     />
   );
 }

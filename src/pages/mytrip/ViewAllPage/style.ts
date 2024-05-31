@@ -1,11 +1,10 @@
 import styled from "styled-components";
 
 export const CardList = styled.ol`
-    margin-top:24px;
-    padding-left:10px;
-    padding-bottom:10px;
+  margin-top: 24px;
+  padding: 0 10px 10px;
 
-    display:flex;
-    flex-direction:column;
-    gap:16px;
-`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
