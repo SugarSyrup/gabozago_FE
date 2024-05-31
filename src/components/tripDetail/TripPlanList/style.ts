@@ -6,7 +6,7 @@ export const Container = styled.div`
   background-color: ${({ theme }) => theme.white};
 `;
 export const DayFilterButton = styled.button`
-  margin-bottom: 10px;
+  margin: 15px 0;
   padding: 0;
   display: flex;
   justify-content: center;
@@ -34,51 +34,51 @@ export const PlaceListContainer = styled.div`
   gap: 20px;
 `;
 
-export const ModalHeader = styled.div<{isHighlight: boolean}>`
-  width:100%;
-  padding:10px 20px;
+export const ModalHeader = styled.div<{ isHighlight: boolean }>`
+  width: 100%;
+  padding: 10px 20px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items:center;
+  align-items: center;
 
-  color:${({isHighlight, theme}) => isHighlight && theme.main };
-  svg{
-    width:28px;
-    height:28px;
+  color: ${({ isHighlight, theme }) => isHighlight && theme.main};
+  svg {
+    width: 28px;
+    height: 28px;
   }
-`
+`;
 export const ModalContents = styled.div`
-  width:100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  padding:20px 30px;
-  gap:20px;
-`
+  padding: 20px 30px;
+  gap: 20px;
+`;
 
 export const DayItem = styled.div`
-  width:100%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  svg{
-    width:28px;
-    height:28px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  svg {
+    width: 28px;
+    height: 28px;
   }
-`
+`;
 
-export const DayInfo = styled.div<{isHighlight: boolean}>`
-  display:flex;
-  justify-content:flex-start;
-  align-items:center;
+export const DayInfo = styled.div<{ isHighlight: boolean }>`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   gap: 20px;
 
   h3:nth-child(1) {
-    color:#121212;
-    color:${({isHighlight, theme}) => isHighlight && theme.main };
+    color: #121212;
+    color: ${({ isHighlight, theme }) => isHighlight && theme.main};
   }
   h3:nth-child(2) {
-    color:#424242;
-    color:${({isHighlight, theme}) => isHighlight && theme.main };
+    color: #424242;
+    color: ${({ isHighlight, theme }) => isHighlight && theme.main};
   }
-`
+`;

@@ -2,7 +2,6 @@ import * as S from "./style";
 import { useEffect, useState } from "react";
 import ChevronBottomIcon from "../../../assets/icons/chevron_bottom.svg?react";
 import ChevronTopIcon from "../../../assets/icons/chevron_top.svg?react";
-import dashIcon from "../../../assets/imgs/dash-icon.png";
 import { DayPlan } from "../TripPlanList";
 import { markerColors } from "../../../pages/mytrip/DetailPage";
 import MarkerWithInfoWindow from "../MarkerWithInfoWindow";
@@ -68,21 +67,19 @@ function PlanMap({ isEditMode, data = [] }: Props) {
           strokeOpacity={0}
           icons={[{ icon: lineSymbol, offset: "0", repeat: "20px" }]}
         />
-        {data.map((day, dayIndex) => (
-          <>
-            {day.route.map((place, placeIndex) => (
-              <MarkerWithInfoWindow
-                key={`marker-${dayIndex}-${placeIndex}`}
-                position={{ lat: place.latitude, lng: place.longitude }}
-                color={markerColors[dayIndex % markerColors.length]}
-                index={placeIndex + 1}
-                placeId={place.placeId}
-                placeName={place.placeName}
-                placeTheme={place.placeTheme}
-              />
-            ))}
-          </>
-        ))}
+        {data.map((day, dayIndex) =>
+          day.route.map((place, placeIndex) => (
+            <MarkerWithInfoWindow
+              key={`marker-${dayIndex}-${placeIndex}`}
+              position={{ lat: place.latitude, lng: place.longitude }}
+              color={markerColors[dayIndex % markerColors.length]}
+              index={placeIndex + 1}
+              placeId={place.placeId}
+              placeName={place.placeName}
+              placeTheme={place.placeTheme}
+            />
+          ))
+        )}
       </Map>
       <S.MapOpenButton
         onClick={() => {
