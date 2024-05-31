@@ -98,6 +98,7 @@ function ScrapedTripPlace() {
                 <S.PlaceInfoBox>
                   <S.TopInfoBox>
                     <S.PlaceNameSpan>{item.name}</S.PlaceNameSpan>
+                    {/* <Typography.Label size="lg" color="#424242" noOfLine={1}>{item.theme}</Typography.Label> */}
                     <S.PlaceThemeSpan>{item.theme}</S.PlaceThemeSpan>
                   </S.TopInfoBox>
                   <S.AddressParagraph>{item.address}</S.AddressParagraph>

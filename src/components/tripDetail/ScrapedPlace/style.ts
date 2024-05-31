@@ -92,6 +92,7 @@ export const Button = styled.button<{ isActive: boolean }>`
   border: none;
   border-radius: 20px;
 
+  flex-shrink:0;
   display: flex;
   justify-content: center;
   align-items: center;
