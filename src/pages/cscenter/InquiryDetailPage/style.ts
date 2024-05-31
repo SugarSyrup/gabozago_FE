@@ -1,26 +1,26 @@
-import styled, {css} from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Container = styled.div`
-    position:absolute;
-    margin-left:-20px;
-    width: 100%;
-    max-width:500px;
+  position: absolute;
+  margin-left: -20px;
+  width: 100%;
+  max-width: 500px;
 
-    padding: 15px 20px;
+  padding: 15px 20px;
 
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    border-bottom: 0.5px solid #E4E4E4;
-`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 0.5px solid #e4e4e4;
+`;
 
 export const TextContainer = styled.div`
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
-    align-items:flex-start;
-    gap:5px;
-`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 5px;
+`;
 
 export const StatusSpan = styled.span<{ type: "active" | "inactive" }>`
   width: fit-content;
@@ -60,43 +60,43 @@ export const DateSpan = styled.span`
 `;
 
 export const Contents = styled.div`
-    padding: 90px 0px 15px 0px;
-`
+  padding: 90px 0px 15px 0px;
+`;
 
 export const ImgContainer = styled.div`
-    padding:10px 20px;
-    display:flex;
-    flex-direction:column;
-    justify-content:flex-start;
-    align-items:flex-start;
-    gap:10px;
-`
+  padding: 10px 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+`;
 
 export const ImgList = styled.ol`
-    width:100%;
-    display:flex;
-    justify-content:flex-start;
-    align-content:center;
-    gap:10px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-content: center;
+  gap: 10px;
 
-    overflow-x:scroll;
-    flex-wrap: nowrap;
+  overflow-x: scroll;
+  flex-wrap: nowrap;
 
-    &::-webkit-scrollbar {
-        display:none;
-    }
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
-    img {
-        width:80px;
-        height:80px;
-    }
-`
+  img {
+    width: 80px;
+    height: 80px;
+  }
+`;
 
 export const AnswerContainer = styled.div`
-    position:absolute;
-    width:calc(100%);
-    margin-left:-20px;
+  position: absolute;
+  width: calc(100%);
+  margin-left: -20px;
 
-    border-top:1px solid #E4E4E4;
-    padding:10px 20px;
-`
+  border-top: 1px solid #e4e4e4;
+  padding: 10px 20px;
+`;

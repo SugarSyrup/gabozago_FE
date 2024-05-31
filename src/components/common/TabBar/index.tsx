@@ -48,7 +48,11 @@ function TabBar({
             ref={tabRefs[index]}
             onClick={() => {
               setFocusedTabIndex(index);
-              if (window.location.pathname === "/") {
+              if (
+                window.location.pathname === "/0" ||
+                window.location.pathname === "/1" ||
+                window.location.pathname === "/2"
+              ) {
                 navigate(`/${index}`);
               }
             }}

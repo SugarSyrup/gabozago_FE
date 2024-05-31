@@ -13,12 +13,13 @@ export const ModalWrapper = styled.div<{ isOpen: boolean }>`
   max-height: 100dvh;
   width: 100%;
   height: 100dvh;
- @supports (-webkit-touch-callout: none) {
-  height: -webkit-fill-available;
-}
+  @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+  }
 `;
 
 export const GroupList = styled.ol`
+  margin-top: 18px;
   min-height: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
