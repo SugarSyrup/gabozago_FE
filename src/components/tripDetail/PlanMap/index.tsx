@@ -1,11 +1,13 @@
 import * as S from "./style";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ChevronBottomIcon from "../../../assets/icons/chevron_bottom.svg?react";
 import ChevronTopIcon from "../../../assets/icons/chevron_top.svg?react";
+import dashIcon from "../../../assets/imgs/dash-icon.png";
 import { DayPlan } from "../TripPlanList";
 import { markerColors } from "../../../pages/mytrip/DetailPage";
 import MarkerWithInfoWindow from "../MarkerWithInfoWindow";
-import { Map, useMap, useMapsLibrary } from "@vis.gl/react-google-maps";
+import { Map, useMapsLibrary } from "@vis.gl/react-google-maps";
+import Polyline from "../Polyline";
 
 interface Props {
   isEditMode: boolean;
@@ -14,11 +16,12 @@ interface Props {
 
 function PlanMap({ isEditMode, data = [] }: Props) {
   const [mapOpened, setMapOpend] = useState<boolean>(true);
-  const map = useMap();
+  const [placePath, setPlacePath] = useState<{ lat: number; lng: number }[]>(
+    []
+  );
   const maps = useMapsLibrary("maps");
 
-  const renderPolyLine = useCallback(() => {
-    // marker들 간에 라인 그리기
+  const getPolyLinePath = () => {
     const placePositions: { lat: number; lng: number }[] = [];
 
     data.map((day) => {
@@ -27,18 +30,8 @@ function PlanMap({ isEditMode, data = [] }: Props) {
       });
     });
 
-    console.log(placePositions);
-
-    const placePath = new maps.Polyline({
-      path: placePositions,
-      geodesic: true,
-      strokeColor: "#FF0000",
-      strokeOpacity: 1.0,
-      strokeWeight: 2,
-    });
-
-    placePath.setMap(map);
-  }, []);
+    setPlacePath(placePositions);
+  };
 
   useEffect(() => {
     if (isEditMode) {
@@ -49,10 +42,15 @@ function PlanMap({ isEditMode, data = [] }: Props) {
   }, [isEditMode]);
 
   useEffect(() => {
-    if (data && map && maps) {
-      renderPolyLine();
-    }
+    getPolyLinePath();
   }, [data]);
+
+  const lineSymbol = {
+    path: "M 0,-1 0,1",
+    strokeOpacity: 1,
+    scale: 4,
+    strokeColor: "#424242",
+  };
 
   return (
     <S.Container>
@@ -64,6 +62,12 @@ function PlanMap({ isEditMode, data = [] }: Props) {
         disableDefaultUI={true}
         mapId={import.meta.env.VITE_GOOGLEMAP_MAP_ID}
       >
+        <Polyline
+          path={placePath}
+          strokeColor={"transpert"}
+          strokeOpacity={0}
+          icons={[{ icon: lineSymbol, offset: "0", repeat: "20px" }]}
+        />
         {data.map((day, dayIndex) => (
           <>
             {day.route.map((place, placeIndex) => (
