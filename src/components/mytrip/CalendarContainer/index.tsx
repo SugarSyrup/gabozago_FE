@@ -98,7 +98,7 @@ function CalendarContainer() {
                         if(dates.startDate !== "" && dates.endDate !== ""){ 
                             switch(createType) {
                                 case "create":
-                                    navigate('/mytrip/create/location');
+                                    navigate('/mytrip/create/location', { replace: true });
                                     return;
                                 case "add":
                                     post<{id:number}>(`/my-travel`, {
