@@ -15,16 +15,16 @@ export const YoutubeContainer = styled.div`
   bottom: 0;
   width: 100%;
   height: 100dvh;
- @supports (-webkit-touch-callout: none) {
-  height: -webkit-fill-available;
-}
+  @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+  }
 
   overflow: hidden;
   border-radius: 10px;
 
   &::after {
     position: absolute;
-    bottom: 80px;
+    bottom: 78px;
     content: "";
     display: block;
     width: 100%;
@@ -219,7 +219,6 @@ export const IconButton = styled.button`
   } */
 `;
 
-
 export const UrlLabel = styled.label`
   display: block;
   text-align: center;
@@ -241,6 +240,4 @@ export const UrlInput = styled.input`
   }
 `;
 
-export const LoadingDiv = styled.div`
-  
-`
+export const LoadingDiv = styled.div``;
