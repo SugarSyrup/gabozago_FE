@@ -2,8 +2,11 @@ import styled from "styled-components";
 
 export const Nav = styled.nav<{ backgroundColor: string }>`
   width: 100%;
+  max-width: 500px;
   background-color: ${({ backgroundColor }) => backgroundColor};
   z-index: 20;
+  position: fixed;
+  bottom:0px;
 `;
 
 export const NavList = styled.ul`
