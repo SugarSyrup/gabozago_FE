@@ -40,7 +40,10 @@ function MyTripPlaceCreatePage() {
   }
 
   return (
-    <PageTemplate nav={false}>
+    <PageTemplate nav={false} header={<S.Header>
+      <LeftChevronIcon onClick={() => navigate(-1)} />
+      <Heading size="sm">새로운 장소 추가하기</Heading>
+    </S.Header>}>
       <S.PopupWrapper isOpen={isOpend}>
         <Popup>
             <S.PopupContentsContainer>
@@ -73,10 +76,7 @@ function MyTripPlaceCreatePage() {
             </S.PopupContentsContainer>
         </Popup>
       </S.PopupWrapper>
-      <S.Header>
-        <LeftChevronIcon onClick={() => navigate(-1)} />
-        <Heading size="sm">새로운 장소 추가하기</Heading>
-      </S.Header>
+      
       <S.Form
         onSubmit={(e) => {
           e.preventDefault();

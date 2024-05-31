@@ -11,12 +11,8 @@ export const ButtonContainer = styled.div`
 
 export const Container = styled.div`
   padding: 20px;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-
+  width:calc(100% + 40px);
+  margin-left:-20px;
 `;
 
 export const StyledLink = styled(Link)`

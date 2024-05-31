@@ -67,13 +67,14 @@ const PlaceAddPage = () => {
     }, [])
 
     return (
-        <PageTemplate header={<PageHeader 
-            LeftItem={
-                <S.DeleteIcon onClick={() => {
-                    navigate(-1);
-                }}>
-                    <XIcon />
-                </S.DeleteIcon>
+        <PageTemplate header={
+            <PageHeader 
+                LeftItem={
+                    <S.DeleteIcon onClick={() => {
+                        navigate(-1);
+                    }}>
+                        <XIcon />
+                    </S.DeleteIcon>
             } />
         } nav={
             <S.Footer>

@@ -2,15 +2,18 @@ import styled from "styled-components";
 
 export const Header = styled.header`
   width: 100%;
+  max-width: 500px;
   display: flex;
   justify-content: center;
   align-items: center;
 
   position: relative;
 
+  padding: 15px 20px;
+
   svg {
     position: absolute;
-    left: 0px;
+    left: 20px;
   }
 `;
 

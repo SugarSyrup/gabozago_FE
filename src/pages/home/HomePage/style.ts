@@ -11,8 +11,6 @@ export const Header = styled.header`
 
   width:100%;
   max-width:500px;
-  position: fixed;
-  top:0;
 
   &::before {
     position: absolute;

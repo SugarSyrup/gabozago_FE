@@ -15,9 +15,9 @@ export const CalendarContainer = styled.div`
 `;
 
 export const Footer = styled.footer`
-  position: absolute;
+  position: fixed;
   bottom: 0px;
-  left: 0px;
+  margin-left: -20px;
   z-index: 2;
 
   height: 200px;
@@ -32,6 +32,7 @@ export const Footer = styled.footer`
   padding-bottom: 40px;
 
   width: 100%;
+  max-width: 500px;
   overflow: auto;
 
   background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #fff 50%);

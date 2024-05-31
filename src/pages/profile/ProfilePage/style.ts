@@ -34,7 +34,7 @@ export const FixedContainer = styled.div`
 `
 
 export const Content = styled.div<{FixedContainerHeight: number | undefined}>`
-    padding-top:${({FixedContainerHeight}) => FixedContainerHeight ? `${FixedContainerHeight - 40}px`  : "200px" };
+    padding-top:${({FixedContainerHeight}) => FixedContainerHeight ? `${FixedContainerHeight - 10}px`  : "200px" };
 `
 
 export const Header = styled.header`

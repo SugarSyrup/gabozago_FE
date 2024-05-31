@@ -12,7 +12,7 @@ function MyTripDatesSelectPage() {
   return (
     <>
       <PageTemplate nav={false}>
-        <div style={{ cursor: "pointer" }} onClick={() => { navigate(-1) }}>
+        <div style={{ cursor: "pointer", paddingTop: "15px" }} onClick={() => { navigate(-1) }}>
           <XIcon />
         </div>
         <S.HeadingWrapper>

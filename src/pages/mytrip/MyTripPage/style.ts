@@ -12,6 +12,7 @@ export const NoUpCommingContainer = styled.div`
     display:flex;
     flex-direction:column;
     gap:15px;
+    padding-top:15px;
 `
 
 export const CreateMyTripButton = styled.div`
@@ -77,6 +78,7 @@ export const ContainerWithPlan = styled.div`
     
     width: 100%;
     position: relative;
+    padding-top:15px;
 `;
 
 

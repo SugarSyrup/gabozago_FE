@@ -33,11 +33,8 @@ export const TopBarText = styled.span`
 `;
 
 export const ContentContainer = styled.div`
-  width: 100%;
-
-  position: absolute;
-  top: 0px;
-  left: 0px;
+  width: calc(100% + 40px);
+  margin-left: -20px;
 `;
 
 export const ImgSlider = styled.div`
