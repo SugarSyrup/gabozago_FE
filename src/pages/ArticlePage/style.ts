@@ -32,6 +32,7 @@ export const ThumbnailWrapper = styled.div`
     left:0;
     top:0;
     width:100%;
+    background-color:white;
 
     img{
         width:100%;
