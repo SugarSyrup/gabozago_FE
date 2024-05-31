@@ -6,11 +6,8 @@ export const ContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  width: calc(100% + 40px);
+  margin-left: -20px;
   background-color: ${({ theme }) => theme.gray05};
 `;
 
@@ -97,7 +94,7 @@ export const SettingItem = styled.li`
 export const LeaveButton = styled.button`
   position:absolute;
   left:20px;
-  bottom:80px;
+  bottom:140px;
 
   cursor: pointer;
   border: 0;

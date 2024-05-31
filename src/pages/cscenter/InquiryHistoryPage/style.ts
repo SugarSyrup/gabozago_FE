@@ -1,12 +1,8 @@
 import styled, { css } from "styled-components";
 
 export const List = styled.ol`
-  position: absolute;
-  left: 0px;
-  right: 0px;
-  top: 0;
-  bottom: 0;
-  margin-top: 20px;
+  width: calc(100% + 40px);
+  margin-left: -20px;
 
   li {
     padding: 10px 20px;

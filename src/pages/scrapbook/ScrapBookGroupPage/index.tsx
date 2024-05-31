@@ -194,7 +194,6 @@ function ScrapBookGroupPage() {
         </div>
       }
     >
-      <div style={{marginTop: "-60px"}}>
         {tabs[focusedTabIndex].name === "아티클" ? (
           articles.map((item) => (
             <S.ContentsList>
@@ -206,7 +205,6 @@ function ScrapBookGroupPage() {
         ) : (
           <ShortFormList data={shortForms} />
         )}
-      </div>
     </PageTemplate>
   );
 }

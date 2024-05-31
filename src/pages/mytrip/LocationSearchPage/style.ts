@@ -143,6 +143,7 @@ export const PopupTextContainer = styled.div`
   align-items: center;
 
   color: #727272;
+  padding-top: 50px;
 
   span:last-child {
     margin-top: 10px;

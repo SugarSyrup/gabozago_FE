@@ -7,10 +7,11 @@ export const Header = styled.div`
 
     width: 100%;
     position: relative;
+    padding-top: 15px;
+    padding-bottom: 10px;
 `;
 
 export const LocationsHeader = styled.div`
-    margin-top: 26px;
     margin-bottom: 20px;
 `;
 

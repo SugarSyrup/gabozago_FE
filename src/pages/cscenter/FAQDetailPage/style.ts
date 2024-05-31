@@ -1,12 +1,8 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-
+  width:calc(100% + 40px);
+  margin-left:-20px;
   word-break: keep-all;
 `;
 

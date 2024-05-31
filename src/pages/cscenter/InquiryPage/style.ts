@@ -4,6 +4,10 @@ import xSvg from "../../../assets/icons/circleX.svg";
 export const ButtonContainer = styled.div`
   padding: 20px;
   width: 100%;
+  max-width: 500px;
+
+  position:fixed;
+  bottom:0px;
 `;
 
 export const Form = styled.form`

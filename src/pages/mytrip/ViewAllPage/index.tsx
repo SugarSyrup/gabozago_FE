@@ -33,10 +33,11 @@ function ViewAllPage() {
     }, [])
 
     return(
-        <PageTemplate nav={null}>
+        <PageTemplate nav={null} header={
             <PageHeader>
                 <Typography.Headline size="sm">내 여행 기록</Typography.Headline>
             </PageHeader>
+        }>
             <S.CardList>
                 {
                     tripData.map((trip) => <MyLastScheduleCard {...trip} />)
