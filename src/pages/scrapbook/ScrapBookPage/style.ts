@@ -38,5 +38,5 @@ export const TabItem = styled.li<{ focused: boolean }>`
   transition: all 0.3s ease-in-out;
 `;
 export const Contents = styled.div`
-  padding-top: 120px;
+  padding-top: 110px;
 `;

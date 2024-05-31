@@ -51,6 +51,10 @@ function HomePage() {
     }
   }, []);
 
+  useEffect(() => {
+    console.log("abc");
+  }, [])
+
   return (
     <PageTemplate
       header={

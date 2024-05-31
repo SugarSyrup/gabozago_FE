@@ -60,6 +60,7 @@ function MyTripLocationSearchPage() {
       location: string[];
     }>(`/my-travel/${id}`).then((response) => {
       setLocations(response.data.location);
+      console.log(response.data.location);
       setActiveFilters((prev) => ({
         ...prev,
         ["location"]: response.data.location,
@@ -69,11 +70,7 @@ function MyTripLocationSearchPage() {
 
   return (
     <PageTemplate
-      nav={
-        <S.Footer>
-          <SelectedLocations />
-        </S.Footer>
-      }
+      nav={ false }
     >
       <S.PopupWrapper isOpen={isOpend}>
         <Popup>
@@ -206,6 +203,9 @@ function MyTripLocationSearchPage() {
           />
         )}
       </S.Contents>
+      <S.Footer>
+        <SelectedLocations />
+      </S.Footer>
     </PageTemplate>
   );
 }

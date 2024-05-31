@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Container = styled.div`
-    margin-top:15px;
+    margin-top:30px;
 
     display:flex;
     flex-direction:column;

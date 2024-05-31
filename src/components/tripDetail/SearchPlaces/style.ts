@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const SearchPlacesList = styled.div`
-    padding-top: 44px;
+    padding-top: 60px;
 
     width: 100%;
     margin-top: 10px;
