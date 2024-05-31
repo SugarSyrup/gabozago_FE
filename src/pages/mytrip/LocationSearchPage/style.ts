@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Header = styled.div`
   width: 100%;
-  padding-top: 40px;
+  padding-top: 20px;
 
   position: absolute;
   top: 0px;

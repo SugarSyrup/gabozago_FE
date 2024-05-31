@@ -10,7 +10,7 @@ export const Header = styled.header`
 
 export const Heading = styled.h1`
   width: 100%;
-  padding: 40px 10px 10px;
+  padding: 20px 10px;
 
   text-align: center;
   font-size: 18px;
