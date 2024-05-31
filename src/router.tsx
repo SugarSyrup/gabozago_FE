@@ -48,6 +48,10 @@ const router = createBrowserRouter([
     path: "*",
     element: <HomePage />,
   },
+  {
+    path: "/:idx",
+    element: <HomePage />,
+  },
   /* ---- 여행기 페이지 ---- */
   {
     path: "/journal/shortform/:id",
@@ -188,14 +192,14 @@ const router = createBrowserRouter([
       }
     },
   },
-  {
-    path: "/profile/:uid/follow",
-    element: (
-      <IsLoginTemplate>
-        <UserFollowPage />
-      </IsLoginTemplate>
-    ),
-  },
+  // {
+  //   path: "/profile/:uid/follow",
+  //   element: (
+  //     <IsLoginTemplate>
+  //       <UserFollowPage />
+  //     </IsLoginTemplate>
+  //   ),
+  // },
   {
     // TODO : [LOGIN 기능 정의 이후] LOGIN 정보를 기반으로 접근 허용 / 거부
     path: "/profile/edit",

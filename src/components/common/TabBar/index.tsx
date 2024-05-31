@@ -6,6 +6,7 @@ import {
   useState,
 } from "react";
 import * as S from "./style";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   tabs: { id: number | string; name: string }[];
@@ -24,6 +25,7 @@ function TabBar({
   fontSize = "14px",
   color = "default",
 }: Props) {
+  const navigate = useNavigate();
   const tabRefs = tabs.map(() => createRef<HTMLLIElement>());
   const [highlightOption, setHighlightOption] = useState({
     x: 0,
@@ -46,6 +48,9 @@ function TabBar({
             ref={tabRefs[index]}
             onClick={() => {
               setFocusedTabIndex(index);
+              if (window.location.pathname === "/") {
+                navigate(`/${index}`);
+              }
             }}
             focused={index === focusedTabIndex}
             widthStyle={widthStyle}

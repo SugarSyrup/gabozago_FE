@@ -10,7 +10,8 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 24px;
-  margin: 26px 0 50px;
+  margin-top:-50px;
+  margin-bottom:50px;
 `;
 
 export const TitleParagraph = styled.p`

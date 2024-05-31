@@ -33,3 +33,52 @@ export const PlaceListContainer = styled.div`
   flex-direction: column;
   gap: 20px;
 `;
+
+export const ModalHeader = styled.div<{isHighlight: boolean}>`
+  width:100%;
+  padding:10px 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items:center;
+
+  color:${({isHighlight, theme}) => isHighlight && theme.main };
+  svg{
+    width:28px;
+    height:28px;
+  }
+`
+export const ModalContents = styled.div`
+  width:100%;
+  display: flex;
+  flex-direction: column;
+  padding:20px 30px;
+  gap:20px;
+`
+
+export const DayItem = styled.div`
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  svg{
+    width:28px;
+    height:28px;
+  }
+`
+
+export const DayInfo = styled.div<{isHighlight: boolean}>`
+  display:flex;
+  justify-content:flex-start;
+  align-items:center;
+  gap: 20px;
+
+  h3:nth-child(1) {
+    color:#121212;
+    color:${({isHighlight, theme}) => isHighlight && theme.main };
+  }
+  h3:nth-child(2) {
+    color:#424242;
+    color:${({isHighlight, theme}) => isHighlight && theme.main };
+  }
+`

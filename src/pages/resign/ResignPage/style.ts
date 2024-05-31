@@ -43,7 +43,7 @@ export const ConfirmButton = styled.button<{
 `;
 
 export const NoticeContainer = styled(Container)`
-  margin-top: 36px;
+  margin-top: -50px;
 `;
 
 export const TitleHeading = styled.h2`

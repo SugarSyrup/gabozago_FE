@@ -194,17 +194,19 @@ function ScrapBookGroupPage() {
         </div>
       }
     >
-      {tabs[focusedTabIndex].name === "아티클" ? (
-        articles.map((item) => (
-          <S.ContentsList>
-            <li>
-              <ScrapedArticle {...item} />
-            </li>
-          </S.ContentsList>
-        ))
-      ) : (
-        <ShortFormList data={shortForms} />
-      )}
+      <div style={{marginTop: "-60px"}}>
+        {tabs[focusedTabIndex].name === "아티클" ? (
+          articles.map((item) => (
+            <S.ContentsList>
+              <li>
+                <ScrapedArticle {...item} />
+              </li>
+            </S.ContentsList>
+          ))
+        ) : (
+          <ShortFormList data={shortForms} />
+        )}
+      </div>
     </PageTemplate>
   );
 }

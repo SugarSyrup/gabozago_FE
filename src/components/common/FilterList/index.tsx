@@ -15,6 +15,7 @@ import { filterMap, filterNameMap } from "../../../recoil/filters/codeMap";
 import { defaultFilter as journalDefaultFilter } from "../../../recoil/filters/journalState";
 import { defaultFilter as scrapArticleDefaultFilter } from "../../../recoil/filters/scrapArticleFilter";
 import { defaultFilter as scrapShortFormDefaultFilter } from "../../../recoil/filters/scrapShortFormFilter";
+import { useEffect } from "react";
 
 interface Props {
   filters: TFilterAndOptions[];
@@ -66,6 +67,7 @@ function FilterList({
       return prev;
     });
   };
+
 
   const filterButtonClickHandler = (filter: TFilterAndOptions) => {
     setModal(() => ({

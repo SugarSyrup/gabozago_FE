@@ -150,7 +150,7 @@ function MyTripLocationSelectPage() {
                 }).then(
                   (response) => {
                     setSelectedLocations([]);
-                    navigate(`/mytrip/${response.data.id}`)
+                    navigate(`/mytrip/${response.data.id}`, { replace: true })
                   }
                 )
               }}

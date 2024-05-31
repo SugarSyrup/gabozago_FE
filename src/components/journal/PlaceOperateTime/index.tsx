@@ -53,9 +53,11 @@ function PlaceOperateTime({opening_hours}: Props) {
 
             if(todayOperateInfo === "휴무일") {
                 setIsOperate(false);
+                setDisplayEndTime("휴무일");
             }
             else if(todayOperateInfo === "24시간 영업") {
                 setIsOperate(true);
+                setDisplayEndTime("24시간 영업");
             } else {
                 if(todayOperateInfo.includes(",")) {
                     todayOperateInfo.split(", ").forEach((item) => {
@@ -98,7 +100,7 @@ function PlaceOperateTime({opening_hours}: Props) {
                     <span className="red">영업종료</span>
                 }
                 <span>∙</span>
-                <span>{ displayEndTime } 영업 종료</span>
+                <span>{ displayEndTime }</span>
                 {
                     isOpen ?
                     <ChevronTopIcon onClick={() => {setIsOpen(prev => !prev)}} />

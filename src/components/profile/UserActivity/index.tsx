@@ -81,28 +81,37 @@ function UserActivity() {
 
         if(dataContainerRef.current) {
             observer = new IntersectionObserver(([entry]) => {
-                if(entry.isIntersecting && next !== null) {      
+                if(entry.isIntersecting && next) {      
                     if(actFilter === "clap" && postFilter === "short-form") {
-                        get<shortsResponseType>(`/user/profile/my-activity?sort=${actFilter}&community=${postFilter}`)
+                        get<shortsResponseType>(next)
                             .then((response) => {
-                                setData(response.data.results);
+                                setData((prev) => {
+                                    const prevData = prev as shortsResponseType['results'];
+                                    return [...prevData, ...response.data.results];
+                                });
                                 setNext(response.data.next);    
                             })
                     } else if(actFilter === "clap" && postFilter === "article") {
-                        get<articleResponseType>(`/user/profile/my-activity?sort=${actFilter}&community=${postFilter}`)
+                        get<articleResponseType>(next)
                             .then((response) => {
-                                setData(response.data.results);
+                                setData((prev) => {
+                                    const prevData = prev as articleResponseType['results'];
+                                    return [...prevData, ...response.data.results];
+                                });
                                 setNext(response.data.next);    
                             })
                     } else{
-                        get<commentsResponseType>(`/user/profile/my-activity?sort=${actFilter}&community=${postFilter}`)
+                        get<commentsResponseType>(next)
                             .then((response) => {
-                                setData(response.data.results);
+                                setData((prev) => {
+                                    const prevData = prev as commentsResponseType['results'];
+                                    return [...prevData, ...response.data.results];
+                                });
                                 setNext(response.data.next);    
                             })
                     }
                 }
-            }, { threshold: [0.8]})
+            });
     
             observer.observe(dataContainerRef.current)
         }
@@ -115,7 +124,6 @@ function UserActivity() {
     return (
         <S.Container>
             <UserActivityFilter setActFilter={setActFilter} setPostFilter={setPostFilter}/>
-            <div ref={dataContainerRef}>
             {
                 data !== undefined &&
                 actFilter === "clap" ?
@@ -127,7 +135,8 @@ function UserActivity() {
                 data !== undefined &&
                 <UserCommentsList data={data as commentsResponseType['results']} type={postFilter}/>
             }
-            </div>
+            
+            <div ref={dataContainerRef}></div>
         </S.Container>
     );
 }

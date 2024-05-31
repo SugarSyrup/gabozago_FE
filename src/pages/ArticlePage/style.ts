@@ -13,8 +13,18 @@ export const ModalWrapper = styled.div<{isOpen: boolean}>`
 
 export const BackButtonWrapper = styled.div`
     position:absolute;
-    top:16px;
+    top:20px;
     left:20px;
+    z-index:100;
+
+    svg{
+        width: 30px;
+        height: 30px;
+        
+        path{
+            fill: white;
+        }
+    }
 `
 
 export const ThumbnailWrapper = styled.div`
@@ -22,6 +32,7 @@ export const ThumbnailWrapper = styled.div`
     left:0;
     top:0;
     width:100%;
+    background-color:white;
 
     img{
         width:100%;
@@ -57,14 +68,12 @@ export const Title = styled.span`
 
 export const StationContainer = styled.div`
     margin-top:20px;
-    padding-left:20px;
-    padding-right:20px;
-    padding-bottom:100px;
 
     display:flex;
     flex-direction:column;
     align-items:flex-start;
     gap:10px;
+    
 `
 
 export const StationTitle = styled.span`
@@ -73,6 +82,7 @@ export const StationTitle = styled.span`
     font-weight: 600;
     line-height: 24px;
     letter-spacing:0.15px;
+    margin-left:20px;
 `
 
 export const NextArticle = styled.div`
@@ -102,6 +112,11 @@ export const Content = styled.div<{isLogin: boolean}>`
     flex-direction:column;
     justify-content:flex-start;
     gap:50px;
+
+    background-color:white;
+    padding-left:20px;
+    padding-right:20px;
+    padding-bottom:100px;
 `
 
 export const Empty = styled.div`

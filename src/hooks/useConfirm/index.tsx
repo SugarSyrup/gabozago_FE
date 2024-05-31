@@ -21,7 +21,7 @@ function useConfirm(
             <S.PopupTextContainer>
               <Typography.Headline size="sm">{heading}</Typography.Headline>
               {desc && (
-                <Typography.Body size="lg" color="inherit">
+                <Typography.Body size="lg" color="inherit" noOfLine={3}>
                   {desc}
                 </Typography.Body>
               )}

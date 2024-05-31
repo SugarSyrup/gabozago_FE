@@ -51,11 +51,14 @@ export const ListItem = styled.li<{ active?: boolean; activeColor: string }>`
           : theme.gray02};
     }
 
-    &:hover {
-      color: ${({ theme }) => theme.main};
-      path {
-        fill: ${({ theme }) => theme.main};
+    @media (hover: hover){
+      &:hover {
+        color: ${({ theme }) => theme.main};
+        path {
+          fill: ${({ theme }) => theme.main};
+        }
       }
     }
+    
   }
 `;

@@ -85,14 +85,14 @@ function SettingsPage() {
               </ol>
             </div>
           ))}
-          <S.LeaveButton
-            onClick={() => {
-              navigate("/leave");
-            }}
-          >
-            <Typography.Body size="lg" color="inherit">탈퇴하기</Typography.Body>
-          </S.LeaveButton>
         </S.SettingsContainer>
+        <S.LeaveButton
+          onClick={() => {
+            navigate("/leave");
+          }}
+        >
+          <Typography.Body size="lg" color="inherit">탈퇴하기</Typography.Body>
+        </S.LeaveButton>
       </S.ContentsWrapper>
     </PageTemplate>
   );

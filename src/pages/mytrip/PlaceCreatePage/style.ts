@@ -44,9 +44,10 @@ export const Input = styled.input`
 
 export const ButtonWrapper = styled.div`
   width: calc(100% - 40px);
+  max-width: calc(500px - 40px);
   padding: 15px;
 
-  position: absolute;
+  position: fixed;
   bottom: 40px;
 `;
 

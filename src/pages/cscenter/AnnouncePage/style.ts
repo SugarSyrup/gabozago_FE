@@ -6,13 +6,12 @@ export const Container = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-
-  overflow-y: auto;
 `;
 
 export const OrderedList = styled.ol`
   display: flex;
   flex-direction: column;
+  background-color:white;
 `;
 
 export const ListItem = styled.li`

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Header = styled.div`
   width: 100%;
-  padding-top: 40px;
+  padding-top: 20px;
 
   position: absolute;
   top: 0px;
@@ -71,7 +71,7 @@ export const HighlightLine = styled.div<{ isHighlight: boolean }>`
 
 export const Contents = styled.div`
   width: 100%;
-  padding-top: 110px;
+  padding-top: 120px;
 
   display: flex;
   flex-direction: column;
@@ -79,11 +79,12 @@ export const Contents = styled.div`
 `;
 
 export const Footer = styled.footer`
-  position: relative;
-  /* left:0px;
-    bottom: 0px; */
+  position: fixed;
+  bottom:0px;
 
   width: 100%;
+  max-width:500px;
+  margin-left:-20px;
   padding-top: 18px;
   padding-bottom: 38px;
   padding-left: 30px;

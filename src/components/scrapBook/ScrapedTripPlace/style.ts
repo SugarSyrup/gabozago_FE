@@ -55,6 +55,7 @@ export const TopInfoBox = styled.div`
   width: 100%;
   margin-bottom: 7px;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 8px;
 `;
@@ -65,6 +66,12 @@ export const PlaceNameSpan = styled.span`
   font-size: 16px;
   letter-spacing: 0.2%;
   line-height: 18px;
+
+  /* text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical; */
 `;
 
 export const PlaceThemeSpan = styled.span`
@@ -82,6 +89,7 @@ export const AddressParagraph = styled.p`
 `;
 
 export const DetailViewButton = styled.button`
+  flex-shrink: 0;
   padding: 0;
   display: flex;
   justify-content: center;

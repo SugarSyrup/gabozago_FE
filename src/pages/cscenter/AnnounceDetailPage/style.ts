@@ -7,7 +7,6 @@ export const Container = styled.div`
   left: 0;
   right: 0;
 
-  overflow-y: auto;
   word-break: keep-all;
 `;
 

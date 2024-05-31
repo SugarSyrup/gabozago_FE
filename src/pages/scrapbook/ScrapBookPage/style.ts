@@ -10,7 +10,7 @@ export const Header = styled.header`
 
 export const Heading = styled.h1`
   width: 100%;
-  padding: 40px 10px 10px;
+  padding: 20px 10px;
 
   text-align: center;
   font-size: 18px;
@@ -38,5 +38,5 @@ export const TabItem = styled.li<{ focused: boolean }>`
   transition: all 0.3s ease-in-out;
 `;
 export const Contents = styled.div`
-  padding-top: 90px;
+  padding-top: 110px;
 `;

@@ -29,7 +29,6 @@ interface Place {
 function ScrapedPlace({ popupOpen, setNewLocation, setNewRegion, locations }: Props) {
   const [filter, setFilter] = useRecoilState<TFilter>(scrapPlaceFilterState);
   const activeFilter = useRecoilValue(activeScrapPlaceFilterListState);
-  const resetFilter = useResetRecoilState(scrapPlaceFilterState);
   const [places, setPlaces] = useState<Place[]>([]);
   const [selectedPlaces, setSelectedPlaces] =
     useRecoilState(selectedPlacesState);
@@ -55,9 +54,6 @@ function ScrapedPlace({ popupOpen, setNewLocation, setNewRegion, locations }: Pr
   useEffect(() => {
     getPlaces();
   }, [filter]);
-  useEffect(() => {
-    resetFilter();
-  }, []);
 
   return (
     <>

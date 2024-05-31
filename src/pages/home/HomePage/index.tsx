@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import PageTemplate from "../../../components/common/PageTemplate";
 import TabBar from "../../../components/common/TabBar";
@@ -15,7 +15,8 @@ import Typography from "../../../components/common/Typography";
 import { loginAlertState } from "../../../recoil/loginAlertState";
 
 function HomePage() {
-  const [focusedTabIndex, setFocusedTabIndex] = useState<number>(0);
+  const {idx} = useParams();
+  const [focusedTabIndex, setFocusedTabIndex] = useState<number>(idx ? Number(idx) : 0);
   const navigate = useNavigate();
   const [isLoginAlertState, setIsLoginAlertState] =
     useRecoilState(loginAlertState);
@@ -50,6 +51,10 @@ function HomePage() {
       setIsLoginAlertState(false);
     }
   }, []);
+
+  useEffect(() => {
+    console.log("abc");
+  }, [])
 
   return (
     <PageTemplate
