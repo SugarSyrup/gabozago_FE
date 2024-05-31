@@ -9,6 +9,11 @@ export const Header = styled.header`
   background-color: ${({ theme }) => theme.white};
   z-index: 30;
 
+  width:100%;
+  max-width:500px;
+  position: fixed;
+  top:0;
+
   &::before {
     position: absolute;
     left: 0;
