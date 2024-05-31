@@ -5,8 +5,9 @@ export const Nav = styled.nav<{ backgroundColor: string }>`
   max-width: 500px;
   background-color: ${({ backgroundColor }) => backgroundColor};
   z-index: 20;
+
   position: fixed;
-  bottom:0px;
+  bottom:0;
 `;
 
 export const NavList = styled.ul`
