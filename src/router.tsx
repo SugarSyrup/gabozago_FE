@@ -48,6 +48,10 @@ const router = createBrowserRouter([
     path: "*",
     element: <HomePage />,
   },
+  {
+    path: "/:idx",
+    element: <HomePage />,
+  },
   /* ---- 여행기 페이지 ---- */
   {
     path: "/journal/shortform/:id",
