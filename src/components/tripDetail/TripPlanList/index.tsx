@@ -52,7 +52,6 @@ function TripPlanList({ isEditMode, setIsEditMode }: Props) {
             >
               <S.DayInfo isHighlight={checkedIndex === idx + 1}>
                 <Typography.Title size="lg" color="inherit">
-                  {" "}
                   Day {dayPlan.day}
                 </Typography.Title>
                 <Typography.Title size="lg" color="inherit">
@@ -66,7 +65,7 @@ function TripPlanList({ isEditMode, setIsEditMode }: Props) {
           ))}
         </S.ModalContents>
       </Modal>
-      {data.plan.length >= 0 && (
+      {data.plan.length >= 0 && !isEditMode && (
         <S.DayFilterButton
           onClick={() => {
             modalOpen();
