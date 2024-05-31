@@ -25,37 +25,53 @@ interface Props {
 function TripPlanList({ isEditMode, setIsEditMode }: Props) {
   const data = useRecoilValue(tripState);
   const [checkedIndex, setCheckedIndex] = useState<number>(0);
-  const { Modal, modalOpen, modalClose } = useModal({
-    
-  });
+  const { Modal, modalOpen, modalClose } = useModal({});
 
   return (
     <S.Container>
       <Modal>
-        <S.ModalHeader onClick={() => {setCheckedIndex(0); modalClose();}} isHighlight={checkedIndex === 0}>
-          <Typography.Title size="lg" color="inherit">일정 전체보기</Typography.Title>
-          {
-            checkedIndex === 0 && <CheckedIcon />
-          }
+        <S.ModalHeader
+          onClick={() => {
+            setCheckedIndex(0);
+            modalClose();
+          }}
+          isHighlight={checkedIndex === 0}
+        >
+          <Typography.Title size="lg" color="inherit">
+            일정 전체보기
+          </Typography.Title>
+          {checkedIndex === 0 && <CheckedIcon />}
         </S.ModalHeader>
         <S.ModalContents>
-          {
-            data.plan.map((dayPlan, idx) => (
-              <S.DayItem onClick={() => {setCheckedIndex(idx + 1); modalClose();}}>
-                <S.DayInfo isHighlight={checkedIndex === idx + 1}>
-                  <Typography.Title size="lg" color="inherit"> Day {dayPlan.day}</Typography.Title>
-                  <Typography.Title size="lg" color="inherit"> {dayPlan.date.replace("-", ".").replace("-", ".")}</Typography.Title>
-                </S.DayInfo>
-                {
-                  checkedIndex === idx + 1 && <CheckedIcon />
-                }
-              </S.DayItem>
-            ))
-          }
+          {data.plan.map((dayPlan, idx) => (
+            <S.DayItem
+              onClick={() => {
+                setCheckedIndex(idx + 1);
+                modalClose();
+              }}
+            >
+              <S.DayInfo isHighlight={checkedIndex === idx + 1}>
+                <Typography.Title size="lg" color="inherit">
+                  {" "}
+                  Day {dayPlan.day}
+                </Typography.Title>
+                <Typography.Title size="lg" color="inherit">
+                  {`${dayPlan.date.replace("-", ".").replace("-", ".")}(${
+                    dayPlan.dayOfWeek
+                  })`}
+                </Typography.Title>
+              </S.DayInfo>
+              {checkedIndex === idx + 1 && <CheckedIcon />}
+            </S.DayItem>
+          ))}
         </S.ModalContents>
       </Modal>
       {data.plan.length >= 0 && (
-        <S.DayFilterButton onClick={() => {modalOpen()}}>
+        <S.DayFilterButton
+          onClick={() => {
+            modalOpen();
+          }}
+        >
           전체 일정
           <ArrowBottomIcon />
         </S.DayFilterButton>
@@ -65,7 +81,7 @@ function TripPlanList({ isEditMode, setIsEditMode }: Props) {
           <PlanEditMode setIsEditMode={setIsEditMode} />
         ) : (
           data.plan.map((dayPlan, idx) => {
-            if(checkedIndex === 0){
+            if (checkedIndex === 0) {
               return (
                 <DayPlan
                   day={dayPlan.day}
@@ -73,9 +89,8 @@ function TripPlanList({ isEditMode, setIsEditMode }: Props) {
                   data={dayPlan.route}
                   setIsEditMode={setIsEditMode}
                 />
-              )
-            }
-            else if(checkedIndex === idx + 1){
+              );
+            } else if (checkedIndex === idx + 1) {
               return (
                 <DayPlan
                   day={dayPlan.day}
@@ -83,7 +98,7 @@ function TripPlanList({ isEditMode, setIsEditMode }: Props) {
                   data={dayPlan.route}
                   setIsEditMode={setIsEditMode}
                 />
-              )
+              );
             }
           })
         )}
