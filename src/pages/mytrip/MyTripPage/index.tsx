@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { get } from "../../../utils/api";
 
@@ -18,29 +18,36 @@ import { datesState } from "../../../recoil/mytrip/createData";
 import { createTravelState } from "../../../recoil/mytrip/createTravelState";
 
 type travelResponseType = {
-  "id": number,
-  "title": string,
-  "departure_date": string
-  "arrival_date": string,
-  "regions": string[],
-  "thumbnailURL": string,
-}[]
+  "next": null | "",
+  "previous": null | "",
+  results: {
+    "id": number,
+    "title": string,
+    "departure_date": string
+    "arrival_date": string,
+    "regions": string[],
+    "thumbnailURL": string,
+  }[],
+}
 
 function MyTripPage() {
   const navigate = useNavigate();
   const setDatesState = useSetRecoilState(datesState);
   const setCreateTravelState = useSetRecoilState(createTravelState);
-  const [tripHistory, setTripHistory] = useState<travelResponseType>([]);
-  const [tripUpComing, setTripUpComing] = useState<travelResponseType>([]);
+  const [next, setNext] = useState<travelResponseType["next"]>("");
+  const [tripHistory, setTripHistory] = useState<travelResponseType["results"]>([]);
+  const [tripUpComing, setTripUpComing] = useState<travelResponseType["results"]>([]);
   const [nickname, setNickname] = useState<string>("");
-
+  const infiniteObserverRef = useRef<HTMLDivElement>(null);
+  
   useEffect(() => {
     get<travelResponseType>(`/my-travel/upcoming`)
       .then((response) => {
-        setTripUpComing(response.data);
+        setNext(response.data.next);
+        setTripUpComing(response.data.results);
       })
 
-    get<travelResponseType>(`/my-travel/past`)
+    get<travelResponseType["results"]>(`/my-travel/past`)
       .then((response) => {
         setTripHistory(response.data);
       })
@@ -50,6 +57,24 @@ function MyTripPage() {
         setNickname(response.data.nickname);
       })
   }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && next) {
+        get<travelResponseType>(next)
+          .then((response) => {
+            setNext(response.data.next);
+            setTripUpComing([...tripUpComing, ...response.data.results]);
+          })
+      }
+    });
+
+    if (infiniteObserverRef.current) {
+      observer.observe(infiniteObserverRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [])
 
   return (
     <PageTemplate>
@@ -103,7 +128,7 @@ function MyTripPage() {
               {
                 tripUpComing.map((tripData) => <MyScheduleCard {...tripData}/>)
               }
-              
+              <div ref={infiniteObserverRef} />
             </S.ScheduleCardContainer>
 
             <S.CreateMyTripTextButton onClick={() => {
