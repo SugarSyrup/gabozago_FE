@@ -4,6 +4,7 @@ export const Container = styled.div`
     position:absolute;
     margin-left:-20px;
     width: 100%;
+    max-width:500px;
 
     padding: 15px 20px;
 
@@ -93,7 +94,7 @@ export const ImgList = styled.ol`
 
 export const AnswerContainer = styled.div`
     position:absolute;
-    width:calc(100% + 40px);
+    width:calc(100%);
     margin-left:-20px;
 
     border-top:1px solid #E4E4E4;

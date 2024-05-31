@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 export const ContentsWrapper = styled.div`
+  height:90dvh;
+
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -9,7 +11,6 @@ export const ContentsWrapper = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  overflow-y: auto;
   background-color: ${({ theme }) => theme.gray05};
 `;
 
@@ -55,7 +56,6 @@ export const UserSettingLeftItems = styled.div`
 `
 
 export const SettingsContainer = styled.div`
-  position:relative;
   height:100%;
   padding: 20px 20px;
   padding-bottom:0px;
@@ -97,7 +97,7 @@ export const SettingItem = styled.li`
 export const LeaveButton = styled.button`
   position:absolute;
   left:20px;
-  bottom: 40px;
+  bottom:80px;
 
   cursor: pointer;
   border: 0;

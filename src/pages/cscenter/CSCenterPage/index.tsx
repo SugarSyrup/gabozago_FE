@@ -42,7 +42,6 @@ function CSCenterPage() {
   ];
 
   useEffect(() => {
-    console.log("focused: FAQ" + focusedCategory);
     get<{
       next: string;
       previous: string;

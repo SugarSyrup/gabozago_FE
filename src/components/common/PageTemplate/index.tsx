@@ -33,7 +33,7 @@ function PageTemplate({ children, nav = "default", header }: Props) {
     <S.Container header={header ? true : false}>
       <Modal>{modal.contents}</Modal>
       {header && header}
-      <S.Content header={header ? true : false}>{children}</S.Content>
+      <S.Content header={header ? true : false} nav={nav || nav === "default" ? true : false}>{children}</S.Content>
       {nav === "default" ? <BottomNavBar /> : nav}
     </S.Container>
   );

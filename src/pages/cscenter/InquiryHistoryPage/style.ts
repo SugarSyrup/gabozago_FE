@@ -7,7 +7,6 @@ export const List = styled.ol`
   top: 0;
   bottom: 0;
   margin-top: 20px;
-  overflow-y: auto;
 
   li {
     padding: 10px 20px;
@@ -37,7 +36,7 @@ export const List = styled.ol`
 `;
 
 export const NoDataTextContainer = styled.div`
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

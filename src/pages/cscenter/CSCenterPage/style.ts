@@ -2,8 +2,11 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const ButtonContainer = styled.div`
+  position:fixed;
+  bottom:0px;
   padding: 20px;
   width: 100%;
+  max-width: 500px;
 `;
 
 export const Container = styled.div`
@@ -14,7 +17,6 @@ export const Container = styled.div`
   left: 0;
   right: 0;
 
-  overflow-y: auto;
 `;
 
 export const StyledLink = styled(Link)`

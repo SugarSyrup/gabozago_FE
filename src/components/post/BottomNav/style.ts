@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Navigation = styled.nav`
     width:100%;
     max-width:500px;
+
     padding-top:16px;
     padding-bottom:32px;
     padding-left:36px;

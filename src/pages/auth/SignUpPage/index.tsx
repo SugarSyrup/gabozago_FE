@@ -50,8 +50,7 @@ function SignUpPage() {
 
   return (
     <PageTemplate
-      nav={false
-      }
+      nav={false}
       header={
         <PageHeader>
           <S.HeaderText>회원 가입</S.HeaderText>

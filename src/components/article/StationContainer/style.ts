@@ -23,11 +23,12 @@ export const StationList = styled.ol<{ isBackground: boolean }>`
   flex-direction: column;
   justify-content: flex-start;
 
-  width: 100%;
+  width: calc(100% - 40px);
   padding: 12px 20px;
   background-color: ${({ isBackground, theme }) =>
     isBackground ? theme.blue05 : "white"};
   border-radius: 6px;
+  margin-left:20px;
 `;
 
 export const StationItem = styled.li`
@@ -107,6 +108,7 @@ export const StationIcon = styled.div`
   filter: drop-shadow(0px 5px 5px rgba(0, 0, 0, 0.25));
 
   position: fixed;
+  margin-left:20px;
   bottom: 90px;
 
   display: flex;
