@@ -16,10 +16,12 @@ export const Container = styled.div<{ header: boolean }>`
   max-width: 500px;
   max-height: 100dvh;
   width: 100%;
-  height: 100dvh;
-  @supports (-webkit-touch-callout: none) {
-    height: -webkit-fill-available;
-  }
+  min-height: 100dvh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  /* @supports (-webkit-touch-callout: none) {
+    min-height: -webkit-fill-available;
+  } */
   /* height: auto;
   min-height: 100dvh; */
   background-color: ${({ theme }) => theme.white};
@@ -28,10 +30,11 @@ export const Container = styled.div<{ header: boolean }>`
 export const Content = styled.div<{ header: boolean }>`
   position: relative;
   width: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
   height: auto;
   min-height: 100dvh;
+  /* @supports (-webkit-touch-callout: none) {
+    min-height: -webkit-fill-available;
+  } */
   padding: ${({ header }) => (header ? "0 20px" : "40px 20px")};
   padding-bottom: 140px;
 `;
