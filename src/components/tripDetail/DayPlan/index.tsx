@@ -5,6 +5,7 @@ import AddPlaceButton from "../AddPlaceButton";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { selectedPlacesState } from "../../../recoil/mytrip/selectedPlacesState";
+import { Position } from "../../common/GoogleMap";
 interface Props {
   data: PlaceData[];
   day: number;
@@ -30,6 +31,27 @@ function DayPlan({ data, day, date: dateString, setIsEditMode }: Props) {
     navigate(`./${day}/search`);
   };
 
+  const getDistance = (pos1: Position, pos2: Position) => {
+    const R = 6378.137; //Earth radius in km (WGS84)
+    const rad = (x: number) => {
+      return (x * Math.PI) / 180;
+    };
+
+    const dLat = rad(pos2.lat - pos1.lat);
+    const dLong = rad(pos2.lng - pos1.lng);
+
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(rad(pos1.lat)) *
+        Math.cos(rad(pos2.lat)) *
+        Math.sin(dLong / 2) *
+        Math.sin(dLong / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const d = R * c;
+
+    return d.toFixed(1); //Return 1 decimals
+  };
+
   return (
     <S.Container>
       <S.DayInfo>
@@ -51,9 +73,27 @@ function DayPlan({ data, day, date: dateString, setIsEditMode }: Props) {
         ) : (
           <>
             {data.map((place, index) => (
-              <S.PlaceItem>
-                <S.MarkerBox color={markerColors[day - (1 % 7)]}>
+              <S.PlaceItem key={`placeItem-${day}-${index}`}>
+                <S.MarkerBox
+                  color={markerColors[day - (1 % 7)]}
+                  hasLine={data.length !== index + 1}
+                >
                   <S.NumberSpan>{index + 1}</S.NumberSpan>
+                  {data.length !== index + 1 && (
+                    <S.DistanceSpan>
+                      {getDistance(
+                        {
+                          lat: data[index].latitude,
+                          lng: data[index].longitude,
+                        },
+                        {
+                          lat: data[index + 1].latitude,
+                          lng: data[index + 1].longitude,
+                        }
+                      )}
+                      km
+                    </S.DistanceSpan>
+                  )}
                 </S.MarkerBox>
                 <TripPlanPlaceItem
                   {...place}

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Container = styled.div``;
 export const DayInfo = styled.p`
@@ -49,13 +49,14 @@ export const PlaceList = styled.ol`
 `;
 
 export const PlaceItem = styled.li`
+  position: relative;
   display: grid;
   grid-template-columns: 35px 1fr;
   justify-items: center;
   gap: 20px;
 `;
 
-export const MarkerBox = styled.div<{ color: string }>`
+export const MarkerBox = styled.div<{ color: string; hasLine: boolean }>`
   width: 18px;
   height: 18px;
   display: flex;
@@ -66,13 +67,45 @@ export const MarkerBox = styled.div<{ color: string }>`
   background-color: ${({ color }) => color};
   border-radius: 50%;
   line-height: 0;
+
+  ${({ hasLine, color }) =>
+    hasLine &&
+    css`
+      &::before {
+        content: " ";
+        position: absolute;
+        width: 0px;
+        height: 100%;
+        top: 0;
+        border: 1px dashed ${color};
+      }
+    `}
 `;
 export const NumberSpan = styled.span`
   padding-top: 1px;
   margin: auto;
   line-height: 0;
 
+  z-index: 10;
   font-weight: 500;
   font-size: 11px;
   color: ${({ theme }) => theme.white};
+`;
+export const DistanceSpan = styled.span`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2px 5px;
+  position: absolute;
+
+  top: 50%;
+  transform: translate(0, -50%);
+
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+  border-radius: 10px;
+  background-color: ${({ theme }) => theme.gray04};
 `;
