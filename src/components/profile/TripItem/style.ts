@@ -38,6 +38,7 @@ export const ThumbnailWrapper = styled.div`
 export const Info = styled.div`
     padding-top:5px;
     padding-bottom:5px;
+    padding-right: 30px;
 
     display:flex;
     flex-direction:column;

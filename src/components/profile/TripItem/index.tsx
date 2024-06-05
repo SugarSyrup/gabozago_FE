@@ -47,7 +47,7 @@ function TripItem({id, title, location, departureDate, arrivalDate, thumbnailURL
                     }
                 </S.ThumbnailWrapper>
                 <S.Info>
-                    <S.Name><Typography.Title size="md">{title}</Typography.Title></S.Name>
+                    <S.Name><Typography.Title size="md" noOfLine={2} >{title}</Typography.Title></S.Name>
                     <S.Desc><CalendarIcon /> <Typography.Label size="md" color="#424242">{departureDate} ~ {arrivalDate}</Typography.Label></S.Desc>
                     <S.Desc><LocationIcon /> <Typography.Label size="md" color="#424242">{location.toLocaleString()}</Typography.Label></S.Desc>
                 </S.Info>
