@@ -13,9 +13,9 @@ export const ModalWrapper = styled.div<{ isOpened: boolean }>`
   max-height: 100dvh;
   width: 100%;
   height: 100dvh;
- @supports (-webkit-touch-callout: none) {
-  height: -webkit-fill-available;
-}
+  @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+  }
 `;
 
 export const ModalContainer = styled.div`
@@ -32,9 +32,9 @@ export const ModalContainer = styled.div`
     display: block;
     width: 100%;
     height: 100dvh;
- @supports (-webkit-touch-callout: none) {
-  height: -webkit-fill-available;
-}
+    @supports (-webkit-touch-callout: none) {
+      height: -webkit-fill-available;
+    }
     opacity: 30%;
     background-color: ${({ theme }) => theme.black};
   }
@@ -82,5 +82,5 @@ export const Title = styled.div`
 `;
 
 export const Contents = styled.div`
-  padding-top: 24px;
+  /* padding-top: 24px; */
 `;
