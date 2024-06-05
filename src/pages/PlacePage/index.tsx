@@ -134,9 +134,9 @@ function PlacePage() {
                                     placeId: id
                                 }).then((response) => {
                                     if(response.data.message === "Create Success") {
-                                        setAlertMessage( <S.AlertMessageContainer><S.AlertMessageName>{data.name}</S.AlertMessageName><Typography.Body size="lg" color="white" maxWidth={140} >가 스크랩 되었습니다.</Typography.Body></S.AlertMessageContainer>);
+                                        setAlertMessage( <S.AlertMessageContainer><S.AlertMessageName>{data.name}</S.AlertMessageName><Typography.Body size="lg" color="white" maxWidth={140} >(이)가 스크랩 되었습니다.</Typography.Body></S.AlertMessageContainer>);
                                     } else {
-                                        setAlertMessage( <S.AlertMessageContainer><S.AlertMessageName>{data.name}</S.AlertMessageName><Typography.Body size="lg" color="white" maxWidth={140} >가 스크랩 삭제했습니다.</Typography.Body></S.AlertMessageContainer>);
+                                        setAlertMessage( <S.AlertMessageContainer><S.AlertMessageName>{data.name}</S.AlertMessageName><Typography.Body size="lg" color="white" maxWidth={140} >(이)가 스크랩 삭제했습니다.</Typography.Body></S.AlertMessageContainer>);
                                     }
 
                                     alertOpen();
