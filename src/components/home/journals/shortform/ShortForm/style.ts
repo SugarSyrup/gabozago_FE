@@ -98,14 +98,17 @@ export const InfoBox = styled.div`
   }
 `;
 
-export const ContentBox = styled.p<{ isOpened: boolean }>`
+export const ContentBox = styled.div<{ isOpened: boolean }>`
   width: 100%;
   max-height: 30px;
-  display: -webkit-box;
-  text-overflow: ellipsis;
+  /* display: -webkit-box; */
+  /* text-overflow: clip; */
+  display: flex;
+  /* display: grid; */
+  /* grid-template-columns: 1fr fit-Content; */
   overflow: hidden;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
+  /* -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical; */
 
   transition: all 0.3s ease-in-out;
   cursor: pointer;
@@ -113,19 +116,29 @@ export const ContentBox = styled.p<{ isOpened: boolean }>`
   background-color: transparent;
 
   ${({ isOpened }) =>
-    isOpened &&
-    css`
-      display: block;
-      max-height: 240px;
-      overflow-y: auto;
-      text-overflow: clip;
-      /* background-color: #00000050; */
-    `};
+    isOpened
+      ? css`
+          display: block;
+          max-height: 240px;
+          overflow-y: auto;
+          text-overflow: clip;
+          /* background-color: #00000050; */
+        `
+      : css`
+          &::after {
+            content: "...";
+            color: ${({ theme }) => theme.white};
+            margin-top: 2px;
+            border-radius: 5px;
+            padding: 2px 3px;
+          }
+        `};
 
   &:hover {
-    /* background-color: #00000050; */
+    &::after {
+      background-color: #00000050;
+    }
   }
-
   p {
     padding: ${({ isOpened }) => (isOpened ? "5px" : 0)};
     color: ${({ theme }) => theme.white};
@@ -133,7 +146,7 @@ export const ContentBox = styled.p<{ isOpened: boolean }>`
     font-weight: 400;
     line-height: 24px;
     letter-spacing: 0.25px;
-    word-break: keep-all;
+    word-break: ${({ isOpened }) => (isOpened ? "keep-all" : "break-all")};
     overflow-wrap: anywhere;
   }
 `;

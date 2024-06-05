@@ -198,7 +198,6 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
           <PlacesModal>
             <PlacesModalContents id={shortFormId} />
           </PlacesModal>
-
           <Modal>
             <Comment
               id={shortFormId}
@@ -266,6 +265,7 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
               </Suspense>
             </S.YoutubeContainer>
             <S.InfoBox>
+              {/* 업로드 유저 프로필 */}
               <p>
                 <S.ProgileImageBox>
                   {data.profileImage ? (
@@ -281,6 +281,7 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
                 </span>
               </p>
               <p>{data.title}</p>
+              {/* 제목 아래 캡션 영역 */}
               <S.ContentBox
                 ref={contentContainerRef}
                 isOpened={isContentOpened}
@@ -293,7 +294,6 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
                 ) : (
                   <p>{data.content.split("\n")[0]}</p>
                 )}
-
               </S.ContentBox>
               <S.BottomInfoContainer>
                 <span>
