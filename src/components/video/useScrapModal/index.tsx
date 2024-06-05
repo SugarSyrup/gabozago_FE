@@ -85,7 +85,7 @@ function useScrapModal({ id, type, setIsScraped}: Props) {
               <S.Input
                 type="text"
                 name="newFolderName"
-                maxLength={30}
+                maxLength={38}
                 minLength={1}
                 required={true}
               />
