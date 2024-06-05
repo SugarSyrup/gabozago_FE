@@ -7,7 +7,7 @@ export const Container = styled.div`
   margin-bottom: 10px;
 `;
 
-export const YoutubeContainer = styled.div`
+export const YoutubeContainer = styled.div<{ isCaptionOpened: boolean }>`
   position: absolute;
   top: 0;
   left: 0;
@@ -23,18 +23,32 @@ export const YoutubeContainer = styled.div`
   border-radius: 10px;
 
   &::after {
+    pointer-events: none;
     position: absolute;
-    bottom: 78px;
+    top: 0;
+    bottom: 0;
     content: "";
     display: block;
     width: 100%;
-    height: 150px;
+    height: auto;
     background: linear-gradient(
       180deg,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(0, 0, 0, 0.2) 30%,
-      rgba(0, 0, 0, 0.8) 100%
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0) 80%,
+      rgba(0, 0, 0, 0.6) 90%,
+      rgba(0, 0, 0, 0.9) 100%
     );
+    transition: all 0.3s ease-in-out;
+
+    ${({ isCaptionOpened }) =>
+      isCaptionOpened &&
+      css`
+        top: 0;
+        bottom: 0;
+        background: none;
+        background-color: rgba(0, 0, 0, 0.4);
+        height: auto;
+      `}
   }
 `;
 
@@ -98,14 +112,17 @@ export const InfoBox = styled.div`
   }
 `;
 
-export const ContentBox = styled.p<{ isOpened: boolean }>`
+export const ContentBox = styled.div<{ isOpened: boolean }>`
   width: 100%;
   max-height: 30px;
-  display: -webkit-box;
-  text-overflow: ellipsis;
+  /* display: -webkit-box; */
+  /* text-overflow: clip; */
+  display: flex;
+  /* display: grid; */
+  /* grid-template-columns: 1fr fit-Content; */
   overflow: hidden;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
+  /* -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical; */
 
   transition: all 0.3s ease-in-out;
   cursor: pointer;
@@ -113,19 +130,29 @@ export const ContentBox = styled.p<{ isOpened: boolean }>`
   background-color: transparent;
 
   ${({ isOpened }) =>
-    isOpened &&
-    css`
-      display: block;
-      max-height: 240px;
-      overflow-y: auto;
-      text-overflow: clip;
-      /* background-color: #00000050; */
-    `};
+    isOpened
+      ? css`
+          display: block;
+          max-height: 240px;
+          overflow-y: auto;
+          text-overflow: clip;
+          /* background-color: #00000050; */
+        `
+      : css`
+          &::after {
+            content: "...";
+            color: ${({ theme }) => theme.white};
+            margin-top: 2px;
+            border-radius: 5px;
+            padding: 2px 3px;
+          }
+        `};
 
   &:hover {
-    /* background-color: #00000050; */
+    &::after {
+      background-color: #00000050;
+    }
   }
-
   p {
     padding: ${({ isOpened }) => (isOpened ? "5px" : 0)};
     color: ${({ theme }) => theme.white};
@@ -133,7 +160,7 @@ export const ContentBox = styled.p<{ isOpened: boolean }>`
     font-weight: 400;
     line-height: 24px;
     letter-spacing: 0.25px;
-    word-break: keep-all;
+    word-break: ${({ isOpened }) => (isOpened ? "keep-all" : "break-all")};
     overflow-wrap: anywhere;
   }
 `;

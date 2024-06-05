@@ -43,7 +43,7 @@ export const CommentInputForm = styled.form<{ position: "bottom" | "top" }>`
   flex-wrap: nowrap;
   gap: 7px;
   justify-content: space-between;
-  align-items: center;
+  align-items: start;
 
   background-color: ${({ theme }) => theme.white};
 
@@ -90,10 +90,15 @@ export const CommentInputControlBox = styled.div`
   flex: 1 1 100%;
 `;
 
-export const CommentInput = styled.input`
+export const CommentTextArea = styled.textarea`
   width: 100%;
+  height: 40px;
+  max-height: 150px;
   padding: 9px 18px;
+  padding-right: 50px;
   line-height: 22px;
+  resize: none;
+  overflow-y: auto;
 
   border: 0;
   border-radius: 4px;
@@ -106,12 +111,10 @@ export const CommentInput = styled.input`
 
 export const SendButton = styled.button<{ disabled: boolean }>`
   position: absolute;
-  top: 50%;
+  top: 5px;
   right: 12px;
   padding: 0;
   width: 30px;
-
-  transform: translateY(-50%);
 
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
   border: 0;
