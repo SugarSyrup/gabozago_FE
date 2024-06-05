@@ -3,7 +3,7 @@ import Heading from "../../common/Heading";
 import SendIcon from "../../../assets/icons/send.svg?react";
 import UserIcon from "../../../assets/icons/user.svg?react";
 import CommentItem, { Comment as TComment } from "../CommentItem";
-import { useEffect, useRef, useState } from "react";
+import { FormEventHandler, useEffect, useRef, useState } from "react";
 import { deletes, get, post } from "../../../utils/api";
 import { useLoaderData } from "react-router-dom";
 
@@ -27,7 +27,7 @@ function Comment({
   setContentsCommentCount,
 }: Props) {
   const profileImage = useLoaderData() as string;
-  const inputRef = useRef<HTMLInputElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [reply, setReply] = useState<{
     isReplyMode: boolean;
     parentCommentId: number | null;
@@ -80,7 +80,6 @@ function Comment({
       getComments(id);
     });
   };
-
   const submitComment = async (parentCommentId: number | null) => {
     if (type === "short-form") {
       await post<{
@@ -106,6 +105,29 @@ function Comment({
 
     getComments(id);
     setComment("");
+  };
+  const adjustTextareaHeight = () => {
+    const textarea = textareaRef.current;
+
+    if (textarea) {
+      textarea.style.height = "1px";
+      textarea.style.height = `${textarea.scrollHeight}px`;
+    }
+  };
+
+  const onChange: FormEventHandler<HTMLTextAreaElement> = (e) => {
+    const textarea = textareaRef.current;
+    if (!textarea) return;
+
+    const inputValue = (e.target as HTMLTextAreaElement).value.trim();
+    if (inputValue.match(/^\s+/)) {
+      textarea.value = "";
+
+      return;
+    }
+
+    setComment(inputValue);
+    adjustTextareaHeight();
   };
 
   useEffect(() => {
@@ -134,15 +156,12 @@ function Comment({
           )}
         </S.UserProfileImgBox>
         <S.CommentInputControlBox>
-          <S.CommentInput
-            type="text"
+          <S.CommentTextArea
             placeholder="댓글 달기..."
             maxLength={1500}
             value={comment}
-            ref={inputRef}
-            onChange={(e) => {
-              setComment(e.target.value);
-            }}
+            ref={textareaRef}
+            onChange={onChange}
           />
           <S.SendButton disabled={comment.length === 0} type="submit">
             <SendIcon />
@@ -163,7 +182,7 @@ function Comment({
               <li key={`comment-shortform-${item.id}`}>
                 <CommentItem
                   {...item}
-                  inputRef={inputRef}
+                  textareaRef={textareaRef}
                   reply={reply}
                   setReply={setReply}
                   type={type}

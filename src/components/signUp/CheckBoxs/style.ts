@@ -45,8 +45,9 @@ export const CheckBoxLabel = styled.label`
     line-height: 22px;
 `
 
-export const TermLink = styled(Link)`
+export const TermLink = styled.span`
     color:${({theme}) => theme.black};
+    text-decoration-line: underline;
 `
 
 export const CheckBoxLabelLink = styled(Link)`

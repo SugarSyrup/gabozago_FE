@@ -38,6 +38,7 @@ function CheckBoxs({setCheckboxActive}: Props) {
   const [ageCheck, setAgeCheck] = useState(false);
   const [serviceCheck, setServiceCheck] = useState(false);
   const [personalCheck, setPersonalCheck] = useState(false);
+  const [eventCheck, setEventCheck] = useState(false);
 
   useEffect(() => {
     if(allChecks === true) {
@@ -55,6 +56,12 @@ function CheckBoxs({setCheckboxActive}: Props) {
       setCheckboxActive(false);
     }
   }, [ageCheck, serviceCheck, personalCheck])
+
+  useEffect(() => {
+    if(eventCheck && ageCheck && serviceCheck && personalCheck) {
+      setAllChecks(true);
+    }
+  }, [eventCheck, ageCheck, serviceCheck, personalCheck])
 
   return (
     <S.CheckBoxsContainer>
@@ -100,6 +107,9 @@ function CheckBoxs({setCheckboxActive}: Props) {
                 case "personalCheck" :
                   setPersonalCheck(e.currentTarget.checked);
                   break;
+                case "eventCheck" :
+                  setEventCheck(e.currentTarget.checked);
+                  break;
               }
               if (!e.currentTarget.checked) {
                 setAllChecks(false);
@@ -109,7 +119,9 @@ function CheckBoxs({setCheckboxActive}: Props) {
             <S.CheckBoxLabel htmlFor={`${term.id}`}>
               {
                 term.link ?
-                <S.TermLink to={term.link}>{term.label}</S.TermLink>
+                <S.TermLink onClick={() => {
+                  window.open(term.link, "_blank", 'width=500,height=600');
+                }}>{term.label}</S.TermLink>
                 :
                 term.label
               }

@@ -6,16 +6,16 @@ export const ModalWrapper = styled.div<{ isOpened: boolean }>`
   right: 0;
   top: 0;
   bottom: 0;
-  z-index: ${({ isOpened }) => (isOpened ? 150 : -10)};
+  z-index: ${({ isOpened }) => (isOpened ? 200 : -10)};
 
   margin: auto;
   max-width: 500px;
   max-height: 100dvh;
   width: 100%;
   height: 100dvh;
- @supports (-webkit-touch-callout: none) {
-  height: -webkit-fill-available;
-}
+  @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+  }
 `;
 
 export const ModalContainer = styled.div`
@@ -25,16 +25,21 @@ export const ModalContainer = styled.div`
   right: 0;
   bottom: 0;
   overflow: hidden;
-  z-index: 50;
+  /* iOS Safari - overflow-hidden 대체 속성 */
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  z-index: 201;
 
   &::before {
     content: "";
     display: block;
     width: 100%;
     height: 100dvh;
- @supports (-webkit-touch-callout: none) {
-  height: -webkit-fill-available;
-}
+    @supports (-webkit-touch-callout: none) {
+      height: -webkit-fill-available;
+    }
     opacity: 30%;
     background-color: ${({ theme }) => theme.black};
   }
@@ -82,5 +87,5 @@ export const Title = styled.div`
 `;
 
 export const Contents = styled.div`
-  padding-top: 24px;
+  /* padding-top: 24px; */
 `;

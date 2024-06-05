@@ -1,17 +1,23 @@
 import * as S from "./style";
-import { useState } from "react";
 import { post } from "../../utils/api";
 import usePopup from "../usePopup";
 import Typography from "../../components/common/Typography";
 import useAlert from "../useAlert";
+import { FormEvent } from "react";
 
 interface Options {
   type: "short-form" | "article" | "video" | "report" | "travelog";
   postId?: number | null;
   commentId?: number | null;
+  setIsReported?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function useReportPopup({ type, postId = null, commentId = null }: Options) {
+function useReportPopup({
+  type,
+  postId = null,
+  commentId = null,
+  setIsReported,
+}: Options) {
   const { Alert, alertOpen } = useAlert({
     Content: (
       <Typography.Body size="lg" color="white">
@@ -20,7 +26,6 @@ function useReportPopup({ type, postId = null, commentId = null }: Options) {
     ),
   });
   const { Popup, popupOpen, popupClose } = usePopup();
-  const [isDone, setIsDone] = useState<boolean>(false);
   const reasons = [
     "욕설 / 비방",
     "차별 / 혐오",
@@ -53,8 +58,8 @@ function useReportPopup({ type, postId = null, commentId = null }: Options) {
         data.message === "Comment report success" ||
         data.message === "Post report success"
       ) {
+        setIsReported && setIsReported(true);
         alertOpen();
-        setIsDone(true);
         popupClose();
       }
     } catch (error) {
@@ -62,55 +67,52 @@ function useReportPopup({ type, postId = null, commentId = null }: Options) {
     }
   };
 
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (e.target.reportReason) {
+      sendReport(e.target.reportReason.value);
+    }
+  };
+
   const ReportPopup = () => (
     <>
       <Alert />
       <Popup padding="0">
-        {!isDone && (
-          <S.ReportForm
-            onSubmit={(e) => {
-              e.preventDefault();
-              console.dir(e);
-              if (e.target.reportReason) {
-                sendReport(e.target.reportReason.value);
-              }
-            }}
-          >
-            <Typography.Title size="lg">신고하기</Typography.Title>
-            <S.ReasonList>
-              {reasons.map((item, index) => (
-                <S.ResonItem key={`reportReason-${index}`}>
-                  <S.RadioInput
-                    type="radio"
-                    id={`reason-${index}`}
-                    name="reportReason"
-                    defaultChecked={index === 0}
-                    value={item}
-                  />
-                  <Typography.Body size="lg">
-                    <S.RadioLabel htmlFor={`reason-${index}`}>
-                      {item}
-                    </S.RadioLabel>
-                  </Typography.Body>
-                </S.ResonItem>
-              ))}
-            </S.ReasonList>
-            <S.ControlBox>
-              <S.Button
-                type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  popupClose();
-                }}
-              >
-                취소
-              </S.Button>
-              <S.Button type="submit" primary={true}>
-                신고하기
-              </S.Button>
-            </S.ControlBox>
-          </S.ReportForm>
-        )}
+        <S.ReportForm onSubmit={onSubmit}>
+          <Typography.Title size="lg">신고하기</Typography.Title>
+          <S.ReasonList>
+            {reasons.map((item, index) => (
+              <S.ResonItem key={`reportReason-${index}`}>
+                <S.RadioInput
+                  type="radio"
+                  id={`reason-${index}`}
+                  name="reportReason"
+                  defaultChecked={index === 0}
+                  value={item}
+                />
+                <Typography.Body size="lg">
+                  <S.RadioLabel htmlFor={`reason-${index}`}>
+                    {item}
+                  </S.RadioLabel>
+                </Typography.Body>
+              </S.ResonItem>
+            ))}
+          </S.ReasonList>
+          <S.ControlBox>
+            <S.Button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                popupClose();
+              }}
+            >
+              취소
+            </S.Button>
+            <S.Button type="submit" primary={true}>
+              신고하기
+            </S.Button>
+          </S.ControlBox>
+        </S.ReportForm>
       </Popup>
     </>
   );
