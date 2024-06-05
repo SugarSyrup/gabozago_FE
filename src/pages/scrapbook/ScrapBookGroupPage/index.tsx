@@ -1,7 +1,7 @@
 import * as S from "./style";
 
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { get } from "../../../utils/api";
 import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 import PageTemplate from "../../../components/common/PageTemplate";
@@ -49,6 +49,7 @@ function ScrapBookGroupPage() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [shortForms, setShortForms] = useState<ShortForm[]>([]);
   const [focusedTabIndex, setFocusedTabIndex] = useState<number>(0);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   /* 아티클 */
   const [articleFilter, setArticleFilter] = useRecoilState<TFilter>(
@@ -146,10 +147,29 @@ function ScrapBookGroupPage() {
   useEffect(() => {
     getShortForms();
   }, [shortFormFilter]);
+
   useEffect(() => {
     resetArticleFilter();
     resetShortFormFilter();
   }, []);
+
+  useEffect(() => {
+    if (!containerRef.current) {
+      return;
+    }
+
+    if (focusedTabIndex === 0) {
+      containerRef.current.scroll({
+        left: 0,
+        behavior: "smooth",
+      });
+    } else if (focusedTabIndex === 1) {
+      containerRef.current.scroll({
+        left: containerRef.current.offsetWidth + 20,
+        behavior: "smooth",
+      });
+    }
+  }, [focusedTabIndex]);
 
   return (
     <PageTemplate
@@ -194,17 +214,18 @@ function ScrapBookGroupPage() {
         </S.HeaderContainer>
       }
     >
-      {tabs[focusedTabIndex].name === "아티클" ? (
-        articles.map((item) => (
-          <S.ContentsList>
+      <S.ContentsContainer ref={containerRef}>
+        <S.ArticleList>
+          {articles.map((item) => (
             <li>
               <ScrapedArticle {...item} />
             </li>
-          </S.ContentsList>
-        ))
-      ) : (
-        <ShortFormList data={shortForms} />
-      )}
+          ))}
+        </S.ArticleList>
+        <S.ShortformContainer>
+          <ShortFormList data={shortForms} />
+        </S.ShortformContainer>
+      </S.ContentsContainer>
     </PageTemplate>
   );
 }

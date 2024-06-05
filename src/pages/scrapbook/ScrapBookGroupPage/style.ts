@@ -54,10 +54,28 @@ export const BackButtonContainer = styled.button`
   cursor: pointer;
 `;
 
-export const ContentsList = styled.ol`
+export const ContentsContainer = styled.div`
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  flex-wrap: nowrap;
+  overflow-x: hidden;
+  scroll-snap-type: x mandatory;
+`;
+
+export const ArticleList = styled.ol`
+  width: 100%;
   margin-top: -5px;
+  flex: 100% 0 0;
+  scroll-snap-align: start;
 
   li:hover h3 {
     text-decoration: underline;
   }
+`;
+
+export const ShortformContainer = styled.div`
+  width: 100%;
+  flex: 100% 0 0;
+  scroll-snap-align: start;
 `;
