@@ -116,6 +116,7 @@ function UserEditPage() {
               width:"90px",
               height:"90px",
               borderRadius:"100%",
+              objectFit:"cover"
             }}/>
           }
           <S.CameraIconWrapper htmlFor="avatar">
