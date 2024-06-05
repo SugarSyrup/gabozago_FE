@@ -107,7 +107,7 @@ function useScrapModal({ id, type, setIsScraped}: Props) {
                   post<{ message: "Create Success" | "Delete Success" }>(`/folder/scrap/community`, {
                     community: type,
                     postId: id
-                  }).then(() => {  
+                  }).then((response) => {  
                     if(isUserScraped) {
                       setScrapFolderData((prev) => {
                         return prev.map((folder) => {
@@ -123,6 +123,10 @@ function useScrapModal({ id, type, setIsScraped}: Props) {
                       setIsScraped();
                     }
                     setIsUserScraped(prev => !prev);
+
+                    if(response.data.message === "Delete Success") {
+                      modalClose();
+                    }
                   });
                 }}>
                 <ScrapIcon />
