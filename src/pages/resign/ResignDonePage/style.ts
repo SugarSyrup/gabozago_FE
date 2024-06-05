@@ -1,18 +1,15 @@
 import styled from "styled-components";
 
 export const NavContainer = styled.div`
+  width: 100%;
+  max-width: 500px;
+
+  position: fixed;
+  bottom: 0;
   padding: 20px;
 `;
 
 export const Container = styled.div`
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const TitleParagraph = styled.p`
   @keyframes fadein {
     from {
       opacity: 0;
@@ -23,6 +20,22 @@ export const TitleParagraph = styled.p`
       transform: translateY(0);
     }
   }
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    animation: fadein 2s;
+  }
+`;
+
+export const TitleParagraph = styled.p`
   margin-bottom: 17px;
   text-align: center;
   font-size: 20px;
@@ -31,6 +44,7 @@ export const TitleParagraph = styled.p`
   color: ${({ theme }) => theme.black};
   animation: fadein 2s;
 `;
+
 export const DescParagraph = styled.p`
   margin-top: 6px;
   text-align: center;
@@ -39,4 +53,5 @@ export const DescParagraph = styled.p`
   line-height: 24px;
   word-break: keep-all;
   color: ${({ theme }) => theme.gray01};
+  animation: fadein 2s;
 `;
