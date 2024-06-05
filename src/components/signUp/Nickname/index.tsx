@@ -44,10 +44,11 @@ function Nickname({setIsNicknameOk, defaultValue}: Props) {
         }).catch((err) => {
           setNicknameAlert(`${err.response.data.message}`);
           setIsNicknameOk(false);
+        }).finally(() => {
+          localStorage.setItem('access_token', access as string);
+          localStorage.setItem('refresh_token', refresh as string);
         });
       
-      localStorage.setItem('access_token', access as string);
-      localStorage.setItem('refresh_token', refresh as string);
     }, [])
 
     function isNicknameValid(nickname: string) {
@@ -86,7 +87,7 @@ function Nickname({setIsNicknameOk, defaultValue}: Props) {
             
             localStorage.removeItem('access_token');
             localStorage.removeItem('refresh_token');
-            
+
             if(!isNicknameValid(nickname as string)) {
               setNicknameAlert(`한글, 영어, 숫자, _, .만 가능합니다.`);
               setIsNicknameOk(false);
