@@ -14,6 +14,8 @@ import MenuOptionList from "../../../components/common/MenuOptionList";
 import { post } from "../../../utils/api";
 import useConfirm from "../../../hooks/useConfirm";
 import useReportPopup from "../../../hooks/useReportPopup";
+import useAlert from "../../../hooks/useAlert";
+import Typography from "../../common/Typography";
 
 export interface Comment {
   id: number;
@@ -68,6 +70,7 @@ function CommentItem({
   const [likeCount, setLikeCount] = useState<number>(like);
   const [isLiked, setIsLiked] = useState<boolean>(isClapped);
   const [isReplyOpened, setIsReplyOpened] = useState<boolean>(false);
+  const [isReported, setIsReported] = useState<boolean>(false);
   const {
     Modal: CommentMenuModal,
     modalOpen: commentMenuModalOpen,
@@ -77,16 +80,24 @@ function CommentItem({
     handle: true,
     borderRadius: "16px",
   });
-  const { ConfirmPopup, confirmPopupOpen, confirmPopupClose } = useConfirm(
+  const { ConfirmPopup, confirmPopupOpen } = useConfirm(
     "댓글을 삭제하시겠어요?",
     "삭제한 댓글은 되돌릴 수 없습니다.",
     null,
     "아니요",
     "네, 삭제할래요"
   );
-  const { ReportPopup, reportPopupOpen, reportPopupClose } = useReportPopup({
+  const { ReportPopup, reportPopupOpen } = useReportPopup({
     type: type,
     commentId: id,
+    setIsReported: setIsReported,
+  });
+  const { Alert, alertOpen } = useAlert({
+    Content: (
+      <Typography.Body size="lg" color="white">
+        이미 신고한 댓글입니다.
+      </Typography.Body>
+    ),
   });
 
   const toggleLike = async () => {
@@ -125,6 +136,11 @@ function CommentItem({
       name: "신고하기",
       iconColor: "white",
       onClick: () => {
+        if (isReported) {
+          alertOpen();
+          commentMenuModalClose();
+          return;
+        }
         reportPopupOpen();
         commentMenuModalClose();
       },
@@ -157,6 +173,7 @@ function CommentItem({
         }
       }}
     >
+      <Alert />
       <ReportPopup />
       <ConfirmPopup
         onConfirm={() => {
@@ -167,7 +184,6 @@ function CommentItem({
         <MenuOptionList menus={isMine ? myCommentMenus : notMyCommentMenus} />
       </CommentMenuModal>
       <S.CommentBox>
-        {/* <Link to={`/profile/${userId}`}> */}
         <div>
           <S.UserProfileImgBox>
             {profileImage ? (
