@@ -2,15 +2,11 @@ import * as S from "./style";
 import BookMarkIcon from "../../../assets/icons/bookmark_filled.svg?react";
 import { useEffect, useState } from "react";
 import { get, post } from "../../../utils/api";
-import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
-import FilterList from "../../common/FilterList";
 import RightChevronIcon from "../../../assets/icons/chevron_right.svg?react";
 import Typography from "../../common/Typography";
 import { useNavigate } from "react-router-dom";
-import {
-  activeScrapPlaceFilterListState,
-  scrapPlaceFilterState,
-} from "../../../recoil/filters/scrapPlaceFilterState";
+import { useRecoilValue, useResetRecoilState } from "recoil";
+import { scrapPlaceFilterState } from "../../../recoil/filters/scrapPlaceFilterState";
 import { TFilter } from "../../../assets/types/FilterTypes";
 
 interface Place {
@@ -22,10 +18,9 @@ interface Place {
 
 function ScrapedTripPlace() {
   const navigate = useNavigate();
-  const [filter, setFilter] = useRecoilState<TFilter>(scrapPlaceFilterState);
-  const activeFilter = useRecoilValue(activeScrapPlaceFilterListState);
-  const resetFilter = useResetRecoilState(scrapPlaceFilterState);
   const [places, setPlaces] = useState<Place[]>([]);
+  const filter = useRecoilValue<TFilter>(scrapPlaceFilterState);
+  const resetFilter = useResetRecoilState(scrapPlaceFilterState);
 
   const getPlaces = async () => {
     const token = localStorage.getItem("access_token");
@@ -70,55 +65,43 @@ function ScrapedTripPlace() {
   }, []);
 
   return (
-    <>
-      <S.FilterContainer>
-        <FilterList
-          filterType="scrapPlace"
-          filters={[{ name: "location", options: null }]}
-          filterState={filter}
-          setFilterState={setFilter}
-          activeFilterState={activeFilter}
-        />
-      </S.FilterContainer>
-      <S.PlaceList>
-        {places.map((item) => (
-          <S.PlaceItem>
-            <div>
-              <S.BookMarkButton
-                onClick={() => {
-                  toggleBookmark(item.id);
-                  setPlaces((prev) =>
-                    prev.filter((place) => place.id !== item.id)
-                  );
-                }}
-              >
-                <BookMarkIcon />
-              </S.BookMarkButton>
-              <S.StyledLink to={`/place/${item.id}`}>
-                <S.PlaceInfoBox>
-                  <S.TopInfoBox>
-                    <S.PlaceNameSpan>{item.name}</S.PlaceNameSpan>
-                    {/* <Typography.Label size="lg" color="#424242" noOfLine={1}>{item.theme}</Typography.Label> */}
-                    <S.PlaceThemeSpan>{item.theme}</S.PlaceThemeSpan>
-                  </S.TopInfoBox>
-                  <S.AddressParagraph>{item.address}</S.AddressParagraph>
-                </S.PlaceInfoBox>
-              </S.StyledLink>
-            </div>
-            <S.DetailViewButton
+    <S.PlaceList>
+      {places.map((item) => (
+        <S.PlaceItem>
+          <div>
+            <S.BookMarkButton
               onClick={() => {
-                navigate(`/place/${item.id}`);
+                toggleBookmark(item.id);
+                setPlaces((prev) =>
+                  prev.filter((place) => place.id !== item.id)
+                );
               }}
             >
-              <Typography.Label size="sm" color="#5276FA">
-                상세보기
-              </Typography.Label>
-              <RightChevronIcon />
-            </S.DetailViewButton>
-          </S.PlaceItem>
-        ))}
-      </S.PlaceList>
-    </>
+              <BookMarkIcon />
+            </S.BookMarkButton>
+            <S.StyledLink to={`/place/${item.id}`}>
+              <S.PlaceInfoBox>
+                <S.TopInfoBox>
+                  <S.PlaceNameSpan>{item.name}</S.PlaceNameSpan>
+                  <S.PlaceThemeSpan>{item.theme}</S.PlaceThemeSpan>
+                </S.TopInfoBox>
+                <S.AddressParagraph>{item.address}</S.AddressParagraph>
+              </S.PlaceInfoBox>
+            </S.StyledLink>
+          </div>
+          <S.DetailViewButton
+            onClick={() => {
+              navigate(`/place/${item.id}`);
+            }}
+          >
+            <Typography.Label size="sm" color="#5276FA">
+              상세보기
+            </Typography.Label>
+            <RightChevronIcon />
+          </S.DetailViewButton>
+        </S.PlaceItem>
+      ))}
+    </S.PlaceList>
   );
 }
 
