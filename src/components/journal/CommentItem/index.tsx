@@ -41,7 +41,7 @@ interface Props extends Comment {
       parentCommentId: number | null;
     }>
   >;
-  inputRef?: React.RefObject<HTMLInputElement>;
+  textareaRef?: React.RefObject<HTMLTextAreaElement>;
   type: "short-form" | "article" | "video" | "report" | "travelog";
   deleteComments: (commentId: number) => void;
 }
@@ -55,7 +55,7 @@ function CommentItem({
   like,
   text,
   parentCommentId,
-  inputRef,
+  textareaRef,
   isReply = false,
   replys = [],
   reply,
@@ -134,16 +134,16 @@ function CommentItem({
   function createDateString(date: string) {
     const parsedDate = new Date(date);
     const currentDate = new Date();
-    
-    const diffMSec = currentDate.getTime() - parsedDate.getTime();
-    const diffHours = Math.floor(diffMSec / ( 60 * 60 * 1000));
 
-    if(diffHours === 0) {
-      return `${Math.floor(diffMSec / ( 60 * 1000))}분 전`;  
-    } else if(diffHours < 24) {
-      return `${diffHours}시간 전`;  
+    const diffMSec = currentDate.getTime() - parsedDate.getTime();
+    const diffHours = Math.floor(diffMSec / (60 * 60 * 1000));
+
+    if (diffHours === 0) {
+      return `${Math.floor(diffMSec / (60 * 1000))}분 전`;
+    } else if (diffHours < 24) {
+      return `${diffHours}시간 전`;
     } else {
-      return `${Math.floor(diffHours / 24)}일 전`;  
+      return `${Math.floor(diffHours / 24)}일 전`;
     }
   }
 
@@ -206,9 +206,9 @@ function CommentItem({
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
-                  if (setReply && inputRef?.current) {
+                  if (setReply && textareaRef?.current) {
                     setReply({ isReplyMode: true, parentCommentId: id });
-                    inputRef.current.focus();
+                    textareaRef.current.focus();
                   }
                 }}
               >
