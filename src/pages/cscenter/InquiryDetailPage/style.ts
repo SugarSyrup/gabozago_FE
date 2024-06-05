@@ -5,8 +5,11 @@ export const Container = styled.div`
   margin-left: -20px;
   width: 100%;
   max-width: 500px;
+`;
 
+export const InfoContainer = styled.div`
   padding: 15px 20px;
+  border-bottom: 1px solid #e4e4e4;
 
   display: flex;
   justify-content: space-between;
@@ -60,11 +63,11 @@ export const DateSpan = styled.span`
 `;
 
 export const Contents = styled.div`
-  padding: 90px 0px 15px 0px;
+  padding: 20px;
 `;
 
 export const ImgContainer = styled.div`
-  padding: 10px 0px;
+  padding: 10px 20px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -87,16 +90,13 @@ export const ImgList = styled.ol`
   }
 
   img {
+    border-radius: 10px;
     width: 80px;
     height: 80px;
   }
 `;
 
-export const AnswerContainer = styled.div`
-  position: absolute;
-  width: calc(100%);
-  margin-left: -20px;
-
+export const AnswerInfoContainer = styled(InfoContainer)`
+  margin-top: 20px;
   border-top: 1px solid #e4e4e4;
-  padding: 10px 20px;
 `;
