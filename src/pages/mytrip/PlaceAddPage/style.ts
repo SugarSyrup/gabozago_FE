@@ -53,11 +53,16 @@ export const CreateNewTravelButton = styled.div`
 
 export const Footer = styled.footer`
     width:100%;
+    max-width:500px;
     padding: 15px 30px;
 
     display:flex;
     justify-content:center;
     align-items:center;
+
+    position:fixed;
+    bottom:0;
+    background-color:white;
 `
 
 export const Button = styled.button<{isActive: boolean}>`
