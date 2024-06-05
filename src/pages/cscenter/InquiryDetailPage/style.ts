@@ -12,8 +12,9 @@ export const InfoContainer = styled.div`
   border-bottom: 1px solid #e4e4e4;
 
   display: flex;
+  flex-wrap: nowrap;
   justify-content: space-between;
-  align-items: center;
+  align-items: start;
   border-bottom: 0.5px solid #e4e4e4;
 `;
 
@@ -27,6 +28,8 @@ export const TextContainer = styled.div`
 
 export const StatusSpan = styled.span<{ type: "active" | "inactive" }>`
   width: fit-content;
+  flex-shrink: 0;
+  margin-left: 8px;
   padding: 5px 11px;
   display: flex;
   justify-content: center;

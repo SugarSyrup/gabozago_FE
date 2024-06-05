@@ -45,7 +45,9 @@ function InquiryDetailPage() {
       <S.Container>
         <S.InfoContainer>
           <S.TextContainer>
-            <Typography.Title size="md">{data?.title}</Typography.Title>
+            <Typography.Title size="md" noOfLine={3}>
+              {data?.title}
+            </Typography.Title>
             <S.DateSpan>
               {data?.createdAt.replace("-", ". ").replace("-", ". ")}
             </S.DateSpan>
