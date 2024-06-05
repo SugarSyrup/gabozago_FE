@@ -7,7 +7,7 @@ export const Container = styled.div`
   margin-bottom: 10px;
 `;
 
-export const YoutubeContainer = styled.div`
+export const YoutubeContainer = styled.div<{ isCaptionOpened: boolean }>`
   position: absolute;
   top: 0;
   left: 0;
@@ -23,18 +23,32 @@ export const YoutubeContainer = styled.div`
   border-radius: 10px;
 
   &::after {
+    pointer-events: none;
     position: absolute;
-    bottom: 78px;
+    top: 0;
+    bottom: 0;
     content: "";
     display: block;
     width: 100%;
-    height: 150px;
+    height: auto;
     background: linear-gradient(
       180deg,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(0, 0, 0, 0.2) 30%,
-      rgba(0, 0, 0, 0.8) 100%
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0) 80%,
+      rgba(0, 0, 0, 0.6) 90%,
+      rgba(0, 0, 0, 0.9) 100%
     );
+    transition: all 0.3s ease-in-out;
+
+    ${({ isCaptionOpened }) =>
+      isCaptionOpened &&
+      css`
+        top: 0;
+        bottom: 0;
+        background: none;
+        background-color: rgba(0, 0, 0, 0.4);
+        height: auto;
+      `}
   }
 `;
 
