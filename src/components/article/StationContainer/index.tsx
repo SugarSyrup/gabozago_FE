@@ -18,7 +18,6 @@ function StationContainer({ data, refs }: Props) {
 
     return(
         <>
-            <S.ModalWrapper isOpen={isOpend}>
                 <Modal>
                     <S.ModalTitle>Station 보기</S.ModalTitle>
                     <S.StationList isBackground={false}>
@@ -42,7 +41,6 @@ function StationContainer({ data, refs }: Props) {
                         }
                     </S.StationList>
                 </Modal>
-            </S.ModalWrapper>
             <S.StationList isBackground={true}>
                 {
                     data.map((station, index) => 
