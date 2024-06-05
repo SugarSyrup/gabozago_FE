@@ -154,7 +154,7 @@ function ScrapBookGroupPage() {
   return (
     <PageTemplate
       header={
-        <div>
+        <S.HeaderContainer>
           <PageHeader>스크랩</PageHeader>
           <S.TabBarContainer>
             <TabBar
@@ -191,20 +191,20 @@ function ScrapBookGroupPage() {
               }
             />
           </S.FilterContainer>
-        </div>
+        </S.HeaderContainer>
       }
     >
-        {tabs[focusedTabIndex].name === "아티클" ? (
-          articles.map((item) => (
-            <S.ContentsList>
-              <li>
-                <ScrapedArticle {...item} />
-              </li>
-            </S.ContentsList>
-          ))
-        ) : (
-          <ShortFormList data={shortForms} />
-        )}
+      {tabs[focusedTabIndex].name === "아티클" ? (
+        articles.map((item) => (
+          <S.ContentsList>
+            <li>
+              <ScrapedArticle {...item} />
+            </li>
+          </S.ContentsList>
+        ))
+      ) : (
+        <ShortFormList data={shortForms} />
+      )}
     </PageTemplate>
   );
 }

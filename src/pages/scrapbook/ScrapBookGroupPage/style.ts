@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+export const HeaderContainer = styled.div`
+  background-color: ${({ theme }) => theme.white};
+`;
+
 export const Header = styled.header`
   display: flex;
   flex-wrap: nowrap;
