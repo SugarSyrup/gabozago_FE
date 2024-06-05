@@ -218,7 +218,7 @@ export const PopupWrapper = styled.div<{ isOpend: boolean }>`
   right: 0;
   top: 0;
   bottom: 0;
-  z-index: ${({ isOpend }) => (isOpend ? 200 : -10)};
+  z-index: ${({ isOpend }) => (isOpend ? 300 : -10)};
 
   margin: auto;
   max-width: 500px;
