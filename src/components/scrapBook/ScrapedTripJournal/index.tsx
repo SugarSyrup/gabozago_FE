@@ -10,6 +10,7 @@ import useTextInputPopup from "../../../hooks/useTextInputPopup";
 import useModal from "../../../hooks/useModal";
 import MenuOptionList from "../../common/MenuOptionList";
 import useConfirm from "../../../hooks/useConfirm";
+import Typography from "../../common/Typography";
 
 interface GroupInfo {
   id: number;
@@ -205,15 +206,19 @@ const ScrapedTripJournal = memo(function ScrapedTripJournal() {
             }}
           >
             <div></div>
-            <p>{name}</p>
-            <S.MenuButton
-              type="button"
-              onClick={(e) => {
-                handleMenuButtonClick(e, index);
-              }}
-            >
-              <KebabMenuIcon />
-            </S.MenuButton>
+            <p>
+              <Typography.Title size="sm" noOfLine={2}>
+                {name}
+              </Typography.Title>
+              <S.MenuButton
+                type="button"
+                onClick={(e) => {
+                  handleMenuButtonClick(e, index);
+                }}
+              >
+                <KebabMenuIcon />
+              </S.MenuButton>
+            </p>
           </S.GroupItem>
         ))}
       </S.GroupList>

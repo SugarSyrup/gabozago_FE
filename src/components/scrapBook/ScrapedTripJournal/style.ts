@@ -44,7 +44,9 @@ export const GroupItem = styled.li<{ background?: string | undefined }>`
     background-repeat: no-repeat;
   }
   p {
+    position: relative;
     margin-top: 10px;
+    padding-right: 25px;
     font-size: 14px;
     font-weight: 500;
     line-height: 22px;
@@ -64,7 +66,7 @@ export const CreateNewGroupItem = styled(GroupItem)`
 export const MenuButton = styled.button`
   position: absolute;
   right: 0;
-  bottom: 0;
+  top: 0;
   padding: 0;
 
   cursor: pointer;
