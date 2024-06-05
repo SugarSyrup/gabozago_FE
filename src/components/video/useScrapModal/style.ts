@@ -35,6 +35,7 @@ export const TravelThumbnailWrapper = styled.div`
   width: 40px;
   height: 40px;
   position: relative;
+  flex-shrink:0;
 
   border-radius: 100%;
   background-color: ${({ theme }) => theme.blue04};

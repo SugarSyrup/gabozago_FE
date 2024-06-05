@@ -1,3 +1,4 @@
+import loadImage from "blueimp-load-image";
 import * as S from "./style";
 import { useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
@@ -62,11 +63,31 @@ function UserEditPage() {
           onSubmit={(e) => {
             e.preventDefault();
             const formdata = new FormData(e.currentTarget);
+            
             if (isNicknameOk || descValue !== description || isAvatarChanged) {
-              patch('/user/profile', formdata)
-                .then(() => {
-                  navigate(-1);
-                });
+              loadImage(formdata.get("avatar") as File, function (img, data) {
+                if(data === undefined) return ;
+                if (data.imageHead && data.exif) {
+                  loadImage.writeExifData(data.imageHead, data, 'Orientation', 1);
+                  img.toBlob(function (blob) {
+                    loadImage.replaceHead(blob, data.imageHead, async function (newBlob) {
+                      formdata.set('avatar', newBlob);
+
+                      patch('/user/profile', formdata)
+                        .then(() => {
+                          navigate(-1);
+                        });
+                    });
+                  }, 'image/jpeg');
+                } else {
+                  patch('/user/profile', formdata)
+                    .then(() => {
+                      navigate(-1);
+                    });
+                }
+              }, 
+              { meta: true, orientation: true, canvas: true })
+              
             }
           }}
         >
@@ -95,6 +116,7 @@ function UserEditPage() {
               width:"90px",
               height:"90px",
               borderRadius:"100%",
+              objectFit:"cover"
             }}/>
           }
           <S.CameraIconWrapper htmlFor="avatar">

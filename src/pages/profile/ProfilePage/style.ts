@@ -62,6 +62,7 @@ export const UserProfile = styled.div`
         width:44px;
         height:44px;
         border-radius:100%;
+        object-fit:cover;
     }
 `
 
