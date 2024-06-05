@@ -25,6 +25,11 @@ export const ModalContainer = styled.div`
   right: 0;
   bottom: 0;
   overflow: hidden;
+  /* iOS Safari - overflow-hidden 대체 속성 */
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
   z-index: 50;
 
   &::before {
