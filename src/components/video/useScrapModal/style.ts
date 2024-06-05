@@ -16,6 +16,7 @@ export const ModalWrapper = styled.div`
 
 export const CourseModalContainer = styled.div`
   width: 100%;
+  padding-top:10px;
   padding-left: 20px;
   padding-right: 20px;
   padding-bottom: 34px;
