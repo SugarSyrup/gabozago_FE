@@ -7,15 +7,22 @@ const borderCSS = css`
 `;
 
 export const Container = styled.div`
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   gap: 5px;
 `;
 
 export const ConfirmButtonsContainer = styled.div`
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  max-width: 500px;
+
   padding: 20px;
   display: flex;
   gap: 13px;
+  background-color: ${({ theme }) => theme.white};
 `;
 
 export const ConfirmButton = styled.button<{
@@ -42,14 +49,12 @@ export const ConfirmButton = styled.button<{
         `}
 `;
 
-export const NoticeContainer = styled(Container)`
-  
-`;
+export const NoticeContainer = styled(Container)``;
 
 export const TitleHeading = styled.h2`
   font-size: 20px;
   font-weight: 500;
-  margin-bottom:10px;
+  margin-bottom: 10px;
 `;
 
 export const DescParagraph = styled.p`
@@ -57,11 +62,11 @@ export const DescParagraph = styled.p`
   font-weight: 400;
   line-height: 22px;
   color: ${({ theme }) => theme.gray01};
-  margin-bottom:20px;
+  margin-bottom: 20px;
 
   strong {
     color: #424242;
-    font-weight:400;
+    font-weight: 400;
   }
 `;
 
