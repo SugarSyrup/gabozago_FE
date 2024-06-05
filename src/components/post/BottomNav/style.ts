@@ -28,6 +28,7 @@ export const NavigationItem = styled.div<{isBookmarked?: boolean}>`
     color: ${({theme}) => theme.gray};
     text-align: center;
     font-size: 13px;
+    cursor: pointer;
 
     &:not(:first-child) svg {   
         path {

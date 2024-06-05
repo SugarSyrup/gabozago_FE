@@ -1,4 +1,11 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { post } from "../../../utils/api";
+import usePopup from "../../../hooks/usePopup";
+import useAlert from "../../../hooks/useAlert";
+import Typography from "../../common/Typography";
+import useScrapModal from "../../video/useScrapModal";
 
 import ClapIcon from "../../../assets/icons/clap.svg?react";
 import ClapMainIcon from "../../../assets/icons/clap_blue.svg?react";
@@ -6,10 +13,9 @@ import CommentIcon from "../../../assets/icons/comment.svg?react";
 import BookMarkIcon from "../../../assets/icons/bookmark.svg?react";
 import ShareIcon from "../../../assets/icons/share.svg?react";
 
+import isLogin from "../../../utils/isLogin";
+
 import * as S from "./style";
-import usePopup from "../../../hooks/usePopup";
-import { useEffect, useState } from "react";
-import useScrapModal from "../../video/useScrapModal";
 
 interface Props {
   postId: number;
@@ -34,10 +40,30 @@ function BottomNav({
   title,
   isBookmarked,
 }: Props) {
+  const navigate = useNavigate();
   const { Popup, popupOpen, popupClose } = usePopup();
   const [isUserScraped, setIsUserScraped] = useState<boolean>(isBookmarked);
   const [isUserClap, setIsUserClap] = useState<boolean>(isClap);
   const [isUserClpas, setIsUserClpas] = useState<number>(claps);
+  const { Alert, alertOpen } = useAlert({
+    Content: (
+      <Typography.Body size="lg" color="white">
+        로그인이 필요한 서비스에요.
+      </Typography.Body>
+    ),
+    RightContent: (
+      <Typography.Body size="lg" color="white">
+        <span
+          style={{ textDecoration: "underline", cursor: "pointer" }}
+          onClick={() => {
+            navigate("/login");
+          }}
+        >
+          로그인 하러가기
+        </span>
+      </Typography.Body>
+    ),
+  });
 
   const {ScrapModal, scrapModalOpen, scrapModalClose} = useScrapModal({
     id: Number(postId),
@@ -62,6 +88,7 @@ function BottomNav({
   }
   return (
     <>
+      <Alert />
       <ScrapModal />
       <Popup>
         <S.UrlLabel htmlFor="urlCopy">
@@ -82,7 +109,7 @@ function BottomNav({
       <S.Navigation>
         <S.NavigationItem
           onClick={() => {
-            if (localStorage.getItem("access_token")) {
+            if (isLogin()) {
               post<{
                 message: "CREATE SUCCESS" | "DELETE SUCCESS";
               }>(`/clap/community`, {
@@ -97,6 +124,8 @@ function BottomNav({
                   setIsUserClpas((prev) => prev - 1);
                 }
               });
+            }else {
+              alertOpen();
             }
           }}
         >
@@ -105,8 +134,10 @@ function BottomNav({
         </S.NavigationItem>
         <S.NavigationItem
           onClick={() => {
-            if (localStorage.getItem("access_token")) {
+            if (isLogin()) {
               onCommentClick();
+            }else {
+              alertOpen();
             }
           }}
         >
@@ -127,8 +158,10 @@ function BottomNav({
                 setIsUserScraped(true);
               });
             }
-            if(localStorage.getItem("access_token")){
+            if(isLogin()){
               scrapModalOpen();
+            } else {
+              alertOpen();
             }
           }}
         >

@@ -100,5 +100,6 @@ export const Icon = styled.div`
         color: ${({theme}) => theme.gray01};
         text-align: center;
         font-size: 8px;
+        white-space:nowrap;
     }
 `
