@@ -49,7 +49,7 @@ function InquiryPage() {
   });
   const [previewImages, setPreviewImages] = useState<string[]>([]);
   const [popupState, setPopupState] = useState<"files" | "submit">("files");
-  const { Popup, popupOpen } = usePopup();
+  const { Popup, popupOpen, popupClose } = usePopup();
 
   const submitForm = async () => {
     const token = localStorage.getItem("access_token");
@@ -139,6 +139,7 @@ function InquiryPage() {
           <div>
             <S.PopupConfirmButton
               onClick={() => {
+                popupClose();
                 if (popupState === "submit") {
                   navigate(`/cscenter/history`);
                 }
