@@ -6,7 +6,7 @@ import {
   useState,
 } from "react";
 import * as S from "./style";
-import { useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 interface Props {
   tabs: { id: number | string; name: string }[];
@@ -25,7 +25,7 @@ function TabBar({
   fontSize = "14px",
   color = "default",
 }: Props) {
-  const navigate = useNavigate();
+  const [query, setQuery] = useSearchParams();
   const tabRefs = tabs.map(() => createRef<HTMLLIElement>());
   const [highlightOption, setHighlightOption] = useState({
     x: 0,
@@ -48,13 +48,8 @@ function TabBar({
             ref={tabRefs[index]}
             onClick={() => {
               setFocusedTabIndex(index);
-              if (
-                window.location.pathname === "/0" ||
-                window.location.pathname === "/1" ||
-                window.location.pathname === "/2"
-              ) {
-                navigate(`/${index}`);
-              }
+              query.set("tab", String(index));
+              setQuery(query);
             }}
             focused={index === focusedTabIndex}
             widthStyle={widthStyle}
