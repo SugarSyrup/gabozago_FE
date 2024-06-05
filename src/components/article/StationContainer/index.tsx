@@ -1,8 +1,9 @@
 import DoubleCircleIcon from "../../../assets/icons/double_circle.svg?react";
 import BookIcon from "../../../assets/icons/book.svg?react";
+import useModal from "../../../hooks/useModal";
+import isLogin  from "../../../utils/isLogin";
 
 import * as S from "./style";
-import useModal from "../../../hooks/useModal";
 
 interface Props {
   data: {
@@ -28,10 +29,12 @@ function StationContainer({ data, refs }: Props) {
                                         <DoubleCircleIcon />
                                     </S.Linker>
                                     <S.TextContainer isLast={index+1===data.length} onClick={() => {
-                                        refs.current[station.index]?.scrollIntoView({
-                                            behavior: "smooth",
-                                        });
-                                        modalClose()
+                                        if(isLogin()){
+                                            refs.current[station.index]?.scrollIntoView({
+                                                behavior: "smooth",
+                                            });
+                                            modalClose()
+                                        }
                                     }}>
                                         <S.StationNumber>Station {station.index}</S.StationNumber>
                                         <S.StationName dangerouslySetInnerHTML={{__html: station.name}} />
@@ -49,10 +52,12 @@ function StationContainer({ data, refs }: Props) {
                                 <DoubleCircleIcon />
                             </S.Linker>
                             <S.TextContainer isLast={index+1===data.length}  onClick={() => {
-                                    refs.current[station.index]?.scrollIntoView({
-                                      behavior: "smooth",
-                                    });
-                                    modalClose();
+                                    if(isLogin()){
+                                        refs.current[station.index]?.scrollIntoView({
+                                        behavior: "smooth",
+                                        });
+                                        modalClose();
+                                    }
                                 }}>
                                 <S.StationNumber>Station {station.index}</S.StationNumber>
                                 <S.StationName dangerouslySetInnerHTML={{__html: station.name}} />
