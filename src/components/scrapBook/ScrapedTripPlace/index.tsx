@@ -1,6 +1,6 @@
 import * as S from "./style";
 import BookMarkIcon from "../../../assets/icons/bookmark_filled.svg?react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { get, post } from "../../../utils/api";
 import RightChevronIcon from "../../../assets/icons/chevron_right.svg?react";
 import Typography from "../../common/Typography";
@@ -18,9 +18,11 @@ interface Place {
 
 function ScrapedTripPlace() {
   const navigate = useNavigate();
-  const [places, setPlaces] = useState<Place[]>([]);
   const filter = useRecoilValue<TFilter>(scrapPlaceFilterState);
   const resetFilter = useResetRecoilState(scrapPlaceFilterState);
+  const [places, setPlaces] = useState<Place[]>([]);
+  const [next, setNext] = useState<string | null>(null);
+  const infiniteRef = useRef<HTMLDivElement>(null);
 
   const getPlaces = async () => {
     const token = localStorage.getItem("access_token");
@@ -34,8 +36,8 @@ function ScrapedTripPlace() {
           location: filter.location.join(","),
         },
       });
-      console.log(data);
       setPlaces(data.results);
+      setNext(data.next);
 
       return;
     }
@@ -60,9 +62,39 @@ function ScrapedTripPlace() {
   useEffect(() => {
     getPlaces();
   }, [filter]);
+
   useEffect(() => {
     resetFilter();
   }, []);
+
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && next) {
+          get<{
+            next: string | null;
+            previous: string | null;
+            results: Place[];
+          }>(next).then((res) => {
+            setPlaces([...places, ...res.data.results]);
+            setNext(res.data.next);
+          });
+        }
+      });
+    }, options);
+
+    if (infiniteRef.current) {
+      observer.observe(infiniteRef.current);
+    }
+
+    return () => observer.disconnect();
+  });
 
   return (
     <S.PlaceList marginTop={filter.location?.length > 0 ? "88px" : "58px"}>
@@ -101,6 +133,7 @@ function ScrapedTripPlace() {
           </S.DetailViewButton>
         </S.PlaceItem>
       ))}
+      <div ref={infiniteRef} />
     </S.PlaceList>
   );
 }
