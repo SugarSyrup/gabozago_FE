@@ -1,5 +1,6 @@
 import { ReactNode, useState } from "react";
 import * as S from "./style";
+import useBodyScrollLock from "../useBodyScrollLock";
 
 interface Options {
   title?: string;
@@ -14,12 +15,15 @@ function useModal({
   borderRadius = "30px",
 }: Options) {
   const [isOpend, setIsOpend] = useState(false);
+  const { lockScroll, unlockScroll } = useBodyScrollLock();
 
   const modalOpen = () => {
     setIsOpend(true);
+    lockScroll();
   };
   const modalClose = () => {
     setIsOpend(false);
+    unlockScroll();
   };
 
   const Modal = ({ children }: { children?: ReactNode }) => (
