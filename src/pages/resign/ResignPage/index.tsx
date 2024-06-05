@@ -1,4 +1,4 @@
-import { ChangeEventHandler, useState } from "react";
+import { ChangeEventHandler, useRef, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 
 import Typography from "../../../components/common/Typography";
@@ -7,10 +7,9 @@ import PageHeader from "../../../components/common/PageHeader";
 import CheckBoxItem from "../../../components/common/CheckBox";
 
 import { post } from "../../../utils/api";
-import { TUserProfile } from "../../../assets/types/TUserProfile";
 
 import * as S from "./style";
-
+import SuggestionContainer from "../SuggestionContainer";
 
 interface TReason {
   value: string;
@@ -18,10 +17,20 @@ interface TReason {
 }
 
 function ResignPage() {
-  const { id, nickname, description, avatarURL, clapCount, scrapCount, myTravelCount, myTravelDay } = useLoaderData() as TUserProfile;
+  const nickname = useLoaderData() as string;
   const navigate = useNavigate();
   const [selectedReason, setSelectedReason] = useState<string[]>([]);
-  const [suggestionText, setSuggestionText] = useState<string>("");
+  const [isPending, setIsPending] = useState<boolean>(false);
+  const suggestionRef = useRef<HTMLTextAreaElement>(null);
+
+  const reasonMap: TReason[] = [
+    { value: "01", text: "재가입" },
+    { value: "02", text: "이용 빈도 및 기대감이 낮음" },
+    { value: "03", text: "콘텐츠 및 장소 정보의 부족" },
+    { value: "04", text: "개인정보보호 및 보안" },
+    { value: "05", text: "다른 서비스로의 이동" },
+    { value: "06", text: "기타" },
+  ];
 
   // 탈퇴 사유 선택
   const toggleReason: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -33,51 +42,36 @@ function ResignPage() {
       setSelectedReason((prev) => [...prev, value]);
     }
   };
-  // 서비스 제안
-  const suggestionChangeHandler: ChangeEventHandler<HTMLTextAreaElement> = (
-    e
-  ) => {
-    if (suggestionText.length <= 200) {
-      setSuggestionText(e.target.value);
-    }
-  };
+
   // 탈퇴하기
   const onSubmit = async () => {
+    if (isPending) {
+      return;
+    }
     if (selectedReason.length === 0) {
       alert("탈퇴 사유를 선택해 주세요.");
       return;
     }
 
-    // TODO : API 미구현으로 테스트 진행 못함
-    const reqData = suggestionText === "" ? 
-    {
-      reason: selectedReason.map(item => `WDRL${item}`),
-    }
-    :
-    {
-      reason: selectedReason.map(item => `WDRL${item}`),
-      suggestion: suggestionText,
-    }
+    const reqData = {
+      reason: selectedReason.map((item) => `WDRL${item}`),
+      suggestion: suggestionRef?.current.value || null,
+    };
+
+    setIsPending(true);
     const { data } = await post<{
       message: "INACTIVATE SUCCESS" | "INACTIVATE FAILED";
-      }>(`/user/profile/withdraw`, reqData);
+    }>(`/settings/withdraw`, reqData);
 
     if (data.message === "INACTIVATE SUCCESS") {
       localStorage.clear(); // 로그아웃
+      setIsPending(false);
       navigate("/leave/done");
     } else {
       alert("ERROR: 오류가 발생했습니다.");
+      setIsPending(false);
     }
   };
-
-  const reasonMap: TReason[] = [
-    { value: "01", text: "재가입" },
-    { value: "02", text: "이용 빈도 및 기대감이 낮음" },
-    { value: "03", text: "콘텐츠 및 장소 정보의 부족" },
-    { value: "04", text: "개인정보보호 및 보안" },
-    { value: "05", text: "다른 서비스로의 이동" },
-    { value: "06", text: "기타" },
-  ];
 
   return (
     <PageTemplate
@@ -96,27 +90,56 @@ function ResignPage() {
           </S.ConfirmButton>
         </S.ConfirmButtonsContainer>
       }
-      header={<PageHeader><Typography.Title size="lg">탈퇴하기</Typography.Title></PageHeader>}
+      header={
+        <PageHeader>
+          <Typography.Title size="lg">탈퇴하기</Typography.Title>
+        </PageHeader>
+      }
     >
       <S.NoticeContainer>
         <S.TitleHeading>정말로 탈퇴하시겠어요?</S.TitleHeading>
         <S.DescParagraph>
-          <Typography.Body size="lg" color="inherit" noOfLine={2}>
-            <strong>{nickname}</strong>님의 아래 정보는 모두 삭제되며,<br /> 탈퇴 시 정보 복구가 어려워요.
+          <Typography.Body size="lg" color="inherit" noOfLine={4}>
+            <strong>{nickname} </strong>님의 아래 정보는 모두 삭제되며,
+            <br /> 탈퇴 시 정보 복구가 어려워요.
           </Typography.Body>
         </S.DescParagraph>
         <S.InfoContainer>
           <S.InfoTitleParagraph>회원 탈퇴 시 삭제될 정보</S.InfoTitleParagraph>
           <ul className="info">
-            <li><Typography.Body size="lg" color="inherit">계정 및 프로필 정보</Typography.Body></li>
-            <li><Typography.Body size="lg" color="inherit">내 여행 및 장소 저장 정보</Typography.Body></li>
-            <li><Typography.Body size="lg" color="inherit">내 여행 일정 정보</Typography.Body></li>
-            <li><Typography.Body size="lg" color="inherit">작성한 글, 댓글 편집 권한 등</Typography.Body></li>
+            <li>
+              <Typography.Body size="lg" color="inherit">
+                계정 및 프로필 정보
+              </Typography.Body>
+            </li>
+            <li>
+              <Typography.Body size="lg" color="inherit">
+                내 여행 및 장소 저장 정보
+              </Typography.Body>
+            </li>
+            <li>
+              <Typography.Body size="lg" color="inherit">
+                내 여행 일정 정보
+              </Typography.Body>
+            </li>
+            <li>
+              <Typography.Body size="lg" color="inherit">
+                작성한 글, 댓글 편집 권한 등
+              </Typography.Body>
+            </li>
           </ul>
           <S.InfoTitleParagraph>회원 탈퇴 시 유지될 정보</S.InfoTitleParagraph>
           <ul className="info">
-            <li><Typography.Body size="lg" color="inherit">작성한 게시글 및 댓글, 후기 전체</Typography.Body></li>
-            <li><Typography.Body size="lg" color="inherit">서비스 이용 로그 등</Typography.Body></li>
+            <li>
+              <Typography.Body size="lg" color="inherit">
+                작성한 게시글 및 댓글, 후기 전체
+              </Typography.Body>
+            </li>
+            <li>
+              <Typography.Body size="lg" color="inherit">
+                서비스 이용 로그 등
+              </Typography.Body>
+            </li>
           </ul>
         </S.InfoContainer>
       </S.NoticeContainer>
@@ -148,27 +171,7 @@ function ResignPage() {
           </ul>
         </S.InfoContainer>
       </S.ReasonContainer>
-      <S.SuggestContainer>
-        <div>
-          <S.TitleParagraph>
-            서비스 개선을 위한 제안사항이 있으신가요?
-          </S.TitleParagraph>
-          <S.TitleDescParagraph>
-            여러분의 소중한 의견을 반영하여 꼭 더 나은 서비스로 찾아뵙겠습니다.
-          </S.TitleDescParagraph>
-        </div>
-        <S.TextAreaContainer>
-          <S.TextArea
-            placeholder="선택하신 항목에 대한 자세한 이유를 남겨주시면, 서비스 개선에 큰 도움이 됩니다."
-            maxLength={200}
-            value={suggestionText}
-            onChange={suggestionChangeHandler}
-          />
-          <S.TextCountParagraph>
-            {suggestionText.length}/200
-          </S.TextCountParagraph>
-        </S.TextAreaContainer>
-      </S.SuggestContainer>
+      <SuggestionContainer suggestionRef={suggestionRef} />
     </PageTemplate>
   );
 }

@@ -57,7 +57,7 @@ const router = createBrowserRouter([
     path: "/journal/shortform/:id",
     element: <ShortFormPage />,
     loader: async () => {
-      if(localStorage.getItem("access_token")) {
+      if (localStorage.getItem("access_token")) {
         const { data } = await get<TUserProfile>(`/user/profile`);
         return data.avatarURL;
       } else {
@@ -348,7 +348,7 @@ const router = createBrowserRouter([
     path: "/article/:id",
     element: <ArticlePage />,
     loader: async () => {
-      if(localStorage.getItem("access_token")) {
+      if (localStorage.getItem("access_token")) {
         const { data } = await get<TUserProfile>(`/user/profile`);
         return data.avatarURL;
       } else {
@@ -370,9 +370,9 @@ const router = createBrowserRouter([
       </IsLoginTemplate>
     ),
     loader: async () => {
-      if(localStorage.getItem("access_token")) {
+      if (localStorage.getItem("access_token")) {
         const { data } = await get<TUserProfile>(`/user/profile`);
-        return data.avatarURL;
+        return data.nickname;
       } else {
         return "";
       }

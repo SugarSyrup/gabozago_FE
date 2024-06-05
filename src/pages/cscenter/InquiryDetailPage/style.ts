@@ -5,12 +5,16 @@ export const Container = styled.div`
   margin-left: -20px;
   width: 100%;
   max-width: 500px;
+`;
 
+export const InfoContainer = styled.div`
   padding: 15px 20px;
+  border-bottom: 1px solid #e4e4e4;
 
   display: flex;
+  flex-wrap: nowrap;
   justify-content: space-between;
-  align-items: center;
+  align-items: start;
   border-bottom: 0.5px solid #e4e4e4;
 `;
 
@@ -24,6 +28,8 @@ export const TextContainer = styled.div`
 
 export const StatusSpan = styled.span<{ type: "active" | "inactive" }>`
   width: fit-content;
+  flex-shrink: 0;
+  margin-left: 8px;
   padding: 5px 11px;
   display: flex;
   justify-content: center;
@@ -60,11 +66,11 @@ export const DateSpan = styled.span`
 `;
 
 export const Contents = styled.div`
-  padding: 90px 0px 15px 0px;
+  padding: 20px;
 `;
 
 export const ImgContainer = styled.div`
-  padding: 10px 0px;
+  padding: 10px 20px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -87,16 +93,13 @@ export const ImgList = styled.ol`
   }
 
   img {
+    border-radius: 10px;
     width: 80px;
     height: 80px;
   }
 `;
 
-export const AnswerContainer = styled.div`
-  position: absolute;
-  width: calc(100%);
-  margin-left: -20px;
-
+export const AnswerInfoContainer = styled(InfoContainer)`
+  margin-top: 20px;
   border-top: 1px solid #e4e4e4;
-  padding: 10px 20px;
 `;
