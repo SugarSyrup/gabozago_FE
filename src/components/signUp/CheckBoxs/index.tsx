@@ -119,7 +119,9 @@ function CheckBoxs({setCheckboxActive}: Props) {
             <S.CheckBoxLabel htmlFor={`${term.id}`}>
               {
                 term.link ?
-                <S.TermLink to={term.link}>{term.label}</S.TermLink>
+                <S.TermLink onClick={() => {
+                  window.open(term.link, "_blank", 'width=500,height=600');
+                }}>{term.label}</S.TermLink>
                 :
                 term.label
               }
