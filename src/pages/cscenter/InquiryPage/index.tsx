@@ -25,7 +25,8 @@ interface Form {
 }
 
 function InquiryPage() {
-  const nickname  = useLoaderData() as string;
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+  const nickname = useLoaderData() as string;
   const activeInquiryTypes = ["01", "03", "04", "05", "06", "07"];
   const inquiryTypeMap = new Map([
     ["01", "계정 설정"],
@@ -48,11 +49,11 @@ function InquiryPage() {
   });
   const [previewImages, setPreviewImages] = useState<string[]>([]);
   const [popupState, setPopupState] = useState<"files" | "submit">("files");
-  const {Popup, popupOpen} = usePopup();
+  const { Popup, popupOpen } = usePopup();
 
   const submitForm = async () => {
     const token = localStorage.getItem("access_token");
-    if (token) {
+    if (token && !isSubmitted) {
       // 이미지 파일 스토리지에 업로드
       const imageIds: number[] = [];
 
@@ -69,17 +70,21 @@ function InquiryPage() {
 
       // Form 전송
       const body = {
-        email: form.email,
+        email: form.email.trim(),
         type: "ASK" + form.type,
-        title: form.title,
-        content: form.contents,
+        title: form.title.trim(),
+        content: form.contents.trim(),
         images: imageIds,
       };
 
       const inquiryId = await post<{
-        id: number
+        id: number;
       }>(`/settings/support/help/ask`, body);
-      
+
+      if (inquiryId) {
+        setIsSubmitted(true);
+      }
+
       setPopupState("submit");
       popupOpen();
     }
@@ -108,218 +113,232 @@ function InquiryPage() {
 
   return (
     <>
-    <Popup>
-      <S.PopupContainer>
-        {
-          popupState === "files" ? 
-          <>
-            <ImportantIcon style={{marginBottom: "10px"}}/>
-            <Typography.Title size="lg" noOfLine={2}>사진 첨부는 최대 5개까지<br />가능합니다.</Typography.Title>
-          </>
-          :
-          <>
-            <Typography.Title size="lg">문의가 등록되었습니다.</Typography.Title>
-            <Typography.Body size="lg" color="#545454" noOfLine={2}>문의하신 내용은 빠른 시간 내에<br/>답변을 드리도록 하겠습니다.</Typography.Body>
-          </>
-        }
-        <div>
-          <S.PopupConfirmButton
-            onClick={() => {
-              if(popupState === "submit") {
-                navigate(`/cscenter/history`);
-              }
-            }}
-          >
-            <Typography.Label size="lg" color="inherit">확인</Typography.Label>
-          </S.PopupConfirmButton>
-        </div>
-      </S.PopupContainer>
-    </Popup>
-    <PageTemplate
-      nav={
-        <S.ButtonContainer>
-          <Button
-            active={true}
-            size="lg"
-            type="normal"
-            width="100%"
-            onClick={() => {
-              if (submitRef.current) {
-                submitRef.current.click();
-              }
-            }}
-          >
-            제출하기
-          </Button>
-        </S.ButtonContainer>
-      }
-      header={<PageHeader>서비스 문의하기</PageHeader>}
-    >
-      <S.Form onSubmit={(e) => {
-          e.preventDefault();
-
-          if (form.type === "00") {
-            alert("문의 유형을 선택해주세요.");
-            return;
-          }
-
-          submitForm();
-        }}>
-        <S.InputContainer>
+      <Popup>
+        <S.PopupContainer>
+          {popupState === "files" ? (
+            <>
+              <ImportantIcon style={{ marginBottom: "10px" }} />
+              <Typography.Title size="lg" noOfLine={2}>
+                사진 첨부는 최대 5개까지
+                <br />
+                가능합니다.
+              </Typography.Title>
+            </>
+          ) : (
+            <>
+              <Typography.Title size="lg">
+                문의가 등록되었습니다.
+              </Typography.Title>
+              <Typography.Body size="lg" color="#545454" noOfLine={2}>
+                문의하신 내용은 빠른 시간 내에
+                <br />
+                답변을 드리도록 하겠습니다.
+              </Typography.Body>
+            </>
+          )}
           <div>
-            <label htmlFor="">
-              <S.TitleHeading>문의하려는 내용이 무엇인가요?</S.TitleHeading>
-            </label>
-            <S.DescSpan>
-              서비스 이용 중 제안사항은 ‘서비스 개선 제안'으로 선택해주세요:)
-            </S.DescSpan>
-          </div>
-          <S.SelectButton
-            onClick={(e) => {
-              e.preventDefault();
-              setModal((prev) => ({ ...prev, isOpend: true }));
-            }}
-          >
-            {form.type === "00"
-              ? "문의 유형 선택하기"
-              : inquiryTypeMap.get(form.type)}
-            <BottomChevronIcon />
-          </S.SelectButton>
-        </S.InputContainer>
-        <S.InputContainer>
-          <S.TitleHeading>문의자</S.TitleHeading>
-          <S.Input
-            type="text"
-            disabled={true}
-            required={true}
-            value={nickname}
-          />
-        </S.InputContainer>
-        <S.InputContainer>
-          <S.TitleHeading>이메일</S.TitleHeading>
-          <S.Input
-            type="email"
-            required={true}
-            value={form.email}
-            placeholder="이메일을 입력하세요."
-            onChange={(e) => {
-              setForm((prev) => ({ ...prev, email: e.target.value }));
-            }}
-          />
-        </S.InputContainer>
-        <S.InputContainer>
-          <S.TitleHeading>문의 내용</S.TitleHeading>
-          <S.Input
-            type="text"
-            required={true}
-            value={form.title}
-            placeholder="제목을 입력하세요."
-            maxLength={30}
-            onChange={(e) => {
-              setForm((prev) => ({ ...prev, title: e.target.value }));
-            }}
-          />
-          <S.TextArea
-            maxLength={2000}
-            required={true}
-            value={form.contents}
-            placeholder="내용을 입력하세요.(최대 2000자)"
-            onChange={(e) => {
-              setForm((prev) => ({ ...prev, contents: e.target.value }));
-            }}
-          />
-          <S.TextCountParagraph>
-            {form.contents.length}/2000
-          </S.TextCountParagraph>
-        </S.InputContainer>
-        <S.InputContainer>
-          <S.TitleHeading>첨부파일</S.TitleHeading>
-          <S.FileUploaderContainer>
-            <S.FileLabel htmlFor="files">
-              <ImageAddIcon />
-              <span>{form.files.length} / 5</span>
-            </S.FileLabel>
-            <S.FileList>
-              {previewImages.map((item, targetIndex) => (
-                <li>
-                  <S.FileBox
-                    image={item}
-                    onClick={() => {
-                      setForm((prev) => ({
-                        ...prev,
-                        files: prev.files.filter(
-                          (item, index) => index !== targetIndex
-                        ),
-                      }));
-                      setPreviewImages((prev) =>
-                        prev.filter((item, index) => index !== targetIndex)
-                      );
-                    }}
-                  />
-                </li>
-              ))}
-            </S.FileList>
-          </S.FileUploaderContainer>
-          <input
-            type="file"
-            accept=".webp,.jpeg,.jpg,.png,.gif"
-            id="files"
-            required={false}
-            multiple
-            onChange={(e) => {
-              const maxSize = 10 * 1024 * 1024; // 10MB 사이즈 제항
-              const newFileArray = Array.from(e.currentTarget.files || []);
-              const fileArray = form.files.concat(newFileArray);
-
-              /* ==== Validation 시작 ==== */
-              // 최대 개수를 초과할 수 없음
-              if (fileArray.length > 5) {
-                setPopupState("files");
-                popupOpen();
-              }
-              // 이미지 크기 제한 체크
-              newFileArray.map(({ name, size }) => {
-                if (size > maxSize) {
-                  return alert(
-                    `10MB 이내 이미지 파일만 첨부할 수 있습니다. \nfile: ${name}`
-                  );
+            <S.PopupConfirmButton
+              onClick={() => {
+                if (popupState === "submit") {
+                  navigate(`/cscenter/history`);
                 }
-              });
-              /* ==== Validation 끝 ==== */
+              }}
+            >
+              <Typography.Label size="lg" color="inherit">
+                확인
+              </Typography.Label>
+            </S.PopupConfirmButton>
+          </div>
+        </S.PopupContainer>
+      </Popup>
+      <PageTemplate
+        nav={
+          <S.ButtonContainer>
+            <Button
+              active={!isSubmitted}
+              size="lg"
+              type="normal"
+              width="100%"
+              onClick={(e) => {
+                e.preventDefault();
 
-              setForm((prev) => ({
-                ...prev,
-                files: fileArray,
-              }));
+                if (!isSubmitted && submitRef.current) {
+                  submitRef.current.click();
+                }
+              }}
+            >
+              제출하기
+            </Button>
+          </S.ButtonContainer>
+        }
+        header={<PageHeader>서비스 문의하기</PageHeader>}
+      >
+        <S.Form
+          onSubmit={(e) => {
+            e.preventDefault();
 
-              // 미리보기 이미지 url 생성해 PreviewImages에 저장
-              setPreviewImages([]);
-              fileArray.map((item) => {
-                const fileRead = new FileReader();
-                fileRead.onload = () => {
-                  setPreviewImages((prev) => [
-                    ...prev,
-                    String(fileRead.result),
-                  ]);
-                };
-                fileRead.readAsDataURL(item);
-              });
-            }}
-            style={{ display: "none" }}
-          />
-          <S.DescSpan>
-            10MB 이내 이미지 파일(jpg, png, gif)을 최대 5개까지 첨부 가능합니다.
-          </S.DescSpan>
-        </S.InputContainer>
-        <button
-          type="submit"
-          ref={submitRef}
-          style={{ display: "none" }}
+            if (form.type === "00") {
+              alert("문의 유형을 선택해주세요.");
+              return;
+            }
+
+            submitForm();
+          }}
         >
-          제출하기
-        </button>
-      </S.Form>
-    </PageTemplate>
+          <S.InputContainer>
+            <div>
+              <label htmlFor="">
+                <S.TitleHeading>문의하려는 내용이 무엇인가요?</S.TitleHeading>
+              </label>
+              <S.DescSpan>
+                서비스 이용 중 제안사항은 ‘서비스 개선 제안'으로 선택해주세요:)
+              </S.DescSpan>
+            </div>
+            <S.SelectButton
+              onClick={(e) => {
+                e.preventDefault();
+                setModal((prev) => ({ ...prev, isOpend: true }));
+              }}
+            >
+              {form.type === "00"
+                ? "문의 유형 선택하기"
+                : inquiryTypeMap.get(form.type)}
+              <BottomChevronIcon />
+            </S.SelectButton>
+          </S.InputContainer>
+          <S.InputContainer>
+            <S.TitleHeading>문의자</S.TitleHeading>
+            <S.Input
+              type="text"
+              disabled={true}
+              required={true}
+              value={nickname}
+            />
+          </S.InputContainer>
+          <S.InputContainer>
+            <S.TitleHeading>이메일</S.TitleHeading>
+            <S.Input
+              type="email"
+              required={true}
+              value={form.email}
+              placeholder="이메일을 입력하세요."
+              onChange={(e) => {
+                setForm((prev) => ({ ...prev, email: e.target.value }));
+              }}
+            />
+          </S.InputContainer>
+          <S.InputContainer>
+            <S.TitleHeading>문의 내용</S.TitleHeading>
+            <S.Input
+              type="text"
+              required={true}
+              value={form.title}
+              placeholder="제목을 입력하세요."
+              minLength={3}
+              maxLength={30}
+              onChange={(e) => {
+                setForm((prev) => ({ ...prev, title: e.target.value }));
+              }}
+            />
+            <S.TextArea
+              minLength={20}
+              maxLength={2000}
+              required={true}
+              value={form.contents}
+              placeholder="내용을 입력하세요.(최대 2000자)"
+              onChange={(e) => {
+                setForm((prev) => ({ ...prev, contents: e.target.value }));
+              }}
+            />
+            <S.TextCountParagraph>
+              {form.contents.length}/2000
+            </S.TextCountParagraph>
+          </S.InputContainer>
+          <S.InputContainer>
+            <S.TitleHeading>첨부파일</S.TitleHeading>
+            <S.FileUploaderContainer>
+              <S.FileLabel htmlFor="files">
+                <ImageAddIcon />
+                <span>{form.files.length} / 5</span>
+              </S.FileLabel>
+              <S.FileList>
+                {previewImages.map((item, targetIndex) => (
+                  <li>
+                    <S.FileBox
+                      image={item}
+                      onClick={() => {
+                        setForm((prev) => ({
+                          ...prev,
+                          files: prev.files.filter(
+                            (item, index) => index !== targetIndex
+                          ),
+                        }));
+                        setPreviewImages((prev) =>
+                          prev.filter((item, index) => index !== targetIndex)
+                        );
+                      }}
+                    />
+                  </li>
+                ))}
+              </S.FileList>
+            </S.FileUploaderContainer>
+            <input
+              type="file"
+              accept=".webp,.jpeg,.jpg,.png,.gif"
+              id="files"
+              required={false}
+              multiple
+              onChange={(e) => {
+                const maxSize = 10 * 1024 * 1024; // 10MB 사이즈 제항
+                const newFileArray = Array.from(e.currentTarget.files || []);
+                const fileArray = form.files.concat(newFileArray);
+
+                /* ==== Validation 시작 ==== */
+                // 최대 개수를 초과할 수 없음
+                if (fileArray.length > 5) {
+                  setPopupState("files");
+                  popupOpen();
+                }
+                // 이미지 크기 제한 체크
+                newFileArray.map(({ name, size }) => {
+                  if (size > maxSize) {
+                    return alert(
+                      `10MB 이내 이미지 파일만 첨부할 수 있습니다. \nfile: ${name}`
+                    );
+                  }
+                });
+                /* ==== Validation 끝 ==== */
+
+                setForm((prev) => ({
+                  ...prev,
+                  files: fileArray,
+                }));
+
+                // 미리보기 이미지 url 생성해 PreviewImages에 저장
+                setPreviewImages([]);
+                fileArray.map((item) => {
+                  const fileRead = new FileReader();
+                  fileRead.onload = () => {
+                    setPreviewImages((prev) => [
+                      ...prev,
+                      String(fileRead.result),
+                    ]);
+                  };
+                  fileRead.readAsDataURL(item);
+                });
+              }}
+              style={{ display: "none" }}
+            />
+            <S.DescSpan>
+              10MB 이내 이미지 파일(jpg, png, gif)을 최대 5개까지 첨부
+              가능합니다.
+            </S.DescSpan>
+          </S.InputContainer>
+          <button type="submit" ref={submitRef} style={{ display: "none" }}>
+            제출하기
+          </button>
+        </S.Form>
+      </PageTemplate>
     </>
   );
 }
