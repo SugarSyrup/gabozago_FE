@@ -25,19 +25,33 @@ function FAQDetailPage() {
   });
 
   useEffect(() => {
-    get<TData>(`/settings/support/help/faq/${id}`).then(
-      (response) => {
-        console.log(response);
-        setData(response.data);
-      })
+    get<TData>(`/settings/support/help/faq/${id}`).then((response) => {
+      console.log(response);
+      setData(response.data);
+    });
   }, []);
 
   return (
-    <PageTemplate nav={false} header={<PageHeader><Typography.Title size="lg">고객센터/도움말</Typography.Title></PageHeader>}>
+    <PageTemplate
+      nav={false}
+      header={
+        <PageHeader>
+          <Typography.Title size="lg">고객센터 • 도움말</Typography.Title>
+        </PageHeader>
+      }
+    >
       <S.Container>
         <S.InfoContainer>
-                <p className="title"><Typography.Title size="md" color="inherit">{data.title}</Typography.Title></p>
-                <p className="date"><Typography.Label size="lg" color="inherit">{data.category}</Typography.Label></p>
+          <p className="title">
+            <Typography.Title size="md" color="inherit">
+              {data.title}
+            </Typography.Title>
+          </p>
+          <p className="date">
+            <Typography.Label size="lg" color="inherit">
+              {data.category}
+            </Typography.Label>
+          </p>
         </S.InfoContainer>
         <S.ContentsContainer>
           {data.content.split("\n").map((line) => (
