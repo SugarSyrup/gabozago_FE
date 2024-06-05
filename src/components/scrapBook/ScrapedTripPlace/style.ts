@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export const PlaceList = styled.ol`
-  margin-top: 58px;
+export const PlaceList = styled.ol<{ marginTop: string }>`
+  margin-top: ${({ marginTop }) => marginTop};
   display: flex;
   flex-direction: column;
   gap: 20px;

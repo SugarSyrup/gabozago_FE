@@ -65,7 +65,7 @@ function ScrapedTripPlace() {
   }, []);
 
   return (
-    <S.PlaceList>
+    <S.PlaceList marginTop={filter.location?.length > 0 ? "88px" : "58px"}>
       {places.map((item) => (
         <S.PlaceItem>
           <div>
