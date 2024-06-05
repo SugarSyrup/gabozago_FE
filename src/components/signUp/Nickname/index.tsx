@@ -38,9 +38,12 @@ function Nickname({setIsNicknameOk, defaultValue}: Props) {
             setNicknameAlert(`사용 가능한 닉네임이에요!`);
             setIsNicknameOk(true);
           } else {
-            setNicknameAlert(`${res.data.message}`);
+            setNicknameAlert(`사용 불가능한 닉네임이에요!`);
             setIsNicknameOk(false);
           }
+        }).catch((err) => {
+          setNicknameAlert(`${err.response.data.message}`);
+          setIsNicknameOk(false);
         });
       
       localStorage.setItem('access_token', access as string);
@@ -83,7 +86,7 @@ function Nickname({setIsNicknameOk, defaultValue}: Props) {
             
             localStorage.removeItem('access_token');
             localStorage.removeItem('refresh_token');
-
+            
             if(!isNicknameValid(nickname as string)) {
               setNicknameAlert(`한글, 영어, 숫자, _, .만 가능합니다.`);
               setIsNicknameOk(false);
@@ -97,7 +100,7 @@ function Nickname({setIsNicknameOk, defaultValue}: Props) {
                   setIsNicknameOk(true);
                 } 
               }).catch((err) => {
-                setNicknameAlert(`${err.response.data.message}`);
+                setNicknameAlert(`${err.response.data.message === "IMPOSSIBLE" ? "사용 불가능한 닉네임이에요!" : err.response.data.message}`);
                 setIsNicknameOk(false);
               }).finally(() => {
                 localStorage.setItem('access_token', access as string);
