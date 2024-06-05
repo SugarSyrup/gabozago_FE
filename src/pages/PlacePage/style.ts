@@ -39,6 +39,7 @@ export const ContentContainer = styled.div`
 
 export const ImgSlider = styled.div`
   width: 100%;
+  max-height:200px;
   overflow: auto;
   position: relative;
 
@@ -49,8 +50,9 @@ export const ImgSlider = styled.div`
 
   img {
     width: 100%;
+    max-height:200px;
     scroll-snap-align: start;
-    object-fit: contain;
+    object-fit: cover;
     flex-shrink: 0;
   }
 
@@ -59,6 +61,13 @@ export const ImgSlider = styled.div`
     scrollbar-width: none;
   }
 `;
+
+export const TmpImg = styled.img`
+    width: 100%;
+    max-height:200px;
+    object-fit: cover;
+    flex-shrink: 0;
+`
 
 export const ImgRegistContainer = styled.div`
   width: 100%;
@@ -172,6 +181,10 @@ export const AlertMessageContainer = styled.div`
   display:flex;
   justify-content:center;
   align-items:center;
+
+  span:last-child{
+    flex-shrink: 0;
+  }
 `
 
 export const AlertMessageName = styled.span`
@@ -183,7 +196,6 @@ export const AlertMessageName = styled.span`
 
   word-break: keep-all;
   overflow-wrap: anywhere;
-  max-width: 160px;
   text-overflow: ellipsis;
   overflow: hidden;
   display: -webkit-box;

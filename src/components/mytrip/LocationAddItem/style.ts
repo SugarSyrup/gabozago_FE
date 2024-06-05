@@ -28,6 +28,7 @@ export const MyTravelItemThumbnailWrapper = styled.div`
     display:flex;
     justify-content:center;
     align-items:center;
+    flex-shrink:0;
 
     img{
         width:100%;

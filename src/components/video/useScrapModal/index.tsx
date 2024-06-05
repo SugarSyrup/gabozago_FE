@@ -10,7 +10,6 @@ import Typography from "../../common/Typography";
 import * as S from "./style";
 import { get, post } from "../../../utils/api";
 import usePopup from "../../../hooks/usePopup";
-import useTextInputPopup from "../../../hooks/useTextInputPopup";
 
 type TScrapFolder = {
   id: number;
@@ -24,7 +23,7 @@ interface Props {
   setIsScraped?: () => void;
 }
 
-function useScrapModal({ id, type, setIsScraped }: Props) {
+function useScrapModal({ id, type, setIsScraped}: Props) {
   const [scrapFolderData, setScrapFolderData] = useState<TScrapFolder[]>([]);
   const [isUserScraped, setIsUserScraped] = useState<boolean>(true);
   const { Modal, modalOpen, modalClose, isOpend } = useModal({
@@ -32,7 +31,6 @@ function useScrapModal({ id, type, setIsScraped }: Props) {
     handle: true,
     borderRadius: "30px",
   });
-  const {TextInputPopup,inputRef,textInputPopupOpen,textInputPopupClose} = useTextInputPopup("새 폴더 이름", 30);
 
   const getFolders = async () => {
     get<{
@@ -52,9 +50,48 @@ function useScrapModal({ id, type, setIsScraped }: Props) {
 
 
   function ScrapModal() {
+    const {Popup, popupOpen, popupClose, isOpend} = usePopup();
 
     return (
       <>
+        <S.PopupWrapper isOpend={isOpend}>
+          <Popup>
+            <form onSubmit={(e) => {
+              e.preventDefault();
+
+              const formData = new FormData(e.currentTarget); 
+              post<{id: number, name: string}>(`folder/community`, {
+                name: formData.get("newFolderName"),
+              }).then((response) => {
+                setScrapFolderData((prev) => {
+                  return [
+                    ...prev,
+                    {
+                      id: response.data.id,
+                      name: response.data.name,
+                      status: false,
+                    },
+                  ];
+                });
+                popupClose()
+              });
+            }}>
+              <S.Header>
+                <S.Title>새 폴더 이름</S.Title>
+                <S.SaveButton type="submit">
+                  저장
+                </S.SaveButton>
+              </S.Header>
+              <S.Input
+                type="text"
+                name="newFolderName"
+                maxLength={38}
+                minLength={1}
+                required={true}
+              />
+            </form>
+          </Popup>
+        </S.PopupWrapper>
         <Modal>
           <S.CourseModalContainer>
             <S.ScrapModalHeader>
@@ -70,7 +107,7 @@ function useScrapModal({ id, type, setIsScraped }: Props) {
                   post<{ message: "Create Success" | "Delete Success" }>(`/folder/scrap/community`, {
                     community: type,
                     postId: id
-                  }).then(() => {  
+                  }).then((response) => {  
                     if(isUserScraped) {
                       setScrapFolderData((prev) => {
                         return prev.map((folder) => {
@@ -86,6 +123,10 @@ function useScrapModal({ id, type, setIsScraped }: Props) {
                       setIsScraped();
                     }
                     setIsUserScraped(prev => !prev);
+
+                    if(response.data.message === "Delete Success") {
+                      modalClose();
+                    }
                   });
                 }}>
                 <ScrapIcon />
@@ -96,7 +137,7 @@ function useScrapModal({ id, type, setIsScraped }: Props) {
               <Typography.Title size="md">내 폴더</Typography.Title>
               <S.TravelCreate
                 onClick={() => {
-                  textInputPopupOpen();
+                  popupOpen();
                 }}
               >
                 <Typography.Title size="md" color="inherit">
@@ -153,24 +194,6 @@ function useScrapModal({ id, type, setIsScraped }: Props) {
             </S.TravelList>
           </S.CourseModalContainer>
         </Modal>
-        <TextInputPopup onSubmit={() => {
-            post<{
-              id: number;
-              name: string;
-            }>("/folder/community", {
-              name: inputRef.current?.value,
-            }).then((response) => {
-              setScrapFolderData((prev) => [
-                ...prev,
-                {
-                  id: response.data.id,
-                  name: response.data.name,
-                  status: false,
-                },
-              ]);
-              textInputPopupClose();
-            });
-        }}/>
       </>
     );
   }

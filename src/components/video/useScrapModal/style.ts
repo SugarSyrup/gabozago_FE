@@ -16,6 +16,7 @@ export const ModalWrapper = styled.div`
 
 export const CourseModalContainer = styled.div`
   width: 100%;
+  padding-top:10px;
   padding-left: 20px;
   padding-right: 20px;
   padding-bottom: 34px;
@@ -209,4 +210,56 @@ export const CreateScrapHeader = styled.div`
 
 export const SaveText = styled.span`
   color: ${({ theme }) => theme.main};
+`;
+
+
+export const PopupWrapper = styled.div<{ isOpend: boolean }>`
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: ${({ isOpend }) => (isOpend ? 300 : -10)};
+
+  margin: auto;
+  max-width: 500px;
+  max-height: 100dvh;
+  width: 100%;
+  height: 100dvh;
+`
+
+export const Header = styled.div`
+  margin-bottom: 13px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const Title = styled.p`
+  font-size: 12px;
+  line-height: 22px;
+  font-weight: 500;
+`;
+
+export const SaveButton = styled.button`
+  padding: 5px;
+  border-radius: 5px;
+  border: 0;
+  font-size: 12px;
+  background-color: transparent;
+  color: ${({ theme }) => theme.main};
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.gray05};
+  }
+`;
+
+export const Input = styled.input`
+  width: 100%;
+  padding: 5px 3px;
+  border: 0;
+  border-bottom: 2px solid ${({ theme }) => theme.gray04};
+
+  font-size: 14px;
 `;

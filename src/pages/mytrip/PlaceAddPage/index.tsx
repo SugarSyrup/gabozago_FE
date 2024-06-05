@@ -156,7 +156,7 @@ const PlaceAddPage = () => {
             </S.PopupWrapper>
             <S.Header>
                 <Typography.Headline size="md">장소를 추가할</Typography.Headline>
-                <Typography.Headline size="md">여행 일정을 선택해주세요.</Typography.Headline>
+                <Typography.Headline size="md">{data.length !== 0 ? "여행 일정을 선택해주세요." : "여행 일정이 없어요."}</Typography.Headline>
             </S.Header>
             <S.MyTravelHeader>
                 <Typography.Title size="lg">{data.length !== 0 && "나의 다가오는 여행"}</Typography.Title>

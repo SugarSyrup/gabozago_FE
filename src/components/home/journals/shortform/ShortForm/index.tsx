@@ -63,7 +63,7 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
   const loadingRef = useRef<HTMLDivElement>(null);
   const contentContainerRef = useRef<HTMLParagraphElement>(null);
   const playerRef = useRef<YouTube>(null);
-  const [isContentOpened, setIsContentOpened] = useState<boolean>(false);
+  const [isCaptionOpened, setIsCaptionOpened] = useState<boolean>(false);
   const { Modal: PlacesModal, modalOpen: placesModalOpen } = useModal({
     title: "태그된 장소",
     handle: true,
@@ -146,10 +146,10 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
   }, [visible]);
 
   useEffect(() => {
-    if (!isContentOpened && contentContainerRef.current !== null) {
+    if (!isCaptionOpened && contentContainerRef.current !== null) {
       contentContainerRef.current.scrollTop = 0;
     }
-  }, [isContentOpened]);
+  }, [isCaptionOpened]);
 
   useEffect(() => {
     const { current: container } = containerRef;
@@ -198,7 +198,6 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
           <PlacesModal>
             <PlacesModalContents id={shortFormId} />
           </PlacesModal>
-
           <Modal>
             <Comment
               id={shortFormId}
@@ -231,7 +230,10 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
           </Popup>
           <ScrapModal />
           <S.Container>
-            <S.YoutubeContainer ref={containerRef}>
+            <S.YoutubeContainer
+              isCaptionOpened={isCaptionOpened}
+              ref={containerRef}
+            >
               <Suspense
                 fallback={<S.YoutubeFallback>로딩 중...</S.YoutubeFallback>}
               >
@@ -266,6 +268,7 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
               </Suspense>
             </S.YoutubeContainer>
             <S.InfoBox>
+              {/* 업로드 유저 프로필 */}
               <p>
                 <S.ProgileImageBox>
                   {data.profileImage ? (
@@ -281,19 +284,19 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
                 </span>
               </p>
               <p>{data.title}</p>
+              {/* 제목 아래 캡션 영역 */}
               <S.ContentBox
                 ref={contentContainerRef}
-                isOpened={isContentOpened}
+                isOpened={isCaptionOpened}
                 onClick={() => {
-                  setIsContentOpened((prev) => !prev);
+                  setIsCaptionOpened((prev) => !prev);
                 }}
               >
-                {isContentOpened ? (
+                {isCaptionOpened ? (
                   data.content.split("\n").map((line) => <p>{line}</p>)
                 ) : (
                   <p>{data.content.split("\n")[0]}</p>
                 )}
-
               </S.ContentBox>
               <S.BottomInfoContainer>
                 <span>
