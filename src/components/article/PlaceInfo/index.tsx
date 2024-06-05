@@ -54,7 +54,7 @@ function PlaceInfo({placeId, imageURL} : Props){
                             navigate(`/place/${placeId}`)
                         }}>    
                             <MarketIcon />
-                            <span>{data.name}</span>
+                            <Typography.Title size="md" noOfLine={1}>{data.name}</Typography.Title>
                             <RightChevron />
                         </S.Name>
                         <S.Address>{data.address}</S.Address>
