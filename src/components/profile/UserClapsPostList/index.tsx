@@ -30,7 +30,7 @@ function UserClapsPostList({data, type}: Props) {
                             }
                         </S.ThumbnailWrapper>
                         <S.TextContainer>
-                            <Link to={`/article/${id}`}>
+                            <Link to={`/article/${id}`} style={{textDecoration: "none"}}>
                                 <Typography.Title size="md" noOfLine={3}>{title}</Typography.Title>
                             </Link>
                             <S.User>
@@ -59,7 +59,7 @@ function UserClapsPostList({data, type}: Props) {
                             }
                         </S.ThumbnailWrapper>
                         <S.TextContainer>
-                            <Link to={`/journal/shortform/${id}`}>
+                            <Link to={`/journal/shortform/${id}`} style={{textDecoration: "none"}}>
                                 <Typography.Title size="md" noOfLine={3}>{title}</Typography.Title>
                             </Link>
                             <S.User>

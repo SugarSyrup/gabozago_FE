@@ -20,11 +20,11 @@ function UserCommentsList({data, type}: Props) {
                             <Typography.Title size="md">{comment}</Typography.Title>
                             {
                                 type === "short-form" ?
-                                <Link to={`/journal/shortform/${id}`}>
+                                <Link to={`/journal/shortform/${id}`}  style={{textDecoration: "none"}}>
                                     <Typography.Label size="md" color="#A6A6A6">{title}</Typography.Label>
                                 </Link>
                                 :
-                                <Link to={`/article/${id}`}>
+                                <Link to={`/article/${id}`} style={{textDecoration: "none"}}>
                                     <Typography.Label size="md" color="#A6A6A6">{title}</Typography.Label>
                                 </Link>
                             }
