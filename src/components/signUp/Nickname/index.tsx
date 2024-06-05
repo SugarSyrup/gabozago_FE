@@ -18,7 +18,7 @@ function Nickname({setIsNicknameOk, defaultValue}: Props) {
     const [nicknameAlert, setNicknameAlert] = useState("");
 
     useEffect(() => {
-      if(nickname === "") return;
+      if(nickname === "" || nickname === null) return;
 
       const access = localStorage.getItem('access_token');
       const refresh = localStorage.getItem('refresh_token');
