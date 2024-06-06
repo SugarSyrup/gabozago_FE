@@ -50,7 +50,7 @@ function MyScheduleCard({
                         }
                     </S.ThumbnailWrapper>
                     <S.TextContainer>
-                        <Typography.Title size="md" maxWidth={300}>{title}</Typography.Title>
+                        <Typography.Title size="md" maxWidth={300} noOfLine={2}>{title}</Typography.Title>
                         <S.Infos>
                             <S.Info>
                                 <CalendarIcon />
