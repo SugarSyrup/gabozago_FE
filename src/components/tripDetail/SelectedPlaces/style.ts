@@ -21,6 +21,8 @@ export const SelectedPlaceList = styled.div`
     width:100%;
     max-height:150px;
     overflow-y:auto;
+    //ios scroll issue? 해결 가능 할지 테스트
+    -webkit-overflow-scrolling: touch;
 `;
 
 export const Button = styled.button<{isActive: boolean}>`
