@@ -85,12 +85,10 @@ export const Footer = styled.footer`
   width: 100%;
   max-width:500px;
   margin-left:-20px;
-  padding-top: 18px;
-  padding-bottom: 38px;
-  padding-left: 30px;
-  padding-right: 30px;
+  padding:15px 30px;
 
   background-color: ${({ theme }) => theme.gray07};
+  border-top: ${({ theme }) => `1px solid ${theme.gray04}`};
 
   display: flex;
   flex-direction: column;
