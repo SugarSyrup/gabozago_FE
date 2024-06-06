@@ -71,6 +71,50 @@ function MyTripLocationSearchPage() {
   return (
     <PageTemplate
       nav={ false }
+      header={ 
+        <S.Header>
+          <S.SearchBar>
+            <LeftChevronIcon
+              onClick={() => {
+                if (isSearching && inputRef.current) {
+                  inputRef.current.value = "";
+                  setIsSearching(false);
+                } else {
+                  navigate(-1);
+                }
+              }}
+            />
+            <SearchInput />
+          </S.SearchBar>
+          {!isSearching && (
+            <S.TabNavigation>
+              <S.NavigationItem
+                isHighlight={tabNavIdx === 1}
+                onClick={() => {
+                  setTabNavIdx(1);
+                }}
+              >
+                <Typography.Title size="md" color="inherit">
+                  장소 선택
+                </Typography.Title>
+              </S.NavigationItem>
+              <>
+                <S.NavigationItem
+                  isHighlight={tabNavIdx === 2}
+                  onClick={() => {
+                    setTabNavIdx(2);
+                  }}
+                >
+                  <Typography.Title size="md" color="inherit">
+                    저장한 장소
+                  </Typography.Title>
+                </S.NavigationItem>
+                <S.HighlightLine isHighlight={tabNavIdx === 1} />
+              </>
+            </S.TabNavigation>
+          )}
+        </S.Header>
+      }
     >
       <S.PopupWrapper isOpen={isOpend}>
         <Popup>
@@ -126,48 +170,7 @@ function MyTripLocationSearchPage() {
           </S.PopupContentsContainer>
         </Popup>
       </S.PopupWrapper>
-      <S.Header>
-        <S.SearchBar>
-          <LeftChevronIcon
-            onClick={() => {
-              if (isSearching && inputRef.current) {
-                inputRef.current.value = "";
-                setIsSearching(false);
-              } else {
-                navigate(-1);
-              }
-            }}
-          />
-          <SearchInput />
-        </S.SearchBar>
-        {!isSearching && (
-          <S.TabNavigation>
-            <S.NavigationItem
-              isHighlight={tabNavIdx === 1}
-              onClick={() => {
-                setTabNavIdx(1);
-              }}
-            >
-              <Typography.Title size="md" color="inherit">
-                장소 선택
-              </Typography.Title>
-            </S.NavigationItem>
-            <>
-              <S.NavigationItem
-                isHighlight={tabNavIdx === 2}
-                onClick={() => {
-                  setTabNavIdx(2);
-                }}
-              >
-                <Typography.Title size="md" color="inherit">
-                  저장한 장소
-                </Typography.Title>
-              </S.NavigationItem>
-              <S.HighlightLine isHighlight={tabNavIdx === 1} />
-            </>
-          </S.TabNavigation>
-        )}
-      </S.Header>
+      
       {isSearching && (
         <>
           <SearchPlaces

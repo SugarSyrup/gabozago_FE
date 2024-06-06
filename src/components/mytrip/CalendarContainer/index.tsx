@@ -128,7 +128,7 @@ function CalendarContainer() {
                     <CalendarAddIcon />
                     <Typography.Title size="lg" color={"white"}>
                         {dates.startDate !== "" && dates.endDate !== "" ? 
-                            `${dates.startDate.slice(0,4)}.${dates.startDate.slice(4,6)}.${dates.startDate.slice(6,8)} ${dates.startDate === dates.endDate ? "" : "-"} ${dates.startDate.slice(0,4) !== dates.endDate.slice(0,4) ? `${dates.endDate.slice(0,4)}.` : ""}${dates.startDate.slice(4,6) !== dates.endDate.slice(4,6) ? `${dates.endDate.slice(4,6)}.` : ""}${dates.startDate.slice(6,8) !== dates.endDate.slice(6,8) ? `${dates.endDate.slice(6,8)}.` : ""} / ${dateDiff}박 ${dateDiff+1}일`
+                            `${dates.startDate.slice(0,4)}.${dates.startDate.slice(4,6)}.${dates.startDate.slice(6,8)} ${dates.startDate === dates.endDate ? "" : "~"} ${dates.startDate.slice(0,4) !== dates.endDate.slice(0,4) ? `${dates.endDate.slice(0,4)}.` : ""}${dates.startDate.slice(4,6) !== dates.endDate.slice(4,6) ? `${dates.endDate.slice(4,6)}.` : ""}${dates.startDate.slice(6,8) !== dates.endDate.slice(6,8) ? `${dates.endDate.slice(6,8)}.` : ""} / ${dateDiff}박 ${dateDiff+1}일`
                             : "날짜를 선택해주세요." 
                         }
                     </Typography.Title>

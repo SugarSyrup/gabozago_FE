@@ -1,10 +1,9 @@
 import styled from "styled-components";
 
 export const SearchPlacesList = styled.div`
-    padding-top: 60px;
 
     width: 100%;
-    padding-top:15px;
+    padding-top: 80px;
     margin-bottom: 40px;
 
     display: flex;
