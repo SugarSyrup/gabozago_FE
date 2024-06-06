@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import CalendarAddIcon from "../../../assets/icons/calendar_add.svg?react";
-import { datesState } from "../../../recoil/mytrip/createData.ts";
+import { datesState, selectedLocationsState } from "../../../recoil/mytrip/createData.ts";
 
 import Typography from "../../common/Typography/index.tsx";
 import Calendar from "../Calendar/index.tsx";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { addLocationState, createTravelState } from "../../../recoil/mytrip/createTravelState.ts";
 import * as S from "./style.ts";
 import { patch, post } from "../../../utils/api.ts";
@@ -18,6 +18,7 @@ function CalendarContainer() {
     const [dateDiff, setDateDiff] = useState<number>(-1);
     const createType = useRecoilValue(createTravelState);
     const addLocation = useRecoilValue(addLocationState);
+    const setSelectedLocation = useSetRecoilState(selectedLocationsState);
 
     const [dates, setDates] = useRecoilState(datesState);
 
@@ -95,6 +96,7 @@ function CalendarContainer() {
                 <S.Button 
                     bgColor={dates.startDate !== "" && dates.endDate !== ""} 
                     onClick={() => { 
+                        setSelectedLocation([]);
                         if(dates.startDate !== "" && dates.endDate !== ""){ 
                             switch(createType) {
                                 case "create":
