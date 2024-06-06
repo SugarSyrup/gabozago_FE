@@ -1,12 +1,13 @@
 import styled from "styled-components";
 
-export const CalendarHeader = styled.span`
+export const CalendarHeader = styled.span<{opacity:number}>`
     font-size:14px;
     font-weight:600;
     line-height:22px;
+    opacity:${({opacity}) => opacity};
 `
 
-export const Calendar = styled.div`
+export const Calendar = styled.div<{opacity:number}>`
     width:100%;
     margin-top:14px;
 
@@ -15,6 +16,7 @@ export const Calendar = styled.div`
     align-items:center;
     justify-items:center;
     grid-row-gap:4px;
+    opacity:${({opacity}) => opacity};
 `
 
 //요일

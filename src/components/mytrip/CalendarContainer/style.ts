@@ -20,7 +20,7 @@ export const Footer = styled.footer`
   margin-left: -20px;
   z-index: 2;
 
-  height: 200px;
+  /* height: 200px; */
 
   display: flex;
   flex-direction: column;
