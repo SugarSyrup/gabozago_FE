@@ -27,11 +27,11 @@ function Calendar({year, month, startDate, endDate, onDateClick} : Props) {
     }, [])
 
     function FillDate() {
-        const currentMonthStartDay = new Date(year,month,1).getDay();
+        const currentMonthStartDay = new Date(year,month-1,1).getDay();
         const currentMonthLastDate = new Date(year,month,0).getDate();
         const arr = [];
 
-        for(let i = 0; i < currentMonthStartDay + 1; i++) {
+        for(let i = 0; i < currentMonthStartDay; i++) {
             arr.push(<S.Empty/>)
         }
 
