@@ -109,6 +109,8 @@ function MyTripPlaceCreatePage() {
                 setLocations(response.data.location);
                 if(!response.data.location.includes(newLocation)){
                   popupOpen();
+                } else {
+                  navigate(-1);
                 }
               })
           })
