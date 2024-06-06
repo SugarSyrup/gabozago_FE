@@ -71,7 +71,7 @@ export const HighlightLine = styled.div<{ isHighlight: boolean }>`
 
 export const Contents = styled.div`
   width: 100%;
-  padding-top: 120px;
+  padding-top: 130px;
 
   display: flex;
   flex-direction: column;

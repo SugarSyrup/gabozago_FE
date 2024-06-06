@@ -46,6 +46,7 @@ export const SearchedNotFounded = styled.div`
     display:flex;
     flex-direction:column;
     align-items:center;
+    padding-top:140px;
 
     svg {
         width:60px;
