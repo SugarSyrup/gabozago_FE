@@ -1,5 +1,5 @@
 import * as S from "./style";
-import { useState } from "react";
+import { MouseEvent, TouchEvent, useState } from "react";
 import SelectIcon from "../../../assets/icons/select.svg?react";
 import SelectFilledIcon from "../../../assets/icons/select_filled.svg?react";
 import HamburgerIcon from "../../../assets/icons/hamburger.svg?react";
@@ -20,6 +20,34 @@ function EditablePlaceItem({ place, setRoute, day, index }: Props) {
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [startX, setStartX] = useState(0);
   const [translateX, setTranslateX] = useState(0);
+
+  const handleStart = (clientX: number) => {
+    setStartX(clientX);
+    setIsMouseDown(true);
+  };
+
+  const handleMove = (clientX: number) => {
+    if (isMouseDown) {
+      const temp = (clientX - startX) / 2;
+      if (temp < -80) {
+        setTranslateX(-80);
+      } else if (temp < 0) {
+        setTranslateX(temp);
+      }
+    }
+  };
+
+  const handleEnd = () => {
+    if (isMouseDown && translateX < -50) {
+      setRoute((prev) => {
+        const temp = [...prev];
+        temp.splice(index, 1);
+        return temp;
+      });
+    }
+    setTranslateX(0);
+    setIsMouseDown(false);
+  };
 
   const toggleSelected = () => {
     if (isSelected === false) {
@@ -45,37 +73,13 @@ function EditablePlaceItem({ place, setRoute, day, index }: Props) {
       <S.Wrapper
         isSelected={isSelected}
         onClick={toggleSelected}
-        onMouseDown={(e) => {
-          setStartX(e.clientX);
-          setIsMouseDown(true);
-        }}
-        onMouseMove={(e) => {
-          if (isMouseDown) {
-            const temp = e.clientX - startX;
-
-            // -80px까지 드래그 가능
-            if (temp < -80) {
-              setTranslateX(-80);
-            } else if (temp < 0) {
-              setTranslateX(e.clientX - startX);
-            }
-          }
-        }}
-        onMouseUp={() => {
-          if (isMouseDown && translateX < -40) {
-            setRoute((prev) => {
-              const temp = [...prev];
-              temp.splice(index, 1);
-              return temp;
-            });
-          }
-          setTranslateX(0);
-          setIsMouseDown(false);
-        }}
-        onMouseLeave={() => {
-          setTranslateX(0);
-          setIsMouseDown(false);
-        }}
+        onMouseDown={(e) => handleStart(e.clientX)}
+        onMouseMove={(e) => handleMove(e.clientX)}
+        onMouseUp={handleEnd}
+        onMouseLeave={handleEnd}
+        onTouchStart={(e) => handleStart(e.touches[0].clientX)}
+        onTouchMove={(e) => handleMove(e.touches[0].clientX)}
+        onTouchEnd={handleEnd}
         translateX={translateX}
       >
         {isSelected ? <SelectFilledIcon /> : <SelectIcon />}

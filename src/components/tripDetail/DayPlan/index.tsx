@@ -31,7 +31,7 @@ function DayPlan({ data, day, date: dateString, setIsEditMode }: Props) {
     navigate(`./${day}/search`);
   };
 
-  const getDistance = (pos1: Position, pos2: Position) => {
+  const getDistanceString = (pos1: Position, pos2: Position) => {
     const R = 6378.137; //Earth radius in km (WGS84)
     const rad = (x: number) => {
       return (x * Math.PI) / 180;
@@ -49,7 +49,11 @@ function DayPlan({ data, day, date: dateString, setIsEditMode }: Props) {
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const d = R * c;
 
-    return d.toFixed(1); //Return 1 decimals
+    if (d < 1) {
+      return Math.ceil(d * 1000) + "m";
+    } else {
+      return d.toFixed(1) + "km";
+    }
   };
 
   return (
@@ -75,13 +79,24 @@ function DayPlan({ data, day, date: dateString, setIsEditMode }: Props) {
             {data.map((place, index) => (
               <S.PlaceItem key={`placeItem-${day}-${index}`}>
                 <S.MarkerBox
-                  color={markerColors[day - (1 % 7)]}
+                  color={markerColors[(day - 1) % 7]}
                   hasLine={data.length !== index + 1}
                 >
                   <S.NumberSpan>{index + 1}</S.NumberSpan>
                   {data.length !== index + 1 && (
-                    <S.DistanceSpan>
-                      {getDistance(
+                    <S.DistanceSpan
+                      onClick={() => {
+                        window.open(
+                          `https://www.google.co.kr/maps/dir/${
+                            data[index].latitude
+                          },${data[index].longitude}/${
+                            data[index + 1].latitude
+                          },${data[index + 1].longitude}`,
+                          "_blank"
+                        );
+                      }}
+                    >
+                      {getDistanceString(
                         {
                           lat: data[index].latitude,
                           lng: data[index].longitude,
@@ -91,7 +106,6 @@ function DayPlan({ data, day, date: dateString, setIsEditMode }: Props) {
                           lng: data[index + 1].longitude,
                         }
                       )}
-                      km
                     </S.DistanceSpan>
                   )}
                 </S.MarkerBox>

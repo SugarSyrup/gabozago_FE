@@ -5,6 +5,7 @@ export const Header = styled.header`
   display: flex;
   flex-direction: column;
   gap: 5px;
+  background-color: ${({ theme }) => theme.white};
 `;
 
 export const DateParagraph = styled.p`
