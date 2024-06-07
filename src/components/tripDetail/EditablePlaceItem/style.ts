@@ -3,21 +3,23 @@ import styled from "styled-components";
 export const ListItem = styled.li`
   margin: 0 -20px;
   width: calc(100% + 40px);
-  background-color: ${({ theme }) => theme.red};
   position: relative;
+  overflow: hidden;
 
   &::after {
     content: "삭제";
     position: absolute;
-    top: 0;
+    top: 1px;
+    bottom: 1px;
     right: 0;
     display: flex;
     width: 80px;
-    height: 100%;
+    height: calc(100% -2px);
     justify-content: center;
     align-items: center;
     font-size: 13px;
     font-weight: 500;
+    background-color: ${({ theme }) => theme.red};
     color: ${({ theme }) => theme.white};
   }
 `;
