@@ -80,7 +80,18 @@ function DayPlan({ data, day, date: dateString, setIsEditMode }: Props) {
                 >
                   <S.NumberSpan>{index + 1}</S.NumberSpan>
                   {data.length !== index + 1 && (
-                    <S.DistanceSpan>
+                    <S.DistanceSpan
+                      onClick={() => {
+                        window.open(
+                          `https://www.google.co.kr/maps/dir/${
+                            data[index].latitude
+                          },${data[index].longitude}/${
+                            data[index + 1].latitude
+                          },${data[index + 1].longitude}`,
+                          "_blank"
+                        );
+                      }}
+                    >
                       {getDistance(
                         {
                           lat: data[index].latitude,

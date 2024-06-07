@@ -97,10 +97,12 @@ export const DistanceSpan = styled.span`
   align-items: center;
   padding: 2px 5px;
   position: absolute;
+  z-index: 11;
 
   top: 50%;
   transform: translate(0, -50%);
 
+  cursor: pointer;
   font-size: 9px;
   font-style: normal;
   font-weight: 400;
@@ -108,4 +110,36 @@ export const DistanceSpan = styled.span`
   letter-spacing: 0.5px;
   border-radius: 10px;
   background-color: ${({ theme }) => theme.gray04};
+  transition: all 0.3s ease-in-out;
+  outline: 3px solid transparent;
+
+  /* Tooltip */
+  &::after {
+    position: absolute;
+    top: -150%;
+    opacity: 0;
+    width: max-content;
+    padding: 3px 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    content: "경로 보기";
+    transition: all 0.3s ease-in-out;
+    transition-delay: 0.2s;
+
+    background-color: ${({ theme }) => theme.blue04};
+    border-radius: 10px;
+  }
+
+  &:hover,
+  &:active {
+    background-color: ${({ theme }) => theme.white};
+    outline: 3px solid ${({ theme }) => theme.blue04};
+    box-shadow: 0 5px 10px #849fff70;
+
+    /* Tooltip */
+    &::after {
+      opacity: 1;
+    }
+  }
 `;
