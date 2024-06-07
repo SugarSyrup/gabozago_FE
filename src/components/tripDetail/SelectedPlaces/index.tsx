@@ -33,7 +33,6 @@ function SelectedPlaces() {
 
   return (
     <S.Container>
-      
       <S.SelectedPlaceList>
         {selectedPlaces.map((selectedPlace) => (
           <SelectedPlaceItem
