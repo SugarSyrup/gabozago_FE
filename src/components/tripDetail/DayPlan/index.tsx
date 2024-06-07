@@ -75,7 +75,7 @@ function DayPlan({ data, day, date: dateString, setIsEditMode }: Props) {
             {data.map((place, index) => (
               <S.PlaceItem key={`placeItem-${day}-${index}`}>
                 <S.MarkerBox
-                  color={markerColors[day - (1 % 7)]}
+                  color={markerColors[(day - 1) % 7]}
                   hasLine={data.length !== index + 1}
                 >
                   <S.NumberSpan>{index + 1}</S.NumberSpan>
