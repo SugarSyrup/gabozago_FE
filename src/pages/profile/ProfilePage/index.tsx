@@ -11,16 +11,28 @@ import UserActivity from "../../../components/profile/UserActivity";
 import Typography from "../../../components/common/Typography";
 
 import * as S from "./style";
+import { get } from "../../../utils/api";
 
 
 function ProfilePage() {
   const navigate = useNavigate();
   const [headerHeight, setHeaderHeight] = useState<number>(200);
+  const [ myNumbericalInfo, setMyNumbericalInfo ] = useState<{
+    myTravelDay: number,
+    myTravelCount: number,
+    reactionCount: number,
+    favoriteCount: number,
+  }>({
+    myTravelDay: 0,
+    myTravelCount: 0,
+    reactionCount: 0,
+    favoriteCount: 0,
+  });
   const [currentTap, setCurrentTap] = useState<"trip" | "activity">(
     "trip"
   );
 
-  const { id, nickname, description, avatarURL, clapCount, scrapCount, myTravelCount, myTravelDay } =
+  const { id, nickname, description, avatarURL } =
     useLoaderData() as TUserProfile;
   const FixedHeaderRef = useRef<HTMLDivElement>(null);
 
@@ -34,6 +46,33 @@ function ProfilePage() {
     return () => resizeObserver.disconnect();
   }, [FixedHeaderRef.current]);
 
+  useEffect(() => {
+    get<{
+      myTravelDay: number,
+      myTravelCount: number,
+    }>('/user/profile/my-travel-count')
+      .then((response) => {
+        setMyNumbericalInfo((prev) => {
+          return {
+            ...prev,
+            ...response.data
+          };
+        });
+      });
+
+    get<{
+      reactionCount: number,
+      favoriteCount: number,
+    }>('/user/profile/clap-scrap-count')
+      .then((response) => {
+        setMyNumbericalInfo((prev) => {
+          return {
+            ...prev,
+            ...response.data
+          };
+        });
+      });
+  }, [])
 
   return (
     <PageTemplate>
@@ -70,7 +109,7 @@ function ProfilePage() {
               <Typography.Title size="md" color="inherit">공감 수</Typography.Title>
             </S.StaticItemName>
             <S.StaticItemStat>
-              <Typography.Title size="md" color="inherit">{clapCount}</Typography.Title>  
+              <Typography.Title size="md" color="inherit">{myNumbericalInfo.reactionCount}</Typography.Title>  
             </S.StaticItemStat>
           </S.StaticItem>
           <S.StaticItem>
@@ -78,7 +117,7 @@ function ProfilePage() {
               <Typography.Title size="md" color="inherit">스크랩 수</Typography.Title>
             </S.StaticItemName>
             <S.StaticItemStat>
-              <Typography.Title size="md" color="inherit">{scrapCount}</Typography.Title>  
+              <Typography.Title size="md" color="inherit">{myNumbericalInfo.favoriteCount}</Typography.Title>  
             </S.StaticItemStat>
           </S.StaticItem>
           <S.StaticItem>
@@ -86,7 +125,7 @@ function ProfilePage() {
               <Typography.Title size="md" color="inherit">여행 일</Typography.Title>
             </S.StaticItemName>
             <S.StaticItemStat>
-              <Typography.Title size="md" color="inherit">{myTravelDay}</Typography.Title>  
+              <Typography.Title size="md" color="inherit">{myNumbericalInfo.myTravelDay}</Typography.Title>  
             </S.StaticItemStat>
           </S.StaticItem>
           <S.StaticItem>
@@ -94,7 +133,7 @@ function ProfilePage() {
               <Typography.Title size="md" color="inherit">여행 수</Typography.Title>
             </S.StaticItemName>
             <S.StaticItemStat>
-              <Typography.Title size="md" color="inherit">{myTravelCount}</Typography.Title>  
+              <Typography.Title size="md" color="inherit">{myNumbericalInfo.myTravelCount}</Typography.Title>  
             </S.StaticItemStat>
           </S.StaticItem>
         </S.Statics>
