@@ -50,6 +50,8 @@ export const LocationTags = styled.div`
     width: 100%;
     max-height:88px;
     overflow: auto;
+    //ios scroll issue? 해결 가능 할지 테스트
+    -webkit-overflow-scrolling: touch;
 
     display: flex;
     flex-wrap:wrap;

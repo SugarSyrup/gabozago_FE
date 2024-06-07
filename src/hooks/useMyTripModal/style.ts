@@ -31,7 +31,8 @@ export const TravelSettings = styled.div`
 `;
 
 export const PopupContainer = styled.div`
-  padding: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 
   display: flex;
   flex-direction: column;

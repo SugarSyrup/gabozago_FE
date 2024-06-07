@@ -33,19 +33,22 @@ function LocationHotPlaces({locations, setNewLocation, popupOpen}: Props) {
     return (
         <>
             {recommendPlaces.length !== 0 && <Typography.Title size="lg">{locations.toLocaleString()} HOT 여행지</Typography.Title>}
-            <S.RecommendationList>
-                {recommendPlaces.map(({ name, theme, id, location }) => (
-                    <RecommendationListItem
-                        name={name}
-                        theme={theme}
-                        location={location}
-                        id={id}
-                        popupOpen={popupOpen}
-                        setNewLocation={setNewLocation}
-                        locations={locations}
-                    />
-                ))}
-            </S.RecommendationList>
+            {
+                recommendPlaces.length !== 0 &&
+                <S.RecommendationList>
+                    {recommendPlaces.map(({ name, theme, id, location }) => (
+                        <RecommendationListItem
+                            name={name}
+                            theme={theme}
+                            location={location}
+                            id={id}
+                            popupOpen={popupOpen}
+                            setNewLocation={setNewLocation}
+                            locations={locations}
+                        />
+                    ))}
+                </S.RecommendationList>
+            }
         </>
     );
 }   
