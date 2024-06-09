@@ -74,6 +74,7 @@ function PlanMap({ isEditMode, data = [] }: Props) {
               position={{ lat: place.latitude, lng: place.longitude }}
               color={markerColors[dayIndex % markerColors.length]}
               index={placeIndex + 1}
+              address={place.address}
               placeId={place.placeId}
               placeName={place.placeName}
               placeTheme={place.placeTheme}

@@ -14,7 +14,7 @@ interface Props {
   index: number;
   position: { lat: number; lng: number };
   placeId: number;
-  //   address?: string;
+  address?: string;
   placeName: string;
   placeTheme?: string;
 }
@@ -25,7 +25,7 @@ function MarkerWithInfoWindow({
   index,
   position,
   placeId,
-  //   address
+  address,
   placeName,
   placeTheme,
 }: Props) {
@@ -60,12 +60,13 @@ function MarkerWithInfoWindow({
                 <Typography.Label size="md">{placeTheme}</Typography.Label>
               )}
             </p>
-            {/* {address && <p>{address}</p>} */}
-            <p>
-              <Typography.Label size="md" color="#a6a6a6" noOfLine={5}>
-                부산광역시 남구 용소로 45
-              </Typography.Label>
-            </p>
+            {address && (
+              <p>
+                <Typography.Label size="md" color="#a6a6a6" noOfLine={5}>
+                  {address}
+                </Typography.Label>
+              </p>
+            )}
           </S.InfoTopContainer>
         </InfoWindow>
       )}
