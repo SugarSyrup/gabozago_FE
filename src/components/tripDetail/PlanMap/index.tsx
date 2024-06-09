@@ -5,7 +5,7 @@ import ChevronTopIcon from "../../../assets/icons/chevron_top.svg?react";
 import { DayPlan } from "../TripPlanList";
 import { markerColors } from "../../../pages/mytrip/DetailPage";
 import MarkerWithInfoWindow from "../MarkerWithInfoWindow";
-import { Map, useMapsLibrary } from "@vis.gl/react-google-maps";
+import { Map, useMap } from "@vis.gl/react-google-maps";
 import Polyline from "../Polyline";
 
 interface Props {
@@ -15,13 +15,20 @@ interface Props {
 
 function PlanMap({ isEditMode, data = [] }: Props) {
   const [mapOpened, setMapOpend] = useState<boolean>(true);
-  const [placePath, setPlacePath] = useState<{ lat: number; lng: number }[]>(
-    []
-  );
-  const maps = useMapsLibrary("maps");
+  const [placePath, setPlacePath] = useState<google.maps.LatLngLiteral[]>([]);
+  const map = useMap("plan-map");
+
+  const setBounds = (coords: google.maps.LatLngLiteral[]) => {
+    const bounds = new google.maps.LatLngBounds();
+
+    coords.forEach((coord) => {
+      bounds.extend(coord);
+    });
+    map?.fitBounds(bounds);
+  };
 
   const getPolyLinePath = () => {
-    const placePositions: { lat: number; lng: number }[] = [];
+    const placePositions: google.maps.LatLngLiteral[] = [];
 
     data.map((day) => {
       day.route.map((place) => {
@@ -44,6 +51,11 @@ function PlanMap({ isEditMode, data = [] }: Props) {
     getPolyLinePath();
   }, [data]);
 
+  useEffect(() => {
+    if (!map) return;
+    setBounds(placePath);
+  }, [map]);
+
   const lineSymbol = {
     path: "M 0,-1 0,1",
     strokeOpacity: 1,
@@ -54,6 +66,7 @@ function PlanMap({ isEditMode, data = [] }: Props) {
   return (
     <S.Container>
       <Map
+        id="plan-map"
         style={{ width: "100%", height: mapOpened ? "275px" : "0px" }}
         defaultCenter={{ lat: 35.1855, lng: 129.0741 }}
         defaultZoom={12}
