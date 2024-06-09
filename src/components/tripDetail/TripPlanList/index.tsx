@@ -7,7 +7,6 @@ import { useRecoilValue } from "recoil";
 import { tripState } from "../../../recoil/tripState";
 import useModal from "../../../hooks/useModal";
 import Typography from "../../common/Typography";
-import { useState } from "react";
 import CheckedIcon from "../../../assets/icons/check.svg?react";
 
 export interface DayPlan {
@@ -20,11 +19,17 @@ export interface DayPlan {
 interface Props {
   isEditMode: boolean;
   setIsEditMode: React.Dispatch<React.SetStateAction<boolean>>;
+  dayFilter: number;
+  setDayFilter: React.Dispatch<React.SetStateAction<number>>;
 }
 
-function TripPlanList({ isEditMode, setIsEditMode }: Props) {
+function TripPlanList({
+  isEditMode,
+  setIsEditMode,
+  dayFilter,
+  setDayFilter,
+}: Props) {
   const data = useRecoilValue(tripState);
-  const [checkedIndex, setCheckedIndex] = useState<number>(0);
   const { Modal, modalOpen, modalClose } = useModal({});
 
   return (
@@ -32,25 +37,25 @@ function TripPlanList({ isEditMode, setIsEditMode }: Props) {
       <Modal>
         <S.ModalHeader
           onClick={() => {
-            setCheckedIndex(0);
+            setDayFilter(0);
             modalClose();
           }}
-          isHighlight={checkedIndex === 0}
+          isHighlight={dayFilter === 0}
         >
           <Typography.Title size="lg" color="inherit">
             일정 전체보기
           </Typography.Title>
-          {checkedIndex === 0 && <CheckedIcon />}
+          {dayFilter === 0 && <CheckedIcon />}
         </S.ModalHeader>
         <S.ModalContents>
           {data.plan.map((dayPlan, idx) => (
             <S.DayItem
               onClick={() => {
-                setCheckedIndex(idx + 1);
+                setDayFilter(idx + 1);
                 modalClose();
               }}
             >
-              <S.DayInfo isHighlight={checkedIndex === idx + 1}>
+              <S.DayInfo isHighlight={dayFilter === idx + 1}>
                 <Typography.Title size="lg" color="inherit">
                   Day {dayPlan.day}
                 </Typography.Title>
@@ -60,7 +65,7 @@ function TripPlanList({ isEditMode, setIsEditMode }: Props) {
                   })`}
                 </Typography.Title>
               </S.DayInfo>
-              {checkedIndex === idx + 1 && <CheckedIcon />}
+              {dayFilter === idx + 1 && <CheckedIcon />}
             </S.DayItem>
           ))}
         </S.ModalContents>
@@ -79,17 +84,8 @@ function TripPlanList({ isEditMode, setIsEditMode }: Props) {
         {isEditMode ? (
           <PlanEditMode setIsEditMode={setIsEditMode} />
         ) : (
-          data.plan.map((dayPlan, idx) => {
-            if (checkedIndex === 0) {
-              return (
-                <DayPlan
-                  day={dayPlan.day}
-                  date={dayPlan.date}
-                  data={dayPlan.route}
-                  setIsEditMode={setIsEditMode}
-                />
-              );
-            } else if (checkedIndex === idx + 1) {
+          data.plan.map((dayPlan, dayIndex) => {
+            if (dayFilter === 0 || dayFilter === dayIndex + 1) {
               return (
                 <DayPlan
                   day={dayPlan.day}

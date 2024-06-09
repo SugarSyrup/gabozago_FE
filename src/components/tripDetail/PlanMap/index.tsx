@@ -11,9 +11,10 @@ import Polyline from "../Polyline";
 interface Props {
   isEditMode: boolean;
   data: DayPlan[];
+  dayFilter: number;
 }
 
-function PlanMap({ isEditMode, data = [] }: Props) {
+function PlanMap({ isEditMode, data = [], dayFilter }: Props) {
   const [mapOpened, setMapOpend] = useState<boolean>(true);
   const [mapFocused, setMapFocused] = useState<boolean>(false);
   const [coords, setCoords] = useState<google.maps.LatLngLiteral[]>([]);
@@ -29,7 +30,7 @@ function PlanMap({ isEditMode, data = [] }: Props) {
     map?.fitBounds(bounds);
   };
 
-  const getAllMarkerCoords = () => {
+  const setMarkerCoords = (data: DayPlan[]) => {
     const placePositions: google.maps.LatLngLiteral[] = [];
 
     data.map((day) => {
@@ -50,14 +51,14 @@ function PlanMap({ isEditMode, data = [] }: Props) {
   }, [isEditMode]);
 
   useEffect(() => {
-    getAllMarkerCoords();
+    setMarkerCoords(data);
     setBounds(coords);
   }, [data]);
 
   useEffect(() => {
     if (!map) return;
     setBounds(coords);
-  }, [map]);
+  }, [map, coords]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent | TouchEvent) => {
@@ -100,39 +101,42 @@ function PlanMap({ isEditMode, data = [] }: Props) {
           setMapFocused(true);
         }}
       >
-        {data.map((day, dayIndex) => (
-          <>
-            <Polyline
-              path={day.route.map(({ latitude, longitude }) => ({
-                lat: latitude,
-                lng: longitude,
-              }))}
-              strokeColor={"transpert"}
-              strokeOpacity={0}
-              icons={[
-                {
-                  icon: getlineSymbol(
-                    markerColors[dayIndex % markerColors.length]
-                  ),
-                  offset: "0",
-                  repeat: "20px",
-                },
-              ]}
-            />
-            {day.route.map((place, placeIndex) => (
-              <MarkerWithInfoWindow
-                key={`marker-${dayIndex}-${placeIndex}`}
-                position={{ lat: place.latitude, lng: place.longitude }}
-                color={markerColors[dayIndex % markerColors.length]}
-                index={placeIndex + 1}
-                address={place.address}
-                placeId={place.placeId}
-                placeName={place.placeName}
-                placeTheme={place.placeTheme}
-              />
-            ))}
-          </>
-        ))}
+        {data.map(
+          (day, dayIndex) =>
+            (dayFilter === 0 || day.day === dayFilter) && (
+              <>
+                <Polyline
+                  path={day.route.map(({ latitude, longitude }) => ({
+                    lat: latitude,
+                    lng: longitude,
+                  }))}
+                  strokeColor={"transpert"}
+                  strokeOpacity={0}
+                  icons={[
+                    {
+                      icon: getlineSymbol(
+                        markerColors[dayIndex % markerColors.length]
+                      ),
+                      offset: "0",
+                      repeat: "20px",
+                    },
+                  ]}
+                />
+                {day.route.map((place, placeIndex) => (
+                  <MarkerWithInfoWindow
+                    key={`marker-${dayIndex}-${placeIndex}`}
+                    position={{ lat: place.latitude, lng: place.longitude }}
+                    color={markerColors[dayIndex % markerColors.length]}
+                    index={placeIndex + 1}
+                    address={place.address}
+                    placeId={place.placeId}
+                    placeName={place.placeName}
+                    placeTheme={place.placeTheme}
+                  />
+                ))}
+              </>
+            )
+        )}
       </Map>
       <S.MapOpenButton
         onClick={() => {
