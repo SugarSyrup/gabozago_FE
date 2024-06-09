@@ -52,10 +52,17 @@ function MarkerWithInfoWindow({
         </S.PinContainer>
       </AdvancedMarker>
       {infoWindowShown && (
-        <InfoWindow anchor={marker} onClose={handleClose} shouldFocus={true}>
+        <InfoWindow
+          maxWidth={250}
+          anchor={marker}
+          onClose={handleClose}
+          shouldFocus={true}
+        >
           <S.InfoTopContainer>
             <p>
-              <Typography.Title size="md">{placeName}</Typography.Title>
+              <Typography.Title size="md" noOfLine={2}>
+                {placeName}
+              </Typography.Title>
               {placeTheme && (
                 <Typography.Label size="md">{placeTheme}</Typography.Label>
               )}

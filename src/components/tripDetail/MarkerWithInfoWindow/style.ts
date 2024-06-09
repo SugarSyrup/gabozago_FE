@@ -37,6 +37,7 @@ export const InfoTopContainer = styled.div`
   padding: 3px 2px 0 5px;
   & > p:first-child {
     display: flex;
+    flex-wrap: wrap;
     gap: 3px;
     align-items: center;
   }
