@@ -1,5 +1,5 @@
 import * as S from "./style";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ChevronBottomIcon from "../../../assets/icons/chevron_bottom.svg?react";
 import ChevronTopIcon from "../../../assets/icons/chevron_top.svg?react";
 import { DayPlan } from "../TripPlanList";
@@ -15,8 +15,10 @@ interface Props {
 
 function PlanMap({ isEditMode, data = [] }: Props) {
   const [mapOpened, setMapOpend] = useState<boolean>(true);
+  const [mapFocused, setMapFocused] = useState<boolean>(false);
   const [placePath, setPlacePath] = useState<google.maps.LatLngLiteral[]>([]);
   const map = useMap("plan-map");
+  const mapRef = useRef<HTMLDivElement>(null);
 
   const setBounds = (coords: google.maps.LatLngLiteral[]) => {
     const bounds = new google.maps.LatLngBounds();
@@ -56,6 +58,22 @@ function PlanMap({ isEditMode, data = [] }: Props) {
     setBounds(placePath);
   }, [map]);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+      if (mapRef.current && !mapRef.current.contains(event.target as Node)) {
+        setMapFocused(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
+  }, [mapRef]);
+
   const lineSymbol = {
     path: "M 0,-1 0,1",
     strokeOpacity: 1,
@@ -64,15 +82,22 @@ function PlanMap({ isEditMode, data = [] }: Props) {
   };
 
   return (
-    <S.Container>
+    <S.Container ref={mapRef}>
       <Map
         id="plan-map"
-        style={{ width: "100%", height: mapOpened ? "275px" : "0px" }}
+        style={{
+          width: "100%",
+          height: !mapOpened ? "0px" : mapFocused ? "380px" : "275px",
+          transition: "all 0.3s ease-in-out",
+        }}
         defaultCenter={{ lat: 35.1855, lng: 129.0741 }}
         defaultZoom={12}
         gestureHandling={"greedy"}
         disableDefaultUI={true}
         mapId={import.meta.env.VITE_GOOGLEMAP_MAP_ID}
+        onClick={() => {
+          setMapFocused(true);
+        }}
       >
         <Polyline
           path={placePath}
