@@ -40,6 +40,7 @@ function MyTripDetailPage() {
   const nickname = useLoaderData() as string;
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [data, setData] = useRecoilState(tripState);
+  const [tempData] = useRecoilState(editingTripPlanState);
   const [dayFilter, setDayFilter] = useState<number>(0); // 0: 전체보기
   const resetData = useResetRecoilState(tripState);
   const [, setTempData] = useRecoilState(editingTripPlanState);
@@ -144,7 +145,7 @@ function MyTripDetailPage() {
       {hasNonEmptyRoute(data) ? (
         <PlanMap
           isEditMode={isEditMode}
-          data={data.plan}
+          data={isEditMode ? tempData : data.plan}
           dayFilter={dayFilter}
         />
       ) : (
