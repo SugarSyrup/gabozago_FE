@@ -42,51 +42,80 @@ function PlaceOperateTime({opening_hours}: Props) {
     }
 
     function isOperateFn({startTime, endTime}: {startTime: number, endTime: number}) {
-        return date.getHours() > startTime && date.getHours() < endTime;
+        if(startTime > endTime) {
+            return date.getHours() > startTime && date.getHours() < endTime + 24;
+        }else {
+            return date.getHours() > startTime && date.getHours() < endTime;
+        }
+    }
+
+    function calculateEndTime({operateTimeInfo, isYesterday = false}: {operateTimeInfo: string, isYesterday?: boolean}) {
+        if(operateTimeInfo === "휴무일") {
+            return {
+                flag: false,
+                displayEndTime: "휴무일"
+            }
+        }
+        else if(operateTimeInfo === "24시간 영업") {
+            return {
+                flag: true,
+                displayEndTime: "24시간 영업"
+            }
+        } else {
+            if(operateTimeInfo.includes(",")) {
+                operateTimeInfo.split(", ").forEach((item) => {
+                    const {startType, startTime, endType, endTime} = seperateTypeNTime({item});
+
+                    let calcStartTime = isYesterday ? transformTime({type: startType, time: startTime}) - 24 : transformTime({type: startType, time: startTime});
+                    let calcEndTime = isYesterday ? transformTime({type: endType, time: endTime}) - 24 : transformTime({type: endType, time: endTime});
+
+                    if(isOperateFn({startTime: calcStartTime, endTime: calcEndTime})){
+                        return {
+                            flag: true,
+                            displayEndTime: endType + " " + endTime
+                        };
+                    } 
+                })
+            }
+            else {
+                const {startType, startTime, endType, endTime} = seperateTypeNTime({item :operateTimeInfo});
+
+                let calcStartTime = isYesterday ? transformTime({type: startType, time: startTime}) - 24 : transformTime({type: startType, time: startTime});
+                let calcEndTime = isYesterday ? transformTime({type: endType, time: endTime}) - 24 : transformTime({type: endType, time: endTime});
+
+                if(isOperateFn({startTime: calcStartTime, endTime: calcEndTime})){
+                    return {
+                        flag: true,
+                        displayEndTime: endType + " " + endTime
+                    };
+                } 
+            }
+            return {
+                flag: false,
+                displayEndTime: ""
+            };
+        }
     }
 
     useEffect(() => {
         if(data) {
-            let flag = false;
-            let displayEndTime = "";
             let todayOperateInfo = data[`${date.getDay() === 0 ? 6 : date.getDay() - 1}`][1];
+            let yesterdayOperateInfo = data[`${date.getDay() <= 1 ? date.getDay() + 5 : date.getDay() - 2}`][1];
 
-            if(todayOperateInfo === "휴무일") {
-                setIsOperate(false);
-                setDisplayEndTime("휴무일");
-            }
-            else if(todayOperateInfo === "24시간 영업") {
-                setIsOperate(true);
-                setDisplayEndTime("24시간 영업");
+            const {flag: todayCalcResult, displayEndTime: todayCalcDisplayTime} = calculateEndTime({operateTimeInfo: todayOperateInfo});
+            
+            if( todayCalcResult ) {
+                setIsOperate(todayCalcResult);
+                setDisplayEndTime(todayCalcDisplayTime);
             } else {
-                if(todayOperateInfo.includes(",")) {
-                    todayOperateInfo.split(", ").forEach((item) => {
-                        const {startType, startTime, endType, endTime} = seperateTypeNTime({item});
-
-                        let calcStartTime = transformTime({type: startType, time: startTime});
-                        let calcEndTime = transformTime({type: endType, time: endTime});
-
-                        if(isOperateFn({startTime: calcStartTime, endTime: calcEndTime})){
-                            flag = true;
-                            displayEndTime = endType + " " + endTime;
-                            return;
-                        }
-                    })
+                const {flag: yesterdayCalcResult, displayEndTime: yesterdayCalcDisplayTime} = calculateEndTime({operateTimeInfo: yesterdayOperateInfo, isYesterday: true});
+                if(yesterdayCalcResult) {
+                    setIsOperate(yesterdayCalcResult);
+                    setDisplayEndTime(yesterdayCalcDisplayTime);
+                } else {
+                    setIsOperate(todayCalcResult);
+                    setDisplayEndTime(todayCalcDisplayTime);
                 }
-                else {
-                    const {startType, startTime, endType, endTime} = seperateTypeNTime({item :todayOperateInfo});
-
-                    let calcStartTime = transformTime({type: startType, time: startTime});
-                    let calcEndTime = transformTime({type: endType, time: endTime});
-
-                    if(isOperateFn({startTime: calcStartTime, endTime: calcEndTime})){
-                        flag = true;
-                        displayEndTime = endType + " " + endTime;
-                    }
-                }
-                
-                setDisplayEndTime(displayEndTime);
-                setIsOperate(flag);
             }
         }
     }, [data])
@@ -95,11 +124,13 @@ function PlaceOperateTime({opening_hours}: Props) {
         <S.Container>
             <S.InfomationText>
                 {isOperate ?
-                    <span className="main">영업중</span>
+                    <>
+                        <span className="main">영업중</span>
+                        <span>∙</span>
+                    </>
                 :
                     <span className="red">영업종료</span>
                 }
-                <span>∙</span>
                 <span>{ displayEndTime }</span>
                 {
                     isOpen ?

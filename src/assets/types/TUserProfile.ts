@@ -3,8 +3,5 @@ export interface TUserProfile {
     nickname: string,
     description: string,
     avatarURL: string,
-    clapCount: number,
-    scrapCount: number,
-    myTravelDay: number,
-    myTravelCount: number,
+    email: string,
 }

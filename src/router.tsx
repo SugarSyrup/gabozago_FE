@@ -184,10 +184,6 @@ const router = createBrowserRouter([
           nickname: "string",
           description: "string",
           avatarURL: "1",
-          clapCount: -1,
-          scrapCount: -1,
-          myTravelDay: -1,
-          myTravelCount: -1,
         };
       }
     },
