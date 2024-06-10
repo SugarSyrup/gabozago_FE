@@ -9,7 +9,6 @@ import MarkerIcon from "../../../assets/icons/marker.svg?react";
 import Typography from "../../common/Typography";
 
 interface Props {
-  key: string;
   color: string;
   index: number;
   position: { lat: number; lng: number };
@@ -20,7 +19,6 @@ interface Props {
 }
 
 function MarkerWithInfoWindow({
-  key,
   color,
   index,
   position,
@@ -41,7 +39,6 @@ function MarkerWithInfoWindow({
   return (
     <>
       <AdvancedMarker
-        key={key}
         ref={markerRef}
         position={position}
         onClick={handleMarkerClick}

@@ -50,6 +50,7 @@ function TripPlanList({
         <S.ModalContents>
           {data.plan.map((dayPlan, idx) => (
             <S.DayItem
+              key={`dayfilter-${dayPlan.day}`}
               onClick={() => {
                 setDayFilter(idx + 1);
                 modalClose();
@@ -88,6 +89,7 @@ function TripPlanList({
             if (dayFilter === 0 || dayFilter === dayIndex + 1) {
               return (
                 <DayPlan
+                  key={`dayp-${dayIndex + 1}-plan`}
                   day={dayPlan.day}
                   date={dayPlan.date}
                   data={dayPlan.route}

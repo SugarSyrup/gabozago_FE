@@ -106,6 +106,7 @@ function PlanMap({ isEditMode, data = [], dayFilter }: Props) {
             (dayFilter === 0 || day.day === dayFilter) && (
               <>
                 <Polyline
+                  key={`polyline-${day}`}
                   path={day.route.map(({ latitude, longitude }) => ({
                     lat: latitude,
                     lng: longitude,
