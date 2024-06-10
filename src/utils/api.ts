@@ -49,16 +49,16 @@ const onError = async (error: AxiosError | Error): Promise<AxiosError> => {
             access_expires_at: string
           }>(`/user/jwt-token-auth/refresh`, {
             refresh: localStorage.getItem("refresh_token")
-          })
-
-          if(response.status === 200) {
+          }).then((response) => {
             localStorage.setItem("access_token", response.data.access);
             return axiosInstance.request(error.config as InternalAxiosRequestConfig)
-          } else {
+          }).catch((errror) => {
             localStorage.removeItem("access_token");
             localStorage.removeItem("refresh_token");
             window.location.href = "/login";
-          }
+          })
+
+          return axiosInstance.request(error.config as InternalAxiosRequestConfig)
         }
       }
     } else {
