@@ -13,6 +13,7 @@ export interface PlaceData {
   placeTheme: string;
   placeId: number;
   location: string;
+  address: string;
   googlePlaceId: string;
   placeImage: string;
   latitude: number;
