@@ -14,6 +14,7 @@ import Typography from "../../../components/common/Typography";
 import CalendarIcon from "../../../assets/icons/calendar.svg?react";
 import { useRecoilState, useResetRecoilState } from "recoil";
 import { editingTripPlanState, tripState } from "../../../recoil/tripState";
+import PlanEditMode from "../../../components/tripDetail/PlanEditMode";
 
 export const markerColors = [
   "#5276FA",
@@ -156,12 +157,16 @@ function MyTripDetailPage() {
           </Typography.Body>
         </S.MessageBox>
       )}
-      <TripPlanList
-        isEditMode={isEditMode}
-        setIsEditMode={setIsEditMode}
-        dayFilter={dayFilter}
-        setDayFilter={setDayFilter}
-      />
+      {isEditMode ? (
+        <PlanEditMode setIsEditMode={setIsEditMode} />
+      ) : (
+        <TripPlanList
+          isEditMode={isEditMode}
+          setIsEditMode={setIsEditMode}
+          dayFilter={dayFilter}
+          setDayFilter={setDayFilter}
+        />
+      )}
     </PageTemplate>
   );
 }

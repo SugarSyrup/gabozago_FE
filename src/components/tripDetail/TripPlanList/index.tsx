@@ -2,7 +2,6 @@ import * as S from "./style";
 import DayPlan from "../DayPlan";
 import ArrowBottomIcon from "../../../assets/icons/arrow_bottom.svg?react";
 import { PlaceData } from "../TripPlanPlaceItem";
-import PlanEditMode from "../PlanEditMode";
 import { useRecoilValue } from "recoil";
 import { tripState } from "../../../recoil/tripState";
 import useModal from "../../../hooks/useModal";
@@ -23,22 +22,22 @@ interface Props {
   setDayFilter: React.Dispatch<React.SetStateAction<number>>;
 }
 
-function TripPlanList({
-  isEditMode,
-  setIsEditMode,
-  dayFilter,
-  setDayFilter,
-}: Props) {
+function TripPlanList({ setIsEditMode, dayFilter, setDayFilter }: Props) {
   const data = useRecoilValue(tripState);
   const { Modal, modalOpen, modalClose } = useModal({});
+
+  const onFilterClick = (dayFilterIndex: number) => {
+    setDayFilter(dayFilterIndex);
+    modalClose();
+    return;
+  };
 
   return (
     <S.Container>
       <Modal>
         <S.ModalHeader
           onClick={() => {
-            setDayFilter(0);
-            modalClose();
+            onFilterClick(0);
           }}
           isHighlight={dayFilter === 0}
         >
@@ -52,8 +51,7 @@ function TripPlanList({
             <S.DayItem
               key={`dayfilter-${dayPlan.day}`}
               onClick={() => {
-                setDayFilter(idx + 1);
-                modalClose();
+                onFilterClick(idx + 1);
               }}
             >
               <S.DayInfo isHighlight={dayFilter === idx + 1}>
@@ -71,7 +69,7 @@ function TripPlanList({
           ))}
         </S.ModalContents>
       </Modal>
-      {data.plan.length >= 0 && !isEditMode && (
+      {data.plan.length >= 0 && (
         <S.DayFilterButton
           onClick={() => {
             modalOpen();
@@ -82,22 +80,18 @@ function TripPlanList({
         </S.DayFilterButton>
       )}
       <S.PlaceListContainer>
-        {isEditMode ? (
-          <PlanEditMode setIsEditMode={setIsEditMode} />
-        ) : (
-          data.plan.map((dayPlan, dayIndex) => {
-            if (dayFilter === 0 || dayFilter === dayIndex + 1) {
-              return (
-                <DayPlan
-                  key={`dayp-${dayIndex + 1}-plan`}
-                  day={dayPlan.day}
-                  date={dayPlan.date}
-                  data={dayPlan.route}
-                  setIsEditMode={setIsEditMode}
-                />
-              );
-            }
-          })
+        {data.plan.map(
+          (dayPlan, dayIndex) =>
+            // 날짜 필터가 없거나 해당하는 날짜의 DayPlan 보이기
+            (dayFilter === 0 || dayFilter === dayIndex + 1) && (
+              <DayPlan
+                key={`dayplan-${dayIndex + 1}`}
+                day={dayPlan.day}
+                date={dayPlan.date}
+                data={dayPlan.route}
+                setIsEditMode={setIsEditMode}
+              />
+            )
         )}
       </S.PlaceListContainer>
     </S.Container>

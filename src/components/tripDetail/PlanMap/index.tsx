@@ -47,12 +47,12 @@ function PlanMap({ isEditMode, data = [], dayFilter }: Props) {
       setMapOpend(false);
     } else {
       setMapOpend(true);
+      setBounds(coords);
     }
   }, [isEditMode]);
 
   useEffect(() => {
     setMarkerCoords(data);
-    setBounds(coords);
   }, [data]);
 
   useEffect(() => {

@@ -19,6 +19,10 @@ function PlanEditMode({ setIsEditMode }: Props) {
     patch<DayPlan[]>(`my-travel/${id}`, data);
   };
 
+  const onCancle = () => {
+    setIsEditMode(false);
+  };
+
   const onComplate = () => {
     const isDiff = JSON.stringify(tripData.plan) !== JSON.stringify(tempData);
 
@@ -34,15 +38,10 @@ function PlanEditMode({ setIsEditMode }: Props) {
   return (
     <>
       <S.ButtonContainer>
-        <S.EditComplateButton
-          onClick={() => {
-            setIsEditMode(false);
-          }}
-          color="#a6a6a6"
-        >
+        <S.EditButton onClick={onCancle} color="#a6a6a6">
           취소
-        </S.EditComplateButton>
-        <S.EditComplateButton onClick={onComplate}>완료</S.EditComplateButton>
+        </S.EditButton>
+        <S.EditButton onClick={onComplate}>완료</S.EditButton>
       </S.ButtonContainer>
       {tempData &&
         tempData.map((dayPlan) => (

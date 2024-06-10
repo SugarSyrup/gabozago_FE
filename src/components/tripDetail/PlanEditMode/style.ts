@@ -8,7 +8,7 @@ export const ButtonContainer = styled.div`
   padding: 0;
 `;
 
-export const EditComplateButton = styled.button<{ color?: string }>`
+export const EditButton = styled.button<{ color?: string }>`
   border: 0;
   border-radius: 5px;
   background-color: transparent;
