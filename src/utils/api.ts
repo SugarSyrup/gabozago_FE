@@ -54,7 +54,7 @@ const onError = async (error: AxiosError | Error): Promise<AxiosError> => {
           if(response.status === 200) {
             localStorage.setItem("access_token", response.data.access);
             return axiosInstance.request(error.config as InternalAxiosRequestConfig)
-          } else if( response.status === 401) {
+          } else {
             localStorage.removeItem("access_token");
             localStorage.removeItem("refresh_token");
             window.location.href = "/login";
