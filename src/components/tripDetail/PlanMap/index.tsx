@@ -45,6 +45,7 @@ function PlanMap({ isEditMode, data = [], dayFilter }: Props) {
   useEffect(() => {
     if (isEditMode) {
       setMapOpend(false);
+      setBounds(coords);
     } else {
       setMapOpend(true);
       setBounds(coords);
