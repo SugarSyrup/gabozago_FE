@@ -13,7 +13,11 @@ import EditModeBottomControlBox from "../../../components/tripDetail/EditModeBot
 import Typography from "../../../components/common/Typography";
 import CalendarIcon from "../../../assets/icons/calendar.svg?react";
 import { useRecoilState, useResetRecoilState } from "recoil";
-import { editingTripPlanState, tripState } from "../../../recoil/tripState";
+import {
+  SortableDayPlan,
+  editingTripPlanState,
+  tripState,
+} from "../../../recoil/tripState";
 import PlanEditMode from "../../../components/tripDetail/PlanEditMode";
 
 export const markerColors = [
@@ -39,12 +43,13 @@ export interface TripData {
 function MyTripDetailPage() {
   const { id } = useParams(); // 파라미터에 게시글 ID
   const nickname = useLoaderData() as string;
-  const [isEditMode, setIsEditMode] = useState<boolean>(false);
+
   const [data, setData] = useRecoilState(tripState);
-  const [tempData] = useRecoilState(editingTripPlanState);
-  const [dayFilter, setDayFilter] = useState<number>(0); // 0: 전체보기
   const resetData = useResetRecoilState(tripState);
-  const [, setTempData] = useRecoilState(editingTripPlanState);
+  const [tempData, setTempData] = useRecoilState(editingTripPlanState);
+
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
+  const [dayFilter, setDayFilter] = useState<number>(0); // 0: 전체보기
   const [duration, setDuration] = useState<{
     departure: DateObject;
     arrival: DateObject;
@@ -65,6 +70,7 @@ function MyTripDetailPage() {
     },
   });
 
+  // 여행 일정 데이터 불러오기
   const getData = async (id: number) => {
     const { data } = await get<TripData>(`/my-travel/${id}`);
 
@@ -75,7 +81,11 @@ function MyTripDetailPage() {
     });
   };
 
-  const getDurationString = (departure: DateObject, arrival: DateObject) => {
+  // 날짜 객체에서 여행 기간 "yyyy. m. d. ~ yyyy. m. d. / n박 m일"로 변환된 텍스트
+  const getDurationString = (
+    departure: DateObject,
+    arrival: DateObject
+  ): string => {
     let dateString = "";
     let durationString = "";
 
@@ -106,9 +116,10 @@ function MyTripDetailPage() {
     return `${dateString} / ${durationString}`;
   };
 
-  function hasNonEmptyRoute(data: TripData) {
+  // 여행 일정 데이터 중 여행 장소가 있는지 확인
+  const hasRouteData = (data: TripData): boolean => {
     return data.plan.some((dayPlan) => dayPlan.route.length > 0);
-  }
+  };
 
   useEffect(() => {
     resetData();
@@ -116,17 +127,21 @@ function MyTripDetailPage() {
   }, []);
 
   useEffect(() => {
-    setTempData(
-      data.plan.map((dayPlan) => {
-        const newRoute = dayPlan.route.map((place) => ({
-          ...place,
-          chosen: false,
-          id: `${dayPlan.day}-${place.detailRouteId}`,
-        }));
-        return { ...dayPlan, route: newRoute };
-      })
-    );
-  }, [data]);
+    const newDayPlanArray: SortableDayPlan[] = [];
+
+    data.plan.forEach((dayPlan) => {
+      const sortableRoute = dayPlan.route.map((place) => ({
+        ...place,
+        chosen: false,
+        selected: false,
+        id: `${place.detailRouteId}`,
+      }));
+
+      newDayPlanArray.push({ ...dayPlan, route: sortableRoute });
+    });
+
+    setTempData(newDayPlanArray);
+  }, [data, isEditMode]);
 
   return (
     <PageTemplate
@@ -143,7 +158,7 @@ function MyTripDetailPage() {
         </S.Header>
       }
     >
-      {hasNonEmptyRoute(data) ? (
+      {hasRouteData(data) ? (
         <PlanMap
           isEditMode={isEditMode}
           data={isEditMode ? tempData : data.plan}

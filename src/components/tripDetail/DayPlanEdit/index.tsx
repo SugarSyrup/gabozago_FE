@@ -1,10 +1,9 @@
 import * as S from "./style";
-import { useEffect, useState } from "react";
-import { ReactSortable } from "react-sortablejs";
+import { Droppable } from "react-beautiful-dnd";
 import EditablePlaceItem from "../EditablePlaceItem";
 import { parseDateString } from "../../../utils/parseDateString";
 import { useRecoilState } from "recoil";
-import { SortableRoute, editingTripPlanState } from "../../../recoil/tripState";
+import { editingTripPlanState } from "../../../recoil/tripState";
 
 interface Props {
   day: number;
@@ -13,30 +12,7 @@ interface Props {
 
 function DayPlanEdit({ day, date: dateString }: Props) {
   const date = parseDateString(dateString);
-  const [tempData, setTempData] = useRecoilState(editingTripPlanState);
-  const [route, setRoute] = useState<SortableRoute[]>([]);
-
-  useEffect(() => {
-    if (
-      tempData &&
-      tempData[day - 1] &&
-      tempData[day - 1].route.toLocaleString() !== route.toLocaleString()
-    ) {
-      setRoute(tempData[day - 1].route);
-    }
-  }, [tempData]);
-
-  useEffect(() => {
-    setTempData((prev) =>
-      prev.map((dayPlan) => {
-        if (dayPlan.day === day) {
-          return { ...dayPlan, route: route };
-        } else {
-          return dayPlan;
-        }
-      })
-    );
-  }, [route]);
+  const [tempData] = useRecoilState(editingTripPlanState);
 
   return (
     <S.Container>
@@ -44,26 +20,25 @@ function DayPlanEdit({ day, date: dateString }: Props) {
         Day {day}
         <span>{`${date?.month}. ${date?.day}(${date?.dayOfWeek})`}</span>
       </S.DayParagraph>
-      <S.PlaceList>
-        <ReactSortable
-          group={"dayPlan"}
-          list={route}
-          setList={setRoute}
-          animation={150}
-          handle=".handle"
-        >
-          {tempData &&
-            route.map((place, index) => (
+      <Droppable droppableId={`day-${day}`} type={"PLACE"}>
+        {(provided, snapshot) => (
+          <S.PlaceList
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+            isDraggingOver={snapshot.isDraggingOver}
+          >
+            {tempData[day - 1].route.map((place, index) => (
               <EditablePlaceItem
                 key={`edit-place-${place.detailRouteId}`}
                 day={day}
                 place={place}
                 index={index}
-                setRoute={setRoute}
               />
             ))}
-        </ReactSortable>
-      </S.PlaceList>
+            {provided.placeholder}
+          </S.PlaceList>
+        )}
+      </Droppable>
     </S.Container>
   );
 }
