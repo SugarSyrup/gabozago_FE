@@ -19,6 +19,7 @@ export const MemoTextArea = styled.textarea`
   padding: 15px;
   min-height: 260px;
   width: 100%;
+  font-size: 16px;
   border-radius: 10px;
   border: 0;
   background-color: ${({ theme }) => theme.gray05};

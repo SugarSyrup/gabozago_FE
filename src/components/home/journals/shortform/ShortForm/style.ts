@@ -258,6 +258,7 @@ export const UrlInput = styled.input`
   padding: 10px 15px;
   border-radius: 15px;
   border: 0;
+  font-size: 16px;
 
   cursor: pointer;
   background-color: ${({ theme }) => theme.gray05};

@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import UserIcon from "../../../assets/icons/user.svg?react";
 
 export const Header = styled.header<{ position: "bottom" | "top" }>`
   width: 100%;
@@ -99,6 +98,8 @@ export const CommentTextArea = styled.textarea`
   line-height: 22px;
   resize: none;
   overflow-y: auto;
+
+  font-size: 16px;
 
   border: 0;
   border-radius: 4px;

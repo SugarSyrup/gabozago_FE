@@ -16,7 +16,7 @@ export const ModalWrapper = styled.div`
 
 export const CourseModalContainer = styled.div`
   width: 100%;
-  padding-top:10px;
+  padding-top: 10px;
   padding-left: 20px;
   padding-right: 20px;
   padding-bottom: 34px;
@@ -35,7 +35,7 @@ export const TravelThumbnailWrapper = styled.div`
   width: 40px;
   height: 40px;
   position: relative;
-  flex-shrink:0;
+  flex-shrink: 0;
 
   border-radius: 100%;
   background-color: ${({ theme }) => theme.blue04};
@@ -156,7 +156,7 @@ export const SeperateLine = styled.div`
   margin-left: -20px;
 `;
 
-export const ScrapIconWrapper = styled.div<{isScraped: boolean}>`
+export const ScrapIconWrapper = styled.div<{ isScraped: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -164,8 +164,9 @@ export const ScrapIconWrapper = styled.div<{isScraped: boolean}>`
   svg {
     width: 30px;
     height: 30px;
-    path{
-      fill: ${({ theme, isScraped }) => isScraped ? theme.main : theme.gray01};
+    path {
+      fill: ${({ theme, isScraped }) =>
+        isScraped ? theme.main : theme.gray01};
     }
   }
 `;
@@ -213,7 +214,6 @@ export const SaveText = styled.span`
   color: ${({ theme }) => theme.main};
 `;
 
-
 export const PopupWrapper = styled.div<{ isOpend: boolean }>`
   position: fixed;
   left: 0;
@@ -227,7 +227,7 @@ export const PopupWrapper = styled.div<{ isOpend: boolean }>`
   max-height: 100dvh;
   width: 100%;
   height: 100dvh;
-`
+`;
 
 export const Header = styled.div`
   margin-bottom: 13px;
@@ -262,5 +262,5 @@ export const Input = styled.input`
   border: 0;
   border-bottom: 2px solid ${({ theme }) => theme.gray04};
 
-  font-size: 14px;
+  font-size: 16px;
 `;
