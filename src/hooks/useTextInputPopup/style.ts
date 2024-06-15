@@ -33,5 +33,5 @@ export const Input = styled.input`
   border: 0;
   border-bottom: 2px solid ${({ theme }) => theme.gray04};
 
-  font-size: 14px;
+  font-size: 16px;
 `;

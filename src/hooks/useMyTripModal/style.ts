@@ -13,9 +13,9 @@ export const ModalWrapper = styled.div<{ isOpen: boolean }>`
   max-height: 100dvh;
   width: 100%;
   height: 100dvh;
- @supports (-webkit-touch-callout: none) {
-  height: -webkit-fill-available;
-}
+  @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+  }
 `;
 
 export const TravelSettings = styled.div`
@@ -88,7 +88,7 @@ export const ChangePopupInput = styled.input`
   height: 28px;
 
   color: ${({ theme }) => theme.gray};
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 24px;
   letter-spacing: 0.5px;

@@ -141,7 +141,7 @@ export const TextArea = styled.textarea`
   min-height: 200px;
   border: 0;
 
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 22px;
 `;

@@ -1,22 +1,25 @@
 import * as S from "./style";
-import { MouseEvent, TouchEvent, useState } from "react";
+import { useState } from "react";
 import SelectIcon from "../../../assets/icons/select.svg?react";
 import SelectFilledIcon from "../../../assets/icons/select_filled.svg?react";
 import HamburgerIcon from "../../../assets/icons/hamburger.svg?react";
 import { PlaceData } from "../TripPlanPlaceItem";
-import { SortableRoute } from "../../../recoil/tripState";
 import { useRecoilState } from "recoil";
-import { selectedPlacesState } from "../../../recoil/tripState";
+import {
+  editingTripPlanState,
+  selectedPlacesState,
+} from "../../../recoil/tripState";
+import { Draggable } from "react-beautiful-dnd";
 
 interface Props {
   day: number;
   place: PlaceData;
   index: number;
-  setRoute: React.Dispatch<React.SetStateAction<SortableRoute[]>>;
 }
-function EditablePlaceItem({ place, setRoute, day, index }: Props) {
+function EditablePlaceItem({ place, day, index }: Props) {
   const [isSelected, setIsSelected] = useState(false);
   const [, setSelectedPlaces] = useRecoilState(selectedPlacesState);
+  const [, setTempData] = useRecoilState(editingTripPlanState);
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [startX, setStartX] = useState(0);
   const [translateX, setTranslateX] = useState(0);
@@ -39,11 +42,18 @@ function EditablePlaceItem({ place, setRoute, day, index }: Props) {
 
   const handleEnd = () => {
     if (isMouseDown && translateX < -50) {
-      setRoute((prev) => {
-        const temp = [...prev];
-        temp.splice(index, 1);
-        return temp;
-      });
+      setTempData((prev) =>
+        prev.map((dayPlan) => {
+          if (dayPlan.day === day) {
+            const newRoute = [...dayPlan.route];
+            newRoute.splice(index, 1);
+
+            return { ...dayPlan, route: newRoute };
+          } else {
+            return dayPlan;
+          }
+        })
+      );
     }
     setTranslateX(0);
     setIsMouseDown(false);
@@ -69,29 +79,38 @@ function EditablePlaceItem({ place, setRoute, day, index }: Props) {
   };
 
   return (
-    <S.ListItem>
-      <S.Wrapper
-        isSelected={isSelected}
-        onClick={toggleSelected}
-        onMouseDown={(e) => handleStart(e.clientX)}
-        onMouseMove={(e) => handleMove(e.clientX)}
-        onMouseUp={handleEnd}
-        onMouseLeave={handleEnd}
-        onTouchStart={(e) => handleStart(e.touches[0].clientX)}
-        onTouchMove={(e) => handleMove(e.touches[0].clientX)}
-        onTouchEnd={handleEnd}
-        translateX={translateX}
-      >
-        {isSelected ? <SelectFilledIcon /> : <SelectIcon />}
-        <S.PlaceInfo>
-          <div>
-            <p>{place.placeName}</p>
-            <p>{place.placeTheme}</p>
-          </div>
-        </S.PlaceInfo>
-        <HamburgerIcon className="handle" />
-      </S.Wrapper>
-    </S.ListItem>
+    <Draggable draggableId={`place-${place.detailRouteId}`} index={index}>
+      {(provided, snapshot) => {
+        console.dir(provided);
+        return (
+          <S.ListItem ref={provided.innerRef} {...provided.draggableProps}>
+            <S.Wrapper
+              isSelected={isSelected || snapshot.isDragging}
+              onClick={toggleSelected}
+              onMouseDown={(e) => handleStart(e.clientX)}
+              onMouseMove={(e) => handleMove(e.clientX)}
+              onMouseUp={handleEnd}
+              onMouseLeave={handleEnd}
+              onTouchStart={(e) => handleStart(e.touches[0].clientX)}
+              onTouchMove={(e) => handleMove(e.touches[0].clientX)}
+              onTouchEnd={handleEnd}
+              translateX={translateX}
+            >
+              {isSelected ? <SelectFilledIcon /> : <SelectIcon />}
+              <S.PlaceInfo>
+                <div>
+                  <p>{place.placeName}</p>
+                  <p>{place.placeTheme}</p>
+                </div>
+              </S.PlaceInfo>
+              <div {...provided.dragHandleProps}>
+                <HamburgerIcon />
+              </div>
+            </S.Wrapper>
+          </S.ListItem>
+        );
+      }}
+    </Draggable>
   );
 }
 

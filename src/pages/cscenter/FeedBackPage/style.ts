@@ -6,8 +6,8 @@ export const ButtonContainer = styled.div`
   max-width: 500px;
   background-color: ${({ theme }) => theme.gray07};
 
-  position:fixed;
-  bottom:0px;
+  position: fixed;
+  bottom: 0px;
 `;
 
 export const Container = styled.div`
@@ -40,11 +40,11 @@ export const TextArea = styled.textarea`
   border: 1px solid ${({ theme }) => theme.gray04};
   border-radius: 4px;
 
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 24px;
 
-  resize:none;
+  resize: none;
 `;
 
 export const TextCountParagraph = styled.p`
@@ -55,20 +55,19 @@ export const TextCountParagraph = styled.p`
   color: ${({ theme }) => theme.gray02};
 `;
 
-
 export const PopupContainer = styled.div`
-  width:100%;
-  padding-top:20px;
+  width: 100%;
+  padding-top: 20px;
 
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  gap:3px;
-  text-align:center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+  text-align: center;
 
   div {
-    width:calc(100% + 40px);
+    width: calc(100% + 40px);
     margin: 30px -20px -20px;
     border-radius: 0 0 15px 15px;
     overflow: hidden;

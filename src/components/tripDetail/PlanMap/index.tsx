@@ -45,14 +45,15 @@ function PlanMap({ isEditMode, data = [], dayFilter }: Props) {
   useEffect(() => {
     if (isEditMode) {
       setMapOpend(false);
+      setBounds(coords);
     } else {
       setMapOpend(true);
+      setBounds(coords);
     }
   }, [isEditMode]);
 
   useEffect(() => {
     setMarkerCoords(data);
-    setBounds(coords);
   }, [data]);
 
   useEffect(() => {
@@ -106,6 +107,7 @@ function PlanMap({ isEditMode, data = [], dayFilter }: Props) {
             (dayFilter === 0 || day.day === dayFilter) && (
               <>
                 <Polyline
+                  key={`polyline-${day}`}
                   path={day.route.map(({ latitude, longitude }) => ({
                     lat: latitude,
                     lng: longitude,
