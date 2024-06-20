@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const ButtonContainer = styled.div`
   display: flex;
@@ -6,7 +6,7 @@ export const ButtonContainer = styled.div`
   position: absolute;
   right: 0;
   padding: 0;
-`
+`;
 
 export const EditButton = styled.button<{ color?: string }>`
   border: 0;
@@ -25,4 +25,4 @@ export const EditButton = styled.button<{ color?: string }>`
   &:active {
     background-color: ${({ theme }) => theme.blue04};
   }
-`
+`;

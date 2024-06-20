@@ -1,17 +1,17 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 
 const borderCSS = css`
   padding: 20px;
   border-radius: 4px;
   border: 1px solid ${({ theme }) => theme.gray04};
-`
+`;
 
 export const Container = styled.div`
   margin-top: 20px;
   display: flex;
   flex-direction: column;
   gap: 5px;
-`
+`;
 
 export const ConfirmButtonsContainer = styled.div`
   position: fixed;
@@ -23,10 +23,10 @@ export const ConfirmButtonsContainer = styled.div`
   display: flex;
   gap: 13px;
   background-color: ${({ theme }) => theme.white};
-`
+`;
 
 export const ConfirmButton = styled.button<{
-  styleTheme: 'primary' | 'secondary'
+  styleTheme: 'primary' | 'secondary';
 }>`
   padding: 12px;
   width: 100%;
@@ -47,15 +47,15 @@ export const ConfirmButton = styled.button<{
           color: ${theme.gray01};
           background-color: ${theme.gray05};
         `}
-`
+`;
 
-export const NoticeContainer = styled(Container)``
+export const NoticeContainer = styled(Container)``;
 
 export const TitleHeading = styled.h2`
   font-size: 20px;
   font-weight: 500;
   margin-bottom: 10px;
-`
+`;
 
 export const DescParagraph = styled.p`
   font-size: 16px;
@@ -68,7 +68,7 @@ export const DescParagraph = styled.p`
     color: #424242;
     font-weight: 400;
   }
-`
+`;
 
 export const InfoContainer = styled.div`
   ${borderCSS}
@@ -89,16 +89,16 @@ export const InfoContainer = styled.div`
     flex-direction: column;
     gap: 14px;
   }
-`
+`;
 
 export const InfoTitleParagraph = styled.p`
   margin-bottom: 6px;
   font-weight: 500;
-`
+`;
 
 export const ReasonContainer = styled(Container)`
   margin-top: 26px;
-`
+`;
 
 export const TitleParagraph = styled.p`
   font-size: 14px;
@@ -114,11 +114,11 @@ export const TitleParagraph = styled.p`
       content: '*';
     }
   }
-`
+`;
 
 export const SuggestContainer = styled(Container)`
   margin: 26px 0 50px;
-`
+`;
 
 export const TitleDescParagraph = styled.p`
   font-size: 12px;
@@ -126,14 +126,14 @@ export const TitleDescParagraph = styled.p`
   line-height: 22px;
 
   color: ${({ theme }) => theme.gray01};
-`
+`;
 
 export const TextAreaContainer = styled.div`
   ${borderCSS}
   padding: 0;
 
   position: relative;
-`
+`;
 
 export const TextArea = styled.textarea`
   padding: 20px;
@@ -144,7 +144,7 @@ export const TextArea = styled.textarea`
   font-size: 16px;
   font-weight: 400;
   line-height: 22px;
-`
+`;
 
 export const TextCountParagraph = styled.p`
   padding: 12px 16px;
@@ -156,4 +156,4 @@ export const TextCountParagraph = styled.p`
   font-weight: 400;
   line-height: 22px;
   color: ${({ theme }) => theme.gray01};
-`
+`;

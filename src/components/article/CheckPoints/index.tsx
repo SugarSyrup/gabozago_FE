@@ -1,20 +1,20 @@
-import CheckPointIcon from '../../../assets/icons/checkpoint.svg?react'
-import Typography from '../../common/Typography'
+import CheckPointIcon from '../../../assets/icons/checkpoint.svg?react';
+import Typography from '../../common/Typography';
 
-import * as S from './style'
+import * as S from './style';
 
 interface Props {
   data: {
-    name: string
-    desc: string
-  }[]
+    name: string;
+    desc: string;
+  }[];
 }
 
 function CheckPoints({ data }: Props) {
   return (
     <S.CheckPointList>
       <Typography.Title size="md">CHECK POINT</Typography.Title>
-      {data.map(checkpoint => (
+      {data.map((checkpoint) => (
         <S.CheckPointItem>
           <CheckPointIcon />
           <S.CheckPointText>
@@ -28,7 +28,7 @@ function CheckPoints({ data }: Props) {
         </S.CheckPointItem>
       ))}
     </S.CheckPointList>
-  )
+  );
 }
 
-export default CheckPoints
+export default CheckPoints;

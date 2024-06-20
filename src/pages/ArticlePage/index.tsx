@@ -1,141 +1,141 @@
-import { useEffect, useRef, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useEffect, useRef, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
-import DoubleChevronBottom from '../../assets/icons/double_chevron_bottom.svg?react'
+import DoubleChevronBottom from '../../assets/icons/double_chevron_bottom.svg?react';
 
-import BackButton from '../../components/common/BackButton'
-import PageTemplate from '../../components/common/PageTemplate'
-import Typography from '../../components/common/Typography'
-import BottomNav from '../../components/post/BottomNav'
-import Comment from '../../components/journal/Comment'
+import BackButton from '../../components/common/BackButton';
+import PageTemplate from '../../components/common/PageTemplate';
+import Typography from '../../components/common/Typography';
+import BottomNav from '../../components/post/BottomNav';
+import Comment from '../../components/journal/Comment';
 
-import Editor from '../../components/article/Editor'
-import Interview from '../../components/article/Interview'
-import PlaceInfo from '../../components/article/PlaceInfo'
-import PlacePhoto from '../../components/article/PlacePhoto'
-import CheckPoints from '../../components/article/CheckPoints'
-import AbroadPlace from '../../components/article/AbroadPlace'
-import ContentStation from '../../components/article/ContentStation'
-import StationContainer from '../../components/article/StationContainer'
-import InterviewProfile from '../../components/article/InterviewProfile'
+import Editor from '../../components/article/Editor';
+import Interview from '../../components/article/Interview';
+import PlaceInfo from '../../components/article/PlaceInfo';
+import PlacePhoto from '../../components/article/PlacePhoto';
+import CheckPoints from '../../components/article/CheckPoints';
+import AbroadPlace from '../../components/article/AbroadPlace';
+import ContentStation from '../../components/article/ContentStation';
+import StationContainer from '../../components/article/StationContainer';
+import InterviewProfile from '../../components/article/InterviewProfile';
 
-import { get } from '../../utils/api'
-import useModal from '../../hooks/useModal'
-import useAlert from '../../hooks/useAlert'
-import * as S from './style'
+import { get } from '../../utils/api';
+import useModal from '../../hooks/useModal';
+import useAlert from '../../hooks/useAlert';
+import * as S from './style';
 
 interface TArticle {
-  title: string
-  thumbnailURL: string
-  content: string
-  checkpoint: string | undefined
+  title: string;
+  thumbnailURL: string;
+  content: string;
+  checkpoint: string | undefined;
 
-  isClapped: boolean
-  isBookmarked: boolean
-  claps: number
-  commentCount: number
-  bookmark: number
+  isClapped: boolean;
+  isBookmarked: boolean;
+  claps: number;
+  commentCount: number;
+  bookmark: number;
 
   nextArticle: {
-    id: string
-    name: string
-  }
+    id: string;
+    name: string;
+  };
 }
 
 interface TStation {
-  index: number
-  name: string
-  type: 'station'
+  index: number;
+  name: string;
+  type: 'station';
 }
 
 interface TEditor {
-  content: string
-  type: 'editor'
+  content: string;
+  type: 'editor';
 }
 
 interface TInterview {
-  content: string
-  type: 'interview'
+  content: string;
+  type: 'interview';
 }
 
 interface TProfile {
-  photoURL: string
-  name: string
-  division: string
-  desc: string
-  type: 'profile'
+  photoURL: string;
+  name: string;
+  division: string;
+  desc: string;
+  type: 'profile';
 }
 
 interface TPhoto {
-  photoURLs: string[]
-  desc: string
-  type: 'photo'
+  photoURLs: string[];
+  desc: string;
+  type: 'photo';
 }
 
 interface TPlace {
-  imageURL: string
-  placeId: number
-  type: 'place'
+  imageURL: string;
+  placeId: number;
+  type: 'place';
 }
 
 interface TAbroadPlace {
-  imageURL: string
-  name: string
-  address: string
-  type: 'abroadPlace'
+  imageURL: string;
+  name: string;
+  address: string;
+  type: 'abroadPlace';
 }
 
 function ArticlePage() {
-  const navigate = useNavigate()
-  const { id } = useParams()
-  const [isLogin, setIsLogin] = useState<boolean>(false)
-  const [isReload, setIsReload] = useState<boolean>(true)
-  const [data, setData] = useState<TArticle>()
-  const [userCommentCount, setUserCommentCount] = useState<number>(0)
-  const stationRefs = useRef<null[] | HTMLDivElement[]>([])
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const [isLogin, setIsLogin] = useState<boolean>(false);
+  const [isReload, setIsReload] = useState<boolean>(true);
+  const [data, setData] = useState<TArticle>();
+  const [userCommentCount, setUserCommentCount] = useState<number>(0);
+  const stationRefs = useRef<null[] | HTMLDivElement[]>([]);
 
   const { Modal, modalOpen, modalClose, isOpend } = useModal({
     title: '',
     handle: false,
     borderRadius: '16px',
-  })
+  });
   const { Alert, alertOpen, alertClose } = useAlert({
     Content: (
       <Typography.Title size="md" color="white">
         URL이 복사되었습니다.
       </Typography.Title>
     ),
-  })
+  });
 
   useEffect(() => {
-    setIsReload(false)
+    setIsReload(false);
     if (!isReload) {
-      window.location.reload()
+      window.location.reload();
     }
-  }, [location.pathname])
+  }, [location.pathname]);
 
   useEffect(() => {
     if (localStorage.getItem('access_token')) {
-      setIsLogin(true)
+      setIsLogin(true);
     } else {
-      setIsLogin(false)
+      setIsLogin(false);
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
-    get<TArticle>(`/community/article/${id}`).then(response => {
-      setData(response.data)
-      setUserCommentCount(response.data.commentCount)
-    })
-  }, [])
+    get<TArticle>(`/community/article/${id}`).then((response) => {
+      setData(response.data);
+      setUserCommentCount(response.data.commentCount);
+    });
+  }, []);
 
   useEffect(() => {
     if (localStorage.getItem('access_token')) {
-      setIsLogin(true)
+      setIsLogin(true);
     } else {
-      setIsLogin(false)
+      setIsLogin(false);
     }
-  }, [])
+  }, []);
 
   return (
     <>
@@ -150,11 +150,11 @@ function ArticlePage() {
               comment={userCommentCount}
               isBookmarked={data.isBookmarked}
               onCommentClick={() => {
-                modalOpen()
+                modalOpen();
               }}
               bookmark={data.bookmark}
               onShareClick={() => {
-                alertOpen()
+                alertOpen();
               }}
             />
           }
@@ -183,15 +183,8 @@ function ArticlePage() {
               <S.StationTitle>Station 보기</S.StationTitle>
               <StationContainer
                 data={JSON.parse(data.content).data.filter(
-                  (
-                    content:
-                      | TEditor
-                      | TInterview
-                      | TPhoto
-                      | TPlace
-                      | TProfile
-                      | TStation
-                  ) => content.type === 'station'
+                  (content: TEditor | TInterview | TPhoto | TPlace | TProfile | TStation) =>
+                    content.type === 'station',
                 )}
                 refs={stationRefs}
               />
@@ -205,7 +198,7 @@ function ArticlePage() {
                       | TPlace
                       | TProfile
                       | TStation
-                      | TAbroadPlace
+                      | TAbroadPlace,
                   ) => {
                     switch (content.type) {
                       case 'station':
@@ -215,27 +208,19 @@ function ArticlePage() {
                             name={content.name}
                             refs={stationRefs}
                           />
-                        )
+                        );
                       case 'editor':
                         return (
                           <Editor
-                            content={
-                              content.content !== undefined
-                                ? content.content
-                                : 'error'
-                            }
+                            content={content.content !== undefined ? content.content : 'error'}
                           />
-                        )
+                        );
                       case 'interview':
                         return (
                           <Interview
-                            content={
-                              content.content !== undefined
-                                ? content.content
-                                : 'error'
-                            }
+                            content={content.content !== undefined ? content.content : 'error'}
                           />
-                        )
+                        );
                       case 'profile':
                         return (
                           <InterviewProfile
@@ -244,21 +229,11 @@ function ArticlePage() {
                             division={content.division}
                             desc={content.desc}
                           />
-                        )
+                        );
                       case 'photo':
-                        return (
-                          <PlacePhoto
-                            photoURLs={content.photoURLs}
-                            desc={content.desc}
-                          />
-                        )
+                        return <PlacePhoto photoURLs={content.photoURLs} desc={content.desc} />;
                       case 'place':
-                        return (
-                          <PlaceInfo
-                            placeId={content.placeId}
-                            imageURL={content.imageURL}
-                          />
-                        )
+                        return <PlaceInfo placeId={content.placeId} imageURL={content.imageURL} />;
                       case 'abroadPlace':
                         return (
                           <AbroadPlace
@@ -266,24 +241,20 @@ function ArticlePage() {
                             name={content.name}
                             address={content.address}
                           />
-                        )
+                        );
                     }
-                  }
+                  },
                 )}
-                {data.checkpoint && (
-                  <CheckPoints data={JSON.parse(data.checkpoint).data} />
-                )}
+                {data.checkpoint && <CheckPoints data={JSON.parse(data.checkpoint).data} />}
                 {data.nextArticle && (
                   <S.NextArticle
                     onClick={() => {
-                      setIsReload(false)
+                      setIsReload(false);
                     }}
                   >
                     <span>
                       2편 :
-                      <Link to={`/article/${data.nextArticle.id}`}>
-                        ‘{data.nextArticle.name}’
-                      </Link>{' '}
+                      <Link to={`/article/${data.nextArticle.id}`}>‘{data.nextArticle.name}’</Link>{' '}
                       이어보기
                     </span>
                   </S.NextArticle>
@@ -295,15 +266,8 @@ function ArticlePage() {
             <S.IsLoginBlur
               top={
                 JSON.parse(data.content).data.filter(
-                  (
-                    content:
-                      | TEditor
-                      | TInterview
-                      | TPhoto
-                      | TPlace
-                      | TProfile
-                      | TStation
-                  ) => content.type === 'station'
+                  (content: TEditor | TInterview | TPhoto | TPlace | TProfile | TStation) =>
+                    content.type === 'station',
                 ).length
               }
             >
@@ -315,7 +279,7 @@ function ArticlePage() {
               <DoubleChevronBottom />
               <S.LoginLinkButton
                 onClick={() => {
-                  navigate('/login')
+                  navigate('/login');
                 }}
               >
                 <Typography.Title size="lg" color="white">
@@ -327,7 +291,7 @@ function ArticlePage() {
         </PageTemplate>
       )}
     </>
-  )
+  );
 }
 
-export default ArticlePage
+export default ArticlePage;

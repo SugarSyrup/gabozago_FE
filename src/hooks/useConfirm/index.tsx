@@ -1,16 +1,16 @@
-import * as S from './style'
-import ExclamationIcon from '../../assets/icons/exclamation_circle.svg?react'
-import Typography from '../../components/common/Typography'
-import usePopup from '../usePopup'
+import * as S from './style';
+import ExclamationIcon from '../../assets/icons/exclamation_circle.svg?react';
+import Typography from '../../components/common/Typography';
+import usePopup from '../usePopup';
 
 function useConfirm(
   heading: string,
   desc: string | null = null,
   warningMessage: string | null = null,
   textCancle: string = '취소',
-  textConfirm: string = '확인'
+  textConfirm: string = '확인',
 ) {
-  const { Popup, popupOpen, popupClose, isOpend } = usePopup()
+  const { Popup, popupOpen, popupClose, isOpend } = usePopup();
 
   function ConfirmPopup({ onConfirm }: { onConfirm: () => void }) {
     return (
@@ -35,7 +35,7 @@ function useConfirm(
               <S.PopupButton
                 isMain={false}
                 onClick={() => {
-                  popupClose()
+                  popupClose();
                 }}
               >
                 <Typography.Body size="lg" color="inherit">
@@ -45,8 +45,8 @@ function useConfirm(
               <S.PopupButton
                 isMain
                 onClick={() => {
-                  onConfirm()
-                  popupClose()
+                  onConfirm();
+                  popupClose();
                 }}
               >
                 <Typography.Body size="lg" color="inherit">
@@ -57,13 +57,13 @@ function useConfirm(
           </S.PopupContentsContainer>
         </Popup>
       </S.PopupWrapper>
-    )
+    );
   }
   return {
     ConfirmPopup,
     confirmPopupOpen: popupOpen,
     confirmPopupClose: popupClose,
-  }
+  };
 }
 
-export default useConfirm
+export default useConfirm;

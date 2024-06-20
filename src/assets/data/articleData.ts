@@ -1,6 +1,5 @@
 export const data = {
-  title:
-    '2년만에 15개 점포로 확장한, 제과점 대표의 ‘디저트’와 함께하는 여행방법',
+  title: '2년만에 15개 점포로 확장한, 제과점 대표의 ‘디저트’와 함께하는 여행방법',
   thumbnailURL: '1.png',
 
   isClapped: false,
@@ -19,4 +18,4 @@ export const data = {
     id: 123,
     name: '백이삭 대표님의 맛집',
   },
-}
+};

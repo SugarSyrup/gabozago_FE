@@ -1,11 +1,11 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const FilterList = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
-`
+`;
 
 export const FilterItem = styled.select`
   -webkit-appearance: none;
@@ -23,4 +23,4 @@ export const FilterItem = styled.select`
   color: ${({ theme }) => theme.main};
   font-size: 11px;
   line-height: 19px;
-`
+`;

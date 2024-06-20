@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
@@ -9,14 +9,14 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
-`
+`;
 
 export const InfoContainer = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
-`
+`;
 
 export const MyTravelItemThumbnailWrapper = styled.div`
   width: 68px;
@@ -39,14 +39,14 @@ export const MyTravelItemThumbnailWrapper = styled.div`
     width: 24px;
     height: 24px;
   }
-`
+`;
 
 export const MyTravelItemTextContainer = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-`
+`;
 
 export const MyTravelItemText = styled.div`
   display: flex;
@@ -64,7 +64,7 @@ export const MyTravelItemText = styled.div`
       fill: ${({ theme }) => theme.main};
     }
   }
-`
+`;
 
 export const DayList = styled.div`
   width: 100%;
@@ -78,12 +78,11 @@ export const DayList = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
-`
+`;
 
 export const DayItem = styled.div<{ isClicked: boolean }>`
   padding: 4px 15px;
-  background-color: ${({ isClicked, theme }) =>
-    isClicked ? theme.main : 'white'};
+  background-color: ${({ isClicked, theme }) => (isClicked ? theme.main : 'white')};
   color: ${({ isClicked, theme }) => (isClicked ? 'white' : theme.main)};
   border: 1px solid ${({ theme }) => theme.main};
   border-radius: 20px;
@@ -91,4 +90,4 @@ export const DayItem = styled.div<{ isClicked: boolean }>`
   display: flex;
   flex-direction: column;
   text-align: center;
-`
+`;

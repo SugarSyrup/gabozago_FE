@@ -1,33 +1,33 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
-import useModal from '../../../hooks/useModal'
-import CalendarAddFullIcon from '../../../assets/icons/calendar_add.svg?react'
-import CalendarAddIcon from '../../../assets/icons/calendar_add_border.svg?react'
-import LocationIcon from '../../../assets/icons/location.svg?react'
+import useModal from '../../../hooks/useModal';
+import CalendarAddFullIcon from '../../../assets/icons/calendar_add.svg?react';
+import CalendarAddIcon from '../../../assets/icons/calendar_add_border.svg?react';
+import LocationIcon from '../../../assets/icons/location.svg?react';
 
-import * as S from './style'
+import * as S from './style';
 
 type data = {
-  courseName: string
-  day: number
+  courseName: string;
+  day: number;
   mytrips: {
-    id: number
-    name: string
-    location: string
-  }[]
-}
+    id: number;
+    name: string;
+    location: string;
+  }[];
+};
 
 interface Props {
-  id: number
+  id: number;
 }
 
 function useCourseModal({ id }: Props) {
-  const [data, setCourseModalData] = useState<data>()
+  const [data, setCourseModalData] = useState<data>();
   const { Modal, modalOpen, modalClose } = useModal({
     title: '',
     handle: true,
     borderRadius: '30px',
-  })
+  });
 
   function CourseModal() {
     return (
@@ -46,7 +46,7 @@ function useCourseModal({ id }: Props) {
                 <S.TravelListTitle>내 여행목록</S.TravelListTitle>
                 <S.TravelCreate>새 여행 생성</S.TravelCreate>
               </S.TravelListHeader>
-              {data?.mytrips.map(mytrip => (
+              {data?.mytrips.map((mytrip) => (
                 <S.TravelItem>
                   <S.TravelInfoContainer>
                     <S.TravelThumbnailWrapper />
@@ -68,7 +68,7 @@ function useCourseModal({ id }: Props) {
           </S.CourseModalContainer>
         </Modal>
       </S.ModalWrapper>
-    )
+    );
   }
 
   return {
@@ -76,7 +76,7 @@ function useCourseModal({ id }: Props) {
     courseModalOpen: modalOpen,
     courseModalClose: modalClose,
     setCourseModalData,
-  }
+  };
 }
 
-export default useCourseModal
+export default useCourseModal;

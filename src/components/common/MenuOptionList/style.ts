@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const MenuList = styled.ul`
   padding: 0 20px;
@@ -6,7 +6,7 @@ export const MenuList = styled.ul`
   flex-direction: column;
   gap: 10px;
   padding-bottom: 10px;
-`
+`;
 
 export const MenuItem = styled.li<{ color?: string }>`
   padding: 5px 0;
@@ -31,4 +31,4 @@ export const MenuItem = styled.li<{ color?: string }>`
       fill: ${({ color, theme }) => color || theme.gray01};
     }
   }
-`
+`;

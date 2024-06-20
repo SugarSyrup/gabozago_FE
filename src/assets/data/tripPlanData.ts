@@ -1,27 +1,27 @@
 export interface Place {
-  id: string | number
-  placeName: string
-  theme: string
-  placeId: number
-  position: { lat: number; lng: number }
-  placeImage?: string
-  memo: string
-  transport: '도보' | '버스' | '차량' | '지하철' | ''
-  travelTime: string
+  id: string | number;
+  placeName: string;
+  theme: string;
+  placeId: number;
+  position: { lat: number; lng: number };
+  placeImage?: string;
+  memo: string;
+  transport: '도보' | '버스' | '차량' | '지하철' | '';
+  travelTime: string;
 }
 export interface DayPlan {
-  day: number
-  date: Date
-  dayOfWeek: string
-  route: Place[]
+  day: number;
+  date: Date;
+  dayOfWeek: string;
+  route: Place[];
 }
 export interface Trip {
-  title: string
-  departureDate: Date
-  arrivalDate: Date
-  days: number
-  transport: string
-  plan: DayPlan[] | null
+  title: string;
+  departureDate: Date;
+  arrivalDate: Date;
+  days: number;
+  transport: string;
+  plan: DayPlan[] | null;
 }
 export const data: Trip = {
   title: '즐거운 부산 여행',
@@ -121,4 +121,4 @@ export const data: Trip = {
       route: [],
     },
   ],
-}
+};

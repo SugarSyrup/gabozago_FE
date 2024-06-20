@@ -1,8 +1,8 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.form<{
-  backgroundColor: string
-  borderColor: string
+  backgroundColor: string;
+  borderColor: string;
 }>`
   padding: 7px 20px;
   border-radius: 20px;
@@ -20,7 +20,7 @@ export const Container = styled.form<{
   position: relative;
 
   width: 100%;
-`
+`;
 
 export const Input = styled.input<{ placeholderColor?: string }>`
   border: none;
@@ -38,7 +38,7 @@ export const Input = styled.input<{ placeholderColor?: string }>`
   &:focus {
     outline: none;
   }
-`
+`;
 
 export const Btns = styled.div`
   display: flex;
@@ -52,7 +52,7 @@ export const Btns = styled.div`
       fill: ${({ theme }) => theme.gray04};
     }
   }
-`
+`;
 
 export const SearchButton = styled.div<{ searchIconColor?: string }>`
   display: flex;
@@ -64,4 +64,4 @@ export const SearchButton = styled.div<{ searchIconColor?: string }>`
       fill: ${({ theme, searchIconColor }) => searchIconColor || theme.main};
     }
   }
-`
+`;

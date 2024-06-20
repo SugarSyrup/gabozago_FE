@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const ThumbnailWrapper = styled.img`
   width: 100%;
@@ -9,7 +9,7 @@ export const ThumbnailWrapper = styled.img`
   top: 0px;
   left: 0px;
   z-index: 2;
-`
+`;
 
 export const Header = styled.header`
   position: relative;
@@ -25,14 +25,14 @@ export const Header = styled.header`
   padding-bottom: 25px;
 
   background-color: white;
-`
+`;
 
 export const Type = styled.span`
   color: ${({ theme }) => theme.gray01};
   font-size: 13px;
   font-weight: 400;
   line-height: 28px;
-`
+`;
 
 export const Title = styled.div`
   max-width: 100%;
@@ -44,7 +44,7 @@ export const Title = styled.div`
 
   font-size: 18px;
   font-weight: 600;
-`
+`;
 
 export const UserContainer = styled.div`
   width: 100%;
@@ -59,13 +59,13 @@ export const UserContainer = styled.div`
     width: 40px;
     height: 40px;
   }
-`
+`;
 
 export const AvatarImg = styled.img`
   width: 40px;
   height: 40px;
   border-radius: 100%;
-`
+`;
 
 export const UserInfo = styled.div`
   margin-left: 10px;
@@ -74,7 +74,7 @@ export const UserInfo = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 2px;
-`
+`;
 
 export const FollowBtnWrapper = styled.div`
   position: absolute;
@@ -84,17 +84,17 @@ export const FollowBtnWrapper = styled.div`
     width: 12px;
     height: 12px;
   }
-`
+`;
 
 export const Name = styled.span`
   font-size: 14px;
   font-weight: 600;
-`
+`;
 
 export const Date = styled.span`
   color: ${({ theme }) => theme.gray01};
   font-size: 12px;
-`
+`;
 
 export const Contents = styled.div`
   margin-top: 14px;
@@ -104,7 +104,7 @@ export const Contents = styled.div`
   padding-left: 20px;
   padding-right: 20px;
   padding-bottom: 36px;
-`
+`;
 
 export const Day = styled.div`
   width: 100%;
@@ -123,7 +123,7 @@ export const Day = styled.div`
     font-weight: 600;
     line-height: 28px;
   }
-`
+`;
 
 export const SeperateLine = styled.div`
   transform: translateX(-20px);
@@ -132,7 +132,7 @@ export const SeperateLine = styled.div`
   height: 8px;
 
   background-color: ${({ theme }) => theme.gray06};
-`
+`;
 
 export const DayLink = styled.span`
   color: white;
@@ -140,7 +140,7 @@ export const DayLink = styled.span`
   font-weight: 500;
   line-height: 28px;
   text-decoration-line: underline;
-`
+`;
 
 export const Comments = styled.div`
   width: 100%;
@@ -149,4 +149,4 @@ export const Comments = styled.div`
   padding-right: 20px;
 
   background-color: white;
-`
+`;

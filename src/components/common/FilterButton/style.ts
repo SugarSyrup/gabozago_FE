@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const FilterButton = styled.button`
   display: flex;
@@ -33,4 +33,4 @@ export const FilterButton = styled.button`
   &:active {
     background-color: ${({ theme }) => theme.gray05};
   }
-`
+`;

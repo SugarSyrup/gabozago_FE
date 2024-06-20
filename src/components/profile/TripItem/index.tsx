@@ -1,58 +1,47 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
-import { useNavigate } from 'react-router-dom'
-import KebabMenuIcon from '../../../assets/icons/menu_kebab.svg?react'
-import LocationIcon from '../../../assets/icons/location.svg?react'
-import CalendarIcon from '../../../assets/icons/calendar.svg?react'
-import SmallLogoIcon from '../../../assets/icons/logo_small.svg?react'
-import useMyTripModal from '../../../hooks/useMyTripModal'
-import Typography from '../../common/Typography'
+import { useNavigate } from 'react-router-dom';
+import KebabMenuIcon from '../../../assets/icons/menu_kebab.svg?react';
+import LocationIcon from '../../../assets/icons/location.svg?react';
+import CalendarIcon from '../../../assets/icons/calendar.svg?react';
+import SmallLogoIcon from '../../../assets/icons/logo_small.svg?react';
+import useMyTripModal from '../../../hooks/useMyTripModal';
+import Typography from '../../common/Typography';
 
-import * as S from './style'
+import * as S from './style';
 
 interface Props {
-  id: number
-  title: string
-  departureDate: string
-  arrivalDate: string
-  location: string[]
-  thumbnailURL: string
+  id: number;
+  title: string;
+  departureDate: string;
+  arrivalDate: string;
+  location: string[];
+  thumbnailURL: string;
 }
 
-function TripItem({
-  id,
-  title,
-  location,
-  departureDate,
-  arrivalDate,
-  thumbnailURL,
-}: Props) {
-  const navigate = useNavigate()
+function TripItem({ id, title, location, departureDate, arrivalDate, thumbnailURL }: Props) {
+  const navigate = useNavigate();
   const { MyTripModal, modalOpen, modalClose, isModalOpend } = useMyTripModal({
     id,
     title,
     departureDate,
     arrivalDate,
-  })
+  });
 
   return (
     <>
       <MyTripModal />
       <S.Container
-        onClick={e => {
+        onClick={(e) => {
           if (e.target.tagName == 'svg' || e.target.tagName == 'path') {
-            modalOpen()
+            modalOpen();
           } else {
-            navigate(`/mytrip/${id}`)
+            navigate(`/mytrip/${id}`);
           }
         }}
       >
         <S.ThumbnailWrapper>
-          {thumbnailURL ? (
-            <img src={thumbnailURL} alt="thumbnail" />
-          ) : (
-            <SmallLogoIcon />
-          )}
+          {thumbnailURL ? <img src={thumbnailURL} alt="thumbnail" /> : <SmallLogoIcon />}
         </S.ThumbnailWrapper>
         <S.Info>
           <S.Name>
@@ -78,7 +67,7 @@ function TripItem({
         </S.OptionWrapper>
       </S.Container>
     </>
-  )
+  );
 }
 
-export default TripItem
+export default TripItem;

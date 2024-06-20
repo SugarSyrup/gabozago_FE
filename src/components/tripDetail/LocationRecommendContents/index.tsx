@@ -1,54 +1,52 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
-import { get } from '../../../utils/api'
+import { get } from '../../../utils/api';
 
-import Typography from '../../common/Typography'
-import RecommendationReviewItem from '../RecommendationReviewItem'
+import Typography from '../../common/Typography';
+import RecommendationReviewItem from '../RecommendationReviewItem';
 
-import * as S from './style'
+import * as S from './style';
 
 interface Props {
-  locations: string[]
+  locations: string[];
 }
 
 interface TRecommendData {
   article: {
-    id: number
-    title: string
-    location: string[]
-    thumbnailURL: string
-    claps: number
-    comment: number
-    bookmark: number
-  }[]
+    id: number;
+    title: string;
+    location: string[];
+    thumbnailURL: string;
+    claps: number;
+    comment: number;
+    bookmark: number;
+  }[];
   short_form: {
-    id: number
-    title: string
-    location: string[]
-    videoId: string
-    claps: number
-    comment: number
-    bookmark: number
-  }[]
+    id: number;
+    title: string;
+    location: string[];
+    videoId: string;
+    claps: number;
+    comment: number;
+    bookmark: number;
+  }[];
 }
 
 function LocationRecommendContents({ locations }: Props) {
-  const [data, setData] = useState<TRecommendData[]>()
+  const [data, setData] = useState<TRecommendData[]>();
 
   useEffect(() => {
-    get<TRecommendData[]>(
-      `my-travel/location/content?name=${locations.toLocaleString()}`
-    ).then(response => {
-      setData(response.data)
-    })
-  }, [])
+    get<TRecommendData[]>(`my-travel/location/content?name=${locations.toLocaleString()}`).then(
+      (response) => {
+        setData(response.data);
+      },
+    );
+  }, []);
 
   return (
     <>
       {data && (data[0].article || data[1].short_form) && (
-        <Typography.Title size="lg">
-          추가한 여행지를 포함한 콘텐츠 제공
-        </Typography.Title>
+        <Typography.Title size="lg">추가한 여행지를 포함한 콘텐츠 제공</Typography.Title>
       )}
       <S.RecommendatoinReviewList>
         {data && data[0].article && (
@@ -77,7 +75,7 @@ function LocationRecommendContents({ locations }: Props) {
         )}
       </S.RecommendatoinReviewList>
     </>
-  )
+  );
 }
 
-export default LocationRecommendContents
+export default LocationRecommendContents;

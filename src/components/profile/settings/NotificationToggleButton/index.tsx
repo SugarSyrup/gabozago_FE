@@ -1,11 +1,11 @@
-import { MouseEventHandler } from 'react'
-import * as S from './style'
+import { MouseEventHandler } from 'react';
+import * as S from './style';
 
 interface Props {
-  name: string
-  desc: string
-  active: boolean
-  onClick: MouseEventHandler
+  name: string;
+  desc: string;
+  active: boolean;
+  onClick: MouseEventHandler;
 }
 function NotificationToggleButton({ name, desc, active, onClick }: Props) {
   return (
@@ -16,7 +16,7 @@ function NotificationToggleButton({ name, desc, active, onClick }: Props) {
       </div>
       <S.ToggleButton active={active} onClick={onClick} />
     </S.Container>
-  )
+  );
 }
 
-export default NotificationToggleButton
+export default NotificationToggleButton;

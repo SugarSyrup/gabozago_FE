@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Card = styled.div`
   width: 320px;
@@ -8,7 +8,7 @@ export const Card = styled.div`
   background-color: ${({ theme }) => theme.blue04};
 
   position: relative;
-`
+`;
 
 export const InfoContainer = styled.div`
   position: relative;
@@ -23,7 +23,7 @@ export const InfoContainer = styled.div`
   gap: 10px;
 
   border-bottom: ${({ theme }) => `.4px solid ${theme.white}`};
-`
+`;
 
 export const ThumbnailWrapper = styled.div`
   width: 68px;
@@ -46,7 +46,7 @@ export const ThumbnailWrapper = styled.div`
     height: 100%;
     border-radius: 100%;
   }
-`
+`;
 
 export const TextContainer = styled.div`
   display: flex;
@@ -54,13 +54,13 @@ export const TextContainer = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   gap: 5px;
-`
+`;
 
 export const Infos = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2px;
-`
+`;
 
 export const Info = styled.span`
   display: flex;
@@ -76,14 +76,14 @@ export const Info = styled.span`
       fill: ${({ theme }) => theme.main};
     }
   }
-`
+`;
 
 export const MenuIcon = styled.div`
   cursor: pointer;
   position: absolute;
   right: 15px;
   top: 15px;
-`
+`;
 
 export const ButtonContainer = styled.div`
   height: 40px;
@@ -91,7 +91,7 @@ export const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 
 export const ButtonValue = styled.div`
   display: flex;
@@ -106,4 +106,4 @@ export const ButtonValue = styled.div`
       fill: ${({ theme }) => theme.main};
     }
   }
-`
+`;

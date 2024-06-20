@@ -1,10 +1,10 @@
-import useAlert from '../../../hooks/useAlert'
-import CalendarAddIcon from '../../../assets/icons/calendar_add_border.svg?react'
+import useAlert from '../../../hooks/useAlert';
+import CalendarAddIcon from '../../../assets/icons/calendar_add_border.svg?react';
 
-import * as S from './style'
+import * as S from './style';
 
 interface Props {
-  onClick: () => void
+  onClick: () => void;
 }
 
 function useScrapAlert({ onClick }: Props) {
@@ -14,19 +14,19 @@ function useScrapAlert({ onClick }: Props) {
     RightContent: (
       <S.ModalOpen
         onClick={() => {
-          onClick()
+          onClick();
         }}
       >
         변경하기
       </S.ModalOpen>
     ),
-  })
+  });
 
   return {
     ScrapAlert: Alert,
     scrapAlertOpen: alertOpen,
     scrapAlertClose: alertClose,
-  }
+  };
 }
 
-export default useScrapAlert
+export default useScrapAlert;

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
@@ -12,7 +12,7 @@ export const Container = styled.div`
     justify-content: center;
     align-items: center;
   }
-`
+`;
 
 export const Infomation = styled.div`
   display: flex;
@@ -23,12 +23,12 @@ export const Infomation = styled.div`
   border-radius: 5px;
   border: 1px solid ${({ theme }) => theme.blue02};
   background: ${({ theme }) => theme.blue05};
-`
+`;
 
 export const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
-`
+`;
 
 export const Name = styled.span`
   display: flex;
@@ -58,7 +58,7 @@ export const Name = styled.span`
       fill: #121212;
     }
   }
-`
+`;
 
 export const Address = styled.span`
   margin-left: 32px;
@@ -67,7 +67,7 @@ export const Address = styled.span`
   font-size: 9px;
   font-weight: 400;
   letter-spacing: 0.5px;
-`
+`;
 
 export const Buttons = styled.div`
   display: flex;
@@ -75,7 +75,7 @@ export const Buttons = styled.div`
 
   div.icon {
   }
-`
+`;
 
 export const Icon = styled.div`
   display: flex;
@@ -100,4 +100,4 @@ export const Icon = styled.div`
     font-size: 8px;
     white-space: nowrap;
   }
-`
+`;

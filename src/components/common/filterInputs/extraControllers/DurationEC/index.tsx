@@ -1,8 +1,8 @@
-import * as S from './style'
+import * as S from './style';
 
 interface Props {
-  filter: [number, number]
-  setFilter: React.Dispatch<React.SetStateAction<[number, number]>>
+  filter: [number, number];
+  setFilter: React.Dispatch<React.SetStateAction<[number, number]>>;
 }
 
 function HeadCountEC({ filter, setFilter }: Props) {
@@ -23,25 +23,25 @@ function HeadCountEC({ filter, setFilter }: Props) {
       text: '장기여행(30일~)',
       value: [30, 100],
     },
-  ]
+  ];
 
   return (
     <S.List>
-      {options.map(item => (
+      {options.map((item) => (
         <S.Item>
           <S.CheckboxInput
             type="checkbox"
             id={item.text}
             checked={filter[0] === item.value[0] && filter[1] === item.value[1]}
             onChange={() => {
-              setFilter(item.value)
+              setFilter(item.value);
             }}
           />
           <label htmlFor={item.text}>{item.text}</label>
         </S.Item>
       ))}
     </S.List>
-  )
+  );
 }
 
-export default HeadCountEC
+export default HeadCountEC;

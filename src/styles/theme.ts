@@ -18,6 +18,6 @@ const theme = {
   gray05: '#F3F4F6',
   gray06: '#F6F6F6',
   gray07: '#FDFDFD',
-}
+};
 
-export default theme
+export default theme;

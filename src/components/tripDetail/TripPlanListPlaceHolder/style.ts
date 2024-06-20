@@ -1,11 +1,11 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const List = styled.ol`
   display: flex;
   flex-direction: column;
   gap: 18px;
   width: 100%;
-`
+`;
 
 export const Item = styled.li`
   width: 100%;
@@ -44,4 +44,4 @@ export const Item = styled.li`
     height: 90%;
     background-color: ${({ theme }) => theme.blue02};
   }
-`
+`;

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const ContentsWrapper = styled.div`
   height: 90dvh;
@@ -9,7 +9,7 @@ export const ContentsWrapper = styled.div`
   width: calc(100% + 40px);
   margin-left: -20px;
   background-color: ${({ theme }) => theme.gray05};
-`
+`;
 
 export const UserSettingButton = styled.button`
   width: 100%;
@@ -35,7 +35,7 @@ export const UserSettingButton = styled.button`
       fill: #a6a6a6;
     }
   }
-`
+`;
 
 export const UserSettingLeftItems = styled.div`
   display: flex;
@@ -51,7 +51,7 @@ export const UserSettingLeftItems = styled.div`
   img {
     border-radius: 100%;
   }
-`
+`;
 
 export const SettingsContainer = styled.div`
   height: 100%;
@@ -63,11 +63,11 @@ export const SettingsContainer = styled.div`
   gap: 10px;
 
   background-color: ${({ theme }) => theme.white};
-`
+`;
 
 export const SettingTitleParagraph = styled.p`
   margin-bottom: 5px;
-`
+`;
 
 export const SettingItem = styled.li`
   padding: 6px 0;
@@ -90,7 +90,7 @@ export const SettingItem = styled.li`
       fill: #a6a6a6;
     }
   }
-`
+`;
 
 export const LeaveButton = styled.button`
   position: absolute;
@@ -101,4 +101,4 @@ export const LeaveButton = styled.button`
   border: 0;
   background-color: transparent;
   color: ${({ theme }) => theme.gray02};
-`
+`;

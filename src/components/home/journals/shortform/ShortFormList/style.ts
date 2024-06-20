@@ -1,25 +1,25 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const List = styled.ol`
   display: grid;
   grid-template-columns: repeat(2, minmax(150px, 1fr));
   gap: 20px 20px;
-`
+`;
 
-export const ListItem = styled.li``
+export const ListItem = styled.li``;
 
 export const Container = styled.div`
   position: relative;
   border-radius: 6px;
   overflow: hidden;
   line-height: 0;
-`
+`;
 
 export const Views = styled.span`
   position: absolute;
   top: 10px;
   right: 10px;
-`
+`;
 
 export const InfoBox = styled.div`
   padding: 10px 10px;
@@ -54,9 +54,9 @@ export const InfoBox = styled.div`
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
   }
-`
+`;
 
 export const ThumbnailImage = styled.img`
   width: 100%;
   object-fit: cover;
-`
+`;

@@ -1,24 +1,24 @@
-import { useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import PageTemplate from '../../components/common/PageTemplate'
-import PageHeader from '../../components/common/PageHeader'
-import Typography from '../../components/common/Typography'
+import PageTemplate from '../../components/common/PageTemplate';
+import PageHeader from '../../components/common/PageHeader';
+import Typography from '../../components/common/Typography';
 
-import * as S from './style'
+import * as S from './style';
 
 interface TTerm {
-  id: string
-  title: string
+  id: string;
+  title: string;
   contents: {
-    heading?: string
-    text: string
-  }[]
+    heading?: string;
+    text: string;
+  }[];
 }
 
 function TermsPage() {
-  const navigate = useNavigate()
-  const { id } = useParams()
+  const navigate = useNavigate();
+  const { id } = useParams();
   const termsMap: TTerm[] = [
     {
       id: '01',
@@ -76,15 +76,15 @@ function TermsPage() {
         },
       ],
     },
-  ]
-  const data: TTerm | undefined = termsMap.find(item => item.id === id)
+  ];
+  const data: TTerm | undefined = termsMap.find((item) => item.id === id);
 
   useEffect(() => {
     if (id === undefined || data === undefined) {
-      alert('접근할 수 없는 페이지입니다.')
-      navigate(-1)
+      alert('접근할 수 없는 페이지입니다.');
+      navigate(-1);
     }
-  }, [id, data])
+  }, [id, data]);
 
   return (
     data && (
@@ -104,7 +104,7 @@ function TermsPage() {
         ))}
       </PageTemplate>
     )
-  )
+  );
 }
 
-export default TermsPage
+export default TermsPage;

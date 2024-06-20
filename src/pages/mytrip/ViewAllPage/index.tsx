@@ -1,8 +1,8 @@
-import PageHeader from '../../../components/common/PageHeader'
-import PageTemplate from '../../../components/common/PageTemplate'
-import Typography from '../../../components/common/Typography'
+import PageHeader from '../../../components/common/PageHeader';
+import PageTemplate from '../../../components/common/PageTemplate';
+import Typography from '../../../components/common/Typography';
 
-import ViewAllMyTrips from '../../../components/mytrip/ViewAllMyTrips'
+import ViewAllMyTrips from '../../../components/mytrip/ViewAllMyTrips';
 
 function ViewAllPage() {
   return (
@@ -16,7 +16,7 @@ function ViewAllPage() {
     >
       <ViewAllMyTrips />
     </PageTemplate>
-  )
+  );
 }
 
-export default ViewAllPage
+export default ViewAllPage;

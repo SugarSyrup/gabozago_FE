@@ -1,21 +1,21 @@
-import DoubleCircleIcon from '../../../assets/icons/double_circle.svg?react'
-import BookIcon from '../../../assets/icons/book.svg?react'
-import useModal from '../../../hooks/useModal'
-import isLogin from '../../../utils/isLogin'
+import DoubleCircleIcon from '../../../assets/icons/double_circle.svg?react';
+import BookIcon from '../../../assets/icons/book.svg?react';
+import useModal from '../../../hooks/useModal';
+import isLogin from '../../../utils/isLogin';
 
-import * as S from './style'
+import * as S from './style';
 
 interface Props {
   data: {
-    index: number
-    name: string
-    type: 'station'
-  }[]
-  refs: React.MutableRefObject<null[] | HTMLDivElement[]>
+    index: number;
+    name: string;
+    type: 'station';
+  }[];
+  refs: React.MutableRefObject<null[] | HTMLDivElement[]>;
 }
 
 function StationContainer({ data, refs }: Props) {
-  const { Modal, modalOpen, modalClose, isOpend } = useModal({})
+  const { Modal, modalOpen, modalClose, isOpend } = useModal({});
 
   return (
     <>
@@ -25,10 +25,7 @@ function StationContainer({ data, refs }: Props) {
           {data !== undefined &&
             data.map((station, index) => (
               <S.StationItem>
-                <S.Linker
-                  isFirst={index === 0}
-                  isLast={index + 1 === data.length}
-                >
+                <S.Linker isFirst={index === 0} isLast={index + 1 === data.length}>
                   <DoubleCircleIcon />
                 </S.Linker>
                 <S.TextContainer
@@ -37,8 +34,8 @@ function StationContainer({ data, refs }: Props) {
                     if (isLogin()) {
                       refs.current[station.index]?.scrollIntoView({
                         behavior: 'smooth',
-                      })
-                      modalClose()
+                      });
+                      modalClose();
                     }
                   }}
                 >
@@ -46,9 +43,7 @@ function StationContainer({ data, refs }: Props) {
                     Station
                     {station.index}
                   </S.StationNumber>
-                  <S.StationName
-                    dangerouslySetInnerHTML={{ __html: station.name }}
-                  />
+                  <S.StationName dangerouslySetInnerHTML={{ __html: station.name }} />
                 </S.TextContainer>
               </S.StationItem>
             ))}
@@ -66,8 +61,8 @@ function StationContainer({ data, refs }: Props) {
                 if (isLogin()) {
                   refs.current[station.index]?.scrollIntoView({
                     behavior: 'smooth',
-                  })
-                  modalClose()
+                  });
+                  modalClose();
                 }
               }}
             >
@@ -75,22 +70,20 @@ function StationContainer({ data, refs }: Props) {
                 Station
                 {station.index}
               </S.StationNumber>
-              <S.StationName
-                dangerouslySetInnerHTML={{ __html: station.name }}
-              />
+              <S.StationName dangerouslySetInnerHTML={{ __html: station.name }} />
             </S.TextContainer>
           </S.StationItem>
         ))}
       </S.StationList>
       <S.StationIcon
         onClick={() => {
-          modalOpen()
+          modalOpen();
         }}
       >
         <BookIcon />
       </S.StationIcon>
     </>
-  )
+  );
 }
 
-export default StationContainer
+export default StationContainer;

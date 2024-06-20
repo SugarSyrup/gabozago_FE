@@ -1,18 +1,18 @@
-import ChevronRightIcon from '../../../assets/icons/chevron_right.svg?react'
-import CalendarAddIcon from '../../../assets/icons/calendar_add_border.svg?react'
-import BookMarkIcon from '../../../assets/icons/bookmark.svg?react'
+import ChevronRightIcon from '../../../assets/icons/chevron_right.svg?react';
+import CalendarAddIcon from '../../../assets/icons/calendar_add_border.svg?react';
+import BookMarkIcon from '../../../assets/icons/bookmark.svg?react';
 
-import * as S from './style'
-import PhotoSlider from '../PhotoSlider'
+import * as S from './style';
+import PhotoSlider from '../PhotoSlider';
 
 interface Props {
-  index: number
-  thumbnailURL: string
-  name: string
-  content: string
-  photosURL: string[]
-  onCalendarClick: () => void
-  onScrapClick: () => void
+  index: number;
+  thumbnailURL: string;
+  name: string;
+  content: string;
+  photosURL: string[];
+  onCalendarClick: () => void;
+  onScrapClick: () => void;
 }
 
 const idxName = [
@@ -36,7 +36,7 @@ const idxName = [
   '열여덟',
   '열아홉',
   '스무',
-]
+];
 
 function Place({
   index,
@@ -66,7 +66,7 @@ function Place({
         <S.PlaceButtons>
           <S.PlaceButtonContainer
             onClick={() => {
-              onCalendarClick()
+              onCalendarClick();
             }}
           >
             {/* TODO: 일정에 추가 버튼 클릭 */}
@@ -75,7 +75,7 @@ function Place({
           </S.PlaceButtonContainer>
           <S.PlaceButtonContainer
             onClick={() => {
-              onScrapClick()
+              onScrapClick();
             }}
           >
             {/* TODO: 장소 스크랩 버튼 클릭 */}
@@ -88,7 +88,7 @@ function Place({
       <S.PlaceReview>{content}</S.PlaceReview>
       <PhotoSlider photosURL={photosURL} />
     </S.PlaceContainer>
-  )
+  );
 }
 
-export default Place
+export default Place;

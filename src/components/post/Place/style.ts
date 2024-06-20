@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const PlaceContainer = styled.div`
   width: 100%;
@@ -9,7 +9,7 @@ export const PlaceContainer = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-`
+`;
 
 export const PlaceIndex = styled.div`
   display: flex;
@@ -21,7 +21,7 @@ export const PlaceIndex = styled.div`
     font-weight: 400;
     line-height: 21.588px; /* 154.2% */
   }
-`
+`;
 
 export const IndexCircle = styled.div`
   width: 18px;
@@ -35,7 +35,7 @@ export const IndexCircle = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 10px;
-`
+`;
 
 export const PlaceHeader = styled.div`
   width: 100%;
@@ -45,7 +45,7 @@ export const PlaceHeader = styled.div`
   align-items: center;
 
   margin-top: 18px;
-`
+`;
 
 export const PlaceNameContainer = styled.div`
   display: flex;
@@ -56,7 +56,7 @@ export const PlaceNameContainer = styled.div`
     width: 18px;
     height: 18px;
   }
-`
+`;
 
 export const PlaceThumbnail = styled.img`
   width: 40px;
@@ -64,18 +64,18 @@ export const PlaceThumbnail = styled.img`
   border-radius: 100%;
 
   background-color: ${({ theme }) => theme.gray03};
-`
+`;
 
 export const PlaceName = styled.span`
   font-size: 20px;
   font-weight: 600;
-`
+`;
 
 export const PlaceButtons = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
-`
+`;
 
 export const PlaceButtonContainer = styled.div`
   display: flex;
@@ -97,7 +97,7 @@ export const PlaceButtonContainer = styled.div`
     text-align: center;
     font-size: 8px;
   }
-`
+`;
 
 export const PlaceReview = styled.span`
   margin-top: 20px;
@@ -107,4 +107,4 @@ export const PlaceReview = styled.span`
   line-height: 26px;
 
   white-space: pre-line;
-`
+`;

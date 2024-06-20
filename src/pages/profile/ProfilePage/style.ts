@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const SettingIconWrapper = styled.div`
   position: absolute;
@@ -17,7 +17,7 @@ export const SettingIconWrapper = styled.div`
       height: 30px !important;
     }
   }
-`
+`;
 
 export const FixedContainer = styled.div`
   position: absolute;
@@ -31,12 +31,12 @@ export const FixedContainer = styled.div`
   width: 100%;
 
   background-color: white;
-`
+`;
 
 export const Content = styled.div<{ FixedContainerHeight: number | undefined }>`
   padding-top: ${({ FixedContainerHeight }) =>
     FixedContainerHeight ? `${FixedContainerHeight - 10}px` : '200px'};
-`
+`;
 
 export const Header = styled.header`
   display: flex;
@@ -44,7 +44,7 @@ export const Header = styled.header`
   align-items: center;
 
   width: 100%;
-`
+`;
 
 export const UserProfile = styled.div`
   display: flex;
@@ -65,7 +65,7 @@ export const UserProfile = styled.div`
     border-radius: 100%;
     object-fit: cover;
   }
-`
+`;
 
 export const ProfileEditBtn = styled.button`
   padding: 4px 20px;
@@ -74,7 +74,7 @@ export const ProfileEditBtn = styled.button`
   cursor: pointer;
 
   color: ${({ theme }) => theme.main};
-`
+`;
 
 export const UserIntroduce = styled.div`
   width: 100%;
@@ -83,7 +83,7 @@ export const UserIntroduce = styled.div`
   background-color: ${({ theme }) => theme.blue05};
 
   margin-top: 10px;
-`
+`;
 
 export const Statics = styled.ol`
   width: 100%;
@@ -103,7 +103,7 @@ export const Statics = styled.ol`
     grid-template-rows: repeat(4, minmax(0px, 1fr));
   }
   gap: 10px;
-`
+`;
 
 export const StaticItem = styled.li<{ isHover?: boolean }>`
   width: 100%;
@@ -123,15 +123,15 @@ export const StaticItem = styled.li<{ isHover?: boolean }>`
     background-color: ${({ isHover, theme }) => isHover && theme.blue04};
     cursor: pointer;
   }
-`
+`;
 
 export const StaticItemName = styled.h4`
   color: #a6a6a6;
-`
+`;
 
 export const StaticItemStat = styled.span`
   color: ${({ theme }) => theme.gray};
-`
+`;
 
 export const TapNavigationBar = styled.nav`
   width: 100%;
@@ -141,7 +141,7 @@ export const TapNavigationBar = styled.nav`
   gap: 24px;
   justify-content: flex-start;
   align-items: center;
-`
+`;
 
 export const TapNavigation = styled.span<{ isHighlight?: boolean }>`
   padding-bottom: 6px;
@@ -154,9 +154,8 @@ export const TapNavigation = styled.span<{ isHighlight?: boolean }>`
 
   box-sizing: content-box;
 
-  color: ${({ theme, isHighlight }) =>
-    isHighlight ? theme.main : theme.gray01};
-`
+  color: ${({ theme, isHighlight }) => (isHighlight ? theme.main : theme.gray01)};
+`;
 
 export const SeperateLine = styled.div`
   position: absolute;
@@ -164,7 +163,7 @@ export const SeperateLine = styled.div`
   height: 2px;
   left: 0px;
   background-color: ${({ theme }) => theme.gray05};
-`
+`;
 
 export const HighLightLine = styled.div<{ position: string }>`
   position: absolute;
@@ -176,4 +175,4 @@ export const HighLightLine = styled.div<{ position: string }>`
   left: ${({ position }) => position === 'activity' && '96px'};
 
   transition: left 0.2s ease-in-out;
-`
+`;

@@ -1,15 +1,15 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 
 interface Props {
-  size: 'sm' | 'md' | 'lg'
-  noOfLine?: number
-  maxWidth?: number
-  color?: string
+  size: 'sm' | 'md' | 'lg';
+  noOfLine?: number;
+  maxWidth?: number;
+  color?: string;
 }
 
 export const Headline = styled.h1<Props>`
   ${({ theme, size, color }) => {
-    const COLOR = color || theme.black
+    const COLOR = color || theme.black;
 
     switch (size) {
       case 'lg':
@@ -18,21 +18,21 @@ export const Headline = styled.h1<Props>`
           font-size: 24px;
           font-weight: 600;
           line-height: 40px;
-        `
+        `;
       case 'md':
         return css`
           color: ${COLOR};
           font-size: 22px;
           font-weight: 600;
           line-height: 36px;
-        `
+        `;
       case 'sm':
         return css`
           color: ${COLOR};
           font-size: 20px;
           font-weight: 600;
           line-height: 32px;
-        `
+        `;
     }
   }}
 
@@ -44,4 +44,4 @@ export const Headline = styled.h1<Props>`
   display: -webkit-box;
   -webkit-line-clamp: ${({ noOfLine }) => noOfLine || 1};
   -webkit-box-orient: vertical;
-`
+`;

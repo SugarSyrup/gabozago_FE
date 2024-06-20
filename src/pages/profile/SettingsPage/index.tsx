@@ -1,14 +1,14 @@
-import { useLoaderData, useNavigate } from 'react-router-dom'
+import { useLoaderData, useNavigate } from 'react-router-dom';
 
-import ChevronRightIcon from '../../../assets/icons/chevron_right.svg?react'
-import UserIcon from '../../../assets/icons/user.svg?react'
-import { TUserProfile } from '../../../assets/types/TUserProfile'
+import ChevronRightIcon from '../../../assets/icons/chevron_right.svg?react';
+import UserIcon from '../../../assets/icons/user.svg?react';
+import { TUserProfile } from '../../../assets/types/TUserProfile';
 
-import PageTemplate from '../../../components/common/PageTemplate'
-import PageHeader from '../../../components/common/PageHeader'
-import Typography from '../../../components/common/Typography'
+import PageTemplate from '../../../components/common/PageTemplate';
+import PageHeader from '../../../components/common/PageHeader';
+import Typography from '../../../components/common/Typography';
 
-import * as S from './style'
+import * as S from './style';
 
 function SettingsPage() {
   const {
@@ -20,8 +20,8 @@ function SettingsPage() {
     scrapCount,
     myTravelCount,
     myTravelDay,
-  } = useLoaderData() as TUserProfile
-  const navigate = useNavigate()
+  } = useLoaderData() as TUserProfile;
+  const navigate = useNavigate();
   const settings = [
     {
       title: '고객 지원',
@@ -57,7 +57,7 @@ function SettingsPage() {
         },
       ],
     },
-  ]
+  ];
 
   return (
     <PageTemplate
@@ -70,11 +70,7 @@ function SettingsPage() {
       <S.ContentsWrapper>
         <S.UserSettingButton onClick={() => navigate('/profile/edit')}>
           <S.UserSettingLeftItems>
-            {avatarURL ? (
-              <img src={avatarURL} alt="user avatar" />
-            ) : (
-              <UserIcon />
-            )}
+            {avatarURL ? <img src={avatarURL} alt="user avatar" /> : <UserIcon />}
             <div>
               <Typography.Title size="lg">{nickname}</Typography.Title>
               <Typography.Label size="lg">프로필 및 계정 설정</Typography.Label>
@@ -83,16 +79,16 @@ function SettingsPage() {
           <ChevronRightIcon />
         </S.UserSettingButton>
         <S.SettingsContainer>
-          {settings.map(group => (
+          {settings.map((group) => (
             <div>
               <S.SettingTitleParagraph>
                 <Typography.Title size="lg">{group.title}</Typography.Title>
               </S.SettingTitleParagraph>
               <ol>
-                {group.items.map(item => (
+                {group.items.map((item) => (
                   <S.SettingItem
                     onClick={() => {
-                      navigate(item.path)
+                      navigate(item.path);
                     }}
                   >
                     <Typography.Body size="md" color="inherit">
@@ -107,7 +103,7 @@ function SettingsPage() {
         </S.SettingsContainer>
         <S.LeaveButton
           onClick={() => {
-            navigate('/leave')
+            navigate('/leave');
           }}
         >
           <Typography.Body size="lg" color="inherit">
@@ -116,7 +112,7 @@ function SettingsPage() {
         </S.LeaveButton>
       </S.ContentsWrapper>
     </PageTemplate>
-  )
+  );
 }
 
-export default SettingsPage
+export default SettingsPage;

@@ -1,30 +1,30 @@
-import { useNavigate, Link } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useNavigate, Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
-import Typography from '../../../components/common/Typography'
-import PageTemplate from '../../../components/common/PageTemplate'
-import PageHeader from '../../../components/common/PageHeader'
-import Button from '../../../components/common/Button'
+import Typography from '../../../components/common/Typography';
+import PageTemplate from '../../../components/common/PageTemplate';
+import PageHeader from '../../../components/common/PageHeader';
+import Button from '../../../components/common/Button';
 
-import QuestionsIcon from '../../../assets/icons/cs-questions.svg?react'
-import SettingsIcon from '../../../assets/icons/cs-settings.svg?react'
-import ServicesIcon from '../../../assets/icons/cs-services.svg?react'
-import RightChevron from '../../../assets/icons/chevron_right.svg?react'
+import QuestionsIcon from '../../../assets/icons/cs-questions.svg?react';
+import SettingsIcon from '../../../assets/icons/cs-settings.svg?react';
+import ServicesIcon from '../../../assets/icons/cs-services.svg?react';
+import RightChevron from '../../../assets/icons/chevron_right.svg?react';
 
-import { get } from '../../../utils/api'
+import { get } from '../../../utils/api';
 
-import * as S from './style'
+import * as S from './style';
 
 function CSCenterPage() {
-  const [focusedCategory, setFocusedCategory] = useState<string>('01')
+  const [focusedCategory, setFocusedCategory] = useState<string>('01');
   const [questions, setQuestions] = useState<
     {
-      id: string | number
-      category?: string
-      title: string
+      id: string | number;
+      category?: string;
+      title: string;
     }[]
-  >([{ id: '00', title: '-' }])
-  const navigate = useNavigate()
+  >([{ id: '00', title: '-' }]);
+  const navigate = useNavigate();
   const categoryMap: { value: string; text: string; icon: JSX.Element }[] = [
     {
       value: '01',
@@ -37,17 +37,17 @@ function CSCenterPage() {
       icon: <SettingsIcon />,
     },
     { value: '03', text: '서비스 / 기타', icon: <ServicesIcon /> },
-  ]
+  ];
 
   useEffect(() => {
     get<{
-      next: string
-      previous: string
-      results: { id: number; category: string; title: string }[]
+      next: string;
+      previous: string;
+      results: { id: number; category: string; title: string }[];
     }>('/settings/support/help/faq', {
       params: { category: `FAQ${focusedCategory}` },
-    }).then(({ data }) => setQuestions(data.results))
-  }, [focusedCategory])
+    }).then(({ data }) => setQuestions(data.results));
+  }, [focusedCategory]);
 
   return (
     <PageTemplate
@@ -59,7 +59,7 @@ function CSCenterPage() {
             type="normal"
             width="100%"
             onClick={() => {
-              navigate('./inquiry')
+              navigate('./inquiry');
             }}
           >
             서비스 문의하기
@@ -82,7 +82,7 @@ function CSCenterPage() {
               <S.CategoryButton
                 className={focusedCategory === value ? 'active' : ''}
                 onClick={() => {
-                  setFocusedCategory(value)
+                  setFocusedCategory(value);
                 }}
               >
                 {icon}
@@ -106,7 +106,7 @@ function CSCenterPage() {
         </S.StyledLink>
       </S.Container>
     </PageTemplate>
-  )
+  );
 }
 
-export default CSCenterPage
+export default CSCenterPage;

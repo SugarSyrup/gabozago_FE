@@ -1,30 +1,26 @@
-import { ReactNode, useState } from 'react'
-import * as S from './style'
-import useBodyScrollLock from '../useBodyScrollLock'
+import { ReactNode, useState } from 'react';
+import * as S from './style';
+import useBodyScrollLock from '../useBodyScrollLock';
 
 interface Options {
-  title?: string
-  handle?: boolean
-  borderRadius?: string
-  height?: string
+  title?: string;
+  handle?: boolean;
+  borderRadius?: string;
+  height?: string;
 }
 
-function useModal({
-  title = '',
-  handle = true,
-  borderRadius = '30px',
-}: Options) {
-  const [isOpend, setIsOpend] = useState(false)
-  const { lockScroll, unlockScroll } = useBodyScrollLock()
+function useModal({ title = '', handle = true, borderRadius = '30px' }: Options) {
+  const [isOpend, setIsOpend] = useState(false);
+  const { lockScroll, unlockScroll } = useBodyScrollLock();
 
   const modalOpen = () => {
-    setIsOpend(true)
-    lockScroll()
-  }
+    setIsOpend(true);
+    lockScroll();
+  };
   const modalClose = () => {
-    setIsOpend(false)
-    unlockScroll()
-  }
+    setIsOpend(false);
+    unlockScroll();
+  };
 
   function Modal({ children }: { children?: ReactNode }) {
     return (
@@ -32,8 +28,8 @@ function useModal({
         {isOpend && (
           <S.ModalContainer onClick={modalClose}>
             <S.Modal
-              onClick={e => {
-                e.stopPropagation()
+              onClick={(e) => {
+                e.stopPropagation();
               }}
               borderRadius={borderRadius}
             >
@@ -46,7 +42,7 @@ function useModal({
           </S.ModalContainer>
         )}
       </S.ModalWrapper>
-    )
+    );
   }
 
   return {
@@ -54,7 +50,7 @@ function useModal({
     modalOpen,
     modalClose,
     Modal,
-  }
+  };
 }
 
-export default useModal
+export default useModal;

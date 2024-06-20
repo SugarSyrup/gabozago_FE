@@ -1,11 +1,11 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const CalendarHeader = styled.span<{ opacity: number }>`
   font-size: 14px;
   font-weight: 600;
   line-height: 22px;
   opacity: ${({ opacity }) => opacity};
-`
+`;
 
 export const Calendar = styled.div<{ opacity: number }>`
   width: 100%;
@@ -17,7 +17,7 @@ export const Calendar = styled.div<{ opacity: number }>`
   justify-items: center;
   grid-row-gap: 4px;
   opacity: ${({ opacity }) => opacity};
-`
+`;
 
 // 요일
 export const Day = styled.div`
@@ -32,9 +32,9 @@ export const Day = styled.div`
   font-weight: 500;
   line-height: 18px;
   color: rgba(60, 60, 67, 0.3);
-`
+`;
 interface DateProps {
-  isDuring: boolean
+  isDuring: boolean;
 }
 
 // 날짜
@@ -57,11 +57,11 @@ export const Date = styled.div<DateProps>`
 
   position: relative;
   z-index: 1;
-`
+`;
 
 export const DateHightlight = styled.div<{
-  isStartDate: boolean
-  isThisDate: boolean
+  isStartDate: boolean;
+  isThisDate: boolean;
 }>`
   width: 36px;
   height: 36px;
@@ -122,9 +122,9 @@ export const DateHightlight = styled.div<{
             right:0;
             z-index:-1;
         }`}
-`
+`;
 
 export const Empty = styled.div`
   width: 44px;
   height: 44px;
-`
+`;

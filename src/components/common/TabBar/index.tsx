@@ -1,14 +1,14 @@
-import { Dispatch, SetStateAction, createRef, useEffect, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
-import * as S from './style'
+import { Dispatch, SetStateAction, createRef, useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import * as S from './style';
 
 interface Props {
-  tabs: { id: number | string; name: string }[]
-  focusedTabIndex: number
-  setFocusedTabIndex: Dispatch<SetStateAction<number>>
-  widthStyle?: 'fit-content' | 'flexible' | undefined
-  fontSize?: string | undefined
-  color?: string | undefined
+  tabs: { id: number | string; name: string }[];
+  focusedTabIndex: number;
+  setFocusedTabIndex: Dispatch<SetStateAction<number>>;
+  widthStyle?: 'fit-content' | 'flexible' | undefined;
+  fontSize?: string | undefined;
+  color?: string | undefined;
 }
 
 function TabBar({
@@ -19,19 +19,19 @@ function TabBar({
   fontSize = '14px',
   color = 'default',
 }: Props) {
-  const [query, setQuery] = useSearchParams()
-  const tabRefs = tabs.map(() => createRef<HTMLLIElement>())
+  const [query, setQuery] = useSearchParams();
+  const tabRefs = tabs.map(() => createRef<HTMLLIElement>());
   const [highlightOption, setHighlightOption] = useState({
     x: 0,
     width: 0,
-  })
+  });
 
   useEffect(() => {
     if (tabRefs[focusedTabIndex].current) {
-      const { offsetLeft, offsetWidth } = tabRefs[focusedTabIndex].current
-      setHighlightOption({ x: offsetLeft, width: offsetWidth })
+      const { offsetLeft, offsetWidth } = tabRefs[focusedTabIndex].current;
+      setHighlightOption({ x: offsetLeft, width: offsetWidth });
     }
-  }, [focusedTabIndex])
+  }, [focusedTabIndex]);
 
   return (
     <S.Container widthStyle={widthStyle}>
@@ -41,9 +41,9 @@ function TabBar({
             key={tab.id}
             ref={tabRefs[index]}
             onClick={() => {
-              setFocusedTabIndex(index)
-              query.set('tab', String(index))
-              setQuery(query)
+              setFocusedTabIndex(index);
+              query.set('tab', String(index));
+              setQuery(query);
             }}
             focused={index === focusedTabIndex}
             widthStyle={widthStyle}
@@ -61,7 +61,7 @@ function TabBar({
         x={highlightOption.x}
       />
     </S.Container>
-  )
+  );
 }
 
-export default TabBar
+export default TabBar;

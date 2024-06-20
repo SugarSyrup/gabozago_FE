@@ -1,27 +1,27 @@
-import { ChangeEventHandler, useRef, useState } from 'react'
-import { useLoaderData, useNavigate } from 'react-router-dom'
+import { ChangeEventHandler, useRef, useState } from 'react';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 
-import Typography from '../../../components/common/Typography'
-import PageTemplate from '../../../components/common/PageTemplate'
-import PageHeader from '../../../components/common/PageHeader'
-import CheckBoxItem from '../../../components/common/CheckBox'
+import Typography from '../../../components/common/Typography';
+import PageTemplate from '../../../components/common/PageTemplate';
+import PageHeader from '../../../components/common/PageHeader';
+import CheckBoxItem from '../../../components/common/CheckBox';
 
-import { post } from '../../../utils/api'
+import { post } from '../../../utils/api';
 
-import * as S from './style'
-import SuggestionContainer from '../SuggestionContainer'
+import * as S from './style';
+import SuggestionContainer from '../SuggestionContainer';
 
 interface TReason {
-  value: string
-  text: string
+  value: string;
+  text: string;
 }
 
 function ResignPage() {
-  const nickname = useLoaderData() as string
-  const navigate = useNavigate()
-  const [selectedReason, setSelectedReason] = useState<string[]>([])
-  const [isPending, setIsPending] = useState<boolean>(false)
-  const suggestionRef = useRef<HTMLTextAreaElement>(null)
+  const nickname = useLoaderData() as string;
+  const navigate = useNavigate();
+  const [selectedReason, setSelectedReason] = useState<string[]>([]);
+  const [isPending, setIsPending] = useState<boolean>(false);
+  const suggestionRef = useRef<HTMLTextAreaElement>(null);
 
   const reasonMap: TReason[] = [
     { value: '01', text: '재가입' },
@@ -30,48 +30,48 @@ function ResignPage() {
     { value: '04', text: '개인정보보호 및 보안' },
     { value: '05', text: '다른 서비스로의 이동' },
     { value: '06', text: '기타' },
-  ]
+  ];
 
   // 탈퇴 사유 선택
-  const toggleReason: ChangeEventHandler<HTMLInputElement> = e => {
-    const value = e.target.id
+  const toggleReason: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const value = e.target.id;
 
     if (selectedReason.includes(value)) {
-      setSelectedReason(prev => prev.filter(item => item !== value))
+      setSelectedReason((prev) => prev.filter((item) => item !== value));
     } else {
-      setSelectedReason(prev => [...prev, value])
+      setSelectedReason((prev) => [...prev, value]);
     }
-  }
+  };
 
   // 탈퇴하기
   const onSubmit = async () => {
     if (isPending) {
-      return
+      return;
     }
     if (selectedReason.length === 0) {
-      alert('탈퇴 사유를 선택해 주세요.')
-      return
+      alert('탈퇴 사유를 선택해 주세요.');
+      return;
     }
 
     const reqData = {
-      reason: selectedReason.map(item => `WDRL${item}`),
+      reason: selectedReason.map((item) => `WDRL${item}`),
       suggestion: suggestionRef?.current.value || null,
-    }
+    };
 
-    setIsPending(true)
+    setIsPending(true);
     const { data } = await post<{
-      message: 'INACTIVATE SUCCESS' | 'INACTIVATE FAILED'
-    }>('/settings/withdraw', reqData)
+      message: 'INACTIVATE SUCCESS' | 'INACTIVATE FAILED';
+    }>('/settings/withdraw', reqData);
 
     if (data.message === 'INACTIVATE SUCCESS') {
-      localStorage.clear() // 로그아웃
-      setIsPending(false)
-      navigate('/leave/done')
+      localStorage.clear(); // 로그아웃
+      setIsPending(false);
+      navigate('/leave/done');
     } else {
-      alert('ERROR: 오류가 발생했습니다.')
-      setIsPending(false)
+      alert('ERROR: 오류가 발생했습니다.');
+      setIsPending(false);
     }
-  }
+  };
 
   return (
     <PageTemplate
@@ -83,7 +83,7 @@ function ResignPage() {
           <S.ConfirmButton
             styleTheme="primary"
             onClick={() => {
-              navigate(-1)
+              navigate(-1);
             }}
           >
             취소하기
@@ -151,20 +151,14 @@ function ResignPage() {
             <span className="required-text">필수</span>
           </S.TitleParagraph>
           {selectedReason.length === 0 && (
-            <S.TitleDescParagraph>
-              최소 1개 이상의 탈퇴 사유를 선택해주세요.
-            </S.TitleDescParagraph>
+            <S.TitleDescParagraph>최소 1개 이상의 탈퇴 사유를 선택해주세요.</S.TitleDescParagraph>
           )}
         </div>
         <S.InfoContainer>
           <ul className="checkboxs">
             {reasonMap.map(({ value, text }) => (
               <li>
-                <CheckBoxItem
-                  name="탈퇴 사유"
-                  inputId={value}
-                  onChange={toggleReason}
-                >
+                <CheckBoxItem name="탈퇴 사유" inputId={value} onChange={toggleReason}>
                   {text}
                 </CheckBoxItem>
               </li>
@@ -174,7 +168,7 @@ function ResignPage() {
       </S.ReasonContainer>
       <SuggestionContainer suggestionRef={suggestionRef} />
     </PageTemplate>
-  )
+  );
 }
 
-export default ResignPage
+export default ResignPage;

@@ -1,21 +1,21 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const SelectContainer = styled.div`
   max-height: 60dvh;
   overflow-y: auto;
-`
+`;
 
 export const SubmitButtonContainer = styled.div`
   width: 100%;
   padding: 20px 30px;
-`
+`;
 
 export const DateParagraph = styled.p`
   padding: 0 10px;
   display: flex;
   gap: 20px;
   align-items: center;
-`
+`;
 
 export const Container = styled.div`
   z-index: 100;
@@ -31,7 +31,7 @@ export const Container = styled.div`
   justify-content: space-around;
 
   background-color: ${({ theme }) => theme.main};
-`
+`;
 
 export const Button = styled.button`
   flex-grow: 1;
@@ -48,4 +48,4 @@ export const Button = styled.button`
   border: 0;
   color: ${({ theme }) => theme.white};
   background-color: ${({ theme }) => theme.main};
-`
+`;

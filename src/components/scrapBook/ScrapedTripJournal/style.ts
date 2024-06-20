@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const ModalWrapper = styled.div<{ isOpen: boolean }>`
   position: fixed;
@@ -16,7 +16,7 @@ export const ModalWrapper = styled.div<{ isOpen: boolean }>`
   @supports (-webkit-touch-callout: none) {
     height: -webkit-fill-available;
   }
-`
+`;
 
 export const GroupList = styled.ol`
   margin-top: 18px;
@@ -24,7 +24,7 @@ export const GroupList = styled.ol`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 13px 20px;
-`
+`;
 
 export const GroupItem = styled.li<{ background?: string | undefined }>`
   position: relative;
@@ -37,8 +37,7 @@ export const GroupItem = styled.li<{ background?: string | undefined }>`
 
     border-radius: 10px;
     background-color: ${({ theme }) => theme.gray05};
-    background-image: ${({ background }) =>
-      background ? `url(${background})` : 'none'};
+    background-image: ${({ background }) => (background ? `url(${background})` : 'none')};
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -54,14 +53,14 @@ export const GroupItem = styled.li<{ background?: string | undefined }>`
   &:hover {
     text-decoration: underline;
   }
-`
+`;
 
 export const CreateNewGroupItem = styled(GroupItem)`
   div {
     background-color: ${({ theme }) => theme.blue05};
     background-size: auto;
   }
-`
+`;
 
 export const MenuButton = styled.button`
   position: absolute;
@@ -78,4 +77,4 @@ export const MenuButton = styled.button`
   &:hover {
     background-color: ${({ theme }) => theme.gray04};
   }
-`
+`;

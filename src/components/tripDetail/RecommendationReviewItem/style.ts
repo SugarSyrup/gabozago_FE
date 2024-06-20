@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
@@ -12,7 +12,7 @@ export const Container = styled.div`
 
   border-radius: 10px;
   background-color: #f9faff;
-`
+`;
 
 export const Thumbnail = styled.div`
   width: 40px;
@@ -39,7 +39,7 @@ export const Thumbnail = styled.div`
   img {
     border-radius: 100%;
   }
-`
+`;
 
 export const Infomation = styled.div`
   display: flex;
@@ -51,21 +51,21 @@ export const Infomation = styled.div`
     width: 16px;
     height: 16px;
   }
-`
+`;
 
 export const Desc = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 20px;
-`
+`;
 
 export const DescItem = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 5px;
-`
+`;
 
 export const SVGMainColorWrapper = styled.div`
   svg {
@@ -73,7 +73,7 @@ export const SVGMainColorWrapper = styled.div`
       fill: ${({ theme }) => theme.main};
     }
   }
-`
+`;
 
 export const SVGGrayColorWrapper = styled.div`
   svg {
@@ -81,7 +81,7 @@ export const SVGGrayColorWrapper = styled.div`
       fill: ${({ theme }) => theme.gray02};
     }
   }
-`
+`;
 
 export const LinkIcon = styled.div`
   position: absolute;
@@ -94,4 +94,4 @@ export const LinkIcon = styled.div`
       fill: #a6a6a6;
     }
   }
-`
+`;

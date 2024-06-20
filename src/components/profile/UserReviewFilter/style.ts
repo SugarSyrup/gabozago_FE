@@ -1,11 +1,11 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const FilterList = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
-`
+`;
 
 export const FilterItem = styled.div<{ isHighlight?: boolean }>`
   padding: 5px 11px;
@@ -23,4 +23,4 @@ export const FilterItem = styled.div<{ isHighlight?: boolean }>`
 
   background-color: ${({ theme, isHighlight }) => isHighlight && theme.main};
   color: ${({ isHighlight }) => isHighlight && 'white'};
-`
+`;

@@ -1,24 +1,24 @@
-import { useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
-import * as S from './style'
-import ClapIcon from '../../../assets/icons/clap_blue.svg?react'
-import BookMarkIcon from '../../../assets/icons/bookmark_black.svg?react'
-import CommentIcon from '../../../assets/icons/comment.svg?react'
-import RightChevronIcon from '../../../assets/icons/chevron_right.svg?react'
-import LogoIcon from '../../../assets/icons/logo_small.svg?react'
-import LocationIcon from '../../../assets/icons/location.svg?react'
-import Typography from '../../common/Typography'
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import * as S from './style';
+import ClapIcon from '../../../assets/icons/clap_blue.svg?react';
+import BookMarkIcon from '../../../assets/icons/bookmark_black.svg?react';
+import CommentIcon from '../../../assets/icons/comment.svg?react';
+import RightChevronIcon from '../../../assets/icons/chevron_right.svg?react';
+import LogoIcon from '../../../assets/icons/logo_small.svg?react';
+import LocationIcon from '../../../assets/icons/location.svg?react';
+import Typography from '../../common/Typography';
 
 interface Props {
-  type: 'short-form' | 'article'
-  id: number
-  videoId?: string
-  thumbnailURL?: string
-  name: string
-  location: string[]
-  hearts: number
-  comments: number
-  scraps: number
+  type: 'short-form' | 'article';
+  id: number;
+  videoId?: string;
+  thumbnailURL?: string;
+  name: string;
+  location: string[];
+  hearts: number;
+  comments: number;
+  scraps: number;
 }
 
 function RecommendationReviewItem({
@@ -32,15 +32,15 @@ function RecommendationReviewItem({
   thumbnailURL,
   videoId,
 }: Props) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <S.Container
       onClick={() => {
         if (type === 'article') {
-          navigate(`/article/${id}`)
+          navigate(`/article/${id}`);
         } else {
-          navigate(`/journal/shortform/${id}`)
+          navigate(`/journal/shortform/${id}`);
         }
       }}
     >
@@ -90,7 +90,7 @@ function RecommendationReviewItem({
         <RightChevronIcon />
       </S.LinkIcon>
     </S.Container>
-  )
+  );
 }
 
-export default RecommendationReviewItem
+export default RecommendationReviewItem;

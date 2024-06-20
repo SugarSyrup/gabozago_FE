@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
@@ -7,14 +7,14 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
-`
+`;
 
 export const Header = styled.header`
   width: 100%;
 
   display: flex;
   justify-content: space-between;
-`
+`;
 
 export const FollowCounts = styled.span`
   font-size: 14px;
@@ -28,7 +28,7 @@ export const FollowCounts = styled.span`
   span {
     color: ${({ theme }) => theme.gray01};
   }
-`
+`;
 
 export const List = styled.ol`
   width: 100%;
@@ -36,4 +36,4 @@ export const List = styled.ol`
   display: flex;
   flex-direction: column;
   gap: 2px;
-`
+`;

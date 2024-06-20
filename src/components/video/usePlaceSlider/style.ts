@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const SliderWrapper = styled.div`
   width: calc(100vw - 40px);
@@ -10,7 +10,7 @@ export const SliderWrapper = styled.div`
   margin-top: 26px;
 
   overflow: hidden;
-`
+`;
 
 export const SliderItem = styled.div`
   width: 100%;
@@ -20,7 +20,7 @@ export const SliderItem = styled.div`
   flex-direction: column;
   align-items: center;
   flex-shrink: 0;
-`
+`;
 
 export const Header = styled.header`
   width: 100%;
@@ -40,14 +40,14 @@ export const Header = styled.header`
     font-weight: 600;
     line-height: 22px;
   }
-`
+`;
 
 export const Photo = styled.img`
   width: 100%;
   height: 250px;
 
   margin-top: 20px;
-`
+`;
 
 export const PlaceState = styled.div`
   display: flex;
@@ -68,12 +68,12 @@ export const PlaceState = styled.div`
     font-weight: 400;
     line-height: 22px;
   }
-`
+`;
 
 export const SeperateLine = styled.div`
   width: calc(100% - 24px);
   border-bottom: 1px solid #adadad;
-`
+`;
 
 export const PlaceInfomationContainer = styled.div`
   box-sizing: border-box;
@@ -85,7 +85,7 @@ export const PlaceInfomationContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 20px;
-`
+`;
 
 export const PlaceInfomation = styled.div`
   width: 100%;
@@ -109,4 +109,4 @@ export const PlaceInfomation = styled.div`
     font-size: 13px;
     font-weight: 400;
   }
-`
+`;

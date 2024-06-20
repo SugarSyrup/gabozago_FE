@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 export const Container = styled.div`
   margin-top: 30px;
@@ -8,14 +8,14 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
-`
+`;
 
 export const Header = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-`
+`;
 
 export const TravelLink = styled(Link)`
   display: flex;
@@ -30,7 +30,7 @@ export const TravelLink = styled(Link)`
     width: 16px;
     height: 16px;
   }
-`
+`;
 
 export const CreateMyTrip = styled(Link)`
   width: 100%;
@@ -61,4 +61,4 @@ export const CreateMyTrip = styled(Link)`
       fill: #bdbdbd;
     }
   }
-`
+`;

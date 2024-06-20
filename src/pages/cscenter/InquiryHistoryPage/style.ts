@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 
 export const List = styled.ol`
   width: calc(100% + 40px);
@@ -29,7 +29,7 @@ export const List = styled.ol`
       align-items: center;
     }
   }
-`
+`;
 
 export const NoDataTextContainer = styled.div`
   position: fixed;
@@ -56,7 +56,7 @@ export const NoDataTextContainer = styled.div`
     line-height: 24px;
     letter-spacing: 0.15px;
   }
-`
+`;
 
 export const StatusSpan = styled.span<{ type: 'active' | 'inactive' }>`
   width: fit-content;
@@ -82,7 +82,7 @@ export const StatusSpan = styled.span<{ type: 'active' | 'inactive' }>`
           color: ${({ theme }) => theme.gray02};
           background: ${({ theme }) => theme.gray05};
         `}
-`
+`;
 
 export const DateSpan = styled.span`
   color: ${({ theme }) => theme.gray02};
@@ -93,4 +93,4 @@ export const DateSpan = styled.span`
   font-weight: 400;
   line-height: 16px;
   letter-spacing: 0.5px;
-`
+`;

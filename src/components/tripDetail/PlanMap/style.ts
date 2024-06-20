@@ -1,9 +1,9 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.div`
   width: calc(100% + 40px);
   transform: translateX(-20px);
-`
+`;
 export const MapOpenButton = styled.button`
   display: block;
   border: 0;
@@ -22,4 +22,4 @@ export const MapOpenButton = styled.button`
       fill: ${({ theme }) => theme.gray02};
     }
   }
-`
+`;

@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components'
+import styled, { keyframes } from 'styled-components';
 
 const fadeInOut = keyframes`
   0% {
@@ -17,7 +17,7 @@ const fadeInOut = keyframes`
     opacity: 0;
     display:none;
   }
-`
+`;
 
 export const AlertWrapper = styled.div`
   width: 100%;
@@ -32,7 +32,7 @@ export const AlertWrapper = styled.div`
   left: 50%;
   transform: translateX(-50%);
   z-index: 40;
-`
+`;
 
 export const Alert = styled.div<{ isOpen: boolean }>`
   width: 100%;
@@ -56,4 +56,4 @@ export const Alert = styled.div<{ isOpen: boolean }>`
       fill: white;
     }
   }
-`
+`;

@@ -1,11 +1,11 @@
-import { MouseEventHandler } from 'react'
-import * as S from './style'
-import ChevronBottomIcon from '../../../assets/icons/chevron_bottom_small.svg?react'
+import { MouseEventHandler } from 'react';
+import * as S from './style';
+import ChevronBottomIcon from '../../../assets/icons/chevron_bottom_small.svg?react';
 
 interface Props {
-  name: string
-  onClick: MouseEventHandler
-  isActive: boolean
+  name: string;
+  onClick: MouseEventHandler;
+  isActive: boolean;
 }
 
 function FilterButton({ name, onClick, isActive }: Props) {
@@ -14,7 +14,7 @@ function FilterButton({ name, onClick, isActive }: Props) {
       {name}
       <ChevronBottomIcon />
     </S.FilterButton>
-  )
+  );
 }
 
-export default FilterButton
+export default FilterButton;

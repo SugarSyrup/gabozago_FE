@@ -1,17 +1,17 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.div`
   padding: 0 20px;
   display: grid;
   grid-template-columns: 1fr 50px 1fr;
   grid-template-rows: auto;
-`
+`;
 
 export const InputWrapper = styled.div`
   display: flex;
   align-items: center;
   position: relative;
-`
+`;
 
 export const MidSpan = styled.span`
   display: flex;
@@ -20,7 +20,7 @@ export const MidSpan = styled.span`
   font-size: 16px;
   font-weight: 500;
   color: ${({ theme }) => theme.gray02};
-`
+`;
 
 export const NumberInput = styled.input`
   padding: 12px;
@@ -41,11 +41,11 @@ export const NumberInput = styled.input`
     outline: none;
     border: 2px solid ${({ theme }) => theme.blue02};
   }
-`
+`;
 
 export const UnitSpan = styled.span`
   position: absolute;
   right: 12px;
   font-size: 13px;
   color: ${({ theme }) => theme.gray02};
-`
+`;

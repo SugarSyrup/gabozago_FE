@@ -1,11 +1,11 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Header = styled.div`
   margin-top: 15px;
 
   display: flex;
   flex-direction: column;
-`
+`;
 
 export const DeleteIcon = styled.div`
   padding-top: 15px;
@@ -18,7 +18,7 @@ export const DeleteIcon = styled.div`
       fill: black;
     }
   }
-`
+`;
 
 export const MyTravelList = styled.div`
   width: 100%;
@@ -32,7 +32,7 @@ export const MyTravelList = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
-`
+`;
 
 export const MyTravelHeader = styled.div`
   margin-top: 35px;
@@ -40,7 +40,7 @@ export const MyTravelHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`
+`;
 
 export const CreateNewTravelButton = styled.div`
   padding: 4px 15px;
@@ -49,7 +49,7 @@ export const CreateNewTravelButton = styled.div`
 
   color: ${({ theme }) => theme.main};
   cursor: pointer;
-`
+`;
 
 export const Footer = styled.footer`
   width: 100%;
@@ -63,7 +63,7 @@ export const Footer = styled.footer`
   position: fixed;
   bottom: 0;
   background-color: white;
-`
+`;
 
 export const Button = styled.button<{ isActive: boolean }>`
   width: 100%;
@@ -72,13 +72,12 @@ export const Button = styled.button<{ isActive: boolean }>`
   border-radius: 30px;
 
   color: white;
-  background-color: ${({ isActive, theme }) =>
-    isActive ? theme.main : '#A6A6A6'};
+  background-color: ${({ isActive, theme }) => (isActive ? theme.main : '#A6A6A6')};
 
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 
 export const PopupWrapper = styled.div<{ isOpend: boolean }>`
   width: 100%;
@@ -90,7 +89,7 @@ export const PopupWrapper = styled.div<{ isOpend: boolean }>`
   position: fixed;
   top: 0;
   z-index: ${({ isOpend }) => (isOpend ? 100 : -1)};
-`
+`;
 
 export const PopupContentsContainer = styled.div`
   width: 100%;
@@ -106,7 +105,7 @@ export const PopupContentsContainer = styled.div`
     width: 40px;
     height: 40px;
   }
-`
+`;
 
 export const PopupTextContainer = styled.div`
   display: flex;
@@ -116,7 +115,7 @@ export const PopupTextContainer = styled.div`
   span:last-child {
     margin-top: 10px;
   }
-`
+`;
 
 export const PopupButtons = styled.div`
   width: 100%;
@@ -125,7 +124,7 @@ export const PopupButtons = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-`
+`;
 
 export const PopupButton = styled.button<{ isMain: boolean }>`
   width: 100%;
@@ -139,8 +138,7 @@ export const PopupButton = styled.button<{ isMain: boolean }>`
   justify-content: center;
   align-items: center;
 
-  background-color: ${({ isMain, theme }) =>
-    isMain ? '#F3F6FF' : theme.gray06};
+  background-color: ${({ isMain, theme }) => (isMain ? '#F3F6FF' : theme.gray06)};
   color: ${({ isMain, theme }) => (isMain ? theme.main : theme.black)};
   cursor: pointer;
-`
+`;

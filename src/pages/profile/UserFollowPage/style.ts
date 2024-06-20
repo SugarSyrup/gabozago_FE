@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const FixedHeader = styled.header`
   position: absolute;
@@ -12,7 +12,7 @@ export const FixedHeader = styled.header`
   width: 100%;
 
   background-color: white;
-`
+`;
 
 export const Header = styled.div`
   width: 100%;
@@ -34,7 +34,7 @@ export const Header = styled.div`
     font-size: 18px;
     font-weight: 700;
   }
-`
+`;
 
 export const TabNavigation = styled.div`
   width: 100%;
@@ -45,11 +45,10 @@ export const TabNavigation = styled.div`
 
   padding: 10px 24px;
   margin-top: 10px;
-`
+`;
 
 export const NavigationItem = styled.div<{ isHighlight: boolean }>`
-  color: ${({ theme, isHighlight }) =>
-    isHighlight ? theme.black : theme.gray01};
+  color: ${({ theme, isHighlight }) => (isHighlight ? theme.black : theme.gray01)};
   font-size: 14px;
   font-style: normal;
   font-weight: ${({ isHighlight }) => (isHighlight ? 700 : 500)};
@@ -63,7 +62,7 @@ export const NavigationItem = styled.div<{ isHighlight: boolean }>`
 
   cursor: pointer;
   transition: color 0.2s ease-in-out;
-`
+`;
 
 export const SeperateLine = styled.div`
   position: absolute;
@@ -71,7 +70,7 @@ export const SeperateLine = styled.div`
   height: 2px;
   left: 0px;
   background-color: ${({ theme }) => theme.gray05};
-`
+`;
 
 export const HighLightLine = styled.div<{ position: string }>`
   position: absolute;
@@ -83,15 +82,15 @@ export const HighLightLine = styled.div<{ position: string }>`
   left: ${({ position }) => position === 'following' && '50%'};
 
   transition: left 0.2s ease-in-out;
-`
+`;
 
 export const InputWrapper = styled.form`
   margin-top: 12px;
 
   border-radius: 20px;
-`
+`;
 
 export const ButtonWrapper = styled.button`
   border: none;
   background-color: inherit;
-`
+`;

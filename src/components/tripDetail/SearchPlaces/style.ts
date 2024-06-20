@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const SearchPlacesList = styled.div`
   width: 100%;
@@ -8,7 +8,7 @@ export const SearchPlacesList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
-`
+`;
 
 export const AddPlace = styled.div`
   width: 100%;
@@ -18,7 +18,7 @@ export const AddPlace = styled.div`
   align-items: center;
 
   margin-top: 28px;
-`
+`;
 
 export const Explain = styled.div`
   display: flex;
@@ -31,7 +31,7 @@ export const Explain = styled.div`
   line-height: 22px;
 
   color: ${({ theme }) => theme.gray01};
-`
+`;
 
 export const Button = styled.button`
   border: 1px solid ${({ theme }) => theme.main};
@@ -39,7 +39,7 @@ export const Button = styled.button`
   padding: 7px 23px;
   background-color: white;
   border-radius: 30px;
-`
+`;
 
 export const SearchedNotFounded = styled.div`
   display: flex;
@@ -52,7 +52,7 @@ export const SearchedNotFounded = styled.div`
     height: 60px;
     flex-shrink: 0;
   }
-`
+`;
 
 export const Title = styled.h4`
   font-size: 18px;
@@ -61,7 +61,7 @@ export const Title = styled.h4`
 
   margin-top: 14px;
   margin-bottom: 10px;
-`
+`;
 
 export const Desc = styled.span`
   font-size: 14px;
@@ -75,7 +75,7 @@ export const Desc = styled.span`
   text-align: center;
 
   color: ${({ theme }) => theme.gray02};
-`
+`;
 
 export const SelectedPlacesList = styled.ol`
   display: flex;
@@ -84,4 +84,4 @@ export const SelectedPlacesList = styled.ol`
   padding: 10px 28px;
   position: fixed;
   bottom: 0px;
-`
+`;

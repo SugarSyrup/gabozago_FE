@@ -1,32 +1,32 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { useSetRecoilState } from 'recoil'
-import Typography from '../../components/common/Typography'
-import InfomationIcon from '../../assets/icons/exclamation_circle.svg?react'
-import { deletes, patch } from '../../utils/api'
+import { useSetRecoilState } from 'recoil';
+import Typography from '../../components/common/Typography';
+import InfomationIcon from '../../assets/icons/exclamation_circle.svg?react';
+import { deletes, patch } from '../../utils/api';
 
-import useModal from '../useModal'
-import usePopup from '../usePopup'
+import useModal from '../useModal';
+import usePopup from '../usePopup';
 
-import * as S from './style'
-import { datesState } from '../../recoil/mytrip/createData'
-import { createTravelState } from '../../recoil/mytrip/createTravelState'
+import * as S from './style';
+import { datesState } from '../../recoil/mytrip/createData';
+import { createTravelState } from '../../recoil/mytrip/createTravelState';
 
 interface Props {
-  id: number
-  title: string
-  departureDate: string
-  arrivalDate: string
+  id: number;
+  title: string;
+  departureDate: string;
+  arrivalDate: string;
 }
 
 function useMyTripModal({ id, title, departureDate, arrivalDate }: Props) {
-  const navigate = useNavigate()
-  const setCreateTravelState = useSetRecoilState(createTravelState)
-  const { Modal, modalOpen, modalClose, isOpend: isModalOpend } = useModal({})
-  const { Popup, popupOpen, popupClose, isOpend: isPopupOpend } = usePopup()
-  const [popupType, setPopupType] = useState<'CHANGE' | 'DELETE'>('CHANGE')
-  const setDates = useSetRecoilState(datesState)
+  const navigate = useNavigate();
+  const setCreateTravelState = useSetRecoilState(createTravelState);
+  const { Modal, modalOpen, modalClose, isOpend: isModalOpend } = useModal({});
+  const { Popup, popupOpen, popupClose, isOpend: isPopupOpend } = usePopup();
+  const [popupType, setPopupType] = useState<'CHANGE' | 'DELETE'>('CHANGE');
+  const setDates = useSetRecoilState(datesState);
 
   function MyTripModal() {
     return (
@@ -47,22 +47,20 @@ function useMyTripModal({ id, title, departureDate, arrivalDate }: Props) {
               <S.PopupButtons>
                 <S.PopupButton
                   onClick={() => {
-                    popupClose()
+                    popupClose();
                   }}
                 >
                   <Typography.Body size="lg">아니요</Typography.Body>
                 </S.PopupButton>
                 <S.PopupButton
                   onClick={() => {
-                    deletes<{ message: string }>('/my-travel', { id }).then(
-                      response => {
-                        if (response.data.message === 'DELETE SUCCESS') {
-                          modalClose()
-                          popupClose()
-                          navigate(0)
-                        }
+                    deletes<{ message: string }>('/my-travel', { id }).then((response) => {
+                      if (response.data.message === 'DELETE SUCCESS') {
+                        modalClose();
+                        popupClose();
+                        navigate(0);
                       }
-                    )
+                    });
                   }}
                 >
                   <Typography.Body size="lg" color="#5276FA">
@@ -73,16 +71,16 @@ function useMyTripModal({ id, title, departureDate, arrivalDate }: Props) {
             </S.PopupContainer>
           ) : (
             <S.ChangePopupContainer
-              onSubmit={e => {
-                e.preventDefault()
-                const formData = new FormData(e.currentTarget)
+              onSubmit={(e) => {
+                e.preventDefault();
+                const formData = new FormData(e.currentTarget);
                 patch('/my-travel', {
                   id,
                   title: formData.get('title'),
                 }).then(() => {
-                  popupClose()
-                  navigate(0)
-                })
+                  popupClose();
+                  navigate(0);
+                });
               }}
             >
               <S.ChangePopupHeader>
@@ -93,12 +91,7 @@ function useMyTripModal({ id, title, departureDate, arrivalDate }: Props) {
                   </Typography.Title>
                 </S.FormButton>
               </S.ChangePopupHeader>
-              <S.ChangePopupInput
-                defaultValue={title}
-                name="title"
-                type="text"
-                maxLength={38}
-              />
+              <S.ChangePopupInput defaultValue={title} name="title" type="text" maxLength={38} />
             </S.ChangePopupContainer>
           )}
         </Popup>
@@ -106,18 +99,18 @@ function useMyTripModal({ id, title, departureDate, arrivalDate }: Props) {
           <S.TravelSettings>
             <div
               onClick={() => {
-                modalClose()
-                setPopupType('DELETE')
-                popupOpen()
+                modalClose();
+                setPopupType('DELETE');
+                popupOpen();
               }}
             >
               <Typography.Title size="lg">여행 기록 삭제</Typography.Title>
             </div>
             <div
               onClick={() => {
-                modalClose()
-                setPopupType('CHANGE')
-                popupOpen()
+                modalClose();
+                setPopupType('CHANGE');
+                popupOpen();
               }}
             >
               <Typography.Title size="lg">여행 제목 변경</Typography.Title>
@@ -127,9 +120,9 @@ function useMyTripModal({ id, title, departureDate, arrivalDate }: Props) {
                 setDates({
                   startDate: departureDate.replace('-', '').replace('-', ''),
                   endDate: arrivalDate.replace('-', '').replace('-', ''),
-                })
-                setCreateTravelState('edit')
-                navigate(`/mytrip/${id}/dateChange`)
+                });
+                setCreateTravelState('edit');
+                navigate(`/mytrip/${id}/dateChange`);
               }}
             >
               <Typography.Title size="lg">여행 날짜 변경</Typography.Title>
@@ -137,7 +130,7 @@ function useMyTripModal({ id, title, departureDate, arrivalDate }: Props) {
           </S.TravelSettings>
         </Modal>
       </S.ModalWrapper>
-    )
+    );
   }
 
   return {
@@ -145,7 +138,7 @@ function useMyTripModal({ id, title, departureDate, arrivalDate }: Props) {
     modalOpen,
     modalClose,
     isModalOpend,
-  }
+  };
 }
 
-export default useMyTripModal
+export default useMyTripModal;

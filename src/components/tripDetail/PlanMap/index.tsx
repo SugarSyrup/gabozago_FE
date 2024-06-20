@@ -1,88 +1,88 @@
-import { useEffect, useRef, useState } from 'react'
-import { Map, useMap } from '@vis.gl/react-google-maps'
-import * as S from './style'
-import ChevronBottomIcon from '../../../assets/icons/chevron_bottom.svg?react'
-import ChevronTopIcon from '../../../assets/icons/chevron_top.svg?react'
-import { DayPlan } from '../TripPlanList'
-import { markerColors } from '../../../pages/mytrip/DetailPage'
-import MarkerWithInfoWindow from '../MarkerWithInfoWindow'
-import Polyline from '../Polyline'
+import { useEffect, useRef, useState } from 'react';
+import { Map, useMap } from '@vis.gl/react-google-maps';
+import * as S from './style';
+import ChevronBottomIcon from '../../../assets/icons/chevron_bottom.svg?react';
+import ChevronTopIcon from '../../../assets/icons/chevron_top.svg?react';
+import { DayPlan } from '../TripPlanList';
+import { markerColors } from '../../../pages/mytrip/DetailPage';
+import MarkerWithInfoWindow from '../MarkerWithInfoWindow';
+import Polyline from '../Polyline';
 
 interface Props {
-  isEditMode: boolean
-  data: DayPlan[]
-  dayFilter: number
+  isEditMode: boolean;
+  data: DayPlan[];
+  dayFilter: number;
 }
 
 function PlanMap({ isEditMode, data = [], dayFilter }: Props) {
-  const [mapOpened, setMapOpend] = useState<boolean>(true)
-  const [mapFocused, setMapFocused] = useState<boolean>(false)
-  const [coords, setCoords] = useState<google.maps.LatLngLiteral[]>([])
-  const map = useMap('plan-map')
-  const mapRef = useRef<HTMLDivElement>(null)
+  const [mapOpened, setMapOpend] = useState<boolean>(true);
+  const [mapFocused, setMapFocused] = useState<boolean>(false);
+  const [coords, setCoords] = useState<google.maps.LatLngLiteral[]>([]);
+  const map = useMap('plan-map');
+  const mapRef = useRef<HTMLDivElement>(null);
 
   const setBounds = (coords: google.maps.LatLngLiteral[]) => {
-    const bounds = new google.maps.LatLngBounds()
+    const bounds = new google.maps.LatLngBounds();
 
-    coords.forEach(coord => {
-      bounds.extend(coord)
-    })
-    map?.fitBounds(bounds)
-  }
+    coords.forEach((coord) => {
+      bounds.extend(coord);
+    });
+    map?.fitBounds(bounds);
+  };
 
   const setMarkerCoords = (data: DayPlan[]) => {
-    const placePositions: google.maps.LatLngLiteral[] = []
+    const placePositions: google.maps.LatLngLiteral[] = [];
 
-    data.map(day => {
-      day.route.map(place => {
-        placePositions.push({ lat: place.latitude, lng: place.longitude })
-      })
-    })
+    data.map((day) => {
+      day.route.map((place) => {
+        placePositions.push({ lat: place.latitude, lng: place.longitude });
+      });
+    });
 
-    setCoords(placePositions)
-  }
+    setCoords(placePositions);
+  };
 
   useEffect(() => {
     if (isEditMode) {
-      setMapOpend(false)
-      setBounds(coords)
+      setMapOpend(false);
+      setBounds(coords);
     } else {
-      setMapOpend(true)
-      setBounds(coords)
+      setMapOpend(true);
+      setBounds(coords);
     }
-  }, [isEditMode])
+  }, [isEditMode]);
 
   useEffect(() => {
-    setMarkerCoords(data)
-  }, [data])
+    setMarkerCoords(data);
+  }, [data]);
 
   useEffect(() => {
-    if (!map) return
-    setBounds(coords)
-  }, [map, coords])
+    if (!map) return;
+    setBounds(coords);
+  }, [map, coords]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent | TouchEvent) => {
       if (mapRef.current && !mapRef.current.contains(event.target as Node)) {
-        setMapFocused(false)
+        setMapFocused(false);
       }
-    }
+    };
 
-    document.addEventListener('mousedown', handleClickOutside)
-    document.addEventListener('touchstart', handleClickOutside)
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-      document.removeEventListener('touchstart', handleClickOutside)
-    }
-  }, [mapRef])
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, [mapRef]);
 
   const getlineSymbol = (color: string) => ({
     path: 'M 0,-1 0,1',
     strokeOpacity: 1,
     scale: 4,
     strokeColor: color,
-  })
+  });
 
   return (
     <S.Container ref={mapRef}>
@@ -99,7 +99,7 @@ function PlanMap({ isEditMode, data = [], dayFilter }: Props) {
         disableDefaultUI
         mapId={import.meta.env.VITE_GOOGLEMAP_MAP_ID}
         onClick={() => {
-          setMapFocused(true)
+          setMapFocused(true);
         }}
       >
         {data.map(
@@ -116,9 +116,7 @@ function PlanMap({ isEditMode, data = [], dayFilter }: Props) {
                   strokeOpacity={0}
                   icons={[
                     {
-                      icon: getlineSymbol(
-                        markerColors[dayIndex % markerColors.length]
-                      ),
+                      icon: getlineSymbol(markerColors[dayIndex % markerColors.length]),
                       offset: '0',
                       repeat: '20px',
                     },
@@ -137,18 +135,18 @@ function PlanMap({ isEditMode, data = [], dayFilter }: Props) {
                   />
                 ))}
               </>
-            )
+            ),
         )}
       </Map>
       <S.MapOpenButton
         onClick={() => {
-          setMapOpend(prev => !prev)
+          setMapOpend((prev) => !prev);
         }}
       >
         {mapOpened ? <ChevronTopIcon /> : <ChevronBottomIcon />}
       </S.MapOpenButton>
     </S.Container>
-  )
+  );
 }
 
-export default PlanMap
+export default PlanMap;

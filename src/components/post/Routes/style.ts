@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 export const Route = styled.div`
   width: 100%;
@@ -15,7 +15,7 @@ export const Route = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 20px;
-`
+`;
 
 export const RouteLine = styled.div`
   width: 100%;
@@ -23,7 +23,7 @@ export const RouteLine = styled.div`
   margin-bottom: 20px;
 
   position: relative;
-`
+`;
 
 export const RouteItem = styled.div<{ left: number }>`
   position: absolute;
@@ -41,7 +41,7 @@ export const RouteItem = styled.div<{ left: number }>`
     font-weight: 400;
     line-height: 24.043px;
   }
-`
+`;
 
 export const RouteList = styled.ol`
   width: 100%;
@@ -51,7 +51,7 @@ export const RouteList = styled.ol`
   justify-content: flex-start;
   align-items: flex-start;
   gap: 15px;
-`
+`;
 
 export const RouteItemContent = styled.li<{ line: number }>`
   width: 100%;
@@ -67,7 +67,7 @@ export const RouteItemContent = styled.li<{ line: number }>`
   line-height: 21.588px;
 
   margin-top: ${({ line }) => line === 2 && '-15px'};
-`
+`;
 
 export const RouteItemLink = styled.span`
   color: ${({ theme }) => theme.gray01};
@@ -76,13 +76,13 @@ export const RouteItemLink = styled.span`
   text-decoration-line: underline;
 
   margin-left: -10px;
-`
+`;
 
 export const RouteVerticalLine = styled.div`
   width: 10px;
   height: 70px;
   border-right: 2px solid ${({ theme }) => theme.main};
-`
+`;
 
 export const RouteCourseLine = styled.div<{ length: number }>`
   width: ${({ length }) => 20 * (length - 1)}%;
@@ -90,7 +90,7 @@ export const RouteCourseLine = styled.div<{ length: number }>`
   padding-top: 35px;
 
   position: relative;
-`
+`;
 
 export const CourseContainer = styled.div<{ left: number }>`
   display: flex;
@@ -102,7 +102,7 @@ export const CourseContainer = styled.div<{ left: number }>`
   position: absolute;
   top: -20px;
   left: ${({ left }) => `${left}%`};
-`
+`;
 
 export const CourseImg = styled.img`
   width: 40px;
@@ -110,11 +110,11 @@ export const CourseImg = styled.img`
   border-radius: 100%;
 
   background-color: ${({ theme }) => theme.gray03};
-`
+`;
 
 export const CourseName = styled.span`
   text-align: center;
   font-size: 10px;
   font-weight: 400;
   line-height: 21.832px;
-`
+`;

@@ -1,39 +1,32 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
-import LocationIcon from '../../../assets/icons/location.svg?react'
-import KebabMenuIcon from '../../../assets/icons/menu_kebab.svg?react'
-import LogoSmallIcon from '../../../assets/icons/logo_small_text.svg?react'
-import CalendarIcon from '../../../assets/icons/calendar.svg?react'
-import RightCircleIcon from '../../../assets/icons/chevron_right_circle.svg?react'
+import LocationIcon from '../../../assets/icons/location.svg?react';
+import KebabMenuIcon from '../../../assets/icons/menu_kebab.svg?react';
+import LogoSmallIcon from '../../../assets/icons/logo_small_text.svg?react';
+import CalendarIcon from '../../../assets/icons/calendar.svg?react';
+import RightCircleIcon from '../../../assets/icons/chevron_right_circle.svg?react';
 
-import useMyTripModal from '../../../hooks/useMyTripModal'
-import Typography from '../../common/Typography'
-import * as S from './style'
+import useMyTripModal from '../../../hooks/useMyTripModal';
+import Typography from '../../common/Typography';
+import * as S from './style';
 
 interface Props {
-  id: number
-  title: string
-  departure_date: string
-  arrival_date: string
-  regions: string[]
-  thumbnailURL: string
+  id: number;
+  title: string;
+  departure_date: string;
+  arrival_date: string;
+  regions: string[];
+  thumbnailURL: string;
 }
 
-function MyScheduleCard({
-  id,
-  title,
-  departure_date,
-  arrival_date,
-  regions,
-  thumbnailURL,
-}: Props) {
-  const navigate = useNavigate()
+function MyScheduleCard({ id, title, departure_date, arrival_date, regions, thumbnailURL }: Props) {
+  const navigate = useNavigate();
   const { MyTripModal, modalOpen, modalClose, isModalOpend } = useMyTripModal({
     id,
     title,
     departureDate: departure_date,
     arrivalDate: arrival_date,
-  })
+  });
 
   return (
     <>
@@ -41,11 +34,7 @@ function MyScheduleCard({
       <S.Card>
         <S.InfoContainer>
           <S.ThumbnailWrapper>
-            {thumbnailURL ? (
-              <img src={thumbnailURL} alt="thumbnail" />
-            ) : (
-              <LogoSmallIcon />
-            )}
+            {thumbnailURL ? <img src={thumbnailURL} alt="thumbnail" /> : <LogoSmallIcon />}
           </S.ThumbnailWrapper>
           <S.TextContainer>
             <Typography.Title size="md" maxWidth={300} noOfLine={2}>
@@ -71,7 +60,7 @@ function MyScheduleCard({
           </S.TextContainer>
           <S.MenuIcon
             onClick={() => {
-              modalOpen()
+              modalOpen();
             }}
           >
             <KebabMenuIcon />
@@ -80,7 +69,7 @@ function MyScheduleCard({
         <S.ButtonContainer>
           <S.ButtonValue
             onClick={() => {
-              navigate(`/mytrip/${id}`)
+              navigate(`/mytrip/${id}`);
             }}
           >
             <Typography.Label size="lg" color="#5276FA">
@@ -91,7 +80,7 @@ function MyScheduleCard({
         </S.ButtonContainer>
       </S.Card>
     </>
-  )
+  );
 }
 
-export default MyScheduleCard
+export default MyScheduleCard;

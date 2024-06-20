@@ -1,15 +1,15 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 
 interface Props {
-  size: 'sm' | 'md' | 'lg'
-  noOfLine?: number
-  maxWidth?: number
-  color?: string
+  size: 'sm' | 'md' | 'lg';
+  noOfLine?: number;
+  maxWidth?: number;
+  color?: string;
 }
 
 export const Label = styled.label<Props>`
   ${({ theme, size, color }) => {
-    const COLOR = color || theme.black
+    const COLOR = color || theme.black;
 
     switch (size) {
       case 'lg':
@@ -19,7 +19,7 @@ export const Label = styled.label<Props>`
           font-weight: 400;
           line-height: 20px;
           letter-spacing: 0.1px;
-        `
+        `;
       case 'md':
         return css`
           color: ${COLOR};
@@ -27,7 +27,7 @@ export const Label = styled.label<Props>`
           font-weight: 400;
           line-height: 16px;
           letter-spacing: 0.5px;
-        `
+        `;
       case 'sm':
         return css`
           color: ${COLOR};
@@ -35,7 +35,7 @@ export const Label = styled.label<Props>`
           font-weight: 400;
           line-height: 16px;
           letter-spacing: 0.5px;
-        `
+        `;
     }
   }}
 
@@ -45,4 +45,4 @@ export const Label = styled.label<Props>`
   display: -webkit-box;
   -webkit-line-clamp: ${({ noOfLine }) => noOfLine || 1};
   -webkit-box-orient: vertical;
-`
+`;

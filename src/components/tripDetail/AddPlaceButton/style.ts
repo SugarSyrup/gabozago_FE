@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 
 const defaultButton = css`
   padding: 22px;
@@ -9,7 +9,7 @@ const defaultButton = css`
   svg {
     width: 24px;
   }
-`
+`;
 const smallButton = css`
   padding: 7px;
   gap: 6px;
@@ -19,7 +19,7 @@ const smallButton = css`
   svg {
     width: 14px;
   }
-`
+`;
 
 export const AddButton = styled.button<{ size: string }>`
   display: flex;
@@ -41,4 +41,4 @@ export const AddButton = styled.button<{ size: string }>`
     background-color: ${({ theme }) => theme.gray04};
   }
   ${({ size }) => (size === 'small' ? smallButton : defaultButton)}
-`
+`;

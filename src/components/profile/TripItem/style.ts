@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.li`
   width: 100%;
@@ -13,7 +13,7 @@ export const Container = styled.li`
   gap: 13px;
 
   position: relative;
-`
+`;
 
 export const ThumbnailWrapper = styled.div`
   width: 70px;
@@ -33,7 +33,7 @@ export const ThumbnailWrapper = styled.div`
     height: 100%;
     border-radius: 100%;
   }
-`
+`;
 
 export const Info = styled.div`
   padding-top: 5px;
@@ -44,14 +44,14 @@ export const Info = styled.div`
   flex-direction: column;
   justify-content: space-between;
   gap: 3px;
-`
+`;
 
 export const Name = styled.span`
   font-size: 14px;
   font-weight: 600;
 
   margin-bottom: 3px;
-`
+`;
 
 export const Desc = styled.span`
   color: ${({ theme }) => theme.gray01};
@@ -70,7 +70,7 @@ export const Desc = styled.span`
       fill: ${({ theme }) => theme.main};
     }
   }
-`
+`;
 
 export const OptionWrapper = styled.div`
   position: absolute;
@@ -80,4 +80,4 @@ export const OptionWrapper = styled.div`
   svg path {
     fill: ${({ theme }) => theme.gray02};
   }
-`
+`;

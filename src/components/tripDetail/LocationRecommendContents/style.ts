@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const RecommendatoinReviewList = styled.div`
   display: flex;
@@ -7,4 +7,4 @@ export const RecommendatoinReviewList = styled.div`
 
   width: 100%;
   gap: 15px;
-`
+`;

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const ContentText = styled.span`
   color: white;
@@ -6,7 +6,7 @@ export const ContentText = styled.span`
   font-size: 13px;
   font-weight: 500;
   line-height: 22px;
-`
+`;
 
 export const ModalOpen = styled.span`
   color: white;
@@ -15,4 +15,4 @@ export const ModalOpen = styled.span`
   line-height: 22px;
   text-decoration-line: underline;
   cursor: pointer;
-`
+`;

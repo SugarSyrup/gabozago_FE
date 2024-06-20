@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const RecommendationList = styled.div`
   width: 100%;
@@ -7,4 +7,4 @@ export const RecommendationList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
-`
+`;

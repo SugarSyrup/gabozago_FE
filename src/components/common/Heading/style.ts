@@ -1,9 +1,9 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 interface Props {
-  size: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
-  noOfLine?: number
-  maxWidth?: number
+  size: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  noOfLine?: number;
+  maxWidth?: number;
 }
 
 export const Heading = styled.h1<Props>`
@@ -26,4 +26,4 @@ export const Heading = styled.h1<Props>`
   display: -webkit-box;
   -webkit-line-clamp: ${({ noOfLine }) => noOfLine || 1};
   -webkit-box-orient: vertical;
-`
+`;

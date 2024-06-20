@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.div`
   position: fixed;
@@ -19,7 +19,7 @@ export const Container = styled.div`
   overflow: auto;
 
   background-color: ${({ theme }) => theme.gray06};
-`
+`;
 
 export const Header = styled.header`
   position: absolute;
@@ -42,4 +42,4 @@ export const Header = styled.header`
       stroke: white;
     }
   }
-`
+`;

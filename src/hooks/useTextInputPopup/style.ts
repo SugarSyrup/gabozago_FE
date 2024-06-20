@@ -1,17 +1,17 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Header = styled.div`
   margin-bottom: 13px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-`
+`;
 
 export const Title = styled.p`
   font-size: 12px;
   line-height: 22px;
   font-weight: 500;
-`
+`;
 
 export const SaveButton = styled.button`
   padding: 5px;
@@ -25,7 +25,7 @@ export const SaveButton = styled.button`
   &:hover {
     background-color: ${({ theme }) => theme.gray05};
   }
-`
+`;
 
 export const Input = styled.input`
   width: 100%;
@@ -34,4 +34,4 @@ export const Input = styled.input`
   border-bottom: 2px solid ${({ theme }) => theme.gray04};
 
   font-size: 16px;
-`
+`;

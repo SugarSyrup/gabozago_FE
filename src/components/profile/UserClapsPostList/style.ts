@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const List = styled.ol`
   width: 100%;
@@ -8,7 +8,7 @@ export const List = styled.ol`
   justify-content: flex-start;
   align-items: center;
   gap: 20px;
-`
+`;
 
 export const Item = styled.div`
   width: 100%;
@@ -22,7 +22,7 @@ export const Item = styled.div`
   gap: 10px;
 
   border-bottom: 1px solid #eee;
-`
+`;
 
 export const ThumbnailWrapper = styled.div`
   width: 68px;
@@ -49,7 +49,7 @@ export const ThumbnailWrapper = styled.div`
     border-radius: 6px;
     object-fit: cover;
   }
-`
+`;
 
 export const TextContainer = styled.div`
   height: 100%;
@@ -59,7 +59,7 @@ export const TextContainer = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   gap: 5px;
-`
+`;
 
 export const Name = styled.span`
   color: #121212;
@@ -68,7 +68,7 @@ export const Name = styled.span`
 
   max-width: 200px;
   text-overflow: ellipsis;
-`
+`;
 
 export const User = styled.span`
   display: flex;
@@ -91,7 +91,7 @@ export const User = styled.span`
     border-radius: 100%;
     object-fit: cover;
   }
-`
+`;
 
 export const Info = styled.div`
   display: flex;
@@ -117,4 +117,4 @@ export const Info = styled.div`
       }
     }
   }
-`
+`;

@@ -1,28 +1,28 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
-import useModal from '../../../hooks/useModal'
-import CalendarIcon from '../../../assets/icons/calendar.svg?react'
-import LocationIcon from '../../../assets/icons/location.svg?react'
+import useModal from '../../../hooks/useModal';
+import CalendarIcon from '../../../assets/icons/calendar.svg?react';
+import LocationIcon from '../../../assets/icons/location.svg?react';
 
-import * as S from './style'
+import * as S from './style';
 
 interface data {
-  courseName: string
-  day: number
+  courseName: string;
+  day: number;
   mytrips: {
-    id: number
-    name: string
-    location: string
-  }[]
+    id: number;
+    name: string;
+    location: string;
+  }[];
 }
 
 function usePlaceModal() {
-  const [data, setPlaceModalData] = useState<data>()
+  const [data, setPlaceModalData] = useState<data>();
   const { Modal, modalOpen, modalClose } = useModal({
     title: '',
     handle: true,
     borderRadius: '30px',
-  })
+  });
 
   function PlaceModal() {
     return (
@@ -67,7 +67,7 @@ function usePlaceModal() {
           </S.PlaceModalContainer>
         </Modal>
       </S.ModalWrapper>
-    )
+    );
   }
 
   return {
@@ -75,7 +75,7 @@ function usePlaceModal() {
     placeModalOpen: modalOpen,
     placeModalClose: modalClose,
     setPlaceModalData,
-  }
+  };
 }
 
-export default usePlaceModal
+export default usePlaceModal;

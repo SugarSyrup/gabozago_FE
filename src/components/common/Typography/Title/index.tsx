@@ -1,11 +1,11 @@
-import * as S from './style'
+import * as S from './style';
 
 interface Props {
-  children: React.ReactNode
-  size: 'sm' | 'md' | 'lg'
-  color?: string
-  noOfLine?: number
-  maxWidth?: number
+  children: React.ReactNode;
+  size: 'sm' | 'md' | 'lg';
+  color?: string;
+  noOfLine?: number;
+  maxWidth?: number;
 }
 
 function Title({ children, size, noOfLine, maxWidth, color }: Props) {
@@ -13,7 +13,7 @@ function Title({ children, size, noOfLine, maxWidth, color }: Props) {
     <S.Title size={size} noOfLine={noOfLine} maxWidth={maxWidth} color={color}>
       {children}
     </S.Title>
-  )
+  );
 }
 
-export default Title
+export default Title;

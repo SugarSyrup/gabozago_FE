@@ -1,11 +1,11 @@
-import MarketIcon from '../../../assets/icons/market.svg?react'
+import MarketIcon from '../../../assets/icons/market.svg?react';
 
-import * as S from './style'
+import * as S from './style';
 
 interface Props {
-  imageURL: string
-  name: string
-  address: string
+  imageURL: string;
+  name: string;
+  address: string;
 }
 
 function AbroadPlace({ imageURL, name, address }: Props) {
@@ -22,7 +22,7 @@ function AbroadPlace({ imageURL, name, address }: Props) {
         </S.TextContainer>
       </S.Infomation>
     </S.Container>
-  )
+  );
 }
 
-export default AbroadPlace
+export default AbroadPlace;

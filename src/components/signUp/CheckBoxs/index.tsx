@@ -1,8 +1,8 @@
-import { Dispatch, useEffect, useRef, useState } from 'react'
+import { Dispatch, useEffect, useRef, useState } from 'react';
 
-import CheckBoxItem from '../../common/CheckBox'
+import CheckBoxItem from '../../common/CheckBox';
 
-import * as S from './style'
+import * as S from './style';
 
 const terms = [
   {
@@ -27,41 +27,41 @@ const terms = [
     label: '이벤트 및 할인 혜택 안내 동의',
     required: false,
   },
-]
+];
 
 interface Props {
-  setCheckboxActive: Dispatch<React.SetStateAction<boolean>>
+  setCheckboxActive: Dispatch<React.SetStateAction<boolean>>;
 }
 
 function CheckBoxs({ setCheckboxActive }: Props) {
-  const [allChecks, setAllChecks] = useState(false)
-  const [ageCheck, setAgeCheck] = useState(false)
-  const [serviceCheck, setServiceCheck] = useState(false)
-  const [personalCheck, setPersonalCheck] = useState(false)
-  const [eventCheck, setEventCheck] = useState(false)
+  const [allChecks, setAllChecks] = useState(false);
+  const [ageCheck, setAgeCheck] = useState(false);
+  const [serviceCheck, setServiceCheck] = useState(false);
+  const [personalCheck, setPersonalCheck] = useState(false);
+  const [eventCheck, setEventCheck] = useState(false);
 
   useEffect(() => {
     if (allChecks === true) {
-      setAgeCheck(true)
-      setServiceCheck(true)
-      setPersonalCheck(true)
-      setCheckboxActive(true)
+      setAgeCheck(true);
+      setServiceCheck(true);
+      setPersonalCheck(true);
+      setCheckboxActive(true);
     }
-  }, [allChecks])
+  }, [allChecks]);
 
   useEffect(() => {
     if (ageCheck && serviceCheck && personalCheck) {
-      setCheckboxActive(true)
+      setCheckboxActive(true);
     } else {
-      setCheckboxActive(false)
+      setCheckboxActive(false);
     }
-  }, [ageCheck, serviceCheck, personalCheck])
+  }, [ageCheck, serviceCheck, personalCheck]);
 
   useEffect(() => {
     if (eventCheck && ageCheck && serviceCheck && personalCheck) {
-      setAllChecks(true)
+      setAllChecks(true);
     }
-  }, [eventCheck, ageCheck, serviceCheck, personalCheck])
+  }, [eventCheck, ageCheck, serviceCheck, personalCheck]);
 
   return (
     <S.CheckBoxsContainer>
@@ -69,19 +69,19 @@ function CheckBoxs({ setCheckboxActive }: Props) {
         <CheckBoxItem
           checked={allChecks}
           inputId="allCheck"
-          onChange={e => {
+          onChange={(e) => {
             const checkboxs = document.getElementsByClassName(
-              'checkbox'
-            ) as HTMLCollectionOf<HTMLInputElement>
+              'checkbox',
+            ) as HTMLCollectionOf<HTMLInputElement>;
 
             for (let i = 0; i < checkboxs.length; i++) {
               if (e.currentTarget.checked) {
-                checkboxs[i].checked = true
-                setAllChecks(true)
+                checkboxs[i].checked = true;
+                setAllChecks(true);
               } else {
-                checkboxs[i].checked = false
-                setAllChecks(false)
-                setCheckboxActive(false)
+                checkboxs[i].checked = false;
+                setAllChecks(false);
+                setCheckboxActive(false);
               }
             }
           }}
@@ -93,28 +93,28 @@ function CheckBoxs({ setCheckboxActive }: Props) {
         </CheckBoxItem>
       </S.CheckBoxContainer>
       <S.CheckBoxContainer>
-        {terms.map(term => (
+        {terms.map((term) => (
           <CheckBoxItem
             name={term.id}
             required={term.required}
             className="checkbox"
-            onClick={e => {
+            onClick={(e) => {
               switch (term.id) {
                 case 'ageCheck':
-                  setAgeCheck(e.currentTarget.checked)
-                  break
+                  setAgeCheck(e.currentTarget.checked);
+                  break;
                 case 'serviceCheck':
-                  setServiceCheck(e.currentTarget.checked)
-                  break
+                  setServiceCheck(e.currentTarget.checked);
+                  break;
                 case 'personalCheck':
-                  setPersonalCheck(e.currentTarget.checked)
-                  break
+                  setPersonalCheck(e.currentTarget.checked);
+                  break;
                 case 'eventCheck':
-                  setEventCheck(e.currentTarget.checked)
-                  break
+                  setEventCheck(e.currentTarget.checked);
+                  break;
               }
               if (!e.currentTarget.checked) {
-                setAllChecks(false)
+                setAllChecks(false);
               }
             }}
           >
@@ -122,7 +122,7 @@ function CheckBoxs({ setCheckboxActive }: Props) {
               {term.link ? (
                 <S.TermLink
                   onClick={() => {
-                    window.open(term.link, '_blank', 'width=500,height=600')
+                    window.open(term.link, '_blank', 'width=500,height=600');
                   }}
                 >
                   {term.label}
@@ -140,7 +140,7 @@ function CheckBoxs({ setCheckboxActive }: Props) {
         ))}
       </S.CheckBoxContainer>
     </S.CheckBoxsContainer>
-  )
+  );
 }
 
-export default CheckBoxs
+export default CheckBoxs;

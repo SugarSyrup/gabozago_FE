@@ -1,19 +1,13 @@
-import { useState } from 'react'
-import * as S from './style'
+import { useState } from 'react';
+import * as S from './style';
 
-function SuggestionContainer({
-  suggestionRef,
-}: {
-  suggestionRef: HTMLTextAreaElement
-}) {
-  const [suggestionText, setSuggestionText] = useState<string>('')
+function SuggestionContainer({ suggestionRef }: { suggestionRef: HTMLTextAreaElement }) {
+  const [suggestionText, setSuggestionText] = useState<string>('');
 
   return (
     <S.SuggestContainer>
       <div>
-        <S.TitleParagraph>
-          서비스 개선을 위한 제안사항이 있으신가요?
-        </S.TitleParagraph>
+        <S.TitleParagraph>서비스 개선을 위한 제안사항이 있으신가요?</S.TitleParagraph>
         <S.TitleDescParagraph>
           여러분의 소중한 의견을 반영하여 꼭 더 나은 서비스로 찾아뵙겠습니다.
         </S.TitleDescParagraph>
@@ -24,8 +18,8 @@ function SuggestionContainer({
           maxLength={200}
           ref={suggestionRef}
           value={suggestionText}
-          onChange={e => {
-            setSuggestionText(e.target.value)
+          onChange={(e) => {
+            setSuggestionText(e.target.value);
           }}
         />
         <S.TextCountParagraph>
@@ -34,7 +28,7 @@ function SuggestionContainer({
         </S.TextCountParagraph>
       </S.TextAreaContainer>
     </S.SuggestContainer>
-  )
+  );
 }
 
-export default SuggestionContainer
+export default SuggestionContainer;

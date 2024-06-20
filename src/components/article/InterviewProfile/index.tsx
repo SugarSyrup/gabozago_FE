@@ -1,11 +1,11 @@
-import Typography from '../../common/Typography'
-import * as S from './style'
+import Typography from '../../common/Typography';
+import * as S from './style';
 
 interface Props {
-  photoURL: string
-  name: string
-  division: string
-  desc: string
+  photoURL: string;
+  name: string;
+  division: string;
+  desc: string;
 }
 
 function InterviewProfile({ photoURL, name, division, desc }: Props) {
@@ -20,6 +20,6 @@ function InterviewProfile({ photoURL, name, division, desc }: Props) {
         <S.Desc>{desc}</S.Desc>
       </S.Infomation>
     </S.Container>
-  )
+  );
 }
-export default InterviewProfile
+export default InterviewProfile;

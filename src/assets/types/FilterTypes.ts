@@ -1,4 +1,4 @@
-export type Range = [number, number] | [null, null]
+export type Range = [number, number] | [null, null];
 
 export type ThemeOptions =
   | '체류'
@@ -10,52 +10,47 @@ export type ThemeOptions =
   | '전시·행사'
   | '반려동물'
   | '연인'
-  | '가족'
+  | '가족';
 
-export type OrderingOptions =
-  | '담은순'
-  | '최신순'
-  | '조회순'
-  | '인기순'
-  | '최근 인기순'
+export type OrderingOptions = '담은순' | '최신순' | '조회순' | '인기순' | '최근 인기순';
 
 export interface TFilter {
-  sort?: OrderingOptions
-  location?: string[]
-  headCount?: Range
-  duration?: Range
-  season?: ('봄' | '여름' | '가을' | '겨울')[]
-  theme?: string[]
-  budget?: Range
+  sort?: OrderingOptions;
+  location?: string[];
+  headCount?: Range;
+  duration?: Range;
+  season?: ('봄' | '여름' | '가을' | '겨울')[];
+  theme?: string[];
+  budget?: Range;
 }
 
-export type TFilterName = keyof TFilter | 'all'
+export type TFilterName = keyof TFilter | 'all';
 
 export interface TFilterAndOptions {
-  name: TFilterName
-  options: SelectOptions | ButtonsOptions | RangeOptions | null
+  name: TFilterName;
+  options: SelectOptions | ButtonsOptions | RangeOptions | null;
 }
 
 export interface SelectOptions {
-  options: { label: string; value: OrderingOptions }[]
-  defaultSelected?: string[]
-  multiple?: boolean
+  options: { label: string; value: OrderingOptions }[];
+  defaultSelected?: string[];
+  multiple?: boolean;
 }
 
 export interface ButtonsOptions {
-  options: { label: string; value: ThemeOptions }[]
+  options: { label: string; value: ThemeOptions }[];
 }
 
 export interface RangeOptions {
-  name?: string
-  unit: string
-  min: number
-  max: number
-  step: number
-  extraControlerComponent?: JSX.Element | null
+  name?: string;
+  unit: string;
+  min: number;
+  max: number;
+  step: number;
+  extraControlerComponent?: JSX.Element | null;
 }
 
 export interface TFilterInfo {
-  title: string
-  component: React.FC
+  title: string;
+  component: React.FC;
 }

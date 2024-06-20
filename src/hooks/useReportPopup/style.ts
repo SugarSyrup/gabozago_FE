@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const ReportForm = styled.form`
   padding-top: 11px;
@@ -9,14 +9,14 @@ export const ReportForm = styled.form`
   h3 {
     text-align: center;
   }
-`
+`;
 
 export const ReasonList = styled.ol`
   padding: 20px 30px;
   display: flex;
   flex-direction: column;
   gap: 15px;
-`
+`;
 
 export const ResonItem = styled.li`
   display: flex;
@@ -25,21 +25,21 @@ export const ResonItem = styled.li`
   &:hover {
     text-decoration: underline;
   }
-`
+`;
 
 export const RadioInput = styled.input`
   /* display: none; */
-`
+`;
 
 export const RadioLabel = styled.label`
   cursor: pointer;
-`
+`;
 
 export const ControlBox = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   border-top: 1px solid ${({ theme }) => theme.gray04};
-`
+`;
 
 export const Button = styled.button<{ primary?: boolean }>`
   border: 0;
@@ -66,4 +66,4 @@ export const Button = styled.button<{ primary?: boolean }>`
   &:active {
     background-color: ${({ theme }) => theme.gray04};
   }
-`
+`;

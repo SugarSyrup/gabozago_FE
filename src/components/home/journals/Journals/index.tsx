@@ -1,37 +1,33 @@
-import React, { useEffect, useState } from 'react'
-import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil'
-import ShortFormList, { ShortForm } from '../shortform/ShortFormList'
-import * as S from './style'
-import FilterList from '../../../common/FilterList'
+import React, { useEffect, useState } from 'react';
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
+import ShortFormList, { ShortForm } from '../shortform/ShortFormList';
+import * as S from './style';
+import FilterList from '../../../common/FilterList';
 import {
   activeJournalFilterListState,
   journalFilterState,
   journalOrderingOptions,
-} from '../../../../recoil/filters/journalState'
-import { get } from '../../../../utils/api'
-import {
-  orderingOptionMap,
-  themeCodeMap,
-  themeOptions,
-} from '../../../../recoil/filters/codeMap'
+} from '../../../../recoil/filters/journalState';
+import { get } from '../../../../utils/api';
+import { orderingOptionMap, themeCodeMap, themeOptions } from '../../../../recoil/filters/codeMap';
 import {
   ButtonsOptions,
   SelectOptions,
   TFilterAndOptions,
-} from '../../../../assets/types/FilterTypes'
+} from '../../../../assets/types/FilterTypes';
 
 function Journals() {
-  const [shortForms, setShortForms] = useState<ShortForm[]>([])
-  const [filter, setFilter] = useRecoilState(journalFilterState)
-  const resetFilter = useResetRecoilState(journalFilterState)
-  const activeFilter = useRecoilValue(activeJournalFilterListState)
-  const [activeCategoryIndex, setActiveCategoryIndex] = useState<number>(0)
-  const [next, setNext] = useState<string>('')
-  const infiniteRef = React.useRef<HTMLDivElement>(null)
+  const [shortForms, setShortForms] = useState<ShortForm[]>([]);
+  const [filter, setFilter] = useRecoilState(journalFilterState);
+  const resetFilter = useResetRecoilState(journalFilterState);
+  const activeFilter = useRecoilValue(activeJournalFilterListState);
+  const [activeCategoryIndex, setActiveCategoryIndex] = useState<number>(0);
+  const [next, setNext] = useState<string>('');
+  const infiniteRef = React.useRef<HTMLDivElement>(null);
   const tabs: {
-    text: string
-    filters: TFilterAndOptions[]
-    contents: JSX.Element
+    text: string;
+    filters: TFilterAndOptions[];
+    contents: JSX.Element;
   }[] = [
     {
       text: '숏폼',
@@ -52,59 +48,59 @@ function Journals() {
       ],
       contents: <ShortFormList data={shortForms} />,
     },
-  ]
+  ];
 
   const getShortForm = async () => {
     const { data } = await get<{
-      next: string
-      previous: string
-      results: ShortForm[]
+      next: string;
+      previous: string;
+      results: ShortForm[];
     }>('community/short-form', {
       params: {
         ordering: orderingOptionMap.get(filter.sort),
         location: filter.location.join(','),
-        theme: filter.theme.map(item => themeCodeMap.get(item)).join(','),
+        theme: filter.theme.map((item) => themeCodeMap.get(item)).join(','),
       },
-    })
+    });
 
-    setShortForms(data.results)
-    setNext(data.next)
-  }
+    setShortForms(data.results);
+    setNext(data.next);
+  };
 
   useEffect(() => {
-    getShortForm()
-  }, [filter])
+    getShortForm();
+  }, [filter]);
 
   useEffect(() => {
     const options = {
       root: null,
       rootMargin: '0px',
       threshold: 0,
-    }
+    };
 
-    const observer = new IntersectionObserver(entries => {
+    const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting && next) {
         get<{
-          next: string
-          previous: string
-          results: ShortForm[]
-        }>(next).then(response => {
-          setShortForms([...shortForms, ...response.data.results])
-          setNext(response.data.next)
-        })
+          next: string;
+          previous: string;
+          results: ShortForm[];
+        }>(next).then((response) => {
+          setShortForms([...shortForms, ...response.data.results]);
+          setNext(response.data.next);
+        });
       }
-    }, options)
+    }, options);
 
     if (infiniteRef.current) {
-      observer.observe(infiniteRef.current)
+      observer.observe(infiniteRef.current);
     }
 
-    return () => observer.disconnect()
-  })
+    return () => observer.disconnect();
+  });
 
   useEffect(() => {
-    resetFilter()
-  }, [])
+    resetFilter();
+  }, []);
 
   return (
     <S.Container>
@@ -122,7 +118,7 @@ function Journals() {
         <div ref={infiniteRef} style={{ height: '50px' }} />
       </S.ContentBox>
     </S.Container>
-  )
+  );
 }
 
-export default Journals
+export default Journals;

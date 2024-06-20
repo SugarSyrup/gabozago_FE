@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const ButtonContainer = styled.div`
   padding: 20px;
@@ -8,13 +8,13 @@ export const ButtonContainer = styled.div`
 
   position: fixed;
   bottom: 0px;
-`
+`;
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 24px;
-`
+`;
 
 export const TitleParagraph = styled.p`
   word-break: keep-all;
@@ -24,14 +24,14 @@ export const TitleParagraph = styled.p`
   font-style: normal;
   font-weight: 600;
   line-height: 28px;
-`
+`;
 export const TitleDescParagraph = styled.p`
   font-size: 12px;
   font-weight: 400;
   line-height: 22px;
 
   color: ${({ theme }) => theme.gray01};
-`
+`;
 
 export const TextArea = styled.textarea`
   padding: 20px;
@@ -45,7 +45,7 @@ export const TextArea = styled.textarea`
   line-height: 24px;
 
   resize: none;
-`
+`;
 
 export const TextCountParagraph = styled.p`
   text-align: right;
@@ -53,7 +53,7 @@ export const TextCountParagraph = styled.p`
   font-weight: 400;
   line-height: 22px;
   color: ${({ theme }) => theme.gray02};
-`
+`;
 
 export const PopupContainer = styled.div`
   width: 100%;
@@ -74,7 +74,7 @@ export const PopupContainer = styled.div`
     display: flex;
     border-top: 1px solid ${({ theme }) => theme.gray04};
   }
-`
+`;
 
 export const PopupConfirmButton = styled.button`
   cursor: pointer;
@@ -87,4 +87,4 @@ export const PopupConfirmButton = styled.button`
   &:hover {
     background-color: ${({ theme }) => theme.gray06};
   }
-`
+`;

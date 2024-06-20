@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Header = styled.header`
   padding: 40px 20px 20px;
@@ -10,11 +10,7 @@ export const Header = styled.header`
   display: flex;
   justify-content: space-between;
 
-  background: linear-gradient(
-    0deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(0, 0, 0, 0.3) 80%
-  );
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.3) 80%);
 
   svg {
     cursor: pointer;
@@ -23,7 +19,7 @@ export const Header = styled.header`
       stroke: ${({ theme }) => theme.white};
     }
   }
-`
+`;
 
 export const IconButton = styled.button`
   padding: 0;
@@ -32,7 +28,7 @@ export const IconButton = styled.button`
   background-color: transparent;
   border: 0;
   cursor: pointer;
-`
+`;
 
 export const ContentsContainer = styled.div`
   overflow-y: auto;
@@ -41,7 +37,7 @@ export const ContentsContainer = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-`
+`;
 
 export const CarouselContainer = styled.div`
   width: 100%;
@@ -54,7 +50,7 @@ export const CarouselContainer = styled.div`
   flex-wrap: nowrap;
   align-items: center;
   scroll-snap-type: x mandatory;
-`
+`;
 
 export const Image = styled.img`
   height: inherit;
@@ -63,11 +59,11 @@ export const Image = styled.img`
   object-fit: cover;
   scroll-snap-align: start;
   border: 1px solid black;
-`
+`;
 
 export const InfoContainer = styled.div`
   padding: 18px 20px 15px;
-`
+`;
 
 export const ProfileBox = styled.div`
   display: flex;
@@ -88,13 +84,13 @@ export const ProfileBox = styled.div`
       line-height: 14px;
     }
   }
-`
+`;
 export const TopInfoBox = styled.div`
   position: relative;
   display: flex;
   align-items: start;
   justify-content: space-between;
-`
+`;
 
 export const ProfileImage = styled.img`
   margin-right: 13px;
@@ -102,7 +98,7 @@ export const ProfileImage = styled.img`
   height: 32px;
   border-radius: 50%;
   object-fit: cover;
-`
+`;
 
 export const ContentsBox = styled.div`
   width: 100%;
@@ -115,14 +111,14 @@ export const ContentsBox = styled.div`
     color: ${({ theme }) => theme.gray01};
     padding: 10px 0px 15px 45px;
   }
-`
+`;
 
 export const BottomInfoBox = styled.div`
   width: 100%;
   display: flex;
   justify-content: end;
   gap: 9px;
-`
+`;
 
 export const InfoItem = styled.span`
   display: flex;
@@ -135,4 +131,4 @@ export const InfoItem = styled.span`
     height: 20px;
     margin-right: 6px;
   }
-`
+`;

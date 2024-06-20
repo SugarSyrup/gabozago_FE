@@ -1,8 +1,8 @@
-import React from 'react'
-import { TFilterName } from '../../assets/types/FilterTypes'
-import Select from '../../components/common/filterInputs/Select'
-import Location from '../../components/common/filterInputs/Locations'
-import Buttons from '../../components/common/filterInputs/Buttons'
+import React from 'react';
+import { TFilterName } from '../../assets/types/FilterTypes';
+import Select from '../../components/common/filterInputs/Select';
+import Location from '../../components/common/filterInputs/Locations';
+import Buttons from '../../components/common/filterInputs/Buttons';
 
 export const themeCodeMap = new Map([
   ['체류', 'THM01'],
@@ -15,7 +15,7 @@ export const themeCodeMap = new Map([
   ['반려동물', 'THM08'],
   ['연인', 'THM09'],
   ['가족', 'THM10'],
-])
+]);
 
 export const themeOptions = [
   {
@@ -58,7 +58,7 @@ export const themeOptions = [
     label: '가족',
     value: '가족',
   },
-]
+];
 
 export const orderingOptionMap = new Map([
   ['담은순', 'scraped'],
@@ -66,7 +66,7 @@ export const orderingOptionMap = new Map([
   ['조회순', 'most_viewed'],
   ['인기순', 'alltime_popular'],
   ['최근 인기순', 'weekly_popular'],
-])
+]);
 
 export const orderingOptions = [
   { label: '담은순', value: '담은순' },
@@ -77,7 +77,7 @@ export const orderingOptions = [
     label: '최근 인기순',
     value: '최근 인기순',
   },
-]
+];
 
 export const filterNameMap = new Map<TFilterName, string>([
   ['all', '필터'],
@@ -88,12 +88,9 @@ export const filterNameMap = new Map<TFilterName, string>([
   ['season', '계절'],
   ['theme', '테마'],
   ['budget', '경비'],
-])
+]);
 
-export const filterMap = new Map<
-  TFilterName,
-  { title: string; component: React.FC }
->([
+export const filterMap = new Map<TFilterName, { title: string; component: React.FC }>([
   [
     // select
     'sort',
@@ -117,4 +114,4 @@ export const filterMap = new Map<
       component: Buttons as React.FC,
     },
   ],
-])
+]);

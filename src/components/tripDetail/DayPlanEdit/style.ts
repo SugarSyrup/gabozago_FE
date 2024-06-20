@@ -1,8 +1,8 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.div`
   padding-bottom: 10px;
-`
+`;
 export const DayParagraph = styled.span`
   display: flex;
   align-items: center;
@@ -20,10 +20,9 @@ export const DayParagraph = styled.span`
     color: ${({ theme }) => theme.gray01};
     font-size: 13px;
   }
-`
+`;
 
 export const PlaceList = styled.ol<{ isDraggingOver: boolean }>`
   position: relative;
-  background-color: ${({ isDraggingOver, theme }) =>
-    isDraggingOver ? theme.blue03 : theme.white};
-`
+  background-color: ${({ isDraggingOver, theme }) => (isDraggingOver ? theme.blue03 : theme.white)};
+`;

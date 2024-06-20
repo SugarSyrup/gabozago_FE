@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.div`
   padding: 20px;
@@ -15,12 +15,12 @@ export const Container = styled.div`
     justify-content: space-between;
     align-items: center;
   }
-`
+`;
 
-export const QuestionsContainer = styled.div``
+export const QuestionsContainer = styled.div``;
 
 export const Heading = styled.h2`
   font-size: 16px;
   font-weight: 500;
   line-height: 22px;
-`
+`;

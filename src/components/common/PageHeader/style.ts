@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Header = styled.header`
   width: 100%;
@@ -12,7 +12,7 @@ export const Header = styled.header`
   align-items: center;
 
   background-color: white;
-`
+`;
 
 export const MobileHeader = styled.header`
   width: 100%;
@@ -26,14 +26,14 @@ export const MobileHeader = styled.header`
   justify-content: center;
   align-items: center;
   background-color: white;
-`
+`;
 
 export const LeftItemWrapper = styled.div`
   position: absolute;
   left: 20px;
-`
+`;
 
 export const RightItemWrapper = styled.div`
   position: absolute;
   right: 20px;
-`
+`;

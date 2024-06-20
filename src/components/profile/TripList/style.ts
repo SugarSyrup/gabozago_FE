@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const List = styled.ol`
   width: 100%;
@@ -8,4 +8,4 @@ export const List = styled.ol`
   justify-content: flex-start;
   align-items: flex-start;
   gap: 10px;
-`
+`;

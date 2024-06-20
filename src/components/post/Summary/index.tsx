@@ -1,29 +1,22 @@
-import LocationIcon from '../../../assets/icons/location.svg?react'
-import PeoplesIcon from '../../../assets/icons/peoples.svg?react'
-import CalendarIcon from '../../../assets/icons/calendar.svg?react'
-import CardIcon from '../../../assets/icons/card.svg?react'
-import SnowIcon from '../../../assets/icons/snow.svg?react'
-import ThemeIcon from '../../../assets/icons/theme.svg?react'
+import LocationIcon from '../../../assets/icons/location.svg?react';
+import PeoplesIcon from '../../../assets/icons/peoples.svg?react';
+import CalendarIcon from '../../../assets/icons/calendar.svg?react';
+import CardIcon from '../../../assets/icons/card.svg?react';
+import SnowIcon from '../../../assets/icons/snow.svg?react';
+import ThemeIcon from '../../../assets/icons/theme.svg?react';
 
-import * as S from './style'
+import * as S from './style';
 
 interface Props {
-  locations: string[]
-  people: number
-  schedule: number
-  budget: number
-  seasons: string[]
-  themes: string[]
+  locations: string[];
+  people: number;
+  schedule: number;
+  budget: number;
+  seasons: string[];
+  themes: string[];
 }
 
-function Summary({
-  locations,
-  people,
-  schedule,
-  budget,
-  seasons,
-  themes,
-}: Props) {
+function Summary({ locations, people, schedule, budget, seasons, themes }: Props) {
   return (
     <S.Summary>
       <S.Places>
@@ -71,13 +64,13 @@ function Summary({
         <ThemeIcon />
         <S.SummaryName>지역</S.SummaryName>
         <S.SummaryValueWrapper>
-          {themes.map(theme => (
+          {themes.map((theme) => (
             <S.SummaryValue>#{theme}</S.SummaryValue>
           ))}
         </S.SummaryValueWrapper>
       </S.Themes>
     </S.Summary>
-  )
+  );
 }
 
-export default Summary
+export default Summary;

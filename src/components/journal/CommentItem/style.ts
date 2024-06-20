@@ -1,21 +1,20 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const GrayColoredIcon = styled.span`
   svg path {
     fill: ${({ theme }) => theme.gray};
   }
-`
+`;
 
 export const Container = styled.div<{ isReply: boolean; isFocused: boolean }>`
   width: 100%;
   padding: ${({ isReply }) => (isReply ? '0' : '8px 15px')};
-  background-color: ${({ isFocused, theme }) =>
-    isFocused ? theme.blue05 : 'transparent'};
+  background-color: ${({ isFocused, theme }) => (isFocused ? theme.blue05 : 'transparent')};
   a {
     text-decoration: none;
     color: inherit;
   }
-`
+`;
 
 export const CommentBox = styled.div`
   max-width: 100%;
@@ -23,21 +22,21 @@ export const CommentBox = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   gap: 6px;
-`
+`;
 
 export const UserProfileImgBox = styled.div`
   flex: 0 0 fit-content;
   width: 34px;
   height: 34px;
   overflow: hidden;
-`
+`;
 
 export const UserProfileImg = styled.img`
   width: 27px;
   height: 27px;
   border-radius: 50%;
   object-fit: cover;
-`
+`;
 export const ContentsBox = styled.div`
   position: relative;
   flex: 1 1 100%;
@@ -45,7 +44,7 @@ export const ContentsBox = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-`
+`;
 
 export const MenuButton = styled.button`
   position: absolute;
@@ -57,7 +56,7 @@ export const MenuButton = styled.button`
   cursor: pointer;
   border: 0;
   background-color: transparent;
-`
+`;
 
 export const UserNameSpan = styled.span`
   margin-right: 4px;
@@ -66,13 +65,13 @@ export const UserNameSpan = styled.span`
   font-weight: 600;
   line-height: 20px;
   letter-spacing: 0.1px;
-`
+`;
 export const TimestampSpan = styled.span`
   font-size: 10px;
   font-weight: 500;
 
   color: ${({ theme }) => theme.gray01};
-`
+`;
 
 export const CommentParagraph = styled.p`
   margin-top: 6px;
@@ -84,13 +83,13 @@ export const CommentParagraph = styled.p`
   font-weight: 400;
   word-break: keep-all;
   overflow-wrap: anywhere;
-`
+`;
 
 export const ActionBox = styled.div`
   margin-top: 5px;
   display: flex;
   gap: 10px;
-`
+`;
 
 export const IconButton = styled.button`
   cursor: pointer;
@@ -107,12 +106,12 @@ export const IconButton = styled.button`
     width: 16px;
     height: 16px;
   }
-`
+`;
 
 export const ReplyBox = styled.div`
   margin-top: 3px;
   margin-left: 40px;
-`
+`;
 
 export const ReplyToggleButton = styled.button`
   padding: 0;
@@ -136,11 +135,11 @@ export const ReplyToggleButton = styled.button`
     height: 1px;
     background-color: ${({ theme }) => theme.gray02};
   }
-`
+`;
 
 export const ReplyList = styled.ol`
   padding: 15px 0;
   display: flex;
   flex-direction: column;
   gap: 15px;
-`
+`;

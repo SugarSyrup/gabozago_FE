@@ -1,13 +1,13 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
-import ExclamationIcon from '../../../assets/icons/exclamation_circle.svg?react'
-import usePopup from '../../../hooks/usePopup'
+import ExclamationIcon from '../../../assets/icons/exclamation_circle.svg?react';
+import usePopup from '../../../hooks/usePopup';
 
-import * as S from './style'
+import * as S from './style';
 
 function useNoMyTripAlert() {
-  const { Popup, popupOpen, popupClose } = usePopup()
-  const navigate = useNavigate()
+  const { Popup, popupOpen, popupClose } = usePopup();
+  const navigate = useNavigate();
 
   function NoMyTripAlert() {
     return (
@@ -26,7 +26,7 @@ function useNoMyTripAlert() {
               <S.PopupButton
                 main={false}
                 onClick={() => {
-                  popupClose()
+                  popupClose();
                 }}
               >
                 나중에 할래요
@@ -34,7 +34,7 @@ function useNoMyTripAlert() {
               <S.PopupButton
                 main
                 onClick={() => {
-                  navigate('/mytrip/create')
+                  navigate('/mytrip/create');
                 }}
               >
                 일정 만들래요!
@@ -43,14 +43,14 @@ function useNoMyTripAlert() {
           </S.PopupContainer>
         </Popup>
       </S.ModalWrapper>
-    )
+    );
   }
 
   return {
     NoMyTripAlert,
     noMyTripAlertOpen: popupOpen,
     noMyTripAlertClose: popupClose,
-  }
+  };
 }
 
-export default useNoMyTripAlert
+export default useNoMyTripAlert;

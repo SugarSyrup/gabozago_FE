@@ -1,77 +1,74 @@
-import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import { useSetRecoilState } from 'recoil'
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 
-import InfomationIcon from '../../../assets/icons/exclamation_circle.svg?react'
-import XIcon from '../../../assets/icons/x.svg?react'
-import PageHeader from '../../../components/common/PageHeader'
-import PageTemplate from '../../../components/common/PageTemplate'
-import Typography from '../../../components/common/Typography'
-import LocationAddItem from '../../../components/mytrip/LocationAddItem'
+import InfomationIcon from '../../../assets/icons/exclamation_circle.svg?react';
+import XIcon from '../../../assets/icons/x.svg?react';
+import PageHeader from '../../../components/common/PageHeader';
+import PageTemplate from '../../../components/common/PageTemplate';
+import Typography from '../../../components/common/Typography';
+import LocationAddItem from '../../../components/mytrip/LocationAddItem';
 
-import {
-  addLocationState,
-  createTravelState,
-} from '../../../recoil/mytrip/createTravelState'
-import usePopup from '../../../hooks/usePopup'
-import useAlert from '../../../hooks/useAlert'
-import { get, post } from '../../../utils/api'
+import { addLocationState, createTravelState } from '../../../recoil/mytrip/createTravelState';
+import usePopup from '../../../hooks/usePopup';
+import useAlert from '../../../hooks/useAlert';
+import { get, post } from '../../../utils/api';
 
-import * as S from './style'
-import { datesState } from '../../../recoil/mytrip/createData'
+import * as S from './style';
+import { datesState } from '../../../recoil/mytrip/createData';
 
 export interface TMyTravelItem {
-  id: number
-  name: string
-  departureDate: string
-  arrivalDate: string
-  location: string[]
+  id: number;
+  name: string;
+  departureDate: string;
+  arrivalDate: string;
+  location: string[];
   days: {
-    day: number
-    date: string
-    dayOfWeek: string
-  }[]
-  thumbnailURL: string
+    day: number;
+    date: string;
+    dayOfWeek: string;
+  }[];
+  thumbnailURL: string;
 }
 
 function PlaceAddPage() {
-  const { id } = useParams()
-  const navigate = useNavigate()
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-  const [data, setData] = useState<TMyTravelItem[]>([])
-  const setDates = useSetRecoilState(datesState)
+  const [data, setData] = useState<TMyTravelItem[]>([]);
+  const setDates = useSetRecoilState(datesState);
   const [placeData, setPlaceData] = useState<{
-    region: string
-    name: string
-  }>()
+    region: string;
+    name: string;
+  }>();
   const [currentSelectedItem, setCurrentSelectedItem] = useState<{
-    id: number
-    day?: number
-  }>({ id: -1 })
-  const setCreateTravelState = useSetRecoilState(createTravelState)
-  const setAddLocationState = useSetRecoilState(addLocationState)
+    id: number;
+    day?: number;
+  }>({ id: -1 });
+  const setCreateTravelState = useSetRecoilState(createTravelState);
+  const setAddLocationState = useSetRecoilState(addLocationState);
 
-  const { Popup, popupOpen, popupClose, isOpend } = usePopup()
+  const { Popup, popupOpen, popupClose, isOpend } = usePopup();
   const { Alert, alertOpen, alertClose } = useAlert({
     Content: (
       <Typography.Body size="lg" color="white">
         장소가 추가되었습니다.
       </Typography.Body>
     ),
-  })
+  });
 
   useEffect(() => {
-    get<TMyTravelItem[]>(`/my-travel/community/place/${id}`).then(response => {
-      setData(response.data)
-    })
+    get<TMyTravelItem[]>(`/my-travel/community/place/${id}`).then((response) => {
+      setData(response.data);
+    });
 
     get<{
-      region: string
-      name: string
-    }>(`/place/${id}`).then(response => {
-      setPlaceData(response.data)
-    })
-  }, [])
+      region: string;
+      name: string;
+    }>(`/place/${id}`).then((response) => {
+      setPlaceData(response.data);
+    });
+  }, []);
 
   return (
     <PageTemplate
@@ -80,7 +77,7 @@ function PlaceAddPage() {
           LeftItem={
             <S.DeleteIcon
               onClick={() => {
-                navigate(-1)
+                navigate(-1);
               }}
             >
               <XIcon />
@@ -93,25 +90,25 @@ function PlaceAddPage() {
           <S.Button
             isActive={typeof currentSelectedItem.day === 'number'}
             onClick={() => {
-              if (currentSelectedItem.id === -1) return
-              if (currentSelectedItem.day === undefined) return
+              if (currentSelectedItem.id === -1) return;
+              if (currentSelectedItem.day === undefined) return;
 
               post<{
-                id: number
-                name: number
+                id: number;
+                name: number;
               }>('/my-travel/community/place', {
                 placeId: id,
                 myTravelId: currentSelectedItem.id,
                 day: currentSelectedItem.day,
               })
-                .then(response => {
-                  alertOpen()
+                .then((response) => {
+                  alertOpen();
                 })
-                .catch(err => {
+                .catch((err) => {
                   if (err.response.status === 400) {
-                    popupOpen()
+                    popupOpen();
                   }
-                })
+                });
             }}
           >
             <Typography.Title size="lg" color="inherit">
@@ -127,14 +124,12 @@ function PlaceAddPage() {
           <S.PopupContentsContainer>
             <InfomationIcon />
             <S.PopupTextContainer>
-              <Typography.Headline size="sm">
-                지역을 추가하시겠어요?
-              </Typography.Headline>
+              <Typography.Headline size="sm">지역을 추가하시겠어요?</Typography.Headline>
               <Typography.Body size="lg" color="inherit">
                 선택하신 여행 장소는
                 {currentSelectedItem.id !== -1 &&
                   data
-                    .filter(item => item.id === currentSelectedItem.id)[0]
+                    .filter((item) => item.id === currentSelectedItem.id)[0]
                     .location.toLocaleString()}
                 을 벗어나요.
               </Typography.Body>
@@ -149,7 +144,7 @@ function PlaceAddPage() {
               <S.PopupButton
                 isMain={false}
                 onClick={() => {
-                  popupClose()
+                  popupClose();
                 }}
               >
                 <Typography.Body size="lg" color="inherit">
@@ -162,28 +157,28 @@ function PlaceAddPage() {
                   post<{ message: string }>('/my-travel/location', {
                     myTravelId: currentSelectedItem.id,
                     location: placeData?.region,
-                  }).then(response => {
+                  }).then((response) => {
                     if (response.status === 201) {
                       post<{
-                        id: number
-                        name: number
+                        id: number;
+                        name: number;
                       }>('/my-travel/community/place', {
                         placeId: id,
                         myTravelId: currentSelectedItem.id,
                         day: currentSelectedItem.day,
-                      }).then(response => {
+                      }).then((response) => {
                         if (response.status === 400) {
-                          popupOpen()
+                          popupOpen();
                         } else {
-                          popupClose()
-                          alertOpen()
+                          popupClose();
+                          alertOpen();
                         }
-                      })
+                      });
                     } else {
-                      window.alert('이미 내 여행 지역에 추가되어 있습니다.')
+                      window.alert('이미 내 여행 지역에 추가되어 있습니다.');
                     }
-                  })
-                  popupClose()
+                  });
+                  popupClose();
                 }}
               >
                 <Typography.Body size="lg" color="inherit">
@@ -197,25 +192,21 @@ function PlaceAddPage() {
       <S.Header>
         <Typography.Headline size="md">장소를 추가할</Typography.Headline>
         <Typography.Headline size="md">
-          {data.length !== 0
-            ? '여행 일정을 선택해주세요.'
-            : '여행 일정이 없어요.'}
+          {data.length !== 0 ? '여행 일정을 선택해주세요.' : '여행 일정이 없어요.'}
         </Typography.Headline>
       </S.Header>
       <S.MyTravelHeader>
-        <Typography.Title size="lg">
-          {data.length !== 0 && '나의 다가오는 여행'}
-        </Typography.Title>
+        <Typography.Title size="lg">{data.length !== 0 && '나의 다가오는 여행'}</Typography.Title>
         <S.CreateNewTravelButton
           onClick={() => {
-            if (placeData === undefined) return
+            if (placeData === undefined) return;
             setDates({
               startDate: '',
               endDate: '',
-            })
-            setCreateTravelState('add')
-            setAddLocationState(placeData.region)
-            navigate('/mytrip/create')
+            });
+            setCreateTravelState('add');
+            setAddLocationState(placeData.region);
+            navigate('/mytrip/create');
           }}
         >
           <Typography.Label size="lg" color="inherit">
@@ -224,7 +215,7 @@ function PlaceAddPage() {
         </S.CreateNewTravelButton>
       </S.MyTravelHeader>
       <S.MyTravelList>
-        {data.map(item => (
+        {data.map((item) => (
           <LocationAddItem
             {...item}
             currentSelectedItemId={currentSelectedItem.id}
@@ -233,7 +224,7 @@ function PlaceAddPage() {
         ))}
       </S.MyTravelList>
     </PageTemplate>
-  )
+  );
 }
 
-export default PlaceAddPage
+export default PlaceAddPage;

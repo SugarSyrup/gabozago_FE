@@ -1,75 +1,74 @@
-import { useEffect, useRef, useState } from 'react'
-import { useLoaderData, useNavigate } from 'react-router-dom'
+import { useEffect, useRef, useState } from 'react';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 
-import SettingIcon from '../../../assets/icons/setting.svg?react'
-import UserIcon from '../../../assets/icons/user.svg?react'
-import { TUserProfile } from '../../../assets/types/TUserProfile'
+import SettingIcon from '../../../assets/icons/setting.svg?react';
+import UserIcon from '../../../assets/icons/user.svg?react';
+import { TUserProfile } from '../../../assets/types/TUserProfile';
 
-import PageTemplate from '../../../components/common/PageTemplate'
-import UserTrip from '../../../components/profile/UserTrip'
-import UserActivity from '../../../components/profile/UserActivity'
-import Typography from '../../../components/common/Typography'
+import PageTemplate from '../../../components/common/PageTemplate';
+import UserTrip from '../../../components/profile/UserTrip';
+import UserActivity from '../../../components/profile/UserActivity';
+import Typography from '../../../components/common/Typography';
 
-import * as S from './style'
-import { get } from '../../../utils/api'
+import * as S from './style';
+import { get } from '../../../utils/api';
 
 function ProfilePage() {
-  const navigate = useNavigate()
-  const [headerHeight, setHeaderHeight] = useState<number>(200)
+  const navigate = useNavigate();
+  const [headerHeight, setHeaderHeight] = useState<number>(200);
   const [myNumbericalInfo, setMyNumbericalInfo] = useState<{
-    myTravelDay: number
-    myTravelCount: number
-    reactionCount: number
-    favoriteCount: number
+    myTravelDay: number;
+    myTravelCount: number;
+    reactionCount: number;
+    favoriteCount: number;
   }>({
     myTravelDay: 0,
     myTravelCount: 0,
     reactionCount: 0,
     favoriteCount: 0,
-  })
-  const [currentTap, setCurrentTap] = useState<'trip' | 'activity'>('trip')
+  });
+  const [currentTap, setCurrentTap] = useState<'trip' | 'activity'>('trip');
 
-  const { id, nickname, description, avatarURL } =
-    useLoaderData() as TUserProfile
-  const FixedHeaderRef = useRef<HTMLDivElement>(null)
+  const { id, nickname, description, avatarURL } = useLoaderData() as TUserProfile;
+  const FixedHeaderRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!FixedHeaderRef.current) return
-    const resizeObserver = new ResizeObserver(entries => {
-      setHeaderHeight(entries[0].target.clientHeight)
-    })
-    resizeObserver.observe(FixedHeaderRef.current)
+    if (!FixedHeaderRef.current) return;
+    const resizeObserver = new ResizeObserver((entries) => {
+      setHeaderHeight(entries[0].target.clientHeight);
+    });
+    resizeObserver.observe(FixedHeaderRef.current);
 
-    return () => resizeObserver.disconnect()
-  }, [FixedHeaderRef.current])
+    return () => resizeObserver.disconnect();
+  }, [FixedHeaderRef.current]);
 
   useEffect(() => {
     get<{
-      myTravelDay: number
-      myTravelCount: number
-    }>('/user/profile/my-travel-count').then(response => {
-      setMyNumbericalInfo(prev => ({
+      myTravelDay: number;
+      myTravelCount: number;
+    }>('/user/profile/my-travel-count').then((response) => {
+      setMyNumbericalInfo((prev) => ({
         ...prev,
         ...response.data,
-      }))
-    })
+      }));
+    });
 
     get<{
-      reactionCount: number
-      favoriteCount: number
-    }>('/user/profile/clap-scrap-count').then(response => {
-      setMyNumbericalInfo(prev => ({
+      reactionCount: number;
+      favoriteCount: number;
+    }>('/user/profile/clap-scrap-count').then((response) => {
+      setMyNumbericalInfo((prev) => ({
         ...prev,
         ...response.data,
-      }))
-    })
-  }, [])
+      }));
+    });
+  }, []);
 
   return (
     <PageTemplate>
       <S.SettingIconWrapper
         onClick={() => {
-          navigate('/profile/settings')
+          navigate('/profile/settings');
         }}
       >
         <SettingIcon />
@@ -82,7 +81,7 @@ function ProfilePage() {
           </S.UserProfile>
           <S.ProfileEditBtn
             onClick={() => {
-              navigate('edit')
+              navigate('edit');
             }}
           >
             <Typography.Title size="md" color="inherit">
@@ -151,7 +150,7 @@ function ProfilePage() {
         <S.TapNavigationBar>
           <S.TapNavigation
             onClick={() => {
-              setCurrentTap('trip')
+              setCurrentTap('trip');
             }}
             isHighlight={currentTap === 'trip'}
           >
@@ -159,7 +158,7 @@ function ProfilePage() {
           </S.TapNavigation>
           <S.TapNavigation
             onClick={() => {
-              setCurrentTap('activity')
+              setCurrentTap('activity');
             }}
             isHighlight={currentTap === 'activity'}
           >
@@ -175,16 +174,16 @@ function ProfilePage() {
         {(() => {
           switch (currentTap) {
             case 'trip':
-              return <UserTrip />
+              return <UserTrip />;
             case 'activity':
-              return <UserActivity />
+              return <UserActivity />;
             default:
-              return null
+              return null;
           }
         })()}
       </S.Content>
     </PageTemplate>
-  )
+  );
 }
 
-export default ProfilePage
+export default ProfilePage;

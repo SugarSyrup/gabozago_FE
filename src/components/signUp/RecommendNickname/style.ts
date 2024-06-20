@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const InputExplain = styled.span`
   display: inline-flex;
@@ -18,7 +18,7 @@ export const InputExplain = styled.span`
   font-weight: 400;
   line-height: 22px;
   letter-spacing: 0.2px;
-`
+`;
 
 export const AlertMessage = styled.span<{ color: 'red' | 'blue' }>`
   color: ${({ color, theme }) => (color === 'blue' ? theme.main : theme.red)};
@@ -26,4 +26,4 @@ export const AlertMessage = styled.span<{ color: 'red' | 'blue' }>`
   font-weight: 400;
   line-height: 22px;
   letter-spacing: 0.2px;
-`
+`;

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
@@ -9,7 +9,7 @@ export const Container = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   gap: 10px;
-`
+`;
 
 export const SelectedPlaceList = styled.div`
   display: flex;
@@ -21,7 +21,7 @@ export const SelectedPlaceList = styled.div`
   overflow-y: auto;
   //ios scroll issue? 해결 가능 할지 테스트
   -webkit-overflow-scrolling: touch;
-`
+`;
 
 export const Button = styled.button<{ isActive: boolean }>`
   width: 100%;
@@ -29,12 +29,11 @@ export const Button = styled.button<{ isActive: boolean }>`
   border-radius: 30px;
   padding: 10px 0px 15px 0px;
 
-  background-color: ${({ isActive, theme }) =>
-    isActive ? theme.main : '#A6A6A6'};
+  background-color: ${({ isActive, theme }) => (isActive ? theme.main : '#A6A6A6')};
 
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 5px;
   cursor: pointer;
-`
+`;

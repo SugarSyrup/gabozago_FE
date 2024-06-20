@@ -1,30 +1,28 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import * as S from './style'
-import PageTemplate from '../../../components/common/PageTemplate'
-import PageHeader from '../../../components/common/PageHeader'
-import { get } from '../../../utils/api'
-import Typography from '../../../components/common/Typography'
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import * as S from './style';
+import PageTemplate from '../../../components/common/PageTemplate';
+import PageHeader from '../../../components/common/PageHeader';
+import { get } from '../../../utils/api';
+import Typography from '../../../components/common/Typography';
 
 interface TData {
-  title: string
-  createdAt: string
-  content: string
+  title: string;
+  createdAt: string;
+  content: string;
 }
 
 function AnnounceDetailPage() {
-  const { id } = useParams()
+  const { id } = useParams();
   const [data, setData] = useState<TData>({
     title: '',
     createdAt: '',
     content: '',
-  })
+  });
 
   useEffect(() => {
-    get<TData>(`/settings/support/announcement/${id}`).then(({ data }) =>
-      setData(data)
-    )
-  }, [])
+    get<TData>(`/settings/support/announcement/${id}`).then(({ data }) => setData(data));
+  }, []);
 
   return (
     <PageTemplate
@@ -50,14 +48,14 @@ function AnnounceDetailPage() {
         </S.InfoContainer>
         <S.ContentsContainer>
           <Typography.Body size="md" color="inherit" noOfLine={1000}>
-            {data.content.split('\n').map(line => (
+            {data.content.split('\n').map((line) => (
               <p>{line}</p>
             ))}
           </Typography.Body>
         </S.ContentsContainer>
       </S.Container>
     </PageTemplate>
-  )
+  );
 }
 
-export default AnnounceDetailPage
+export default AnnounceDetailPage;

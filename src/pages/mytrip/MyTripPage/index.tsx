@@ -1,80 +1,76 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react';
 
-import { useNavigate } from 'react-router-dom'
-import { useSetRecoilState } from 'recoil'
-import { get } from '../../../utils/api'
+import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+import { get } from '../../../utils/api';
 
-import PageTemplate from '../../../components/common/PageTemplate'
-import MyScheduleCard from '../../../components/mytrip/MyScheduleCard'
-import Typography from '../../../components/common/Typography'
+import PageTemplate from '../../../components/common/PageTemplate';
+import MyScheduleCard from '../../../components/mytrip/MyScheduleCard';
+import Typography from '../../../components/common/Typography';
 
-import CirclePlusIcon from '../../../assets/icons/plus_circle.svg?react'
-import RightChevronIcon from '../../../assets/icons/chevron_right.svg?react'
-import CalendarAddIcon from '../../../assets/icons/calendar_add.svg?react'
+import CirclePlusIcon from '../../../assets/icons/plus_circle.svg?react';
+import RightChevronIcon from '../../../assets/icons/chevron_right.svg?react';
+import CalendarAddIcon from '../../../assets/icons/calendar_add.svg?react';
 
-import * as S from './style'
-import MyLastScheduleCard from '../../../components/mytrip/MyLastScheduleCard'
-import { datesState } from '../../../recoil/mytrip/createData'
-import { createTravelState } from '../../../recoil/mytrip/createTravelState'
+import * as S from './style';
+import MyLastScheduleCard from '../../../components/mytrip/MyLastScheduleCard';
+import { datesState } from '../../../recoil/mytrip/createData';
+import { createTravelState } from '../../../recoil/mytrip/createTravelState';
 
 type travelResponseType = {
-  next: null | ''
-  previous: null | ''
+  next: null | '';
+  previous: null | '';
   results: {
-    id: number
-    title: string
-    departure_date: string
-    arrival_date: string
-    regions: string[]
-    thumbnailURL: string
-  }[]
-}
+    id: number;
+    title: string;
+    departure_date: string;
+    arrival_date: string;
+    regions: string[];
+    thumbnailURL: string;
+  }[];
+};
 
 function MyTripPage() {
-  const navigate = useNavigate()
-  const setDatesState = useSetRecoilState(datesState)
-  const setCreateTravelState = useSetRecoilState(createTravelState)
-  const [next, setNext] = useState<travelResponseType['next']>('')
-  const [tripHistory, setTripHistory] = useState<travelResponseType['results']>(
-    []
-  )
-  const [tripUpComing, setTripUpComing] = useState<
-    travelResponseType['results']
-  >([])
-  const [nickname, setNickname] = useState<string>('')
-  const infiniteObserverRef = useRef<HTMLDivElement>(null)
+  const navigate = useNavigate();
+  const setDatesState = useSetRecoilState(datesState);
+  const setCreateTravelState = useSetRecoilState(createTravelState);
+  const [next, setNext] = useState<travelResponseType['next']>('');
+  const [tripHistory, setTripHistory] = useState<travelResponseType['results']>([]);
+  const [tripUpComing, setTripUpComing] = useState<travelResponseType['results']>([]);
+  const [nickname, setNickname] = useState<string>('');
+  const infiniteObserverRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    get<travelResponseType>('/my-travel/upcoming').then(response => {
-      setNext(response.data.next)
-      setTripUpComing(response.data.results)
-    })
+    get<travelResponseType>('/my-travel/upcoming').then((response) => {
+      setNext(response.data.next);
+      setTripUpComing(response.data.results);
+    });
 
-    get<travelResponseType['results']>('/my-travel/past').then(response => {
-      setTripHistory(response.data)
-    })
+    get<travelResponseType['results']>('/my-travel/past').then((response) => {
+      setTripHistory(response.data);
+    });
 
-    get<{ nickname: string }>('/user/profile').then(response => {
-      setNickname(response.data.nickname)
-    })
-  }, [])
+    get<{ nickname: string }>('/user/profile').then((response) => {
+      setNickname(response.data.nickname);
+    });
+  }, []);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(entries => {
+    const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting && next) {
-        get<travelResponseType>(next).then(response => {
-          setNext(response.data.next)
-          setTripUpComing([...tripUpComing, ...response.data.results])
-        })
+        get<travelResponseType>(next).then((response) => {
+          setNext(response.data.next);
+          setTripUpComing([...tripUpComing, ...response.data.results]);
+        });
       }
-    })
+    });
 
     if (infiniteObserverRef.current) {
-      observer.observe(infiniteObserverRef.current)
+      observer.observe(infiniteObserverRef.current);
     }
 
-    return () => observer.disconnect()
-  }, [])
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <PageTemplate>
@@ -84,13 +80,10 @@ function MyTripPage() {
             <Typography.Headline size="md">{nickname} 님</Typography.Headline>
             {tripHistory.length !== 0 ? (
               <Typography.Title size="lg">
-                <S.TextHighlight>가보자고</S.TextHighlight>와 첫 여행 일정을
-                세워보세요!
+                <S.TextHighlight>가보자고</S.TextHighlight>와 첫 여행 일정을 세워보세요!
               </Typography.Title>
             ) : (
-              <Typography.Title size="lg">
-                아직 여행 일정이 없어요!
-              </Typography.Title>
+              <Typography.Title size="lg">아직 여행 일정이 없어요!</Typography.Title>
             )}
           </S.HeadingContainer>
 
@@ -99,9 +92,7 @@ function MyTripPage() {
               <Typography.Title size="lg">
                 <S.TextHighlight>여행 일정을 생성</S.TextHighlight> 하여
               </Typography.Title>
-              <Typography.Title size="lg">
-                여행 계획을 세워보세요!
-              </Typography.Title>
+              <Typography.Title size="lg">여행 계획을 세워보세요!</Typography.Title>
             </S.CreateMyTripTextWrapper>
 
             <CalendarAddIcon />
@@ -109,9 +100,9 @@ function MyTripPage() {
 
           <S.CreateMyTripTextButton
             onClick={() => {
-              setDatesState({ startDate: '', endDate: '' })
-              setCreateTravelState('create')
-              navigate('/mytrip/create')
+              setDatesState({ startDate: '', endDate: '' });
+              setCreateTravelState('create');
+              navigate('/mytrip/create');
             }}
             hasTripHistory={false}
           >
@@ -125,13 +116,11 @@ function MyTripPage() {
         <S.ContainerWithPlan>
           <S.HeadingContainer>
             <Typography.Headline size="md">{nickname} 님</Typography.Headline>
-            <Typography.Title size="lg">
-              다가오는 여행이 있어요!
-            </Typography.Title>
+            <Typography.Title size="lg">다가오는 여행이 있어요!</Typography.Title>
           </S.HeadingContainer>
 
           <S.ScheduleCardContainer>
-            {tripUpComing.map(tripData => (
+            {tripUpComing.map((tripData) => (
               <MyScheduleCard {...tripData} />
             ))}
             <div ref={infiniteObserverRef} />
@@ -139,9 +128,9 @@ function MyTripPage() {
 
           <S.CreateMyTripTextButton
             onClick={() => {
-              navigate('/mytrip/create')
-              setCreateTravelState('create')
-              setDatesState({ startDate: '', endDate: '' })
+              navigate('/mytrip/create');
+              setCreateTravelState('create');
+              setDatesState({ startDate: '', endDate: '' });
             }}
             hasTripHistory
           >
@@ -165,14 +154,14 @@ function MyTripPage() {
             </S.ShowAllTrips>
           </S.ContentHeadingWrappper>
           <S.ContentContainer>
-            {tripHistory.map(trip => (
+            {tripHistory.map((trip) => (
               <MyLastScheduleCard {...trip} />
             ))}
           </S.ContentContainer>
         </>
       )}
     </PageTemplate>
-  )
+  );
 }
 
-export default MyTripPage
+export default MyTripPage;

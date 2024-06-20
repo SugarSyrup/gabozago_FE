@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const List = styled.ol`
   padding: 0 20px;
@@ -6,7 +6,7 @@ export const List = styled.ol`
   grid-template-columns: repeat(auto-fill, minmax(80px, auto));
   //grid-template-rows: repeat(auto-fit, 36px);
   gap: 6px 8px;
-`
+`;
 
 export const Item = styled.li<{ checked: boolean }>`
   position: relative;
@@ -17,7 +17,7 @@ export const Item = styled.li<{ checked: boolean }>`
   line-height: 22px;
   word-break: keep-all;
   font-size: 16px;
-`
+`;
 
 export const CheckboxInput = styled.input`
   display: none;
@@ -42,4 +42,4 @@ export const CheckboxInput = styled.input`
     color: ${({ theme }) => theme.white};
     background-color: ${({ theme }) => theme.main};
   }
-`
+`;

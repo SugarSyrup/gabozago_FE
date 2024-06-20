@@ -1,19 +1,15 @@
-import { BrowserView, MobileView } from 'react-device-detect'
-import BackButton from '../BackButton'
+import { BrowserView, MobileView } from 'react-device-detect';
+import BackButton from '../BackButton';
 
-import * as S from './style'
+import * as S from './style';
 
 interface Props {
-  LeftItem?: React.ReactNode
-  children?: React.ReactNode
-  RightItem?: React.ReactNode
+  LeftItem?: React.ReactNode;
+  children?: React.ReactNode;
+  RightItem?: React.ReactNode;
 }
 
-function PageHeader({
-  LeftItem = <BackButton />,
-  children,
-  RightItem = <></>,
-}: Props) {
+function PageHeader({ LeftItem = <BackButton />, children, RightItem = <></> }: Props) {
   return (
     <>
       <BrowserView>
@@ -31,7 +27,7 @@ function PageHeader({
         </S.MobileHeader>
       </MobileView>
     </>
-  )
+  );
 }
 
-export default PageHeader
+export default PageHeader;

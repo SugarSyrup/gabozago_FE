@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const PopupWrapper = styled.div<{ isOpened: boolean }>`
   position: fixed;
@@ -16,7 +16,7 @@ export const PopupWrapper = styled.div<{ isOpened: boolean }>`
   @supports (-webkit-touch-callout: none) {
     height: -webkit-fill-available;
   }
-`
+`;
 
 export const PopupContainer = styled.div`
   position: absolute;
@@ -50,7 +50,7 @@ export const PopupContainer = styled.div`
     opacity: 30%;
     background-color: ${({ theme }) => theme.black};
   }
-`
+`;
 export const Popup = styled.div<{ padding?: string }>`
   width: 90%;
   position: relative;
@@ -58,7 +58,7 @@ export const Popup = styled.div<{ padding?: string }>`
   background-color: ${({ theme }) => theme.white};
   border-radius: 15px;
   box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
-`
+`;
 
 export const Header = styled.div`
   padding-bottom: 20px;
@@ -69,4 +69,4 @@ export const Header = styled.div`
   font-weight: 600;
   font-size: 16px;
   line-height: 24px;
-`
+`;

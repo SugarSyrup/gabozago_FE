@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.div`
   padding: 17px 20px;
@@ -21,7 +21,7 @@ export const Container = styled.div`
       color: ${({ theme }) => theme.gray01};
     }
   }
-`
+`;
 
 export const ToggleButton = styled.button<{ active: boolean }>`
   width: 40px;
@@ -32,8 +32,7 @@ export const ToggleButton = styled.button<{ active: boolean }>`
   cursor: pointer;
   border-radius: 99px;
   border: 0;
-  background-color: ${({ theme, active }) =>
-    active ? theme.main : theme.gray04};
+  background-color: ${({ theme, active }) => (active ? theme.main : theme.gray04)};
 
   &::after {
     content: '';
@@ -48,4 +47,4 @@ export const ToggleButton = styled.button<{ active: boolean }>`
     transition: all ease-in-out 0.2s;
     background-color: ${({ theme }) => theme.white};
   }
-`
+`;

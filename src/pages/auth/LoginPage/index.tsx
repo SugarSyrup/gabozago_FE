@@ -1,29 +1,29 @@
-import { useNavigate } from 'react-router-dom'
-import { post } from '../../../utils/api'
+import { useNavigate } from 'react-router-dom';
+import { post } from '../../../utils/api';
 
-import AuthCheck from '../../../components/common/AuthCheck'
-import PageTemplate from '../../../components/common/PageTemplate'
+import AuthCheck from '../../../components/common/AuthCheck';
+import PageTemplate from '../../../components/common/PageTemplate';
 
-import LogoIcon from '../../../assets/icons/logo.svg?react'
-import LogoText from '../../../assets/icons/logo_text.svg?react'
-import ThunderMoveIcon from '../../../assets/icons/thuder_move.svg?react'
-import KakaoIcon from '../../../assets/icons/kakao.svg?react'
-import GoogleIcon from '../../../assets/icons/google.svg?react'
-import NaverIcon from '../../../assets/icons/naver.svg?react'
-import AppleIcon from '../../../assets/icons/apple.svg?react'
+import LogoIcon from '../../../assets/icons/logo.svg?react';
+import LogoText from '../../../assets/icons/logo_text.svg?react';
+import ThunderMoveIcon from '../../../assets/icons/thuder_move.svg?react';
+import KakaoIcon from '../../../assets/icons/kakao.svg?react';
+import GoogleIcon from '../../../assets/icons/google.svg?react';
+import NaverIcon from '../../../assets/icons/naver.svg?react';
+import AppleIcon from '../../../assets/icons/apple.svg?react';
 
-import * as S from './style'
+import * as S from './style';
 
 interface loginResponse {
-  status: 'ACTIVE' | 'INACTIVE'
-  access: string
-  refresh: string
-  access_expires_at: string
-  refresh_expires_at: string
+  status: 'ACTIVE' | 'INACTIVE';
+  access: string;
+  refresh: string;
+  access_expires_at: string;
+  refresh_expires_at: string;
   user_data?: {
-    email: string
-    nickname: string
-  }
+    email: string;
+    nickname: string;
+  };
 }
 
 async function login() {
@@ -32,24 +32,24 @@ async function login() {
     provider: 'google',
     email: 'gbzg_test@gmail.com',
     nickname: 'tiredDeveloper',
-  })
+  });
 
-  return response
+  return response;
 }
 
 function LoginPage() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   async function developLogin(type: string) {
-    const response = await login()
+    const response = await login();
 
-    localStorage.setItem('access_token', response.data.access)
-    localStorage.setItem('refresh_token', response.data.refresh)
+    localStorage.setItem('access_token', response.data.access);
+    localStorage.setItem('refresh_token', response.data.refresh);
     if (response.data.status === 'ACTIVE') {
-      navigate('/')
+      navigate('/');
     } else if (response.data.user_data) {
-      const { email, nickname } = response.data.user_data
-      navigate(`/signup?type=${type}&email=${email}&nickname=${nickname}`)
+      const { email, nickname } = response.data.user_data;
+      navigate(`/signup?type=${type}&email=${email}&nickname=${nickname}`);
     }
   }
 
@@ -64,24 +64,22 @@ function LoginPage() {
             <span>나만의 여행으로 만드는 새로운 방법</span>
           </S.BrandCopy>
           <form
-            onSubmit={e => {
-              e.preventDefault()
-              const formdata = new FormData(e.currentTarget)
+            onSubmit={(e) => {
+              e.preventDefault();
+              const formdata = new FormData(e.currentTarget);
               post<loginResponse>('/user/app/login', {
                 uid: Number(formdata.get('uid')),
                 provider: 'naver',
                 email: formdata.get('email'),
-              }).then(response => {
-                localStorage.setItem('access_token', response.data.access)
-                localStorage.setItem('refresh_token', response.data.refresh)
+              }).then((response) => {
+                localStorage.setItem('access_token', response.data.access);
+                localStorage.setItem('refresh_token', response.data.refresh);
                 if (response.data.status === 'ACTIVE') {
-                  navigate('/')
+                  navigate('/');
                 } else {
-                  navigate(
-                    `/signup?type=naver&email=${formdata.get('email')}&nickname=`
-                  )
+                  navigate(`/signup?type=naver&email=${formdata.get('email')}&nickname=`);
                 }
-              })
+              });
             }}
           >
             <input
@@ -89,11 +87,7 @@ function LoginPage() {
               name="uid"
               placeholder="uid입력 란 입니다. 임의의 숫자를 입력해주세요 (숫자) (임시)"
             />
-            <input
-              type="email"
-              name="email"
-              placeholder="email 입력해주세요 (임시)"
-            />
+            <input type="email" name="email" placeholder="email 입력해주세요 (임시)" />
             <button type="submit">로그인</button>
           </form>
           <S.MessageContainer>
@@ -103,7 +97,7 @@ function LoginPage() {
             </S.FloatingMessage>
             <S.OAuthSquareButton
               onClick={() => {
-                developLogin('kakao')
+                developLogin('kakao');
               }}
             >
               <KakaoIcon />
@@ -115,7 +109,7 @@ function LoginPage() {
             <S.OAuthCircleButton
               color="#00BF18"
               onClick={() => {
-                developLogin('naver')
+                developLogin('naver');
               }}
             >
               <NaverIcon width={14} height={14} />
@@ -123,7 +117,7 @@ function LoginPage() {
             <S.OAuthCircleButton
               color="#FFFFFF"
               onClick={() => {
-                developLogin('google')
+                developLogin('google');
               }}
             >
               <GoogleIcon width={20} height={20} />
@@ -131,7 +125,7 @@ function LoginPage() {
             <S.OAuthCircleButton
               color="#000000"
               onClick={() => {
-                developLogin('apple')
+                developLogin('apple');
               }}
             >
               <AppleIcon width={40} height={40} />
@@ -140,7 +134,7 @@ function LoginPage() {
         </S.Container>
       </PageTemplate>
     </AuthCheck>
-  )
+  );
 }
 
-export default LoginPage
+export default LoginPage;

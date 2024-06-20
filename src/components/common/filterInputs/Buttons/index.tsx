@@ -1,20 +1,20 @@
-import React from 'react'
-import * as S from './style'
-import { ButtonsOptions } from '../../../../assets/types/FilterTypes'
+import React from 'react';
+import * as S from './style';
+import { ButtonsOptions } from '../../../../assets/types/FilterTypes';
 
 export interface Props extends ButtonsOptions {
-  filter: string[]
-  setFilter: React.Dispatch<React.SetStateAction<string[]>>
+  filter: string[];
+  setFilter: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 function Buttons({ filter, setFilter, options }: Props) {
   const toggleItem = (item: string) => {
     if (filter.includes(item)) {
-      setFilter(filter.filter(i => i !== item))
+      setFilter(filter.filter((i) => i !== item));
     } else {
-      setFilter(prev => [...prev, item])
+      setFilter((prev) => [...prev, item]);
     }
-  }
+  };
 
   return (
     <S.List>
@@ -25,14 +25,14 @@ function Buttons({ filter, setFilter, options }: Props) {
             id={value}
             checked={filter.includes(value)}
             onChange={() => {
-              toggleItem(value)
+              toggleItem(value);
             }}
           />
           <label htmlFor={value}>{label}</label>
         </S.Item>
       ))}
     </S.List>
-  )
+  );
 }
 
-export default Buttons
+export default Buttons;

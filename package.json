@@ -9,8 +9,8 @@
     "preview": "vite preview",
     "gen-pwa": "pwa-assets-generator --preset minimal public/logo.svg",
     "postinstall": "husky install",
-    "format": "prettier --cache --write .",
-    "lint": "eslint --cache --fix ."
+    "format": "prettier --cache --write \"src/**/*.{js,jsx,ts,tsx}\"",
+    "lint": "eslint --cache --fix \"src/**/*.{js,jsx,ts,tsx}\""
   },
   "dependencies": {
     "@eslint/compat": "^1.1.0",

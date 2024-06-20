@@ -1,11 +1,11 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const ContentsContainer = styled.div`
   width: 100%;
 
   padding-top: 20px;
   padding-bottom: 20px;
-`
+`;
 
 export const Slider = styled.div`
   width: 100%;
@@ -19,7 +19,7 @@ export const Slider = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
-`
+`;
 
 export const TopSliderItem = styled.div`
   width: 220px;
@@ -38,7 +38,7 @@ export const TopSliderItem = styled.div`
       fill: white;
     }
   }
-`
+`;
 
 export const SliderImg = styled.img`
   width: 100%;
@@ -46,7 +46,7 @@ export const SliderImg = styled.img`
   border-radius: 8px;
 
   object-fit: cover;
-`
+`;
 
 export const SliderItem = styled.div`
   width: 166px;
@@ -65,7 +65,7 @@ export const SliderItem = styled.div`
       fill: white;
     }
   }
-`
+`;
 
 export const BookMarkWrapper = styled.div<{ isBookmark: boolean }>`
   position: absolute;
@@ -78,12 +78,12 @@ export const BookMarkWrapper = styled.div<{ isBookmark: boolean }>`
       fill: ${({ theme, isBookmark }) => isBookmark && theme.main};
     }
   }
-`
+`;
 
 export const ShortFormListContainer = styled.div`
   width: 100%;
   padding-top: 20px;
-`
+`;
 
 export const ContentSpace = styled.div`
   position: absolute;
@@ -93,4 +93,4 @@ export const ContentSpace = styled.div`
   height: 14px;
 
   background-color: ${({ theme }) => theme.gray06};
-`
+`;

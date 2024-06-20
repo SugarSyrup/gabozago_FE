@@ -1,10 +1,10 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-`
+`;
 
 export const Index = styled.span`
   display: flex;
@@ -18,4 +18,4 @@ export const Index = styled.span`
     width: 18px;
     height: 18px;
   }
-`
+`;

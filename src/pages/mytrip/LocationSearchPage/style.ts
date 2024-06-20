@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Header = styled.div`
   width: 100%;
@@ -12,7 +12,7 @@ export const Header = styled.div`
   flex-direction: column;
 
   background-color: white;
-`
+`;
 
 export const SearchBar = styled.div`
   display: flex;
@@ -24,7 +24,7 @@ export const SearchBar = styled.div`
 
   padding-left: 20px;
   padding-right: 20px;
-`
+`;
 
 export const TabNavigation = styled.div`
   width: 100%;
@@ -38,11 +38,10 @@ export const TabNavigation = styled.div`
 
   padding: 10px 0px;
   margin-top: 10px;
-`
+`;
 
 export const NavigationItem = styled.div<{ isHighlight: boolean }>`
-  color: ${({ theme, isHighlight }) =>
-    isHighlight ? theme.black : theme.gray01};
+  color: ${({ theme, isHighlight }) => (isHighlight ? theme.black : theme.gray01)};
   font-size: 14px;
   font-style: normal;
   font-weight: ${({ isHighlight }) => (isHighlight ? 700 : 500)};
@@ -56,7 +55,7 @@ export const NavigationItem = styled.div<{ isHighlight: boolean }>`
 
   cursor: pointer;
   transition: color 0.2s ease-in-out;
-`
+`;
 
 export const HighlightLine = styled.div<{ isHighlight: boolean }>`
   width: 50%;
@@ -67,7 +66,7 @@ export const HighlightLine = styled.div<{ isHighlight: boolean }>`
   bottom: -2px;
 
   transition: left 0.2s ease-in-out;
-`
+`;
 
 export const Contents = styled.div`
   width: 100%;
@@ -76,7 +75,7 @@ export const Contents = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-`
+`;
 
 export const Footer = styled.footer`
   position: fixed;
@@ -94,12 +93,12 @@ export const Footer = styled.footer`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-`
+`;
 
 export const ScrapContent = styled.div`
   width: 100%;
   padding-top: 100px;
-`
+`;
 
 export const PopupWrapper = styled.div<{ isOpen: boolean }>`
   position: fixed;
@@ -117,7 +116,7 @@ export const PopupWrapper = styled.div<{ isOpen: boolean }>`
   @supports (-webkit-touch-callout: none) {
     height: -webkit-fill-available;
   }
-`
+`;
 
 export const PopupContentsContainer = styled.div`
   width: 100%;
@@ -133,7 +132,7 @@ export const PopupContentsContainer = styled.div`
     width: 40px;
     height: 40px;
   }
-`
+`;
 
 export const PopupTextContainer = styled.div`
   display: flex;
@@ -150,7 +149,7 @@ export const PopupTextContainer = styled.div`
   span {
     text-align: center;
   }
-`
+`;
 
 export const PopupButtons = styled.div`
   width: 100%;
@@ -159,7 +158,7 @@ export const PopupButtons = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-`
+`;
 
 export const PopupButton = styled.button<{ isMain: boolean }>`
   width: 100%;
@@ -173,8 +172,7 @@ export const PopupButton = styled.button<{ isMain: boolean }>`
   justify-content: center;
   align-items: center;
 
-  background-color: ${({ isMain, theme }) =>
-    isMain ? '#F3F6FF' : theme.gray06};
+  background-color: ${({ isMain, theme }) => (isMain ? '#F3F6FF' : theme.gray06)};
   color: ${({ isMain, theme }) => (isMain ? theme.main : theme.black)};
   cursor: pointer;
-`
+`;

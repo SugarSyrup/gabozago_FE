@@ -1,7 +1,7 @@
 export interface FollowerType {
-  id: number
-  name: string
-  avatarURL?: string
+  id: number;
+  name: string;
+  avatarURL?: string;
 }
 
 export const Followers: FollowerType[] = [
@@ -21,4 +21,4 @@ export const Followers: FollowerType[] = [
     id: 4,
     name: '가나가나',
   },
-]
+];

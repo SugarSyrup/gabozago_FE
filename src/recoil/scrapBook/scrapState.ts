@@ -1,29 +1,29 @@
-import { atom } from 'recoil'
+import { atom } from 'recoil';
 
 export interface JournalGroup {
-  id: number
-  title: string
-  createdAt: string
-  updatedAt: string
-  journals: Journal[]
+  id: number;
+  title: string;
+  createdAt: string;
+  updatedAt: string;
+  journals: Journal[];
 }
 
 export interface Journal {
-  id: number
-  title: string
-  createdAt: string
-  updatedAt: string
-  username: string
-  thumbnail: string
-  location: string[] // 지역
-  theme?: string // 여행 테마
-  headCount?: number // 인원
-  budget?: number // 여행 경비
-  departureDate?: string // 여행 출발 날짜
-  arrivalDate?: string // 여행 도착 날짜
-  like: number // 리스펙 수
-  scraped: number // 스크랩 수
-  viewCount: number // 조회수
+  id: number;
+  title: string;
+  createdAt: string;
+  updatedAt: string;
+  username: string;
+  thumbnail: string;
+  location: string[]; // 지역
+  theme?: string; // 여행 테마
+  headCount?: number; // 인원
+  budget?: number; // 여행 경비
+  departureDate?: string; // 여행 출발 날짜
+  arrivalDate?: string; // 여행 도착 날짜
+  like: number; // 리스펙 수
+  scraped: number; // 스크랩 수
+  viewCount: number; // 조회수
 }
 
 const defaultJournalGroups: JournalGroup[] = [
@@ -102,20 +102,20 @@ const defaultJournalGroups: JournalGroup[] = [
       },
     ],
   },
-]
+];
 
 export const scrapedJournalGroupsState = atom({
   key: 'scrapedJournalGroupsState',
   default: defaultJournalGroups,
-})
+});
 
 interface ScrapedPlace {
-  id: string | number
-  placeName: string
-  theme: string
-  address: string
-  images: string[]
-  createdAt: string
+  id: string | number;
+  placeName: string;
+  theme: string;
+  address: string;
+  images: string[];
+  createdAt: string;
 }
 
 const defaultScrapedPlaces: ScrapedPlace[] = [
@@ -144,9 +144,9 @@ const defaultScrapedPlaces: ScrapedPlace[] = [
     ],
     createdAt: '20230101120408',
   },
-]
+];
 
 export const scrapedPlacesState = atom({
   key: 'scrapedPlacesState',
   default: defaultScrapedPlaces,
-})
+});

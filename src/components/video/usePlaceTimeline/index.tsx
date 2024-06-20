@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
-import * as S from './style'
+import { useCallback, useEffect, useRef, useState } from 'react';
+import * as S from './style';
 
-import BusIcon from '../../../assets/icons/bus.svg?react'
-import CalendarAddIcon from '../../../assets/icons/calendar_add_border.svg?react'
+import BusIcon from '../../../assets/icons/bus.svg?react';
+import CalendarAddIcon from '../../../assets/icons/calendar_add_border.svg?react';
 
 const data = [
   {
@@ -45,39 +45,39 @@ const data = [
     theme: '테마',
     time: -1,
   },
-]
+];
 
 function usePlaceTimeline() {
-  const timelineRef = useRef<HTMLDivElement>(null)
-  const [index, setIndex] = useState(0)
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
     timelineRef.current?.scrollTo({
       left: 210 * index + 13 - timelineRef.current.offsetWidth / 2,
       behavior: 'smooth',
-    })
-    console.log(index)
-  }, [index])
+    });
+    console.log(index);
+  }, [index]);
 
   function getCurrentIndex() {
-    return index
+    return index;
   }
 
   function movePrev() {
-    console.log(index)
-    setIndex(prev => (prev - 1 >= 0 ? prev - 1 : prev))
+    console.log(index);
+    setIndex((prev) => (prev - 1 >= 0 ? prev - 1 : prev));
     // index 상태값이 왜 0으로 고정이지?
     if (index > 0) {
-      setIndex(prev => prev - 1)
+      setIndex((prev) => prev - 1);
     }
   }
 
   function moveNext() {
-    setIndex(prev => prev + 1)
+    setIndex((prev) => prev + 1);
   }
 
   function moveIndex(idx: number) {
-    setIndex(idx)
+    setIndex(idx);
   }
 
   const PlaceTimeline = useCallback(
@@ -87,7 +87,7 @@ function usePlaceTimeline() {
           <>
             <S.TimeLineItem
               onClick={() => {
-                moveIndex(idx)
+                moveIndex(idx);
               }}
             >
               <S.TimeLineIndex>{idx + 1}</S.TimeLineIndex>
@@ -109,8 +109,8 @@ function usePlaceTimeline() {
         ))}
       </S.VideoTimeline>
     ),
-    []
-  )
+    [],
+  );
 
   return {
     PlaceTimeline,
@@ -118,7 +118,7 @@ function usePlaceTimeline() {
     movePrev,
     moveNext,
     getCurrentIndex,
-  }
+  };
 }
 
-export default usePlaceTimeline
+export default usePlaceTimeline;

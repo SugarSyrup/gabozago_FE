@@ -1,41 +1,37 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
-import { get } from '../../../utils/api'
-import Typography from '../../common/Typography'
+import { get } from '../../../utils/api';
+import Typography from '../../common/Typography';
 
-import RecommendationListItem from '../RecommendationListItem'
-import * as S from './style'
+import RecommendationListItem from '../RecommendationListItem';
+import * as S from './style';
 
 interface Props {
-  popupOpen: () => void
-  setNewLocation: React.Dispatch<React.SetStateAction<string>>
-  locations: string[]
+  popupOpen: () => void;
+  setNewLocation: React.Dispatch<React.SetStateAction<string>>;
+  locations: string[];
 }
 
 interface TPlace {
-  id: number
-  name: string
-  theme: string
-  location: string
+  id: number;
+  name: string;
+  theme: string;
+  location: string;
 }
 
 function LocationHotPlaces({ locations, setNewLocation, popupOpen }: Props) {
-  const [recommendPlaces, setRecommendPlaces] = useState<TPlace[]>([])
+  const [recommendPlaces, setRecommendPlaces] = useState<TPlace[]>([]);
 
   useEffect(() => {
-    get<TPlace[]>(
-      `/my-travel/location/hot?location=${locations.toString()}`
-    ).then(response => {
-      setRecommendPlaces(response.data)
-    })
-  }, [])
+    get<TPlace[]>(`/my-travel/location/hot?location=${locations.toString()}`).then((response) => {
+      setRecommendPlaces(response.data);
+    });
+  }, []);
 
   return (
     <>
       {recommendPlaces.length !== 0 && (
-        <Typography.Title size="lg">
-          {locations.toLocaleString()} HOT 여행지
-        </Typography.Title>
+        <Typography.Title size="lg">{locations.toLocaleString()} HOT 여행지</Typography.Title>
       )}
       {recommendPlaces.length !== 0 && (
         <S.RecommendationList>
@@ -53,7 +49,7 @@ function LocationHotPlaces({ locations, setNewLocation, popupOpen }: Props) {
         </S.RecommendationList>
       )}
     </>
-  )
+  );
 }
 
-export default LocationHotPlaces
+export default LocationHotPlaces;

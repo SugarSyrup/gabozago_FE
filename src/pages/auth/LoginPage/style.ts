@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
-import styled, { keyframes } from 'styled-components'
+import { Link } from 'react-router-dom';
+import styled, { keyframes } from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
@@ -10,7 +10,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   gap: 8px;
-`
+`;
 
 export const BrandCopy = styled.span`
   margin-top: 8px;
@@ -23,7 +23,7 @@ export const BrandCopy = styled.span`
   font-size: 14px;
   font-weight: 400;
   line-height: 22px;
-`
+`;
 
 export const OAuthSquareButton = styled.div`
   width: 100%;
@@ -46,7 +46,7 @@ export const OAuthSquareButton = styled.div`
     font-weight: 500;
     line-height: 22px;
   }
-`
+`;
 
 export const SeperateTextLine = styled.div`
   width: 100%;
@@ -68,7 +68,7 @@ export const SeperateTextLine = styled.div`
     width: 100%;
     border-bottom: 1px solid #d4d4d4;
   }
-`
+`;
 
 export const OAuthButtons = styled.div`
   width: 100%;
@@ -78,7 +78,7 @@ export const OAuthButtons = styled.div`
   justify-content: center;
   align-items: center;
   gap: 15px;
-`
+`;
 
 export const OAuthCircleButton = styled.div<{ color: string }>`
   width: 40px;
@@ -90,7 +90,7 @@ export const OAuthCircleButton = styled.div<{ color: string }>`
   align-items: center;
 
   border-radius: 100%;
-`
+`;
 
 export const MessageContainer = styled.div`
   position: relative;
@@ -100,7 +100,7 @@ export const MessageContainer = styled.div`
   display: flex;
   justify-content: center;
   gap: 11px;
-`
+`;
 
 const upDown = keyframes`
   from{
@@ -109,7 +109,7 @@ const upDown = keyframes`
   to{
     transform: translateY(-2px);
   }
-`
+`;
 
 export const FloatingMessage = styled.div`
   padding: 4px 25px;
@@ -148,4 +148,4 @@ export const FloatingMessage = styled.div`
     font-weight: 600;
     line-height: 22px;
   }
-`
+`;

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Header = styled.div`
   display: flex;
@@ -9,11 +9,11 @@ export const Header = styled.div`
   position: relative;
   padding-top: 15px;
   padding-bottom: 10px;
-`
+`;
 
 export const LocationsHeader = styled.div`
   margin-bottom: 20px;
-`
+`;
 
 export const Locations = styled.div`
   width: 100%;
@@ -23,7 +23,7 @@ export const Locations = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-`
+`;
 
 export const Footer = styled.footer`
   position: fixed;
@@ -44,7 +44,7 @@ export const Footer = styled.footer`
   width: 100%;
   overflow: auto;
   background-color: white;
-`
+`;
 
 export const LocationTags = styled.div`
   width: 100%;
@@ -56,11 +56,11 @@ export const LocationTags = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-`
+`;
 
 export const SubmitButtonText = styled.span`
   color: white;
-`
+`;
 
 export const LocationItem = styled.li`
   width: 100%;
@@ -68,13 +68,13 @@ export const LocationItem = styled.li`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`
+`;
 
 export const LocationInfomation = styled.div`
   display: flex;
   align-items: center;
   gap: 15px;
-`
+`;
 
 export const LocationImgWrapper = styled.div`
   width: 40px;
@@ -97,22 +97,21 @@ export const LocationImgWrapper = styled.div`
     object-fit: contain;
     border-radius: 100%;
   }
-`
+`;
 
 export const LocationSelectButton = styled.button<{ isActive: boolean }>`
   padding: 4px 15px;
 
   border: none;
   border-radius: 20px;
-  background-color: ${({ theme, isActive }) =>
-    isActive ? theme.main : theme.gray06};
+  background-color: ${({ theme, isActive }) => (isActive ? theme.main : theme.gray06)};
   color: ${({ theme, isActive }) => (isActive ? theme.white : theme.black)};
 
   cursor: pointer;
-`
+`;
 
 export const Button = styled.button<{
-  bgColor: boolean
+  bgColor: boolean;
 }>`
   width: 100%;
   padding: 12px 20px;
@@ -124,8 +123,7 @@ export const Button = styled.button<{
   align-items: center;
   gap: 10px;
 
-  background-color: ${({ theme, bgColor }) =>
-    bgColor ? theme.main : '#a6a6a6'};
+  background-color: ${({ theme, bgColor }) => (bgColor ? theme.main : '#a6a6a6')};
   text-decoration: none;
   cursor: pointer;
   svg {
@@ -136,4 +134,4 @@ export const Button = styled.button<{
       fill: white;
     }
   }
-`
+`;

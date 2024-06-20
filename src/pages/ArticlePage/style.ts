@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const ModalWrapper = styled.div<{ isOpen: boolean }>`
   position: fixed;
@@ -9,7 +9,7 @@ export const ModalWrapper = styled.div<{ isOpen: boolean }>`
   z-index: ${({ isOpen }) => (isOpen ? 100 : -1)};
 
   margin-left: -20px;
-`
+`;
 
 export const BackButtonWrapper = styled.div`
   position: absolute;
@@ -25,7 +25,7 @@ export const BackButtonWrapper = styled.div`
       fill: white;
     }
   }
-`
+`;
 
 export const ThumbnailWrapper = styled.div`
   position: absolute;
@@ -39,7 +39,7 @@ export const ThumbnailWrapper = styled.div`
     max-height: 100%;
     object-fit: contain;
   }
-`
+`;
 
 export const Header = styled.div`
   width: 100%;
@@ -49,7 +49,7 @@ export const Header = styled.div`
 
   display: flex;
   flex-direction: column;
-`
+`;
 
 export const Type = styled.span`
   color: ${({ theme }) => theme.gray02};
@@ -57,14 +57,14 @@ export const Type = styled.span`
   font-weight: 400;
   line-height: 20px;
   letter-spacing: 0.1px;
-`
+`;
 
 export const Title = styled.span`
   color: ${({ theme }) => theme.black};
   font-size: 20px;
   font-weight: 600;
   line-height: 32px;
-`
+`;
 
 export const StationContainer = styled.div`
   margin-top: 20px;
@@ -73,7 +73,7 @@ export const StationContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
-`
+`;
 
 export const StationTitle = styled.span`
   color: ${({ theme }) => theme.gray};
@@ -82,7 +82,7 @@ export const StationTitle = styled.span`
   line-height: 24px;
   letter-spacing: 0.15px;
   margin-left: 20px;
-`
+`;
 
 export const NextArticle = styled.div`
   width: 100%;
@@ -100,7 +100,7 @@ export const NextArticle = styled.div`
   a {
     color: ${({ theme }) => theme.gray};
   }
-`
+`;
 
 export const Content = styled.div<{ isLogin: boolean }>`
   max-height: ${({ isLogin }) => !isLogin && '2390px'};
@@ -116,11 +116,11 @@ export const Content = styled.div<{ isLogin: boolean }>`
   padding-left: 20px;
   padding-right: 20px;
   padding-bottom: 100px;
-`
+`;
 
 export const Empty = styled.div`
   padding-bottom: 160px;
-`
+`;
 
 export const IsLoginBlur = styled.div<{ top: number }>`
   width: 100%;
@@ -151,7 +151,7 @@ export const IsLoginBlur = styled.div<{ top: number }>`
     align-items: center;
     text-align: center;
   }
-`
+`;
 
 export const LoginLinkButton = styled.div`
   width: 100%;
@@ -160,4 +160,4 @@ export const LoginLinkButton = styled.div`
   border-radius: 30px;
   margin-top: 20px;
   cursor: pointer;
-`
+`;

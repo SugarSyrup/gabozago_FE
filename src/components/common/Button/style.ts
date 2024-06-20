@@ -1,10 +1,10 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 interface Props {
-  type: 'normal' | 'text'
-  size: 'lg' | 'md' | 'sm' | 'xs'
-  active?: boolean
-  width?: string
+  type: 'normal' | 'text';
+  size: 'lg' | 'md' | 'sm' | 'xs';
+  active?: boolean;
+  width?: string;
 }
 
 export const Button = styled.button<Props>`
@@ -42,4 +42,4 @@ export const Button = styled.button<Props>`
     background-color: ${({ theme }) => theme.gray03};
     color: ${({ theme }) => theme.white};
   }
-`
+`;

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const CheckPointList = styled.div`
   width: 100%;
@@ -12,7 +12,7 @@ export const CheckPointList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 14px;
-`
+`;
 
 export const CheckPointItem = styled.div`
   display: flex;
@@ -29,24 +29,24 @@ export const CheckPointItem = styled.div`
       fill: ${({ theme }) => theme.main};
     }
   }
-`
+`;
 
 export const CheckPointText = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   color: ${({ theme }) => theme.black};
-`
+`;
 
 export const CheckPoint = styled.span`
   color: ${({ theme }) => theme.black};
   font-size: 13px;
   font-weight: 500;
   line-height: normal;
-`
+`;
 
 export const CheckPointDesc = styled.span`
   color: #4e4e4e;
   font-size: 10px;
   font-weight: 400;
-`
+`;

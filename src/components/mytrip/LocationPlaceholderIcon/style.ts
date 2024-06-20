@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const IconWrapper = styled.div<{ type: 1 | 2 | 3 | 4 | 5 }>`
   width: 40px;
@@ -12,15 +12,15 @@ export const IconWrapper = styled.div<{ type: 1 | 2 | 3 | 4 | 5 }>`
   background-color: ${({ type }) => {
     switch (type) {
       case 1:
-        return '#F4F4FF'
+        return '#F4F4FF';
       case 2:
-        return '#FFF5EE'
+        return '#FFF5EE';
       case 3:
-        return '#FFFACD'
+        return '#FFFACD';
       case 4:
-        return '#D4FFE4'
+        return '#D4FFE4';
       case 5:
-        return '#D9D7D7'
+        return '#D9D7D7';
     }
   }};
-`
+`;

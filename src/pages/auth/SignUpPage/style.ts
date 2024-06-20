@@ -1,11 +1,11 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 
 export const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   gap: 18px;
-`
+`;
 
 export const HeaderText = styled.span`
   color: #000;
@@ -14,14 +14,14 @@ export const HeaderText = styled.span`
   font-weight: 600;
   line-height: 22px;
   letter-spacing: 0.2px;
-`
+`;
 
 export const ButtonWrapper = styled.div`
   width: 100%;
   max-width: 480px;
   background-color: white;
   margin-top: 50px;
-`
+`;
 
 export const Button = styled.button`
   position: absolute;
@@ -46,10 +46,10 @@ export const Button = styled.button`
     background-color: ${({ theme }) => theme.gray03};
     color: ${({ theme }) => theme.white};
   }
-`
+`;
 
 export const BrandIcon = styled.div<{
-  type: 'kakao' | 'google' | 'naver' | 'apple'
+  type: 'kakao' | 'google' | 'naver' | 'apple';
 }>`
   width: 16px;
   height: 16px;
@@ -75,19 +75,19 @@ export const BrandIcon = styled.div<{
       case 'kakao':
         return css`
           background-color: yellow;
-        `
+        `;
       case 'google':
         return css`
           background-color: #ffffff;
-        `
+        `;
       case 'naver':
         return css`
           background-color: #00bf18;
-        `
+        `;
       case 'apple':
         return css`
           background-color: #000000;
-        `
+        `;
     }
   }}
-`
+`;

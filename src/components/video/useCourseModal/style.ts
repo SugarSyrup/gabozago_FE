@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const ModalWrapper = styled.div`
   width: 100%;
@@ -11,7 +11,7 @@ export const ModalWrapper = styled.div`
   position: fixed;
   bottom: 0px;
   z-index: 40;
-`
+`;
 
 export const CourseModalContainer = styled.div`
   width: 100%;
@@ -22,13 +22,13 @@ export const CourseModalContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 24px;
-`
+`;
 
 export const CourseModalHeader = styled.div`
   display: flex;
   gap: 10px;
   align-items: center;
-`
+`;
 
 export const TravelThumbnailWrapper = styled.img`
   width: 50px;
@@ -36,14 +36,14 @@ export const TravelThumbnailWrapper = styled.img`
 
   border-radius: 100%;
   background-color: ${({ theme }) => theme.blue04};
-`
+`;
 
 export const ModalInfoText = styled.span`
   font-size: 14px;
   font-weight: 600;
   line-height: 22px;
   letter-spacing: 0.2px;
-`
+`;
 
 export const TravelList = styled.ol`
   width: 100%;
@@ -52,14 +52,14 @@ export const TravelList = styled.ol`
   justify-content: space-between;
   align-items: flex-start;
   gap: 16px;
-`
+`;
 
 export const TravelListHeader = styled.div`
   width: 100%;
 
   display: flex;
   justify-content: space-between;
-`
+`;
 
 export const TravelListTitle = styled.span`
   color: ${({ theme }) => theme.gray};
@@ -67,7 +67,7 @@ export const TravelListTitle = styled.span`
   font-weight: 600;
   line-height: 22px;
   letter-spacing: 0.2px;
-`
+`;
 
 export const TravelCreate = styled.span`
   color: ${({ theme }) => theme.main};
@@ -75,7 +75,7 @@ export const TravelCreate = styled.span`
   line-height: 22px;
   letter-spacing: 0.2px;
   cursor: pointer;
-`
+`;
 
 export const TravelItem = styled.li`
   width: 100%;
@@ -83,21 +83,21 @@ export const TravelItem = styled.li`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`
+`;
 
 export const TravelInfoContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
   gap: 10px;
-`
+`;
 
 export const TravelInfoTextContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 3px;
-`
+`;
 
 export const TravelName = styled.span`
   color: ${({ theme }) => theme.gray};
@@ -105,7 +105,7 @@ export const TravelName = styled.span`
   font-weight: 600;
   line-height: 22px;
   letter-spacing: 0.2px;
-`
+`;
 
 export const TravelLocation = styled.span`
   color: ${({ theme }) => theme.gray01};
@@ -124,7 +124,7 @@ export const TravelLocation = styled.span`
       fill: ${({ theme }) => theme.gray01};
     }
   }
-`
+`;
 
 export const TravelAddBtn = styled.div<{ isClicked: boolean }>`
   display: flex;
@@ -137,8 +137,7 @@ export const TravelAddBtn = styled.div<{ isClicked: boolean }>`
     height: 24px;
 
     path {
-      fill: ${({ theme, isClicked }) =>
-        isClicked ? theme.main : theme.gray01};
+      fill: ${({ theme, isClicked }) => (isClicked ? theme.main : theme.gray01)};
     }
   }
 
@@ -147,4 +146,4 @@ export const TravelAddBtn = styled.div<{ isClicked: boolean }>`
     text-align: center;
     font-size: 8px;
   }
-`
+`;

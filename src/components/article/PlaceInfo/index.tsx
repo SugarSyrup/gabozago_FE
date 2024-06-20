@@ -1,49 +1,49 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
-import { useNavigate } from 'react-router-dom'
-import MarketIcon from '../../../assets/icons/market.svg?react'
-import CalendarAddIcon from '../../../assets/icons/calendar_add_border.svg?react'
-import BookMarkIcon from '../../../assets/icons/bookmark.svg?react'
-import RightChevron from '../../../assets/icons/chevron_right.svg?react'
+import { useNavigate } from 'react-router-dom';
+import MarketIcon from '../../../assets/icons/market.svg?react';
+import CalendarAddIcon from '../../../assets/icons/calendar_add_border.svg?react';
+import BookMarkIcon from '../../../assets/icons/bookmark.svg?react';
+import RightChevron from '../../../assets/icons/chevron_right.svg?react';
 
-import * as S from './style'
-import { get, post } from '../../../utils/api'
-import useAlert from '../../../hooks/useAlert'
-import Typography from '../../common/Typography'
+import * as S from './style';
+import { get, post } from '../../../utils/api';
+import useAlert from '../../../hooks/useAlert';
+import Typography from '../../common/Typography';
 
 interface Props {
-  placeId: number
-  imageURL: string
+  placeId: number;
+  imageURL: string;
 }
 
 interface TPlace {
-  region: string
-  name: string
-  theme: string
-  address: string
-  number: string
-  opening_hours: string
-  website: string
-  image: string[]
+  region: string;
+  name: string;
+  theme: string;
+  address: string;
+  number: string;
+  opening_hours: string;
+  website: string;
+  image: string[];
 }
 
 function PlaceInfo({ placeId, imageURL }: Props) {
-  const navigate = useNavigate()
-  const [data, setData] = useState<TPlace>()
-  const [alertMessage, setAlertMessage] = useState<string>('')
+  const navigate = useNavigate();
+  const [data, setData] = useState<TPlace>();
+  const [alertMessage, setAlertMessage] = useState<string>('');
   const { Alert, alertOpen } = useAlert({
     Content: (
       <Typography.Body size="lg" color="white">
         {alertMessage}
       </Typography.Body>
     ),
-  })
+  });
 
   useEffect(() => {
-    get<TPlace>(`/place/${placeId}`).then(response => {
-      setData(response.data)
-    })
-  }, [])
+    get<TPlace>(`/place/${placeId}`).then((response) => {
+      setData(response.data);
+    });
+  }, []);
 
   return (
     <S.Container>
@@ -55,7 +55,7 @@ function PlaceInfo({ placeId, imageURL }: Props) {
             <S.TextContainer>
               <S.Name
                 onClick={() => {
-                  navigate(`/place/${placeId}`)
+                  navigate(`/place/${placeId}`);
                 }}
               >
                 <MarketIcon />
@@ -69,7 +69,7 @@ function PlaceInfo({ placeId, imageURL }: Props) {
             <S.Buttons>
               <S.Icon
                 onClick={() => {
-                  navigate(`/mytrip/place/${placeId}`)
+                  navigate(`/mytrip/place/${placeId}`);
                 }}
               >
                 <CalendarAddIcon />
@@ -79,15 +79,15 @@ function PlaceInfo({ placeId, imageURL }: Props) {
                 onClick={() => {
                   post<{ message: string }>('/folder/scrap/place', {
                     placeId,
-                  }).then(response => {
+                  }).then((response) => {
                     if (response.data.message === 'Create Success') {
-                      setAlertMessage(`${data.name}가 스크랩 되었습니다.`)
+                      setAlertMessage(`${data.name}가 스크랩 되었습니다.`);
                     } else {
-                      setAlertMessage(`${data.name}를 스크랩에서 삭제했습니다.`)
+                      setAlertMessage(`${data.name}를 스크랩에서 삭제했습니다.`);
                     }
 
-                    alertOpen()
-                  })
+                    alertOpen();
+                  });
                 }}
               >
                 <BookMarkIcon />
@@ -98,6 +98,6 @@ function PlaceInfo({ placeId, imageURL }: Props) {
         </>
       )}
     </S.Container>
-  )
+  );
 }
-export default PlaceInfo
+export default PlaceInfo;

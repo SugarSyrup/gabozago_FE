@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const NavContainer = styled.div`
   width: 100%;
@@ -7,7 +7,7 @@ export const NavContainer = styled.div`
   position: fixed;
   bottom: 0;
   padding: 20px;
-`
+`;
 
 export const Container = styled.div`
   @keyframes fadein {
@@ -33,7 +33,7 @@ export const Container = styled.div`
   svg {
     animation: fadein 2s;
   }
-`
+`;
 
 export const TitleParagraph = styled.p`
   margin-bottom: 17px;
@@ -43,7 +43,7 @@ export const TitleParagraph = styled.p`
   line-height: normal;
   color: ${({ theme }) => theme.black};
   animation: fadein 2s;
-`
+`;
 
 export const DescParagraph = styled.p`
   margin-top: 6px;
@@ -54,4 +54,4 @@ export const DescParagraph = styled.p`
   word-break: keep-all;
   color: ${({ theme }) => theme.gray01};
   animation: fadein 2s;
-`
+`;

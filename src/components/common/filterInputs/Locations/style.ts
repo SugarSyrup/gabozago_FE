@@ -1,6 +1,6 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-export const Container = styled.div``
+export const Container = styled.div``;
 
 export const LocationContainer = styled.div`
   display: grid;
@@ -13,14 +13,14 @@ export const LocationContainer = styled.div`
 
   border-top: 1px solid ${({ theme }) => theme.gray04};
   border-bottom: 1px solid ${({ theme }) => theme.gray04};
-`
+`;
 
 export const CategoryList = styled.ul`
   height: 100%;
   overflow-y: auto;
   padding: 0;
   border-right: 1px solid ${({ theme }) => theme.gray03};
-`
+`;
 
 export const CategoryItem = styled.li<{ active: boolean }>`
   padding: 8px;
@@ -32,19 +32,18 @@ export const CategoryItem = styled.li<{ active: boolean }>`
   font-weight: 600;
   line-height: 24px;
   letter-spacing: 0.15px;
-  background-color: ${({ active, theme }) =>
-    active ? theme.white : theme.gray06};
+  background-color: ${({ active, theme }) => (active ? theme.white : theme.gray06)};
 
   &:hover {
     background-color: ${({ theme }) => theme.white};
   }
-`
+`;
 
 export const RegionList = styled.ul`
   height: 100%;
   overflow-y: auto;
   background-color: ${({ theme }) => theme.white};
-`
+`;
 
 export const RegionItem = styled.li<{ active: boolean }>`
   padding: 9px;
@@ -58,13 +57,12 @@ export const RegionItem = styled.li<{ active: boolean }>`
 
   color: ${({ active, theme }) => (active ? theme.main : theme.black)};
 
-  background-color: ${({ active, theme }) =>
-    active ? theme.blue05 : theme.white};
+  background-color: ${({ active, theme }) => (active ? theme.blue05 : theme.white)};
 
   &:hover {
     background-color: ${({ theme }) => theme.blue05};
   }
-`
+`;
 
 export const LocationTags = styled.div`
   max-height: 200px;
@@ -75,4 +73,4 @@ export const LocationTags = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-`
+`;

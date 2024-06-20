@@ -1,41 +1,38 @@
-import { useEffect, useState } from 'react'
-import { useRecoilState } from 'recoil'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import MapIcon from '../../../assets/icons/map.svg?react'
-import { selectedPlacesState } from '../../../recoil/mytrip/selectedPlacesState'
-import { post } from '../../../utils/api'
+import MapIcon from '../../../assets/icons/map.svg?react';
+import { selectedPlacesState } from '../../../recoil/mytrip/selectedPlacesState';
+import { post } from '../../../utils/api';
 
-import SelectedPlaceItem from '../SelectedPlaceItem'
-import Typography from '../../common/Typography'
+import SelectedPlaceItem from '../SelectedPlaceItem';
+import Typography from '../../common/Typography';
 
-import * as S from './style'
+import * as S from './style';
 
 function SelectedPlaces() {
-  const { id, day } = useParams()
-  const navigate = useNavigate()
-  const [selectedPlaces, setSelectedPlaces] =
-    useRecoilState(selectedPlacesState)
-  const [hasSelectedPlaces, setHasSelectedPlaces] = useState<boolean>(false)
+  const { id, day } = useParams();
+  const navigate = useNavigate();
+  const [selectedPlaces, setSelectedPlaces] = useRecoilState(selectedPlacesState);
+  const [hasSelectedPlaces, setHasSelectedPlaces] = useState<boolean>(false);
 
   function onDelete(id: number) {
-    setSelectedPlaces(prev =>
-      prev.filter(SelectedPlace => SelectedPlace.id !== id)
-    )
+    setSelectedPlaces((prev) => prev.filter((SelectedPlace) => SelectedPlace.id !== id));
   }
 
   useEffect(() => {
     if (selectedPlaces.length === 0) {
-      setHasSelectedPlaces(false)
+      setHasSelectedPlaces(false);
     } else {
-      setHasSelectedPlaces(true)
+      setHasSelectedPlaces(true);
     }
-  }, [selectedPlaces])
+  }, [selectedPlaces]);
 
   return (
     <S.Container>
       <S.SelectedPlaceList>
-        {selectedPlaces.map(selectedPlace => (
+        {selectedPlaces.map((selectedPlace) => (
           <SelectedPlaceItem
             name={selectedPlace.name}
             key={selectedPlace.id}
@@ -49,18 +46,18 @@ function SelectedPlaces() {
         isActive={hasSelectedPlaces}
         onClick={() => {
           post<{
-            id: number
-            name: number
+            id: number;
+            name: number;
           }>('/my-travel/detail-route/place', {
-            placeId: selectedPlaces.map(selectedPlace => selectedPlace.id),
+            placeId: selectedPlaces.map((selectedPlace) => selectedPlace.id),
             myTravelId: id,
             day,
-          }).then(response => {
+          }).then((response) => {
             if (response.status === 201) {
-              setSelectedPlaces([])
-              navigate(-1)
+              setSelectedPlaces([]);
+              navigate(-1);
             }
-          })
+          });
         }}
       >
         <MapIcon />
@@ -69,7 +66,7 @@ function SelectedPlaces() {
         </Typography.Title>
       </S.Button>
     </S.Container>
-  )
+  );
 }
 
-export default SelectedPlaces
+export default SelectedPlaces;

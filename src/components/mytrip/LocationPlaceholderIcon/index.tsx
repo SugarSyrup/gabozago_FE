@@ -1,7 +1,7 @@
-import * as S from './style'
+import * as S from './style';
 
 interface Props {
-  type: 1 | 2 | 3 | 4 | 5
+  type: 1 | 2 | 3 | 4 | 5;
 }
 
 const TypeColor = {
@@ -10,7 +10,7 @@ const TypeColor = {
   3: '#FFC93C',
   4: '#52E069',
   5: '#6F6F6F',
-}
+};
 
 function LocationPlaceholderIcon({ type }: Props) {
   return (
@@ -48,7 +48,7 @@ function LocationPlaceholderIcon({ type }: Props) {
         />
       </svg>
     </S.IconWrapper>
-  )
+  );
 }
 
-export default LocationPlaceholderIcon
+export default LocationPlaceholderIcon;

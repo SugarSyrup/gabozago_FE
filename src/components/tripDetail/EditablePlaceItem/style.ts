@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const ListItem = styled.li`
   margin: 0 -20px;
@@ -22,7 +22,7 @@ export const ListItem = styled.li`
     background-color: ${({ theme }) => theme.red};
     color: ${({ theme }) => theme.white};
   }
-`
+`;
 
 export const Wrapper = styled.div<{ isSelected: boolean; translateX: number }>`
   position: relative;
@@ -39,15 +39,14 @@ export const Wrapper = styled.div<{ isSelected: boolean; translateX: number }>`
   transform: translateX(${({ translateX }) => `${translateX}px`});
 
   cursor: pointer;
-  background-color: ${({ theme, isSelected }) =>
-    isSelected ? theme.blue04 : theme.white};
+  background-color: ${({ theme, isSelected }) => (isSelected ? theme.blue04 : theme.white)};
 
   svg {
     path {
       fill: ${({ theme }) => theme.blue02};
     }
   }
-`
+`;
 
 export const PlaceInfo = styled.div`
   flex-grow: 1;
@@ -88,4 +87,4 @@ export const PlaceInfo = styled.div`
       color: ${({ theme }) => theme.gray01};
     }
   }
-`
+`;

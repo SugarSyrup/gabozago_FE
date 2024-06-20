@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const ModalWrapper = styled.div`
   width: 100%;
@@ -11,7 +11,7 @@ export const ModalWrapper = styled.div`
   position: fixed;
   bottom: 0px;
   z-index: 40;
-`
+`;
 
 export const PopupContainer = styled.div`
   display: flex;
@@ -27,7 +27,7 @@ export const PopupContainer = styled.div`
     line-height: 20px;
     letter-spacing: 0.28px;
   }
-`
+`;
 
 export const PopupTitle = styled.h2`
   text-align: center;
@@ -35,14 +35,14 @@ export const PopupTitle = styled.h2`
   font-weight: 600;
   line-height: 22px;
   letter-spacing: 0.2px;
-`
+`;
 
 export const PopupButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 8px;
-`
+`;
 
 export const PopupButton = styled.button<{ main: boolean }>`
   padding: 12px 24px;
@@ -55,4 +55,4 @@ export const PopupButton = styled.button<{ main: boolean }>`
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.28px;
-`
+`;

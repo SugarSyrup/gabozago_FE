@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Summary = styled.div`
   padding: 19px 26px;
@@ -22,7 +22,7 @@ export const Summary = styled.div`
       fill: #849fff;
     }
   }
-`
+`;
 
 export const Places = styled.div`
   grid-area: places;
@@ -31,7 +31,7 @@ export const Places = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
-`
+`;
 
 export const People = styled.div`
   grid-area: people;
@@ -40,7 +40,7 @@ export const People = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
-`
+`;
 
 export const Dates = styled.div`
   grid-area: dates;
@@ -49,7 +49,7 @@ export const Dates = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
-`
+`;
 
 export const Payments = styled.div`
   grid-area: payments;
@@ -58,7 +58,7 @@ export const Payments = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
-`
+`;
 
 export const Seasons = styled.div`
   grid-area: seasons;
@@ -67,7 +67,7 @@ export const Seasons = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
-`
+`;
 
 export const Themes = styled.div`
   grid-area: themes;
@@ -76,13 +76,13 @@ export const Themes = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
-`
+`;
 
 export const SummaryName = styled.span`
   color: ${({ theme }) => theme.gray01};
   font-size: 12px;
   font-weight: 400;
-`
+`;
 
 export const SummaryValueWrapper = styled.div`
   font-size: 12px;
@@ -93,14 +93,14 @@ export const SummaryValueWrapper = styled.div`
   gap: 4px;
 
   margin-left: 4px;
-`
+`;
 
 export const SummaryValue = styled.span`
   font-size: 12px;
   font-weight: 500;
-`
+`;
 
 export const Dot = styled.span`
   color: ${({ theme }) => theme.blue03};
   font-size: 8px;
-`
+`;

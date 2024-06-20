@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 
 export const Header = styled.header<{ position: 'bottom' | 'top' }>`
   width: 100%;
@@ -18,11 +18,11 @@ export const Header = styled.header<{ position: 'bottom' | 'top' }>`
       : css`
           border-top: 1px solid ${({ theme }) => theme.gray04};
         `}
-`
+`;
 
 export const CommentCountSpan = styled.span`
   color: ${({ theme }) => theme.main};
-`
+`;
 
 export const Contents = styled.div<{ position: 'bottom' | 'top' }>`
   ${({ position }) =>
@@ -35,7 +35,7 @@ export const Contents = styled.div<{ position: 'bottom' | 'top' }>`
       : css`
           padding: 16px 20px;
         `};
-`
+`;
 
 export const CommentInputForm = styled.form<{ position: 'bottom' | 'top' }>`
   display: flex;
@@ -64,7 +64,7 @@ export const CommentInputForm = styled.form<{ position: 'bottom' | 'top' }>`
           position: relative;
           padding: 8px 20px;
         `}
-`
+`;
 
 export const UserProfileImgBox = styled.div`
   flex: 0 0 fit-content;
@@ -76,18 +76,18 @@ export const UserProfileImgBox = styled.div`
     width: 33px;
     height: 33px;
   }
-`
+`;
 
 export const UserProfileImg = styled.img`
   width: 33px;
   height: 33px;
   border-radius: 50%;
   object-fit: cover;
-`
+`;
 export const CommentInputControlBox = styled.div`
   position: relative;
   flex: 1 1 100%;
-`
+`;
 
 export const CommentTextArea = styled.textarea`
   width: 100%;
@@ -108,7 +108,7 @@ export const CommentTextArea = styled.textarea`
   &::placeholder {
     color: ${({ theme }) => theme.gray02};
   }
-`
+`;
 
 export const SendButton = styled.button<{ disabled: boolean }>`
   position: absolute;
@@ -132,12 +132,12 @@ export const SendButton = styled.button<{ disabled: boolean }>`
       fill: ${({ theme }) => theme.gray02};
     }
   }
-`
+`;
 
 export const CommentList = styled.ol`
   display: flex;
   flex-direction: column;
-`
+`;
 
 export const NoCommentBox = styled.div`
   position: absolute;
@@ -154,4 +154,4 @@ export const NoCommentBox = styled.div`
     font-size: 16px;
     font-weight: 500;
   }
-`
+`;

@@ -1,11 +1,11 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   position: absolute;
   margin-left: -20px;
   width: 100%;
   max-width: 500px;
-`
+`;
 
 export const InfoContainer = styled.div`
   padding: 15px 20px;
@@ -16,7 +16,7 @@ export const InfoContainer = styled.div`
   justify-content: space-between;
   align-items: start;
   border-bottom: 0.5px solid #e4e4e4;
-`
+`;
 
 export const TextContainer = styled.div`
   display: flex;
@@ -24,7 +24,7 @@ export const TextContainer = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   gap: 5px;
-`
+`;
 
 export const StatusSpan = styled.span<{ type: 'active' | 'inactive' }>`
   width: fit-content;
@@ -52,7 +52,7 @@ export const StatusSpan = styled.span<{ type: 'active' | 'inactive' }>`
           color: ${({ theme }) => theme.gray02};
           background: ${({ theme }) => theme.gray05};
         `}
-`
+`;
 
 export const DateSpan = styled.span`
   color: ${({ theme }) => theme.gray02};
@@ -63,11 +63,11 @@ export const DateSpan = styled.span`
   font-weight: 400;
   line-height: 16px;
   letter-spacing: 0.5px;
-`
+`;
 
 export const Contents = styled.div`
   padding: 20px;
-`
+`;
 
 export const ImgContainer = styled.div`
   padding: 10px 20px;
@@ -76,7 +76,7 @@ export const ImgContainer = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   gap: 10px;
-`
+`;
 
 export const ImgList = styled.ol`
   width: 100%;
@@ -97,9 +97,9 @@ export const ImgList = styled.ol`
     width: 80px;
     height: 80px;
   }
-`
+`;
 
 export const AnswerInfoContainer = styled(InfoContainer)`
   margin-top: 20px;
   border-top: 1px solid #e4e4e4;
-`
+`;

@@ -1,19 +1,15 @@
-import { FormEventHandler, useRef } from 'react'
-import * as S from './style'
-import usePopup from '../usePopup'
+import { FormEventHandler, useRef } from 'react';
+import * as S from './style';
+import usePopup from '../usePopup';
 
-function useTextInputPopup(
-  title: string,
-  maxLength: number,
-  defaultValue: string = ''
-) {
+function useTextInputPopup(title: string, maxLength: number, defaultValue: string = '') {
   const {
     Popup,
     popupOpen: textInputPopupOpen,
     popupClose: textInputPopupClose,
     isOpend,
-  } = usePopup()
-  const inputRef = useRef<HTMLInputElement>(null)
+  } = usePopup();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   function TextInputPopup({ onSubmit }: { onSubmit: FormEventHandler }) {
     return (
@@ -34,7 +30,7 @@ function useTextInputPopup(
           />
         </form>
       </Popup>
-    )
+    );
   }
 
   return {
@@ -43,7 +39,7 @@ function useTextInputPopup(
     textInputPopupOpen,
     textInputPopupClose,
     isOpend,
-  }
+  };
 }
 
-export default useTextInputPopup
+export default useTextInputPopup;

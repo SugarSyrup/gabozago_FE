@@ -1,112 +1,109 @@
-import { useRecoilState } from 'recoil'
-import { useParams } from 'react-router-dom'
-import { useEffect } from 'react'
-import { DragDropContext } from 'react-beautiful-dnd'
-import * as S from './style'
-import { patch } from '../../../utils/api'
-import DayPlanEdit from '../DayPlanEdit'
-import { DayPlan } from '../TripPlanList'
-import { editingTripPlanState, tripState } from '../../../recoil/tripState'
+import { useRecoilState } from 'recoil';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { DragDropContext } from 'react-beautiful-dnd';
+import * as S from './style';
+import { patch } from '../../../utils/api';
+import DayPlanEdit from '../DayPlanEdit';
+import { DayPlan } from '../TripPlanList';
+import { editingTripPlanState, tripState } from '../../../recoil/tripState';
 
 interface Props {
-  setIsEditMode: React.Dispatch<React.SetStateAction<boolean>>
+  setIsEditMode: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function PlanEditMode({ setIsEditMode }: Props) {
-  const { id } = useParams()
-  const [tripData, setTripData] = useRecoilState(tripState)
-  const [tempData, setTempData] = useRecoilState(editingTripPlanState)
+  const { id } = useParams();
+  const [tripData, setTripData] = useRecoilState(tripState);
+  const [tempData, setTempData] = useRecoilState(editingTripPlanState);
 
   const patchTripPlan = (data: DayPlan[]) => {
-    patch<DayPlan[]>(`my-travel/${id}`, data)
-  }
+    patch<DayPlan[]>(`my-travel/${id}`, data);
+  };
 
   const onCancle = () => {
-    setIsEditMode(false)
-  }
+    setIsEditMode(false);
+  };
 
   const onComplate = () => {
-    const isDiff = JSON.stringify(tripData.plan) !== JSON.stringify(tempData)
+    const isDiff = JSON.stringify(tripData.plan) !== JSON.stringify(tempData);
 
     // 변경된 내용이 있을 경우에만 patch 수행
     if (isDiff) {
-      patchTripPlan(tempData)
-      setTripData(prev => ({ ...prev, plan: tempData }))
+      patchTripPlan(tempData);
+      setTripData((prev) => ({ ...prev, plan: tempData }));
     }
 
-    setIsEditMode(false)
-  }
+    setIsEditMode(false);
+  };
 
-  const onDragStart = e => {
-    document.body.style.userSelect = 'none'
-    document.body.style.cursor = 'grab'
-  }
-  const onDragEnd = e => {
-    const { destination, source, draggableId } = e
+  const onDragStart = (e) => {
+    document.body.style.userSelect = 'none';
+    document.body.style.cursor = 'grab';
+  };
+  const onDragEnd = (e) => {
+    const { destination, source, draggableId } = e;
 
     if (!destination) {
-      return
+      return;
     }
-    if (
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
-    ) {
-      return
+    if (destination.droppableId === source.droppableId && destination.index === source.index) {
+      return;
     }
 
-    const destinationDay = Number(destination.droppableId.split('-')[1])
-    const sourceDay = Number(source.droppableId.split('-')[1])
+    const destinationDay = Number(destination.droppableId.split('-')[1]);
+    const sourceDay = Number(source.droppableId.split('-')[1]);
 
     if (destinationDay === sourceDay) {
       // 같은 source에서 변경했을 때
       setTempData(
-        tempData.map(dayPlan => {
+        tempData.map((dayPlan) => {
           if (dayPlan.day === sourceDay) {
-            console.log('here')
-            const tempRoute = [...dayPlan.route]
-            const targetPlace = tempRoute[source.index]
+            console.log('here');
+            const tempRoute = [...dayPlan.route];
+            const targetPlace = tempRoute[source.index];
 
-            tempRoute.splice(source.index, 1)
-            tempRoute.splice(destination.index, 0, targetPlace)
+            tempRoute.splice(source.index, 1);
+            tempRoute.splice(destination.index, 0, targetPlace);
 
-            return { ...dayPlan, route: tempRoute }
+            return { ...dayPlan, route: tempRoute };
           }
-          return dayPlan
-        })
-      )
+          return dayPlan;
+        }),
+      );
     } else {
       // 다른 droppable로 이동했을 때
       setTempData(() => {
         const targetPlace = tempData[sourceDay - 1].route.find(
-          (place, index) => index === source.index
-        )
+          (place, index) => index === source.index,
+        );
 
-        return tempData.map(dayPlan => {
+        return tempData.map((dayPlan) => {
           if (dayPlan.day === sourceDay) {
-            const tempRoute = [...dayPlan.route]
-            tempRoute.splice(source.index, 1)
+            const tempRoute = [...dayPlan.route];
+            tempRoute.splice(source.index, 1);
 
-            return { ...dayPlan, route: tempRoute }
+            return { ...dayPlan, route: tempRoute };
           }
           if (dayPlan.day === destinationDay) {
-            const tempRoute = [...dayPlan.route]
+            const tempRoute = [...dayPlan.route];
             if (targetPlace) {
-              tempRoute.splice(destination.index, 0, targetPlace)
+              tempRoute.splice(destination.index, 0, targetPlace);
             }
-            return { ...dayPlan, route: tempRoute }
+            return { ...dayPlan, route: tempRoute };
           }
-          return dayPlan
-        })
-      })
+          return dayPlan;
+        });
+      });
     }
-    document.body.style.userSelect = 'auto'
-    document.body.style.cursor = 'auto'
-  }
+    document.body.style.userSelect = 'auto';
+    document.body.style.cursor = 'auto';
+  };
 
   useEffect(() => {
-    console.dir('tempChanged:')
-    console.dir(tempData)
-  }, [tempData])
+    console.dir('tempChanged:');
+    console.dir(tempData);
+  }, [tempData]);
 
   return (
     <>
@@ -118,16 +115,12 @@ function PlanEditMode({ setIsEditMode }: Props) {
       </S.ButtonContainer>
       <DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
         {tempData &&
-          tempData.map(dayPlan => (
-            <DayPlanEdit
-              key={`edit-day-${dayPlan.day}`}
-              day={dayPlan.day}
-              date={dayPlan.date}
-            />
+          tempData.map((dayPlan) => (
+            <DayPlanEdit key={`edit-day-${dayPlan.day}`} day={dayPlan.day} date={dayPlan.date} />
           ))}
       </DragDropContext>
     </>
-  )
+  );
 }
 
-export default PlanEditMode
+export default PlanEditMode;

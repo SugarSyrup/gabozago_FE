@@ -1,19 +1,17 @@
-import React, { Dispatch, useState } from 'react'
+import React, { Dispatch, useState } from 'react';
 
-import LogoIcon from '../../../assets/icons/logo_small.svg?react'
-import CalendarIcon from '../../../assets/icons/calendar.svg?react'
-import LocationIcon from '../../../assets/icons/location.svg?react'
-import { TMyTravelItem } from '../../../pages/mytrip/PlaceAddPage'
+import LogoIcon from '../../../assets/icons/logo_small.svg?react';
+import CalendarIcon from '../../../assets/icons/calendar.svg?react';
+import LocationIcon from '../../../assets/icons/location.svg?react';
+import { TMyTravelItem } from '../../../pages/mytrip/PlaceAddPage';
 
-import Typography from '../../common/Typography'
+import Typography from '../../common/Typography';
 
-import * as S from './style'
+import * as S from './style';
 
 interface Props {
-  currentSelectedItemId: number
-  setCurrentSelectedItem: Dispatch<
-    React.SetStateAction<{ id: number; day?: number }>
-  >
+  currentSelectedItemId: number;
+  setCurrentSelectedItem: Dispatch<React.SetStateAction<{ id: number; day?: number }>>;
 }
 
 function LocationAddItem({
@@ -27,13 +25,13 @@ function LocationAddItem({
   currentSelectedItemId,
   setCurrentSelectedItem,
 }: TMyTravelItem & Props) {
-  const [clickedDay, setClickedDay] = useState<number>(-1)
+  const [clickedDay, setClickedDay] = useState<number>(-1);
 
   return (
     <S.Container>
       <S.InfoContainer
         onClick={() => {
-          setCurrentSelectedItem({ id })
+          setCurrentSelectedItem({ id });
         }}
       >
         <S.MyTravelItemThumbnailWrapper>
@@ -61,8 +59,8 @@ function LocationAddItem({
             <S.DayItem
               isClicked={index === clickedDay}
               onClick={() => {
-                setClickedDay(index)
-                setCurrentSelectedItem({ id, day: day.day })
+                setClickedDay(index);
+                setCurrentSelectedItem({ id, day: day.day });
               }}
             >
               <Typography.Label size="lg" color="inherit">
@@ -77,7 +75,7 @@ function LocationAddItem({
         </S.DayList>
       )}
     </S.Container>
-  )
+  );
 }
 
-export default LocationAddItem
+export default LocationAddItem;

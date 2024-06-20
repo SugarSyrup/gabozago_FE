@@ -1,37 +1,37 @@
-import { useParams } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
-import PageTemplate from '../../../components/common/PageTemplate'
-import PageHeader from '../../../components/common/PageHeader'
-import Typography from '../../../components/common/Typography'
-import { get } from '../../../utils/api'
+import PageTemplate from '../../../components/common/PageTemplate';
+import PageHeader from '../../../components/common/PageHeader';
+import Typography from '../../../components/common/Typography';
+import { get } from '../../../utils/api';
 
-import * as S from './style'
+import * as S from './style';
 
 interface TData {
-  id: number
-  title: string
-  createdAt: string
-  status: '답변대기' | '답변완료'
-  content: string
-  imageURL: string[]
+  id: number;
+  title: string;
+  createdAt: string;
+  status: '답변대기' | '답변완료';
+  content: string;
+  imageURL: string[];
 
   answer: {
-    title: string
-    createdAt: string
-    content: string
-  } | null
+    title: string;
+    createdAt: string;
+    content: string;
+  } | null;
 }
 
 function InquiryDetailPage() {
-  const { id } = useParams()
-  const [data, setData] = useState<TData>()
+  const { id } = useParams();
+  const [data, setData] = useState<TData>();
 
   useEffect(() => {
-    get<TData>(`/settings/support/help/ask/${id}`).then(response => {
-      setData(response.data)
-    })
-  }, [])
+    get<TData>(`/settings/support/help/ask/${id}`).then((response) => {
+      setData(response.data);
+    });
+  }, []);
 
   return (
     <PageTemplate
@@ -48,13 +48,9 @@ function InquiryDetailPage() {
             <Typography.Title size="md" noOfLine={3}>
               {data?.title}
             </Typography.Title>
-            <S.DateSpan>
-              {data?.createdAt.replace('-', '. ').replace('-', '. ')}
-            </S.DateSpan>
+            <S.DateSpan>{data?.createdAt.replace('-', '. ').replace('-', '. ')}</S.DateSpan>
           </S.TextContainer>
-          <S.StatusSpan
-            type={data?.status === '답변대기' ? 'active' : 'inactive'}
-          >
+          <S.StatusSpan type={data?.status === '답변대기' ? 'active' : 'inactive'}>
             {data?.status || '답변대기'}
           </S.StatusSpan>
         </S.InfoContainer>
@@ -67,9 +63,7 @@ function InquiryDetailPage() {
           <S.ImgContainer>
             <Typography.Title size="md">첨부파일</Typography.Title>
             <S.ImgList>
-              {data?.imageURL.map((url, index) => (
-                <img src={url} alt="img" key={index} />
-              ))}
+              {data?.imageURL.map((url, index) => <img src={url} alt="img" key={index} />)}
             </S.ImgList>
           </S.ImgContainer>
         )}
@@ -77,26 +71,22 @@ function InquiryDetailPage() {
           <>
             <S.AnswerInfoContainer>
               <S.TextContainer>
-                <Typography.Title size="md">
-                  {data?.answer?.title}
-                </Typography.Title>
+                <Typography.Title size="md">{data?.answer?.title}</Typography.Title>
                 <S.DateSpan>
-                  {data?.answer?.createdAt
-                    .replace('-', '. ')
-                    .replace('-', '. ')}
+                  {data?.answer?.createdAt.replace('-', '. ').replace('-', '. ')}
                 </S.DateSpan>
               </S.TextContainer>
             </S.AnswerInfoContainer>
             <S.Contents>
               <Typography.Body size="md" noOfLine={100}>
-                {data?.answer?.content.split('\n').map(line => <p>{line}</p>)}
+                {data?.answer?.content.split('\n').map((line) => <p>{line}</p>)}
               </Typography.Body>
             </S.Contents>
           </>
         )}
       </S.Container>
     </PageTemplate>
-  )
+  );
 }
 
-export default InquiryDetailPage
+export default InquiryDetailPage;

@@ -1,15 +1,15 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 
 interface Props {
-  size: 'sm' | 'md' | 'lg'
-  noOfLine?: number
-  maxWidth?: number
-  color?: string
+  size: 'sm' | 'md' | 'lg';
+  noOfLine?: number;
+  maxWidth?: number;
+  color?: string;
 }
 
 export const Title = styled.h3<Props>`
   ${({ theme, size, color }) => {
-    const COLOR = color || theme.black
+    const COLOR = color || theme.black;
 
     switch (size) {
       case 'lg':
@@ -18,7 +18,7 @@ export const Title = styled.h3<Props>`
           font-size: 16px;
           font-weight: 600;
           line-height: 28px;
-        `
+        `;
       case 'md':
         return css`
           color: ${COLOR};
@@ -26,7 +26,7 @@ export const Title = styled.h3<Props>`
           font-weight: 600;
           line-height: 24px;
           letter-spacing: 0.15px;
-        `
+        `;
       case 'sm':
         return css`
           color: ${COLOR};
@@ -34,7 +34,7 @@ export const Title = styled.h3<Props>`
           font-weight: 600;
           line-height: 20px;
           letter-spacing: 0.1px;
-        `
+        `;
     }
   }}
 
@@ -48,4 +48,4 @@ export const Title = styled.h3<Props>`
   display: -webkit-box;
   -webkit-line-clamp: ${({ noOfLine }) => noOfLine || 1};
   -webkit-box-orient: vertical;
-`
+`;

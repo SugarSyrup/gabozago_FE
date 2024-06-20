@@ -1,31 +1,29 @@
-import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-import PageTemplate from '../../../components/common/PageTemplate'
-import PageHeader from '../../../components/common/PageHeader'
-import Typography from '../../../components/common/Typography'
-import { get } from '../../../utils/api'
+import PageTemplate from '../../../components/common/PageTemplate';
+import PageHeader from '../../../components/common/PageHeader';
+import Typography from '../../../components/common/Typography';
+import { get } from '../../../utils/api';
 
-import * as S from './style'
+import * as S from './style';
 
 interface TData {
-  id: number
-  title: string
-  createdAt: string
+  id: number;
+  title: string;
+  createdAt: string;
 }
 
 function AnnouncePage() {
-  const [data, setData] = useState<TData[]>([])
+  const [data, setData] = useState<TData[]>([]);
 
   useEffect(() => {
     get<{
-      next: string
-      previous: string
-      results: TData[]
-    }>('/settings/support/announcement').then(({ data }) =>
-      setData(data.results)
-    )
-  }, [])
+      next: string;
+      previous: string;
+      results: TData[];
+    }>('/settings/support/announcement').then(({ data }) => setData(data.results));
+  }, []);
 
   return (
     <PageTemplate
@@ -56,7 +54,7 @@ function AnnouncePage() {
         </S.OrderedList>
       </S.Container>
     </PageTemplate>
-  )
+  );
 }
 
-export default AnnouncePage
+export default AnnouncePage;

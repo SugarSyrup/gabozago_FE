@@ -1,12 +1,12 @@
-import styled from 'styled-components'
-import checkIcon from '../../../../../assets/icons/check.svg'
+import styled from 'styled-components';
+import checkIcon from '../../../../../assets/icons/check.svg';
 
 export const List = styled.ol`
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 3px;
-`
+`;
 
 export const Item = styled.li`
   position: relative;
@@ -19,7 +19,7 @@ export const Item = styled.li`
   &:hover {
     background-color: ${({ theme }) => theme.blue05};
   }
-`
+`;
 
 export const CheckboxInput = styled.input`
   display: none;
@@ -53,4 +53,4 @@ export const CheckboxInput = styled.input`
       display: block;
     }
   }
-`
+`;

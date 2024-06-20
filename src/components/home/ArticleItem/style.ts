@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const ArticleItem = styled.div<{ opacity: number }>`
   display: flex;
@@ -8,7 +8,7 @@ export const ArticleItem = styled.div<{ opacity: number }>`
   align-items: flex-start;
 
   opacity: ${({ opacity }) => opacity};
-`
+`;
 
 export const ThumbnailWrapper = styled.div`
   width: 100%;
@@ -25,12 +25,12 @@ export const ThumbnailWrapper = styled.div`
     width: 40px;
     height: 40px;
   }
-`
+`;
 
 export const Thumbnail = styled.img`
   width: 100%;
   position: absolute;
-`
+`;
 
 export const BookMarkWrapper = styled.div<{ isBookmark: boolean }>`
   position: absolute;
@@ -43,4 +43,4 @@ export const BookMarkWrapper = styled.div<{ isBookmark: boolean }>`
       fill: ${({ theme, isBookmark }) => isBookmark && theme.main};
     }
   }
-`
+`;

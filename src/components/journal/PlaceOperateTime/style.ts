@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
@@ -15,7 +15,7 @@ export const Container = styled.div`
   span.red {
     color: ${({ theme }) => theme.red};
   }
-`
+`;
 
 export const InfomationText = styled.span`
   span {
@@ -36,14 +36,14 @@ export const InfomationText = styled.span`
   display: flex;
   align-items: center;
   gap: 10px;
-`
+`;
 
 export const OperateTimeList = styled.ol`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   margin-top: 8px;
-`
+`;
 
 export const OperateTimeItem = styled.li`
   padding-top: 3px;
@@ -62,4 +62,4 @@ export const OperateTimeItem = styled.li`
     line-height: 20px;
     letter-spacing: 0.25px;
   }
-`
+`;

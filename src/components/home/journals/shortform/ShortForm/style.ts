@@ -1,11 +1,11 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   position: relative;
   height: 100%;
   scroll-snap-align: start;
   margin-bottom: 10px;
-`
+`;
 
 export const YoutubeContainer = styled.div<{ isCaptionOpened: boolean }>`
   position: absolute;
@@ -50,7 +50,7 @@ export const YoutubeContainer = styled.div<{ isCaptionOpened: boolean }>`
         height: auto;
       `}
   }
-`
+`;
 
 export const YoutubeFallback = styled.div`
   width: 100%;
@@ -60,12 +60,12 @@ export const YoutubeFallback = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`
+`;
 
 export const YoutubeIframe = styled.iframe`
   width: 100%;
   height: inherit;
-`
+`;
 
 export const InfoBox = styled.div`
   padding: 17px 20px;
@@ -110,7 +110,7 @@ export const InfoBox = styled.div`
     word-break: keep-all;
     color: ${({ theme }) => theme.white};
   }
-`
+`;
 
 export const ContentBox = styled.div<{ isOpened: boolean }>`
   width: 100%;
@@ -163,7 +163,7 @@ export const ContentBox = styled.div<{ isOpened: boolean }>`
     word-break: ${({ isOpened }) => (isOpened ? 'keep-all' : 'break-all')};
     overflow-wrap: anywhere;
   }
-`
+`;
 
 export const BottomInfoContainer = styled.div`
   display: flex;
@@ -186,7 +186,7 @@ export const BottomInfoContainer = styled.div`
       fill: ${({ theme }) => theme.white};
     }
   }
-`
+`;
 
 export const ProgileImageBox = styled.div`
   & > img,
@@ -199,20 +199,20 @@ export const ProgileImageBox = styled.div`
   & > svg path {
     fill: ${({ theme }) => theme.white};
   }
-`
+`;
 
 export const FollowButton = styled.button`
   border: 0;
   background-color: ${({ theme }) => theme.main};
   color: white;
-`
+`;
 
 export const ControlBox = styled.div`
   position: absolute;
   bottom: 0;
   right: 0;
   padding: 17px 20px;
-`
+`;
 
 export const IconButton = styled.button`
   padding: 0;
@@ -244,14 +244,14 @@ export const IconButton = styled.button`
       stroke: ${({ theme }) => theme.gray02};
     }
   } */
-`
+`;
 
 export const UrlLabel = styled.label`
   display: block;
   text-align: center;
   margin-bottom: 10px;
   font-size: 14px;
-`
+`;
 
 export const UrlInput = styled.input`
   width: 100%;
@@ -266,6 +266,6 @@ export const UrlInput = styled.input`
   &:hover {
     background-color: ${({ theme }) => theme.gray04};
   }
-`
+`;
 
-export const LoadingDiv = styled.div``
+export const LoadingDiv = styled.div``;

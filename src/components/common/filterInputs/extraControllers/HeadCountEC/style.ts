@@ -1,11 +1,11 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 
 export const List = styled.ol`
   padding: 0 20px;
   display: flex;
   flex-wrap: wrap;
   gap: 6px 8px;
-`
+`;
 
 export const Button = styled.li<{ active: boolean }>`
   padding: 10px;
@@ -35,4 +35,4 @@ export const Button = styled.li<{ active: boolean }>`
             background-color: ${({ theme }) => theme.blue04};
           }
         `}
-`
+`;

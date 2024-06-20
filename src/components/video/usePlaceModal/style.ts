@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const ModalWrapper = styled.div`
   width: 100%;
@@ -11,7 +11,7 @@ export const ModalWrapper = styled.div`
   position: fixed;
   bottom: 0px;
   z-index: 40;
-`
+`;
 
 export const PlaceModalContainer = styled.div`
   display: flex;
@@ -22,11 +22,11 @@ export const PlaceModalContainer = styled.div`
   padding-left: 20px;
   padding-right: 20px;
   margin-top: -20px;
-`
+`;
 
 export const PlaceModalTitle = styled.h4`
   margin-bottom: 28px;
-`
+`;
 
 export const PlaceModalSelectBox = styled.select`
   margin-bottom: 10px;
@@ -37,7 +37,7 @@ export const PlaceModalSelectBox = styled.select`
   font-weight: 700;
   line-height: 22px;
   letter-spacing: 0.2px;
-`
+`;
 
 export const DayList = styled.ol`
   width: 100%;
@@ -48,7 +48,7 @@ export const DayList = styled.ol`
   flex-direction: column;
   align-items: flex-start;
   gap: 6px;
-`
+`;
 
 export const DayItem = styled.div`
   width: 100%;
@@ -57,7 +57,7 @@ export const DayItem = styled.div`
 
   background-color: ${({ theme }) => theme.gray06};
   border-radius: 10px;
-`
+`;
 
 export const DayThumbnail = styled.img`
   width: 70px;
@@ -65,7 +65,7 @@ export const DayThumbnail = styled.img`
 
   border-radius: 100%;
   background-color: ${({ theme }) => theme.blue04};
-`
+`;
 
 export const DayTextContainer = styled.div`
   display: flex;
@@ -75,14 +75,14 @@ export const DayTextContainer = styled.div`
   gap: 6px;
 
   margin-left: 14px;
-`
+`;
 
 export const DayTitle = styled.span`
   font-size: 14px;
   font-weight: 600;
   line-height: 22px;
   letter-spacing: 0.2px;
-`
+`;
 
 export const DayDesc = styled.span`
   color: ${({ theme }) => theme.gray01};
@@ -108,7 +108,7 @@ export const DayDesc = styled.span`
       fill: ${({ theme }) => theme.gray01};
     }
   }
-`
+`;
 
 export const SaveButton = styled.div`
   position: absolute;
@@ -126,4 +126,4 @@ export const SaveButton = styled.div`
   padding: 16px 100px;
   border-radius: 30px;
   cursor: pointer;
-`
+`;

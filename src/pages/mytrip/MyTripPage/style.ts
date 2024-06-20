@@ -1,11 +1,11 @@
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 export const HeadingContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-`
+`;
 
 export const NoUpCommingContainer = styled.div`
   width: 100%;
@@ -13,7 +13,7 @@ export const NoUpCommingContainer = styled.div`
   flex-direction: column;
   gap: 15px;
   padding-top: 15px;
-`
+`;
 
 export const CreateMyTripButton = styled.div`
   width: 100%;
@@ -32,20 +32,20 @@ export const CreateMyTripButton = styled.div`
       fill: ${({ theme }) => theme.main};
     }
   }
-`
+`;
 
 export const CreateMyTripTextWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-`
+`;
 
 export const TextHighlight = styled.span`
   color: ${({ theme }) => theme.main};
-`
+`;
 
 export const CreateMyTripTextButton = styled.div<{
-  hasTripHistory: boolean
+  hasTripHistory: boolean;
 }>`
   display: flex;
   justify-content: center;
@@ -54,10 +54,8 @@ export const CreateMyTripTextButton = styled.div<{
 
   padding-top: 15px;
   padding-bottom: 15px;
-  background-color: ${({ theme, hasTripHistory }) =>
-    hasTripHistory ? theme.white : theme.main};
-  border: ${({ theme, hasTripHistory }) =>
-    hasTripHistory === true && `.5px solid ${theme.main}`};
+  background-color: ${({ theme, hasTripHistory }) => (hasTripHistory ? theme.white : theme.main)};
+  border: ${({ theme, hasTripHistory }) => hasTripHistory === true && `.5px solid ${theme.main}`};
   border-radius: 10px;
 
   cursor: pointer;
@@ -67,11 +65,10 @@ export const CreateMyTripTextButton = styled.div<{
     height: 20px;
 
     path {
-      fill: ${({ theme, hasTripHistory }) =>
-        hasTripHistory ? '#BDBDBD' : theme.white};
+      fill: ${({ theme, hasTripHistory }) => (hasTripHistory ? '#BDBDBD' : theme.white)};
     }
   }
-`
+`;
 
 export const ContainerWithPlan = styled.div`
   display: flex;
@@ -81,7 +78,7 @@ export const ContainerWithPlan = styled.div`
   width: 100%;
   position: relative;
   padding-top: 15px;
-`
+`;
 
 export const ScheduleCardContainer = styled.div`
   display: flex;
@@ -97,7 +94,7 @@ export const ScheduleCardContainer = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
-`
+`;
 
 export const CreateMyTripScheduleBtn = styled.div`
   display: flex;
@@ -113,7 +110,7 @@ export const CreateMyTripScheduleBtn = styled.div`
   font-size: 14px;
   font-weight: 600;
   color: ${({ theme }) => theme.gray02};
-`
+`;
 
 export const ContentHeadingWrappper = styled.div`
   margin-top: 35px;
@@ -121,14 +118,14 @@ export const ContentHeadingWrappper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`
+`;
 
 export const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px 13px;
   gap: 20px;
-`
+`;
 
 export const ScheduleAllBtn = styled.span`
   display: flex;
@@ -140,7 +137,7 @@ export const ScheduleAllBtn = styled.span`
   font-weight: 400;
   cursor: pointer;
   color: ${({ theme }) => theme.gray01};
-`
+`;
 
 export const ShowAllTrips = styled(Link)`
   display: flex;
@@ -157,4 +154,4 @@ export const ShowAllTrips = styled(Link)`
       fill: #424242;
     }
   }
-`
+`;

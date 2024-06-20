@@ -1,61 +1,61 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
-import LeftChevronIcon from '../../../assets/icons/chevron_left.svg?react'
-import RightChevronIcon from '../../../assets/icons/chevron_right.svg?react'
+import { useCallback, useEffect, useRef, useState } from 'react';
+import LeftChevronIcon from '../../../assets/icons/chevron_left.svg?react';
+import RightChevronIcon from '../../../assets/icons/chevron_right.svg?react';
 
-import LocationIcon from '../../../assets/icons/location.svg?react'
-import PhoneIcon from '../../../assets/icons/phone.svg?react'
-import ClockIcon from '../../../assets/icons/clock.svg?react'
-import WebIcon from '../../../assets/icons/web.svg?react'
+import LocationIcon from '../../../assets/icons/location.svg?react';
+import PhoneIcon from '../../../assets/icons/phone.svg?react';
+import ClockIcon from '../../../assets/icons/clock.svg?react';
+import WebIcon from '../../../assets/icons/web.svg?react';
 
-import * as S from './style'
+import * as S from './style';
 
 interface Props {
   data: {
-    name: string
-    date: number
-    placeIndex: number
-    address: string
-    phone: string
+    name: string;
+    date: number;
+    placeIndex: number;
+    address: string;
+    phone: string;
     storeHours: {
-      openingTime: string
-      closeTime: string
-      day: string
-    }[]
-    url: string
-  }
+      openingTime: string;
+      closeTime: string;
+      day: string;
+    }[];
+    url: string;
+  };
 }
 
 function usePlaceSlider() {
-  const [index, setIndex] = useState(0)
-  const SliderRef = useRef<HTMLDivElement>(null)
+  const [index, setIndex] = useState(0);
+  const SliderRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     SliderRef.current?.scrollTo({
       left: SliderRef.current.offsetWidth * index,
       behavior: 'smooth',
-    })
-    console.log(index)
-  }, [index])
+    });
+    console.log(index);
+  }, [index]);
 
   function getCurrentIndex() {
-    return index
+    return index;
   }
 
   function movePrev() {
-    console.log(index)
-    setIndex(prev => (prev - 1 >= 0 ? prev - 1 : prev))
+    console.log(index);
+    setIndex((prev) => (prev - 1 >= 0 ? prev - 1 : prev));
     // index 상태값이 왜 0으로 고정이지?
     if (index > 0) {
-      setIndex(prev => prev - 1)
+      setIndex((prev) => prev - 1);
     }
   }
 
   function moveNext() {
-    setIndex(prev => prev + 1)
+    setIndex((prev) => prev + 1);
   }
 
   function moveIndex(idx: number) {
-    setIndex(idx)
+    setIndex(idx);
   }
 
   const PlaceSlider = useCallback(
@@ -65,13 +65,13 @@ function usePlaceSlider() {
           <S.Header>
             <LeftChevronIcon
               onClick={() => {
-                movePrev()
+                movePrev();
               }}
             />
             <span>부산역</span>
             <RightChevronIcon
               onClick={() => {
-                moveNext()
+                moveNext();
               }}
             />
           </S.Header>
@@ -105,13 +105,13 @@ function usePlaceSlider() {
           <S.Header>
             <LeftChevronIcon
               onClick={() => {
-                movePrev()
+                movePrev();
               }}
             />
             <span>부산역</span>
             <RightChevronIcon
               onClick={() => {
-                moveNext()
+                moveNext();
               }}
             />
           </S.Header>
@@ -145,13 +145,13 @@ function usePlaceSlider() {
           <S.Header>
             <LeftChevronIcon
               onClick={() => {
-                movePrev()
+                movePrev();
               }}
             />
             <span>부산역</span>
             <RightChevronIcon
               onClick={() => {
-                moveNext()
+                moveNext();
               }}
             />
           </S.Header>
@@ -185,13 +185,13 @@ function usePlaceSlider() {
           <S.Header>
             <LeftChevronIcon
               onClick={() => {
-                movePrev()
+                movePrev();
               }}
             />
             <span>부산역</span>
             <RightChevronIcon
               onClick={() => {
-                moveNext()
+                moveNext();
               }}
             />
           </S.Header>
@@ -225,13 +225,13 @@ function usePlaceSlider() {
           <S.Header>
             <LeftChevronIcon
               onClick={() => {
-                movePrev()
+                movePrev();
               }}
             />
             <span>부산역</span>
             <RightChevronIcon
               onClick={() => {
-                moveNext()
+                moveNext();
               }}
             />
           </S.Header>
@@ -265,13 +265,13 @@ function usePlaceSlider() {
           <S.Header>
             <LeftChevronIcon
               onClick={() => {
-                movePrev()
+                movePrev();
               }}
             />
             <span>부산역</span>
             <RightChevronIcon
               onClick={() => {
-                moveNext()
+                moveNext();
               }}
             />
           </S.Header>
@@ -303,8 +303,8 @@ function usePlaceSlider() {
         </S.SliderItem>
       </S.SliderWrapper>
     ),
-    []
-  )
+    [],
+  );
 
   return {
     PlaceSlider,
@@ -312,7 +312,7 @@ function usePlaceSlider() {
     movePrev,
     moveNext,
     getCurrentIndex,
-  }
+  };
 }
 
-export default usePlaceSlider
+export default usePlaceSlider;

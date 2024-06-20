@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.div`
   padding-left: 8px;
@@ -8,13 +8,13 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
-`
+`;
 
 export const Img = styled.img`
   display: block;
   width: 100%;
   object-fit: contain;
-`
+`;
 
 export const Infomation = styled.div`
   width: 100%;
@@ -27,7 +27,7 @@ export const Infomation = styled.div`
   align-items: flex-start;
 
   color: ${({ theme }) => theme.main};
-`
+`;
 
 export const Name = styled.span`
   display: inline-flex;
@@ -39,7 +39,7 @@ export const Name = styled.span`
   font-size: 16px;
   font-weight: 600;
   line-height: 22px;
-`
+`;
 
 export const Division = styled.span`
   color: ${({ theme }) => theme.main};
@@ -49,7 +49,7 @@ export const Division = styled.span`
   font-weight: 600;
   line-height: 20px;
   letter-spacing: 0.1px;
-`
+`;
 
 export const Desc = styled.span`
   color: ${({ theme }) => theme.gray01};
@@ -57,4 +57,4 @@ export const Desc = styled.span`
   font-weight: 400;
   line-height: 16px;
   letter-spacing: 0.5px;
-`
+`;

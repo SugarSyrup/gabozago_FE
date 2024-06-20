@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const VideoTimeline = styled.div`
   width: 100%;
@@ -14,7 +14,7 @@ export const VideoTimeline = styled.div`
   gap: 6px;
   justify-content: flex-start;
   align-items: center;
-`
+`;
 
 export const TimeLineItem = styled.div`
   padding: 10px 8px;
@@ -33,7 +33,7 @@ export const TimeLineItem = styled.div`
       fill: ${({ theme }) => theme.blue02};
     }
   }
-`
+`;
 
 export const TimeLineIndex = styled.span`
   width: 14px;
@@ -49,7 +49,7 @@ export const TimeLineIndex = styled.span`
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 
 export const TimeLineLinker = styled.div`
   display: flex;
@@ -79,7 +79,7 @@ export const TimeLineLinker = styled.div`
     width: 20px;
     border-bottom: 2px dotted ${({ theme }) => theme.main};
   }
-`
+`;
 
 export const TimeLineInfo = styled.div`
   display: flex;
@@ -98,4 +98,4 @@ export const TimeLineInfo = styled.div`
     font-size: 10px;
     font-weight: 400;
   }
-`
+`;

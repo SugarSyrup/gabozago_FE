@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 export const ModalContainer = styled.div`
   position: fixed;
@@ -20,7 +20,7 @@ export const ModalContainer = styled.div`
 
   background-color: ${({ theme }) => theme.white};
   z-index: 0;
-`
+`;
 
 export const TopBarText = styled.span`
   color: ${({ theme }) => theme.black};
@@ -30,12 +30,12 @@ export const TopBarText = styled.span`
 
   padding-bottom: 14px;
   padding-top: 14px;
-`
+`;
 
 export const ContentContainer = styled.div`
   width: calc(100% + 40px);
   margin-left: -20px;
-`
+`;
 
 export const ImgSlider = styled.div`
   width: 100%;
@@ -60,14 +60,14 @@ export const ImgSlider = styled.div`
     display: none;
     scrollbar-width: none;
   }
-`
+`;
 
 export const TmpImg = styled.img`
   width: 100%;
   max-height: 200px;
   object-fit: cover;
   flex-shrink: 0;
-`
+`;
 
 export const ImgRegistContainer = styled.div`
   width: 100%;
@@ -91,13 +91,13 @@ export const ImgRegistContainer = styled.div`
   input {
     display: none;
   }
-`
+`;
 
 export const ContentList = styled.div`
   width: 100%;
   padding-left: 20px;
   padding-right: 20px;
-`
+`;
 
 export const InfomationList = styled.ol`
   width: 100%;
@@ -108,7 +108,7 @@ export const InfomationList = styled.ol`
   display: flex;
   flex-direction: column;
   gap: 2px;
-`
+`;
 
 export const InfomationItem = styled.li`
   padding-top: 10px;
@@ -125,7 +125,7 @@ export const InfomationItem = styled.li`
       fill: ${({ theme }) => theme.gray};
     }
   }
-`
+`;
 
 export const InfomationText = styled.span`
   color: ${({ theme }) => theme.black};
@@ -133,7 +133,7 @@ export const InfomationText = styled.span`
   font-weight: 400;
   line-height: 20px;
   letter-spacing: 0.25px;
-`
+`;
 
 export const InfomationLink = styled(Link)`
   color: ${({ theme }) => theme.main};
@@ -142,7 +142,7 @@ export const InfomationLink = styled(Link)`
   line-height: 20px;
   letter-spacing: 0.25px;
   text-decoration-line: underline;
-`
+`;
 
 export const Buttons = styled.div`
   width: 100%;
@@ -152,7 +152,7 @@ export const Buttons = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 10px;
-`
+`;
 
 export const Button = styled.div`
   width: 100%;
@@ -175,7 +175,7 @@ export const Button = styled.div`
       fill: #a6a6a6;
     }
   }
-`
+`;
 
 export const AlertMessageContainer = styled.div`
   display: flex;
@@ -185,7 +185,7 @@ export const AlertMessageContainer = styled.div`
   span:last-child {
     flex-shrink: 0;
   }
-`
+`;
 
 export const AlertMessageName = styled.span`
   color: white;
@@ -201,4 +201,4 @@ export const AlertMessageName = styled.span`
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
-`
+`;

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const List = styled.ol`
   width: 100%;
@@ -8,7 +8,7 @@ export const List = styled.ol`
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
-`
+`;
 
 export const Item = styled.li`
   width: 100%;
@@ -30,11 +30,11 @@ export const Item = styled.li`
       fill: #d4ddff;
     }
   }
-`
+`;
 
 export const Text = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-`
+`;

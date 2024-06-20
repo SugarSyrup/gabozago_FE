@@ -1,11 +1,11 @@
-import ChevronRightIcon from '../../../assets/icons/chevron_right.svg?react'
-import CirclePlusIcon from '../../../assets/icons/plus_circle.svg?react'
+import ChevronRightIcon from '../../../assets/icons/chevron_right.svg?react';
+import CirclePlusIcon from '../../../assets/icons/plus_circle.svg?react';
 
-import Button from '../../common/Button'
-import Typography from '../../common/Typography'
+import Button from '../../common/Button';
+import Typography from '../../common/Typography';
 
-import TripList from '../TripList'
-import * as S from './style'
+import TripList from '../TripList';
+import * as S from './style';
 
 function UserTrip() {
   return (
@@ -28,7 +28,7 @@ function UserTrip() {
         </Button>
       </S.CreateMyTrip>
     </S.Container>
-  )
+  );
 }
 
-export default UserTrip
+export default UserTrip;

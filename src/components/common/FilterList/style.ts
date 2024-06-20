@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { FilterButton } from '../FilterButton/style'
+import styled from 'styled-components';
+import { FilterButton } from '../FilterButton/style';
 
 export const FilterList = styled.ol`
   padding-bottom: 5px;
@@ -9,12 +9,12 @@ export const FilterList = styled.ol`
   width: 100%;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-`
+`;
 
 export const FilterItem = styled.li`
   scroll-snap-align: start;
   flex: 0 0 fit-content;
-`
+`;
 
 export const AllFilterButton = styled(FilterButton)`
   background-color: ${({ theme }) => theme.gray06};
@@ -32,13 +32,13 @@ export const AllFilterButton = styled(FilterButton)`
   &::after {
     display: none;
   }
-`
+`;
 
 export const ActiveFilterList = styled(FilterList)`
   margin: 5px 0;
   flex-wrap: wrap;
   gap: 5px 5px;
-`
+`;
 
 export const ActiveFilterChip = styled.button`
   display: flex;
@@ -62,4 +62,4 @@ export const ActiveFilterChip = styled.button`
       stroke: ${({ theme }) => theme.gray02};
     }
   }
-`
+`;

@@ -1,10 +1,10 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Form = styled.form`
   height: 100%;
   overflow-y: auto;
   padding-bottom: 100px;
-`
+`;
 
 export const SubmitButtonContainer = styled.div`
   position: absolute;
@@ -12,4 +12,4 @@ export const SubmitButtonContainer = styled.div`
   padding: 30px 36px;
   bottom: 0;
   z-index: 20;
-`
+`;

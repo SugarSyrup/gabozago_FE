@@ -1,18 +1,18 @@
-import { Droppable } from 'react-beautiful-dnd'
-import { useRecoilState } from 'recoil'
-import * as S from './style'
-import EditablePlaceItem from '../EditablePlaceItem'
-import { parseDateString } from '../../../utils/parseDateString'
-import { editingTripPlanState } from '../../../recoil/tripState'
+import { Droppable } from 'react-beautiful-dnd';
+import { useRecoilState } from 'recoil';
+import * as S from './style';
+import EditablePlaceItem from '../EditablePlaceItem';
+import { parseDateString } from '../../../utils/parseDateString';
+import { editingTripPlanState } from '../../../recoil/tripState';
 
 interface Props {
-  day: number
-  date: string
+  day: number;
+  date: string;
 }
 
 function DayPlanEdit({ day, date: dateString }: Props) {
-  const date = parseDateString(dateString)
-  const [tempData] = useRecoilState(editingTripPlanState)
+  const date = parseDateString(dateString);
+  const [tempData] = useRecoilState(editingTripPlanState);
 
   return (
     <S.Container>
@@ -40,7 +40,7 @@ function DayPlanEdit({ day, date: dateString }: Props) {
         )}
       </Droppable>
     </S.Container>
-  )
+  );
 }
 
-export default DayPlanEdit
+export default DayPlanEdit;

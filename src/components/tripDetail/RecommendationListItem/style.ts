@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
@@ -7,12 +7,12 @@ export const Container = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-`
+`;
 
 export const LeftItems = styled.div`
   display: flex;
   gap: 14px;
-`
+`;
 
 export const Thumbnail = styled.div`
   width: 40px;
@@ -20,17 +20,17 @@ export const Thumbnail = styled.div`
   border-radius: 100%;
 
   background-color: ${({ theme }) => theme.gray04};
-`
+`;
 
 export const Infomation = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-`
+`;
 
 export const HighlightName = styled.span`
   color: ${({ theme }) => theme.main};
-`
+`;
 
 export const Button = styled.button<{ isActive: boolean }>`
   background-color: ${({ isActive, theme }) => isActive && theme.main};
@@ -45,4 +45,4 @@ export const Button = styled.button<{ isActive: boolean }>`
   align-items: center;
 
   cursor: pointer;
-`
+`;

@@ -1,9 +1,9 @@
-import EditorIcon from '../../../assets/icons/editor.svg?react'
+import EditorIcon from '../../../assets/icons/editor.svg?react';
 
-import * as S from './style'
+import * as S from './style';
 
 interface Props {
-  content: string
+  content: string;
 }
 
 function Editor({ content }: Props) {
@@ -12,7 +12,7 @@ function Editor({ content }: Props) {
       <EditorIcon />
       <S.Content dangerouslySetInnerHTML={{ __html: content }} />
     </S.Container>
-  )
+  );
 }
 
-export default Editor
+export default Editor;

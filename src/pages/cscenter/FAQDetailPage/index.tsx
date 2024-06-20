@@ -1,35 +1,35 @@
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-import PageTemplate from '../../../components/common/PageTemplate'
-import PageHeader from '../../../components/common/PageHeader'
-import Typography from '../../../components/common/Typography'
-import { get } from '../../../utils/api'
+import PageTemplate from '../../../components/common/PageTemplate';
+import PageHeader from '../../../components/common/PageHeader';
+import Typography from '../../../components/common/Typography';
+import { get } from '../../../utils/api';
 
-import * as S from './style'
+import * as S from './style';
 
 interface TData {
-  title: string
-  category: string
-  createdAt: string
-  content: string
+  title: string;
+  category: string;
+  createdAt: string;
+  content: string;
 }
 
 function FAQDetailPage() {
-  const { id } = useParams()
+  const { id } = useParams();
   const [data, setData] = useState<TData>({
     title: '-',
     category: '-',
     createdAt: '0000-00-00',
     content: '-',
-  })
+  });
 
   useEffect(() => {
-    get<TData>(`/settings/support/help/faq/${id}`).then(response => {
-      console.log(response)
-      setData(response.data)
-    })
-  }, [])
+    get<TData>(`/settings/support/help/faq/${id}`).then((response) => {
+      console.log(response);
+      setData(response.data);
+    });
+  }, []);
 
   return (
     <PageTemplate
@@ -54,13 +54,13 @@ function FAQDetailPage() {
           </p>
         </S.InfoContainer>
         <S.ContentsContainer>
-          {data.content.split('\n').map(line => (
+          {data.content.split('\n').map((line) => (
             <p>{line}</p>
           ))}
         </S.ContentsContainer>
       </S.Container>
     </PageTemplate>
-  )
+  );
 }
 
-export default FAQDetailPage
+export default FAQDetailPage;

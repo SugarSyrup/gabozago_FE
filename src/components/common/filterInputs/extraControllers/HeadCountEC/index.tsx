@@ -1,9 +1,9 @@
-import * as S from './style'
+import * as S from './style';
 
 interface Props {
-  filter: [number, number]
-  setFilter: React.Dispatch<React.SetStateAction<[number, number]>>
-  max: number
+  filter: [number, number];
+  setFilter: React.Dispatch<React.SetStateAction<[number, number]>>;
+  max: number;
 }
 
 function HeadCountEC({ filter, setFilter, max }: Props) {
@@ -28,21 +28,21 @@ function HeadCountEC({ filter, setFilter, max }: Props) {
       text: '5인+',
       value: [5, max],
     },
-  ]
+  ];
   return (
     <S.List>
-      {options.map(item => (
+      {options.map((item) => (
         <S.Button
           active={filter[0] === item.value[0] && filter[1] === item.value[1]}
           onClick={() => {
-            setFilter(item.value)
+            setFilter(item.value);
           }}
         >
           {item.text}
         </S.Button>
       ))}
     </S.List>
-  )
+  );
 }
 
-export default HeadCountEC
+export default HeadCountEC;

@@ -1,11 +1,11 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: 5px;
-`
+`;
 
 export const ImgCarousel = styled.div`
   width: 100%;
@@ -29,7 +29,7 @@ export const ImgCarousel = styled.div`
     justify-content: center;
     align-items: center;
   }
-`
+`;
 
 export const Desc = styled.span`
   color: ${({ theme }) => theme.gray01};
@@ -38,4 +38,4 @@ export const Desc = styled.span`
   font-weight: 400;
   line-height: 16px;
   letter-spacing: 0.5px;
-`
+`;

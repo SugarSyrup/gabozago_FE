@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.div`
   padding-left: 8px;
@@ -14,7 +14,7 @@ export const Container = styled.div`
     width: 24px;
     height: 24px;
   }
-`
+`;
 
 export const Content = styled.span`
   color: ${({ theme }) => theme.black};
@@ -27,4 +27,4 @@ export const Content = styled.span`
   strong {
     font-weight: 600;
   }
-`
+`;

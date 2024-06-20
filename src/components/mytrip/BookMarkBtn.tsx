@@ -1,19 +1,19 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
-import BookMarkIcon from '../../assets/icons/bookmark.svg?react'
-import FullBookMarkIcon from '../../assets/icons/bookmark_filled_white.svg?react'
+import BookMarkIcon from '../../assets/icons/bookmark.svg?react';
+import FullBookMarkIcon from '../../assets/icons/bookmark_filled_white.svg?react';
 
 interface Props {
-  currentBookMarked: boolean
-  onClick: () => void
+  currentBookMarked: boolean;
+  onClick: () => void;
 }
 
 function BookMarkBtn({ currentBookMarked, onClick }: Props) {
-  const [isBookMarked, setIsBookMarked] = useState<boolean>(currentBookMarked)
+  const [isBookMarked, setIsBookMarked] = useState<boolean>(currentBookMarked);
 
   function onClickHandler() {
-    setIsBookMarked(prev => !prev)
-    onClick()
+    setIsBookMarked((prev) => !prev);
+    onClick();
   }
 
   return (
@@ -24,7 +24,7 @@ function BookMarkBtn({ currentBookMarked, onClick }: Props) {
         <BookMarkIcon onClick={onClickHandler} />
       )}
     </>
-  )
+  );
 }
 
-export default BookMarkBtn
+export default BookMarkBtn;

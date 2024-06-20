@@ -1,10 +1,10 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.div`
   padding-bottom: 30px;
   width: 100%;
   background-color: ${({ theme }) => theme.white};
-`
+`;
 export const DayFilterButton = styled.button`
   margin: 15px 0;
   padding: 0;
@@ -26,13 +26,13 @@ export const DayFilterButton = styled.button`
   &:active {
     background-color: ${({ theme }) => theme.gray04};
   }
-`
+`;
 export const PlaceListContainer = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
   gap: 20px;
-`
+`;
 
 export const ModalHeader = styled.div<{ isHighlight: boolean }>`
   width: 100%;
@@ -47,14 +47,14 @@ export const ModalHeader = styled.div<{ isHighlight: boolean }>`
     width: 28px;
     height: 28px;
   }
-`
+`;
 export const ModalContents = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   padding: 20px 30px;
   gap: 20px;
-`
+`;
 
 export const DayItem = styled.div`
   width: 100%;
@@ -65,7 +65,7 @@ export const DayItem = styled.div`
     width: 28px;
     height: 28px;
   }
-`
+`;
 
 export const DayInfo = styled.div<{ isHighlight: boolean }>`
   display: flex;
@@ -81,4 +81,4 @@ export const DayInfo = styled.div<{ isHighlight: boolean }>`
     color: #424242;
     color: ${({ isHighlight, theme }) => isHighlight && theme.main};
   }
-`
+`;

@@ -1,10 +1,10 @@
 export type userReviewType = {
-  title: string
-  type: string
-  claps: number
-  comments: number
-  thumbnailURL?: string
-}
+  title: string;
+  type: string;
+  claps: number;
+  comments: number;
+  thumbnailURL?: string;
+};
 
 export const userReviewData: userReviewType[] = [
   {
@@ -25,16 +25,16 @@ export const userReviewData: userReviewType[] = [
     claps: 123,
     comments: 123,
   },
-]
+];
 
 export type userClapsType = {
-  title: string
-  username: string
-  claps: number
-  comments: number
-  thumbnailURL?: string
-  avatarURL?: string
-}
+  title: string;
+  username: string;
+  claps: number;
+  comments: number;
+  thumbnailURL?: string;
+  avatarURL?: string;
+};
 
 export const userClapsData: userClapsType[] = [
   {
@@ -61,12 +61,12 @@ export const userClapsData: userClapsType[] = [
     claps: 123,
     comments: 123,
   },
-]
+];
 
 export type userCommentsType = {
-  postName: string
-  comment: string
-}
+  postName: string;
+  comment: string;
+};
 
 export const userCommentsData: userCommentsType[] = [
   {
@@ -89,4 +89,4 @@ export const userCommentsData: userCommentsType[] = [
     postName: '게시글 제목',
     comment: '작성한 댓글 내용',
   },
-]
+];

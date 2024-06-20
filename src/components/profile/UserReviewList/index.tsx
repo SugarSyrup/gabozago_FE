@@ -1,11 +1,11 @@
-import * as S from './style'
+import * as S from './style';
 
-import ClapIcon from '../../../assets/icons/clap.svg?react'
-import CommentIcon from '../../../assets/icons/comment.svg?react'
-import { userReviewType } from '../../../assets/data/userpageData'
+import ClapIcon from '../../../assets/icons/clap.svg?react';
+import CommentIcon from '../../../assets/icons/comment.svg?react';
+import { userReviewType } from '../../../assets/data/userpageData';
 
 interface Props {
-  data: userReviewType[]
+  data: userReviewType[];
 }
 
 function UserReviewList({ data }: Props) {
@@ -30,7 +30,7 @@ function UserReviewList({ data }: Props) {
         </S.Item>
       ))}
     </S.List>
-  )
+  );
 }
 
-export default UserReviewList
+export default UserReviewList;

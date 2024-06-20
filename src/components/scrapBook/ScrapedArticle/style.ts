@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const ArticleContainer = styled.div`
   padding: 10px 0;
@@ -8,13 +8,13 @@ export const ArticleContainer = styled.div`
 
   cursor: pointer;
   border-bottom: 1px solid ${({ theme }) => theme.gray04};
-`
+`;
 
 export const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-`
+`;
 
 export const BottomInfoContainer = styled.div`
   margin-top: 10px;
@@ -40,7 +40,7 @@ export const BottomInfoContainer = styled.div`
       }
     }
   }
-`
+`;
 
 export const ThumbnailImage = styled.img`
   width: 80px;
@@ -48,9 +48,9 @@ export const ThumbnailImage = styled.img`
   border-radius: 6px;
 
   object-fit: cover;
-`
+`;
 
 export const ThumbnailImagePlaceHolder = styled(ThumbnailImage)`
   background-color: ${({ theme }) => theme.gray05};
   object-fit: none;
-`
+`;

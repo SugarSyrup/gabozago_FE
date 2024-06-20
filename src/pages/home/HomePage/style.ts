@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Header = styled.header`
   padding: 10px 20px 0;
@@ -23,7 +23,7 @@ export const Header = styled.header`
     height: 2px;
     background-color: ${({ theme }) => theme.gray04};
   }
-`
+`;
 
 export const SearchButton = styled.button`
   height: fit-content;
@@ -44,4 +44,4 @@ export const SearchButton = styled.button`
       fill: ${({ theme }) => theme.gray};
     }
   }
-`
+`;

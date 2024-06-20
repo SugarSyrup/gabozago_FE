@@ -1,22 +1,22 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
-import LocationIcon from '../../../../../assets/icons/location.svg?react'
-import ThemeIcon from '../../../../../assets/icons/theme.svg?react'
-import Typography from '../../../../common/Typography'
+import LocationIcon from '../../../../../assets/icons/location.svg?react';
+import ThemeIcon from '../../../../../assets/icons/theme.svg?react';
+import Typography from '../../../../common/Typography';
 
-import * as S from './style'
+import * as S from './style';
 
 export interface ShortForm {
-  id: number
-  title: string
-  videoId: string
-  location: string[]
-  theme: string[]
-  views: number
+  id: number;
+  title: string;
+  videoId: string;
+  location: string[];
+  theme: string[];
+  views: number;
 }
 
 interface Props {
-  data: ShortForm[]
+  data: ShortForm[];
 }
 
 function ShortFormList({ data }: Props) {
@@ -26,10 +26,7 @@ function ShortFormList({ data }: Props) {
         <S.ListItem key={id}>
           <Link to={`/journal/shortform/${id}`}>
             <S.Container>
-              <S.ThumbnailImage
-                src={`http://img.youtube.com/vi/${videoId}/oar2.jpg`}
-                alt=""
-              />
+              <S.ThumbnailImage src={`http://img.youtube.com/vi/${videoId}/oar2.jpg`} alt="" />
               <S.Views>
                 <Typography.Label size="sm" color="white">
                   조회수 {views}
@@ -39,24 +36,16 @@ function ShortFormList({ data }: Props) {
                 <p>
                   <LocationIcon />
                   {location !== undefined
-                    ? location.map(item => (
-                        <Typography.Label
-                          size="md"
-                          color="white"
-                          key={id + item}
-                        >
+                    ? location.map((item) => (
+                        <Typography.Label size="md" color="white" key={id + item}>
                           {item}
                         </Typography.Label>
                       ))
                     : '-'}
                   <ThemeIcon />
                   {theme !== undefined
-                    ? theme.map(item => (
-                        <Typography.Label
-                          size="md"
-                          color="white"
-                          key={id + item}
-                        >
+                    ? theme.map((item) => (
+                        <Typography.Label size="md" color="white" key={id + item}>
                           {item}
                         </Typography.Label>
                       ))
@@ -71,7 +60,7 @@ function ShortFormList({ data }: Props) {
         </S.ListItem>
       ))}
     </S.List>
-  )
+  );
 }
 
-export default ShortFormList
+export default ShortFormList;

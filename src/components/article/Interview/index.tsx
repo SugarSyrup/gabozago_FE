@@ -1,9 +1,9 @@
-import InterviewIcon from '../../../assets/icons/interview.svg?react'
+import InterviewIcon from '../../../assets/icons/interview.svg?react';
 
-import * as S from './style'
+import * as S from './style';
 
 interface Props {
-  content: string
+  content: string;
 }
 
 function Interview({ content }: Props) {
@@ -12,6 +12,6 @@ function Interview({ content }: Props) {
       <InterviewIcon />
       <S.Content dangerouslySetInnerHTML={{ __html: content }} />
     </S.Container>
-  )
+  );
 }
-export default Interview
+export default Interview;

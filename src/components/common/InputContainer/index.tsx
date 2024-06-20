@@ -1,22 +1,22 @@
-import { useEffect } from 'react'
-import * as S from './style'
+import { useEffect } from 'react';
+import * as S from './style';
 
 interface Props {
-  inputType: string
-  name: string
-  label: JSX.Element | string
-  disabled: boolean
-  required: boolean
-  explain?: JSX.Element
-  alert?: JSX.Element
-  value?: string
-  placeholder?: string
-  onInput?: React.FormEventHandler<HTMLInputElement>
-  onButtonClick?: () => void
-  buttonLabel?: string
-  maxLength?: number
-  ref?: React.RefObject<HTMLInputElement>
-  readonly?: boolean
+  inputType: string;
+  name: string;
+  label: JSX.Element | string;
+  disabled: boolean;
+  required: boolean;
+  explain?: JSX.Element;
+  alert?: JSX.Element;
+  value?: string;
+  placeholder?: string;
+  onInput?: React.FormEventHandler<HTMLInputElement>;
+  onButtonClick?: () => void;
+  buttonLabel?: string;
+  maxLength?: number;
+  ref?: React.RefObject<HTMLInputElement>;
+  readonly?: boolean;
 }
 
 function InputContainer({
@@ -57,20 +57,18 @@ function InputContainer({
         pattern={pattern}
       />
       {explain && <S.InputExplain>{explain}</S.InputExplain>}
-      {alert && (
-        <S.InputAlert hasExplain={explain !== undefined}>{alert}</S.InputAlert>
-      )}
+      {alert && <S.InputAlert hasExplain={explain !== undefined}>{alert}</S.InputAlert>}
       {onButtonClick && (
         <S.ConfirmButton
           onClick={() => {
-            onButtonClick()
+            onButtonClick();
           }}
         >
           {buttonLabel || '확인'}
         </S.ConfirmButton>
       )}
     </S.InputContainer>
-  )
+  );
 }
 
-export default InputContainer
+export default InputContainer;
