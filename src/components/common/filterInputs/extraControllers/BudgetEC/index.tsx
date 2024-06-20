@@ -1,38 +1,38 @@
-import { ChangeEvent } from "react";
-import * as S from "./style";
+import { ChangeEvent } from 'react'
+import * as S from './style'
 
 interface Props {
-  filter: [number, number];
-  setFilter: React.Dispatch<React.SetStateAction<[number, number]>>;
-  step: number;
+  filter: [number, number]
+  setFilter: React.Dispatch<React.SetStateAction<[number, number]>>
+  step: number
 }
 
 function BudgetEC({ filter, setFilter, step }: Props) {
-  const min = 10000;
-  const max = 9990000;
+  const min = 10000
+  const max = 9990000
 
-  const validateAndSetFilter = (value: number, type: "min" | "max") => {
-    let newValue = value;
+  const validateAndSetFilter = (value: number, type: 'min' | 'max') => {
+    let newValue = value
 
     if (value > max) {
-      newValue = max;
+      newValue = max
     } else if (value < min) {
-      newValue = min;
+      newValue = min
     }
 
-    setFilter((prev) => {
-      const newFilter = [...prev];
-      const index = type === "min" ? 0 : 1;
-      newFilter[index] = newValue / 10000;
-      return newFilter as [number, number];
-    });
-  };
+    setFilter(prev => {
+      const newFilter = [...prev]
+      const index = type === 'min' ? 0 : 1
+      newFilter[index] = newValue / 10000
+      return newFilter as [number, number]
+    })
+  }
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
-    const truncatedValue = Math.trunc(Number(value) / 10000) * 10000;
-    validateAndSetFilter(truncatedValue, id as "min" | "max");
-  };
+    const { id, value } = e.target
+    const truncatedValue = Math.trunc(Number(value) / 10000) * 10000
+    validateAndSetFilter(truncatedValue, id as 'min' | 'max')
+  }
 
   return (
     <S.Container>
@@ -64,7 +64,7 @@ function BudgetEC({ filter, setFilter, step }: Props) {
         <S.UnitSpan>원</S.UnitSpan>
       </S.InputWrapper>
     </S.Container>
-  );
+  )
 }
 
-export default BudgetEC;
+export default BudgetEC

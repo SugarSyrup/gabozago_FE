@@ -1,19 +1,19 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 
 export const ButtonContainer = styled.div`
-  position:fixed;
-  bottom:0px;
+  position: fixed;
+  bottom: 0px;
   padding: 20px;
   width: 100%;
   max-width: 500px;
-`;
+`
 
 export const Container = styled.div`
   padding: 20px;
-  width:calc(100% + 40px);
-  margin-left:-20px;
-`;
+  width: calc(100% + 40px);
+  margin-left: -20px;
+`
 
 export const StyledLink = styled(Link)`
   text-decoration: none;
@@ -24,7 +24,7 @@ export const StyledLink = styled(Link)`
       text-decoration: underline;
     }
   }
-`;
+`
 
 export const HeadingContainer = styled.div`
   display: flex;
@@ -34,20 +34,20 @@ export const HeadingContainer = styled.div`
   &.my-history {
     margin-top: 30px;
   }
-`;
+`
 
 export const Heading = styled.h2`
   font-size: 16px;
   font-weight: 500;
   line-height: 22px;
-`;
+`
 
 export const CategoryButtonList = styled.div`
   margin-top: 20px;
   display: flex;
   flex-wrap: 0;
   gap: 6px;
-`;
+`
 
 export const CategoryButton = styled.button`
   padding: 18px 5px 10px;
@@ -90,7 +90,7 @@ export const CategoryButton = styled.button`
       fill: ${({ theme }) => theme.main};
     }
   }
-`;
+`
 
 export const QuestionList = styled.ul`
   position: relative;
@@ -114,9 +114,9 @@ export const QuestionList = styled.ul`
 
       &::before {
         margin-right: 6px;
-        content: "Q.";
+        content: 'Q.';
         color: ${({ theme }) => theme.gray01};
       }
     }
   }
-`;
+`

@@ -1,6 +1,6 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components'
 
-export const Container = styled.div``;
+export const Container = styled.div``
 export const DayInfo = styled.p`
   display: flex;
   justify-content: space-between;
@@ -22,7 +22,7 @@ export const DayInfo = styled.p`
     color: ${({ theme }) => theme.gray01};
     font-size: 13px;
   }
-`;
+`
 
 export const EditButton = styled.button`
   padding: 0;
@@ -42,11 +42,11 @@ export const EditButton = styled.button`
   &:active {
     background-color: ${({ theme }) => theme.gray04};
   }
-`;
+`
 export const PlaceList = styled.ol`
   display: flex;
   flex-direction: column;
-`;
+`
 
 export const PlaceItem = styled.li`
   position: relative;
@@ -54,7 +54,7 @@ export const PlaceItem = styled.li`
   grid-template-columns: 35px 1fr;
   justify-items: center;
   gap: 20px;
-`;
+`
 
 export const MarkerBox = styled.div<{ color: string; hasLine: boolean }>`
   width: 18px;
@@ -72,7 +72,7 @@ export const MarkerBox = styled.div<{ color: string; hasLine: boolean }>`
     hasLine &&
     css`
       &::before {
-        content: " ";
+        content: ' ';
         position: absolute;
         width: 0px;
         height: 100%;
@@ -80,7 +80,7 @@ export const MarkerBox = styled.div<{ color: string; hasLine: boolean }>`
         border: 1px dashed ${color};
       }
     `}
-`;
+`
 export const NumberSpan = styled.span`
   padding-top: 1px;
   margin: auto;
@@ -90,7 +90,7 @@ export const NumberSpan = styled.span`
   font-weight: 500;
   font-size: 11px;
   color: ${({ theme }) => theme.white};
-`;
+`
 export const DistanceSpan = styled.span`
   display: flex;
   justify-content: center;
@@ -123,7 +123,7 @@ export const DistanceSpan = styled.span`
     display: flex;
     justify-content: center;
     align-items: center;
-    content: "경로 보기";
+    content: '경로 보기';
     transition: all 0.3s ease-in-out;
     transition-delay: 0.2s;
 
@@ -142,4 +142,4 @@ export const DistanceSpan = styled.span`
       opacity: 1;
     }
   }
-`;
+`

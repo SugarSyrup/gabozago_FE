@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Header = styled.header`
   position: absolute;
@@ -6,7 +6,7 @@ export const Header = styled.header`
   right: 0;
   top: 0;
   background-color: ${({ theme }) => theme.white};
-`;
+`
 
 export const Heading = styled.h1`
   width: 100%;
@@ -16,11 +16,11 @@ export const Heading = styled.h1`
   font-size: 18px;
   font-weight: bold;
   line-height: 22px;
-`;
+`
 export const TabList = styled.ol`
   display: flex;
   justify-content: space-around;
-`;
+`
 
 export const TabItem = styled.li<{ focused: boolean }>`
   padding: 10px;
@@ -30,22 +30,22 @@ export const TabItem = styled.li<{ focused: boolean }>`
   text-align: center;
   font-size: 14px;
   line-height: 22px;
-  font-weight: ${({ focused }) => (focused === true ? "600" : "500")};
+  font-weight: ${({ focused }) => (focused === true ? '600' : '500')};
   color: ${({ theme, focused }) =>
     focused === true ? theme.main : theme.gray01};
   border-bottom: 2px solid
     ${({ theme, focused }) => (focused === true ? theme.main : theme.gray04)};
 
   transition: all 0.3s ease-in-out;
-`;
+`
 
 export const FilterContainer = styled.div`
   margin-top: 10px;
   position: sticky;
   top: 0;
   padding: 0 20px;
-`;
+`
 
 export const Contents = styled.div`
   padding-top: 110px;
-`;
+`

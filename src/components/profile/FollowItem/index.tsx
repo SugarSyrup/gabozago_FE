@@ -1,16 +1,16 @@
-import * as S from "./style";
-import UserIcon from "../../../assets/icons/user.svg?react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom'
+import * as S from './style'
+import UserIcon from '../../../assets/icons/user.svg?react'
 
 interface Props {
-  avatarURL?: string;
-  name: string;
-  id: number;
-  isMyProfile: boolean;
+  avatarURL?: string
+  name: string
+  id: number
+  isMyProfile: boolean
 }
 
 function FollowItem({ avatarURL, name, id, isMyProfile }: Props) {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   return (
     <S.Container>
@@ -29,7 +29,7 @@ function FollowItem({ avatarURL, name, id, isMyProfile }: Props) {
         </S.DeleteBtn>
       )}
     </S.Container>
-  );
+  )
 }
 
-export default FollowItem;
+export default FollowItem

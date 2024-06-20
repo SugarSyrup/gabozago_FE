@@ -1,12 +1,12 @@
-import styled from "styled-components";
-import { Link } from "react-router-dom";
+import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 export const PlaceList = styled.ol<{ marginTop: string }>`
   margin-top: ${({ marginTop }) => marginTop};
   display: flex;
   flex-direction: column;
   gap: 20px;
-`;
+`
 
 export const PlaceItem = styled.li`
   overflow: hidden;
@@ -20,7 +20,7 @@ export const PlaceItem = styled.li`
     display: flex;
     gap: 10px;
   }
-`;
+`
 
 export const BookMarkButton = styled.button`
   display: flex;
@@ -34,7 +34,7 @@ export const BookMarkButton = styled.button`
   svg {
     fill: ${({ theme }) => theme.main};
   }
-`;
+`
 
 export const StyledLink = styled(Link)`
   color: ${({ theme }) => theme.black};
@@ -43,12 +43,12 @@ export const StyledLink = styled(Link)`
   &:hover {
     text-decoration: underline;
   }
-`;
+`
 
 export const PlaceInfoBox = styled.div`
   flex: 1 1 auto;
   max-width: 100%;
-`;
+`
 
 export const TopInfoBox = styled.div`
   width: 100%;
@@ -57,7 +57,7 @@ export const TopInfoBox = styled.div`
   flex-wrap: wrap;
   align-items: center;
   gap: 8px;
-`;
+`
 
 export const PlaceNameSpan = styled.span`
   word-break: normal;
@@ -71,13 +71,13 @@ export const PlaceNameSpan = styled.span`
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical; */
-`;
+`
 
 export const PlaceThemeSpan = styled.span`
   font-size: 12px;
   word-break: keep-all;
   color: ${({ theme }) => theme.gray01};
-`;
+`
 
 export const AddressParagraph = styled.p`
   width: 100%;
@@ -85,7 +85,7 @@ export const AddressParagraph = styled.p`
   font-size: 12px;
   word-break: keep-all;
   color: ${({ theme }) => theme.gray01};
-`;
+`
 
 export const DetailViewButton = styled.button`
   flex-shrink: 0;
@@ -114,4 +114,4 @@ export const DetailViewButton = styled.button`
   &:hover {
     text-decoration: underline;
   }
-`;
+`

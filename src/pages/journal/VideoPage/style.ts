@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const PageContainer = styled.div`
   position: fixed;
@@ -12,14 +12,14 @@ export const PageContainer = styled.div`
   max-width: 500px;
   width: 100%;
   height: 100dvh;
- @supports (-webkit-touch-callout: none) {
-  height: -webkit-fill-available;
-}
+  @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+  }
 
   overflow: auto;
 
   background-color: ${({ theme }) => theme.gray06};
-`;
+`
 
 export const VideoWrapper = styled.div`
   width: 100%;
@@ -30,7 +30,7 @@ export const VideoWrapper = styled.div`
   top: 0px;
   left: 0px;
   z-index: 2;
-`;
+`
 
 export const Header = styled.header`
   position: relative;
@@ -46,7 +46,7 @@ export const Header = styled.header`
   padding-bottom: 25px;
 
   background-color: white;
-`;
+`
 
 export const Type = styled.span`
   color: ${({ theme }) => theme.gray01};
@@ -54,7 +54,7 @@ export const Type = styled.span`
   font-weight: 400;
   line-height: 28px;
   margin-top: 95px;
-`;
+`
 
 export const Title = styled.div`
   max-width: 100%;
@@ -66,7 +66,7 @@ export const Title = styled.div`
 
   font-size: 18px;
   font-weight: 600;
-`;
+`
 
 export const UserContainer = styled.div`
   width: 100%;
@@ -81,13 +81,13 @@ export const UserContainer = styled.div`
     width: 40px;
     height: 40px;
   }
-`;
+`
 
 export const AvatarImg = styled.img`
   width: 40px;
   height: 40px;
   border-radius: 100%;
-`;
+`
 
 export const UserInfo = styled.div`
   margin-left: 10px;
@@ -96,7 +96,7 @@ export const UserInfo = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 2px;
-`;
+`
 
 export const FollowBtnWrapper = styled.div`
   position: absolute;
@@ -106,17 +106,17 @@ export const FollowBtnWrapper = styled.div`
     width: 12px;
     height: 12px;
   }
-`;
+`
 
 export const Name = styled.span`
   font-size: 14px;
   font-weight: 600;
-`;
+`
 
 export const Date = styled.span`
   color: ${({ theme }) => theme.gray01};
   font-size: 12px;
-`;
+`
 
 export const Contents = styled.div`
   margin-top: 14px;
@@ -126,7 +126,7 @@ export const Contents = styled.div`
   padding-left: 20px;
   padding-right: 20px;
   padding-bottom: 36px;
-`;
+`
 
 export const Explain = styled.span`
   display: inline-block;
@@ -135,7 +135,7 @@ export const Explain = styled.span`
   font-size: 14px;
   font-weight: 400;
   line-height: 26px;
-`;
+`
 
 export const PlaceBtns = styled.div`
   width: 100%;
@@ -144,7 +144,7 @@ export const PlaceBtns = styled.div`
   display: flex;
   gap: 10px;
   align-items: center;
-`;
+`
 
 export const PlaceBtn = styled.div`
   width: 100%;
@@ -173,7 +173,7 @@ export const PlaceBtn = styled.div`
     font-weight: 400;
     line-height: 21.588px;
   }
-`;
+`
 
 export const SubTitle = styled.span`
   display: inline-block;
@@ -184,11 +184,11 @@ export const SubTitle = styled.span`
   font-size: 16px;
   font-weight: 600;
   line-height: 21.588px;
-`;
+`
 
 export const SubTitleDesc = styled.span`
   color: ${({ theme }) => theme.main};
   font-size: 13px;
   line-height: 21.588px;
   margin-bottom: 6px;
-`;
+`

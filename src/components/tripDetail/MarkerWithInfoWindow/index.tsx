@@ -1,21 +1,21 @@
-import * as S from "./style";
 import {
   AdvancedMarker,
   useAdvancedMarkerRef,
   InfoWindow,
-} from "@vis.gl/react-google-maps";
-import { useCallback, useState } from "react";
-import MarkerIcon from "../../../assets/icons/marker.svg?react";
-import Typography from "../../common/Typography";
+} from '@vis.gl/react-google-maps'
+import { useCallback, useState } from 'react'
+import * as S from './style'
+import MarkerIcon from '../../../assets/icons/marker.svg?react'
+import Typography from '../../common/Typography'
 
 interface Props {
-  color: string;
-  index: number;
-  position: { lat: number; lng: number };
-  placeId: number;
-  address?: string;
-  placeName: string;
-  placeTheme?: string;
+  color: string
+  index: number
+  position: { lat: number; lng: number }
+  placeId: number
+  address?: string
+  placeName: string
+  placeTheme?: string
 }
 
 function MarkerWithInfoWindow({
@@ -27,14 +27,14 @@ function MarkerWithInfoWindow({
   placeName,
   placeTheme,
 }: Props) {
-  const [markerRef, marker] = useAdvancedMarkerRef();
-  const [infoWindowShown, setInfoWindowShown] = useState(false);
+  const [markerRef, marker] = useAdvancedMarkerRef()
+  const [infoWindowShown, setInfoWindowShown] = useState(false)
 
   const handleMarkerClick = useCallback(
-    () => setInfoWindowShown((isShown) => !isShown),
+    () => setInfoWindowShown(isShown => !isShown),
     []
-  );
-  const handleClose = useCallback(() => setInfoWindowShown(false), []);
+  )
+  const handleClose = useCallback(() => setInfoWindowShown(false), [])
 
   return (
     <>
@@ -53,7 +53,7 @@ function MarkerWithInfoWindow({
           maxWidth={250}
           anchor={marker}
           onClose={handleClose}
-          shouldFocus={true}
+          shouldFocus
         >
           <S.InfoTopContainer>
             <p>
@@ -75,7 +75,7 @@ function MarkerWithInfoWindow({
         </InfoWindow>
       )}
     </>
-  );
+  )
 }
 
-export default MarkerWithInfoWindow;
+export default MarkerWithInfoWindow

@@ -1,21 +1,21 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const List = styled.ol`
   display: grid;
   grid-template-columns: 100%;
   grid-template-rows: repeat(auto-fit, minmax(150px, auto));
   gap: 11px 9px;
-`;
+`
 
 export const ListItem = styled.li`
   border-bottom: 1px solid ${({ theme }) => theme.gray04};
-`;
+`
 
 export const Container = styled.div`
   padding: 10px 0 14px;
   width: 100%;
   overflow-x: hidden;
-`;
+`
 
 export const MenuButton = styled.button`
   margin: 10px 5px;
@@ -30,12 +30,12 @@ export const MenuButton = styled.button`
   background-color: transparent;
   text-shadow: 0 0 5px #00000060;
   cursor: pointer;
-`;
+`
 
 export const ThumbnailImage = styled.img`
   width: 100%;
   object-fit: cover;
-`;
+`
 
 export const TopInfoBox = styled.div`
   position: relative;
@@ -54,7 +54,7 @@ export const TopInfoBox = styled.div`
     font-weight: 400;
     font-size: 12px;
   }
-`;
+`
 
 export const ProfileImage = styled.img`
   margin-right: 13px;
@@ -62,7 +62,7 @@ export const ProfileImage = styled.img`
   height: 32px;
   border-radius: 50%;
   object-fit: cover;
-`;
+`
 
 export const ContentsBox = styled.div`
   cursor: pointer;
@@ -74,7 +74,7 @@ export const ContentsBox = styled.div`
   p {
     padding: 10px 3px 15px;
   }
-`;
+`
 
 export const ImageList = styled.ol`
   cursor: default;
@@ -83,23 +83,23 @@ export const ImageList = styled.ol`
   scroll-snap-type: y mandatory;
   display: flex;
   gap: 6px;
-`;
+`
 export const ImageItem = styled.li`
   scroll-snap-align: start;
-`;
+`
 export const Image = styled.img`
   width: 180px;
   height: 180px;
   object-fit: cover;
   border-radius: 6px;
-`;
+`
 
 export const BottomInfoBox = styled.div`
   margin-top: 8px;
   width: 100%;
   display: flex;
   gap: 9px;
-`;
+`
 
 export const InfoItem = styled.span`
   display: flex;
@@ -112,4 +112,4 @@ export const InfoItem = styled.span`
     height: 20px;
     margin-right: 6px;
   }
-`;
+`

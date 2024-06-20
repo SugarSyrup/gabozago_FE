@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Button = styled.button`
   padding: 0;
@@ -17,4 +17,4 @@ export const Button = styled.button`
   &:hover {
     text-decoration: underline;
   }
-`;
+`

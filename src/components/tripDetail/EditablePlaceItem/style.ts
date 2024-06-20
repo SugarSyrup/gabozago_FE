@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const ListItem = styled.li`
   margin: 0 -20px;
@@ -7,7 +7,7 @@ export const ListItem = styled.li`
   overflow: hidden;
 
   &::after {
-    content: "삭제";
+    content: '삭제';
     position: absolute;
     top: 1px;
     bottom: 1px;
@@ -22,7 +22,7 @@ export const ListItem = styled.li`
     background-color: ${({ theme }) => theme.red};
     color: ${({ theme }) => theme.white};
   }
-`;
+`
 
 export const Wrapper = styled.div<{ isSelected: boolean; translateX: number }>`
   position: relative;
@@ -36,7 +36,7 @@ export const Wrapper = styled.div<{ isSelected: boolean; translateX: number }>`
 
   transition: transform 0.2s;
   transform: translateX(0);
-  transform: translateX(${({ translateX }) => translateX + "px"});
+  transform: translateX(${({ translateX }) => `${translateX}px`});
 
   cursor: pointer;
   background-color: ${({ theme, isSelected }) =>
@@ -47,7 +47,7 @@ export const Wrapper = styled.div<{ isSelected: boolean; translateX: number }>`
       fill: ${({ theme }) => theme.blue02};
     }
   }
-`;
+`
 
 export const PlaceInfo = styled.div`
   flex-grow: 1;
@@ -88,4 +88,4 @@ export const PlaceInfo = styled.div`
       color: ${({ theme }) => theme.gray01};
     }
   }
-`;
+`

@@ -1,153 +1,152 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const ThumbnailWrapper = styled.img`
-    width: 100%;
-    height:340px;
-    
-    background-color:${({theme}) => theme.gray03 };
-    position:absolute;
-    top:0px;
-    left:0px;
-    z-index:2;
+  width: 100%;
+  height: 340px;
+
+  background-color: ${({ theme }) => theme.gray03};
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 2;
 `
 
 export const Header = styled.header`
-    position:relative;
-    
-    width:100%;
-    padding-top:340px;
-    padding-left:20px;
-    padding-right:20px;
+  position: relative;
 
-    display:flex;
-    flex-direction:column;   
+  width: 100%;
+  padding-top: 340px;
+  padding-left: 20px;
+  padding-right: 20px;
 
-    padding-bottom:25px;
+  display: flex;
+  flex-direction: column;
 
-    background-color:white;
+  padding-bottom: 25px;
+
+  background-color: white;
 `
 
 export const Type = styled.span`
-    color: ${({theme}) => theme.gray01};
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 28px;
+  color: ${({ theme }) => theme.gray01};
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 28px;
 `
 
 export const Title = styled.div`
-    max-width:100%;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 
-    font-size: 18px;
-    font-weight: 600;
+  font-size: 18px;
+  font-weight: 600;
 `
 
 export const UserContainer = styled.div`
-    width: 100%;
-    position:relative;
+  width: 100%;
+  position: relative;
 
-    display:flex;
-    align-items:center;
+  display: flex;
+  align-items: center;
 
-    margin-top:20px;
+  margin-top: 20px;
 
-    svg {
-        width:40px;
-        height:40px;
-    }
+  svg {
+    width: 40px;
+    height: 40px;
+  }
 `
 
 export const AvatarImg = styled.img`
-    width:40px;
-    height:40px;
-    border-radius:100%;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
 `
 
 export const UserInfo = styled.div`
-    margin-left:10px;
+  margin-left: 10px;
 
-    display:flex;
-    flex-direction:column;
-    align-items:flex-start;
-    gap:2px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
 `
 
 export const FollowBtnWrapper = styled.div`
-    position:absolute;
-    right:8px;
+  position: absolute;
+  right: 8px;
 
-    svg{
-        width:12px;
-        height:12px;
-    }
+  svg {
+    width: 12px;
+    height: 12px;
+  }
 `
 
 export const Name = styled.span`
-    font-size: 14px;
-    font-weight: 600;
+  font-size: 14px;
+  font-weight: 600;
 `
 
 export const Date = styled.span`
-    color: ${({theme}) => theme.gray01};
-    font-size: 12px;
+  color: ${({ theme }) => theme.gray01};
+  font-size: 12px;
 `
 
 export const Contents = styled.div`
-    margin-top:14px;
-    
-    background-color:white;
-    padding-top:14px;
-    padding-left:20px;
-    padding-right:20px;
-    padding-bottom:36px;
+  margin-top: 14px;
+
+  background-color: white;
+  padding-top: 14px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 36px;
 `
 
 export const Day = styled.div`
-    width:100%;
-    padding: 6px 20px;
-    margin-top:36px;
-    border-radius:10px;
+  width: 100%;
+  padding: 6px 20px;
+  margin-top: 36px;
+  border-radius: 10px;
 
-    background-color:${({theme}) => theme.main};
+  background-color: ${({ theme }) => theme.main};
 
-    display:flex;
-    justify-content:space-between;
+  display: flex;
+  justify-content: space-between;
 
-    span{
-        color: white;
-        font-size: 15px;
-        font-weight: 600;
-        line-height: 28px;
-    }
+  span {
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 28px;
+  }
 `
 
 export const SeperateLine = styled.div`
-    transform:translateX(-20px);
+  transform: translateX(-20px);
 
-    width: calc(100% + 40px);
-    height:8px;
+  width: calc(100% + 40px);
+  height: 8px;
 
-
-    background-color:${({theme}) => theme.gray06};
+  background-color: ${({ theme }) => theme.gray06};
 `
 
 export const DayLink = styled.span`
-    color:white;
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 28px; 
-    text-decoration-line: underline;
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 28px;
+  text-decoration-line: underline;
 `
 
 export const Comments = styled.div`
-    width:100%;
-    margin-top:10px;
-    padding-left:20px;
-    padding-right:20px;
+  width: 100%;
+  margin-top: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
 
-    background-color:white;
+  background-color: white;
 `

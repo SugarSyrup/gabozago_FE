@@ -1,32 +1,32 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-import { post } from "../../../utils/api";
-import usePopup from "../../../hooks/usePopup";
-import useAlert from "../../../hooks/useAlert";
-import Typography from "../../common/Typography";
-import useScrapModal from "../../video/useScrapModal";
+import { post } from '../../../utils/api'
+import usePopup from '../../../hooks/usePopup'
+import useAlert from '../../../hooks/useAlert'
+import Typography from '../../common/Typography'
+import useScrapModal from '../../video/useScrapModal'
 
-import ClapIcon from "../../../assets/icons/clap.svg?react";
-import ClapMainIcon from "../../../assets/icons/clap_blue.svg?react";
-import CommentIcon from "../../../assets/icons/comment.svg?react";
-import BookMarkIcon from "../../../assets/icons/bookmark.svg?react";
-import ShareIcon from "../../../assets/icons/share.svg?react";
+import ClapIcon from '../../../assets/icons/clap.svg?react'
+import ClapMainIcon from '../../../assets/icons/clap_blue.svg?react'
+import CommentIcon from '../../../assets/icons/comment.svg?react'
+import BookMarkIcon from '../../../assets/icons/bookmark.svg?react'
+import ShareIcon from '../../../assets/icons/share.svg?react'
 
-import isLogin from "../../../utils/isLogin";
+import isLogin from '../../../utils/isLogin'
 
-import * as S from "./style";
+import * as S from './style'
 
 interface Props {
-  postId: number;
-  isClap: boolean;
-  isBookmarked: boolean;
-  claps: number;
-  comment: number;
-  onCommentClick: () => void;
-  bookmark: number;
-  onShareClick: () => void;
-  title?: string;
+  postId: number
+  isClap: boolean
+  isBookmarked: boolean
+  claps: number
+  comment: number
+  onCommentClick: () => void
+  bookmark: number
+  onShareClick: () => void
+  title?: string
 }
 
 function BottomNav({
@@ -40,11 +40,11 @@ function BottomNav({
   title,
   isBookmarked,
 }: Props) {
-  const navigate = useNavigate();
-  const { Popup, popupOpen, popupClose } = usePopup();
-  const [isUserScraped, setIsUserScraped] = useState<boolean>(isBookmarked);
-  const [isUserClap, setIsUserClap] = useState<boolean>(isClap);
-  const [isUserClpas, setIsUserClpas] = useState<number>(claps);
+  const navigate = useNavigate()
+  const { Popup, popupOpen, popupClose } = usePopup()
+  const [isUserScraped, setIsUserScraped] = useState<boolean>(isBookmarked)
+  const [isUserClap, setIsUserClap] = useState<boolean>(isClap)
+  const [isUserClpas, setIsUserClpas] = useState<number>(claps)
   const { Alert, alertOpen } = useAlert({
     Content: (
       <Typography.Body size="lg" color="white">
@@ -54,37 +54,36 @@ function BottomNav({
     RightContent: (
       <Typography.Body size="lg" color="white">
         <span
-          style={{ textDecoration: "underline", cursor: "pointer" }}
+          style={{ textDecoration: 'underline', cursor: 'pointer' }}
           onClick={() => {
-            navigate("/login");
+            navigate('/login')
           }}
         >
           로그인 하러가기
         </span>
       </Typography.Body>
     ),
-  });
+  })
 
-  const {ScrapModal, scrapModalOpen, scrapModalClose} = useScrapModal({
+  const { ScrapModal, scrapModalOpen, scrapModalClose } = useScrapModal({
     id: Number(postId),
-    type: "article",
-    setIsScraped: () => {setIsUserScraped(prev => !prev)},
-  });
+    type: 'article',
+    setIsScraped: () => {
+      setIsUserScraped(prev => !prev)
+    },
+  })
 
   function countScraps() {
-    if(isBookmarked) {
-      if(isUserScraped){
-        return bookmark;
-      } else {
-        return bookmark - 1;
+    if (isBookmarked) {
+      if (isUserScraped) {
+        return bookmark
       }
-    } else {
-      if(isUserScraped){
-        return bookmark + 1;
-      } else {
-        return bookmark;
-      }
+      return bookmark - 1
     }
+    if (isUserScraped) {
+      return bookmark + 1
+    }
+    return bookmark
   }
   return (
     <>
@@ -100,9 +99,9 @@ function BottomNav({
           id="urlCopy"
           value={window.location.href}
           onClick={() => {
-            navigator.clipboard.writeText(`${title}\n${window.location.href}`);
-            popupClose();
-            onShareClick && onShareClick();
+            navigator.clipboard.writeText(`${title}\n${window.location.href}`)
+            popupClose()
+            onShareClick && onShareClick()
           }}
         />
       </Popup>
@@ -111,21 +110,21 @@ function BottomNav({
           onClick={() => {
             if (isLogin()) {
               post<{
-                message: "CREATE SUCCESS" | "DELETE SUCCESS";
-              }>(`/clap/community`, {
-                community: "article",
-                postId: postId,
-              }).then((response) => {
-                if (response.data.message == "CREATE SUCCESS") {
-                  setIsUserClap(true);
-                  setIsUserClpas((prev) => prev + 1);
+                message: 'CREATE SUCCESS' | 'DELETE SUCCESS'
+              }>('/clap/community', {
+                community: 'article',
+                postId,
+              }).then(response => {
+                if (response.data.message == 'CREATE SUCCESS') {
+                  setIsUserClap(true)
+                  setIsUserClpas(prev => prev + 1)
                 } else {
-                  setIsUserClap(false);
-                  setIsUserClpas((prev) => prev - 1);
+                  setIsUserClap(false)
+                  setIsUserClpas(prev => prev - 1)
                 }
-              });
-            }else {
-              alertOpen();
+              })
+            } else {
+              alertOpen()
             }
           }}
         >
@@ -135,9 +134,9 @@ function BottomNav({
         <S.NavigationItem
           onClick={() => {
             if (isLogin()) {
-              onCommentClick();
-            }else {
-              alertOpen();
+              onCommentClick()
+            } else {
+              alertOpen()
             }
           }}
         >
@@ -147,21 +146,21 @@ function BottomNav({
         <S.NavigationItem
           isBookmarked={isUserScraped}
           onClick={() => {
-            if(!isUserScraped && localStorage.getItem("access_token")) {
-              post<{ message: "Create Success" | "Delete Success" }>(
-                `/folder/scrap/community`,
+            if (!isUserScraped && localStorage.getItem('access_token')) {
+              post<{ message: 'Create Success' | 'Delete Success' }>(
+                '/folder/scrap/community',
                 {
-                  community: "article",
-                  postId: postId,
+                  community: 'article',
+                  postId,
                 }
               ).then(() => {
-                setIsUserScraped(true);
-              });
+                setIsUserScraped(true)
+              })
             }
-            if(isLogin()){
-              scrapModalOpen();
+            if (isLogin()) {
+              scrapModalOpen()
             } else {
-              alertOpen();
+              alertOpen()
             }
           }}
         >
@@ -170,14 +169,14 @@ function BottomNav({
         </S.NavigationItem>
         <S.NavigationItem
           onClick={() => {
-            popupOpen();
+            popupOpen()
           }}
         >
           <ShareIcon />
         </S.NavigationItem>
       </S.Navigation>
     </>
-  );
+  )
 }
 
-export default BottomNav;
+export default BottomNav

@@ -1,6 +1,6 @@
-import { atom } from "recoil";
+import { atom } from 'recoil'
 
 export const loginAlertState = atom<boolean>({
-  key: "loginAlertState",
+  key: 'loginAlertState',
   default: false,
-});
+})

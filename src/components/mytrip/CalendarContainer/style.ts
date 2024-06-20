@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const CalendarContainer = styled.div`
   display: flex;
@@ -12,7 +12,7 @@ export const CalendarContainer = styled.div`
     display: none;
     scrollbar-width: none;
   }
-`;
+`
 
 export const Footer = styled.footer`
   position: fixed;
@@ -36,10 +36,10 @@ export const Footer = styled.footer`
   overflow: auto;
 
   background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #fff 50%);
-`;
+`
 
 export const Button = styled.button<{
-  bgColor: boolean;
+  bgColor: boolean
 }>`
   width: 100%;
   padding: 12px 20px;
@@ -52,7 +52,7 @@ export const Button = styled.button<{
   gap: 10px;
 
   background-color: ${({ theme, bgColor }) =>
-    bgColor ? theme.main : "#a6a6a6"};
+    bgColor ? theme.main : '#a6a6a6'};
   text-decoration: none;
   cursor: pointer;
   svg {
@@ -63,4 +63,4 @@ export const Button = styled.button<{
       fill: white;
     }
   }
-`;
+`

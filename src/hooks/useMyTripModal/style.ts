@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const ModalWrapper = styled.div<{ isOpen: boolean }>`
   position: fixed;
@@ -16,7 +16,7 @@ export const ModalWrapper = styled.div<{ isOpen: boolean }>`
   @supports (-webkit-touch-callout: none) {
     height: -webkit-fill-available;
   }
-`;
+`
 
 export const TravelSettings = styled.div`
   padding: 20px 30px;
@@ -28,7 +28,7 @@ export const TravelSettings = styled.div`
   h3 {
     cursor: pointer;
   }
-`;
+`
 
 export const PopupContainer = styled.div`
   padding-top: 10px;
@@ -39,14 +39,14 @@ export const PopupContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 20px;
-`;
+`
 
 export const PopupText = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
+`
 
 export const PopupButtons = styled.div`
   width: 100%;
@@ -54,7 +54,7 @@ export const PopupButtons = styled.div`
   display: flex;
   align-items: center;
   gap: 12px;
-`;
+`
 
 export const PopupButton = styled.div`
   width: 50%;
@@ -68,20 +68,20 @@ export const PopupButton = styled.div`
   background-color: ${({ theme }) => theme.gray06};
   border-radius: 30px;
   cursor: pointer;
-`;
+`
 
 export const ChangePopupContainer = styled.form`
   display: flex;
   flex-direction: column;
   gap: 14px;
-`;
+`
 
 export const ChangePopupHeader = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-`;
+`
 
 export const ChangePopupInput = styled.input`
   width: 100%;
@@ -95,11 +95,11 @@ export const ChangePopupInput = styled.input`
 
   border: none;
   border-bottom: 1px solid #e4e4e4;
-`;
+`
 
 export const FormButton = styled.button`
   border: none;
   background-color: inherit;
 
   cursor: pointer;
-`;
+`

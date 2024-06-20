@@ -1,53 +1,60 @@
-import { ReactNode, useState } from "react";
-import * as S from "./style";
-import useBodyScrollLock from "../useBodyScrollLock";
+import { ReactNode, useState } from 'react'
+import * as S from './style'
+import useBodyScrollLock from '../useBodyScrollLock'
 
 interface Options {
-  title?: string;
-  handle?: boolean;
-  borderRadius?: string;
-  height?: string;
+  title?: string
+  handle?: boolean
+  borderRadius?: string
+  height?: string
 }
 
 function useModal({
-  title = "",
+  title = '',
   handle = true,
-  borderRadius = "30px",
+  borderRadius = '30px',
 }: Options) {
-  const [isOpend, setIsOpend] = useState(false);
-  const { lockScroll, unlockScroll } = useBodyScrollLock();
+  const [isOpend, setIsOpend] = useState(false)
+  const { lockScroll, unlockScroll } = useBodyScrollLock()
 
   const modalOpen = () => {
-    setIsOpend(true);
-    lockScroll();
-  };
+    setIsOpend(true)
+    lockScroll()
+  }
   const modalClose = () => {
-    setIsOpend(false);
-    unlockScroll();
-  };
+    setIsOpend(false)
+    unlockScroll()
+  }
 
-  const Modal = ({ children }: { children?: ReactNode }) => (
-    <S.ModalWrapper isOpened={isOpend}>
-      {isOpend && (
-        <S.ModalContainer onClick={modalClose}>
-          <S.Modal
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-            borderRadius={borderRadius}
-          >
-            {handle && <S.CloseHandle onClick={modalClose} />}
-            <S.Contents>
-              {title && <S.Title>{title}</S.Title>}
-              {children}
-            </S.Contents>
-          </S.Modal>
-        </S.ModalContainer>
-      )}
-    </S.ModalWrapper>
-  );
+  function Modal({ children }: { children?: ReactNode }) {
+    return (
+      <S.ModalWrapper isOpened={isOpend}>
+        {isOpend && (
+          <S.ModalContainer onClick={modalClose}>
+            <S.Modal
+              onClick={e => {
+                e.stopPropagation()
+              }}
+              borderRadius={borderRadius}
+            >
+              {handle && <S.CloseHandle onClick={modalClose} />}
+              <S.Contents>
+                {title && <S.Title>{title}</S.Title>}
+                {children}
+              </S.Contents>
+            </S.Modal>
+          </S.ModalContainer>
+        )}
+      </S.ModalWrapper>
+    )
+  }
 
-  return { isOpend, modalOpen, modalClose, Modal };
+  return {
+    isOpend,
+    modalOpen,
+    modalClose,
+    Modal,
+  }
 }
 
-export default useModal;
+export default useModal

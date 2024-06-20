@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const ModalWrapper = styled.div<{ isOpen: boolean }>`
   position: fixed;
@@ -13,10 +13,10 @@ export const ModalWrapper = styled.div<{ isOpen: boolean }>`
   max-height: 100dvh;
   width: 100%;
   height: 100dvh;
- @supports (-webkit-touch-callout: none) {
-  height: -webkit-fill-available;
-}
-`;
+  @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+  }
+`
 
 export const StationList = styled.ol<{ isBackground: boolean }>`
   display: flex;
@@ -26,10 +26,10 @@ export const StationList = styled.ol<{ isBackground: boolean }>`
   width: calc(100% - 40px);
   padding: 12px 20px;
   background-color: ${({ isBackground, theme }) =>
-    isBackground ? theme.blue05 : "white"};
+    isBackground ? theme.blue05 : 'white'};
   border-radius: 6px;
-  margin-left:20px;
-`;
+  margin-left: 20px;
+`
 
 export const StationItem = styled.li`
   position: relative;
@@ -38,11 +38,11 @@ export const StationItem = styled.li`
   justify-content: flex-start;
   align-items: flex-start;
   gap: 16px;
-`;
+`
 
 export const Linker = styled.div<{
-  isFirst?: boolean;
-  isLast?: boolean;
+  isFirst?: boolean
+  isLast?: boolean
 }>`
   height: 55px;
 
@@ -52,22 +52,22 @@ export const Linker = styled.div<{
   align-items: center;
 
   &::before {
-    content: "";
+    content: '';
     width: 1px;
     height: 12px;
-    ${({ isFirst }) => !isFirst && "border-right:2px solid #849FFF"};
+    ${({ isFirst }) => !isFirst && 'border-right:2px solid #849FFF'};
   }
 
   &::after {
-    content: "";
+    content: '';
     width: 1px;
     height: 26px;
-    ${({ isLast }) => !isLast && "border-right:2px solid #849FFF"};
+    ${({ isLast }) => !isLast && 'border-right:2px solid #849FFF'};
   }
-`;
+`
 
 export const TextContainer = styled.a<{
-  isLast?: boolean;
+  isLast?: boolean
 }>`
   width: 100%;
   height: 54px;
@@ -85,19 +85,19 @@ export const TextContainer = styled.a<{
   border-bottom: ${({ theme, isLast }) =>
     !isLast && `1px solid ${theme.gray03}`};
   cursor: pointer;
-`;
+`
 
 export const StationNumber = styled.span`
   color: ${({ theme }) => theme.gray};
   font-size: 12px;
   font-weight: 600;
-`;
+`
 
 export const StationName = styled.span`
   color: ${({ theme }) => theme.gray};
   font-size: 12px;
   font-weight: 400;
-`;
+`
 
 export const StationIcon = styled.div`
   width: 60px;
@@ -108,14 +108,14 @@ export const StationIcon = styled.div`
   filter: drop-shadow(0px 5px 5px rgba(0, 0, 0, 0.25));
 
   position: fixed;
-  margin-left:20px;
+  margin-left: 20px;
   bottom: 90px;
 
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-`;
+`
 
 export const ModalTitle = styled.span`
   margin-left: 20px;
@@ -126,4 +126,4 @@ export const ModalTitle = styled.span`
   font-weight: 600;
   line-height: 24px;
   letter-spacing: 0.15px;
-`;
+`

@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components'
 
 const GlobalFont = createGlobalStyle`	
 	@font-face {
@@ -63,6 +63,6 @@ const GlobalFont = createGlobalStyle`
 		font-display: swap;
 		src:local("PretnedardWOFFThin"), url("/Pretendard/Pretendard-Thin.woff"), format('woff');
 	}
-`;
+`
 
-export default GlobalFont;
+export default GlobalFont

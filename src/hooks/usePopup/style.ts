@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const PopupWrapper = styled.div<{ isOpened: boolean }>`
   position: fixed;
@@ -13,19 +13,19 @@ export const PopupWrapper = styled.div<{ isOpened: boolean }>`
   max-height: 100dvh;
   width: 100%;
   height: 100dvh;
- @supports (-webkit-touch-callout: none) {
-  height: -webkit-fill-available;
-}
-`;
+  @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+  }
+`
 
 export const PopupContainer = styled.div`
   position: absolute;
   width: 100%;
   /* 추가 */
   height: 100dvh;
- @supports (-webkit-touch-callout: none) {
-  height: -webkit-fill-available;
-}
+  @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+  }
   left: 0;
   right: 0;
   bottom: 0;
@@ -36,7 +36,7 @@ export const PopupContainer = styled.div`
   z-index: 40;
 
   &::before {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     left: 0;
@@ -44,21 +44,21 @@ export const PopupContainer = styled.div`
     bottom: 0;
     width: 100%;
     height: 100dvh;
- @supports (-webkit-touch-callout: none) {
-  height: -webkit-fill-available;
-}
+    @supports (-webkit-touch-callout: none) {
+      height: -webkit-fill-available;
+    }
     opacity: 30%;
     background-color: ${({ theme }) => theme.black};
   }
-`;
+`
 export const Popup = styled.div<{ padding?: string }>`
   width: 90%;
   position: relative;
-  padding: ${({ padding }) => (padding ? padding : "20px")};
+  padding: ${({ padding }) => padding || '20px'};
   background-color: ${({ theme }) => theme.white};
   border-radius: 15px;
   box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
-`;
+`
 
 export const Header = styled.div`
   padding-bottom: 20px;
@@ -69,4 +69,4 @@ export const Header = styled.div`
   font-weight: 600;
   font-size: 16px;
   line-height: 24px;
-`;
+`

@@ -1,12 +1,12 @@
-import * as S from "./style";
-import PageTemplate from "../../../components/common/PageTemplate";
-import PageHeader from "../../../components/common/PageHeader";
-import { useNavigate } from "react-router-dom";
-import HandImage from "../../../assets/imgs/illustration-01.svg?react";
-import Button from "../../../components/common/Button";
+import { useNavigate } from 'react-router-dom'
+import * as S from './style'
+import PageTemplate from '../../../components/common/PageTemplate'
+import PageHeader from '../../../components/common/PageHeader'
+import HandImage from '../../../assets/imgs/illustration-01.svg?react'
+import Button from '../../../components/common/Button'
 
 function ResignDonePage() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   return (
     <PageTemplate
@@ -15,10 +15,10 @@ function ResignDonePage() {
           <Button
             width="100%"
             type="normal"
-            active={true}
+            active
             size="lg"
             onClick={() => {
-              navigate("/");
+              navigate('/')
             }}
           >
             홈으로 돌아가기
@@ -37,7 +37,7 @@ function ResignDonePage() {
         </S.DescParagraph>
       </S.Container>
     </PageTemplate>
-  );
+  )
 }
 
-export default ResignDonePage;
+export default ResignDonePage

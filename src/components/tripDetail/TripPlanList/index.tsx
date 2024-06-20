@@ -1,43 +1,42 @@
-import * as S from "./style";
-import DayPlan from "../DayPlan";
-import ArrowBottomIcon from "../../../assets/icons/arrow_bottom.svg?react";
-import { PlaceData } from "../TripPlanPlaceItem";
-import { useRecoilValue } from "recoil";
-import { tripState } from "../../../recoil/tripState";
-import useModal from "../../../hooks/useModal";
-import Typography from "../../common/Typography";
-import CheckedIcon from "../../../assets/icons/check.svg?react";
+import { useRecoilValue } from 'recoil'
+import * as S from './style'
+import DayPlan from '../DayPlan'
+import ArrowBottomIcon from '../../../assets/icons/arrow_bottom.svg?react'
+import { PlaceData } from '../TripPlanPlaceItem'
+import { tripState } from '../../../recoil/tripState'
+import useModal from '../../../hooks/useModal'
+import Typography from '../../common/Typography'
+import CheckedIcon from '../../../assets/icons/check.svg?react'
 
 export interface DayPlan {
-  day: number;
-  date: string;
-  dayOfWeek: "일" | "월" | "화" | "수" | "목" | "금" | "토";
-  route: PlaceData[];
+  day: number
+  date: string
+  dayOfWeek: '일' | '월' | '화' | '수' | '목' | '금' | '토'
+  route: PlaceData[]
 }
 
 interface Props {
-  isEditMode: boolean;
-  setIsEditMode: React.Dispatch<React.SetStateAction<boolean>>;
-  dayFilter: number;
-  setDayFilter: React.Dispatch<React.SetStateAction<number>>;
+  isEditMode: boolean
+  setIsEditMode: React.Dispatch<React.SetStateAction<boolean>>
+  dayFilter: number
+  setDayFilter: React.Dispatch<React.SetStateAction<number>>
 }
 
 function TripPlanList({ setIsEditMode, dayFilter, setDayFilter }: Props) {
-  const data = useRecoilValue(tripState);
-  const { Modal, modalOpen, modalClose } = useModal({});
+  const data = useRecoilValue(tripState)
+  const { Modal, modalOpen, modalClose } = useModal({})
 
   const onFilterClick = (dayFilterIndex: number) => {
-    setDayFilter(dayFilterIndex);
-    modalClose();
-    return;
-  };
+    setDayFilter(dayFilterIndex)
+    modalClose()
+  }
 
   return (
     <S.Container>
       <Modal>
         <S.ModalHeader
           onClick={() => {
-            onFilterClick(0);
+            onFilterClick(0)
           }}
           isHighlight={dayFilter === 0}
         >
@@ -51,7 +50,7 @@ function TripPlanList({ setIsEditMode, dayFilter, setDayFilter }: Props) {
             <S.DayItem
               key={`dayfilter-${dayPlan.day}`}
               onClick={() => {
-                onFilterClick(idx + 1);
+                onFilterClick(idx + 1)
               }}
             >
               <S.DayInfo isHighlight={dayFilter === idx + 1}>
@@ -59,7 +58,7 @@ function TripPlanList({ setIsEditMode, dayFilter, setDayFilter }: Props) {
                   Day {dayPlan.day}
                 </Typography.Title>
                 <Typography.Title size="lg" color="inherit">
-                  {`${dayPlan.date.replace("-", ".").replace("-", ".")}(${
+                  {`${dayPlan.date.replace('-', '.').replace('-', '.')}(${
                     dayPlan.dayOfWeek
                   })`}
                 </Typography.Title>
@@ -72,7 +71,7 @@ function TripPlanList({ setIsEditMode, dayFilter, setDayFilter }: Props) {
       {data.plan.length >= 0 && (
         <S.DayFilterButton
           onClick={() => {
-            modalOpen();
+            modalOpen()
           }}
         >
           전체 일정
@@ -95,7 +94,7 @@ function TripPlanList({ setIsEditMode, dayFilter, setDayFilter }: Props) {
         )}
       </S.PlaceListContainer>
     </S.Container>
-  );
+  )
 }
 
-export default TripPlanList;
+export default TripPlanList

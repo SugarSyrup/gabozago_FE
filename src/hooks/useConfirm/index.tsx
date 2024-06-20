@@ -1,18 +1,18 @@
-import * as S from "./style";
-import ExclamationIcon from "../../assets/icons/exclamation_circle.svg?react";
-import Typography from "../../components/common/Typography";
-import usePopup from "../usePopup";
+import * as S from './style'
+import ExclamationIcon from '../../assets/icons/exclamation_circle.svg?react'
+import Typography from '../../components/common/Typography'
+import usePopup from '../usePopup'
 
 function useConfirm(
   heading: string,
   desc: string | null = null,
   warningMessage: string | null = null,
-  textCancle: string = "취소",
-  textConfirm: string = "확인"
+  textCancle: string = '취소',
+  textConfirm: string = '확인'
 ) {
-  const { Popup, popupOpen, popupClose, isOpend } = usePopup();
+  const { Popup, popupOpen, popupClose, isOpend } = usePopup()
 
-  const ConfirmPopup = ({ onConfirm }: { onConfirm: () => void }) => {
+  function ConfirmPopup({ onConfirm }: { onConfirm: () => void }) {
     return (
       <S.PopupWrapper isOpened={isOpend}>
         <Popup>
@@ -35,7 +35,7 @@ function useConfirm(
               <S.PopupButton
                 isMain={false}
                 onClick={() => {
-                  popupClose();
+                  popupClose()
                 }}
               >
                 <Typography.Body size="lg" color="inherit">
@@ -43,10 +43,10 @@ function useConfirm(
                 </Typography.Body>
               </S.PopupButton>
               <S.PopupButton
-                isMain={true}
+                isMain
                 onClick={() => {
-                  onConfirm();
-                  popupClose();
+                  onConfirm()
+                  popupClose()
                 }}
               >
                 <Typography.Body size="lg" color="inherit">
@@ -57,13 +57,13 @@ function useConfirm(
           </S.PopupContentsContainer>
         </Popup>
       </S.PopupWrapper>
-    );
-  };
+    )
+  }
   return {
     ConfirmPopup,
     confirmPopupOpen: popupOpen,
     confirmPopupClose: popupClose,
-  };
+  }
 }
 
-export default useConfirm;
+export default useConfirm

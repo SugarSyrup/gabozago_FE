@@ -1,15 +1,15 @@
-import { ChangeEventHandler, MouseEventHandler } from "react";
-import * as S from "./style";
+import { ChangeEventHandler, MouseEventHandler } from 'react'
+import * as S from './style'
 
 interface Props {
-  checked?: boolean;
-  name?: string;
-  inputId?: string;
-  required?: boolean;
-  className?: string;
-  onChange?: ChangeEventHandler<HTMLInputElement>;
-  onClick?: MouseEventHandler<HTMLInputElement>;
-  children?: React.ReactNode;
+  checked?: boolean
+  name?: string
+  inputId?: string
+  required?: boolean
+  className?: string
+  onChange?: ChangeEventHandler<HTMLInputElement>
+  onClick?: MouseEventHandler<HTMLInputElement>
+  children?: React.ReactNode
 }
 
 function CheckBoxItem({
@@ -20,7 +20,7 @@ function CheckBoxItem({
   required,
   className,
   children,
-  onClick
+  onClick,
 }: Props) {
   return (
     <label>
@@ -38,7 +38,7 @@ function CheckBoxItem({
         {children}
       </S.CheckBoxInputContainer>
     </label>
-  );
+  )
 }
 
-export default CheckBoxItem;
+export default CheckBoxItem

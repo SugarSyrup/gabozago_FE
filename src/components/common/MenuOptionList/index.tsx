@@ -1,16 +1,16 @@
-import Typography from "../Typography";
-import * as S from "./style";
-import { MouseEventHandler } from "react";
+import { MouseEventHandler } from 'react'
+import Typography from '../Typography'
+import * as S from './style'
 
 interface Props {
-  menus: Menu[];
+  menus: Menu[]
 }
 
 interface Menu {
-  icon: JSX.Element;
-  iconColor?: string;
-  name: string;
-  onClick: MouseEventHandler;
+  icon: JSX.Element
+  iconColor?: string
+  name: string
+  onClick: MouseEventHandler
 }
 
 function MenuOptionList({ menus }: Props) {
@@ -23,7 +23,7 @@ function MenuOptionList({ menus }: Props) {
         </S.MenuItem>
       ))}
     </S.MenuList>
-  );
+  )
 }
 
-export default MenuOptionList;
+export default MenuOptionList

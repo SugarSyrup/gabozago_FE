@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const PlaceBox = styled.div`
   width: 100%;
@@ -25,7 +25,7 @@ export const PlaceBox = styled.div`
     outline: 3px solid ${({ theme }) => theme.blue04};
     box-shadow: 0 5px 10px #849fff70;
   }
-`;
+`
 
 export const TitleBox = styled.div`
   display: flex;
@@ -33,7 +33,7 @@ export const TitleBox = styled.div`
   justify-content: space-between;
   gap: 10px;
   word-break: keep-all;
-`;
+`
 
 export const MemoButton = styled.button`
   flex-shrink: 0;
@@ -62,12 +62,12 @@ export const MemoButton = styled.button`
       fill: ${({ theme }) => theme.main};
     }
   }
-`;
+`
 export const InfoContainer = styled.div`
   margin-top: 5px;
   display: flex;
   gap: 7px;
-`;
+`
 
 export const InfoSpan = styled.span`
   display: flex;
@@ -89,7 +89,7 @@ export const InfoSpan = styled.span`
       fill: ${({ theme }) => theme.gray02};
     }
   }
-`;
+`
 export const MemoParagraph = styled.p`
   width: 100%;
   padding: 8px 0 10px;
@@ -99,4 +99,4 @@ export const MemoParagraph = styled.p`
   color: ${({ theme }) => theme.main};
   word-break: keep-all;
   overflow-wrap: anywhere;
-`;
+`

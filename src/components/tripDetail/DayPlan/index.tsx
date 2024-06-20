@@ -1,60 +1,58 @@
-import * as S from "./style";
-import { DateObject, parseDateString } from "../../../utils/parseDateString";
-import TripPlanPlaceItem, { PlaceData } from "../TripPlanPlaceItem";
-import AddPlaceButton from "../AddPlaceButton";
-import { useNavigate } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
-import { selectedPlacesState } from "../../../recoil/mytrip/selectedPlacesState";
-import { Position } from "../../common/GoogleMap";
+import { useNavigate } from 'react-router-dom'
+import { useSetRecoilState } from 'recoil'
+import * as S from './style'
+import { DateObject, parseDateString } from '../../../utils/parseDateString'
+import TripPlanPlaceItem, { PlaceData } from '../TripPlanPlaceItem'
+import AddPlaceButton from '../AddPlaceButton'
+import { selectedPlacesState } from '../../../recoil/mytrip/selectedPlacesState'
+import { Position } from '../../common/GoogleMap'
+
 interface Props {
-  data: PlaceData[];
-  day: number;
-  date: string;
-  setIsEditMode: React.Dispatch<React.SetStateAction<boolean>>;
+  data: PlaceData[]
+  day: number
+  date: string
+  setIsEditMode: React.Dispatch<React.SetStateAction<boolean>>
 }
 function DayPlan({ data, day, date: dateString, setIsEditMode }: Props) {
-  const navigate = useNavigate();
-  const setSelectedPlaces = useSetRecoilState(selectedPlacesState);
-  const date = parseDateString(dateString);
+  const navigate = useNavigate()
+  const setSelectedPlaces = useSetRecoilState(selectedPlacesState)
+  const date = parseDateString(dateString)
   const markerColors = [
-    "#5276FA",
-    "#FFAF37",
-    "#BA75FF",
-    "#FA5252",
-    "#30A9DE",
-    "#F29661",
-    "#78CBA2",
-  ];
+    '#5276FA',
+    '#FFAF37',
+    '#BA75FF',
+    '#FA5252',
+    '#30A9DE',
+    '#F29661',
+    '#78CBA2',
+  ]
 
   const clickAddPlaceButtonHandler = () => {
-    setSelectedPlaces([]);
-    navigate(`./${day}/search`);
-  };
+    setSelectedPlaces([])
+    navigate(`./${day}/search`)
+  }
 
   const getDistanceString = (pos1: Position, pos2: Position) => {
-    const R = 6378.137; //Earth radius in km (WGS84)
-    const rad = (x: number) => {
-      return (x * Math.PI) / 180;
-    };
+    const R = 6378.137 // Earth radius in km (WGS84)
+    const rad = (x: number) => (x * Math.PI) / 180
 
-    const dLat = rad(pos2.lat - pos1.lat);
-    const dLong = rad(pos2.lng - pos1.lng);
+    const dLat = rad(pos2.lat - pos1.lat)
+    const dLong = rad(pos2.lng - pos1.lng)
 
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos(rad(pos1.lat)) *
         Math.cos(rad(pos2.lat)) *
         Math.sin(dLong / 2) *
-        Math.sin(dLong / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    const d = R * c;
+        Math.sin(dLong / 2)
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+    const d = R * c
 
     if (d < 1) {
-      return Math.ceil(d * 1000) + "m";
-    } else {
-      return d.toFixed(1) + "km";
+      return `${Math.ceil(d * 1000)}m`
     }
-  };
+    return `${d.toFixed(1)}km`
+  }
 
   return (
     <S.Container>
@@ -65,7 +63,7 @@ function DayPlan({ data, day, date: dateString, setIsEditMode }: Props) {
         </div>
         <S.EditButton
           onClick={() => {
-            setIsEditMode(true);
+            setIsEditMode(true)
           }}
         >
           편집
@@ -92,8 +90,8 @@ function DayPlan({ data, day, date: dateString, setIsEditMode }: Props) {
                           },${data[index].longitude}/${
                             data[index + 1].latitude
                           },${data[index + 1].longitude}`,
-                          "_blank"
-                        );
+                          '_blank'
+                        )
                       }}
                     >
                       {getDistanceString(
@@ -119,7 +117,7 @@ function DayPlan({ data, day, date: dateString, setIsEditMode }: Props) {
               </S.PlaceItem>
             ))}
             <S.PlaceItem>
-              <div></div>
+              <div />
               <AddPlaceButton
                 size="small"
                 onClick={clickAddPlaceButtonHandler}
@@ -129,7 +127,7 @@ function DayPlan({ data, day, date: dateString, setIsEditMode }: Props) {
         )}
       </S.PlaceList>
     </S.Container>
-  );
+  )
 }
 
-export default DayPlan;
+export default DayPlan

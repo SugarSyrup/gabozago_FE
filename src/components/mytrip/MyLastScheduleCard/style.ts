@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Card = styled.div`
   width: 100%;
@@ -7,9 +7,9 @@ export const Card = styled.div`
   border-radius: 10px;
   background-color: ${({ theme }) => theme.gray06};
 
-    position: relative;
-    cursor: pointer;
-`;
+  position: relative;
+  cursor: pointer;
+`
 
 export const InfoContainer = styled.div`
   position: relative;
@@ -23,7 +23,7 @@ export const InfoContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
-`;
+`
 
 export const ThumbnailWrapper = styled.div`
   width: 68px;
@@ -41,12 +41,12 @@ export const ThumbnailWrapper = styled.div`
     height: 24px;
   }
 
-  img{
-      width:100%;
-      height:100%;
-      border-radius: 100%;
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
   }
-`;
+`
 
 export const TextContainer = styled.div`
   display: flex;
@@ -54,13 +54,13 @@ export const TextContainer = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   gap: 5px;
-`;
+`
 
 export const Infos = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2px;
-`;
+`
 
 export const Info = styled.span`
   display: flex;
@@ -76,12 +76,12 @@ export const Info = styled.span`
       fill: ${({ theme }) => theme.main};
     }
   }
-`;
+`
 
 export const MenuIcon = styled.div`
-    cursor:pointer;
-    position: absolute;
-    z-index:10;
-    right: 15px;
-    top: 15px;
-`;
+  cursor: pointer;
+  position: absolute;
+  z-index: 10;
+  right: 15px;
+  top: 15px;
+`

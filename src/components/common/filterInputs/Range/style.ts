@@ -1,28 +1,28 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components'
 
 export const Container = styled.div`
   position: relative;
   width: 100%;
   padding: 0 20px;
-`;
+`
 
 export const ValueParagraph = styled.p`
   margin: 10px 0 30px;
   font-weight: 500;
   line-height: 22px;
   font-size: 16px;
-`;
+`
 
 export const TrackContainer = styled.div<{
-  min: number;
-  max: number;
-  value: [number, number];
+  min: number
+  max: number
+  value: [number, number]
 }>`
   position: relative;
   &::before {
     position: absolute;
     top: 0;
-    content: "";
+    content: '';
     display: block;
     border-radius: 10px;
     width: 100%;
@@ -37,13 +37,13 @@ export const TrackContainer = styled.div<{
     left: ${({ max, value }) => 100 / (max / value[0])}%;
     width: ${({ min, max, value }) =>
       ((value[1] - value[0]) / (max - min)) * 100}%;
-    content: "";
+    content: '';
     display: block;
     border-radius: 10px;
     height: 8px;
     background-color: ${({ theme }) => theme.blue04};
   }
-`;
+`
 
 export const InputContainer = styled.div`
   position: relative;
@@ -63,14 +63,14 @@ export const InputContainer = styled.div`
   .range-slider__range {
     background-color: ${({ theme }) => theme.blue04};
   }
-`;
+`
 
-export const SliderLabel = styled.span<{ position: "left" | "right" }>`
+export const SliderLabel = styled.span<{ position: 'left' | 'right' }>`
   position: absolute;
   top: 25px;
 
   ${({ position }) =>
-    position === "left"
+    position === 'left'
       ? css`
           left: 0;
         `
@@ -81,10 +81,10 @@ export const SliderLabel = styled.span<{ position: "left" | "right" }>`
   font-size: 12px;
   font-weight: 400;
   color: ${({ theme }) => theme.gray01};
-`;
+`
 
 export const ExtraControlerContainer = styled.div`
   width: 100%;
   margin-top: 50px;
   margin-bottom: 50px;
-`;
+`

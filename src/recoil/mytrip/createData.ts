@@ -1,19 +1,19 @@
-import { atom } from "recoil";
+import { atom } from 'recoil'
 
 export const selectedLocationsState = atom<string[]>({
-    key: "selectedLocationList",
-    default: [],
-});
+  key: 'selectedLocationList',
+  default: [],
+})
 
 export interface Dates {
-    startDate: string;
-    endDate: string;
+  startDate: string
+  endDate: string
 }
 
 export const datesState = atom<Dates>({
-    key: "selectedDates",
-    default: {
-        startDate: "",
-        endDate: "",
-    },
+  key: 'selectedDates',
+  default: {
+    startDate: '',
+    endDate: '',
+  },
 })

@@ -1,11 +1,11 @@
-import XIcon from "../../../assets/icons/x.svg?react";
-import Typography from "../../common/Typography";
+import XIcon from '../../../assets/icons/x.svg?react'
+import Typography from '../../common/Typography'
 
-import * as S from "./style";
+import * as S from './style'
 
 interface Props {
-  name: string;
-  onClick?: React.MouseEventHandler<HTMLDivElement>;
+  name: string
+  onClick?: React.MouseEventHandler<HTMLDivElement>
 }
 
 function LocationTag({ name, onClick }: Props) {
@@ -18,7 +18,7 @@ function LocationTag({ name, onClick }: Props) {
         <XIcon />
       </div>
     </S.Container>
-  );
+  )
 }
 
-export default LocationTag;
+export default LocationTag

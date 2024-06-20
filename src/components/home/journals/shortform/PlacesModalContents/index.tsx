@@ -1,54 +1,53 @@
-import * as S from "./style";
-import { useEffect, useState } from "react";
-import { get, post } from "../../../../../utils/api";
-import Typography from "../../../../common/Typography";
-import LocationPlaceholderIcon from "../../../../mytrip/LocationPlaceholderIcon";
-import MapPinIcon from "../../../../../assets/icons/location.svg?react";
-import AddPlaceIcon from "../../../../../assets/icons/calendar_add_border.svg?react";
-import BookMarkIcon from "../../../../../assets/icons/bookmark.svg?react";
-import FilledBookMarkIcon from "../../../../../assets/icons/bookmark_filled.svg?react";
-
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import * as S from './style'
+import { get, post } from '../../../../../utils/api'
+import Typography from '../../../../common/Typography'
+import LocationPlaceholderIcon from '../../../../mytrip/LocationPlaceholderIcon'
+import MapPinIcon from '../../../../../assets/icons/location.svg?react'
+import AddPlaceIcon from '../../../../../assets/icons/calendar_add_border.svg?react'
+import BookMarkIcon from '../../../../../assets/icons/bookmark.svg?react'
+import FilledBookMarkIcon from '../../../../../assets/icons/bookmark_filled.svg?react'
 
 interface Place {
-  id: number;
-  name: string;
-  location: string;
-  isMyTravelAdded: boolean;
-  isBookmarked: boolean;
+  id: number
+  name: string
+  location: string
+  isMyTravelAdded: boolean
+  isBookmarked: boolean
 }
 
 interface Props {
-  id: number;
+  id: number
 }
 
 function PlacesModalContents({ id }: Props) {
-  const navigate = useNavigate();
-  const [places, setPlaces] = useState<Place[]>([]);
+  const navigate = useNavigate()
+  const [places, setPlaces] = useState<Place[]>([])
 
   const getPlaces = async () => {
-    const { data } = await get<Place[]>(`/community/short-form/${id}/place`);
-    console.dir(data);
-    setPlaces(data);
-  };
+    const { data } = await get<Place[]>(`/community/short-form/${id}/place`)
+    console.dir(data)
+    setPlaces(data)
+  }
 
   const toggleBookmark = async (placeId: number) => {
     const { data } = await post<{
-      message: "Create Success" | "Delete Success";
-    }>(`/folder/scrap/place`, {
-      placeId: placeId,
-    });
+      message: 'Create Success' | 'Delete Success'
+    }>('/folder/scrap/place', {
+      placeId,
+    })
     if (data.message) {
-      getPlaces();
+      getPlaces()
     }
-  };
+  }
 
   useEffect(() => {
-    getPlaces();
-  }, []);
+    getPlaces()
+  }, [])
   useEffect(() => {
-    console.dir(places);
-  }, [places]);
+    console.dir(places)
+  }, [places])
 
   return (
     <S.Container>
@@ -61,7 +60,7 @@ function PlacesModalContents({ id }: Props) {
             <S.PlaceItem key={`shotform-place-${id}-${placeId}`}>
               <S.LeftBox
                 onClick={() => {
-                  navigate(`/place/${placeId}`);
+                  navigate(`/place/${placeId}`)
                 }}
               >
                 <LocationPlaceholderIcon
@@ -81,9 +80,9 @@ function PlacesModalContents({ id }: Props) {
                 <S.IconButton
                   type="addToPlan"
                   isActive={isMyTravelAdded}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    navigate(`/mytrip/place/${placeId}`);
+                  onClick={e => {
+                    e.preventDefault()
+                    navigate(`/mytrip/place/${placeId}`)
                   }}
                 >
                   <AddPlaceIcon />
@@ -91,9 +90,9 @@ function PlacesModalContents({ id }: Props) {
                 <S.IconButton
                   type="bookmark"
                   isActive={isBookmarked}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    toggleBookmark(placeId);
+                  onClick={e => {
+                    e.preventDefault()
+                    toggleBookmark(placeId)
                   }}
                 >
                   {isBookmarked ? <FilledBookMarkIcon /> : <BookMarkIcon />}
@@ -104,7 +103,7 @@ function PlacesModalContents({ id }: Props) {
         )}
       </S.PlaceList>
     </S.Container>
-  );
+  )
 }
 
-export default PlacesModalContents;
+export default PlacesModalContents

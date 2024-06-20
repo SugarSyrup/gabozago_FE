@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const InputContainer = styled.div`
   width: 100%;
@@ -10,17 +10,17 @@ export const InputContainer = styled.div`
   gap: 9px;
 
   position: relative;
-`;
+`
 
 export const Label = styled.label`
   font-size: 14px;
   font-weight: 600;
   line-height: 22px;
   letter-spacing: 0.2px;
-`;
+`
 
 export const Input = styled.input<{
-  disabled: boolean;
+  disabled: boolean
 }>`
   width: 100%;
   padding: 10px 16px;
@@ -35,7 +35,7 @@ export const Input = styled.input<{
   font-weight: 400;
   line-height: 22px;
   letter-spacing: 0.2px;
-`;
+`
 
 export const InputExplain = styled.span`
   display: inline-flex;
@@ -55,13 +55,13 @@ export const InputExplain = styled.span`
   font-weight: 400;
   line-height: 22px;
   letter-spacing: 0.2px;
-`;
+`
 
 export const InputAlert = styled.span<{ hasExplain: boolean }>`
   position: absolute;
-  bottom: ${({ hasExplain }) => (hasExplain ? "0px" : "-28px")};
+  bottom: ${({ hasExplain }) => (hasExplain ? '0px' : '-28px')};
   right: 0px;
-`;
+`
 
 export const ConfirmButton = styled.span`
   position: absolute;
@@ -77,4 +77,4 @@ export const ConfirmButton = styled.span`
   font-size: 11px;
   line-height: 22px;
   cursor: pointer;
-`;
+`

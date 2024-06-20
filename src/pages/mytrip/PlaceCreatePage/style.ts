@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Header = styled.header`
   width: 100%;
@@ -15,7 +15,7 @@ export const Header = styled.header`
     position: absolute;
     left: 20px;
   }
-`;
+`
 
 export const Form = styled.form`
   display: flex;
@@ -23,13 +23,13 @@ export const Form = styled.form`
   justify-content: space-between;
 
   margin-top: 40px;
-`;
+`
 
 export const InputList = styled.ol`
   display: flex;
   flex-direction: column;
   gap: 22px;
-`;
+`
 
 export const Input = styled.input`
   width: 100%;
@@ -43,7 +43,7 @@ export const Input = styled.input`
   &:focus {
     outline: none;
   }
-`;
+`
 
 export const ButtonWrapper = styled.div`
   width: calc(100% - 40px);
@@ -52,7 +52,7 @@ export const ButtonWrapper = styled.div`
 
   position: fixed;
   bottom: 40px;
-`;
+`
 
 export const Button = styled.button<{ isActive: boolean }>`
   width: 100%;
@@ -66,7 +66,7 @@ export const Button = styled.button<{ isActive: boolean }>`
 
   color: white;
   background-color: ${({ isActive, theme }) =>
-    isActive ? theme.main : "#A6A6A6"};
+    isActive ? theme.main : '#A6A6A6'};
   cursor: pointer;
   border: none;
 
@@ -77,7 +77,7 @@ export const Button = styled.button<{ isActive: boolean }>`
       fill: white;
     }
   }
-`;
+`
 
 export const PopupWrapper = styled.div<{ isOpen: boolean }>`
   position: fixed;
@@ -92,10 +92,10 @@ export const PopupWrapper = styled.div<{ isOpen: boolean }>`
   max-height: 100dvh;
   width: 100%;
   height: 100dvh;
- @supports (-webkit-touch-callout: none) {
-  height: -webkit-fill-available;
-}
-`;
+  @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+  }
+`
 
 export const PopupContentsContainer = styled.div`
   width: 100%;
@@ -111,7 +111,7 @@ export const PopupContentsContainer = styled.div`
     width: 40px;
     height: 40px;
   }
-`;
+`
 
 export const PopupTextContainer = styled.div`
   display: flex;
@@ -127,7 +127,7 @@ export const PopupTextContainer = styled.div`
   span {
     text-align: center;
   }
-`;
+`
 
 export const PopupButtons = styled.div`
   width: 100%;
@@ -136,7 +136,7 @@ export const PopupButtons = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-`;
+`
 
 export const PopupButton = styled.button<{ isMain: boolean }>`
   width: 100%;
@@ -151,7 +151,7 @@ export const PopupButton = styled.button<{ isMain: boolean }>`
   align-items: center;
 
   background-color: ${({ isMain, theme }) =>
-    isMain ? "#F3F6FF" : theme.gray06};
+    isMain ? '#F3F6FF' : theme.gray06};
   color: ${({ isMain, theme }) => (isMain ? theme.main : theme.black)};
   cursor: pointer;
-`;
+`

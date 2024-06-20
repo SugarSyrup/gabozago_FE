@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const PopupWrapper = styled.div<{ isOpened: boolean }>`
   position: fixed;
@@ -13,10 +13,10 @@ export const PopupWrapper = styled.div<{ isOpened: boolean }>`
   max-height: 100dvh;
   width: 100%;
   height: 100dvh;
- @supports (-webkit-touch-callout: none) {
-  height: -webkit-fill-available;
-}
-`;
+  @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+  }
+`
 
 export const PopupContentsContainer = styled.div`
   width: 100%;
@@ -32,7 +32,7 @@ export const PopupContentsContainer = styled.div`
     width: 40px;
     height: 40px;
   }
-`;
+`
 
 export const PopupTextContainer = styled.div`
   display: flex;
@@ -41,9 +41,9 @@ export const PopupTextContainer = styled.div`
 
   span:last-child {
     margin-top: 10px;
-    text-align:center;
+    text-align: center;
   }
-`;
+`
 
 export const PopupButtons = styled.div`
   width: 100%;
@@ -52,7 +52,7 @@ export const PopupButtons = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-`;
+`
 
 export const PopupButton = styled.button<{ isMain: boolean }>`
   width: 100%;
@@ -67,7 +67,7 @@ export const PopupButton = styled.button<{ isMain: boolean }>`
   align-items: center;
 
   background-color: ${({ isMain, theme }) =>
-    isMain ? "#F3F6FF" : theme.gray06};
+    isMain ? '#F3F6FF' : theme.gray06};
   color: ${({ isMain, theme }) => (isMain ? theme.main : theme.black)};
   cursor: pointer;
-`;
+`

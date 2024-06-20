@@ -1,32 +1,32 @@
-import * as S from "./style";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom'
+import * as S from './style'
 
-import KebabMenuIcon from "../../../../../assets/icons/menu_kebab.svg?react";
-import userIcon from "../../../../../assets/icons/user.svg";
-import ClapIcon from "../../../../../assets/icons/clap.svg?react";
-import CommentIcon from "../../../../../assets/icons/comment.svg?react";
+import KebabMenuIcon from '../../../../../assets/icons/menu_kebab.svg?react'
+import userIcon from '../../../../../assets/icons/user.svg'
+import ClapIcon from '../../../../../assets/icons/clap.svg?react'
+import CommentIcon from '../../../../../assets/icons/comment.svg?react'
 
 export interface TSnapshot {
-  id: number;
-  title: string;
-  location: string;
-  createdAt: string;
-  userid: string;
-  username: string;
-  profileImage: string;
-  images: string[];
-  text: string;
-  like: number;
-  bookmark: number;
-  commentCount: number;
+  id: number
+  title: string
+  location: string
+  createdAt: string
+  userid: string
+  username: string
+  profileImage: string
+  images: string[]
+  text: string
+  like: number
+  bookmark: number
+  commentCount: number
 }
 
 interface Props {
-  data: TSnapshot[];
+  data: TSnapshot[]
 }
 
 function SnapshotList({ data }: Props) {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   return (
     <S.List>
@@ -46,9 +46,9 @@ function SnapshotList({ data }: Props) {
             <S.Container>
               <S.TopInfoBox>
                 <S.ProfileImage
-                  src={profileImage ? profileImage : userIcon}
+                  src={profileImage || userIcon}
                   onClick={() => {
-                    navigate(`/profile/${userid}`);
+                    navigate(`/profile/${userid}`)
                   }}
                 />
 
@@ -62,16 +62,16 @@ function SnapshotList({ data }: Props) {
               </S.TopInfoBox>
               <S.ContentsBox
                 onClick={() => {
-                  navigate(`/journal/snapshot/${id}`);
+                  navigate(`/journal/snapshot/${id}`)
                 }}
               >
                 <p>{text}</p>
                 <S.ImageList
-                  onClick={(e) => {
-                    e.stopPropagation();
+                  onClick={e => {
+                    e.stopPropagation()
                   }}
                 >
-                  {images.map((item) => (
+                  {images.map(item => (
                     <S.ImageItem>
                       <S.Image src={item} alt="" />
                     </S.ImageItem>
@@ -93,7 +93,7 @@ function SnapshotList({ data }: Props) {
         )
       )}
     </S.List>
-  );
+  )
 }
 
-export default SnapshotList;
+export default SnapshotList

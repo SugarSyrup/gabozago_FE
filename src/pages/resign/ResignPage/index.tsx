@@ -1,77 +1,77 @@
-import { ChangeEventHandler, useRef, useState } from "react";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { ChangeEventHandler, useRef, useState } from 'react'
+import { useLoaderData, useNavigate } from 'react-router-dom'
 
-import Typography from "../../../components/common/Typography";
-import PageTemplate from "../../../components/common/PageTemplate";
-import PageHeader from "../../../components/common/PageHeader";
-import CheckBoxItem from "../../../components/common/CheckBox";
+import Typography from '../../../components/common/Typography'
+import PageTemplate from '../../../components/common/PageTemplate'
+import PageHeader from '../../../components/common/PageHeader'
+import CheckBoxItem from '../../../components/common/CheckBox'
 
-import { post } from "../../../utils/api";
+import { post } from '../../../utils/api'
 
-import * as S from "./style";
-import SuggestionContainer from "../SuggestionContainer";
+import * as S from './style'
+import SuggestionContainer from '../SuggestionContainer'
 
 interface TReason {
-  value: string;
-  text: string;
+  value: string
+  text: string
 }
 
 function ResignPage() {
-  const nickname = useLoaderData() as string;
-  const navigate = useNavigate();
-  const [selectedReason, setSelectedReason] = useState<string[]>([]);
-  const [isPending, setIsPending] = useState<boolean>(false);
-  const suggestionRef = useRef<HTMLTextAreaElement>(null);
+  const nickname = useLoaderData() as string
+  const navigate = useNavigate()
+  const [selectedReason, setSelectedReason] = useState<string[]>([])
+  const [isPending, setIsPending] = useState<boolean>(false)
+  const suggestionRef = useRef<HTMLTextAreaElement>(null)
 
   const reasonMap: TReason[] = [
-    { value: "01", text: "재가입" },
-    { value: "02", text: "이용 빈도 및 기대감이 낮음" },
-    { value: "03", text: "콘텐츠 및 장소 정보의 부족" },
-    { value: "04", text: "개인정보보호 및 보안" },
-    { value: "05", text: "다른 서비스로의 이동" },
-    { value: "06", text: "기타" },
-  ];
+    { value: '01', text: '재가입' },
+    { value: '02', text: '이용 빈도 및 기대감이 낮음' },
+    { value: '03', text: '콘텐츠 및 장소 정보의 부족' },
+    { value: '04', text: '개인정보보호 및 보안' },
+    { value: '05', text: '다른 서비스로의 이동' },
+    { value: '06', text: '기타' },
+  ]
 
   // 탈퇴 사유 선택
-  const toggleReason: ChangeEventHandler<HTMLInputElement> = (e) => {
-    const value = e.target.id;
+  const toggleReason: ChangeEventHandler<HTMLInputElement> = e => {
+    const value = e.target.id
 
     if (selectedReason.includes(value)) {
-      setSelectedReason((prev) => prev.filter((item) => item !== value));
+      setSelectedReason(prev => prev.filter(item => item !== value))
     } else {
-      setSelectedReason((prev) => [...prev, value]);
+      setSelectedReason(prev => [...prev, value])
     }
-  };
+  }
 
   // 탈퇴하기
   const onSubmit = async () => {
     if (isPending) {
-      return;
+      return
     }
     if (selectedReason.length === 0) {
-      alert("탈퇴 사유를 선택해 주세요.");
-      return;
+      alert('탈퇴 사유를 선택해 주세요.')
+      return
     }
 
     const reqData = {
-      reason: selectedReason.map((item) => `WDRL${item}`),
+      reason: selectedReason.map(item => `WDRL${item}`),
       suggestion: suggestionRef?.current.value || null,
-    };
-
-    setIsPending(true);
-    const { data } = await post<{
-      message: "INACTIVATE SUCCESS" | "INACTIVATE FAILED";
-    }>(`/settings/withdraw`, reqData);
-
-    if (data.message === "INACTIVATE SUCCESS") {
-      localStorage.clear(); // 로그아웃
-      setIsPending(false);
-      navigate("/leave/done");
-    } else {
-      alert("ERROR: 오류가 발생했습니다.");
-      setIsPending(false);
     }
-  };
+
+    setIsPending(true)
+    const { data } = await post<{
+      message: 'INACTIVATE SUCCESS' | 'INACTIVATE FAILED'
+    }>('/settings/withdraw', reqData)
+
+    if (data.message === 'INACTIVATE SUCCESS') {
+      localStorage.clear() // 로그아웃
+      setIsPending(false)
+      navigate('/leave/done')
+    } else {
+      alert('ERROR: 오류가 발생했습니다.')
+      setIsPending(false)
+    }
+  }
 
   return (
     <PageTemplate
@@ -83,7 +83,7 @@ function ResignPage() {
           <S.ConfirmButton
             styleTheme="primary"
             onClick={() => {
-              navigate(-1);
+              navigate(-1)
             }}
           >
             취소하기
@@ -100,7 +100,8 @@ function ResignPage() {
         <S.TitleHeading>정말로 탈퇴하시겠어요?</S.TitleHeading>
         <S.DescParagraph>
           <Typography.Body size="lg" color="inherit" noOfLine={4}>
-            <strong>{nickname} </strong>님의 아래 정보는 모두 삭제되며,
+            <strong>{nickname} </strong>
+            님의 아래 정보는 모두 삭제되며,
             <br /> 탈퇴 시 정보 복구가 어려워요.
           </Typography.Body>
         </S.DescParagraph>
@@ -173,7 +174,7 @@ function ResignPage() {
       </S.ReasonContainer>
       <SuggestionContainer suggestionRef={suggestionRef} />
     </PageTemplate>
-  );
+  )
 }
 
-export default ResignPage;
+export default ResignPage

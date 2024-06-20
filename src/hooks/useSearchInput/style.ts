@@ -1,67 +1,67 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Container = styled.form<{
-    backgroundColor: string;
-    borderColor: string;
+  backgroundColor: string
+  borderColor: string
 }>`
-    padding:7px 20px;
-    border-radius: 20px;
-    border: ${({ theme }) => "1px solid" + theme.gray02};
-    border: ${({ borderColor }) => "1px solid" + borderColor};
-    background-color: ${({ backgroundColor }) => backgroundColor};
+  padding: 7px 20px;
+  border-radius: 20px;
+  border: ${({ theme }) => `1px solid${theme.gray02}`};
+  border: ${({ borderColor }) => `1px solid${borderColor}`};
+  background-color: ${({ backgroundColor }) => backgroundColor};
 
-    &:focus-within {
-        border: ${({ theme }) => "1px solid" + theme.main};
-    }
+  &:focus-within {
+    border: ${({ theme }) => `1px solid${theme.main}`};
+  }
 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
 
-    width: 100%;
-`;
+  width: 100%;
+`
 
-export const Input = styled.input<{placeholderColor?: string}>`
-    border: none;
-    width: 80%;
+export const Input = styled.input<{ placeholderColor?: string }>`
+  border: none;
+  width: 80%;
 
-    height: 22px;
-    line-height: 22px;
-    font-size: 16px;
+  height: 22px;
+  line-height: 22px;
+  font-size: 16px;
 
-    background-color:inherit;
-    &::placeholder {
-        color: ${({ theme, placeholderColor }) => placeholderColor? placeholderColor : theme.blue03};
-    }
+  background-color: inherit;
+  &::placeholder {
+    color: ${({ theme, placeholderColor }) => placeholderColor || theme.blue03};
+  }
 
-    &:focus {
-        outline: none;
-    }
-`;
+  &:focus {
+    outline: none;
+  }
+`
 
 export const Btns = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px;
 
-    svg.circleX {
-        cursor: pointer;
-        path: {
-            fill: ${({ theme }) => theme.gray04};
-        }
-    }
-`;
-
-export const SearchButton = styled.div<{searchIconColor?: string}>`
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  svg.circleX {
     cursor: pointer;
-    svg{
-        path {
-            fill: ${({ theme, searchIconColor }) => searchIconColor ? searchIconColor : theme.main};
-        }
+    path: {
+      fill: ${({ theme }) => theme.gray04};
     }
-`;
+  }
+`
+
+export const SearchButton = styled.div<{ searchIconColor?: string }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  svg {
+    path {
+      fill: ${({ theme, searchIconColor }) => searchIconColor || theme.main};
+    }
+  }
+`

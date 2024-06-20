@@ -1,12 +1,12 @@
-import { useState } from "react";
-import * as S from "./style";
+import { useState } from 'react'
+import * as S from './style'
 
 function SuggestionContainer({
   suggestionRef,
 }: {
-  suggestionRef: HTMLTextAreaElement;
+  suggestionRef: HTMLTextAreaElement
 }) {
-  const [suggestionText, setSuggestionText] = useState<string>("");
+  const [suggestionText, setSuggestionText] = useState<string>('')
 
   return (
     <S.SuggestContainer>
@@ -24,14 +24,17 @@ function SuggestionContainer({
           maxLength={200}
           ref={suggestionRef}
           value={suggestionText}
-          onChange={(e) => {
-            setSuggestionText(e.target.value);
+          onChange={e => {
+            setSuggestionText(e.target.value)
           }}
         />
-        <S.TextCountParagraph>{suggestionText.length}/200</S.TextCountParagraph>
+        <S.TextCountParagraph>
+          {suggestionText.length}
+          /200
+        </S.TextCountParagraph>
       </S.TextAreaContainer>
     </S.SuggestContainer>
-  );
+  )
 }
 
-export default SuggestionContainer;
+export default SuggestionContainer

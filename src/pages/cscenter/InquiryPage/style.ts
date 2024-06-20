@@ -1,5 +1,5 @@
-import styled, { css } from "styled-components";
-import xSvg from "../../../assets/icons/circleX.svg";
+import styled, { css } from 'styled-components'
+import xSvg from '../../../assets/icons/circleX.svg'
 
 export const ButtonContainer = styled.div`
   padding: 20px;
@@ -8,14 +8,14 @@ export const ButtonContainer = styled.div`
 
   position: fixed;
   bottom: 0px;
-`;
+`
 
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 15px;
   margin-top: 15px;
-`;
+`
 
 export const TitleHeading = styled.h2`
   color: ${({ theme }) => theme.black};
@@ -24,7 +24,7 @@ export const TitleHeading = styled.h2`
   font-weight: 600;
   line-height: 24px;
   letter-spacing: 0.15px;
-`;
+`
 
 export const DescSpan = styled.span`
   display: inline-flex;
@@ -45,7 +45,7 @@ export const DescSpan = styled.span`
   font-weight: 400;
   line-height: 22px;
   letter-spacing: 0.2px;
-`;
+`
 
 export const SelectButton = styled.button`
   display: flex;
@@ -71,7 +71,7 @@ export const SelectButton = styled.button`
     height: 20px;
     padding: 3px;
   }
-`;
+`
 
 export const SelectOptionList = styled.ul`
   margin-bottom: 10px;
@@ -92,7 +92,7 @@ export const SelectOptionList = styled.ul`
       background-color: ${({ theme }) => theme.blue05};
     }
   }
-`;
+`
 
 export const InputContainer = styled.div`
   display: flex;
@@ -102,7 +102,7 @@ export const InputContainer = styled.div`
   gap: 9px;
 
   /* position:relative; */
-`;
+`
 
 export const Input = styled.input`
   width: 100%;
@@ -116,7 +116,7 @@ export const Input = styled.input`
   font-weight: 400;
   line-height: 22px;
   letter-spacing: 0.2px;
-`;
+`
 
 export const TextCountParagraph = styled.p`
   width: 100%;
@@ -125,7 +125,7 @@ export const TextCountParagraph = styled.p`
   font-weight: 400;
   line-height: 24px;
   color: ${({ theme }) => theme.gray02};
-`;
+`
 
 export const TextArea = styled.textarea`
   width: 100%;
@@ -142,7 +142,7 @@ export const TextArea = styled.textarea`
   line-height: 22px;
   letter-spacing: 0.2px;
   resize: none;
-`;
+`
 
 const fileBoxCSS = css`
   display: flex;
@@ -164,13 +164,13 @@ const fileBoxCSS = css`
   letter-spacing: 0.5px;
 
   color: ${({ theme }) => theme.gray02};
-`;
+`
 
 export const FileUploaderContainer = styled.div`
   display: grid;
   grid-template-columns: fit-content(100%) 1fr;
   gap: 10px;
-`;
+`
 
 export const FileLabel = styled.label`
   ${fileBoxCSS}
@@ -179,7 +179,7 @@ export const FileLabel = styled.label`
     width: 28px;
     height: 28px;
   }
-`;
+`
 
 export const FileList = styled.ol`
   display: flex;
@@ -191,7 +191,7 @@ export const FileList = styled.ol`
   &::-webkit-scrollbar {
     display: none;
   }
-`;
+`
 
 export const FileBox = styled.div<{ image: string }>`
   ${fileBoxCSS}
@@ -214,7 +214,7 @@ export const FileBox = styled.div<{ image: string }>`
   }
 
   &:hover::after {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     top: 0;
@@ -226,7 +226,7 @@ export const FileBox = styled.div<{ image: string }>`
     background: url(${xSvg});
     background-position: center;
   }
-`;
+`
 
 export const PopupContainer = styled.div`
   width: 100%;
@@ -252,7 +252,7 @@ export const PopupContainer = styled.div`
     width: 40px;
     height: 40px;
   }
-`;
+`
 
 export const PopupConfirmButton = styled.button`
   cursor: pointer;
@@ -265,4 +265,4 @@ export const PopupConfirmButton = styled.button`
   &:hover {
     background-color: ${({ theme }) => theme.gray06};
   }
-`;
+`

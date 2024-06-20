@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const ModalWrapper = styled.div<{ isOpened: boolean }>`
   position: fixed;
@@ -16,7 +16,7 @@ export const ModalWrapper = styled.div<{ isOpened: boolean }>`
   @supports (-webkit-touch-callout: none) {
     height: -webkit-fill-available;
   }
-`;
+`
 
 export const ModalContainer = styled.div`
   position: absolute;
@@ -33,7 +33,7 @@ export const ModalContainer = styled.div`
   z-index: 201;
 
   &::before {
-    content: "";
+    content: '';
     display: block;
     width: 100%;
     height: 100dvh;
@@ -43,7 +43,7 @@ export const ModalContainer = styled.div`
     opacity: 30%;
     background-color: ${({ theme }) => theme.black};
   }
-`;
+`
 
 export const Modal = styled.div<{ borderRadius: string }>`
   overflow: hidden;
@@ -55,7 +55,7 @@ export const Modal = styled.div<{ borderRadius: string }>`
   border-radius: ${({ borderRadius }) =>
     `${borderRadius} ${borderRadius} 0px 0px`};
   box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
-`;
+`
 
 export const CloseHandle = styled.button`
   padding: 12px 0 16px;
@@ -69,7 +69,7 @@ export const CloseHandle = styled.button`
   }
 
   &::before {
-    content: "";
+    content: '';
     margin: auto;
     width: 55px;
     height: 4px;
@@ -77,15 +77,15 @@ export const CloseHandle = styled.button`
     display: block;
     background-color: ${({ theme }) => theme.gray02};
   }
-`;
+`
 
 export const Title = styled.div`
   margin: 5px 0 20px;
   padding-left: 20px;
   color: ${({ theme }) => theme.gray02};
   font-weight: 600;
-`;
+`
 
 export const Contents = styled.div`
   /* padding-top: 24px; */
-`;
+`

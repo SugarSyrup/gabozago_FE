@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 
 export const JournalItem = styled.li`
   padding: 16px 0 11px;
   border-bottom: 1px solid ${({ theme }) => theme.gray04};
-`;
+`
 
 export const StyledLink = styled(Link)`
   display: flex;
@@ -16,12 +16,12 @@ export const StyledLink = styled(Link)`
       text-decoration: underline;
     }
   }
-`;
+`
 
 export const InfoBox = styled.div`
   display: grid;
   grid-template-columns: max-content;
-`;
+`
 
 export const JournalTitle = styled.p`
   margin-bottom: 24px;
@@ -35,11 +35,11 @@ export const JournalTitle = styled.p`
   font-size: 16px;
   font-weight: 600;
   color: ${({ theme }) => theme.black};
-`;
+`
 
 export const BottomInfoList = styled.ol`
   text-align: left;
-`;
+`
 
 const BottomInfoItem = styled.li`
   font-size: 11px;
@@ -61,14 +61,14 @@ const BottomInfoItem = styled.li`
       }
     }
   }
-`;
+`
 
 export const BottomInfoItemTop = styled(BottomInfoItem)`
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
   gap: 5px;
-`;
+`
 export const BottomInfoItemBottom = styled(BottomInfoItem)`
   display: flex;
   flex-wrap: nowrap;
@@ -82,7 +82,7 @@ export const BottomInfoItemBottom = styled(BottomInfoItem)`
     align-items: center;
     gap: 3px;
   }
-`;
+`
 
 export const HiddenInfoTitle = styled.span`
   overflow: hidden;
@@ -95,7 +95,7 @@ export const HiddenInfoTitle = styled.span`
   border: 0;
   padding: 0;
   white-space: nowrap;
-`;
+`
 
 export const ThumbnailImage = styled.img`
   width: 84px;
@@ -103,9 +103,9 @@ export const ThumbnailImage = styled.img`
   border-radius: 6px;
 
   object-fit: cover;
-`;
+`
 
 export const ThumbnailImagePlaceHolder = styled(ThumbnailImage)`
   background-color: ${({ theme }) => theme.gray04};
   object-fit: none;
-`;
+`

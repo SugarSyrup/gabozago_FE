@@ -1,49 +1,49 @@
-import { ChangeEventHandler, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { ChangeEventHandler, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-import PageTemplate from "../../../components/common/PageTemplate";
-import PageHeader from "../../../components/common/PageHeader";
-import Button from "../../../components/common/Button";
-import Typography from "../../../components/common/Typography";
+import PageTemplate from '../../../components/common/PageTemplate'
+import PageHeader from '../../../components/common/PageHeader'
+import Button from '../../../components/common/Button'
+import Typography from '../../../components/common/Typography'
 
-import { post } from "../../../utils/api";
-import usePopup from "../../../hooks/usePopup";
+import { post } from '../../../utils/api'
+import usePopup from '../../../hooks/usePopup'
 
-import * as S from "./style";
+import * as S from './style'
 
 function FeedBackPage() {
-  const navigate = useNavigate();
-  const [text, setText] = useState<string>("");
-  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
-  const suggestionChangeHandler: ChangeEventHandler<HTMLTextAreaElement> = (
-    e
-  ) => {
+  const navigate = useNavigate()
+  const [text, setText] = useState<string>('')
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
+  const suggestionChangeHandler: ChangeEventHandler<
+    HTMLTextAreaElement
+  > = e => {
     if (text.length <= 2000) {
-      setText(e.target.value);
+      setText(e.target.value)
     }
-  };
-  const { Popup, popupOpen, isOpend: isPopupOpened } = usePopup();
+  }
+  const { Popup, popupOpen, isOpend: isPopupOpened } = usePopup()
   const onSubmit = async () => {
     if (text.length < 20) {
-      alert("20자 이상 작성해주세요.");
-      return;
+      alert('20자 이상 작성해주세요.')
+      return
     }
 
     if (!isSubmitted) {
-      await post<string>(`/settings/support/opinion`, {
+      await post<string>('/settings/support/opinion', {
         content: text.trim(),
-      });
+      })
 
-      setIsSubmitted(true);
-      popupOpen();
+      setIsSubmitted(true)
+      popupOpen()
     }
-  };
+  }
 
   useEffect(() => {
     if (!isPopupOpened && isSubmitted) {
-      navigate(-1);
+      navigate(-1)
     }
-  }, [isPopupOpened]);
+  }, [isPopupOpened])
 
   return (
     <>
@@ -58,7 +58,7 @@ function FeedBackPage() {
           <div>
             <S.PopupConfirmButton
               onClick={() => {
-                navigate(-1);
+                navigate(-1)
               }}
             >
               <Typography.Label size="lg" color="inherit">
@@ -91,8 +91,8 @@ function FeedBackPage() {
         <S.Container>
           <div>
             <S.TitleParagraph>
-              서비스 제안, 칭찬, 불편한 점, 바라는 점 등<br /> 자유롭게
-              남겨주세요!
+              서비스 제안, 칭찬, 불편한 점, 바라는 점 등
+              <br /> 자유롭게 남겨주세요!
             </S.TitleParagraph>
             <S.TitleDescParagraph>
               남겨주신 의견은 가보자고 운영에 큰 도움이 됩니다:)
@@ -106,12 +106,15 @@ function FeedBackPage() {
               onChange={suggestionChangeHandler}
               required
             />
-            <S.TextCountParagraph>{text.length}/2000</S.TextCountParagraph>
+            <S.TextCountParagraph>
+              {text.length}
+              /2000
+            </S.TextCountParagraph>
           </div>
         </S.Container>
       </PageTemplate>
     </>
-  );
+  )
 }
 
-export default FeedBackPage;
+export default FeedBackPage

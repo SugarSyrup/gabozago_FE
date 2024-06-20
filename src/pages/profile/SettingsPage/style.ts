@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const ContentsWrapper = styled.div`
-  height:90dvh;
+  height: 90dvh;
 
   display: flex;
   flex-direction: column;
@@ -9,7 +9,7 @@ export const ContentsWrapper = styled.div`
   width: calc(100% + 40px);
   margin-left: -20px;
   background-color: ${({ theme }) => theme.gray05};
-`;
+`
 
 export const UserSettingButton = styled.button`
   width: 100%;
@@ -22,51 +22,52 @@ export const UserSettingButton = styled.button`
   background-color: ${({ theme }) => theme.white};
   cursor: pointer;
 
-  div{
-    text-align:left;
+  div {
+    text-align: left;
   }
 
-  svg{
-    width:24px;
-    height:24px;
-    cursor:pointer;
+  svg {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
 
-    path{
+    path {
       fill: #a6a6a6;
     }
   }
-`;
+`
 
 export const UserSettingLeftItems = styled.div`
-  display:flex;
-  align-items:center;
-  gap:10px;
-  
-  svg, img{
-    width:52px;
-    height:52px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  svg,
+  img {
+    width: 52px;
+    height: 52px;
   }
 
-  img{
-    border-radius:100%;
+  img {
+    border-radius: 100%;
   }
 `
 
 export const SettingsContainer = styled.div`
-  height:100%;
+  height: 100%;
   padding: 20px 20px;
-  padding-bottom:0px;
+  padding-bottom: 0px;
 
   display: flex;
   flex-direction: column;
   gap: 10px;
-  
+
   background-color: ${({ theme }) => theme.white};
-`;
+`
 
 export const SettingTitleParagraph = styled.p`
   margin-bottom: 5px;
-`;
+`
 
 export const SettingItem = styled.li`
   padding: 6px 0;
@@ -81,23 +82,23 @@ export const SettingItem = styled.li`
     background-color: ${({ theme }) => theme.gray06};
   }
 
-  svg{
-    width:16px;
-    height:16px;
+  svg {
+    width: 16px;
+    height: 16px;
 
-    path{
+    path {
       fill: #a6a6a6;
     }
   }
-`;
+`
 
 export const LeaveButton = styled.button`
-  position:absolute;
-  left:20px;
-  bottom:140px;
+  position: absolute;
+  left: 20px;
+  bottom: 140px;
 
   cursor: pointer;
   border: 0;
   background-color: transparent;
   color: ${({ theme }) => theme.gray02};
-`;
+`

@@ -1,65 +1,65 @@
-import { atom, selector } from "recoil";
-import { TFilter } from "../../assets/types/FilterTypes";
-import { orderingOptionMap, orderingOptions } from "./codeMap";
+import { atom, selector } from 'recoil'
+import { TFilter } from '../../assets/types/FilterTypes'
+import { orderingOptionMap, orderingOptions } from './codeMap'
 
 // 숏폼 필터
 // [필터 종류]: 정렬, 지역, 테마
 
 export const journalOrderingOptions = orderingOptions.filter(({ label }) =>
-  ["최신순", "조회순", "인기순", "최근 인기순"].includes(label)
-);
+  ['최신순', '조회순', '인기순', '최근 인기순'].includes(label)
+)
 
 export const defaultFilter: TFilter = {
-  sort: "최신순",
+  sort: '최신순',
   location: [],
   theme: [],
   // headCount: [1, 30],
   // duration: [1, 100],
   // season: [],
   // budget: [1, 1000],
-};
+}
 
 export const journalFilterState = atom<TFilter>({
-  key: "journalFilterState",
+  key: 'journalFilterState',
   default: defaultFilter,
-});
+})
 
 export const activeJournalFilterListState = selector({
-  key: "activeJournalFilterListState",
+  key: 'activeJournalFilterListState',
   get: ({ get }) => {
-    const filter = get(journalFilterState);
-    const activeFilterValues: { type: keyof TFilter; value: string }[] = [];
+    const filter = get(journalFilterState)
+    const activeFilterValues: { type: keyof TFilter; value: string }[] = []
 
     // 정렬
     if (filter.sort !== defaultFilter.sort) {
-      console.dir(filter.sort);
-      console.dir(orderingOptionMap.get(filter.sort));
+      console.dir(filter.sort)
+      console.dir(orderingOptionMap.get(filter.sort))
       activeFilterValues.push({
-        type: "sort",
+        type: 'sort',
         value: filter.sort,
-      });
+      })
     }
 
     // 지역
     if (filter.location) {
-      filter.location.map((item) =>
-        activeFilterValues.push({ type: "location", value: item })
-      );
+      filter.location.map(item =>
+        activeFilterValues.push({ type: 'location', value: item })
+      )
     }
 
     // 테마
     if (filter.theme) {
-      filter.theme.map((item) =>
+      filter.theme.map(item =>
         activeFilterValues.push({
-          type: "theme",
+          type: 'theme',
           value: item,
         })
-      );
+      )
     }
 
-    return activeFilterValues;
+    return activeFilterValues
   },
-});
+})
 
 // export const activeJournalFilterListState = selector({
 //   key: "activeJournalFilterListState",

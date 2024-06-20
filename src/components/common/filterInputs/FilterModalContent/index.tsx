@@ -1,24 +1,24 @@
-import * as S from "./style";
-import { SetterOrUpdater } from "recoil";
-import { useState } from "react";
-import Button from "../../Button";
+import { SetterOrUpdater } from 'recoil'
+import { useState } from 'react'
+import * as S from './style'
+import Button from '../../Button'
 import {
   TFilter,
   TFilterName,
   TFilterAndOptions,
-} from "../../../../assets/types/FilterTypes";
-import { filterMap } from "../../../../recoil/filters/codeMap";
+} from '../../../../assets/types/FilterTypes'
+import { filterMap } from '../../../../recoil/filters/codeMap'
 
 interface Props {
-  type: TFilterName;
-  filters: TFilterAndOptions[];
-  filterState: TFilter;
-  setFilterState: SetterOrUpdater<TFilter>;
+  type: TFilterName
+  filters: TFilterAndOptions[]
+  filterState: TFilter
+  setFilterState: SetterOrUpdater<TFilter>
   setModal: SetterOrUpdater<{
-    isOpend: boolean;
-    title: string;
-    contents: string | JSX.Element;
-  }>;
+    isOpend: boolean
+    title: string
+    contents: string | JSX.Element
+  }>
 }
 
 function FilterModalContent({
@@ -28,18 +28,18 @@ function FilterModalContent({
   setFilterState,
   setModal,
 }: Props) {
-  const [tempFilter, setTempFilter] = useState(filterState[type]);
+  const [tempFilter, setTempFilter] = useState(filterState[type])
 
   const renderComponent = (filter: TFilterAndOptions) => {
-    const Component = filterMap.get(type).component;
+    const Component = filterMap.get(type).component
     return (
       <Component
         filter={tempFilter}
         setFilter={setTempFilter}
         options={filter.options?.options}
       />
-    );
-  };
+    )
+  }
 
   return (
     <S.Form>
@@ -48,19 +48,19 @@ function FilterModalContent({
         <Button
           type="normal"
           size="lg"
-          active={true}
+          active
           width="100%"
-          onClick={(e) => {
-            e.preventDefault();
-            setFilterState((prev) => ({ ...prev, [type]: tempFilter }));
-            setModal((prev) => ({ ...prev, isOpend: false }));
+          onClick={e => {
+            e.preventDefault()
+            setFilterState(prev => ({ ...prev, [type]: tempFilter }))
+            setModal(prev => ({ ...prev, isOpend: false }))
           }}
         >
           적용하기
         </Button>
       </S.SubmitButtonContainer>
     </S.Form>
-  );
+  )
 }
 
-export default FilterModalContent;
+export default FilterModalContent

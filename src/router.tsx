@@ -1,68 +1,67 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter } from 'react-router-dom'
 
-import { TUserProfile } from "./assets/types/TUserProfile";
-import MyTripPage from "./pages/mytrip/MyTripPage";
-import PlacePage from "./pages/PlacePage";
-import TermsPage from "./pages/TermsPage";
+import { TUserProfile } from './assets/types/TUserProfile'
+import MyTripPage from './pages/mytrip/MyTripPage'
+import PlacePage from './pages/PlacePage'
+import TermsPage from './pages/TermsPage'
 
-import MyTripDetailPage from "./pages/mytrip/DetailPage";
+import MyTripDetailPage from './pages/mytrip/DetailPage'
 import MyTripLocationSelectPage, {
   locationResponseType,
-} from "./pages/mytrip/LocationSelectPage";
-import MyTripDatesSelectPage from "./pages/mytrip/DatesSelectPage";
-import MyTripLocationSearchPage from "./pages/mytrip/LocationSearchPage";
-import MyTripPlaceCreatePage from "./pages/mytrip/PlaceCreatePage";
-import ViewAllPage from "./pages/mytrip/ViewAllPage";
-import ScrapBookPage from "./pages/scrapbook/ScrapBookPage";
-import ScrapBookGroupPage from "./pages/scrapbook/ScrapBookGroupPage";
-import ProfilePage from "./pages/profile/ProfilePage";
-import UserEditPage from "./pages/profile/UserEditPage";
-import UserFollowPage from "./pages/profile/UserFollowPage";
-import HomePage from "./pages/home/HomePage";
-import SettingsPage from "./pages/profile/SettingsPage";
-import ShortFormPage from "./pages/journal/ShortformPage";
+} from './pages/mytrip/LocationSelectPage'
+import MyTripDatesSelectPage from './pages/mytrip/DatesSelectPage'
+import MyTripLocationSearchPage from './pages/mytrip/LocationSearchPage'
+import MyTripPlaceCreatePage from './pages/mytrip/PlaceCreatePage'
+import ViewAllPage from './pages/mytrip/ViewAllPage'
+import ScrapBookPage from './pages/scrapbook/ScrapBookPage'
+import ScrapBookGroupPage from './pages/scrapbook/ScrapBookGroupPage'
+import ProfilePage from './pages/profile/ProfilePage'
+import UserEditPage from './pages/profile/UserEditPage'
+import UserFollowPage from './pages/profile/UserFollowPage'
+import HomePage from './pages/home/HomePage'
+import SettingsPage from './pages/profile/SettingsPage'
+import ShortFormPage from './pages/journal/ShortformPage'
 // import SnapshotPage from "./pages/journal/SnapshotPage";
 // import PostPage from "./pages/journal/PostPage";
 // import VideoPage from "./pages/journal/VideoPage";
-import LoginPage from "./pages/auth/LoginPage";
-import SignUpPage from "./pages/auth/SignUpPage";
-import ArticlePage from "./pages/ArticlePage";
-import ResignPage from "./pages/resign/ResignPage";
-import ResignDonePage from "./pages/resign/ResignDonePage";
-import AnnouncePage from "./pages/cscenter/AnnouncePage";
-import AnnounceDetailPage from "./pages/cscenter/AnnounceDetailPage";
-import FeedBackPage from "./pages/cscenter/FeedBackPage";
-import CSCenterPage from "./pages/cscenter/CSCenterPage";
-import FAQPage from "./pages/cscenter/FAQPage";
-import FAQDetailPage from "./pages/cscenter/FAQDetailPage";
-import InquiryPage from "./pages/cscenter/InquiryPage";
-import InquiryHistoryPage from "./pages/cscenter/InquiryHistoryPage";
-import PlaceAddPage from "./pages/mytrip/PlaceAddPage";
-import { get } from "./utils/api";
-import InquiryDetailPage from "./pages/cscenter/InquiryDetailPage";
-import IsLoginTemplate from "./components/common/isLoginTemplate";
-import MemoPage from "./pages/mytrip/MemoPage";
+import LoginPage from './pages/auth/LoginPage'
+import SignUpPage from './pages/auth/SignUpPage'
+import ArticlePage from './pages/ArticlePage'
+import ResignPage from './pages/resign/ResignPage'
+import ResignDonePage from './pages/resign/ResignDonePage'
+import AnnouncePage from './pages/cscenter/AnnouncePage'
+import AnnounceDetailPage from './pages/cscenter/AnnounceDetailPage'
+import FeedBackPage from './pages/cscenter/FeedBackPage'
+import CSCenterPage from './pages/cscenter/CSCenterPage'
+import FAQPage from './pages/cscenter/FAQPage'
+import FAQDetailPage from './pages/cscenter/FAQDetailPage'
+import InquiryPage from './pages/cscenter/InquiryPage'
+import InquiryHistoryPage from './pages/cscenter/InquiryHistoryPage'
+import PlaceAddPage from './pages/mytrip/PlaceAddPage'
+import { get } from './utils/api'
+import InquiryDetailPage from './pages/cscenter/InquiryDetailPage'
+import IsLoginTemplate from './components/common/isLoginTemplate'
+import MemoPage from './pages/mytrip/MemoPage'
 
 const router = createBrowserRouter([
   {
-    path: "*",
+    path: '*',
     element: <HomePage />,
   },
   {
-    path: "/:idx",
+    path: '/:idx',
     element: <HomePage />,
   },
   /* ---- 여행기 페이지 ---- */
   {
-    path: "/journal/shortform/:id",
+    path: '/journal/shortform/:id',
     element: <ShortFormPage />,
     loader: async () => {
-      if (localStorage.getItem("access_token")) {
-        const { data } = await get<TUserProfile>(`/user/profile`);
-        return data.avatarURL;
-      } else {
-        return "";
+      if (localStorage.getItem('access_token')) {
+        const { data } = await get<TUserProfile>('/user/profile')
+        return data.avatarURL
       }
+      return ''
     },
   },
   // {
@@ -79,7 +78,7 @@ const router = createBrowserRouter([
   // },
   /* ---- 내 여행 페이지 ---- */
   {
-    path: "/mytrip",
+    path: '/mytrip',
     element: (
       <IsLoginTemplate>
         <MyTripPage />
@@ -87,7 +86,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/mytrip/all",
+    path: '/mytrip/all',
     element: (
       <IsLoginTemplate>
         <ViewAllPage />
@@ -95,7 +94,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/mytrip/create",
+    path: '/mytrip/create',
     element: (
       <IsLoginTemplate>
         <MyTripDatesSelectPage />
@@ -103,19 +102,19 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/mytrip/create/location",
+    path: '/mytrip/create/location',
     element: (
       <IsLoginTemplate>
         <MyTripLocationSelectPage />
       </IsLoginTemplate>
     ),
     loader: async () => {
-      const { data } = await get<locationResponseType[]>(`/region`);
-      return data;
+      const { data } = await get<locationResponseType[]>('/region')
+      return data
     },
   },
   {
-    path: "/mytrip/place/:id",
+    path: '/mytrip/place/:id',
     element: (
       <IsLoginTemplate>
         <PlaceAddPage />
@@ -123,19 +122,19 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/mytrip/:id",
+    path: '/mytrip/:id',
     element: (
       <IsLoginTemplate>
         <MyTripDetailPage />
       </IsLoginTemplate>
     ),
     loader: async () => {
-      const { data } = await get<TUserProfile>(`/user/profile`);
-      return data.nickname;
+      const { data } = await get<TUserProfile>('/user/profile')
+      return data.nickname
     },
   },
   {
-    path: "/mytrip/:id/memo",
+    path: '/mytrip/:id/memo',
     element: (
       <IsLoginTemplate>
         <MemoPage />
@@ -143,7 +142,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/mytrip/:id/dateChange",
+    path: '/mytrip/:id/dateChange',
     element: (
       <IsLoginTemplate>
         <MyTripDatesSelectPage />
@@ -151,7 +150,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/mytrip/:id/:day/search",
+    path: '/mytrip/:id/:day/search',
     element: (
       <IsLoginTemplate>
         <MyTripLocationSearchPage />
@@ -159,7 +158,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/mytrip/:id/create",
+    path: '/mytrip/:id/create',
     element: (
       <IsLoginTemplate>
         <MyTripPlaceCreatePage />
@@ -168,23 +167,22 @@ const router = createBrowserRouter([
   },
   /* ---- 유저 프로필 페이지 ---- */
   {
-    path: "/profile",
+    path: '/profile',
     element: (
       <IsLoginTemplate>
         <ProfilePage />
       </IsLoginTemplate>
     ),
     loader: async () => {
-      if (localStorage.getItem("access_token")) {
-        const { data } = await get<TUserProfile>(`/user/profile`);
-        return data;
-      } else {
-        return {
-          id: -1,
-          nickname: "string",
-          description: "string",
-          avatarURL: "1",
-        };
+      if (localStorage.getItem('access_token')) {
+        const { data } = await get<TUserProfile>('/user/profile')
+        return data
+      }
+      return {
+        id: -1,
+        nickname: 'string',
+        description: 'string',
+        avatarURL: '1',
       }
     },
   },
@@ -198,32 +196,32 @@ const router = createBrowserRouter([
   // },
   {
     // TODO : [LOGIN 기능 정의 이후] LOGIN 정보를 기반으로 접근 허용 / 거부
-    path: "/profile/edit",
+    path: '/profile/edit',
     element: (
       <IsLoginTemplate>
         <UserEditPage />
       </IsLoginTemplate>
     ),
     loader: async () => {
-      const { data } = await get<TUserProfile>(`/user/profile`);
-      return data;
+      const { data } = await get<TUserProfile>('/user/profile')
+      return data
     },
   },
   {
-    path: "/profile/settings",
+    path: '/profile/settings',
     element: (
       <IsLoginTemplate>
         <SettingsPage />
       </IsLoginTemplate>
     ),
     loader: async () => {
-      const { data } = await get<TUserProfile>(`/user/profile`);
-      return data;
+      const { data } = await get<TUserProfile>('/user/profile')
+      return data
     },
   },
   /* ---- 스크랩 페이지 ---- */
   {
-    path: "/scrapbook",
+    path: '/scrapbook',
     element: (
       <IsLoginTemplate>
         <ScrapBookPage />
@@ -231,7 +229,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/scrapbook/:id",
+    path: '/scrapbook/:id',
     element: (
       <IsLoginTemplate>
         <ScrapBookGroupPage />
@@ -240,17 +238,17 @@ const router = createBrowserRouter([
   },
   /* ---- 로그인 페이지 ---- */
   {
-    path: "/login",
+    path: '/login',
     element: <LoginPage />,
   },
   {
-    path: "/signup",
+    path: '/signup',
     element: <SignUpPage />,
   },
   /* ---- 고객센터 페이지 ---- */
   {
     // 고객센터/도움말
-    path: "/cscenter",
+    path: '/cscenter',
     element: (
       <IsLoginTemplate>
         <CSCenterPage />
@@ -259,7 +257,7 @@ const router = createBrowserRouter([
   },
   {
     // FAQ 페이지
-    path: "/cscenter/faq",
+    path: '/cscenter/faq',
     element: (
       <IsLoginTemplate>
         <FAQPage />
@@ -268,7 +266,7 @@ const router = createBrowserRouter([
   },
   {
     // FAQ 상세 페이지
-    path: "/cscenter/faq/:id",
+    path: '/cscenter/faq/:id',
     element: (
       <IsLoginTemplate>
         <FAQDetailPage />
@@ -277,17 +275,17 @@ const router = createBrowserRouter([
   },
   {
     // 문의 하기
-    path: "/cscenter/inquiry",
+    path: '/cscenter/inquiry',
     element: <InquiryPage />,
     loader: async () => {
-      const { data } = await get<TUserProfile>(`/user/profile`);
-      console.dir(data);
-      return data.nickname;
+      const { data } = await get<TUserProfile>('/user/profile')
+      console.dir(data)
+      return data.nickname
     },
   },
   {
     // 내 문의 detail page
-    path: "/cscenter/inquiry/:id",
+    path: '/cscenter/inquiry/:id',
     element: (
       <IsLoginTemplate>
         <InquiryDetailPage />
@@ -296,7 +294,7 @@ const router = createBrowserRouter([
   },
   {
     // 내 문의 내역
-    path: "/cscenter/history",
+    path: '/cscenter/history',
     element: (
       <IsLoginTemplate>
         <InquiryHistoryPage />
@@ -305,7 +303,7 @@ const router = createBrowserRouter([
   },
   {
     // 공지사항
-    path: "/cscenter/announce",
+    path: '/cscenter/announce',
     element: (
       <IsLoginTemplate>
         <AnnouncePage />
@@ -314,7 +312,7 @@ const router = createBrowserRouter([
   },
   {
     // 공지사항 상세보기
-    path: "/cscenter/announce/:id",
+    path: '/cscenter/announce/:id',
     element: (
       <IsLoginTemplate>
         <AnnounceDetailPage />
@@ -323,7 +321,7 @@ const router = createBrowserRouter([
   },
   {
     // 의견 보내기
-    path: "/cscenter/feedback",
+    path: '/cscenter/feedback',
     element: (
       <IsLoginTemplate>
         <FeedBackPage />
@@ -332,7 +330,7 @@ const router = createBrowserRouter([
   },
   {
     // 장소 페이지
-    path: "/place/:id",
+    path: '/place/:id',
     element: (
       <IsLoginTemplate>
         <PlacePage />
@@ -341,48 +339,46 @@ const router = createBrowserRouter([
   },
   // 아티클
   {
-    path: "/article/:id",
+    path: '/article/:id',
     element: <ArticlePage />,
     loader: async () => {
-      if (localStorage.getItem("access_token")) {
-        const { data } = await get<TUserProfile>(`/user/profile`);
-        return data.avatarURL;
-      } else {
-        return "";
+      if (localStorage.getItem('access_token')) {
+        const { data } = await get<TUserProfile>('/user/profile')
+        return data.avatarURL
       }
+      return ''
     },
   },
   {
     // 약관
-    path: "/terms/:id",
+    path: '/terms/:id',
     element: <TermsPage />,
   },
   {
     // 탈퇴하기
-    path: "/leave",
+    path: '/leave',
     element: (
       <IsLoginTemplate>
         <ResignPage />
       </IsLoginTemplate>
     ),
     loader: async () => {
-      if (localStorage.getItem("access_token")) {
-        const { data } = await get<TUserProfile>(`/user/profile`);
-        return data.nickname;
-      } else {
-        return "";
+      if (localStorage.getItem('access_token')) {
+        const { data } = await get<TUserProfile>('/user/profile')
+        return data.nickname
       }
+      return ''
     },
   },
   {
     // 탈퇴 완료
-    path: "/leave/done",
+    path: '/leave/done',
     element: (
       <IsLoginTemplate>
         <ResignDonePage />
       </IsLoginTemplate>
     ),
   },
-]);
+])
 
-export default router;
+export default router

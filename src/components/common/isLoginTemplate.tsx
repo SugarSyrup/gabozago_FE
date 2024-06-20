@@ -1,29 +1,27 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
+import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useSetRecoilState } from 'recoil'
 
-import { loginAlertState } from '../../recoil/loginAlertState';
+import { loginAlertState } from '../../recoil/loginAlertState'
 
 interface Props {
-    children: React.ReactNode;
+  children: React.ReactNode
 }
 
-const IsLoginTemplate= ({children}: Props) => {
-    const navigate = useNavigate();
-    const setIsLoginAlert = useSetRecoilState(loginAlertState);
+function IsLoginTemplate({ children }: Props) {
+  const navigate = useNavigate()
+  const setIsLoginAlert = useSetRecoilState(loginAlertState)
 
-    useEffect(() => {
-        const access_token = localStorage.getItem('access_token');
+  useEffect(() => {
+    const access_token = localStorage.getItem('access_token')
 
-        if (!access_token) {
-            setIsLoginAlert(true);
-            navigate('/');
-        } 
-    }, []);
+    if (!access_token) {
+      setIsLoginAlert(true)
+      navigate('/')
+    }
+  }, [])
 
-    return <>
-        {children}
-    </>;
-};
+  return <>{children}</>
+}
 
-export default IsLoginTemplate;
+export default IsLoginTemplate

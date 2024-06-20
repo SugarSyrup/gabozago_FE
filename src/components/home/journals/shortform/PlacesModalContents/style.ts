@@ -1,8 +1,8 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Container = styled.div`
   padding-bottom: 30px;
-`;
+`
 
 export const PlaceList = styled.ul`
   display: flex;
@@ -10,7 +10,7 @@ export const PlaceList = styled.ul`
   gap: 5px;
   max-height: 40dvh;
   overflow-y: auto;
-`;
+`
 
 export const PlaceItem = styled.li`
   display: flex;
@@ -18,7 +18,7 @@ export const PlaceItem = styled.li`
   align-items: center;
   gap: 10px;
   padding: 10px 20px;
-`;
+`
 
 export const LeftBox = styled.div`
   display: flex;
@@ -26,7 +26,7 @@ export const LeftBox = styled.div`
   flex: 1 1;
 
   cursor: pointer;
-`;
+`
 
 export const TextInfoBox = styled.div`
   flex: 1 1;
@@ -50,16 +50,16 @@ export const TextInfoBox = styled.div`
   &:hover {
     text-decoration: underline;
   }
-`;
+`
 
 export const ButtonBox = styled.div`
   display: flex;
   gap: 5px;
-`;
+`
 
 export const IconButton = styled.button<{
-  type: "addToPlan" | "bookmark";
-  isActive?: boolean;
+  type: 'addToPlan' | 'bookmark'
+  isActive?: boolean
 }>`
   display: flex;
   justify-content: center;
@@ -76,7 +76,7 @@ export const IconButton = styled.button<{
     height: 28px;
 
     path {
-      fill: ${({ type, theme }) => type === "addToPlan" && theme.gray02};
+      fill: ${({ type, theme }) => type === 'addToPlan' && theme.gray02};
       fill: ${({ isActive, theme }) => (isActive ? theme.main : theme.gray02)};
     }
   }
@@ -84,4 +84,4 @@ export const IconButton = styled.button<{
   &:hover {
     background-color: ${({ theme }) => theme.gray05};
   }
-`;
+`

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Header = styled.header`
   padding: 40px 20px 20px;
@@ -23,7 +23,7 @@ export const Header = styled.header`
       stroke: ${({ theme }) => theme.white};
     }
   }
-`;
+`
 
 export const IconButton = styled.button`
   padding: 0;
@@ -32,7 +32,7 @@ export const IconButton = styled.button`
   background-color: transparent;
   border: 0;
   cursor: pointer;
-`;
+`
 
 export const Container = styled.div`
   width: 100%;
@@ -51,4 +51,4 @@ export const Container = styled.div`
   scrollbar-width: none;
   -ms-overflow-style: none;
   background-color: ${({ theme }) => theme.gray};
-`;
+`

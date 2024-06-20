@@ -1,15 +1,15 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Container = styled.div`
-  width:calc(100% + 40px);
-  margin-left:-20px;
-`;
+  width: calc(100% + 40px);
+  margin-left: -20px;
+`
 
 export const OrderedList = styled.ol`
   display: flex;
   flex-direction: column;
-  background-color:white;
-`;
+  background-color: white;
+`
 
 export const ListItem = styled.li`
   padding: 15px 20px;
@@ -17,9 +17,9 @@ export const ListItem = styled.li`
 
   a {
     color: ${({ theme }) => theme.black};
-    display:flex;
-    flex-direction:column;
-    gap:5px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
     text-decoration: none;
 
     &:hover {
@@ -28,6 +28,6 @@ export const ListItem = styled.li`
   }
 
   p.date {
-    color: #A6A6A6;
+    color: #a6a6a6;
   }
-`;
+`

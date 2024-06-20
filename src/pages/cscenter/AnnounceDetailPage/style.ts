@@ -1,10 +1,10 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Container = styled.div`
-  width:calc(100% + 40px);
-  margin-left:-20px;
+  width: calc(100% + 40px);
+  margin-left: -20px;
   word-break: keep-all;
-`;
+`
 
 export const InfoContainer = styled.div`
   padding: 15px 20px;
@@ -24,7 +24,7 @@ export const InfoContainer = styled.div`
     line-height: 22px;
     color: ${({ theme }) => theme.gray01};
   }
-`;
+`
 
 export const ContentsContainer = styled.div`
   padding: 25px 18px;
@@ -32,4 +32,4 @@ export const ContentsContainer = styled.div`
   font-size: 14px;
   font-weight: 400;
   line-height: 22px;
-`;
+`

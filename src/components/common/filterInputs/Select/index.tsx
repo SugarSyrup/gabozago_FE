@@ -1,19 +1,19 @@
-import React from "react";
-import * as S from "./style";
-import { SelectOptions } from "../../../../assets/types/FilterTypes";
+import React from 'react'
+import * as S from './style'
+import { SelectOptions } from '../../../../assets/types/FilterTypes'
 
 export interface Props extends SelectOptions {
-  filter: string[] | string;
-  setFilter: React.Dispatch<React.SetStateAction<string[] | string>>;
+  filter: string[] | string
+  setFilter: React.Dispatch<React.SetStateAction<string[] | string>>
 }
 function Select({ filter, setFilter, options, multiple = false }: Props) {
   const toggleItem = (item: string) => {
     if (filter.includes(item)) {
-      setFilter(filter.filter((i) => i !== item));
+      setFilter(filter.filter(i => i !== item))
     } else {
-      setFilter((prev) => [...prev, item]);
+      setFilter(prev => [...prev, item])
     }
-  };
+  }
 
   return (
     <S.List>
@@ -23,14 +23,14 @@ function Select({ filter, setFilter, options, multiple = false }: Props) {
           checked={multiple ? filter.includes(value) : filter === value}
         >
           <S.CheckboxInput
-            type={"checkbox"}
+            type="checkbox"
             id={value}
             checked={multiple ? filter.includes(value) : filter === value}
             onChange={() => {
               if (multiple) {
-                toggleItem(value);
+                toggleItem(value)
               } else {
-                setFilter(value);
+                setFilter(value)
               }
             }}
           />
@@ -38,7 +38,7 @@ function Select({ filter, setFilter, options, multiple = false }: Props) {
         </S.Item>
       ))}
     </S.List>
-  );
+  )
 }
 
-export default Select;
+export default Select

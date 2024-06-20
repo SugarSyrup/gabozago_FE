@@ -1,15 +1,15 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components'
 
 export const Container = styled.div`
-    padding-top:20px;
-    width:100%;
+  padding-top: 20px;
+  width: 100%;
 `
 
 export const ArticleList = styled.div`
-    padding-left:5px;
-    padding-right:5px;
+  padding-left: 5px;
+  padding-right: 5px;
 
-    display:flex;
-    flex-direction:column;
-    gap:25px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
 `

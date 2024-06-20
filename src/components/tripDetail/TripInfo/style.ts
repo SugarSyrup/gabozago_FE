@@ -1,5 +1,5 @@
-import styled, { css } from "styled-components";
-import { Size } from "../../components/tripDetail/TripInfo";
+import styled, { css } from 'styled-components'
+import { Size } from '../../components/tripDetail/TripInfo'
 
 export const Container = styled.div<{ size: Size }>`
   width: 100%;
@@ -9,32 +9,32 @@ export const Container = styled.div<{ size: Size }>`
 
   ${({ size }) => {
     switch (size) {
-      case "sm":
+      case 'sm':
         return css`
           grid-template-columns: 1fr fit-content(100%);
           margin-bottom: 16px;
           gap: 8px;
-        `;
-        break;
+        `
+        break
 
-      case "xs":
+      case 'xs':
         return css`
           grid-template-columns: fit-content(100%) 1fr;
           margin-bottom: 13px;
           gap: 11px;
-        `;
-        break;
+        `
+        break
 
       default:
         return css`
           grid-template-columns: 1fr fit-content(100%);
           margin-bottom: 20px;
           gap: 13px;
-        `;
-        break;
+        `
+        break
     }
   }};
-`;
+`
 
 export const EditButton = styled.button`
   display: flex;
@@ -53,13 +53,13 @@ export const EditButton = styled.button`
   &:hover {
     background-color: ${({ theme }) => theme.gray04};
   }
-`;
+`
 
 export const DetailList = styled.ul<{ size: Size }>`
   display: flex;
 
   ${({ size }) =>
-    size !== "default"
+    size !== 'default'
       ? css`
           flex-direction: row;
           gap: 10px;
@@ -68,7 +68,7 @@ export const DetailList = styled.ul<{ size: Size }>`
           flex-direction: column;
           gap: 6px;
         `};
-`;
+`
 
 const defaultDetailItem = css`
   font-size: 14px;
@@ -78,7 +78,7 @@ const defaultDetailItem = css`
     width: 22px;
     height: 22px;
   }
-`;
+`
 const smallDetailItem = css`
   font-size: 12px;
   line-height: 18.5px;
@@ -87,14 +87,14 @@ const smallDetailItem = css`
     width: 14px;
     height: 14px;
   }
-`;
+`
 export const DetailItem = styled.li<{ size: Size }>`
   display: flex;
   align-items: center;
   color: ${({ theme }) => theme.gray};
   gap: 8px;
 
-  ${({ size }) => (size === "default" ? defaultDetailItem : smallDetailItem)}
+  ${({ size }) => (size === 'default' ? defaultDetailItem : smallDetailItem)}
 
   span:first-of-type {
     display: flex;
@@ -104,4 +104,4 @@ export const DetailItem = styled.li<{ size: Size }>`
       visibility: hidden;
     }
   }
-`;
+`

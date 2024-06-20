@@ -1,83 +1,83 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Container = styled.li`
-    width:100%;
-    padding:15px 10px;
-    border-radius:15px;
-    background-color:${({theme}) => theme.blue05};
+  width: 100%;
+  padding: 15px 10px;
+  border-radius: 15px;
+  background-color: ${({ theme }) => theme.blue05};
 
-    display:flex;
-    flex-direction:row;
-    justify-content:flex-start;
-    align-items:center;
-    gap:13px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 13px;
 
-    position:relative;
+  position: relative;
 `
 
 export const ThumbnailWrapper = styled.div`
-    width:70px;
-    height:70px;
-    position:relative;
+  width: 70px;
+  height: 70px;
+  position: relative;
 
-    flex-shrink:0;
-    border-radius:100%;
-    background-color:${({theme}) => theme.gray03};
+  flex-shrink: 0;
+  border-radius: 100%;
+  background-color: ${({ theme }) => theme.gray03};
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    img{
-        width:100%;
-        height:100%;
-        border-radius:100%;
-    }
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+  }
 `
 
 export const Info = styled.div`
-    padding-top:5px;
-    padding-bottom:5px;
-    padding-right: 30px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 30px;
 
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
-    gap:3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 3px;
 `
 
 export const Name = styled.span`
-    font-size:14px;
-    font-weight:600;
+  font-size: 14px;
+  font-weight: 600;
 
-    margin-bottom:3px;
+  margin-bottom: 3px;
 `
 
 export const Desc = styled.span`
-    color:${({theme}) => theme.gray01};
-    font-size:10px;
-    font-weight:500;
+  color: ${({ theme }) => theme.gray01};
+  font-size: 10px;
+  font-weight: 500;
 
-    display:flex;
-    align-items:center;
-    gap:4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 
-    svg {
-        width:16px;
-        height:16px;
+  svg {
+    width: 16px;
+    height: 16px;
 
-        path {
-            fill: ${({theme}) => theme.main};
-        }
+    path {
+      fill: ${({ theme }) => theme.main};
     }
+  }
 `
 
 export const OptionWrapper = styled.div`
-    position:absolute;
-    top:15px;
-    right:17px;
+  position: absolute;
+  top: 15px;
+  right: 17px;
 
-    svg path {
-        fill : ${({theme}) => theme.gray02};
-    }
+  svg path {
+    fill: ${({ theme }) => theme.gray02};
+  }
 `

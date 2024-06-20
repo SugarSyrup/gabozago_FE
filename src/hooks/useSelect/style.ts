@@ -1,11 +1,11 @@
-import styled from "styled-components";
-import checkIcon from "../../assets/icons/check.svg";
+import styled from 'styled-components'
+import checkIcon from '../../assets/icons/check.svg'
 
 export const List = styled.ol`
   display: flex;
   flex-direction: column;
   gap: 3px;
-`;
+`
 
 export const Item = styled.li<{ checked: boolean }>`
   position: relative;
@@ -18,7 +18,7 @@ export const Item = styled.li<{ checked: boolean }>`
   &:hover {
     background-color: ${({ theme }) => theme.blue05};
   }
-`;
+`
 
 export const CheckboxInput = styled.input`
   display: none;
@@ -34,7 +34,7 @@ export const CheckboxInput = styled.input`
     font-weight: 400;
 
     &::after {
-      content: "";
+      content: '';
       display: none;
       width: 20px;
       height: 20px;
@@ -52,4 +52,4 @@ export const CheckboxInput = styled.input`
       display: block;
     }
   }
-`;
+`

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Header = styled.header`
   width: 100%;
@@ -6,13 +6,13 @@ export const Header = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`;
+`
 
 export const CloseIconWrapper = styled.div`
   svg path {
     stroke: #121212;
   }
-`;
+`
 
 export const SubmitBtn = styled.button<{ isActive: boolean }>`
   border: none;
@@ -22,8 +22,8 @@ export const SubmitBtn = styled.button<{ isActive: boolean }>`
   font-size: 16px;
   font-weight: ${({ isActive }) => (isActive ? 600 : 400)};
   letter-spacing: 0.2px;
-  cursor:pointer;
-`;
+  cursor: pointer;
+`
 
 export const Form = styled.form`
   margin-bottom: 35px;
@@ -34,7 +34,7 @@ export const Form = styled.form`
   flex-direction: column;
   align-items: center;
   gap: 16px;
-`;
+`
 
 export const AvatarWrapper = styled.div`
   position: relative;
@@ -46,7 +46,7 @@ export const AvatarWrapper = styled.div`
   input {
     display: none;
   }
-`;
+`
 
 export const CameraIconWrapper = styled.label`
   position: absolute;
@@ -55,7 +55,7 @@ export const CameraIconWrapper = styled.label`
 
   width: 24px;
   height: 24px;
-`;
+`
 
 export const InputContainer = styled.div`
   width: 100%;
@@ -72,7 +72,8 @@ export const InputContainer = styled.div`
     letter-spacing: 0.2px;
   }
 
-  input, textarea {
+  input,
+  textarea {
     width: 100%;
     padding: 10px 16px;
 
@@ -96,10 +97,10 @@ export const InputContainer = styled.div`
   }
 
   textarea {
-    height:84px;
-    resize:none;
+    height: 84px;
+    resize: none;
   }
-`;
+`
 
 export const ExitButton = styled.button`
   margin-top: 11px;
@@ -119,37 +120,37 @@ export const ExitButton = styled.button`
   &:hover {
     text-decoration: underline;
   }
-`;
+`
 
 export const PopupContainer = styled.div`
-  width:100%;
-  padding-top:20px;
+  width: 100%;
+  padding-top: 20px;
 
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  gap:30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
 
   div {
-    width:calc(100% + 40px);
+    width: calc(100% + 40px);
     margin: 0 -20px -20px;
     border-radius: 0 0 15px 15px;
     overflow: hidden;
     display: flex;
     border-top: 1px solid ${({ theme }) => theme.gray04};
   }
-`;
+`
 
 export const PopupConfirmButton = styled.button<{
-  type: "secondary" | "primary";
+  type: 'secondary' | 'primary'
 }>`
   cursor: pointer;
   flex: 1 1 100%;
   padding: 14px;
   border: 0;
   color: ${({ theme, type }) =>
-    type === "secondary" ? theme.gray02 : theme.main};
+    type === 'secondary' ? theme.gray02 : theme.main};
   background-color: transparent;
 
   &:last-of-type {
@@ -159,4 +160,4 @@ export const PopupConfirmButton = styled.button<{
   &:hover {
     background-color: ${({ theme }) => theme.gray06};
   }
-`;
+`
