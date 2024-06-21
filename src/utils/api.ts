@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-param-reassign */
 import axios, {
   AxiosError,
   AxiosRequestConfig,
@@ -48,7 +50,7 @@ const onError = async (error: AxiosError | Error): Promise<AxiosError> => {
       }
 
       if (status === 401 && messages[0].message === 'Token is invalid or expired') {
-        const response = await axiosInstance
+        await axiosInstance
           .post<{
             access: string;
             access_expires_at: string;
@@ -59,7 +61,7 @@ const onError = async (error: AxiosError | Error): Promise<AxiosError> => {
             localStorage.setItem('access_token', response.data.access);
             return axiosInstance.request(error.config as InternalAxiosRequestConfig);
           })
-          .catch((errror) => {
+          .catch(() => {
             localStorage.removeItem('access_token');
             localStorage.removeItem('refresh_token');
             window.location.href = '/login';

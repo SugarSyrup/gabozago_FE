@@ -15,7 +15,6 @@ import ScrapBookPage from './pages/scrapbook/ScrapBookPage';
 import ScrapBookGroupPage from './pages/scrapbook/ScrapBookGroupPage';
 import ProfilePage from './pages/profile/ProfilePage';
 import UserEditPage from './pages/profile/UserEditPage';
-import UserFollowPage from './pages/profile/UserFollowPage';
 import HomePage from './pages/home/HomePage';
 import SettingsPage from './pages/profile/SettingsPage';
 import ShortFormPage from './pages/journal/ShortformPage';

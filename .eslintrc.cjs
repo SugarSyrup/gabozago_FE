@@ -18,6 +18,8 @@ module.exports = {
   },
   plugins: ['react', 'react-refresh', '@typescript-eslint', 'prettier'],
   rules: {
+    'react-hooks/exhaustive-deps': 'warn',
+    'import/prefer-default-export': 'off',
     'react/react-in-jsx-scope': 'off',
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
   },
