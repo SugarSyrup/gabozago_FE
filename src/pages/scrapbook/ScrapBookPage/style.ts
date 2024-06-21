@@ -10,7 +10,7 @@ export const Header = styled.header`
 
 export const Heading = styled.h1`
   width: 100%;
-  padding: 40px 10px 10px;
+  padding: 20px 10px;
 
   text-align: center;
   font-size: 18px;
@@ -21,6 +21,7 @@ export const TabList = styled.ol`
   display: flex;
   justify-content: space-around;
 `;
+
 export const TabItem = styled.li<{ focused: boolean }>`
   padding: 10px;
   flex-grow: 1;
@@ -37,6 +38,14 @@ export const TabItem = styled.li<{ focused: boolean }>`
 
   transition: all 0.3s ease-in-out;
 `;
+
+export const FilterContainer = styled.div`
+  margin-top: 10px;
+  position: sticky;
+  top: 0;
+  padding: 0 20px;
+`;
+
 export const Contents = styled.div`
-  padding-top: 90px;
+  padding-top: 110px;
 `;

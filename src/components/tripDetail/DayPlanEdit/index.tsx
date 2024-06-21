@@ -1,41 +1,44 @@
 import * as S from "./style";
-import { useEffect, useState } from "react";
-import { SetterOrUpdater } from "recoil";
-import { ItemInterface, ReactSortable } from "react-sortablejs";
-import { DayPlan, Place } from "../../../assets/data/tripPlanData";
+import { Droppable } from "react-beautiful-dnd";
 import EditablePlaceItem from "../EditablePlaceItem";
+import { parseDateString } from "../../../utils/parseDateString";
+import { useRecoilState } from "recoil";
+import { editingTripPlanState } from "../../../recoil/tripState";
 
 interface Props {
   day: number;
-  route: Place[];
-  setPlan: SetterOrUpdater<DayPlan[]>;
+  date: string;
 }
-type SortableRoute = ItemInterface & Place;
-function DayPlanEdit({ day, route: routeProp, setPlan }: Props) {
-  const [route, setRoute] = useState<SortableRoute[]>([]);
 
-  useEffect(() => {
-    setRoute(
-      routeProp.map((place) => ({ ...place, chosen: false, id: place.placeId }))
-    );
-  }, [routeProp]);
+function DayPlanEdit({ day, date: dateString }: Props) {
+  const date = parseDateString(dateString);
+  const [tempData] = useRecoilState(editingTripPlanState);
 
   return (
     <S.Container>
-      <S.DaySpan>Day {day}</S.DaySpan>
-      <S.PlaceList>
-        <ReactSortable
-          group={"dayPlan"}
-          list={route}
-          setList={setRoute}
-          animation={150}
-          handle=".handle"
-        >
-          {route.map((item, index) => (
-            <EditablePlaceItem key={item.id} place={item} index={index} />
-          ))}
-        </ReactSortable>
-      </S.PlaceList>
+      <S.DayParagraph>
+        Day {day}
+        <span>{`${date?.month}. ${date?.day}(${date?.dayOfWeek})`}</span>
+      </S.DayParagraph>
+      <Droppable droppableId={`day-${day}`} type={"PLACE"}>
+        {(provided, snapshot) => (
+          <S.PlaceList
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+            isDraggingOver={snapshot.isDraggingOver}
+          >
+            {tempData[day - 1].route.map((place, index) => (
+              <EditablePlaceItem
+                key={`edit-place-${place.detailRouteId}`}
+                day={day}
+                place={place}
+                index={index}
+              />
+            ))}
+            {provided.placeholder}
+          </S.PlaceList>
+        )}
+      </Droppable>
     </S.Container>
   );
 }

@@ -1,7 +1,7 @@
 import * as S from "./style";
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import BottomNavBar from "../BottomNavBar";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { modalState } from "../../../recoil/modalState";
 import useModal from "../../../hooks/useModal";
 
@@ -12,7 +12,9 @@ interface Props {
 }
 
 function PageTemplate({ children, nav = "default", header }: Props) {
-  const modal = useRecoilValue(modalState);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const [headerHeight, setHeaderHeight] = useState<number>(0);
+  const [modal, setModal] = useRecoilState(modalState);
   const { Modal, modalOpen, modalClose } = useModal({
     title: modal.title,
   });
@@ -25,11 +27,25 @@ function PageTemplate({ children, nav = "default", header }: Props) {
     }
   }, [modal]);
 
+  useEffect(() => {
+    setModal((prev) => ({ ...prev, isOpend: false }));
+  }, [children]);
+
+  useEffect(() => {
+    if(!headerRef.current) return;
+    const resizeObserver = new ResizeObserver((entries) => {
+      setHeaderHeight(entries[0].target.clientHeight);
+    });
+    resizeObserver.observe(headerRef.current);
+    
+    return () => resizeObserver.disconnect();
+  }, [headerRef.current])
+
   return (
     <S.Container header={header ? true : false}>
       <Modal>{modal.contents}</Modal>
-      {header && header}
-      <S.Content header={header ? true : false}>{children}</S.Content>
+      <S.Header ref={headerRef}>{header && header}</S.Header>
+      <S.Content header={headerHeight} nav={nav || nav === "default" ? true : false}>{children}</S.Content>
       {nav === "default" ? <BottomNavBar /> : nav}
     </S.Container>
   );

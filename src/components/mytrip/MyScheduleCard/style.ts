@@ -1,72 +1,109 @@
 import styled from "styled-components";
 
-export const Card = styled.div<{ highlight: boolean }>`
-    width: 260px;
-    height: 141px;
+export const Card = styled.div`
+    width: 320px;
+    height: 140px;
     flex-shrink: 0;
     border-radius: 10px;
-    background-color: ${({ theme }) => theme.blue05};
+    background-color: ${({ theme }) => theme.blue04};
 
     position: relative;
-    opacity: ${({ highlight }) => !highlight && 0.4};
 `;
 
 export const InfoContainer = styled.div`
     position: relative;
     box-sizing: border-box;
     width: 100%;
+    height:98px;
 
-    padding-left: 20px;
-    padding-bottom: 16px;
-    padding-top: 20px;
-
+    padding:15px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 16px;
+    gap: 10px;
 
-    border-bottom: ${({ theme }) => `.4px solid ${theme.blue04}`};
+    border-bottom: ${({ theme }) => `.4px solid ${theme.white}`};
 `;
 
 export const ThumbnailWrapper = styled.div`
-    width: 57px;
-    height: 57px;
+    width: 68px;
+    height: 68px;
     flex-shrink: 0;
-    background-color: ${({ theme }) => theme.gray03};
+    background-color: ${({ theme }) => theme.main};
     border-radius: 100%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    svg{
+        width:24px;
+        height:24px;
+    }
+
+    img{
+        width:100%;
+        height:100%;
+        border-radius: 100%;
+    }
 `;
 
-export const Date = styled.span`
-    color: ${({ theme }) => theme.gray01};
-    font-size: 10px;
-    font-weight: 600;
-    line-height: 13.468px;
+export const TextContainer = styled.div`
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+    align-items:flex-start;
+    gap:5px;
+`
+
+export const Infos = styled.div`
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+`
+
+export const Info = styled.span`
+    display:flex;
+    justify-content:flex-start;
+    align-items:center;
+    gap:5px;
+
+    svg{
+        width:16px;
+        height:16px;
+
+        path{
+            fill:${({theme}) => theme.main};
+        }
+    }
 `;
 
 export const MenuIcon = styled.div`
+    cursor:pointer;
     position: absolute;
-    right: 12px;
-    top: 8px;
+    right: 15px;
+    top: 15px;
 `;
 
 export const ButtonContainer = styled.div`
+    height:40px;
+
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    padding-top: 10px;
-    padding-left: 15px;
-    padding-right: 10px;
 `;
 
-export const Places = styled.div`
-    display: flex;
-    justify-content: space-between;
-    flex-shrink: 0;
-    gap: 3px;
-`;
+export const ButtonValue = styled.div`
+    display:flex;
+    align-items:center;
+    gap:10px;
 
-export const Place = styled.span`
-    color: ${({ theme }) => theme.gray01};
-    font-size: 12px;
-    line-height: 13.468px;
-`;
+    svg {
+        width:20px;
+        height:20px;
+
+        path {
+            fill: ${({theme}) => theme.main};
+        }
+    }
+`

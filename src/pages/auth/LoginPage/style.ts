@@ -3,12 +3,13 @@ import styled, { keyframes } from "styled-components";
 
 export const Container = styled.div`
     width:100%;
-    height:100%;
+    height:100dvh;
 
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
+    gap:8px;
 `
 
 export const BrandCopy = styled.span`
@@ -27,23 +28,23 @@ export const BrandCopy = styled.span`
 
 export const OAuthSquareButton = styled.div`
     width:100%;
-    padding: 9px 0px;
+    padding: 3px 0px;
     border-radius:4px;
     background-color:#FFE812;
 
     display:flex;
-    gap:4px;
+    gap:6px;
     justify-content:center;
     align-items:center;
 
-    img {
-        width:26px;
-        height:26px;
+    svg {
+        width:40px;
+        height:40px;
     }
 
     span{
         font-size: 14px;
-        font-weight:600;
+        font-weight: 500;
         line-height: 22px;
     }
 `
@@ -89,29 +90,16 @@ export const OAuthCircleButton = styled.div<{color: string}>`
     align-items:center;
 
     border-radius:100%;
-
-    img {
-        width:20px;
-        height:20px;
-    }
-`
-export const HelpText = styled(Link)`
-    margin-top:106px;
-
-    color: #AFAFAF;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 24px;
-    text-decoration-line: underline;
 `
 
 export const MessageContainer = styled.div`
     position:relative;
     width:100%;
-    margin-top:90px;
+    margin-top:110px;
 
     display:flex;
     justify-content:center;
+    gap:11px;
 `
 
 const upDown = keyframes`
@@ -152,5 +140,12 @@ export const FloatingMessage = styled.div`
         position:absolute;
         z-index:20;
         bottom:-18px;
+    }
+
+    span{
+        color: #000;
+        font-size: 11px;
+        font-weight: 600;
+        line-height: 22px;
     }
 `

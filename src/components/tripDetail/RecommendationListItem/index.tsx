@@ -1,32 +1,36 @@
 import * as S from "./style";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import Button from "../../common/Button";
-import ClapIcon from "../../../assets/icons/clap.svg?react";
-import StarIcon from "../../../assets/icons/star.svg?react";
+
 import { selectedPlacesState } from "../../../recoil/mytrip/selectedPlacesState";
 
+import Typography from "../../common/Typography";
+import LocationPlaceholderIcon from "../../mytrip/LocationPlaceholderIcon";
+
 interface Props {
-  id: string;
+  id: number;
   name: string;
   theme: string;
-  hearts: number;
-  rating: number;
   thumbnail?: string;
   keyword?: string;
+  location: string;
+  locations: string[];
+  popupOpen: () => void;
+  setNewLocation: React.Dispatch<React.SetStateAction<string>>
 }
 
 function RecommendationListItem({
   thumbnail,
   name,
   theme,
-  hearts,
-  rating,
   id,
   keyword,
+  location,
+  popupOpen,
+  setNewLocation,
+  locations
 }: Props) {
-  const [selectedPlaces, setSelectedPlaces] =
-    useRecoilState(selectedPlacesState);
+  const [selectedPlaces, setSelectedPlaces] = useRecoilState(selectedPlacesState);
   const [isActive, setIsActive] = useState<boolean>(false);
 
   useEffect(() => {
@@ -43,13 +47,19 @@ function RecommendationListItem({
       );
     } else {
       setSelectedPlaces((prev) => [
+        ...prev,
         {
           name,
           thumbnail,
           id,
-        },
-        ...prev,
+          location: location
+        }
       ]);
+
+      if(!locations.includes(location)){
+        setNewLocation(location);
+        popupOpen();
+      }
     }
   }
 
@@ -57,11 +67,16 @@ function RecommendationListItem({
     <S.Container>
       <S.LeftItems>
         <S.Thumbnail>
-          <img src={thumbnail} />
+          {
+            thumbnail ? 
+            <img src={thumbnail} />
+            :
+            <LocationPlaceholderIcon type={(id % 5 + 1) as 1|2|3|4|5}/>
+          }
         </S.Thumbnail>
         <S.Infomation>
           {keyword ? (
-            <S.Name>
+            <Typography.Title size="lg">
               {name.split("").map((word, index) => {
                 if (
                   name.indexOf(keyword) <= index &&
@@ -72,23 +87,18 @@ function RecommendationListItem({
                   return <>{word}</>;
                 }
               })}
-            </S.Name>
+            </Typography.Title>
           ) : (
-            <S.Name>{name}</S.Name>
+            <Typography.Title size="lg">{name}</Typography.Title>
           )}
-          <S.Desc>
+          <Typography.Label size="lg" color="#A6A6A6">
             <span>{theme}</span>
-            <span>•</span>
-            <ClapIcon />
-            <span>{hearts}</span>
-            <StarIcon />
-            <span>{rating}</span>
-          </S.Desc>
+          </Typography.Label>
         </S.Infomation>
       </S.LeftItems>
-      <Button size="sm" type="normal" active={isActive} onClick={onBtnClick}>
-        선택
-      </Button>
+      <S.Button isActive={isActive} onClick={onBtnClick}>
+        <Typography.Label size="lg" color="inherit">선택</Typography.Label>
+      </S.Button>
     </S.Container>
   );
 }

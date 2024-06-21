@@ -1,27 +1,28 @@
-import Heading from "../../common/Heading";
-import TripList from "../TripList";
-
-import * as S from "./style";
-import Button from "../../common/Button";
+import ChevronRightIcon from "../../../assets/icons/chevron_right.svg?react";
 import CirclePlusIcon from "../../../assets/icons/plus_circle.svg?react";
 
-interface Props {
-  username: string;
-}
+import Button from "../../common/Button";
+import Typography from "../../common/Typography";
 
-function UserTrip({ username }: Props) {
+import TripList from "../TripList";
+import * as S from "./style";
+
+function UserTrip() {
   return (
     <S.Container>
-      <Heading size="sm">{username} 의 다가오는 여행</Heading>
       <TripList />
+      <S.Header>
+        <S.TravelLink to="/mytrip/all">
+          <Typography.Body size="lg" color="#424242">전체보기</Typography.Body>
+          <ChevronRightIcon />
+        </S.TravelLink>
+      </S.Header>
       <S.CreateMyTrip to="/mytrip/create">
         <Button type="text" size="md">
           <CirclePlusIcon />
-          <span>새로운 여행 일정 만들기</span>
+          <Typography.Title size="md" color="#484848">새로운 여행 일정 만들기</Typography.Title>
         </Button>
       </S.CreateMyTrip>
-      <Heading size="sm">지난 여행</Heading>
-      <TripList />
     </S.Container>
   );
 }

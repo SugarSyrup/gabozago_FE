@@ -1,10 +1,9 @@
 import styled from "styled-components";
 
 export const SearchPlacesList = styled.div`
-    padding-top: 44px;
 
     width: 100%;
-    margin-top: 10px;
+    padding-top: 80px;
     margin-bottom: 40px;
 
     display: flex;
@@ -44,11 +43,10 @@ export const Button = styled.button`
 `
 
 export const SearchedNotFounded = styled.div`
-    margin-top:180px;
-
     display:flex;
     flex-direction:column;
     align-items:center;
+    padding-top:140px;
 
     svg {
         width:60px;

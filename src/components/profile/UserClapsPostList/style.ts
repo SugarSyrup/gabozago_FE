@@ -12,7 +12,6 @@ export const List = styled.ol`
 
 export const Item = styled.div`
     width:100%;
-    height:100px;
 
     padding-top:10px;
     padding-bottom:10px;
@@ -26,11 +25,30 @@ export const Item = styled.div`
 `
 
 export const ThumbnailWrapper = styled.div`
-    width:84px;
-    height:84px;
+    width:68px;
+    height:68px;
 
     border-radius:6px;
-    background-color: #e8e8e8;
+    background-color: #e4e4e4;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    svg{
+        width:24px;
+        height:24px;
+        path{
+            fill: #a6a6a6;
+        }
+    }
+
+    img {
+        width:100%;
+        height:100%;
+        border-radius:6px;
+        object-fit:cover;
+    }
 `
 
 export const TextContainer = styled.div`
@@ -38,8 +56,9 @@ export const TextContainer = styled.div`
 
     display:flex;
     flex-direction:column;
-    justify-content:space-between;
+    justify-content:flex-start;
     align-items:flex-start;
+    gap:5px;
 `
 
 export const Name = styled.span`
@@ -51,30 +70,51 @@ export const Name = styled.span`
     text-overflow:ellipsis;
 `
 
-export const Desc = styled.span`
+export const User = styled.span`
     display:flex;
     align-items:center;
-    gap:8px;
+    gap:5px;
 
-    color:${({theme}) => theme.gray01};
-    font-size:11px;
-    font-weight:400;
+    color:${({theme}) => theme.gray};
 
     svg{
-        width:17px;
-        height:17px;
+        width:16px;
+        height:16px;
+
+        path{
+            fill:${({theme}) => theme.main};
+        }
     }
-
-    span{
-        display:flex;
-        align-items:center;
-        gap:4px;
-
+    img {
+        width:16px;
+        height:16px;
+        border-radius:100%;
+        object-fit:cover;
     }
 `
 
 export const Info = styled.div`
     display:flex;
-    flex-direction:column;
-    gap:5px;
+    align-items:center;
+    gap:9px;
+    margin-top:-2px;
+
+    span{
+        display:inline-flex;
+        align-items:center;
+        gap:5px;
+
+        svg{
+            width:16px;
+            height:16px;
+        }
+    }
+
+    span:nth-child(2){
+        svg{
+            path{
+                fill: #a6a6a6;
+            }
+        }
+    }
 `

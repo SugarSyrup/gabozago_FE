@@ -29,7 +29,7 @@ export const NumberInput = styled.input`
   background-color: ${({ theme }) => theme.gray07};
   border: 2px solid ${({ theme }) => theme.gray05};
   border-radius: 8px;
-  font-size: 13px;
+  font-size: 16px;
   line-height: auto;
   outline: none;
 

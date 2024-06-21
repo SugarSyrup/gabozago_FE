@@ -1,18 +1,27 @@
 import { Dispatch } from "react";
+
 import * as S from "./style";
 
 interface Props {
-    filter: "post" | "comment";
-    setFilter: Dispatch<React.SetStateAction<"post" | "comment">>;
-    shareCount: number;
-    commentCount: number;
+    setActFilter: Dispatch<React.SetStateAction<"clap" | "comment">>;
+    setPostFilter: Dispatch<React.SetStateAction<"short-form" | "article">>;
 }
 
-function UserActivityFilter({filter, setFilter, shareCount, commentCount} : Props) {
+function UserActivityFilter({setActFilter, setPostFilter} : Props) {
     return(
         <S.FilterList>
-            <S.FilterItem isHighlight={filter === "post"} onClick={() => {setFilter("post")}} >공감한 글 {shareCount}</S.FilterItem>
-            <S.FilterItem isHighlight={filter === "comment"} onClick={() => {setFilter("comment")}} >댓글단 글 {commentCount}</S.FilterItem>
+            <S.FilterItem onInput={(e) => {
+                setActFilter(e.currentTarget.value as "clap" | "comment");
+            }}>
+                <option value="clap">공감한 글</option>
+                <option value="comment">댓글 단 글</option>
+            </S.FilterItem>
+            <S.FilterItem onInput={(e) => {
+                setPostFilter(e.currentTarget.value as "short-form" | "article");
+            }}>
+                <option value="article">아티클</option>
+                <option value="short-form">숏폼</option>
+            </S.FilterItem>
         </S.FilterList>
     );
 }

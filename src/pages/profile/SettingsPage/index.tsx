@@ -1,18 +1,18 @@
-import * as S from "./style";
+import { useLoaderData, useNavigate } from "react-router-dom";
+
+import ChevronRightIcon from "../../../assets/icons/chevron_right.svg?react";
+import UserIcon from "../../../assets/icons/user.svg?react";
+import { TUserProfile } from "../../../assets/types/TUserProfile";
+
 import PageTemplate from "../../../components/common/PageTemplate";
 import PageHeader from "../../../components/common/PageHeader";
-import { useNavigate } from "react-router-dom";
-import ChevronRightIcon from "../../../assets/icons/chevron_right.svg?react";
-import { useState } from "react";
-import NotificationToggleButton from "../../../components/profile/settings/NotificationToggleButton";
-import usePopup from "../../../hooks/usePopup";
+import Typography from "../../../components/common/Typography";
+
+import * as S from "./style";
 
 function SettingsPage() {
+  const { id, nickname, description, avatarURL, clapCount, scrapCount, myTravelCount, myTravelDay } = useLoaderData() as TUserProfile;
   const navigate = useNavigate();
-  const { Popup, popupOpen, popupClose } = usePopup();
-  const [isActivityNotiAllowed, setIsActivityNotiAllowed] =
-    useState<boolean>(false);
-  const username = "최민석";
   const settings = [
     {
       title: "고객 지원",
@@ -23,7 +23,7 @@ function SettingsPage() {
         },
         {
           text: "고객센터 • 도움말",
-          path: "/cscenter/help",
+          path: "/cscenter",
         },
         {
           text: "의견보내기",
@@ -43,10 +43,6 @@ function SettingsPage() {
           path: "/terms/02",
         },
         {
-          text: "위치 서비스 이용 동의",
-          path: "/terms/03",
-        },
-        {
           text: "오픈소스 라이센스",
           path: "/terms/04",
         },
@@ -55,55 +51,26 @@ function SettingsPage() {
   ];
 
   return (
-    <PageTemplate header={<PageHeader>설정</PageHeader>}>
-      <Popup>
-        <S.PopupContainer>
-          <p>정말 로그아웃 하시겠습니까?</p>
-          <div>
-            <S.PopupConfirmButton
-              type={"secondary"}
-              onClick={() => {
-                popupClose();
-              }}
-            >
-              취소
-            </S.PopupConfirmButton>
-            <S.PopupConfirmButton
-              type={"primary"}
-              onClick={() => {
-                popupClose();
-                // @todo: 로그아웃
-              }}
-            >
-              확인
-            </S.PopupConfirmButton>
-          </div>
-        </S.PopupContainer>
-      </Popup>
+    <PageTemplate header={<PageHeader><Typography.Title size="lg">설정</Typography.Title></PageHeader>}>
       <S.ContentsWrapper>
         <S.UserSettingButton onClick={() => navigate(`/profile/edit`)}>
-          <div>
-            <p>{username}</p>
-            <p>프로필 및 계정 설정</p>
-          </div>
+          <S.UserSettingLeftItems>
+            {
+              avatarURL ? <img src={avatarURL} alt="user avatar" /> : <UserIcon />
+            }
+            <div>
+              <Typography.Title size="lg">{nickname}</Typography.Title>
+              <Typography.Label size="lg">프로필 및 계정 설정</Typography.Label>
+            </div>
+          </S.UserSettingLeftItems>
           <ChevronRightIcon />
         </S.UserSettingButton>
         <S.SettingsContainer>
-          {/* @todo: 알림 설정 개발 전까지 표시X  */}
-          {/* <div>
-            <S.SettingTitleParagraph>알림 설정</S.SettingTitleParagraph>
-            <NotificationToggleButton
-              name="활동 알림"
-              desc="좋아요, 댓글, 팔로우 등 내 활동에 대한 알림이에요."
-              active={isActivityNotiAllowed}
-              onClick={() => {
-                setIsActivityNotiAllowed((prev) => !prev);
-              }}
-            />
-          </div> */}
           {settings.map((group) => (
             <div>
-              <S.SettingTitleParagraph>{group.title}</S.SettingTitleParagraph>
+              <S.SettingTitleParagraph>
+                <Typography.Title size="lg">{group.title}</Typography.Title>
+              </S.SettingTitleParagraph>
               <ol>
                 {group.items.map((item) => (
                   <S.SettingItem
@@ -111,21 +78,21 @@ function SettingsPage() {
                       navigate(item.path);
                     }}
                   >
-                    {item.text}
+                    <Typography.Body size="md" color="inherit">{item.text}</Typography.Body>
                     <ChevronRightIcon />
                   </S.SettingItem>
                 ))}
               </ol>
             </div>
           ))}
-          <S.LogOutButton
-            onClick={() => {
-              popupOpen();
-            }}
-          >
-            로그아웃
-          </S.LogOutButton>
         </S.SettingsContainer>
+        <S.LeaveButton
+          onClick={() => {
+            navigate("/leave");
+          }}
+        >
+          <Typography.Body size="lg" color="inherit">탈퇴하기</Typography.Body>
+        </S.LeaveButton>
       </S.ContentsWrapper>
     </PageTemplate>
   );

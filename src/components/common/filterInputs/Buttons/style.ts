@@ -2,7 +2,9 @@ import styled from "styled-components";
 
 export const List = styled.ol`
   padding: 0 20px;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, auto));
+  //grid-template-rows: repeat(auto-fit, 36px);
   gap: 6px 8px;
 `;
 

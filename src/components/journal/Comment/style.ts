@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import UserIcon from "../../../assets/icons/user.svg?react";
 
 export const Header = styled.header<{ position: "bottom" | "top" }>`
   width: 100%;
@@ -29,8 +28,8 @@ export const Contents = styled.div<{ position: "bottom" | "top" }>`
   ${({ position }) =>
     position === "bottom"
       ? css`
-          height: 80vh;
-          padding: 50px 15px 120px;
+          height: 80dvh;
+          padding: 35px 0 120px;
           overflow-y: auto;
         `
       : css`
@@ -43,7 +42,7 @@ export const CommentInputForm = styled.form<{ position: "bottom" | "top" }>`
   flex-wrap: nowrap;
   gap: 7px;
   justify-content: space-between;
-  align-items: center;
+  align-items: start;
 
   background-color: ${({ theme }) => theme.white};
 
@@ -52,6 +51,8 @@ export const CommentInputForm = styled.form<{ position: "bottom" | "top" }>`
       ? css`
           position: absolute;
           padding: 17px 16px 27px 10px;
+          padding-top: constant(safe-area-inset-bottom, 27px);
+          padding-bottom: constant(safe-area-inset-bottom, 27px);
           bottom: 0;
           left: 0;
           right: 0;
@@ -65,25 +66,40 @@ export const CommentInputForm = styled.form<{ position: "bottom" | "top" }>`
         `}
 `;
 
-export const UserProfileImg = styled(UserIcon)`
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
+export const UserProfileImgBox = styled.div`
+  flex: 0 0 fit-content;
+  width: 33px;
+  height: 33px;
+  overflow: hidden;
 
-  path {
-    fill: ${({ theme }) => theme.gray03};
+  & > svg {
+    width: 33px;
+    height: 33px;
   }
 `;
 
+export const UserProfileImg = styled.img`
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+  object-fit: cover;
+`;
 export const CommentInputControlBox = styled.div`
   position: relative;
   flex: 1 1 100%;
 `;
 
-export const CommentInput = styled.input`
+export const CommentTextArea = styled.textarea`
   width: 100%;
+  height: 40px;
+  max-height: 150px;
   padding: 9px 18px;
+  padding-right: 50px;
   line-height: 22px;
+  resize: none;
+  overflow-y: auto;
+
+  font-size: 16px;
 
   border: 0;
   border-radius: 4px;
@@ -94,16 +110,14 @@ export const CommentInput = styled.input`
   }
 `;
 
-export const SendButton = styled.button`
+export const SendButton = styled.button<{ disabled: boolean }>`
   position: absolute;
-  top: 50%;
+  top: 5px;
   right: 12px;
   padding: 0;
   width: 30px;
 
-  transform: translateY(-50%);
-
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
   border: 0;
   background-color: transparent;
 
@@ -123,7 +137,6 @@ export const SendButton = styled.button`
 export const CommentList = styled.ol`
   display: flex;
   flex-direction: column;
-  gap: 15px;
 `;
 
 export const NoCommentBox = styled.div`

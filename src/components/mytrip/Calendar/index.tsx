@@ -11,6 +11,7 @@ interface Props{
 
 function Calendar({year, month, startDate, endDate, onDateClick} : Props) {
     const [isLoading, setIsLoading] = useState(true);
+    const [opacity, setOpacity] = useState(0.3);
     const calendarRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -26,12 +27,33 @@ function Calendar({year, month, startDate, endDate, onDateClick} : Props) {
         observer.observe(calendarRef.current);
     }, [])
 
+
+    useEffect(() => {
+        if(!calendarRef.current) return;
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                let entryIntersectionRatio = Math.floor(entry.intersectionRatio * 100 ) / 100;
+                if(entryIntersectionRatio >= 0.85) {
+                    setOpacity(1);
+                } else if(entryIntersectionRatio <= 0.6) {
+                    setOpacity(0.3);
+                } else {
+                    setOpacity(entryIntersectionRatio - 0.3);
+                }
+            })
+        }, {
+            threshold: [0.625, 0.65, 0.675, 0.7, 0.725, 0.75, 0.775, 0.8, 0.825, 0.85, 0.875, 0.9]
+        });
+        observer.observe(calendarRef.current);
+    }, []);
+
     function FillDate() {
-        const currentMonthStartDay = new Date(year,month,1).getDay();
+        const currentMonthStartDay = new Date(year,month-1,1).getDay();
         const currentMonthLastDate = new Date(year,month,0).getDate();
         const arr = [];
 
-        for(let i = 0; i < currentMonthStartDay + 1; i++) {
+        for(let i = 0; i < currentMonthStartDay; i++) {
             arr.push(<S.Empty/>)
         }
 
@@ -57,23 +79,23 @@ function Calendar({year, month, startDate, endDate, onDateClick} : Props) {
     return(
         <div ref={calendarRef}>
             {isLoading ? 
-           <></>
-           :
-            <>
-                <S.CalendarHeader>
-                    {year}년 {month}월
-                </S.CalendarHeader>
-                <S.Calendar>
-                    <S.Day>SUN</S.Day>
-                    <S.Day>MON</S.Day>
-                    <S.Day>TUE</S.Day>
-                    <S.Day>WED</S.Day>
-                    <S.Day>THU</S.Day>
-                    <S.Day>FRI</S.Day>
-                    <S.Day>SAT</S.Day>
-                    {FillDate()}
-                </S.Calendar>
-            </>
+                <></>
+                :
+                    <>
+                        <S.CalendarHeader opacity={opacity}>
+                            {year}년 {month}월
+                        </S.CalendarHeader>
+                        <S.Calendar opacity={opacity}>
+                            <S.Day>SUN</S.Day>
+                            <S.Day>MON</S.Day>
+                            <S.Day>TUE</S.Day>
+                            <S.Day>WED</S.Day>
+                            <S.Day>THU</S.Day>
+                            <S.Day>FRI</S.Day>
+                            <S.Day>SAT</S.Day>
+                            {FillDate()}
+                        </S.Calendar>
+                    </>
         }
         </div>
     )

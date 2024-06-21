@@ -17,7 +17,11 @@ type data = {
     }[]
 }
 
-function useCourseModal() {
+interface Props {
+    id: number
+}
+
+function useCourseModal({id}: Props) {
     const [data, setCourseModalData] = useState<data>();
     const {Modal, modalOpen, modalClose} = useModal({
         title: "",

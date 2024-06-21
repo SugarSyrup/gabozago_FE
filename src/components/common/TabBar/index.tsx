@@ -6,6 +6,7 @@ import {
   useState,
 } from "react";
 import * as S from "./style";
+import { useSearchParams } from "react-router-dom";
 
 interface Props {
   tabs: { id: number | string; name: string }[];
@@ -24,6 +25,7 @@ function TabBar({
   fontSize = "14px",
   color = "default",
 }: Props) {
+  const [query, setQuery] = useSearchParams();
   const tabRefs = tabs.map(() => createRef<HTMLLIElement>());
   const [highlightOption, setHighlightOption] = useState({
     x: 0,
@@ -46,6 +48,8 @@ function TabBar({
             ref={tabRefs[index]}
             onClick={() => {
               setFocusedTabIndex(index);
+              query.set("tab", String(index));
+              setQuery(query);
             }}
             focused={index === focusedTabIndex}
             widthStyle={widthStyle}

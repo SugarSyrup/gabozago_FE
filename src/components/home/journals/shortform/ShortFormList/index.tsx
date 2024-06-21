@@ -1,34 +1,75 @@
-import * as S from "./style";
 import { Link } from "react-router-dom";
-import KebabMenuIcon from "../../../../../assets/icons/menu_kebab.svg?react";
+
 import LocationIcon from "../../../../../assets/icons/location.svg?react";
+import ThemeIcon from "../../../../../assets/icons/theme.svg?react";
+import Typography from "../../../../common/Typography";
+
+import * as S from "./style";
+import { useEffect } from "react";
+
+export interface ShortForm {
+  id: number;
+  title: string;
+  videoId: string;
+  location: string[];
+  theme: string[];
+  views: number;
+}
 
 interface Props {
-  data: {
-    id: number;
-    title: string;
-    location: string;
-    thumbnail: string;
-  }[];
+  data: ShortForm[];
 }
 
 function ShortFormList({ data }: Props) {
+  useEffect(() => {
+    console.log("ShortFormList");
+    console.log(data);
+  }, [])
   return (
     <S.List>
-      {data.map(({ id, title, location, thumbnail }) => (
-        <S.ListItem>
+      {data && data.map(({ id, title, location, views, theme, videoId }) => (
+        <S.ListItem key={id}>
           <Link to={`/journal/shortform/${id}`}>
             <S.Container>
-              <S.ThumbnailImage src={thumbnail} alt="" />
-              <S.MenuButton>
-                <KebabMenuIcon />
-              </S.MenuButton>
+              <S.ThumbnailImage
+                src={"http://img.youtube.com/vi/" + videoId + "/oar2.jpg"}
+                alt=""
+              />
+              <S.Views>
+                <Typography.Label size="sm" color="white">
+                  조회수 {views}
+                </Typography.Label>
+              </S.Views>
               <S.InfoBox>
                 <p>
                   <LocationIcon />
-                  {location ? location : "-"}
+                  {location !== undefined
+                    ? location.map((item) => (
+                        <Typography.Label
+                          size="md"
+                          color="white"
+                          key={id + item}
+                        >
+                          {item}
+                        </Typography.Label>
+                      ))
+                    : "-"}
+                  <ThemeIcon />
+                  {theme !== undefined
+                    ? theme.map((item) => (
+                        <Typography.Label
+                          size="md"
+                          color="white"
+                          key={id + item}
+                        >
+                          {item}
+                        </Typography.Label>
+                      ))
+                    : "-"}
                 </p>
-                <p>{title}</p>
+                <Typography.Title size="sm" color="white">
+                  {title}
+                </Typography.Title>
               </S.InfoBox>
             </S.Container>
           </Link>

@@ -2,13 +2,17 @@ import styled from "styled-components";
 
 export const Nav = styled.nav<{ backgroundColor: string }>`
   width: 100%;
+  max-width: 500px;
   background-color: ${({ backgroundColor }) => backgroundColor};
   z-index: 20;
+
+  position: fixed;
+  bottom:0;
 `;
 
 export const NavList = styled.ul`
   margin: auto;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -47,11 +51,14 @@ export const ListItem = styled.li<{ active?: boolean; activeColor: string }>`
           : theme.gray02};
     }
 
-    &:hover {
-      color: ${({ theme }) => theme.main};
-      path {
-        fill: ${({ theme }) => theme.main};
+    @media (hover: hover){
+      &:hover {
+        color: ${({ theme }) => theme.main};
+        path {
+          fill: ${({ theme }) => theme.main};
+        }
       }
     }
+    
   }
 `;

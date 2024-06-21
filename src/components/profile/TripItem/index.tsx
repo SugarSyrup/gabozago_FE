@@ -1,28 +1,61 @@
-import * as S from "./style";
-import MeatBallsMenuIcon from "../../../assets/icons/meatballsMenu.svg?react";
+import { useState } from "react";
+
+import KebabMenuIcon from "../../../assets/icons/menu_kebab.svg?react";
 import LocationIcon from "../../../assets/icons/location.svg?react";
 import CalendarIcon from "../../../assets/icons/calendar.svg?react";
+import SmallLogoIcon from "../../../assets/icons/logo_small.svg?react";
+import useMyTripModal from "../../../hooks/useMyTripModal";
+import Typography from "../../common/Typography";
+
+import * as S from "./style";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
-    name:string;
-    location:string;
-    startDate: string;
-    endDate: string;
+    id: number,
+    title: string,
+    departureDate: string,
+    arrivalDate: string,
+    location: string[],
+    thumbnailURL: string,
 }
 
-function TripItem({name, location, startDate, endDate}: Props) {
+function TripItem({id, title, location, departureDate, arrivalDate, thumbnailURL}: Props) {
+    const navigate = useNavigate();
+    const {MyTripModal, modalOpen, modalClose, isModalOpend} = useMyTripModal({
+        id: id,
+        title: title,
+        departureDate: departureDate,
+        arrivalDate: arrivalDate,
+    })
+
     return(
-        <S.Container>
-            <S.ThumbnailWrapper></S.ThumbnailWrapper>
-            <S.Info>
-                <S.Name>{name}</S.Name>
-                <S.Desc><LocationIcon /> {location}</S.Desc>
-                <S.Desc><CalendarIcon /> {startDate} - {endDate}</S.Desc>
-            </S.Info>
-            <S.OptionWrapper>
-                <MeatBallsMenuIcon />
-            </S.OptionWrapper>
-        </S.Container>
+        <>
+            <MyTripModal />
+            <S.Container onClick={(e) => {
+                if (e.target.tagName == "svg" || e.target.tagName == "path"){
+                    modalOpen();
+                } else {
+                    navigate(`/mytrip/${id}`)
+                }
+            }}>
+                <S.ThumbnailWrapper>
+                    {
+                        thumbnailURL ?
+                        <img src={thumbnailURL} alt="thumbnail" />
+                        :
+                        <SmallLogoIcon />
+                    }
+                </S.ThumbnailWrapper>
+                <S.Info>
+                    <S.Name><Typography.Title size="md" noOfLine={2} >{title}</Typography.Title></S.Name>
+                    <S.Desc><CalendarIcon /> <Typography.Label size="md" color="#424242">{departureDate} ~ {arrivalDate}</Typography.Label></S.Desc>
+                    <S.Desc><LocationIcon /> <Typography.Label size="md" color="#424242">{location.toLocaleString()}</Typography.Label></S.Desc>
+                </S.Info>
+                <S.OptionWrapper >
+                    <KebabMenuIcon />
+                </S.OptionWrapper>
+            </S.Container>
+        </>
     )
 }
 

@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 export const Container = styled.li`
     width:100%;
-    padding:10px;
+    padding:15px 10px;
+    border-radius:15px;
     background-color:${({theme}) => theme.blue05};
 
     display:flex;
@@ -17,14 +18,27 @@ export const Container = styled.li`
 export const ThumbnailWrapper = styled.div`
     width:70px;
     height:70px;
+    position:relative;
 
-    border-radius:6px;
+    flex-shrink:0;
+    border-radius:100%;
     background-color:${({theme}) => theme.gray03};
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    img{
+        width:100%;
+        height:100%;
+        border-radius:100%;
+    }
 `
 
 export const Info = styled.div`
     padding-top:5px;
     padding-bottom:5px;
+    padding-right: 30px;
 
     display:flex;
     flex-direction:column;
@@ -49,19 +63,19 @@ export const Desc = styled.span`
     gap:4px;
 
     svg {
-        width:12px;
-        height:12px;
+        width:16px;
+        height:16px;
 
         path {
-            fill: ${({theme}) => theme.gray01};
+            fill: ${({theme}) => theme.main};
         }
     }
 `
 
 export const OptionWrapper = styled.div`
     position:absolute;
-    top:10px;
-    right:14px;
+    top:15px;
+    right:17px;
 
     svg path {
         fill : ${({theme}) => theme.gray02};

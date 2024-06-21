@@ -1,16 +1,23 @@
-import * as S from "./style";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import SelectedPlaceItem from "../SelectedPlaceItem";
-import Button from "../../common/Button";
+import { useNavigate, useParams } from "react-router-dom";
+
+import MapIcon from "../../../assets/icons/map.svg?react";
 import { selectedPlacesState } from "../../../recoil/mytrip/selectedPlacesState";
+import { post } from "../../../utils/api";
+
+import SelectedPlaceItem from "../SelectedPlaceItem";
+import Typography from "../../common/Typography";
+
+import * as S from "./style";
 
 function SelectedPlaces() {
-  const [selectedPlaces, setSelectedPlaces] =
-    useRecoilState(selectedPlacesState);
+  const { id, day } = useParams();
+  const navigate = useNavigate();
+  const [selectedPlaces, setSelectedPlaces] = useRecoilState(selectedPlacesState);
   const [hasSelectedPlaces, setHasSelectedPlaces] = useState<boolean>(false);
 
-  function onDelete(id: string) {
+  function onDelete(id: number) {
     setSelectedPlaces((prev) =>
       prev.filter((SelectedPlace) => SelectedPlace.id !== id)
     );
@@ -36,15 +43,28 @@ function SelectedPlaces() {
           />
         ))}
       </S.SelectedPlaceList>
-      <Button
-        size="lg"
-        type="normal"
+      <S.Button 
         disabled={!hasSelectedPlaces}
-        active={hasSelectedPlaces}
-        width={"100%"}
+        isActive={hasSelectedPlaces}
+        onClick={() => {
+          post<{
+            id: number,
+            name: number,
+          }>(`/my-travel/detail-route/place`, {
+              placeId: selectedPlaces.map((selectedPlace) => selectedPlace.id),
+              myTravelId: id,
+              day: day
+          }).then((response) => {
+              if(response.status === 201) {
+                  setSelectedPlaces([]);
+                  navigate(-1);
+              }
+          })
+        }}
       >
-        {hasSelectedPlaces ? "장소 선택 완료" : "장소를 선택해주세요"}
-      </Button>
+        <MapIcon />
+        <Typography.Title size="lg" color="white">{hasSelectedPlaces ? "장소 선택 완료" : "장소를 선택해주세요"}</Typography.Title>
+      </S.Button>
     </S.Container>
   );
 }

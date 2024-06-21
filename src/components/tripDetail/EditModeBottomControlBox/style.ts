@@ -1,6 +1,28 @@
 import styled from "styled-components";
 
+export const SelectContainer = styled.div`
+  max-height: 60dvh;
+  overflow-y: auto;
+`;
+
+export const SubmitButtonContainer = styled.div`
+  width: 100%;
+  padding: 20px 30px;
+`;
+
+export const DateParagraph = styled.p`
+  padding: 0 10px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+`;
+
 export const Container = styled.div`
+  z-index: 100;
+  position: fixed;
+  bottom: 0;
+  width: 100;
+  max-width: 500px;
   padding: 0 20px;
   width: 100%;
   height: 76px;

@@ -1,75 +1,193 @@
 import * as S from "./style";
 import Heading from "../../common/Heading";
 import SendIcon from "../../../assets/icons/send.svg?react";
-import CommentItem, { Comment } from "../CommentItem";
-import { MouseEventHandler, useEffect, useRef, useState } from "react";
+import UserIcon from "../../../assets/icons/user.svg?react";
+import CommentItem, { Comment as TComment } from "../CommentItem";
+import { FormEventHandler, useEffect, useRef, useState } from "react";
+import { deletes, get, post } from "../../../utils/api";
+import { useLoaderData } from "react-router-dom";
+
+interface TParsedComment extends TComment {
+  replys: TComment[];
+}
 
 interface Props {
   id: number;
   commentInputPosition?: "bottom" | "top";
+  type: "short-form" | "article" | "video" | "report" | "travelog";
+  commentCount: number;
+  setContentsCommentCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
-function Comment({ id, commentInputPosition = "top" }: Props) {
-  const commentInputRef = useRef<HTMLInputElement>(null);
+function Comment({
+  id,
+  commentInputPosition = "top",
+  type,
+  commentCount: commentCountProp,
+  setContentsCommentCount,
+}: Props) {
+  const profileImage = useLoaderData() as string;
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [reply, setReply] = useState<{
+    isReplyMode: boolean;
+    parentCommentId: number | null;
+  }>({
+    isReplyMode: false,
+    parentCommentId: null,
+  });
   const [comment, setComment] = useState<string>("");
-  const [comments, setComments] = useState<Comment[]>([]);
+  const [commentCount, setCommentCount] = useState<number>(commentCountProp);
+  const [comments, setComments] = useState<TParsedComment[]>([]);
 
-  const submitComment: MouseEventHandler<HTMLInputElement> = (e) => {
-    e.preventDefault();
+  const parseComments = (comments: TComment[]): TParsedComment[] => {
+    const parsedComments: TParsedComment[] = [];
+    const commentMap: { [key: number]: TParsedComment } = {};
 
-    if (commentInputRef.current !== null) {
-      alert("전송: " + comment);
-      commentInputRef.current.value = "";
-      // @todo: 댓글 추가하기
+    // 1. 모든 댓글을 순회하며 commentMap에 저장
+    comments.forEach((comment) => {
+      const parsedComment: TParsedComment = {
+        ...comment,
+        replys: [],
+      };
+      commentMap[comment.id] = parsedComment;
+      parsedComments.push(parsedComment);
+    });
+
+    // 2. 모든 댓글을 다시 순회하며 대댓글 관계 설정
+    parsedComments.forEach((comment) => {
+      if (comment.parentCommentId !== null) {
+        const parentComment = commentMap[comment.parentCommentId];
+        if (parentComment && parentComment.id !== comment.id) {
+          parentComment.replys.push(comment);
+        }
+      }
+    });
+
+    // 3. 배열에서 parentCommentId 있는 댓글 제거
+    return parsedComments.filter(
+      ({ parentCommentId }) => parentCommentId === null
+    );
+  };
+
+  const getComments = async (id: number) => {
+    const { data } = await get<TComment[]>(`community/${type}/${id}/comment`);
+    setCommentCount(data.length);
+    setContentsCommentCount(data.length);
+    setComments(parseComments(data));
+  };
+  const deleteComments = async (commentId: number) => {
+    deletes(`community/${type}/comment`, { commentId: commentId }).then(() => {
+      getComments(id);
+    });
+  };
+  const submitComment = async (parentCommentId: number | null) => {
+    if (type === "short-form") {
+      await post<{
+        shortformId: number;
+        parentCommentId: number | null;
+        content: string;
+      }>(`/community/${type}/comment`, {
+        shortformId: id,
+        parentCommentId: parentCommentId,
+        content: comment,
+      });
+    } else if (type === "article") {
+      await post<{
+        articleId: number;
+        parentCommentId: number | null;
+        content: string;
+      }>(`/community/${type}/comment`, {
+        articleId: id,
+        parentCommentId: parentCommentId,
+        content: comment,
+      });
+    }
+
+    getComments(id);
+    setComment("");
+  };
+  const adjustTextareaHeight = () => {
+    const textarea = textareaRef.current;
+
+    if (textarea) {
+      textarea.style.height = "1px";
+      textarea.style.height = `${textarea.scrollHeight}px`;
     }
   };
 
-  useEffect(() => {
-    // @todo: id 가져와 댓글 목록 업데이트하기
-    const comment = {
-      id: 12345567,
-      name: "상은수",
-      username: "user-wfd37gu",
-      profileImage: "https://placehold.co/100x100/png",
-      createDate: "2024-03-03/04:20:13",
-      like: 71,
-      text: "댓글내용",
-      parentCommentId: null,
-    };
+  const onChange: FormEventHandler<HTMLTextAreaElement> = (e) => {
+    const textarea = textareaRef.current;
+    if (!textarea) return;
 
-    setComments([comment, comment, comment]);
+    const inputValue = (e.target as HTMLTextAreaElement).value.trim();
+    if (inputValue.match(/^\s+/)) {
+      textarea.value = "";
+
+      return;
+    }
+
+    setComment(inputValue);
+    adjustTextareaHeight();
+  };
+
+  useEffect(() => {
+    getComments(id);
   }, []);
 
   return (
     <>
       <S.Header position={commentInputPosition}>
         <Heading size="sm">
-          댓글 <S.CommentCountSpan>{comments.length}</S.CommentCountSpan>
+          댓글 <S.CommentCountSpan>{commentCount}</S.CommentCountSpan>
         </Heading>
       </S.Header>
-      <S.CommentInputForm position={commentInputPosition}>
-        <S.UserProfileImg />
+      <S.CommentInputForm
+        position={commentInputPosition}
+        onSubmit={(e) => {
+          e.preventDefault();
+          submitComment(reply.isReplyMode ? reply.parentCommentId : null);
+        }}
+      >
+        <S.UserProfileImgBox>
+          {profileImage ? (
+            <S.UserProfileImg src={profileImage} />
+          ) : (
+            <UserIcon />
+          )}
+        </S.UserProfileImgBox>
         <S.CommentInputControlBox>
-          <S.CommentInput
-            ref={commentInputRef}
-            type="text"
+          <S.CommentTextArea
             placeholder="댓글 달기..."
-            onChange={(e) => {
-              setComment(e.target.value);
-            }}
-            onSubmit={submitComment}
+            maxLength={1500}
+            value={comment}
+            ref={textareaRef}
+            onChange={onChange}
           />
-          <S.SendButton type="submit" onClick={submitComment}>
+          <S.SendButton disabled={comment.length === 0} type="submit">
             <SendIcon />
           </S.SendButton>
         </S.CommentInputControlBox>
       </S.CommentInputForm>
-      <S.Contents position={commentInputPosition}>
+      <S.Contents
+        position={commentInputPosition}
+        onClick={() => {
+          if (reply.isReplyMode) {
+            setReply({ isReplyMode: false, parentCommentId: null });
+          }
+        }}
+      >
         {comments && comments.length !== 0 ? (
           <S.CommentList>
             {comments.map((item) => (
-              <li>
-                <CommentItem {...item} replys={[item, item, item]} />
+              <li key={`comment-shortform-${item.id}`}>
+                <CommentItem
+                  {...item}
+                  textareaRef={textareaRef}
+                  reply={reply}
+                  setReply={setReply}
+                  type={type}
+                  deleteComments={deleteComments}
+                />
               </li>
             ))}
           </S.CommentList>

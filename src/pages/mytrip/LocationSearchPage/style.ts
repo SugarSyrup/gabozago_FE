@@ -1,115 +1,180 @@
 import styled from "styled-components";
 
 export const Header = styled.div`
-    width:100%;
-    padding-top:40px;
+  width: 100%;
+  padding-top: 20px;
 
-    position:absolute;
-    top:0px;
-    left:0px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
 
-    display:flex;
-    flex-direction:column;
+  display: flex;
+  flex-direction: column;
 
-    background-color:white;
+  background-color: white;
 `;
 
 export const SearchBar = styled.div`
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 
-    width: 100%;
-    position: relative;
+  width: 100%;
+  position: relative;
 
-    padding-left:20px;
-    padding-right:20px;
-`
+  padding-left: 20px;
+  padding-right: 20px;
+`;
 
 export const TabNavigation = styled.div`
-    width: 100%;
-    position: relative;
-    //left: 0px;
+  width: 100%;
+  position: relative;
+  //left: 0px;
 
-    border-bottom: ${({ theme }) => `2px solid ${theme.gray04}`};
+  border-bottom: ${({ theme }) => `2px solid ${theme.gray04}`};
 
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 
-    padding: 10px 24px;
-    margin-top: 10px;
+  padding: 10px 0px;
+  margin-top: 10px;
 `;
 
 export const NavigationItem = styled.div<{ isHighlight: boolean }>`
-    color: ${({ theme, isHighlight }) =>
-        isHighlight ? theme.black : theme.gray01};
-    font-size: 14px;
-    font-style: normal;
-    font-weight: ${({ isHighlight }) => (isHighlight ? 700 : 500)};
-    line-height: 22px;
-    letter-spacing: 0.2px;
+  color: ${({ theme, isHighlight }) =>
+    isHighlight ? theme.black : theme.gray01};
+  font-size: 14px;
+  font-style: normal;
+  font-weight: ${({ isHighlight }) => (isHighlight ? 700 : 500)};
+  line-height: 22px;
+  letter-spacing: 0.2px;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
 
-    cursor: pointer;
-    transition: color 0.2s ease-in-out;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
 `;
 
 export const HighlightLine = styled.div<{ isHighlight: boolean }>`
-    width: 50%;
-    border-bottom: ${({ theme }) => `2px solid ${theme.main}`};
+  width: 50%;
+  border-bottom: ${({ theme }) => `2px solid ${theme.main}`};
 
-    position: absolute;
-    left: ${({ isHighlight }) => (isHighlight ? "0px" : "50%")};
-    bottom: -2px;
+  position: absolute;
+  left: ${({ isHighlight }) => (isHighlight ? "0px" : "50%")};
+  bottom: -2px;
 
-    transition: left 0.2s ease-in-out;
+  transition: left 0.2s ease-in-out;
 `;
 
 export const Contents = styled.div`
-    padding-top: 120px;
+  width: 100%;
+  padding-top: 130px;
 
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-`;
-
-export const RecommendationList = styled.div`
-    width: 100%;
-    margin-top: 24px;
-    margin-bottom: 40px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-`;
-
-export const RecommendatoinReviewList = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
-
-    width: 100%;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 `;
 
 export const Footer = styled.footer`
-    position: relative;
-    /* left:0px;
-    bottom: 0px; */
+  position: fixed;
+  bottom:0px;
 
-    width: 100%;
-    padding-top:18px;
-    padding-bottom: 38px;
-    padding-left: 30px;
-    padding-right: 30px;
+  width: 100%;
+  max-width:500px;
+  margin-left:-20px;
+  padding:15px 30px;
 
-    background-color:${({theme}) => theme.gray07};
+  background-color: ${({ theme }) => theme.gray07};
+  border-top: ${({ theme }) => `1px solid ${theme.gray04}`};
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+`;
+
+export const ScrapContent = styled.div`
+  width: 100%;
+  padding-top: 100px;
+`;
+
+export const PopupWrapper = styled.div<{ isOpen: boolean }>`
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: ${({ isOpen }) => (isOpen ? 100 : -10)};
+
+  margin: auto;
+  max-width: 500px;
+  max-height: 100dvh;
+  width: 100%;
+  height: 100dvh;
+  @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+  }
+`;
+
+export const PopupContentsContainer = styled.div`
+  width: 100%;
+  padding: 10px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+
+  svg {
+    width: 40px;
+    height: 40px;
+  }
+`;
+
+export const PopupTextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  color: #727272;
+  padding-top: 50px;
+
+  span:last-child {
+    margin-top: 10px;
+  }
+
+  span {
+    text-align: center;
+  }
+`;
+
+export const PopupButtons = styled.div`
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+`;
+
+export const PopupButton = styled.button<{ isMain: boolean }>`
+  width: 100%;
+  padding-top: 12px;
+  padding-bottom: 12px;
+
+  border: none;
+  border-radius: 30px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: ${({ isMain, theme }) =>
+    isMain ? "#F3F6FF" : theme.gray06};
+  color: ${({ isMain, theme }) => (isMain ? theme.main : theme.black)};
+  cursor: pointer;
 `;

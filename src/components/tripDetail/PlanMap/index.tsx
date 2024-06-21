@@ -1,78 +1,145 @@
 import * as S from "./style";
-import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
-import { MarkerProps } from "@react-google-maps/api";
-
-import GoogleMap from "../../common/GoogleMap";
+import { useEffect, useRef, useState } from "react";
 import ChevronBottomIcon from "../../../assets/icons/chevron_bottom.svg?react";
 import ChevronTopIcon from "../../../assets/icons/chevron_top.svg?react";
+import { DayPlan } from "../TripPlanList";
+import { markerColors } from "../../../pages/mytrip/DetailPage";
+import MarkerWithInfoWindow from "../MarkerWithInfoWindow";
+import { Map, useMap } from "@vis.gl/react-google-maps";
+import Polyline from "../Polyline";
 
-import { planViewModeState } from "../../../recoil/planViewModeState";
-import { tripPlanState } from "../../../recoil/tripState";
+interface Props {
+  isEditMode: boolean;
+  data: DayPlan[];
+  dayFilter: number;
+}
 
-function PlanMap() {
-  const [markers, setMarkers] = useState<MarkerProps[]>([]);
+function PlanMap({ isEditMode, data = [], dayFilter }: Props) {
   const [mapOpened, setMapOpend] = useState<boolean>(true);
-  const viewMode = useRecoilValue(planViewModeState);
-  const plan = useRecoilValue(tripPlanState);
-  const findMidLatLng = () => {
-    const result = {
-      lat: 0,
-      lng: 0,
-    };
-    const temp = plan.filter(({ route }) => route?.length !== 0);
+  const [mapFocused, setMapFocused] = useState<boolean>(false);
+  const [coords, setCoords] = useState<google.maps.LatLngLiteral[]>([]);
+  const map = useMap("plan-map");
+  const mapRef = useRef<HTMLDivElement>(null);
 
-    const lats = temp
-      .map(({ route }) => route?.map(({ position }) => position.lat))
-      .flat();
-    const lngs = temp
-      .map(({ route }) => route?.map(({ position }) => position.lng))
-      .flat();
+  const setBounds = (coords: google.maps.LatLngLiteral[]) => {
+    const bounds = new google.maps.LatLngBounds();
 
-    if (lats.length === 0 && lngs.length === 0) {
-      return result;
-    }
+    coords.forEach((coord) => {
+      bounds.extend(coord);
+    });
+    map?.fitBounds(bounds);
+  };
 
-    lats.sort();
-    lngs.sort();
+  const setMarkerCoords = (data: DayPlan[]) => {
+    const placePositions: google.maps.LatLngLiteral[] = [];
 
-    result.lat =
-      lats.length === 1 ? lats[0] : (lats[0] + lats[lats.length - 1]) / 2;
-    result.lng =
-      lngs.length === 1 ? lngs[0] : (lngs[0] + lngs[lngs.length - 1]) / 2;
+    data.map((day) => {
+      day.route.map((place) => {
+        placePositions.push({ lat: place.latitude, lng: place.longitude });
+      });
+    });
 
-    return result;
+    setCoords(placePositions);
   };
 
   useEffect(() => {
-    if (viewMode === "EDIT") {
+    if (isEditMode) {
       setMapOpend(false);
+      setBounds(coords);
     } else {
       setMapOpend(true);
+      setBounds(coords);
     }
-  }, [viewMode]);
+  }, [isEditMode]);
 
   useEffect(() => {
-    plan?.map(({ route }) => {
-      route?.map(({ placeName, position }) => {
-        setMarkers((prev) => [
-          ...prev,
-          {
-            position: position,
-            label: { text: placeName, className: "marker-label" },
-          },
-        ]);
-      });
-    });
-  }, []);
+    setMarkerCoords(data);
+  }, [data]);
+
+  useEffect(() => {
+    if (!map) return;
+    setBounds(coords);
+  }, [map, coords]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+      if (mapRef.current && !mapRef.current.contains(event.target as Node)) {
+        setMapFocused(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
+  }, [mapRef]);
+
+  const getlineSymbol = (color: string) => ({
+    path: "M 0,-1 0,1",
+    strokeOpacity: 1,
+    scale: 4,
+    strokeColor: color,
+  });
 
   return (
-    <S.Container>
-      <GoogleMap
-        height={mapOpened ? "220px" : "0px"}
-        center={findMidLatLng()}
-        markers={markers}
-      />
+    <S.Container ref={mapRef}>
+      <Map
+        id="plan-map"
+        style={{
+          width: "100%",
+          height: !mapOpened ? "0px" : mapFocused ? "380px" : "275px",
+          transition: "all 0.3s ease-in-out",
+        }}
+        defaultCenter={{ lat: 35.1855, lng: 129.0741 }}
+        defaultZoom={12}
+        gestureHandling={"greedy"}
+        disableDefaultUI={true}
+        mapId={import.meta.env.VITE_GOOGLEMAP_MAP_ID}
+        onClick={() => {
+          setMapFocused(true);
+        }}
+      >
+        {data.map(
+          (day, dayIndex) =>
+            (dayFilter === 0 || day.day === dayFilter) && (
+              <>
+                <Polyline
+                  key={`polyline-${day}`}
+                  path={day.route.map(({ latitude, longitude }) => ({
+                    lat: latitude,
+                    lng: longitude,
+                  }))}
+                  strokeColor={"transpert"}
+                  strokeOpacity={0}
+                  icons={[
+                    {
+                      icon: getlineSymbol(
+                        markerColors[dayIndex % markerColors.length]
+                      ),
+                      offset: "0",
+                      repeat: "20px",
+                    },
+                  ]}
+                />
+                {day.route.map((place, placeIndex) => (
+                  <MarkerWithInfoWindow
+                    key={`marker-${dayIndex}-${placeIndex}`}
+                    position={{ lat: place.latitude, lng: place.longitude }}
+                    color={markerColors[dayIndex % markerColors.length]}
+                    index={placeIndex + 1}
+                    address={place.address}
+                    placeId={place.placeId}
+                    placeName={place.placeName}
+                    placeTheme={place.placeTheme}
+                  />
+                ))}
+              </>
+            )
+        )}
+      </Map>
       <S.MapOpenButton
         onClick={() => {
           setMapOpend((prev) => !prev);

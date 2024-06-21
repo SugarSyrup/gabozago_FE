@@ -1,38 +1,48 @@
-import { useState } from "react";
-import { useRecoilState } from "recoil";
+import { useEffect, useRef, useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { useLoaderData, useNavigate } from "react-router-dom";
 
-import { selectedLocationsState } from "../../../recoil/mytrip/createData";
+import { datesState, selectedLocationsState } from "../../../recoil/mytrip/createData";
 
-import {
-  locations,
-  extraLocations,
-  locationType,
-} from "../../../assets/data/locations";
+import LogoTextIcon from "../../../assets/icons/logo_small_blue04_text.svg?react";
+import Typography from "../../../components/common/Typography";
 import PageTemplate from "../../../components/common/PageTemplate";
-import Button from "../../../components/common/Button";
-import LocationTag from "../../../components/mytrip/LocationTag";
 import BackButton from "../../../components/common/BackButton";
+
+import LocationIcon from "../../../assets/icons/location.svg?react";
+import LocationTag from "../../../components/mytrip/LocationTag";
 import SearchedLocations from "../../../components/mytrip/SearchedLocations";
 
 import useSearchInput from "../../../hooks/useSearchInput";
+import { get, post } from "../../../utils/api";
 
 import * as S from "./style";
-import { Heading } from "../../../components/common/Heading/style";
 
+export interface locationResponseType {
+  id: number,
+  name: string,
+  category:string,
+  image: string | null,
+}
+
+
+const defaultLocations = ["서울", "부산", "인천", "양평/가평", "양양/강릉/속초", "여수/순천", "경주", "포항", "통영/거제", "제주"];
 function MyTripLocationSelectPage() {
-  const [selectedLocations, setSelectedLocations] = useRecoilState(
-    selectedLocationsState
-  );
-  const [searchedLocations, setSearchedLocations] = useState<locationType[]>(
-    []
-  );
+  const locations = useLoaderData() as locationResponseType[];
+  const navigate = useNavigate();
+  const [selectedLocations, setSelectedLocations] = useRecoilState(selectedLocationsState);
+  const [searchedLocations, setSearchedLocations] = useState<locationResponseType[]>([]);
   const [isSearching, setIsSearching] = useState<boolean>(false);
+  const dates = useRecoilValue(datesState);
 
   const [inputRef, SearchInput] = useSearchInput({
     placeholder: "어디로 떠나시나요?",
     onChange: onChange,
     backgroundColor: "white",
     borderColor: "#ADADAD",
+    onSubmit: (e) => {
+      e.preventDefault();
+    }
   });
 
   function selectLocation(location: string) {
@@ -60,7 +70,7 @@ function MyTripLocationSelectPage() {
   }
 
   function searchResult(keyword: string) {
-    return extraLocations.filter((location) => location.name.includes(keyword));
+    return locations.filter((location) => location.name.includes(keyword));
   }
 
   return (
@@ -77,27 +87,43 @@ function MyTripLocationSelectPage() {
       ) : (
         <>
           <S.LocationsHeader>
-            <Heading size="md">지역을 선택해주세요.</Heading>
+            <Typography.Headline size="sm">지역을 선택해주세요.</Typography.Headline>
           </S.LocationsHeader>
           <S.Locations>
-            {locations.map((location) => {
-              const isActive = selectedLocations.includes(location.name);
-              return (
-                <Button
-                  size="md"
-                  type="normal"
-                  active={isActive}
-                  onClick={() => {
-                    isActive
-                      ? deleteLocation(location.name)
-                      : selectLocation(location.name);
-                  }}
-                  key={location.name}
-                >
-                  {location.name}
-                </Button>
-              );
-            })}
+            {
+              defaultLocations.map((defaultLocation) => {
+                const rednerLocation = locations.find((location) => location.name === defaultLocation);
+                const isActive = selectedLocations.includes(defaultLocation);
+
+                if(rednerLocation){
+                  return (
+                    <S.LocationItem>
+                      <S.LocationInfomation>
+                        <S.LocationImgWrapper>
+                          {rednerLocation.image ?
+                            <img src={rednerLocation.image} alt={`${rednerLocation.name} image`} />
+                            :
+                            <LogoTextIcon />
+                          } 
+                        </S.LocationImgWrapper>
+                        <Typography.Title size="lg">{rednerLocation.name}</Typography.Title>
+                      </S.LocationInfomation>
+                      <S.LocationSelectButton 
+                        isActive={isActive}
+                        onClick={() => {
+                          isActive ? 
+                            deleteLocation(rednerLocation.name)
+                            : 
+                            selectLocation(rednerLocation.name)
+                          }}
+                        >
+                        <Typography.Label size="lg" color="inherit">선택</Typography.Label>
+                      </S.LocationSelectButton>
+                    </S.LocationItem>
+                  )
+                }
+              })
+            }
           </S.Locations>
         </>
       )}
@@ -113,19 +139,27 @@ function MyTripLocationSelectPage() {
             />
           ))}
         </S.LocationTags>
-        <Button
-          size="lg"
-          type="normal"
-          disabled={!(selectedLocations.length > 0)}
-          active={selectedLocations.length > 0}
-          width={"100%"}
-        >
-          {selectLocation.length === 0
-            ? "지역을 선택해주세요."
-            : `${selectedLocations.map(
-                (location) => " " + location
-              )} 선택 완료`}
-        </Button>
+          <S.Button 
+              bgColor={selectedLocations.length > 0} 
+              onClick={() => { 
+                post<{id:number}>(`/my-travel`, {
+                  title: `${selectedLocations[0]} 여행`,
+                  departure_date: `${dates.startDate.slice(0,4)}-${dates.startDate.slice(4,6)}-${dates.startDate.slice(6,8)}`,
+                  arrival_date: `${dates.endDate.slice(0,4)}-${dates.endDate.slice(4,6)}-${dates.endDate.slice(6,8)}`,
+                  regions: selectedLocations.toString()
+                }).then(
+                  (response) => {
+                    setSelectedLocations([]);
+                    navigate(`/mytrip/${response.data.id}`, { replace: true })
+                  }
+                )
+              }}
+          >
+              <LocationIcon />
+              <Typography.Title size="lg" color={"white"}>
+                {selectedLocations.length > 0 ? "지역 선택 완료" : "지역을 선택해 주세요." }
+              </Typography.Title>
+          </S.Button>
       </S.Footer>
     </PageTemplate>
   );

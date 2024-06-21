@@ -1,18 +1,13 @@
 import * as S from "./style";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
+import { RangeOptions } from "../../../../assets/types/FilterTypes";
 
-interface Props {
+export interface Props extends RangeOptions {
   filter: [number, number];
   setFilter: React.Dispatch<
     React.SetStateAction<[number, number] | [null, null]>
   >;
-  name?: string;
-  unit: string;
-  min: number;
-  max: number;
-  step: number;
-  extraControlerComponent?: JSX.Element | null;
 }
 
 function Range({

@@ -7,21 +7,42 @@ export const Container = styled.div`
     display:flex;
     flex-direction:column;
     align-items:flex-start;
+    gap:10px;
+`
 
-    gap:20px;
+export const Header = styled.div`
+    width:100%;
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+`
+
+export const TravelLink = styled(Link)`
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap: 5px;
+
+    text-decoration: none;
+    cursor: pointer;
+
+    svg{
+        width:16px;
+        height:16px;
+    }
+
 `
 
 export const CreateMyTrip = styled(Link)`
     width:100%;
-    margin-top:-5px;
-    padding-top:24px;
-    padding-bottom:24px;
+    padding:15px 0px;
 
     display:flex;
     justify-content:center;
     align-items:center;
 
-    background-color:${({theme}) => theme.gray05};
+    background-color:${({theme}) => theme.white};
+    border:0.5px solid ${({theme}) => theme.main};
     border-radius:10px;
 
     text-decoration:none;
@@ -30,19 +51,15 @@ export const CreateMyTrip = styled(Link)`
         display:flex;
         justify-content:center;
         align-items:center;
-        gap:10px;
-    }
-
-    span {
-        font-size:14px;
+        gap:7px;
     }
 
     svg{
-        width:20px;
-        height:20px;
+        width:24px;
+        height:24px;
 
         path{
-            fill: ${({theme}) => theme.gray03};
+            fill: #bdbdbd;
         }
     }
 `

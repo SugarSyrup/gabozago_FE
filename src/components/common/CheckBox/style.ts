@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import check from "../../../assets/icons/check.svg";
 
 export const CheckBoxInputContainer = styled.div`
   display: flex;
@@ -16,12 +15,8 @@ export const CheckBoxInputContainer = styled.div`
 
     &:checked {
       border: 1px solid ${({ theme }) => theme.main};
-      background: center no-repeat url(${check});
+      background: center no-repeat url("/check.svg");
       background-size: contain;
     }
-  }
-  label,
-  a {
-    margin-left: 7px;
   }
 `;

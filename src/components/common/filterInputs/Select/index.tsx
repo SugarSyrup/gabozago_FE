@@ -1,12 +1,10 @@
 import React from "react";
 import * as S from "./style";
+import { SelectOptions } from "../../../../assets/types/FilterTypes";
 
-interface Props {
+export interface Props extends SelectOptions {
   filter: string[] | string;
   setFilter: React.Dispatch<React.SetStateAction<string[] | string>>;
-  options: string[];
-  defaultSelected?: string[];
-  multiple?: boolean;
 }
 function Select({ filter, setFilter, options, multiple = false }: Props) {
   const toggleItem = (item: string) => {
@@ -19,21 +17,24 @@ function Select({ filter, setFilter, options, multiple = false }: Props) {
 
   return (
     <S.List>
-      {options.map((item) => (
-        <S.Item checked={filter.includes(item)}>
+      {options.map(({ label, value }) => (
+        <S.Item
+          key={`option-${value}`}
+          checked={multiple ? filter.includes(value) : filter === value}
+        >
           <S.CheckboxInput
             type={"checkbox"}
-            id={item}
-            checked={multiple ? filter.includes(item) : filter === item}
+            id={value}
+            checked={multiple ? filter.includes(value) : filter === value}
             onChange={() => {
               if (multiple) {
-                toggleItem(item);
+                toggleItem(value);
               } else {
-                setFilter(item);
+                setFilter(value);
               }
             }}
           />
-          <label htmlFor={item}>{item}</label>
+          <label htmlFor={value}>{label}</label>
         </S.Item>
       ))}
     </S.List>

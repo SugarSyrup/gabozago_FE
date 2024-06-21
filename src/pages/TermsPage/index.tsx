@@ -1,8 +1,12 @@
-import * as S from "./style";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+
 import PageTemplate from "../../components/common/PageTemplate";
 import PageHeader from "../../components/common/PageHeader";
+import Typography from "../../components/common/Typography";
+
+import * as S from "./style";
+
 
 interface TTerm {
   id: string;
@@ -19,7 +23,7 @@ function TermsPage() {
   const termsMap: TTerm[] = [
     {
       id: "01",
-      title: "서비스 이용약관",
+      title: "가보자고 이용약관",
       contents: [
         {
           heading: "제 1조(목적)",
@@ -61,7 +65,7 @@ function TermsPage() {
     },
     {
       id: "04",
-      title: "오픈소스 라이센스",
+      title: "오픈소스 라이선스",
       contents: [
         {
           heading: "제 1조(목적)",
@@ -85,7 +89,7 @@ function TermsPage() {
 
   return (
     data && (
-      <PageTemplate nav={false} header={<PageHeader>{data.title}</PageHeader>}>
+      <PageTemplate nav={false} header={<PageHeader><Typography.Title size="lg">{data.title}</Typography.Title></PageHeader>}>
         {data.contents.map(({ heading, text }) => (
           <>
             {heading && <S.Heading>{heading}</S.Heading>}

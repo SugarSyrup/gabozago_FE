@@ -1,12 +1,30 @@
-import * as S from "./style";
-
+import { useEffect, useState } from "react";
 import TripItem from "../TripItem";
-import { userTripData } from "../../../assets/data/userpageData";
+
+import * as S from "./style";
+import { get } from "../../../utils/api";
+
+interface travelType {
+    id: number,
+    title: string,
+    departureDate: string,
+    arrivalDate: string,
+    location: string[],
+    thumbnailURL: string,
+}
 
 function TripList() {
+    const [data, setData] = useState<travelType[]>([]);
+    useEffect(() => {
+        get<travelType[]>(`/user/profile/my-travel`)
+            .then((response) => {
+                setData(response.data);
+            })
+    }, [])
+    
     return(<>
         <S.List>
-            {userTripData.map((trip) => <TripItem {...trip} />)}
+            {data.map((trip) => <TripItem {...trip} />)}
         </S.List>
     </>)
 }

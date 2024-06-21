@@ -45,7 +45,7 @@ export const ContentsContainer = styled.div`
 
 export const CarouselContainer = styled.div`
   width: 100%;
-  height: 60vh;
+  height: 60dvh;
   background-color: blue;
   overflow-x: auto;
   overflow-y: hidden;

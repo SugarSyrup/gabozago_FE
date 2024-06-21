@@ -3,66 +3,114 @@ import { useState } from "react";
 import SelectIcon from "../../../assets/icons/select.svg?react";
 import SelectFilledIcon from "../../../assets/icons/select_filled.svg?react";
 import HamburgerIcon from "../../../assets/icons/hamburger.svg?react";
-
-import { Place } from "../../../assets/data/tripPlanData";
+import { PlaceData } from "../TripPlanPlaceItem";
+import { useRecoilState } from "recoil";
+import {
+  editingTripPlanState,
+  selectedPlacesState,
+} from "../../../recoil/tripState";
+import { Draggable } from "react-beautiful-dnd";
 
 interface Props {
-  place: Place;
+  day: number;
+  place: PlaceData;
   index: number;
 }
-function EditablePlaceItem({ place, index }: Props) {
+function EditablePlaceItem({ place, day, index }: Props) {
   const [isSelected, setIsSelected] = useState(false);
+  const [, setSelectedPlaces] = useRecoilState(selectedPlacesState);
+  const [, setTempData] = useRecoilState(editingTripPlanState);
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [startX, setStartX] = useState(0);
   const [translateX, setTranslateX] = useState(0);
 
-  return (
-    <S.ListItem>
-      <S.Wrapper
-        isSelected={isSelected}
-        onClick={() => {
-          setIsSelected((prev) => !prev);
-        }}
-        onMouseDown={(e) => {
-          setStartX(e.clientX);
-          setIsMouseDown(true);
-        }}
-        onMouseMove={(e) => {
-          if (isMouseDown) {
-            const temp = e.clientX - startX;
+  const handleStart = (clientX: number) => {
+    setStartX(clientX);
+    setIsMouseDown(true);
+  };
 
-            // -80px까지 드래그 가능
-            if (temp < -80) {
-              setTranslateX(-80);
-            } else if (temp < 0) {
-              setTranslateX(e.clientX - startX);
-            }
+  const handleMove = (clientX: number) => {
+    if (isMouseDown) {
+      const temp = (clientX - startX) / 2;
+      if (temp < -80) {
+        setTranslateX(-80);
+      } else if (temp < 0) {
+        setTranslateX(temp);
+      }
+    }
+  };
+
+  const handleEnd = () => {
+    if (isMouseDown && translateX < -50) {
+      setTempData((prev) =>
+        prev.map((dayPlan) => {
+          if (dayPlan.day === day) {
+            const newRoute = [...dayPlan.route];
+            newRoute.splice(index, 1);
+
+            return { ...dayPlan, route: newRoute };
+          } else {
+            return dayPlan;
           }
-        }}
-        onMouseUp={() => {
-          if (isMouseDown && translateX < 40) {
-            // @todo: 아이템 삭제
-          }
-          setTranslateX(0);
-          setIsMouseDown(false);
-        }}
-        onMouseLeave={() => {
-          setTranslateX(0);
-          setIsMouseDown(false);
-        }}
-        translateX={translateX}
-      >
-        {isSelected ? <SelectFilledIcon /> : <SelectIcon />}
-        <S.PlaceInfo>
-          <span>{index + 1}</span>
-          <div>
-            <p>{place.placeName}</p>
-            <p>{place.theme}</p>
-          </div>
-        </S.PlaceInfo>
-        <HamburgerIcon className="handle" />
-      </S.Wrapper>
-    </S.ListItem>
+        })
+      );
+    }
+    setTranslateX(0);
+    setIsMouseDown(false);
+  };
+
+  const toggleSelected = () => {
+    if (isSelected === false) {
+      setIsSelected(true);
+      setSelectedPlaces((prev) => {
+        const temp = [...prev];
+        temp.push({ day: day, placeIndex: index });
+
+        return temp;
+      });
+    } else {
+      setIsSelected(false);
+      setSelectedPlaces((prev) =>
+        prev.filter(
+          ({ day, placeIndex }) => !(day === day && placeIndex === index)
+        )
+      );
+    }
+  };
+
+  return (
+    <Draggable draggableId={`place-${place.detailRouteId}`} index={index}>
+      {(provided, snapshot) => {
+        console.dir(provided);
+        return (
+          <S.ListItem ref={provided.innerRef} {...provided.draggableProps}>
+            <S.Wrapper
+              isSelected={isSelected || snapshot.isDragging}
+              onClick={toggleSelected}
+              onMouseDown={(e) => handleStart(e.clientX)}
+              onMouseMove={(e) => handleMove(e.clientX)}
+              onMouseUp={handleEnd}
+              onMouseLeave={handleEnd}
+              onTouchStart={(e) => handleStart(e.touches[0].clientX)}
+              onTouchMove={(e) => handleMove(e.touches[0].clientX)}
+              onTouchEnd={handleEnd}
+              translateX={translateX}
+            >
+              {isSelected ? <SelectFilledIcon /> : <SelectIcon />}
+              <S.PlaceInfo>
+                <div>
+                  <p>{place.placeName}</p>
+                  <p>{place.placeTheme}</p>
+                </div>
+              </S.PlaceInfo>
+              <div {...provided.dragHandleProps}>
+                <HamburgerIcon />
+              </div>
+            </S.Wrapper>
+          </S.ListItem>
+        );
+      }}
+    </Draggable>
   );
 }
 

@@ -1,52 +1,85 @@
 import * as S from "./style";
-import ClapIcon from "../../../assets/icons/clap.svg?react";
+import ClapIcon from "../../../assets/icons/clap_blue.svg?react";
 import BookMarkIcon from "../../../assets/icons/bookmark_black.svg?react";
 import CommentIcon from "../../../assets/icons/comment.svg?react";
-import ShareIcon from "../../../assets/icons/share.svg?react";
 import RightChevronIcon from "../../../assets/icons/chevron_right.svg?react";
+import LogoIcon from "../../../assets/icons/logo_small.svg?react";
+import LocationIcon from "../../../assets/icons/location.svg?react";
+import Typography from "../../common/Typography";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 interface Props {
+  type: "short-form" | "article";
+  id: number;
+  videoId?: string;
+  thumbnailURL?: string;
   name: string;
-  location: string;
+  location: string[];
   hearts: number;
   comments: number;
   scraps: number;
-  shares: number;
-  thumbnail?: string;
 }
 
 function RecommendationReviewItem({
+  type,
+  id,
   name,
   location,
   hearts,
   comments,
   scraps,
-  shares,
-  thumbnail,
+  thumbnailURL,
+  videoId,
 }: Props) {
+  const navigate = useNavigate();
+
   return (
-    <S.Container>
-      <S.LeftItems>
-        <S.Thumbnail>
-          <img src={thumbnail} />
-        </S.Thumbnail>
-        <S.Infomation>
-          <S.Name>{name}</S.Name>
-          <S.Desc>
-            <span>{location}</span>
-            <span>•</span>
+    <S.Container onClick={() => {
+      if(type === "article") {
+        navigate(`/article/${id}`);
+      } else {
+        navigate(`/journal/shortform/${id}`);
+      }
+    }}>
+      <S.Thumbnail>
+        {
+          thumbnailURL ? 
+          <img src={type === "short-form" ? `https://i.ytimg.com/vi/${videoId}/oardefault.jpg` : thumbnailURL} />
+          :
+          <LogoIcon />
+        }
+      </S.Thumbnail>
+      <S.Infomation>
+        <Typography.Title size="sm">{name}</Typography.Title>
+        <S.Desc>
+          <S.DescItem>
+            <S.SVGGrayColorWrapper>
+              <LocationIcon />
+            </S.SVGGrayColorWrapper>
+            <Typography.Label size="md" color="#A6A6A6">{location}</Typography.Label>
+          </S.DescItem>
+          <S.DescItem>
             <ClapIcon />
-            <span>{hearts}</span>
-            <CommentIcon />
-            <span>{comments}</span>
-            <BookMarkIcon />
-            <span>{scraps}</span>
-            <ShareIcon />
-            <span>{shares}</span>
-          </S.Desc>
-        </S.Infomation>
-      </S.LeftItems>
-      <RightChevronIcon />
+            <Typography.Label size="md">{hearts}</Typography.Label>
+          </S.DescItem>
+          <S.DescItem>
+            <S.SVGMainColorWrapper>
+              <CommentIcon />
+            </S.SVGMainColorWrapper>
+            <Typography.Label size="md">{comments}</Typography.Label>
+          </S.DescItem>
+          <S.DescItem>
+            <S.SVGMainColorWrapper>
+              <BookMarkIcon />
+            </S.SVGMainColorWrapper>
+            <Typography.Label size="md">{scraps}</Typography.Label>
+          </S.DescItem>
+        </S.Desc>
+      </S.Infomation>
+      <S.LinkIcon >
+        <RightChevronIcon />
+      </S.LinkIcon>
     </S.Container>
   );
 }
