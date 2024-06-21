@@ -59,7 +59,7 @@ function Articles() {
         <S.Container>
             <S.ArticleList>
                 {
-                    articleData.map((article) => <ArticleItem 
+                    articleData && articleData.map((article) => <ArticleItem 
                         id={article.id}
                         title={article.title}
                         desc={article.subtitle}
