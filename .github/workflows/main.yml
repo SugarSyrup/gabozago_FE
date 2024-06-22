@@ -20,6 +20,7 @@ jobs:
             cd gabozago_FE
             git pull 
             npm ci
+            npm run build
             sudo docker-compose stop
             sudo docker-compose build
             sudo docker-compose up -d
