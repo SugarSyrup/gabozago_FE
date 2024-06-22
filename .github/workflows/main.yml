@@ -20,6 +20,6 @@ jobs:
             cd gabozago_FE
             git pull 
             npm ci
-            docker-compose stop
-            docker-compose build
-            docker-compose up -d
+            sudo docker-compose stop
+            sudo docker-compose build
+            sudo docker-compose up -d
