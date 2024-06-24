@@ -4,7 +4,8 @@ import LocationIcon from '../../../../../assets/icons/location.svg?react';
 import ThemeIcon from '../../../../../assets/icons/theme.svg?react';
 import Typography from '../../../../common/Typography';
 
-import * as S from './style';
+import * as S from "./style";
+import { useEffect } from "react";
 
 export interface ShortForm {
   id: number;
@@ -20,9 +21,13 @@ interface Props {
 }
 
 function ShortFormList({ data }: Props) {
+  useEffect(() => {
+    console.log("ShortFormList");
+    console.log(data);
+  }, [])
   return (
     <S.List>
-      {data.map(({ id, title, location, views, theme, videoId }) => (
+      {data && data.map(({ id, title, location, views, theme, videoId }) => (
         <S.ListItem key={id}>
           <Link to={`/journal/shortform/${id}`}>
             <S.Container>
