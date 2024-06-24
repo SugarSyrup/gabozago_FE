@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Header = styled.header`
   position: absolute;
@@ -30,11 +30,9 @@ export const TabItem = styled.li<{ focused: boolean }>`
   text-align: center;
   font-size: 14px;
   line-height: 22px;
-  font-weight: ${({ focused }) => (focused === true ? "600" : "500")};
-  color: ${({ theme, focused }) =>
-    focused === true ? theme.main : theme.gray01};
-  border-bottom: 2px solid
-    ${({ theme, focused }) => (focused === true ? theme.main : theme.gray04)};
+  font-weight: ${({ focused }) => (focused === true ? '600' : '500')};
+  color: ${({ theme, focused }) => (focused === true ? theme.main : theme.gray01)};
+  border-bottom: 2px solid ${({ theme, focused }) => (focused === true ? theme.main : theme.gray04)};
 
   transition: all 0.3s ease-in-out;
 `;

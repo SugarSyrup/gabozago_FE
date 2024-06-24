@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import MapIcon from "../../../assets/icons/map.svg?react";
-import { selectedPlacesState } from "../../../recoil/mytrip/selectedPlacesState";
-import { post } from "../../../utils/api";
+import MapIcon from '../../../assets/icons/map.svg?react';
+import { selectedPlacesState } from '../../../recoil/mytrip/selectedPlacesState';
+import { post } from '../../../utils/api';
 
-import SelectedPlaceItem from "../SelectedPlaceItem";
-import Typography from "../../common/Typography";
+import SelectedPlaceItem from '../SelectedPlaceItem';
+import Typography from '../../common/Typography';
 
-import * as S from "./style";
+import * as S from './style';
 
 function SelectedPlaces() {
   const { id, day } = useParams();
@@ -18,9 +18,7 @@ function SelectedPlaces() {
   const [hasSelectedPlaces, setHasSelectedPlaces] = useState<boolean>(false);
 
   function onDelete(id: number) {
-    setSelectedPlaces((prev) =>
-      prev.filter((SelectedPlace) => SelectedPlace.id !== id)
-    );
+    setSelectedPlaces((prev) => prev.filter((SelectedPlace) => SelectedPlace.id !== id));
   }
 
   useEffect(() => {
@@ -43,27 +41,29 @@ function SelectedPlaces() {
           />
         ))}
       </S.SelectedPlaceList>
-      <S.Button 
+      <S.Button
         disabled={!hasSelectedPlaces}
         isActive={hasSelectedPlaces}
         onClick={() => {
           post<{
-            id: number,
-            name: number,
-          }>(`/my-travel/detail-route/place`, {
-              placeId: selectedPlaces.map((selectedPlace) => selectedPlace.id),
-              myTravelId: id,
-              day: day
+            id: number;
+            name: number;
+          }>('/my-travel/detail-route/place', {
+            placeId: selectedPlaces.map((selectedPlace) => selectedPlace.id),
+            myTravelId: id,
+            day,
           }).then((response) => {
-              if(response.status === 201) {
-                  setSelectedPlaces([]);
-                  navigate(-1);
-              }
-          })
+            if (response.status === 201) {
+              setSelectedPlaces([]);
+              navigate(-1);
+            }
+          });
         }}
       >
         <MapIcon />
-        <Typography.Title size="lg" color="white">{hasSelectedPlaces ? "장소 선택 완료" : "장소를 선택해주세요"}</Typography.Title>
+        <Typography.Title size="lg" color="white">
+          {hasSelectedPlaces ? '장소 선택 완료' : '장소를 선택해주세요'}
+        </Typography.Title>
       </S.Button>
     </S.Container>
   );

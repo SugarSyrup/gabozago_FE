@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const ButtonContainer = styled.div`
   display: flex;
@@ -17,7 +17,7 @@ export const EditButton = styled.button<{ color?: string }>`
   font-weight: 600;
   text-decoration: underline;
   cursor: pointer;
-  color: ${({ color, theme }) => (color ? color : theme.main)};
+  color: ${({ color, theme }) => color || theme.main};
 
   &:hover {
     background-color: ${({ theme }) => theme.blue05};

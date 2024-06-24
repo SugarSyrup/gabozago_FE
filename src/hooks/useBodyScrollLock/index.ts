@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback } from 'react';
 
 export default function useBodyScrollLock() {
   const lockScroll = useCallback(() => {
@@ -12,8 +12,8 @@ export default function useBodyScrollLock() {
 
   const unlockScroll = useCallback(() => {
     const scrollY = document.body.style.top;
-    document.body.style.cssText = "";
-    window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+    document.body.style.cssText = '';
+    window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
   }, []);
 
   return { lockScroll, unlockScroll };

@@ -1,11 +1,7 @@
-import * as S from "./style";
-import React, { ReactNode, useCallback } from "react";
-import {
-  GoogleMap as GoogleMapBox,
-  MarkerProps,
-  useJsApiLoader,
-} from "@react-google-maps/api";
-import mapPinIcon from "../../../assets/icons/image_placeholder_circle.svg";
+import React, { ReactNode, useCallback } from 'react';
+import { GoogleMap as GoogleMapBox, MarkerProps, useJsApiLoader } from '@react-google-maps/api';
+import * as S from './style';
+import mapPinIcon from '../../../assets/icons/image_placeholder_circle.svg';
 
 export interface Position {
   lat: number;
@@ -31,15 +27,15 @@ const mapDefaultOptions: google.maps.MapOptions = {
 };
 
 function GoogleMap({
-  width = "100%",
-  height = "275px",
+  width = '100%',
+  height = '275px',
   center = { lat: 35.1855, lng: 129.0741 },
   children,
   markers,
   options = mapDefaultOptions,
 }: Props) {
   const { isLoaded } = useJsApiLoader({
-    id: "google-map-script",
+    id: 'google-map-script',
     googleMapsApiKey: import.meta.env.VITE_GOOGLEMAP_API_KEY,
   });
 
@@ -54,10 +50,10 @@ function GoogleMap({
       console.log(markers);
       markers?.map(({ position, label }) => {
         const newMarkers = new google.maps.Marker({
-          position: position,
+          position,
           icon: mapPinIcon,
-          label: label,
-          map: map,
+          label,
+          map,
         });
       });
     }

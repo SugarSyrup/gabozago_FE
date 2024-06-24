@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import checkIcon from "../../../../../assets/icons/check.svg";
+import styled from 'styled-components';
+import checkIcon from '../../../../../assets/icons/check.svg';
 
 export const List = styled.ol`
   width: 100%;
@@ -35,7 +35,7 @@ export const CheckboxInput = styled.input`
     font-weight: 400;
 
     &::after {
-      content: "";
+      content: '';
       display: none;
       width: 20px;
       height: 20px;

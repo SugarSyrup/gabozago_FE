@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Header = styled.header`
   padding: 10px 20px 0;
@@ -9,15 +9,15 @@ export const Header = styled.header`
   background-color: ${({ theme }) => theme.white};
   z-index: 30;
 
-  width:100%;
-  max-width:500px;
+  width: 100%;
+  max-width: 500px;
 
   &::before {
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
-    content: "";
+    content: '';
     display: block;
     width: 100%;
     height: 2px;

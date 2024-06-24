@@ -1,10 +1,10 @@
-import * as S from "./style";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import * as S from './style';
 
-import KebabMenuIcon from "../../../../../assets/icons/menu_kebab.svg?react";
-import userIcon from "../../../../../assets/icons/user.svg";
-import ClapIcon from "../../../../../assets/icons/clap.svg?react";
-import CommentIcon from "../../../../../assets/icons/comment.svg?react";
+import KebabMenuIcon from '../../../../../assets/icons/menu_kebab.svg?react';
+import userIcon from '../../../../../assets/icons/user.svg';
+import ClapIcon from '../../../../../assets/icons/clap.svg?react';
+import CommentIcon from '../../../../../assets/icons/comment.svg?react';
 
 export interface TSnapshot {
   id: number;
@@ -31,22 +31,12 @@ function SnapshotList({ data }: Props) {
   return (
     <S.List>
       {data.map(
-        ({
-          id,
-          profileImage,
-          username,
-          userid,
-          createdAt,
-          text,
-          images,
-          like,
-          commentCount,
-        }) => (
+        ({ id, profileImage, username, userid, createdAt, text, images, like, commentCount }) => (
           <S.ListItem>
             <S.Container>
               <S.TopInfoBox>
                 <S.ProfileImage
-                  src={profileImage ? profileImage : userIcon}
+                  src={profileImage || userIcon}
                   onClick={() => {
                     navigate(`/profile/${userid}`);
                   }}
@@ -90,7 +80,7 @@ function SnapshotList({ data }: Props) {
               </S.ContentsBox>
             </S.Container>
           </S.ListItem>
-        )
+        ),
       )}
     </S.List>
   );

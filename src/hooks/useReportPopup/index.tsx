@@ -1,23 +1,18 @@
-import * as S from "./style";
-import { post } from "../../utils/api";
-import usePopup from "../usePopup";
-import Typography from "../../components/common/Typography";
-import useAlert from "../useAlert";
-import { FormEvent } from "react";
+import { FormEvent } from 'react';
+import * as S from './style';
+import { post } from '../../utils/api';
+import usePopup from '../usePopup';
+import Typography from '../../components/common/Typography';
+import useAlert from '../useAlert';
 
 interface Options {
-  type: "short-form" | "article" | "video" | "report" | "travelog";
+  type: 'short-form' | 'article' | 'video' | 'report' | 'travelog';
   postId?: number | null;
   commentId?: number | null;
   setIsReported?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function useReportPopup({
-  type,
-  postId = null,
-  commentId = null,
-  setIsReported,
-}: Options) {
+function useReportPopup({ type, postId = null, commentId = null, setIsReported }: Options) {
   const { Alert, alertOpen } = useAlert({
     Content: (
       <Typography.Body size="lg" color="white">
@@ -27,37 +22,34 @@ function useReportPopup({
   });
   const { Popup, popupOpen, popupClose } = usePopup();
   const reasons = [
-    "욕설 / 비방",
-    "차별 / 혐오",
-    "저작권 침해",
-    "음란 / 유해",
-    "개인 정보 유포 / 거래",
-    "상업적 스팸",
-    "기타",
+    '욕설 / 비방',
+    '차별 / 혐오',
+    '저작권 침해',
+    '음란 / 유해',
+    '개인 정보 유포 / 거래',
+    '상업적 스팸',
+    '기타',
   ];
 
   const sendReport = async (reason: string, opinion: string | null = null) => {
     try {
       const { data } = await post<{
-        message: "Post report success" | "Comment report success";
+        message: 'Post report success' | 'Comment report success';
       }>(
         `/community/${type}/report`,
         {
-          reason: reason,
-          opinion: opinion,
+          reason,
+          opinion,
         },
         {
           params: {
             post_id: postId,
             comment_id: commentId,
           },
-        }
+        },
       );
 
-      if (
-        data.message === "Comment report success" ||
-        data.message === "Post report success"
-      ) {
+      if (data.message === 'Comment report success' || data.message === 'Post report success') {
         setIsReported && setIsReported(true);
         alertOpen();
         popupClose();
@@ -74,48 +66,48 @@ function useReportPopup({
     }
   };
 
-  const ReportPopup = () => (
-    <>
-      <Alert />
-      <Popup padding="0">
-        <S.ReportForm onSubmit={onSubmit}>
-          <Typography.Title size="lg">신고하기</Typography.Title>
-          <S.ReasonList>
-            {reasons.map((item, index) => (
-              <S.ResonItem key={`reportReason-${index}`}>
-                <S.RadioInput
-                  type="radio"
-                  id={`reason-${index}`}
-                  name="reportReason"
-                  defaultChecked={index === 0}
-                  value={item}
-                />
-                <Typography.Body size="lg">
-                  <S.RadioLabel htmlFor={`reason-${index}`}>
-                    {item}
-                  </S.RadioLabel>
-                </Typography.Body>
-              </S.ResonItem>
-            ))}
-          </S.ReasonList>
-          <S.ControlBox>
-            <S.Button
-              type="button"
-              onClick={(e) => {
-                e.preventDefault();
-                popupClose();
-              }}
-            >
-              취소
-            </S.Button>
-            <S.Button type="submit" primary={true}>
-              신고하기
-            </S.Button>
-          </S.ControlBox>
-        </S.ReportForm>
-      </Popup>
-    </>
-  );
+  function ReportPopup() {
+    return (
+      <>
+        <Alert />
+        <Popup padding="0">
+          <S.ReportForm onSubmit={onSubmit}>
+            <Typography.Title size="lg">신고하기</Typography.Title>
+            <S.ReasonList>
+              {reasons.map((item, index) => (
+                <S.ResonItem key={`reportReason-${index}`}>
+                  <S.RadioInput
+                    type="radio"
+                    id={`reason-${index}`}
+                    name="reportReason"
+                    defaultChecked={index === 0}
+                    value={item}
+                  />
+                  <Typography.Body size="lg">
+                    <S.RadioLabel htmlFor={`reason-${index}`}>{item}</S.RadioLabel>
+                  </Typography.Body>
+                </S.ResonItem>
+              ))}
+            </S.ReasonList>
+            <S.ControlBox>
+              <S.Button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  popupClose();
+                }}
+              >
+                취소
+              </S.Button>
+              <S.Button type="submit" primary>
+                신고하기
+              </S.Button>
+            </S.ControlBox>
+          </S.ReportForm>
+        </Popup>
+      </>
+    );
+  }
   return {
     ReportPopup,
     reportPopupOpen: popupOpen,

@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes } from 'styled-components';
 
 const fadeInOut = keyframes`
   0% {
@@ -44,7 +44,7 @@ export const Alert = styled.div<{ isOpen: boolean }>`
   background-color: ${({ theme }) => theme.main};
 
   animation: ${fadeInOut} 3s ease-out;
-  display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
+  display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
   justify-content: space-between;
   align-items: center;
 

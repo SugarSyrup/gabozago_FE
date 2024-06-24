@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { Link } from "react-router-dom";
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const FilterContainer = styled.div``;
 
@@ -8,7 +8,7 @@ export const PlaceList = styled.ol`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  margin-top:10px;
+  margin-top: 10px;
 `;
 
 export const PlaceItem = styled.li`
@@ -92,7 +92,7 @@ export const Button = styled.button<{ isActive: boolean }>`
   border: none;
   border-radius: 20px;
 
-  flex-shrink:0;
+  flex-shrink: 0;
   display: flex;
   justify-content: center;
   align-items: center;

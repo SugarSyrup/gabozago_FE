@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   padding-bottom: 10px;
@@ -24,6 +24,5 @@ export const DayParagraph = styled.span`
 
 export const PlaceList = styled.ol<{ isDraggingOver: boolean }>`
   position: relative;
-  background-color: ${({ isDraggingOver, theme }) =>
-    isDraggingOver ? theme.blue03 : theme.white};
+  background-color: ${({ isDraggingOver, theme }) => (isDraggingOver ? theme.blue03 : theme.white)};
 `;

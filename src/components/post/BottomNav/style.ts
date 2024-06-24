@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Navigation = styled.nav`
   width: 100%;
@@ -40,8 +40,7 @@ export const NavigationItem = styled.div<{ isBookmarked?: boolean }>`
     width: 24px;
     height: 22px;
     path {
-      fill: ${({ theme, isBookmarked }) =>
-        isBookmarked && theme.main} !important;
+      fill: ${({ theme, isBookmarked }) => isBookmarked && theme.main} !important;
     }
   }
 `;

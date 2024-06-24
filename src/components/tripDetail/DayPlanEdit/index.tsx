@@ -1,9 +1,9 @@
-import * as S from "./style";
-import { Droppable } from "react-beautiful-dnd";
-import EditablePlaceItem from "../EditablePlaceItem";
-import { parseDateString } from "../../../utils/parseDateString";
-import { useRecoilState } from "recoil";
-import { editingTripPlanState } from "../../../recoil/tripState";
+import { Droppable } from 'react-beautiful-dnd';
+import { useRecoilState } from 'recoil';
+import * as S from './style';
+import EditablePlaceItem from '../EditablePlaceItem';
+import { parseDateString } from '../../../utils/parseDateString';
+import { editingTripPlanState } from '../../../recoil/tripState';
 
 interface Props {
   day: number;
@@ -20,7 +20,7 @@ function DayPlanEdit({ day, date: dateString }: Props) {
         Day {day}
         <span>{`${date?.month}. ${date?.day}(${date?.dayOfWeek})`}</span>
       </S.DayParagraph>
-      <Droppable droppableId={`day-${day}`} type={"PLACE"}>
+      <Droppable droppableId={`day-${day}`} type="PLACE">
         {(provided, snapshot) => (
           <S.PlaceList
             ref={provided.innerRef}

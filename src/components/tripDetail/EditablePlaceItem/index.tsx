@@ -1,15 +1,12 @@
-import * as S from "./style";
-import { useState } from "react";
-import SelectIcon from "../../../assets/icons/select.svg?react";
-import SelectFilledIcon from "../../../assets/icons/select_filled.svg?react";
-import HamburgerIcon from "../../../assets/icons/hamburger.svg?react";
-import { PlaceData } from "../TripPlanPlaceItem";
-import { useRecoilState } from "recoil";
-import {
-  editingTripPlanState,
-  selectedPlacesState,
-} from "../../../recoil/tripState";
-import { Draggable } from "react-beautiful-dnd";
+import { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { Draggable } from 'react-beautiful-dnd';
+import * as S from './style';
+import SelectIcon from '../../../assets/icons/select.svg?react';
+import SelectFilledIcon from '../../../assets/icons/select_filled.svg?react';
+import HamburgerIcon from '../../../assets/icons/hamburger.svg?react';
+import { PlaceData } from '../TripPlanPlaceItem';
+import { editingTripPlanState, selectedPlacesState } from '../../../recoil/tripState';
 
 interface Props {
   day: number;
@@ -49,10 +46,9 @@ function EditablePlaceItem({ place, day, index }: Props) {
             newRoute.splice(index, 1);
 
             return { ...dayPlan, route: newRoute };
-          } else {
-            return dayPlan;
           }
-        })
+          return dayPlan;
+        }),
       );
     }
     setTranslateX(0);
@@ -64,16 +60,14 @@ function EditablePlaceItem({ place, day, index }: Props) {
       setIsSelected(true);
       setSelectedPlaces((prev) => {
         const temp = [...prev];
-        temp.push({ day: day, placeIndex: index });
+        temp.push({ day, placeIndex: index });
 
         return temp;
       });
     } else {
       setIsSelected(false);
       setSelectedPlaces((prev) =>
-        prev.filter(
-          ({ day, placeIndex }) => !(day === day && placeIndex === index)
-        )
+        prev.filter(({ day, placeIndex }) => !(day === day && placeIndex === index)),
       );
     }
   };

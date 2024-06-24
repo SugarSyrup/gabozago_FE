@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Nav = styled.nav<{ backgroundColor: string }>`
   width: 100%;
@@ -7,7 +7,7 @@ export const Nav = styled.nav<{ backgroundColor: string }>`
   z-index: 20;
 
   position: fixed;
-  bottom:0;
+  bottom: 0;
 `;
 
 export const NavList = styled.ul`
@@ -28,11 +28,7 @@ export const ListItem = styled.li<{ active?: boolean; activeColor: string }>`
 
     text-decoration: none;
     color: ${({ active, activeColor, theme }) =>
-      active
-        ? activeColor === "white"
-          ? theme.white
-          : theme.main
-        : theme.gray02};
+      active ? (activeColor === 'white' ? theme.white : theme.main) : theme.gray02};
     transition: all ease-in-out 0.3s;
 
     span {
@@ -44,14 +40,10 @@ export const ListItem = styled.li<{ active?: boolean; activeColor: string }>`
     path {
       transition: all ease-in-out 0.3s;
       fill: ${({ active, activeColor, theme }) =>
-        active
-          ? activeColor === "white"
-            ? theme.white
-            : theme.main
-          : theme.gray02};
+        active ? (activeColor === 'white' ? theme.white : theme.main) : theme.gray02};
     }
 
-    @media (hover: hover){
+    @media (hover: hover) {
       &:hover {
         color: ${({ theme }) => theme.main};
         path {
@@ -59,6 +51,5 @@ export const ListItem = styled.li<{ active?: boolean; activeColor: string }>`
         }
       }
     }
-    
   }
 `;

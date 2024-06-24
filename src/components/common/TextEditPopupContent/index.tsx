@@ -1,4 +1,4 @@
-import * as S from "./style";
+import * as S from './style';
 
 interface Props {
   title: string;
@@ -8,13 +8,7 @@ interface Props {
   maxLength?: number;
 }
 
-function TextEditPopupContent({
-  title,
-  onSubmit,
-  value,
-  setValue,
-  maxLength = 100,
-}: Props) {
+function TextEditPopupContent({ title, onSubmit, value, setValue, maxLength = 100 }: Props) {
   console.log(title);
   console.log(value);
   return (

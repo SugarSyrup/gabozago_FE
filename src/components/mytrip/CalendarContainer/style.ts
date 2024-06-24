@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const CalendarContainer = styled.div`
   display: flex;
@@ -51,8 +51,7 @@ export const Button = styled.button<{
   align-items: center;
   gap: 10px;
 
-  background-color: ${({ theme, bgColor }) =>
-    bgColor ? theme.main : "#a6a6a6"};
+  background-color: ${({ theme, bgColor }) => (bgColor ? theme.main : '#a6a6a6')};
   text-decoration: none;
   cursor: pointer;
   svg {

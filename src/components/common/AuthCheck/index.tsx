@@ -1,24 +1,22 @@
-import { useEffect } from "react"
-import { useNavigate } from "react-router-dom"
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
-    children: React.ReactNode
+  children: React.ReactNode;
 }
 
-function AuthCheck({children}:Props) {
-    const navigate = useNavigate();
+function AuthCheck({ children }: Props) {
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        if(localStorage.getItem("access_token")) {
-            navigate("/")
-        } else {
-            navigate("/login");
-        }
-    }, [])
+  useEffect(() => {
+    if (localStorage.getItem('access_token')) {
+      navigate('/');
+    } else {
+      navigate('/login');
+    }
+  }, []);
 
-    return (
-        <>{children}</>
-    )
+  return <>{children}</>;
 }
 
 export default AuthCheck;

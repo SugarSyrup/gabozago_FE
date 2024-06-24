@@ -1,40 +1,38 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import * as S from "./style";
-import LeftChevronIcon from "../../../assets/icons/chevron_left.svg?react";
+import * as S from './style';
+import LeftChevronIcon from '../../../assets/icons/chevron_left.svg?react';
 
-import FollowList from "../../../components/profile/FollowList";
-import PageTemplate from "../../../components/common/PageTemplate";
+import FollowList from '../../../components/profile/FollowList';
+import PageTemplate from '../../../components/common/PageTemplate';
 
-import { Followers, FollowerType } from "../../../assets/data/followers";
-import useSearchInput from "../../../hooks/useSearchInput";
+import { Followers, FollowerType } from '../../../assets/data/followers';
+import useSearchInput from '../../../hooks/useSearchInput';
 
 function UserFollowPage() {
   const { uid } = useParams();
   const [isMyProfile, setIsMyProfile] = useState(false);
-  const [currentTap, setCurrentTap] = useState<"follower" | "following">(
-    "follower"
-  );
+  const [currentTap, setCurrentTap] = useState<'follower' | 'following'>('follower');
   const [data, setData] = useState<FollowerType[]>(Followers);
   const [inputRef, SearchInput] = useSearchInput({
-    placeholder: "사용자명, 닉네임을 검색해보세요.",
+    placeholder: '사용자명, 닉네임을 검색해보세요.',
     onSubmit: (e) => {
       e.preventDefault();
     },
-    onChange: onChange,
-    backgroundColor: "#F3F4F6",
-    borderColor: "#F3F4F6",
-    searchIconColor: "#ADADAD",
-    placeholderColor: "#ADADAD",
+    onChange,
+    backgroundColor: '#F3F4F6',
+    borderColor: '#F3F4F6',
+    searchIconColor: '#ADADAD',
+    placeholderColor: '#ADADAD',
   });
   const navigate = useNavigate();
 
   function onChange() {
     setData(
       Followers.filter((user) =>
-        user.name.includes(inputRef.current ? inputRef.current.value : "")
-      )
+        user.name.includes(inputRef.current ? inputRef.current.value : ''),
+      ),
     );
   }
 
@@ -60,17 +58,17 @@ function UserFollowPage() {
         </S.Header>
         <S.TabNavigation>
           <S.NavigationItem
-            isHighlight={currentTap === "follower"}
+            isHighlight={currentTap === 'follower'}
             onClick={() => {
-              setCurrentTap("follower");
+              setCurrentTap('follower');
             }}
           >
             팔로워
           </S.NavigationItem>
           <S.NavigationItem
-            isHighlight={currentTap === "following"}
+            isHighlight={currentTap === 'following'}
             onClick={() => {
-              setCurrentTap("following");
+              setCurrentTap('following');
             }}
           >
             팔로잉

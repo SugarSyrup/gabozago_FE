@@ -1,8 +1,8 @@
-import KebabIcon from "../../../assets/icons/menu_kebab.svg?react";
-import BottomNav from "../../post/BottomNav";
-import BackButton from "../BackButton";
+import KebabIcon from '../../../assets/icons/menu_kebab.svg?react';
+import BottomNav from '../../post/BottomNav';
+import BackButton from '../BackButton';
 
-import * as S from "./style";
+import * as S from './style';
 
 interface Props {
   children: React.ReactNode;

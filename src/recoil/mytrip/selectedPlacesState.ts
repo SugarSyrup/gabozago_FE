@@ -1,13 +1,13 @@
-import { atom } from "recoil";
+import { atom } from 'recoil';
 
 interface Location {
-    thumbnail?: string,
-    id:number,
-    name:string,
-    location: string,
+  thumbnail?: string;
+  id: number;
+  name: string;
+  location: string;
 }
 
 export const selectedPlacesState = atom<Location[]>({
-    key:"selectedLocations",
-    default:[]
-})
+  key: 'selectedLocations',
+  default: [],
+});

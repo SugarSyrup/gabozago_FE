@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 const borderCSS = css`
   padding: 20px;
@@ -26,7 +26,7 @@ export const ConfirmButtonsContainer = styled.div`
 `;
 
 export const ConfirmButton = styled.button<{
-  styleTheme: "primary" | "secondary";
+  styleTheme: 'primary' | 'secondary';
 }>`
   padding: 12px;
   width: 100%;
@@ -36,7 +36,7 @@ export const ConfirmButton = styled.button<{
   border-radius: 30px;
 
   ${({ styleTheme, theme }) =>
-    styleTheme === "primary"
+    styleTheme === 'primary'
       ? css`
           font-weight: 300;
           color: ${theme.white};
@@ -111,7 +111,7 @@ export const TitleParagraph = styled.p`
     color: ${({ theme }) => theme.red};
 
     &::before {
-      content: "*";
+      content: '*';
     }
   }
 `;

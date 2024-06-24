@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const GrayColoredIcon = styled.span`
   svg path {
@@ -8,9 +8,8 @@ export const GrayColoredIcon = styled.span`
 
 export const Container = styled.div<{ isReply: boolean; isFocused: boolean }>`
   width: 100%;
-  padding: ${({ isReply }) => (isReply ? "0" : "8px 15px")};
-  background-color: ${({ isFocused, theme }) =>
-    isFocused ? theme.blue05 : "transparent"};
+  padding: ${({ isReply }) => (isReply ? '0' : '8px 15px')};
+  background-color: ${({ isFocused, theme }) => (isFocused ? theme.blue05 : 'transparent')};
   a {
     text-decoration: none;
     color: inherit;
@@ -131,7 +130,7 @@ export const ReplyToggleButton = styled.button`
 
   &::before {
     display: inline-block;
-    content: "";
+    content: '';
     width: 20px;
     height: 1px;
     background-color: ${({ theme }) => theme.gray02};

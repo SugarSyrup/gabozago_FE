@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   position: relative;
@@ -27,7 +27,7 @@ export const YoutubeContainer = styled.div<{ isCaptionOpened: boolean }>`
     position: absolute;
     top: 0;
     bottom: 0;
-    content: "";
+    content: '';
     display: block;
     width: 100%;
     height: auto;
@@ -140,7 +140,7 @@ export const ContentBox = styled.div<{ isOpened: boolean }>`
         `
       : css`
           &::after {
-            content: "...";
+            content: '...';
             color: ${({ theme }) => theme.white};
             margin-top: 2px;
             border-radius: 5px;
@@ -154,13 +154,13 @@ export const ContentBox = styled.div<{ isOpened: boolean }>`
     }
   }
   p {
-    padding: ${({ isOpened }) => (isOpened ? "5px" : 0)};
+    padding: ${({ isOpened }) => (isOpened ? '5px' : 0)};
     color: ${({ theme }) => theme.white};
     font-size: 12px;
     font-weight: 400;
     line-height: 24px;
     letter-spacing: 0.25px;
-    word-break: ${({ isOpened }) => (isOpened ? "keep-all" : "break-all")};
+    word-break: ${({ isOpened }) => (isOpened ? 'keep-all' : 'break-all')};
     overflow-wrap: anywhere;
   }
 `;

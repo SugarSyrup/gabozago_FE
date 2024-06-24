@@ -1,8 +1,8 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
-  width:calc(100% + 40px);
-  margin-left:-20px;
+  width: calc(100% + 40px);
+  margin-left: -20px;
   word-break: keep-all;
 `;
 

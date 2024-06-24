@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 export const List = styled.ol`
   width: calc(100% + 40px);
@@ -58,7 +58,7 @@ export const NoDataTextContainer = styled.div`
   }
 `;
 
-export const StatusSpan = styled.span<{ type: "active" | "inactive" }>`
+export const StatusSpan = styled.span<{ type: 'active' | 'inactive' }>`
   width: fit-content;
   padding: 5px 11px;
   display: flex;
@@ -73,7 +73,7 @@ export const StatusSpan = styled.span<{ type: "active" | "inactive" }>`
   letter-spacing: 0.5px;
 
   ${({ type }) =>
-    type === "active"
+    type === 'active'
       ? css`
           color: ${({ theme }) => theme.main};
           background: ${({ theme }) => theme.blue05};

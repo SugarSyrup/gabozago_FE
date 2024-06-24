@@ -1,39 +1,39 @@
-import { Dispatch, useEffect, useRef, useState } from "react";
+import { Dispatch, useEffect, useRef, useState } from 'react';
 
-import CheckBoxItem from "../../common/CheckBox";
+import CheckBoxItem from '../../common/CheckBox';
 
-import * as S from "./style";
+import * as S from './style';
 
 const terms = [
   {
-    id: "ageCheck",
-    label: "만 14세 이상입니다.",
+    id: 'ageCheck',
+    label: '만 14세 이상입니다.',
     required: true,
   },
   {
-    id: "serviceCheck",
-    label: "서비스 이용약관 동의",
-    link: "/terms/01",
+    id: 'serviceCheck',
+    label: '서비스 이용약관 동의',
+    link: '/terms/01',
     required: true,
   },
   {
-    id: "personalCheck",
-    label: "개인정보 수집 및 이용 동의",
-    link: "/terms/02",
+    id: 'personalCheck',
+    label: '개인정보 수집 및 이용 동의',
+    link: '/terms/02',
     required: true,
   },
   {
-    id: "eventCheck",
-    label: "이벤트 및 할인 혜택 안내 동의",
+    id: 'eventCheck',
+    label: '이벤트 및 할인 혜택 안내 동의',
     required: false,
   },
 ];
 
 interface Props {
-  setCheckboxActive: Dispatch<React.SetStateAction<boolean>>
+  setCheckboxActive: Dispatch<React.SetStateAction<boolean>>;
 }
 
-function CheckBoxs({setCheckboxActive}: Props) {
+function CheckBoxs({ setCheckboxActive }: Props) {
   const [allChecks, setAllChecks] = useState(false);
   const [ageCheck, setAgeCheck] = useState(false);
   const [serviceCheck, setServiceCheck] = useState(false);
@@ -41,27 +41,27 @@ function CheckBoxs({setCheckboxActive}: Props) {
   const [eventCheck, setEventCheck] = useState(false);
 
   useEffect(() => {
-    if(allChecks === true) {
+    if (allChecks === true) {
       setAgeCheck(true);
       setServiceCheck(true);
       setPersonalCheck(true);
       setCheckboxActive(true);
-    } 
-  }, [allChecks])
+    }
+  }, [allChecks]);
 
   useEffect(() => {
-    if(ageCheck && serviceCheck && personalCheck) {
+    if (ageCheck && serviceCheck && personalCheck) {
       setCheckboxActive(true);
     } else {
       setCheckboxActive(false);
     }
-  }, [ageCheck, serviceCheck, personalCheck])
+  }, [ageCheck, serviceCheck, personalCheck]);
 
   useEffect(() => {
-    if(eventCheck && ageCheck && serviceCheck && personalCheck) {
+    if (eventCheck && ageCheck && serviceCheck && personalCheck) {
       setAllChecks(true);
     }
-  }, [eventCheck, ageCheck, serviceCheck, personalCheck])
+  }, [eventCheck, ageCheck, serviceCheck, personalCheck]);
 
   return (
     <S.CheckBoxsContainer>
@@ -70,7 +70,9 @@ function CheckBoxs({setCheckboxActive}: Props) {
           checked={allChecks}
           inputId="allCheck"
           onChange={(e) => {
-            const checkboxs = document.getElementsByClassName("checkbox") as HTMLCollectionOf<HTMLInputElement>;
+            const checkboxs = document.getElementsByClassName(
+              'checkbox',
+            ) as HTMLCollectionOf<HTMLInputElement>;
 
             for (let i = 0; i < checkboxs.length; i++) {
               if (e.currentTarget.checked) {
@@ -98,16 +100,16 @@ function CheckBoxs({setCheckboxActive}: Props) {
             className="checkbox"
             onClick={(e) => {
               switch (term.id) {
-                case "ageCheck":
+                case 'ageCheck':
                   setAgeCheck(e.currentTarget.checked);
                   break;
-                case "serviceCheck" :
+                case 'serviceCheck':
                   setServiceCheck(e.currentTarget.checked);
                   break;
-                case "personalCheck" :
+                case 'personalCheck':
                   setPersonalCheck(e.currentTarget.checked);
                   break;
-                case "eventCheck" :
+                case 'eventCheck':
                   setEventCheck(e.currentTarget.checked);
                   break;
               }
@@ -117,14 +119,17 @@ function CheckBoxs({setCheckboxActive}: Props) {
             }}
           >
             <S.CheckBoxLabel htmlFor={`${term.id}`}>
-              {
-                term.link ?
-                <S.TermLink onClick={() => {
-                  window.open(term.link, "_blank", 'width=500,height=600');
-                }}>{term.label}</S.TermLink>
-                :
+              {term.link ? (
+                <S.TermLink
+                  onClick={() => {
+                    window.open(term.link, '_blank', 'width=500,height=600');
+                  }}
+                >
+                  {term.label}
+                </S.TermLink>
+              ) : (
                 term.label
-              }
+              )}
             </S.CheckBoxLabel>
             {term.required ? (
               <S.CheckBoxRequired>(필수)</S.CheckBoxRequired>

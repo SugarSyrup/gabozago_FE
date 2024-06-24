@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes } from 'styled-components';
 
 export const ModalWrapper = styled.div`
   width: 100%;
@@ -116,8 +116,7 @@ export const TravelAddBtn = styled.div<{ isClicked: boolean }>`
     height: 32px;
 
     path {
-      fill: ${({ theme, isClicked }) =>
-        isClicked ? theme.main : theme.gray01};
+      fill: ${({ theme, isClicked }) => (isClicked ? theme.main : theme.gray01)};
     }
   }
 
@@ -165,14 +164,13 @@ export const ScrapIconWrapper = styled.div<{ isScraped: boolean }>`
     width: 30px;
     height: 30px;
     path {
-      fill: ${({ theme, isScraped }) =>
-        isScraped ? theme.main : theme.gray01};
+      fill: ${({ theme, isScraped }) => (isScraped ? theme.main : theme.gray01)};
     }
   }
 `;
 
 export const CreateScrapFolder = styled.div<{ isOpen: boolean }>`
-  display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
+  display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
   left: 0;
   right: 0;
   bottom: 0;

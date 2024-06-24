@@ -1,12 +1,12 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
-export const Header = styled.header<{ position: "bottom" | "top" }>`
+export const Header = styled.header<{ position: 'bottom' | 'top' }>`
   width: 100%;
   padding: 20px 16px 12px;
   background-color: ${({ theme }) => theme.white};
 
   ${({ position }) =>
-    position === "bottom"
+    position === 'bottom'
       ? css`
           position: absolute;
           top: 0;
@@ -24,9 +24,9 @@ export const CommentCountSpan = styled.span`
   color: ${({ theme }) => theme.main};
 `;
 
-export const Contents = styled.div<{ position: "bottom" | "top" }>`
+export const Contents = styled.div<{ position: 'bottom' | 'top' }>`
   ${({ position }) =>
-    position === "bottom"
+    position === 'bottom'
       ? css`
           height: 80dvh;
           padding: 35px 0 120px;
@@ -37,7 +37,7 @@ export const Contents = styled.div<{ position: "bottom" | "top" }>`
         `};
 `;
 
-export const CommentInputForm = styled.form<{ position: "bottom" | "top" }>`
+export const CommentInputForm = styled.form<{ position: 'bottom' | 'top' }>`
   display: flex;
   flex-wrap: nowrap;
   gap: 7px;
@@ -47,7 +47,7 @@ export const CommentInputForm = styled.form<{ position: "bottom" | "top" }>`
   background-color: ${({ theme }) => theme.white};
 
   ${({ position }) =>
-    position === "bottom"
+    position === 'bottom'
       ? css`
           position: absolute;
           padding: 17px 16px 27px 10px;
@@ -117,7 +117,7 @@ export const SendButton = styled.button<{ disabled: boolean }>`
   padding: 0;
   width: 30px;
 
-  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   border: 0;
   background-color: transparent;
 

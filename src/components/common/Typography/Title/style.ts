@@ -1,7 +1,7 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 interface Props {
-  size: "sm" | "md" | "lg";
+  size: 'sm' | 'md' | 'lg';
   noOfLine?: number;
   maxWidth?: number;
   color?: string;
@@ -9,17 +9,17 @@ interface Props {
 
 export const Title = styled.h3<Props>`
   ${({ theme, size, color }) => {
-    const COLOR = color ? color : theme.black;
+    const COLOR = color || theme.black;
 
     switch (size) {
-      case "lg":
+      case 'lg':
         return css`
           color: ${COLOR};
           font-size: 16px;
           font-weight: 600;
           line-height: 28px;
         `;
-      case "md":
+      case 'md':
         return css`
           color: ${COLOR};
           font-size: 14px;
@@ -27,7 +27,7 @@ export const Title = styled.h3<Props>`
           line-height: 24px;
           letter-spacing: 0.15px;
         `;
-      case "sm":
+      case 'sm':
         return css`
           color: ${COLOR};
           font-size: 12px;
@@ -42,11 +42,10 @@ export const Title = styled.h3<Props>`
   overflow-wrap: anywhere;
   word-break: keep-all;
   overflow-wrap: anywhere;
-  max-width: ${({ maxWidth }) => (maxWidth ? `${maxWidth}px` : "100%")};
+  max-width: ${({ maxWidth }) => (maxWidth ? `${maxWidth}px` : '100%')};
   text-overflow: ellipsis;
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: ${({ noOfLine }) => (noOfLine ? noOfLine : 1)};
+  -webkit-line-clamp: ${({ noOfLine }) => noOfLine || 1};
   -webkit-box-orient: vertical;
-
 `;

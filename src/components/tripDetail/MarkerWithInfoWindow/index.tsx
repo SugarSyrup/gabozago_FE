@@ -1,12 +1,8 @@
-import * as S from "./style";
-import {
-  AdvancedMarker,
-  useAdvancedMarkerRef,
-  InfoWindow,
-} from "@vis.gl/react-google-maps";
-import { useCallback, useState } from "react";
-import MarkerIcon from "../../../assets/icons/marker.svg?react";
-import Typography from "../../common/Typography";
+import { AdvancedMarker, useAdvancedMarkerRef, InfoWindow } from '@vis.gl/react-google-maps';
+import { useCallback, useState } from 'react';
+import * as S from './style';
+import MarkerIcon from '../../../assets/icons/marker.svg?react';
+import Typography from '../../common/Typography';
 
 interface Props {
   color: string;
@@ -30,39 +26,25 @@ function MarkerWithInfoWindow({
   const [markerRef, marker] = useAdvancedMarkerRef();
   const [infoWindowShown, setInfoWindowShown] = useState(false);
 
-  const handleMarkerClick = useCallback(
-    () => setInfoWindowShown((isShown) => !isShown),
-    []
-  );
+  const handleMarkerClick = useCallback(() => setInfoWindowShown((isShown) => !isShown), []);
   const handleClose = useCallback(() => setInfoWindowShown(false), []);
 
   return (
     <>
-      <AdvancedMarker
-        ref={markerRef}
-        position={position}
-        onClick={handleMarkerClick}
-      >
+      <AdvancedMarker ref={markerRef} position={position} onClick={handleMarkerClick}>
         <S.PinContainer color={color}>
           <MarkerIcon />
           <span>{index}</span>
         </S.PinContainer>
       </AdvancedMarker>
       {infoWindowShown && (
-        <InfoWindow
-          maxWidth={250}
-          anchor={marker}
-          onClose={handleClose}
-          shouldFocus={true}
-        >
+        <InfoWindow maxWidth={250} anchor={marker} onClose={handleClose} shouldFocus>
           <S.InfoTopContainer>
             <p>
               <Typography.Title size="md" noOfLine={2}>
                 {placeName}
               </Typography.Title>
-              {placeTheme && (
-                <Typography.Label size="md">{placeTheme}</Typography.Label>
-              )}
+              {placeTheme && <Typography.Label size="md">{placeTheme}</Typography.Label>}
             </p>
             {address && (
               <p>

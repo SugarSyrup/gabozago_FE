@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
@@ -16,7 +16,7 @@ export const FixedControlBox = styled.div`
 
   z-index: 20;
   background-color: ${({ theme }) => theme.white};
-  padding-top:10px;
+  padding-top: 10px;
 `;
 
 export const CategoryList = styled.ol`

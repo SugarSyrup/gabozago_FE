@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Header = styled.header`
   width: 100%;
@@ -65,8 +65,7 @@ export const Button = styled.button<{ isActive: boolean }>`
   gap: 10px;
 
   color: white;
-  background-color: ${({ isActive, theme }) =>
-    isActive ? theme.main : "#A6A6A6"};
+  background-color: ${({ isActive, theme }) => (isActive ? theme.main : '#A6A6A6')};
   cursor: pointer;
   border: none;
 
@@ -92,9 +91,9 @@ export const PopupWrapper = styled.div<{ isOpen: boolean }>`
   max-height: 100dvh;
   width: 100%;
   height: 100dvh;
- @supports (-webkit-touch-callout: none) {
-  height: -webkit-fill-available;
-}
+  @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+  }
 `;
 
 export const PopupContentsContainer = styled.div`
@@ -150,8 +149,7 @@ export const PopupButton = styled.button<{ isMain: boolean }>`
   justify-content: center;
   align-items: center;
 
-  background-color: ${({ isMain, theme }) =>
-    isMain ? "#F3F6FF" : theme.gray06};
+  background-color: ${({ isMain, theme }) => (isMain ? '#F3F6FF' : theme.gray06)};
   color: ${({ isMain, theme }) => (isMain ? theme.main : theme.black)};
   cursor: pointer;
 `;

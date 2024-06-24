@@ -1,21 +1,21 @@
-import { atom, selector } from "recoil";
+import { atom, selector } from 'recoil';
 
-export const planViewModeState = atom<"NOPLAN" | "PLAN" | "EDIT">({
-  key: "editModeState",
-  default: "NOPLAN",
+export const planViewModeState = atom<'NOPLAN' | 'PLAN' | 'EDIT'>({
+  key: 'editModeState',
+  default: 'NOPLAN',
 });
 
-type InfoViewSize = "default" | "sm" | "xs";
+type InfoViewSize = 'default' | 'sm' | 'xs';
 export const tripInfoSizeState = selector<InfoViewSize>({
-  key: "tripInfoSizeState",
+  key: 'tripInfoSizeState',
   get: ({ get }) => {
     const planViewMode = get(planViewModeState);
-    if (planViewMode === "PLAN") {
-      return "sm";
-    } else if (planViewMode === "EDIT") {
-      return "xs";
-    } else {
-      return "default";
+    if (planViewMode === 'PLAN') {
+      return 'sm';
     }
+    if (planViewMode === 'EDIT') {
+      return 'xs';
+    }
+    return 'default';
   },
 });

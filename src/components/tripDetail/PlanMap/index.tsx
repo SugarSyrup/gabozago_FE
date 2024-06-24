@@ -1,12 +1,12 @@
-import * as S from "./style";
-import { useEffect, useRef, useState } from "react";
-import ChevronBottomIcon from "../../../assets/icons/chevron_bottom.svg?react";
-import ChevronTopIcon from "../../../assets/icons/chevron_top.svg?react";
-import { DayPlan } from "../TripPlanList";
-import { markerColors } from "../../../pages/mytrip/DetailPage";
-import MarkerWithInfoWindow from "../MarkerWithInfoWindow";
-import { Map, useMap } from "@vis.gl/react-google-maps";
-import Polyline from "../Polyline";
+import { useEffect, useRef, useState } from 'react';
+import { Map, useMap } from '@vis.gl/react-google-maps';
+import * as S from './style';
+import ChevronBottomIcon from '../../../assets/icons/chevron_bottom.svg?react';
+import ChevronTopIcon from '../../../assets/icons/chevron_top.svg?react';
+import { DayPlan } from '../TripPlanList';
+import { markerColors } from '../../../pages/mytrip/DetailPage';
+import MarkerWithInfoWindow from '../MarkerWithInfoWindow';
+import Polyline from '../Polyline';
 
 interface Props {
   isEditMode: boolean;
@@ -18,7 +18,7 @@ function PlanMap({ isEditMode, data = [], dayFilter }: Props) {
   const [mapOpened, setMapOpend] = useState<boolean>(true);
   const [mapFocused, setMapFocused] = useState<boolean>(false);
   const [coords, setCoords] = useState<google.maps.LatLngLiteral[]>([]);
-  const map = useMap("plan-map");
+  const map = useMap('plan-map');
   const mapRef = useRef<HTMLDivElement>(null);
 
   const setBounds = (coords: google.maps.LatLngLiteral[]) => {
@@ -68,17 +68,17 @@ function PlanMap({ isEditMode, data = [], dayFilter }: Props) {
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("touchstart", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("touchstart", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
     };
   }, [mapRef]);
 
   const getlineSymbol = (color: string) => ({
-    path: "M 0,-1 0,1",
+    path: 'M 0,-1 0,1',
     strokeOpacity: 1,
     scale: 4,
     strokeColor: color,
@@ -89,14 +89,14 @@ function PlanMap({ isEditMode, data = [], dayFilter }: Props) {
       <Map
         id="plan-map"
         style={{
-          width: "100%",
-          height: !mapOpened ? "0px" : mapFocused ? "380px" : "275px",
-          transition: "all 0.3s ease-in-out",
+          width: '100%',
+          height: !mapOpened ? '0px' : mapFocused ? '380px' : '275px',
+          transition: 'all 0.3s ease-in-out',
         }}
         defaultCenter={{ lat: 35.1855, lng: 129.0741 }}
         defaultZoom={12}
-        gestureHandling={"greedy"}
-        disableDefaultUI={true}
+        gestureHandling="greedy"
+        disableDefaultUI
         mapId={import.meta.env.VITE_GOOGLEMAP_MAP_ID}
         onClick={() => {
           setMapFocused(true);
@@ -112,15 +112,13 @@ function PlanMap({ isEditMode, data = [], dayFilter }: Props) {
                     lat: latitude,
                     lng: longitude,
                   }))}
-                  strokeColor={"transpert"}
+                  strokeColor="transpert"
                   strokeOpacity={0}
                   icons={[
                     {
-                      icon: getlineSymbol(
-                        markerColors[dayIndex % markerColors.length]
-                      ),
-                      offset: "0",
-                      repeat: "20px",
+                      icon: getlineSymbol(markerColors[dayIndex % markerColors.length]),
+                      offset: '0',
+                      repeat: '20px',
                     },
                   ]}
                 />
@@ -137,7 +135,7 @@ function PlanMap({ isEditMode, data = [], dayFilter }: Props) {
                   />
                 ))}
               </>
-            )
+            ),
         )}
       </Map>
       <S.MapOpenButton

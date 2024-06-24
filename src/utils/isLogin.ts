@@ -1,12 +1,11 @@
-
 function isLogin() {
-    const access = localStorage.getItem("access_token");
+  const access = localStorage.getItem('access_token');
 
-    if(access === "null" || access === null || !access) {
-        return false;
-    }
+  if (access === 'null' || access === null || !access) {
+    return false;
+  }
 
-    return true;
+  return true;
 }
 
 export default isLogin;

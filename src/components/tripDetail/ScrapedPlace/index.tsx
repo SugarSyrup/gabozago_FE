@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
-import { selectedPlacesState } from "../../../recoil/mytrip/selectedPlacesState";
-import BookMarkIcon from "../../../assets/icons/bookmark_filled.svg?react";
-import { get } from "../../../utils/api";
+import { useEffect, useState } from 'react';
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
+import { selectedPlacesState } from '../../../recoil/mytrip/selectedPlacesState';
+import BookMarkIcon from '../../../assets/icons/bookmark_filled.svg?react';
+import { get } from '../../../utils/api';
 import {
   activeScrapPlaceFilterListState,
   scrapPlaceFilterState,
-} from "../../../recoil/filters/scrapPlaceFilterState";
-import FilterList from "../../common/FilterList";
-import Typography from "../../common/Typography";
-import * as S from "./style";
-import { TFilter } from "../../../assets/types/FilterTypes";
+} from '../../../recoil/filters/scrapPlaceFilterState';
+import FilterList from '../../common/FilterList';
+import Typography from '../../common/Typography';
+import * as S from './style';
+import { TFilter } from '../../../assets/types/FilterTypes';
 
 interface Props {
   popupOpen: () => void;
@@ -30,24 +30,21 @@ function ScrapedPlace({ popupOpen, setNewLocation, setNewRegion, locations }: Pr
   const [filter, setFilter] = useRecoilState<TFilter>(scrapPlaceFilterState);
   const activeFilter = useRecoilValue(activeScrapPlaceFilterListState);
   const [places, setPlaces] = useState<Place[]>([]);
-  const [selectedPlaces, setSelectedPlaces] =
-    useRecoilState(selectedPlacesState);
+  const [selectedPlaces, setSelectedPlaces] = useRecoilState(selectedPlacesState);
 
   const getPlaces = async () => {
-    const token = localStorage.getItem("access_token");
+    const token = localStorage.getItem('access_token');
     if (token) {
       const { data } = await get<{
         next: string | null;
         previous: string | null;
         results: Place[];
-      }>(`folder/scrap/place`, {
+      }>('folder/scrap/place', {
         params: {
-          location: filter.location.join(","),
+          location: filter.location.join(','),
         },
       });
       setPlaces(data.results);
-
-      return;
     }
   };
 
@@ -60,7 +57,7 @@ function ScrapedPlace({ popupOpen, setNewLocation, setNewRegion, locations }: Pr
       <S.FilterContainer>
         <FilterList
           filterType="scrapPlace"
-          filters={[{ name: "location", options: null }]}
+          filters={[{ name: 'location', options: null }]}
           filterState={filter}
           setFilterState={setFilter}
           activeFilterState={activeFilter}
@@ -85,42 +82,33 @@ function ScrapedPlace({ popupOpen, setNewLocation, setNewRegion, locations }: Pr
             </div>
             <S.Button
               isActive={
-                selectedPlaces.find(
-                  (selectedPlace) => selectedPlace.id === item.id
-                ) !== undefined
+                selectedPlaces.find((selectedPlace) => selectedPlace.id === item.id) !== undefined
               }
               onClick={() => {
                 if (
-                  selectedPlaces.find(
-                    (selectedPlace) => selectedPlace.id === item.id
-                  ) !== undefined
+                  selectedPlaces.find((selectedPlace) => selectedPlace.id === item.id) !== undefined
                 ) {
                   setSelectedPlaces((prev) =>
-                    prev.filter((SelectedPlace) => SelectedPlace.id !== item.id)
+                    prev.filter((SelectedPlace) => SelectedPlace.id !== item.id),
                   );
                 } else {
-                  get<{ region: string }>(`/place/${item.id}`).then(
-                    (response) => {
-                      setSelectedPlaces((prev) => [
-                        ...prev,
-                        {
-                          name: item.name,
-                          thumbnail: "",
-                          id: item.id,
-                          location: response.data.region,
-                        },
-                      ]);
+                  get<{ region: string }>(`/place/${item.id}`).then((response) => {
+                    setSelectedPlaces((prev) => [
+                      ...prev,
+                      {
+                        name: item.name,
+                        thumbnail: '',
+                        id: item.id,
+                        location: response.data.region,
+                      },
+                    ]);
 
-                      if (
-                        locations &&
-                        !locations.includes(response.data.region)
-                      ) {
-                        setNewLocation(response.data.region);
-                        setNewRegion(item.name);
-                        popupOpen();
-                      }
+                    if (locations && !locations.includes(response.data.region)) {
+                      setNewLocation(response.data.region);
+                      setNewRegion(item.name);
+                      popupOpen();
                     }
-                  );
+                  });
                 }
               }}
             >

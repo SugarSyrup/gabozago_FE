@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const List = styled.ol`
   display: flex;
@@ -23,7 +23,7 @@ export const Item = styled.li`
   }
 
   &::before {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     left: 0;
@@ -35,7 +35,7 @@ export const Item = styled.li`
   }
 
   &:not(:last-child):after {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     left: 5px;

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const HeaderContainer = styled.div`
   background-color: ${({ theme }) => theme.white};
@@ -25,7 +25,7 @@ export const TabBarContainer = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    content: "";
+    content: '';
     display: block;
     width: 100%;
     height: 2px;

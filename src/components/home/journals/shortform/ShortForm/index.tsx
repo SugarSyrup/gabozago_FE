@@ -1,25 +1,25 @@
-import * as S from "./style";
-import YouTube from "react-youtube";
-import { Link, useNavigate } from "react-router-dom";
-import { Suspense, useEffect, useRef, useState } from "react";
-import UserIcon from "../../../../../assets/icons/user.svg?react";
-import LocationIcon from "../../../../../assets/icons/location.svg?react";
-import ThemeIcon from "../../../../../assets/icons/theme.svg?react";
-import BookMarkIcon from "../../../../../assets/icons/bookmark.svg?react";
-import FilledBookMarkIcon from "../../../../../assets/icons/bookmark_filled_white.svg?react";
-import CommentIcon from "../../../../../assets/icons/comment.svg?react";
-import LikeIcon from "../../../../../assets/icons/clap.svg?react";
-import FilledLikeIcon from "../../../../../assets/icons/clap_blue.svg?react";
-import PlaceIcon from "../../../../../assets/icons/place.svg?react";
-import ShareIcon from "../../../../../assets/icons/share.svg?react";
-import { get, post } from "../../../../../utils/api";
-import useModal from "../../../../../hooks/useModal";
-import useScrapModal from "../../../../video/useScrapModal";
-import PlacesModalContents from "../PlacesModalContents";
-import useAlert from "../../../../../hooks/useAlert";
-import Typography from "../../../../common/Typography";
-import usePopup from "../../../../../hooks/usePopup";
-import Comment from "../../../../journal/Comment";
+import YouTube from 'react-youtube';
+import { Link, useNavigate } from 'react-router-dom';
+import { Suspense, useEffect, useRef, useState } from 'react';
+import * as S from './style';
+import UserIcon from '../../../../../assets/icons/user.svg?react';
+import LocationIcon from '../../../../../assets/icons/location.svg?react';
+import ThemeIcon from '../../../../../assets/icons/theme.svg?react';
+import BookMarkIcon from '../../../../../assets/icons/bookmark.svg?react';
+import FilledBookMarkIcon from '../../../../../assets/icons/bookmark_filled_white.svg?react';
+import CommentIcon from '../../../../../assets/icons/comment.svg?react';
+import LikeIcon from '../../../../../assets/icons/clap.svg?react';
+import FilledLikeIcon from '../../../../../assets/icons/clap_blue.svg?react';
+import PlaceIcon from '../../../../../assets/icons/place.svg?react';
+import ShareIcon from '../../../../../assets/icons/share.svg?react';
+import { get, post } from '../../../../../utils/api';
+import useModal from '../../../../../hooks/useModal';
+import useScrapModal from '../../../../video/useScrapModal';
+import PlacesModalContents from '../PlacesModalContents';
+import useAlert from '../../../../../hooks/useAlert';
+import Typography from '../../../../common/Typography';
+import usePopup from '../../../../../hooks/usePopup';
+import Comment from '../../../../journal/Comment';
 
 export interface TShortForm {
   id: number;
@@ -65,12 +65,12 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
   const playerRef = useRef<YouTube>(null);
   const [isCaptionOpened, setIsCaptionOpened] = useState<boolean>(false);
   const { Modal: PlacesModal, modalOpen: placesModalOpen } = useModal({
-    title: "태그된 장소",
+    title: '태그된 장소',
     handle: true,
   });
   const { ScrapModal, scrapModalOpen } = useScrapModal({
     id: shortFormId,
-    type: "short-form",
+    type: 'short-form',
     setIsScraped: () => {
       setBookmark((prev) => ({
         count: prev.isActive ? prev.count - 1 : prev.count + 1,
@@ -88,9 +88,9 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
     RightContent: (
       <Typography.Body size="lg" color="white">
         <span
-          style={{ textDecoration: "underline", cursor: "pointer" }}
+          style={{ textDecoration: 'underline', cursor: 'pointer' }}
           onClick={() => {
-            navigate("/login");
+            navigate('/login');
           }}
         >
           로그인 하러가기
@@ -100,8 +100,8 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
   });
 
   const toggleClap = async () => {
-    post<{ community: string; postId: number }>("/clap/community", {
-      community: "short-form",
+    post<{ community: string; postId: number }>('/clap/community', {
+      community: 'short-form',
       postId: shortFormId,
     });
     if (clap.isActive) {
@@ -122,9 +122,9 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
   };
 
   const { Modal, modalOpen } = useModal({
-    title: "",
+    title: '',
     handle: false,
-    borderRadius: "16px",
+    borderRadius: '16px',
   });
   const { Popup, popupOpen, popupClose } = usePopup();
   const { Alert: UrlAlert, alertOpen: urlAlertOpen } = useAlert({
@@ -136,9 +136,9 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
   });
 
   const createCopyURL = (id: number) => {
-    const arr = window.location.href.split("/").slice(0, -1);
+    const arr = window.location.href.split('/').slice(0, -1);
     arr.push(String(id));
-    return arr.join("/");
+    return arr.join('/');
   };
 
   useEffect(() => {
@@ -153,15 +153,13 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
 
   useEffect(() => {
     const { current: container } = containerRef;
-    playerRef.current
-      ?.getInternalPlayer()
-      .setSize("100%", container?.offsetHeight);
+    playerRef.current?.getInternalPlayer().setSize('100%', container?.offsetHeight);
   }, [data]);
 
   useEffect(() => {
     const options = {
       root: null,
-      rootMargin: "0px",
+      rootMargin: '0px',
       threshold: 0.1,
     };
 
@@ -169,9 +167,7 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const fetchData = async () => {
-            const { data } = await get<TShortForm>(
-              `/community/short-form/${shortFormId}`
-            );
+            const { data } = await get<TShortForm>(`/community/short-form/${shortFormId}`);
             setData(data);
             setContentsCommentCount(data.commentCount);
             setClap({ count: data.clap, isActive: data.isClapped });
@@ -202,16 +198,14 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
             <Comment
               id={shortFormId}
               commentInputPosition="bottom"
-              type={"short-form"}
+              type="short-form"
               commentCount={data.commentCount}
               setContentsCommentCount={setContentsCommentCount}
             />
           </Modal>
           <Popup>
             <S.UrlLabel htmlFor="urlCopy">
-              <Typography.Title size="md">
-                아래 링크를 복사해 공유해보세요!
-              </Typography.Title>
+              <Typography.Title size="md">아래 링크를 복사해 공유해보세요!</Typography.Title>
             </S.UrlLabel>
             <S.UrlInput
               type="url"
@@ -220,9 +214,7 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
               value={createCopyURL(shortFormId)}
               onClick={(e) => {
                 e.preventDefault();
-                navigator.clipboard.writeText(
-                  `${data.title}\n${createCopyURL(shortFormId)}`
-                );
+                navigator.clipboard.writeText(`${data.title}\n${createCopyURL(shortFormId)}`);
                 urlAlertOpen();
                 popupClose();
               }}
@@ -230,20 +222,15 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
           </Popup>
           <ScrapModal />
           <S.Container>
-            <S.YoutubeContainer
-              isCaptionOpened={isCaptionOpened}
-              ref={containerRef}
-            >
-              <Suspense
-                fallback={<S.YoutubeFallback>로딩 중...</S.YoutubeFallback>}
-              >
+            <S.YoutubeContainer isCaptionOpened={isCaptionOpened} ref={containerRef}>
+              <Suspense fallback={<S.YoutubeFallback>로딩 중...</S.YoutubeFallback>}>
                 <YouTube
                   videoId={videoId}
                   ref={playerRef}
                   loading="lazy"
                   opts={{
-                    width: "100%",
-                    height: "100px",
+                    width: '100%',
+                    height: '100px',
                     playerVars: {
                       autoplay: 1,
                       controls: 0,
@@ -271,11 +258,7 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
               {/* 업로드 유저 프로필 */}
               <p>
                 <S.ProgileImageBox>
-                  {data.profileImage ? (
-                    <img src={data.profileImage} alt="" />
-                  ) : (
-                    <UserIcon />
-                  )}
+                  {data.profileImage ? <img src={data.profileImage} alt="" /> : <UserIcon />}
                 </S.ProgileImageBox>
                 <span>
                   <Typography.Body size="lg" color="white">
@@ -293,9 +276,9 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
                 }}
               >
                 {isCaptionOpened ? (
-                  data.content.split("\n").map((line) => <p>{line}</p>)
+                  data.content.split('\n').map((line) => <p>{line}</p>)
                 ) : (
-                  <p>{data.content.split("\n")[0]}</p>
+                  <p>{data.content.split('\n')[0]}</p>
                 )}
               </S.ContentBox>
               <S.BottomInfoContainer>
@@ -306,7 +289,7 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
                 {data.theme.length > 0 && (
                   <span>
                     <ThemeIcon />
-                    {data.theme.join(", ")}
+                    {data.theme.join(', ')}
                   </span>
                 )}
               </S.BottomInfoContainer>
@@ -314,7 +297,7 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
             <S.ControlBox>
               <S.IconButton
                 onClick={() => {
-                  if (localStorage.getItem("access_token")) {
+                  if (localStorage.getItem('access_token')) {
                     toggleClap();
                   } else {
                     loginAlertOpen();
@@ -326,7 +309,7 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
               </S.IconButton>
               <S.IconButton
                 onClick={() => {
-                  if (localStorage.getItem("access_token")) {
+                  if (localStorage.getItem('access_token')) {
                     modalOpen();
                   } else {
                     loginAlertOpen();
@@ -339,14 +322,14 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
               <S.IconButton
                 onClick={(e) => {
                   e.preventDefault();
-                  if (localStorage.getItem("access_token")) {
+                  if (localStorage.getItem('access_token')) {
                     if (!bookmark.isActive) {
-                      post<{ message: "Create Success" | "Delete Success" }>(
-                        `/folder/scrap/community`,
+                      post<{ message: 'Create Success' | 'Delete Success' }>(
+                        '/folder/scrap/community',
                         {
-                          community: "short-form",
+                          community: 'short-form',
                           postId: shortFormId,
-                        }
+                        },
                       ).then(() => {
                         setBookmark((prev) => ({
                           count: prev.count + 1,
@@ -365,7 +348,7 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
               </S.IconButton>
               <S.IconButton
                 onClick={() => {
-                  if (localStorage.getItem("access_token")) {
+                  if (localStorage.getItem('access_token')) {
                     placesModalOpen();
                   } else {
                     loginAlertOpen();
@@ -381,7 +364,7 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
           </S.Container>
         </>
       )}
-      {!data && <div ref={loadingRef} style={{ height: "100dvh" }}></div>}
+      {!data && <div ref={loadingRef} style={{ height: '100dvh' }} />}
     </>
   );
 }

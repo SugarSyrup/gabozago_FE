@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import BookMarkIcon from "../../assets/icons/bookmark.svg?react";
-import FullBookMarkIcon from "../../assets/icons/bookmark_filled_white.svg?react";
+import BookMarkIcon from '../../assets/icons/bookmark.svg?react';
+import FullBookMarkIcon from '../../assets/icons/bookmark_filled_white.svg?react';
 
 interface Props {
   currentBookMarked: boolean;

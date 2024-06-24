@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Header = styled.div`
   width: 100%;
@@ -41,8 +41,7 @@ export const TabNavigation = styled.div`
 `;
 
 export const NavigationItem = styled.div<{ isHighlight: boolean }>`
-  color: ${({ theme, isHighlight }) =>
-    isHighlight ? theme.black : theme.gray01};
+  color: ${({ theme, isHighlight }) => (isHighlight ? theme.black : theme.gray01)};
   font-size: 14px;
   font-style: normal;
   font-weight: ${({ isHighlight }) => (isHighlight ? 700 : 500)};
@@ -63,7 +62,7 @@ export const HighlightLine = styled.div<{ isHighlight: boolean }>`
   border-bottom: ${({ theme }) => `2px solid ${theme.main}`};
 
   position: absolute;
-  left: ${({ isHighlight }) => (isHighlight ? "0px" : "50%")};
+  left: ${({ isHighlight }) => (isHighlight ? '0px' : '50%')};
   bottom: -2px;
 
   transition: left 0.2s ease-in-out;
@@ -80,12 +79,12 @@ export const Contents = styled.div`
 
 export const Footer = styled.footer`
   position: fixed;
-  bottom:0px;
+  bottom: 0px;
 
   width: 100%;
-  max-width:500px;
-  margin-left:-20px;
-  padding:15px 30px;
+  max-width: 500px;
+  margin-left: -20px;
+  padding: 15px 30px;
 
   background-color: ${({ theme }) => theme.gray07};
   border-top: ${({ theme }) => `1px solid ${theme.gray04}`};
@@ -173,8 +172,7 @@ export const PopupButton = styled.button<{ isMain: boolean }>`
   justify-content: center;
   align-items: center;
 
-  background-color: ${({ isMain, theme }) =>
-    isMain ? "#F3F6FF" : theme.gray06};
+  background-color: ${({ isMain, theme }) => (isMain ? '#F3F6FF' : theme.gray06)};
   color: ${({ isMain, theme }) => (isMain ? theme.main : theme.black)};
   cursor: pointer;
 `;

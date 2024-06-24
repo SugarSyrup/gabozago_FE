@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Card = styled.div`
   width: 100%;
@@ -7,8 +7,8 @@ export const Card = styled.div`
   border-radius: 10px;
   background-color: ${({ theme }) => theme.gray06};
 
-    position: relative;
-    cursor: pointer;
+  position: relative;
+  cursor: pointer;
 `;
 
 export const InfoContainer = styled.div`
@@ -41,10 +41,10 @@ export const ThumbnailWrapper = styled.div`
     height: 24px;
   }
 
-  img{
-      width:100%;
-      height:100%;
-      border-radius: 100%;
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
   }
 `;
 
@@ -79,9 +79,9 @@ export const Info = styled.span`
 `;
 
 export const MenuIcon = styled.div`
-    cursor:pointer;
-    position: absolute;
-    z-index:10;
-    right: 15px;
-    top: 15px;
+  cursor: pointer;
+  position: absolute;
+  z-index: 10;
+  right: 15px;
+  top: 15px;
 `;

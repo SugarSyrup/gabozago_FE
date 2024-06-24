@@ -1,26 +1,35 @@
-import loadImage from "blueimp-load-image";
-import * as S from "./style";
-import { useState } from "react";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import loadImage from 'blueimp-load-image';
+import { useState } from 'react';
+import { useLoaderData, useNavigate } from 'react-router-dom';
+import * as S from './style';
 
-import PageTemplate from "../../../components/common/PageTemplate";
-import Heading from "../../../components/common/Heading";
+import PageTemplate from '../../../components/common/PageTemplate';
+import Heading from '../../../components/common/Heading';
 
-import { TUserProfile } from "../../../assets/types/TUserProfile";
-import XIcon from "../../../assets/icons/x.svg?react";
-import UserIcon from "../../../assets/icons/user.svg?react";
-import CameraCircleIcon from "../../../assets/icons/camera_circle.svg?react";
-import KakaoIcon from "../../../assets/icons/kakao.svg?react";
-import InputContainer from "../../../components/common/InputContainer";
-import ExtraButton from "../../../components/common/ExtraButton";
-import usePopup from "../../../hooks/usePopup";
-import { BrandIcon } from "../../auth/SignUpPage/style";
-import Typography from "../../../components/common/Typography";
-import { patch } from "../../../utils/api";
-import Nickname from "../../../components/signUp/Nickname";
+import { TUserProfile } from '../../../assets/types/TUserProfile';
+import XIcon from '../../../assets/icons/x.svg?react';
+import UserIcon from '../../../assets/icons/user.svg?react';
+import CameraCircleIcon from '../../../assets/icons/camera_circle.svg?react';
+import KakaoIcon from '../../../assets/icons/kakao.svg?react';
+import InputContainer from '../../../components/common/InputContainer';
+import ExtraButton from '../../../components/common/ExtraButton';
+import usePopup from '../../../hooks/usePopup';
+import { BrandIcon } from '../../auth/SignUpPage/style';
+import Typography from '../../../components/common/Typography';
+import { patch } from '../../../utils/api';
+import Nickname from '../../../components/signUp/Nickname';
 
 function UserEditPage() {
-  const { id, nickname, description, avatarURL, clapCount, scrapCount, myTravelCount, myTravelDay } = useLoaderData() as TUserProfile;
+  const {
+    id,
+    nickname,
+    description,
+    avatarURL,
+    clapCount,
+    scrapCount,
+    myTravelCount,
+    myTravelDay,
+  } = useLoaderData() as TUserProfile;
   const { Popup, popupOpen, popupClose } = usePopup();
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [nameValue, setNameValue] = useState(nickname);
@@ -38,59 +47,63 @@ function UserEditPage() {
           <Typography.Title size="lg">정말 로그아웃 하시겠습니까?</Typography.Title>
           <div>
             <S.PopupConfirmButton
-              type={"secondary"}
+              type="secondary"
               onClick={() => {
                 popupClose();
               }}
             >
-              <Typography.Label size="lg" color="inherit">취소</Typography.Label>
+              <Typography.Label size="lg" color="inherit">
+                취소
+              </Typography.Label>
             </S.PopupConfirmButton>
             <S.PopupConfirmButton
-              type={"primary"}
+              type="primary"
               onClick={() => {
                 popupClose();
-                localStorage.removeItem("access_token");
-                localStorage.removeItem("refresh_token");
-                navigate("/");
+                localStorage.removeItem('access_token');
+                localStorage.removeItem('refresh_token');
+                navigate('/');
               }}
             >
-              <Typography.Label size="lg" color="inherit">확인</Typography.Label>
+              <Typography.Label size="lg" color="inherit">
+                확인
+              </Typography.Label>
             </S.PopupConfirmButton>
           </div>
         </S.PopupContainer>
       </Popup>
-      <S.Form 
-          onSubmit={(e) => {
-            e.preventDefault();
-            const formdata = new FormData(e.currentTarget);
-            
-            if (isNicknameOk || descValue !== description || isAvatarChanged) {
-              loadImage(formdata.get("avatar") as File, function (img, data) {
-                if(data === undefined) return ;
+      <S.Form
+        onSubmit={(e) => {
+          e.preventDefault();
+          const formdata = new FormData(e.currentTarget);
+
+          if (isNicknameOk || descValue !== description || isAvatarChanged) {
+            loadImage(
+              formdata.get('avatar') as File,
+              (img, data) => {
+                if (data === undefined) return;
                 if (data.imageHead && data.exif) {
                   loadImage.writeExifData(data.imageHead, data, 'Orientation', 1);
-                  img.toBlob(function (blob) {
-                    loadImage.replaceHead(blob, data.imageHead, async function (newBlob) {
+                  img.toBlob((blob) => {
+                    loadImage.replaceHead(blob, data.imageHead, async (newBlob) => {
                       formdata.set('avatar', newBlob);
 
-                      patch('/user/profile', formdata)
-                        .then(() => {
-                          navigate(-1);
-                        });
+                      patch('/user/profile', formdata).then(() => {
+                        navigate(-1);
+                      });
                     });
                   }, 'image/jpeg');
                 } else {
-                  patch('/user/profile', formdata)
-                    .then(() => {
-                      navigate(-1);
-                    });
+                  patch('/user/profile', formdata).then(() => {
+                    navigate(-1);
+                  });
                 }
-              }, 
-              { meta: true, orientation: true, canvas: true })
-              
-            }
-          }}
-        >
+              },
+              { meta: true, orientation: true, canvas: true },
+            );
+          }
+        }}
+      >
         <S.Header>
           <S.CloseIconWrapper>
             <XIcon
@@ -108,35 +121,43 @@ function UserEditPage() {
           </S.SubmitBtn>
         </S.Header>
         <S.AvatarWrapper>
-          {
-            userAvatarURL === "" ?
+          {userAvatarURL === '' ? (
             <UserIcon width={90} height={90} />
-            :
-            <img src={userAvatarURL} style={{
-              width:"90px",
-              height:"90px",
-              borderRadius:"100%",
-              objectFit:"cover"
-            }}/>
-          }
+          ) : (
+            <img
+              src={userAvatarURL}
+              style={{
+                width: '90px',
+                height: '90px',
+                borderRadius: '100%',
+                objectFit: 'cover',
+              }}
+            />
+          )}
           <S.CameraIconWrapper htmlFor="avatar">
             <CameraCircleIcon width={24} height={24} />
           </S.CameraIconWrapper>
-          <input type="file" name="avatar" id="avatar" accept="image/*" onInput={(e) => {
-            if(e.currentTarget.files){
-              const file = e.currentTarget.files[0];
-              const reader = new FileReader();
+          <input
+            type="file"
+            name="avatar"
+            id="avatar"
+            accept="image/*"
+            onInput={(e) => {
+              if (e.currentTarget.files) {
+                const file = e.currentTarget.files[0];
+                const reader = new FileReader();
 
-              reader.readAsDataURL(file);
-              reader.onloadend = () => {
-                setUserAvatarURL(reader.result as string);
-                setAvatarFile(file);
-                setIsAvatarChanged(true);
+                reader.readAsDataURL(file);
+                reader.onloadend = () => {
+                  setUserAvatarURL(reader.result as string);
+                  setAvatarFile(file);
+                  setIsAvatarChanged(true);
+                };
               }
-            }
-          }}/>
+            }}
+          />
         </S.AvatarWrapper>
-       <Nickname setIsNicknameOk={setIsNicknameOk} defaultValue={nickname}/>
+        <Nickname setIsNicknameOk={setIsNicknameOk} defaultValue={nickname} />
         <S.InputContainer>
           <label htmlFor="desc">소개</label>
           <textarea
@@ -148,13 +169,13 @@ function UserEditPage() {
             id="desc"
             name="desc"
             maxLength={60}
-          ></textarea>
+          />
           <InputContainer
             inputType="email"
             name="account"
             label="연결된 계정"
-            disabled={true}
-            required={true}
+            disabled
+            required
             explain={
               <>
                 <BrandIcon type="kakao">

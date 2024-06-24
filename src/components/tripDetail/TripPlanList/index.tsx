@@ -1,17 +1,17 @@
-import * as S from "./style";
-import DayPlan from "../DayPlan";
-import ArrowBottomIcon from "../../../assets/icons/arrow_bottom.svg?react";
-import { PlaceData } from "../TripPlanPlaceItem";
-import { useRecoilValue } from "recoil";
-import { tripState } from "../../../recoil/tripState";
-import useModal from "../../../hooks/useModal";
-import Typography from "../../common/Typography";
-import CheckedIcon from "../../../assets/icons/check.svg?react";
+import { useRecoilValue } from 'recoil';
+import * as S from './style';
+import DayPlan from '../DayPlan';
+import ArrowBottomIcon from '../../../assets/icons/arrow_bottom.svg?react';
+import { PlaceData } from '../TripPlanPlaceItem';
+import { tripState } from '../../../recoil/tripState';
+import useModal from '../../../hooks/useModal';
+import Typography from '../../common/Typography';
+import CheckedIcon from '../../../assets/icons/check.svg?react';
 
 export interface DayPlan {
   day: number;
   date: string;
-  dayOfWeek: "일" | "월" | "화" | "수" | "목" | "금" | "토";
+  dayOfWeek: '일' | '월' | '화' | '수' | '목' | '금' | '토';
   route: PlaceData[];
 }
 
@@ -29,7 +29,6 @@ function TripPlanList({ setIsEditMode, dayFilter, setDayFilter }: Props) {
   const onFilterClick = (dayFilterIndex: number) => {
     setDayFilter(dayFilterIndex);
     modalClose();
-    return;
   };
 
   return (
@@ -59,9 +58,7 @@ function TripPlanList({ setIsEditMode, dayFilter, setDayFilter }: Props) {
                   Day {dayPlan.day}
                 </Typography.Title>
                 <Typography.Title size="lg" color="inherit">
-                  {`${dayPlan.date.replace("-", ".").replace("-", ".")}(${
-                    dayPlan.dayOfWeek
-                  })`}
+                  {`${dayPlan.date.replace('-', '.').replace('-', '.')}(${dayPlan.dayOfWeek})`}
                 </Typography.Title>
               </S.DayInfo>
               {dayFilter === idx + 1 && <CheckedIcon />}
@@ -91,7 +88,7 @@ function TripPlanList({ setIsEditMode, dayFilter, setDayFilter }: Props) {
                 data={dayPlan.route}
                 setIsEditMode={setIsEditMode}
               />
-            )
+            ),
         )}
       </S.PlaceListContainer>
     </S.Container>

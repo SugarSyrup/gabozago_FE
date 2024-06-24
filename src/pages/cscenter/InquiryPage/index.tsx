@@ -1,20 +1,20 @@
-import { useSetRecoilState } from "recoil";
-import { useEffect, useRef, useState } from "react";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useSetRecoilState } from 'recoil';
+import { useEffect, useRef, useState } from 'react';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 
-import { modalState } from "../../../recoil/modalState";
-import PageTemplate from "../../../components/common/PageTemplate";
-import PageHeader from "../../../components/common/PageHeader";
-import Button from "../../../components/common/Button";
+import { modalState } from '../../../recoil/modalState';
+import PageTemplate from '../../../components/common/PageTemplate';
+import PageHeader from '../../../components/common/PageHeader';
+import Button from '../../../components/common/Button';
 
-import ImportantIcon from "../../../assets/icons/exclamation_circle.svg?react";
-import BottomChevronIcon from "../../../assets/icons/chevron_bottom_small.svg?react";
-import ImageAddIcon from "../../../assets/icons/image_add.svg?react";
-import { post } from "../../../utils/api";
+import ImportantIcon from '../../../assets/icons/exclamation_circle.svg?react';
+import BottomChevronIcon from '../../../assets/icons/chevron_bottom_small.svg?react';
+import ImageAddIcon from '../../../assets/icons/image_add.svg?react';
+import { post } from '../../../utils/api';
 
-import * as S from "./style";
-import usePopup from "../../../hooks/usePopup";
-import Typography from "../../../components/common/Typography";
+import * as S from './style';
+import usePopup from '../../../hooks/usePopup';
+import Typography from '../../../components/common/Typography';
 
 interface Form {
   type: string;
@@ -27,51 +27,48 @@ interface Form {
 function InquiryPage() {
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const nickname = useLoaderData() as string;
-  const activeInquiryTypes = ["01", "03", "04", "05", "06", "07"];
+  const activeInquiryTypes = ['01', '03', '04', '05', '06', '07'];
   const inquiryTypeMap = new Map([
-    ["01", "계정 설정"],
-    ["02", "이벤트/쿠폰/적립금"],
-    ["03", "서비스 이용"],
-    ["04", "서비스 오류 제보"],
-    ["05", "불편 신고"],
-    ["06", "서비스 개선 사안"],
-    ["07", "기타 문의"],
+    ['01', '계정 설정'],
+    ['02', '이벤트/쿠폰/적립금'],
+    ['03', '서비스 이용'],
+    ['04', '서비스 오류 제보'],
+    ['05', '불편 신고'],
+    ['06', '서비스 개선 사안'],
+    ['07', '기타 문의'],
   ]);
   const navigate = useNavigate();
   const submitRef = useRef<HTMLButtonElement>(null);
   const setModal = useSetRecoilState(modalState);
   const [form, setForm] = useState<Form>({
-    type: "00",
-    email: "",
-    title: "",
-    contents: "",
+    type: '00',
+    email: '',
+    title: '',
+    contents: '',
     files: [],
   });
   const [previewImages, setPreviewImages] = useState<string[]>([]);
-  const [popupState, setPopupState] = useState<"files" | "submit">("files");
+  const [popupState, setPopupState] = useState<'files' | 'submit'>('files');
   const { Popup, popupOpen, popupClose } = usePopup();
 
   const submitForm = async () => {
-    const token = localStorage.getItem("access_token");
+    const token = localStorage.getItem('access_token');
     if (token && !isSubmitted) {
       // 이미지 파일 스토리지에 업로드
       const imageIds: number[] = [];
 
       for (const file of form.files) {
         const formData = new FormData();
-        formData.append("image", file);
+        formData.append('image', file);
 
-        const { data } = await post<{ id: number; imageURL: string }>(
-          `/settings/image`,
-          formData
-        );
+        const { data } = await post<{ id: number; imageURL: string }>('/settings/image', formData);
         imageIds.push(data.id);
       }
 
       // Form 전송
       const body = {
         email: form.email.trim(),
-        type: "ASK" + form.type,
+        type: `ASK${form.type}`,
         title: form.title.trim(),
         content: form.contents.trim(),
         images: imageIds,
@@ -79,13 +76,13 @@ function InquiryPage() {
 
       const inquiryId = await post<{
         id: number;
-      }>(`/settings/support/help/ask`, body);
+      }>('/settings/support/help/ask', body);
 
       if (inquiryId) {
         setIsSubmitted(true);
       }
 
-      setPopupState("submit");
+      setPopupState('submit');
       popupOpen();
     }
   };
@@ -93,7 +90,7 @@ function InquiryPage() {
   useEffect(() => {
     setModal({
       isOpend: false,
-      title: "문의 유형 선택하기",
+      title: '문의 유형 선택하기',
       contents: (
         <S.SelectOptionList>
           {activeInquiryTypes.map((item) => (
@@ -115,9 +112,9 @@ function InquiryPage() {
     <>
       <Popup>
         <S.PopupContainer>
-          {popupState === "files" ? (
+          {popupState === 'files' ? (
             <>
-              <ImportantIcon style={{ marginBottom: "10px" }} />
+              <ImportantIcon style={{ marginBottom: '10px' }} />
               <Typography.Title size="lg" noOfLine={2}>
                 사진 첨부는 최대 5개까지
                 <br />
@@ -126,9 +123,7 @@ function InquiryPage() {
             </>
           ) : (
             <>
-              <Typography.Title size="lg">
-                문의가 등록되었습니다.
-              </Typography.Title>
+              <Typography.Title size="lg">문의가 등록되었습니다.</Typography.Title>
               <Typography.Body size="lg" color="#545454" noOfLine={2}>
                 문의하신 내용은 빠른 시간 내에
                 <br />
@@ -140,8 +135,8 @@ function InquiryPage() {
             <S.PopupConfirmButton
               onClick={() => {
                 popupClose();
-                if (popupState === "submit") {
-                  navigate(`/cscenter/history`);
+                if (popupState === 'submit') {
+                  navigate('/cscenter/history');
                 }
               }}
             >
@@ -178,8 +173,8 @@ function InquiryPage() {
           onSubmit={(e) => {
             e.preventDefault();
 
-            if (form.type === "00") {
-              alert("문의 유형을 선택해주세요.");
+            if (form.type === '00') {
+              alert('문의 유형을 선택해주세요.');
               return;
             }
 
@@ -201,26 +196,19 @@ function InquiryPage() {
                 setModal((prev) => ({ ...prev, isOpend: true }));
               }}
             >
-              {form.type === "00"
-                ? "문의 유형 선택하기"
-                : inquiryTypeMap.get(form.type)}
+              {form.type === '00' ? '문의 유형 선택하기' : inquiryTypeMap.get(form.type)}
               <BottomChevronIcon />
             </S.SelectButton>
           </S.InputContainer>
           <S.InputContainer>
             <S.TitleHeading>문의자</S.TitleHeading>
-            <S.Input
-              type="text"
-              disabled={true}
-              required={true}
-              value={nickname}
-            />
+            <S.Input type="text" disabled required value={nickname} />
           </S.InputContainer>
           <S.InputContainer>
             <S.TitleHeading>이메일</S.TitleHeading>
             <S.Input
               type="email"
-              required={true}
+              required
               value={form.email}
               placeholder="이메일을 입력하세요."
               onChange={(e) => {
@@ -232,7 +220,7 @@ function InquiryPage() {
             <S.TitleHeading>문의 내용</S.TitleHeading>
             <S.Input
               type="text"
-              required={true}
+              required
               value={form.title}
               placeholder="제목을 입력하세요."
               minLength={3}
@@ -244,7 +232,7 @@ function InquiryPage() {
             <S.TextArea
               minLength={20}
               maxLength={2000}
-              required={true}
+              required
               value={form.contents}
               placeholder="내용을 입력하세요.(최대 2000자)"
               onChange={(e) => {
@@ -252,7 +240,8 @@ function InquiryPage() {
               }}
             />
             <S.TextCountParagraph>
-              {form.contents.length}/2000
+              {form.contents.length}
+              /2000
             </S.TextCountParagraph>
           </S.InputContainer>
           <S.InputContainer>
@@ -270,12 +259,10 @@ function InquiryPage() {
                       onClick={() => {
                         setForm((prev) => ({
                           ...prev,
-                          files: prev.files.filter(
-                            (item, index) => index !== targetIndex
-                          ),
+                          files: prev.files.filter((item, index) => index !== targetIndex),
                         }));
                         setPreviewImages((prev) =>
-                          prev.filter((item, index) => index !== targetIndex)
+                          prev.filter((item, index) => index !== targetIndex),
                         );
                       }}
                     />
@@ -297,15 +284,13 @@ function InquiryPage() {
                 /* ==== Validation 시작 ==== */
                 // 최대 개수를 초과할 수 없음
                 if (fileArray.length > 5) {
-                  setPopupState("files");
+                  setPopupState('files');
                   popupOpen();
                 }
                 // 이미지 크기 제한 체크
                 newFileArray.map(({ name, size }) => {
                   if (size > maxSize) {
-                    return alert(
-                      `10MB 이내 이미지 파일만 첨부할 수 있습니다. \nfile: ${name}`
-                    );
+                    return alert(`10MB 이내 이미지 파일만 첨부할 수 있습니다. \nfile: ${name}`);
                   }
                 });
                 /* ==== Validation 끝 ==== */
@@ -320,22 +305,18 @@ function InquiryPage() {
                 fileArray.map((item) => {
                   const fileRead = new FileReader();
                   fileRead.onload = () => {
-                    setPreviewImages((prev) => [
-                      ...prev,
-                      String(fileRead.result),
-                    ]);
+                    setPreviewImages((prev) => [...prev, String(fileRead.result)]);
                   };
                   fileRead.readAsDataURL(item);
                 });
               }}
-              style={{ display: "none" }}
+              style={{ display: 'none' }}
             />
             <S.DescSpan>
-              10MB 이내 이미지 파일(jpg, png, gif)을 최대 5개까지 첨부
-              가능합니다.
+              10MB 이내 이미지 파일(jpg, png, gif)을 최대 5개까지 첨부 가능합니다.
             </S.DescSpan>
           </S.InputContainer>
-          <button type="submit" ref={submitRef} style={{ display: "none" }}>
+          <button type="submit" ref={submitRef} style={{ display: 'none' }}>
             제출하기
           </button>
         </S.Form>

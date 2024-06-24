@@ -1,5 +1,5 @@
-import * as S from "./style";
-import { MouseEventHandler } from "react";
+import { MouseEventHandler } from 'react';
+import * as S from './style';
 
 interface Props {
   name: string;

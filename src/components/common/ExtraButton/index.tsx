@@ -1,6 +1,6 @@
-import * as S from "./style";
-import { MouseEventHandler } from "react";
-import RightChevronIcon from "../../../assets/icons/chevron_right.svg?react";
+import { MouseEventHandler } from 'react';
+import * as S from './style';
+import RightChevronIcon from '../../../assets/icons/chevron_right.svg?react';
 
 interface Props {
   label: string;

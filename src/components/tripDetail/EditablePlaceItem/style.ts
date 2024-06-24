@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const ListItem = styled.li`
   margin: 0 -20px;
@@ -7,7 +7,7 @@ export const ListItem = styled.li`
   overflow: hidden;
 
   &::after {
-    content: "삭제";
+    content: '삭제';
     position: absolute;
     top: 1px;
     bottom: 1px;
@@ -36,11 +36,10 @@ export const Wrapper = styled.div<{ isSelected: boolean; translateX: number }>`
 
   transition: transform 0.2s;
   transform: translateX(0);
-  transform: translateX(${({ translateX }) => translateX + "px"});
+  transform: translateX(${({ translateX }) => `${translateX}px`});
 
   cursor: pointer;
-  background-color: ${({ theme, isSelected }) =>
-    isSelected ? theme.blue04 : theme.white};
+  background-color: ${({ theme, isSelected }) => (isSelected ? theme.blue04 : theme.white)};
 
   svg {
     path {

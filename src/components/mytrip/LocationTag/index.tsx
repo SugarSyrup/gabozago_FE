@@ -1,7 +1,7 @@
-import XIcon from "../../../assets/icons/x.svg?react";
-import Typography from "../../common/Typography";
+import XIcon from '../../../assets/icons/x.svg?react';
+import Typography from '../../common/Typography';
 
-import * as S from "./style";
+import * as S from './style';
 
 interface Props {
   name: string;

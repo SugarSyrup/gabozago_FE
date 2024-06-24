@@ -1,5 +1,5 @@
-import { useState } from "react";
-import * as S from "./style";
+import { useState } from 'react';
+import * as S from './style';
 
 export interface Props<T> {
   options: T[];
@@ -10,7 +10,7 @@ export interface Props<T> {
 function useSelect<T>() {
   const [selectedIndex, setSelectedIndex] = useState<number[]>([]);
 
-  const Select = ({ options, multiple = false }: Props<T>) => {
+  function Select({ options, multiple = false }: Props<T>) {
     const toggleItem = (index: number) => {
       if (selectedIndex.includes(index)) {
         setSelectedIndex(selectedIndex.filter((i) => i !== index));
@@ -22,12 +22,9 @@ function useSelect<T>() {
     return (
       <S.List>
         {options.map((item, index) => (
-          <S.Item
-            key={`select-${index}`}
-            checked={selectedIndex.includes(index)}
-          >
+          <S.Item key={`select-${index}`} checked={selectedIndex.includes(index)}>
             <S.CheckboxInput
-              type={"checkbox"}
+              type="checkbox"
               id={`select-input-${index}`}
               checked={selectedIndex.includes(index)}
               onChange={() => {
@@ -43,7 +40,7 @@ function useSelect<T>() {
         ))}
       </S.List>
     );
-  };
+  }
 
   return { Select, selectedIndex };
 }

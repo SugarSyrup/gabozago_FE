@@ -1,18 +1,18 @@
-import * as S from "./style";
-import ArrowSwapIcon from "../../../assets/icons/arrow_swap.svg?react";
-import DeleteIcon from "../../../assets/icons/delete.svg?react";
-import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
+import * as S from './style';
+import ArrowSwapIcon from '../../../assets/icons/arrow_swap.svg?react';
+import DeleteIcon from '../../../assets/icons/delete.svg?react';
 import {
   SortableRoute,
   editingTripPlanState,
   selectedPlacesState,
   tripState,
-} from "../../../recoil/tripState";
-import useSelect from "../../../hooks/useSelect";
-import useModal from "../../../hooks/useModal";
-import Typography from "../../common/Typography";
-import { parseDateString } from "../../../utils/parseDateString";
-import Button from "../../common/Button";
+} from '../../../recoil/tripState';
+import useSelect from '../../../hooks/useSelect';
+import useModal from '../../../hooks/useModal';
+import Typography from '../../common/Typography';
+import { parseDateString } from '../../../utils/parseDateString';
+import Button from '../../common/Button';
 
 function EditModeBottomControlBox() {
   const selectedPlaces = useRecoilValue(selectedPlacesState);
@@ -20,24 +20,24 @@ function EditModeBottomControlBox() {
   const tripData = useRecoilValue(tripState);
   const [tempData, setTempData] = useRecoilState(editingTripPlanState);
   const { Modal, modalOpen, modalClose } = useModal({
-    title: "날짜 변경하기",
+    title: '날짜 변경하기',
     handle: true,
   });
   const { Select, selectedIndex } = useSelect();
 
   const deleteItems = () => {
     if (selectedPlaces.length > 0) {
-      setTempData((prev) => {
-        return prev.map((item) => {
-          const updatedRoute = item.route.filter((place, index) => {
-            return !selectedPlaces.some(
-              (selected) =>
-                selected.day === item.day && selected.placeIndex === index
-            );
-          });
+      setTempData((prev) =>
+        prev.map((item) => {
+          const updatedRoute = item.route.filter(
+            (place, index) =>
+              !selectedPlaces.some(
+                (selected) => selected.day === item.day && selected.placeIndex === index,
+              ),
+          );
           return { ...item, route: updatedRoute };
-        });
-      });
+        }),
+      );
     }
   };
 
@@ -50,8 +50,7 @@ function EditModeBottomControlBox() {
         dayPlan.route.map((place, index) => {
           if (
             selectedPlaces.some(
-              (selected) =>
-                selected.day === dayPlan.day && selected.placeIndex === index
+              (selected) => selected.day === dayPlan.day && selected.placeIndex === index,
             )
           ) {
             targetPlaces.push(place);
@@ -63,15 +62,14 @@ function EditModeBottomControlBox() {
       deleteItems();
 
       // 원하는 날짜에 추가
-      setTempData((prev) => {
-        return prev.map((dayplan, index) => {
+      setTempData((prev) =>
+        prev.map((dayplan, index) => {
           if (selectedIndex.includes(index)) {
             return { ...dayplan, route: dayplan.route.concat(targetPlaces) };
-          } else {
-            return dayplan;
           }
-        });
-      });
+          return dayplan;
+        }),
+      );
     }
   };
 
@@ -82,9 +80,7 @@ function EditModeBottomControlBox() {
           <Select
             options={tripData.plan.map(({ day, date: dateString }, index) => {
               const date = parseDateString(dateString);
-              const color = selectedIndex.includes(index)
-                ? "#5276FA"
-                : "#121212";
+              const color = selectedIndex.includes(index) ? '#5276FA' : '#121212';
               return (
                 <S.DateParagraph>
                   <Typography.Title size="lg" color={color}>
@@ -102,7 +98,7 @@ function EditModeBottomControlBox() {
           <Button
             type="normal"
             size="lg"
-            active={true}
+            active
             width="100%"
             onClick={(e) => {
               e.preventDefault();

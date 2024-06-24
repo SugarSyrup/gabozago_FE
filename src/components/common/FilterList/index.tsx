@@ -1,28 +1,24 @@
-import * as S from "./style";
-import { SetterOrUpdater, useSetRecoilState } from "recoil";
+import { SetterOrUpdater, useSetRecoilState } from 'recoil';
+import { useEffect } from 'react';
+import * as S from './style';
 
 // import OptionsIcon from "../../../assets/icons/options.svg?react";
-import DeleteIcon from "../../../assets/icons/x.svg?react";
-import FilterButton from "../FilterButton";
-import FilterModalContent from "../filterInputs/FilterModalContent";
-import { modalState } from "../../../recoil/modalState";
-import {
-  TFilter,
-  TFilterAndOptions,
-  TFilterName,
-} from "../../../assets/types/FilterTypes";
-import { filterMap, filterNameMap } from "../../../recoil/filters/codeMap";
-import { defaultFilter as journalDefaultFilter } from "../../../recoil/filters/journalState";
-import { defaultFilter as scrapArticleDefaultFilter } from "../../../recoil/filters/scrapArticleFilter";
-import { defaultFilter as scrapShortFormDefaultFilter } from "../../../recoil/filters/scrapShortFormFilter";
-import { useEffect } from "react";
+import DeleteIcon from '../../../assets/icons/x.svg?react';
+import FilterButton from '../FilterButton';
+import FilterModalContent from '../filterInputs/FilterModalContent';
+import { modalState } from '../../../recoil/modalState';
+import { TFilter, TFilterAndOptions, TFilterName } from '../../../assets/types/FilterTypes';
+import { filterMap, filterNameMap } from '../../../recoil/filters/codeMap';
+import { defaultFilter as journalDefaultFilter } from '../../../recoil/filters/journalState';
+import { defaultFilter as scrapArticleDefaultFilter } from '../../../recoil/filters/scrapArticleFilter';
+import { defaultFilter as scrapShortFormDefaultFilter } from '../../../recoil/filters/scrapShortFormFilter';
 
 interface Props {
   filters: TFilterAndOptions[];
   filterState: TFilter;
   setFilterState: SetterOrUpdater<TFilter>;
   activeFilterState: { type: keyof TFilter; value: string }[];
-  filterType: "scrapArticle" | "scrapShortForm" | "Journal" | "scrapPlace";
+  filterType: 'scrapArticle' | 'scrapShortForm' | 'Journal' | 'scrapPlace';
 }
 
 function FilterList({
@@ -33,23 +29,23 @@ function FilterList({
   filterType,
 }: Props) {
   const defaultFilter =
-    filterType === "Journal"
+    filterType === 'Journal'
       ? journalDefaultFilter
-      : filterType === "scrapArticle"
-      ? scrapArticleDefaultFilter
-      : scrapShortFormDefaultFilter;
+      : filterType === 'scrapArticle'
+        ? scrapArticleDefaultFilter
+        : scrapShortFormDefaultFilter;
   const setModal = useSetRecoilState(modalState);
   const deleteFilterChip = (type: keyof TFilter, value: string): void => {
     setFilterState((prev) => {
       switch (type) {
-        case "season":
+        case 'season':
           return {
             ...prev,
             season: prev[type].filter((item) => item !== value),
           };
           break;
-        case "location":
-        case "theme":
+        case 'location':
+        case 'theme':
           console.log(value);
           return {
             ...prev,
@@ -59,7 +55,7 @@ function FilterList({
         // case "headCount":
         // case "duration":
         // case "budget":
-        case "sort":
+        case 'sort':
           return { ...prev, [type]: defaultFilter.sort };
           break;
       }
@@ -67,7 +63,6 @@ function FilterList({
       return prev;
     });
   };
-
 
   const filterButtonClickHandler = (filter: TFilterAndOptions) => {
     setModal(() => ({
@@ -95,10 +90,7 @@ function FilterList({
               onClick={() => {
                 filterButtonClickHandler(filter);
               }}
-              isActive={
-                activeFilterState.filter(({ type }) => type === filter.name)
-                  .length !== 0
-              }
+              isActive={activeFilterState.filter(({ type }) => type === filter.name).length !== 0}
             />
           </S.FilterItem>
         ))}

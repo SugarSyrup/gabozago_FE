@@ -1,13 +1,13 @@
-import * as S from "./style";
-import BookMarkIcon from "../../../assets/icons/bookmark_filled.svg?react";
-import { useEffect, useRef, useState } from "react";
-import { get, post } from "../../../utils/api";
-import RightChevronIcon from "../../../assets/icons/chevron_right.svg?react";
-import Typography from "../../common/Typography";
-import { useNavigate } from "react-router-dom";
-import { useRecoilValue, useResetRecoilState } from "recoil";
-import { scrapPlaceFilterState } from "../../../recoil/filters/scrapPlaceFilterState";
-import { TFilter } from "../../../assets/types/FilterTypes";
+import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
+import * as S from './style';
+import BookMarkIcon from '../../../assets/icons/bookmark_filled.svg?react';
+import { get, post } from '../../../utils/api';
+import RightChevronIcon from '../../../assets/icons/chevron_right.svg?react';
+import Typography from '../../common/Typography';
+import { scrapPlaceFilterState } from '../../../recoil/filters/scrapPlaceFilterState';
+import { TFilter } from '../../../assets/types/FilterTypes';
 
 interface Place {
   id: number;
@@ -25,37 +25,33 @@ function ScrapedTripPlace() {
   const infiniteRef = useRef<HTMLDivElement>(null);
 
   const getPlaces = async () => {
-    const token = localStorage.getItem("access_token");
+    const token = localStorage.getItem('access_token');
     if (token) {
       const { data } = await get<{
         next: string | null;
         previous: string | null;
         results: Place[];
-      }>(`folder/scrap/place`, {
+      }>('folder/scrap/place', {
         params: {
-          location: filter.location.join(","),
+          location: filter.location.join(','),
         },
       });
       setPlaces(data.results);
       setNext(data.next);
-
-      return;
     }
   };
 
   const toggleBookmark = (id: number) => {
-    const token = localStorage.getItem("access_token");
+    const token = localStorage.getItem('access_token');
 
     if (token) {
       post<{
         next: string | null;
         previous: string | null;
         results: Place[];
-      }>(`folder/scrap/place`, {
+      }>('folder/scrap/place', {
         placeId: id,
       });
-
-      return;
     }
   };
 
@@ -70,7 +66,7 @@ function ScrapedTripPlace() {
   useEffect(() => {
     const options = {
       root: null,
-      rootMargin: "0px",
+      rootMargin: '0px',
       threshold: 0,
     };
 
@@ -97,16 +93,14 @@ function ScrapedTripPlace() {
   });
 
   return (
-    <S.PlaceList marginTop={filter.location?.length > 0 ? "88px" : "58px"}>
+    <S.PlaceList marginTop={filter.location?.length > 0 ? '88px' : '58px'}>
       {places.map((item) => (
         <S.PlaceItem>
           <div>
             <S.BookMarkButton
               onClick={() => {
                 toggleBookmark(item.id);
-                setPlaces((prev) =>
-                  prev.filter((place) => place.id !== item.id)
-                );
+                setPlaces((prev) => prev.filter((place) => place.id !== item.id));
               }}
             >
               <BookMarkIcon />

@@ -1,21 +1,21 @@
-import * as S from "./style";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import * as S from './style';
 
-import UserIcon from "../../../assets/icons/user.svg?react";
-import ChatBubbleIcon from "../../../assets/icons/chatBubble.svg?react";
-import ClapIcon from "../../../assets/icons/clap.svg?react";
-import ClapBlueIcon from "../../../assets/icons/clap_blue.svg?react";
-import KebabMenuIcon from "../../../assets/icons/menu_kebab.svg?react";
-import ExclamationIcon from "../../../assets/icons/exclamation_circle.svg?react";
-import DeleteIcon from "../../../assets/icons/delete.svg?react";
-import useModal from "../../../hooks/useModal";
-import MenuOptionList from "../../../components/common/MenuOptionList";
-import { post } from "../../../utils/api";
-import useConfirm from "../../../hooks/useConfirm";
-import useReportPopup from "../../../hooks/useReportPopup";
-import useAlert from "../../../hooks/useAlert";
-import Typography from "../../common/Typography";
+import UserIcon from '../../../assets/icons/user.svg?react';
+import ChatBubbleIcon from '../../../assets/icons/chatBubble.svg?react';
+import ClapIcon from '../../../assets/icons/clap.svg?react';
+import ClapBlueIcon from '../../../assets/icons/clap_blue.svg?react';
+import KebabMenuIcon from '../../../assets/icons/menu_kebab.svg?react';
+import ExclamationIcon from '../../../assets/icons/exclamation_circle.svg?react';
+import DeleteIcon from '../../../assets/icons/delete.svg?react';
+import useModal from '../../../hooks/useModal';
+import MenuOptionList from '../../common/MenuOptionList';
+import { post } from '../../../utils/api';
+import useConfirm from '../../../hooks/useConfirm';
+import useReportPopup from '../../../hooks/useReportPopup';
+import useAlert from '../../../hooks/useAlert';
+import Typography from '../../common/Typography';
 
 export interface Comment {
   id: number;
@@ -44,7 +44,7 @@ interface Props extends Comment {
     }>
   >;
   textareaRef?: React.RefObject<HTMLTextAreaElement>;
-  type: "short-form" | "article" | "video" | "report" | "travelog";
+  type: 'short-form' | 'article' | 'video' | 'report' | 'travelog';
   deleteComments: (commentId: number) => void;
 }
 
@@ -76,21 +76,21 @@ function CommentItem({
     modalOpen: commentMenuModalOpen,
     modalClose: commentMenuModalClose,
   } = useModal({
-    title: "댓글",
+    title: '댓글',
     handle: true,
-    borderRadius: "16px",
+    borderRadius: '16px',
   });
   const { ConfirmPopup, confirmPopupOpen } = useConfirm(
-    "댓글을 삭제하시겠어요?",
-    "삭제한 댓글은 되돌릴 수 없습니다.",
+    '댓글을 삭제하시겠어요?',
+    '삭제한 댓글은 되돌릴 수 없습니다.',
     null,
-    "아니요",
-    "네, 삭제할래요"
+    '아니요',
+    '네, 삭제할래요',
   );
   const { ReportPopup, reportPopupOpen } = useReportPopup({
-    type: type,
+    type,
     commentId: id,
-    setIsReported: setIsReported,
+    setIsReported,
   });
   const { Alert, alertOpen } = useAlert({
     Content: (
@@ -102,16 +102,14 @@ function CommentItem({
 
   const toggleLike = async () => {
     try {
-      const { data } = await post<{ clap: number }>(
-        `community/${type}/comment/${id}/like`
-      );
+      const { data } = await post<{ clap: number }>(`community/${type}/comment/${id}/like`);
       setIsLiked((prev) => !prev);
       setLikeCount(data.clap);
     } catch (error) {
       console.log(error);
       console.log(error.response.data.message);
       if (error.response.data.message === "It's your comment!") {
-        alert("내가 작성한 댓글은 좋아요 할 수 없습니다.");
+        alert('내가 작성한 댓글은 좋아요 할 수 없습니다.');
       }
     }
   };
@@ -123,7 +121,7 @@ function CommentItem({
           <DeleteIcon />
         </S.GrayColoredIcon>
       ),
-      name: "삭제하기",
+      name: '삭제하기',
       onClick: () => {
         confirmPopupOpen();
         commentMenuModalClose();
@@ -133,8 +131,8 @@ function CommentItem({
   const notMyCommentMenus = [
     {
       icon: <ExclamationIcon />,
-      name: "신고하기",
-      iconColor: "white",
+      name: '신고하기',
+      iconColor: 'white',
       onClick: () => {
         if (isReported) {
           alertOpen();
@@ -156,11 +154,11 @@ function CommentItem({
 
     if (diffHours === 0) {
       return `${Math.floor(diffMSec / (60 * 1000))}분 전`;
-    } else if (diffHours < 24) {
-      return `${diffHours}시간 전`;
-    } else {
-      return `${Math.floor(diffHours / 24)}일 전`;
     }
+    if (diffHours < 24) {
+      return `${diffHours}시간 전`;
+    }
+    return `${Math.floor(diffHours / 24)}일 전`;
   }
 
   return (
@@ -186,11 +184,7 @@ function CommentItem({
       <S.CommentBox>
         <div>
           <S.UserProfileImgBox>
-            {profileImage ? (
-              <S.UserProfileImg src={profileImage} />
-            ) : (
-              <UserIcon />
-            )}
+            {profileImage ? <S.UserProfileImg src={profileImage} /> : <UserIcon />}
           </S.UserProfileImgBox>
         </div>
         <S.ContentsBox>
@@ -241,12 +235,7 @@ function CommentItem({
             <>
               <S.ReplyList>
                 {replys.map((item) => (
-                  <CommentItem
-                    {...item}
-                    isReply={true}
-                    type={type}
-                    deleteComments={deleteComments}
-                  />
+                  <CommentItem {...item} isReply type={type} deleteComments={deleteComments} />
                 ))}
               </S.ReplyList>
               <S.ReplyToggleButton

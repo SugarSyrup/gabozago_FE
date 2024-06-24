@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const PinContainer = styled.div<{ color: string }>`
   position: relative;
@@ -25,7 +25,7 @@ export const PinContainer = styled.div<{ color: string }>`
     filter: drop-shadow(0px 5px 5px #00000050); /*그림자*/
 
     path {
-      fill: ${({ color, theme }) => (color ? color : theme.main)};
+      fill: ${({ color, theme }) => color || theme.main};
     }
   }
 

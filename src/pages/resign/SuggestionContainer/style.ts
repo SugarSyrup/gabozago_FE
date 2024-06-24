@@ -1,5 +1,5 @@
-import styled, { css } from "styled-components";
-import { Container } from "../ResignPage/style";
+import styled, { css } from 'styled-components';
+import { Container } from '../ResignPage/style';
 
 const borderCSS = css`
   padding: 20px;
@@ -22,7 +22,7 @@ export const TitleParagraph = styled.p`
     color: ${({ theme }) => theme.red};
 
     &::before {
-      content: "*";
+      content: '*';
     }
   }
 `;

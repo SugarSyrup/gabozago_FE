@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const MapWrapper = styled.div<{ height: string }>`
   height: 220px;

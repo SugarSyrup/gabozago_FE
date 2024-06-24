@@ -1,26 +1,26 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
-import InfomationIcon from "../../../assets/icons/exclamation_circle.svg?react";
-import LeftChevronIcon from "../../../assets/icons/chevron_left.svg?react";
-import { journalFilterState } from "../../../recoil/filters/journalState";
+import InfomationIcon from '../../../assets/icons/exclamation_circle.svg?react';
+import LeftChevronIcon from '../../../assets/icons/chevron_left.svg?react';
+import { journalFilterState } from '../../../recoil/filters/journalState';
 
-import PageTemplate from "../../../components/common/PageTemplate";
-import Typography from "../../../components/common/Typography";
-import useSearchInput from "../../../hooks/useSearchInput";
+import PageTemplate from '../../../components/common/PageTemplate';
+import Typography from '../../../components/common/Typography';
+import useSearchInput from '../../../hooks/useSearchInput';
 
-import SelectedLocations from "../../../components/tripDetail/SelectedPlaces";
-import SearchPlaces from "../../../components/tripDetail/SearchPlaces";
-import LocationHotPlaces from "../../../components/tripDetail/LocationHotPlaces";
-import LocationRecommendContents from "../../../components/tripDetail/LocationRecommendContents";
-import ScrapedPlace from "../../../components/tripDetail/ScrapedPlace";
-import { get, post } from "../../../utils/api";
+import SelectedLocations from '../../../components/tripDetail/SelectedPlaces';
+import SearchPlaces from '../../../components/tripDetail/SearchPlaces';
+import LocationHotPlaces from '../../../components/tripDetail/LocationHotPlaces';
+import LocationRecommendContents from '../../../components/tripDetail/LocationRecommendContents';
+import ScrapedPlace from '../../../components/tripDetail/ScrapedPlace';
+import { get, post } from '../../../utils/api';
 
-import * as S from "./style";
-import usePopup from "../../../hooks/usePopup";
-import { selectedPlacesState } from "../../../recoil/mytrip/selectedPlacesState";
-import { scrapPlaceFilterState } from "../../../recoil/filters/scrapPlaceFilterState";
+import * as S from './style';
+import usePopup from '../../../hooks/usePopup';
+import { selectedPlacesState } from '../../../recoil/mytrip/selectedPlacesState';
+import { scrapPlaceFilterState } from '../../../recoil/filters/scrapPlaceFilterState';
 
 function MyTripLocationSearchPage() {
   const { id } = useParams();
@@ -28,15 +28,15 @@ function MyTripLocationSearchPage() {
   const [tabNavIdx, setTabNavIdx] = useState<number>(1);
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const [locations, setLocations] = useState<string[]>();
-  const [keyword, setKeyword] = useState<string>("");
-  const [newLocation, setNewLocation] = useState<string>("");
-  const [newRegion, setNewRegion] = useState<string>("");
+  const [keyword, setKeyword] = useState<string>('');
+  const [newLocation, setNewLocation] = useState<string>('');
+  const [newRegion, setNewRegion] = useState<string>('');
   const setActiveFilters = useSetRecoilState(scrapPlaceFilterState);
   const [inputRef, SearchInput] = useSearchInput({
-    placeholder: "장소명을 입력하세요",
-    onChange: onChange,
-    backgroundColor: "white",
-    borderColor: "#ADADAD",
+    placeholder: '장소명을 입력하세요',
+    onChange,
+    backgroundColor: 'white',
+    borderColor: '#ADADAD',
     onSubmit: (e) => {
       e.preventDefault();
     },
@@ -46,7 +46,7 @@ function MyTripLocationSearchPage() {
 
   function onChange() {
     if (inputRef.current) {
-      if (inputRef.current.value === "") {
+      if (inputRef.current.value === '') {
         setIsSearching(false);
       } else {
         setIsSearching(true);
@@ -63,21 +63,21 @@ function MyTripLocationSearchPage() {
       console.log(response.data.location);
       setActiveFilters((prev) => ({
         ...prev,
-        ["location"]: response.data.location,
+        location: response.data.location,
       }));
     });
   }, []);
 
   return (
     <PageTemplate
-      nav={ false }
-      header={ 
+      nav={false}
+      header={
         <S.Header>
           <S.SearchBar>
             <LeftChevronIcon
               onClick={() => {
                 if (isSearching && inputRef.current) {
-                  inputRef.current.value = "";
+                  inputRef.current.value = '';
                   setIsSearching(false);
                 } else {
                   navigate(-1);
@@ -121,9 +121,7 @@ function MyTripLocationSearchPage() {
           <S.PopupContentsContainer>
             <InfomationIcon />
             <S.PopupTextContainer>
-              <Typography.Headline size="sm">
-                지역을 추가하시겠어요?
-              </Typography.Headline>
+              <Typography.Headline size="sm">지역을 추가하시겠어요?</Typography.Headline>
               <Typography.Body size="lg" color="inherit" noOfLine={3}>
                 선택하신 여행 장소는 {locations?.toLocaleString()}을 벗어나요.
               </Typography.Body>
@@ -139,9 +137,7 @@ function MyTripLocationSearchPage() {
                 isMain={false}
                 onClick={() => {
                   setSelectedPlaces((prev) =>
-                    prev.filter(
-                      (selectedPlace) => selectedPlace.name !== newRegion
-                    )
+                    prev.filter((selectedPlace) => selectedPlace.name !== newRegion),
                   );
                   popupClose();
                 }}
@@ -151,9 +147,9 @@ function MyTripLocationSearchPage() {
                 </Typography.Body>
               </S.PopupButton>
               <S.PopupButton
-                isMain={true}
+                isMain
                 onClick={() => {
-                  post<{ message: string }>("/my-travel/location", {
+                  post<{ message: string }>('/my-travel/location', {
                     myTravelId: id,
                     location: newLocation,
                   }).then((response) => {
@@ -170,17 +166,15 @@ function MyTripLocationSearchPage() {
           </S.PopupContentsContainer>
         </Popup>
       </S.PopupWrapper>
-      
+
       {isSearching && (
-        <>
-          <SearchPlaces
-            tripId={Number(id)}
-            location={locations === undefined ? [] : locations}
-            keyword={keyword}
-            popupOpen={popupOpen}
-            setNewLocation={setNewLocation}
-          />
-        </>
+        <SearchPlaces
+          tripId={Number(id)}
+          location={locations === undefined ? [] : locations}
+          keyword={keyword}
+          popupOpen={popupOpen}
+          setNewLocation={setNewLocation}
+        />
       )}
       <S.Contents>
         {!isSearching && tabNavIdx === 1 && (

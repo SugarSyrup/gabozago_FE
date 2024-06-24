@@ -1,4 +1,4 @@
-export type DayOfWeek = "일" | "월" | "화" | "수" | "목" | "금" | "토";
+export type DayOfWeek = '일' | '월' | '화' | '수' | '목' | '금' | '토';
 
 export interface DateObject {
   year: number;
@@ -15,7 +15,7 @@ export function parseDateString(dateString: string): DateObject | null {
   if (match) {
     const [, year, month, day] = match;
     const date = new Date(`${year}-${month}-${day}`);
-    const dayOfWeek: DayOfWeek = ["일", "월", "화", "수", "목", "금", "토"][
+    const dayOfWeek: DayOfWeek = ['일', '월', '화', '수', '목', '금', '토'][
       date.getDay()
     ] as DayOfWeek;
 
@@ -24,10 +24,9 @@ export function parseDateString(dateString: string): DateObject | null {
       month: Number(month),
       day: Number(day),
       dayOfWeek,
-      dateString: dateString,
+      dateString,
     };
-  } else {
-    console.error("날짜 형식이 yyyy-mm-dd와 일치하지 않아 변환할 수 없습니다.");
-    return null;
   }
+  console.error('날짜 형식이 yyyy-mm-dd와 일치하지 않아 변환할 수 없습니다.');
+  return null;
 }

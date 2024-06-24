@@ -1,5 +1,5 @@
-import * as S from "./style";
-import AddPlaceButton from "../AddPlaceButton";
+import * as S from './style';
+import AddPlaceButton from '../AddPlaceButton';
 
 interface Props {
   days: number;

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   padding-bottom: 30px;
@@ -58,7 +58,7 @@ export const ButtonBox = styled.div`
 `;
 
 export const IconButton = styled.button<{
-  type: "addToPlan" | "bookmark";
+  type: 'addToPlan' | 'bookmark';
   isActive?: boolean;
 }>`
   display: flex;
@@ -76,7 +76,7 @@ export const IconButton = styled.button<{
     height: 28px;
 
     path {
-      fill: ${({ type, theme }) => type === "addToPlan" && theme.gray02};
+      fill: ${({ type, theme }) => type === 'addToPlan' && theme.gray02};
       fill: ${({ isActive, theme }) => (isActive ? theme.main : theme.gray02)};
     }
   }

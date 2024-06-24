@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   padding: 17px 20px;
@@ -32,11 +32,10 @@ export const ToggleButton = styled.button<{ active: boolean }>`
   cursor: pointer;
   border-radius: 99px;
   border: 0;
-  background-color: ${({ theme, active }) =>
-    active ? theme.main : theme.gray04};
+  background-color: ${({ theme, active }) => (active ? theme.main : theme.gray04)};
 
   &::after {
-    content: "";
+    content: '';
     display: block;
     width: 18px;
     height: 18px;

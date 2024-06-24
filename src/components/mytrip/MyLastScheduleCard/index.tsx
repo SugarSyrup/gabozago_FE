@@ -1,12 +1,12 @@
-import LocationIcon from "../../../assets/icons/location.svg?react";
-import KebabMenuIcon from "../../../assets/icons/menu_kebab.svg?react";
-import LogoSmallIcon from "../../../assets/icons/logo_small_blue04_text.svg?react";
-import CalendarIcon from "../../../assets/icons/calendar.svg?react";
+import { useNavigate } from 'react-router-dom';
+import LocationIcon from '../../../assets/icons/location.svg?react';
+import KebabMenuIcon from '../../../assets/icons/menu_kebab.svg?react';
+import LogoSmallIcon from '../../../assets/icons/logo_small_blue04_text.svg?react';
+import CalendarIcon from '../../../assets/icons/calendar.svg?react';
 
-import Typography from "../../common/Typography";
-import * as S from "./style";
-import { useNavigate } from "react-router-dom";
-import useMyTripModal from "../../../hooks/useMyTripModal";
+import Typography from '../../common/Typography';
+import * as S from './style';
+import useMyTripModal from '../../../hooks/useMyTripModal';
 
 interface Props {
   id: number;
@@ -27,8 +27,8 @@ function MyLastScheduleCard({
 }: Props) {
   const navigate = useNavigate();
   const { MyTripModal, modalOpen, modalClose, isModalOpend } = useMyTripModal({
-    id: id,
-    title: title,
+    id,
+    title,
     departureDate: departure_date,
     arrivalDate: arrival_date,
   });
@@ -39,11 +39,7 @@ function MyLastScheduleCard({
       <S.Card>
         <S.InfoContainer>
           <S.ThumbnailWrapper>
-            {thumbnailURL ? (
-              <img src={thumbnailURL} alt="thumbnail" />
-            ) : (
-              <LogoSmallIcon />
-            )}
+            {thumbnailURL ? <img src={thumbnailURL} alt="thumbnail" /> : <LogoSmallIcon />}
           </S.ThumbnailWrapper>
           <S.TextContainer
             onClick={() => {
@@ -57,13 +53,13 @@ function MyLastScheduleCard({
               <S.Info>
                 <CalendarIcon />
                 <Typography.Label size="md" color="#424242">
-                  {departure_date} ~ {arrival_date}
+                  {departure_date} ~{arrival_date}
                 </Typography.Label>
               </S.Info>
               <S.Info>
                 <LocationIcon />
                 <Typography.Label size="md" color="#424242">
-                  {regions.join(", ")}
+                  {regions.join(', ')}
                 </Typography.Label>
               </S.Info>
             </S.Infos>

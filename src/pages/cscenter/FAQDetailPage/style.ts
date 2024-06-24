@@ -1,8 +1,8 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
-  width:calc(100% + 40px);
-  margin-left:-20px;
+  width: calc(100% + 40px);
+  margin-left: -20px;
   word-break: keep-all;
 `;
 
@@ -10,9 +10,9 @@ export const InfoContainer = styled.div`
   padding: 15px 20px;
   border-bottom: 1px solid ${({ theme }) => theme.gray04};
 
-  display:flex;
+  display: flex;
   flex-direction: column;
-  gap:5px;
+  gap: 5px;
 
   p.title {
     color: ${({ theme }) => theme.black};

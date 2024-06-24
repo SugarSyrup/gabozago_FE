@@ -1,14 +1,14 @@
-import { atom } from "recoil";
+import { atom } from 'recoil';
 
 export const modalState = atom<{
   isOpend: boolean;
   title: string;
   contents: string | JSX.Element;
 }>({
-  key: "modalState",
+  key: 'modalState',
   default: {
     isOpend: false,
-    title: "",
-    contents: "",
+    title: '',
+    contents: '',
   },
 });

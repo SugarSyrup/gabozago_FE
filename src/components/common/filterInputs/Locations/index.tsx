@@ -1,7 +1,7 @@
-import * as S from "./style";
-import { get } from "../../../../utils/api";
-import React, { useEffect, useLayoutEffect, useState } from "react";
-import LocationTag from "../../../mytrip/LocationTag";
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import * as S from './style';
+import { get } from '../../../../utils/api';
+import LocationTag from '../../../mytrip/LocationTag';
 
 interface LocationGroupByCategory {
   category: string;
@@ -16,7 +16,7 @@ export interface Props {
 function Location({ filter, setFilter }: Props) {
   const [locations, setLocations] = useState<LocationGroupByCategory[]>([
     {
-      category: "",
+      category: '',
       regions: [],
     },
   ]);
@@ -32,7 +32,7 @@ function Location({ filter, setFilter }: Props) {
         category: string;
         image: string | null;
       }[]
-    >("region");
+    >('region');
 
     // data 형태 변환
     const groupedData: LocationGroupByCategory[] = data.reduce((acc, curr) => {
@@ -52,9 +52,9 @@ function Location({ filter, setFilter }: Props) {
   function selectLocation(location: string) {
     setFilter((prev) => {
       const addLocations = [...prev, location];
-      return addLocations.filter((findLocation, index) => {
-        return addLocations.indexOf(findLocation) === index;
-      });
+      return addLocations.filter(
+        (findLocation, index) => addLocations.indexOf(findLocation) === index,
+      );
     });
   }
 

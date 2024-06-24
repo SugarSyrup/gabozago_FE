@@ -1,6 +1,6 @@
-import Typography from "../Typography";
-import * as S from "./style";
-import { MouseEventHandler } from "react";
+import { MouseEventHandler } from 'react';
+import Typography from '../Typography';
+import * as S from './style';
 
 interface Props {
   menus: Menu[];

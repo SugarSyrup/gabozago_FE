@@ -1,11 +1,11 @@
-import * as S from "./style";
-import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import * as S from './style';
 
-import { selectedPlacesState } from "../../../recoil/mytrip/selectedPlacesState";
+import { selectedPlacesState } from '../../../recoil/mytrip/selectedPlacesState';
 
-import Typography from "../../common/Typography";
-import LocationPlaceholderIcon from "../../mytrip/LocationPlaceholderIcon";
+import Typography from '../../common/Typography';
+import LocationPlaceholderIcon from '../../mytrip/LocationPlaceholderIcon';
 
 interface Props {
   id: number;
@@ -16,7 +16,7 @@ interface Props {
   location: string;
   locations: string[];
   popupOpen: () => void;
-  setNewLocation: React.Dispatch<React.SetStateAction<string>>
+  setNewLocation: React.Dispatch<React.SetStateAction<string>>;
 }
 
 function RecommendationListItem({
@@ -28,23 +28,18 @@ function RecommendationListItem({
   location,
   popupOpen,
   setNewLocation,
-  locations
+  locations,
 }: Props) {
   const [selectedPlaces, setSelectedPlaces] = useRecoilState(selectedPlacesState);
   const [isActive, setIsActive] = useState<boolean>(false);
 
   useEffect(() => {
-    setIsActive(
-      selectedPlaces.find((selectedPlace) => selectedPlace.id === id) !==
-        undefined
-    );
+    setIsActive(selectedPlaces.find((selectedPlace) => selectedPlace.id === id) !== undefined);
   }, [selectedPlaces]);
 
   function onBtnClick() {
     if (isActive) {
-      setSelectedPlaces((prev) =>
-        prev.filter((SelectedPlace) => SelectedPlace.id !== id)
-      );
+      setSelectedPlaces((prev) => prev.filter((SelectedPlace) => SelectedPlace.id !== id));
     } else {
       setSelectedPlaces((prev) => [
         ...prev,
@@ -52,11 +47,11 @@ function RecommendationListItem({
           name,
           thumbnail,
           id,
-          location: location
-        }
+          location,
+        },
       ]);
 
-      if(!locations.includes(location)){
+      if (!locations.includes(location)) {
         setNewLocation(location);
         popupOpen();
       }
@@ -67,25 +62,23 @@ function RecommendationListItem({
     <S.Container>
       <S.LeftItems>
         <S.Thumbnail>
-          {
-            thumbnail ? 
+          {thumbnail ? (
             <img src={thumbnail} />
-            :
-            <LocationPlaceholderIcon type={(id % 5 + 1) as 1|2|3|4|5}/>
-          }
+          ) : (
+            <LocationPlaceholderIcon type={((id % 5) + 1) as 1 | 2 | 3 | 4 | 5} />
+          )}
         </S.Thumbnail>
         <S.Infomation>
           {keyword ? (
             <Typography.Title size="lg">
-              {name.split("").map((word, index) => {
+              {name.split('').map((word, index) => {
                 if (
                   name.indexOf(keyword) <= index &&
                   index < name.indexOf(keyword) + keyword.length
                 ) {
                   return <S.HighlightName>{word}</S.HighlightName>;
-                } else {
-                  return <>{word}</>;
                 }
+                return <>{word}</>;
               })}
             </Typography.Title>
           ) : (
@@ -97,7 +90,9 @@ function RecommendationListItem({
         </S.Infomation>
       </S.LeftItems>
       <S.Button isActive={isActive} onClick={onBtnClick}>
-        <Typography.Label size="lg" color="inherit">선택</Typography.Label>
+        <Typography.Label size="lg" color="inherit">
+          선택
+        </Typography.Label>
       </S.Button>
     </S.Container>
   );

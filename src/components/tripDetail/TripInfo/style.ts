@@ -1,5 +1,5 @@
-import styled, { css } from "styled-components";
-import { Size } from "../../components/tripDetail/TripInfo";
+import styled, { css } from 'styled-components';
+import { Size } from '../../components/tripDetail/TripInfo';
 
 export const Container = styled.div<{ size: Size }>`
   width: 100%;
@@ -9,7 +9,7 @@ export const Container = styled.div<{ size: Size }>`
 
   ${({ size }) => {
     switch (size) {
-      case "sm":
+      case 'sm':
         return css`
           grid-template-columns: 1fr fit-content(100%);
           margin-bottom: 16px;
@@ -17,7 +17,7 @@ export const Container = styled.div<{ size: Size }>`
         `;
         break;
 
-      case "xs":
+      case 'xs':
         return css`
           grid-template-columns: fit-content(100%) 1fr;
           margin-bottom: 13px;
@@ -59,7 +59,7 @@ export const DetailList = styled.ul<{ size: Size }>`
   display: flex;
 
   ${({ size }) =>
-    size !== "default"
+    size !== 'default'
       ? css`
           flex-direction: row;
           gap: 10px;
@@ -94,7 +94,7 @@ export const DetailItem = styled.li<{ size: Size }>`
   color: ${({ theme }) => theme.gray};
   gap: 8px;
 
-  ${({ size }) => (size === "default" ? defaultDetailItem : smallDetailItem)}
+  ${({ size }) => (size === 'default' ? defaultDetailItem : smallDetailItem)}
 
   span:first-of-type {
     display: flex;

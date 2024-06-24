@@ -1,33 +1,27 @@
-import * as S from "./style";
-import { useEffect, useState } from "react";
-import { useLoaderData, useParams } from "react-router-dom";
-import { get } from "../../../utils/api";
-import { parseDateString, DateObject } from "../../../utils/parseDateString";
+import { useEffect, useState } from 'react';
+import { useLoaderData, useParams } from 'react-router-dom';
+import { useRecoilState, useResetRecoilState } from 'recoil';
+import * as S from './style';
+import { get } from '../../../utils/api';
+import { parseDateString, DateObject } from '../../../utils/parseDateString';
 
-import PageTemplate from "../../../components/common/PageTemplate";
-import TripPlanList, {
-  DayPlan,
-} from "../../../components/tripDetail/TripPlanList";
-import PlanMap from "../../../components/tripDetail/PlanMap";
-import EditModeBottomControlBox from "../../../components/tripDetail/EditModeBottomControlBox";
-import Typography from "../../../components/common/Typography";
-import CalendarIcon from "../../../assets/icons/calendar.svg?react";
-import { useRecoilState, useResetRecoilState } from "recoil";
-import {
-  SortableDayPlan,
-  editingTripPlanState,
-  tripState,
-} from "../../../recoil/tripState";
-import PlanEditMode from "../../../components/tripDetail/PlanEditMode";
+import PageTemplate from '../../../components/common/PageTemplate';
+import TripPlanList, { DayPlan } from '../../../components/tripDetail/TripPlanList';
+import PlanMap from '../../../components/tripDetail/PlanMap';
+import EditModeBottomControlBox from '../../../components/tripDetail/EditModeBottomControlBox';
+import Typography from '../../../components/common/Typography';
+import CalendarIcon from '../../../assets/icons/calendar.svg?react';
+import { SortableDayPlan, editingTripPlanState, tripState } from '../../../recoil/tripState';
+import PlanEditMode from '../../../components/tripDetail/PlanEditMode';
 
 export const markerColors = [
-  "#5276FA",
-  "#FFAF37",
-  "#BA75FF",
-  "#FA5252",
-  "#30A9DE",
-  "#F29661",
-  "#78CBA2",
+  '#5276FA',
+  '#FFAF37',
+  '#BA75FF',
+  '#FA5252',
+  '#30A9DE',
+  '#F29661',
+  '#78CBA2',
 ];
 
 export interface TripData {
@@ -58,15 +52,15 @@ function MyTripDetailPage() {
       year: -1,
       month: -1,
       day: -1,
-      dayOfWeek: "월",
-      dateString: "",
+      dayOfWeek: '월',
+      dateString: '',
     },
     arrival: {
       year: -1,
       month: -1,
       day: -1,
-      dayOfWeek: "월",
-      dateString: "",
+      dayOfWeek: '월',
+      dateString: '',
     },
   });
 
@@ -82,12 +76,9 @@ function MyTripDetailPage() {
   };
 
   // 날짜 객체에서 여행 기간 "yyyy. m. d. ~ yyyy. m. d. / n박 m일"로 변환된 텍스트
-  const getDurationString = (
-    departure: DateObject,
-    arrival: DateObject
-  ): string => {
-    let dateString = "";
-    let durationString = "";
+  const getDurationString = (departure: DateObject, arrival: DateObject): string => {
+    let dateString = '';
+    let durationString = '';
 
     const getDateDiff = () => {
       const date1 = new Date(departure.dateString);
@@ -99,8 +90,7 @@ function MyTripDetailPage() {
     };
 
     const diffDate = getDateDiff();
-    durationString =
-      diffDate === 0 ? "당일치기" : `${diffDate}박 ${diffDate + 1}일`;
+    durationString = diffDate === 0 ? '당일치기' : `${diffDate}박 ${diffDate + 1}일`;
 
     if (departure.dateString === arrival.dateString) {
       // 1. 출발-도착 날짜가 동일할 경우 YYYY. MM. DD / 당일치기
@@ -117,9 +107,8 @@ function MyTripDetailPage() {
   };
 
   // 여행 일정 데이터 중 여행 장소가 있는지 확인
-  const hasRouteData = (data: TripData): boolean => {
-    return data.plan.some((dayPlan) => dayPlan.route.length > 0);
-  };
+  const hasRouteData = (data: TripData): boolean =>
+    data.plan.some((dayPlan) => dayPlan.route.length > 0);
 
   useEffect(() => {
     resetData();
@@ -145,7 +134,7 @@ function MyTripDetailPage() {
 
   return (
     <PageTemplate
-      nav={isEditMode ? <EditModeBottomControlBox /> : "default"}
+      nav={isEditMode ? <EditModeBottomControlBox /> : 'default'}
       header={
         <S.Header>
           <Typography.Headline size="md">{data.title}</Typography.Headline>
@@ -167,7 +156,10 @@ function MyTripDetailPage() {
       ) : (
         <S.MessageBox>
           <Typography.Body size="md" color="#5276FA">
-            <p>{nickname}님, 새로운 여행 일정이 만들어졌어요!</p>
+            <p>
+              {nickname}
+              님, 새로운 여행 일정이 만들어졌어요!
+            </p>
             <p>아래 장소 추가 버튼을 통해 계획을 세워가보세요. 🙂</p>
           </Typography.Body>
         </S.MessageBox>

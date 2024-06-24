@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   position: fixed;
@@ -12,9 +12,9 @@ export const Container = styled.div`
   max-width: 500px;
   width: 100%;
   height: 100dvh;
- @supports (-webkit-touch-callout: none) {
-  height: -webkit-fill-available;
-}
+  @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+  }
 
   overflow: auto;
 

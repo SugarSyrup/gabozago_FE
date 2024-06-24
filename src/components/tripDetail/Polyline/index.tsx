@@ -1,13 +1,6 @@
-import {
-  forwardRef,
-  useContext,
-  useEffect,
-  useImperativeHandle,
-  useMemo,
-  useRef,
-} from "react";
-import { GoogleMapsContext, useMapsLibrary } from "@vis.gl/react-google-maps";
-import type { Ref } from "react";
+import { forwardRef, useContext, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
+import { GoogleMapsContext, useMapsLibrary } from '@vis.gl/react-google-maps';
+import type { Ref } from 'react';
 
 type PolylineEventProps = {
   onClick?: (e: google.maps.MapMouseEvent) => void;
@@ -25,9 +18,7 @@ type PolylineCustomProps = {
   encodedPath?: string;
 };
 
-export type PolylineProps = google.maps.PolylineOptions &
-  PolylineEventProps &
-  PolylineCustomProps;
+export type PolylineProps = google.maps.PolylineOptions & PolylineEventProps & PolylineCustomProps;
 
 export type PolylineRef = Ref<google.maps.Polyline | null>;
 
@@ -53,7 +44,7 @@ function usePolyline(props: PolylineProps) {
     onMouseOut,
   });
 
-  const geometryLibrary = useMapsLibrary("geometry");
+  const geometryLibrary = useMapsLibrary('geometry');
 
   const polyline = useRef(new google.maps.Polyline()).current;
   // update PolylineOptions (note the dependencies aren't properly checked
@@ -75,8 +66,7 @@ function usePolyline(props: PolylineProps) {
   // create polyline instance and add to the map once the map is available
   useEffect(() => {
     if (!map) {
-      if (map === undefined)
-        console.error("<Polyline> has to be inside a Map component.");
+      if (map === undefined) console.error('<Polyline> has to be inside a Map component.');
 
       return;
     }
@@ -95,12 +85,12 @@ function usePolyline(props: PolylineProps) {
     // Add event listeners
     const gme = google.maps.event;
     [
-      ["click", "onClick"],
-      ["drag", "onDrag"],
-      ["dragstart", "onDragStart"],
-      ["dragend", "onDragEnd"],
-      ["mouseover", "onMouseOver"],
-      ["mouseout", "onMouseOut"],
+      ['click', 'onClick'],
+      ['drag', 'onDrag'],
+      ['dragstart', 'onDragStart'],
+      ['dragend', 'onDragEnd'],
+      ['mouseover', 'onMouseOver'],
+      ['mouseout', 'onMouseOut'],
     ].forEach(([eventName, eventCallback]) => {
       gme.addListener(polyline, eventName, (e: google.maps.MapMouseEvent) => {
         const callback = callbacks.current[eventCallback];

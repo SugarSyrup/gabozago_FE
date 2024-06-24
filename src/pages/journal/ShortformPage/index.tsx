@@ -1,26 +1,28 @@
-import * as S from "./style";
-import { useEffect, useRef, useState } from "react";
-import PageTemplate from "../../../components/common/PageTemplate";
-import BackButton from "../../../components/common/BackButton";
-import BottomNavBar from "../../../components/common/BottomNavBar";
-import { get } from "../../../utils/api";
-import ShortForm from "../../../components/home/journals/shortform/ShortForm";
-import { useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import * as S from './style';
+import PageTemplate from '../../../components/common/PageTemplate';
+import BackButton from '../../../components/common/BackButton';
+import BottomNavBar from '../../../components/common/BottomNavBar';
+import { get } from '../../../utils/api';
+import ShortForm from '../../../components/home/journals/shortform/ShortForm';
 
 function ShortFormPage() {
-  const {id} = useParams<{id: string}>();
+  const { id } = useParams<{ id: string }>();
   const shortsListRef = useRef<HTMLDivElement>(null);
-  const [shortforms, setShortforms] = useState<{
-    id: number;
-    title: string;
-    videoId: string;
-    region: string[];
-    theme: string[];
-    views: number;
-  }[]>([]);
+  const [shortforms, setShortforms] = useState<
+    {
+      id: number;
+      title: string;
+      videoId: string;
+      region: string[];
+      theme: string[];
+      views: number;
+    }[]
+  >([]);
   const [focusIndex, setFocusindex] = useState<number>(0);
 
-  //숏폼 리스트 불러오는 Fn
+  // 숏폼 리스트 불러오는 Fn
   const getShortformList = async () => {
     const { data } = await get<{
       next: string | null;
@@ -33,23 +35,22 @@ function ShortFormPage() {
           region: string[];
           theme: string[];
           views: number;
-        }
+        },
       ];
-    }>(`/community/short-form`);
+    }>('/community/short-form');
 
     setShortforms([]);
-    let currentIdx  = 0;
+    let currentIdx = 0;
     data.results.map((shorform, idx) => {
       const { id: shortformId } = shorform;
-      if(shortformId !== Number(id)) {
-        setShortforms(prev => [...prev, {...shorform}]);
-      }
-      else {
+      if (shortformId !== Number(id)) {
+        setShortforms((prev) => [...prev, { ...shorform }]);
+      } else {
         currentIdx = idx;
       }
     });
-    setShortforms(prev => prev.sort(() => Math.random() - 0.5));
-    setShortforms(prev => [{...data.results[currentIdx]}, ...prev]);
+    setShortforms((prev) => prev.sort(() => Math.random() - 0.5));
+    setShortforms((prev) => [{ ...data.results[currentIdx] }, ...prev]);
   };
   useEffect(() => {
     getShortformList();
@@ -66,26 +67,22 @@ function ShortFormPage() {
         </S.IconButton> */}
       </S.Header>
       {shortforms.length > 0 && (
-        <>
-          <S.Container
-            ref={shortsListRef}
-            onScroll={(e) => {
-              setFocusindex(
-                Math.floor(
-                  shortsListRef.current.scrollTop / (e.target.clientHeight - 80)
-                )
-              );
-            }}
-          >
-            {shortforms.map((shortform, index) => (
-              <ShortForm
-                shortFormId={shortform.id}
-                videoId={shortform.videoId}
-                visible={index === focusIndex}
-              />
-            ))}
-          </S.Container>
-        </>
+        <S.Container
+          ref={shortsListRef}
+          onScroll={(e) => {
+            setFocusindex(
+              Math.floor(shortsListRef.current.scrollTop / (e.target.clientHeight - 80)),
+            );
+          }}
+        >
+          {shortforms.map((shortform, index) => (
+            <ShortForm
+              shortFormId={shortform.id}
+              videoId={shortform.videoId}
+              visible={index === focusIndex}
+            />
+          ))}
+        </S.Container>
       )}
     </PageTemplate>
   );

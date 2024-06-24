@@ -1,11 +1,11 @@
-import * as S from "./style";
-import Heading from "../../common/Heading";
-import SendIcon from "../../../assets/icons/send.svg?react";
-import UserIcon from "../../../assets/icons/user.svg?react";
-import CommentItem, { Comment as TComment } from "../CommentItem";
-import { FormEventHandler, useEffect, useRef, useState } from "react";
-import { deletes, get, post } from "../../../utils/api";
-import { useLoaderData } from "react-router-dom";
+import { FormEventHandler, useEffect, useRef, useState } from 'react';
+import { useLoaderData } from 'react-router-dom';
+import * as S from './style';
+import Heading from '../../common/Heading';
+import SendIcon from '../../../assets/icons/send.svg?react';
+import UserIcon from '../../../assets/icons/user.svg?react';
+import CommentItem, { Comment as TComment } from '../CommentItem';
+import { deletes, get, post } from '../../../utils/api';
 
 interface TParsedComment extends TComment {
   replys: TComment[];
@@ -13,15 +13,15 @@ interface TParsedComment extends TComment {
 
 interface Props {
   id: number;
-  commentInputPosition?: "bottom" | "top";
-  type: "short-form" | "article" | "video" | "report" | "travelog";
+  commentInputPosition?: 'bottom' | 'top';
+  type: 'short-form' | 'article' | 'video' | 'report' | 'travelog';
   commentCount: number;
   setContentsCommentCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
 function Comment({
   id,
-  commentInputPosition = "top",
+  commentInputPosition = 'top',
   type,
   commentCount: commentCountProp,
   setContentsCommentCount,
@@ -35,7 +35,7 @@ function Comment({
     isReplyMode: false,
     parentCommentId: null,
   });
-  const [comment, setComment] = useState<string>("");
+  const [comment, setComment] = useState<string>('');
   const [commentCount, setCommentCount] = useState<number>(commentCountProp);
   const [comments, setComments] = useState<TParsedComment[]>([]);
 
@@ -64,9 +64,7 @@ function Comment({
     });
 
     // 3. 배열에서 parentCommentId 있는 댓글 제거
-    return parsedComments.filter(
-      ({ parentCommentId }) => parentCommentId === null
-    );
+    return parsedComments.filter(({ parentCommentId }) => parentCommentId === null);
   };
 
   const getComments = async (id: number) => {
@@ -76,41 +74,41 @@ function Comment({
     setComments(parseComments(data));
   };
   const deleteComments = async (commentId: number) => {
-    deletes(`community/${type}/comment`, { commentId: commentId }).then(() => {
+    deletes(`community/${type}/comment`, { commentId }).then(() => {
       getComments(id);
     });
   };
   const submitComment = async (parentCommentId: number | null) => {
-    if (type === "short-form") {
+    if (type === 'short-form') {
       await post<{
         shortformId: number;
         parentCommentId: number | null;
         content: string;
       }>(`/community/${type}/comment`, {
         shortformId: id,
-        parentCommentId: parentCommentId,
+        parentCommentId,
         content: comment,
       });
-    } else if (type === "article") {
+    } else if (type === 'article') {
       await post<{
         articleId: number;
         parentCommentId: number | null;
         content: string;
       }>(`/community/${type}/comment`, {
         articleId: id,
-        parentCommentId: parentCommentId,
+        parentCommentId,
         content: comment,
       });
     }
 
     getComments(id);
-    setComment("");
+    setComment('');
   };
   const adjustTextareaHeight = () => {
     const textarea = textareaRef.current;
 
     if (textarea) {
-      textarea.style.height = "1px";
+      textarea.style.height = '1px';
       textarea.style.height = `${textarea.scrollHeight}px`;
     }
   };
@@ -121,7 +119,7 @@ function Comment({
 
     const inputValue = (e.target as HTMLTextAreaElement).value.trim();
     if (inputValue.match(/^\s+/)) {
-      textarea.value = "";
+      textarea.value = '';
 
       return;
     }
@@ -149,11 +147,7 @@ function Comment({
         }}
       >
         <S.UserProfileImgBox>
-          {profileImage ? (
-            <S.UserProfileImg src={profileImage} />
-          ) : (
-            <UserIcon />
-          )}
+          {profileImage ? <S.UserProfileImg src={profileImage} /> : <UserIcon />}
         </S.UserProfileImgBox>
         <S.CommentInputControlBox>
           <S.CommentTextArea

@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div``;
 export const DayInfo = styled.p`
@@ -72,7 +72,7 @@ export const MarkerBox = styled.div<{ color: string; hasLine: boolean }>`
     hasLine &&
     css`
       &::before {
-        content: " ";
+        content: ' ';
         position: absolute;
         width: 0px;
         height: 100%;
@@ -123,7 +123,7 @@ export const DistanceSpan = styled.span`
     display: flex;
     justify-content: center;
     align-items: center;
-    content: "경로 보기";
+    content: '경로 보기';
     transition: all 0.3s ease-in-out;
     transition-delay: 0.2s;
 

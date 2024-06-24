@@ -1,24 +1,20 @@
-import React, { useEffect, useState } from "react";
-import ShortFormList, { ShortForm } from "../shortform/ShortFormList";
-import * as S from "./style";
-import FilterList from "../../../common/FilterList";
-import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
+import React, { useEffect, useState } from 'react';
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
+import ShortFormList, { ShortForm } from '../shortform/ShortFormList';
+import * as S from './style';
+import FilterList from '../../../common/FilterList';
 import {
   activeJournalFilterListState,
   journalFilterState,
   journalOrderingOptions,
-} from "../../../../recoil/filters/journalState";
-import { get } from "../../../../utils/api";
-import {
-  orderingOptionMap,
-  themeCodeMap,
-  themeOptions,
-} from "../../../../recoil/filters/codeMap";
+} from '../../../../recoil/filters/journalState';
+import { get } from '../../../../utils/api';
+import { orderingOptionMap, themeCodeMap, themeOptions } from '../../../../recoil/filters/codeMap';
 import {
   ButtonsOptions,
   SelectOptions,
   TFilterAndOptions,
-} from "../../../../assets/types/FilterTypes";
+} from '../../../../assets/types/FilterTypes';
 
 function Journals() {
   const [shortForms, setShortForms] = useState<ShortForm[]>([]);
@@ -26,7 +22,7 @@ function Journals() {
   const resetFilter = useResetRecoilState(journalFilterState);
   const activeFilter = useRecoilValue(activeJournalFilterListState);
   const [activeCategoryIndex, setActiveCategoryIndex] = useState<number>(0);
-  const [next, setNext] = useState<string>("");
+  const [next, setNext] = useState<string>('');
   const infiniteRef = React.useRef<HTMLDivElement>(null);
   const tabs: {
     text: string;
@@ -34,17 +30,17 @@ function Journals() {
     contents: JSX.Element;
   }[] = [
     {
-      text: "숏폼",
+      text: '숏폼',
       filters: [
         {
-          name: "sort",
+          name: 'sort',
           options: {
             options: journalOrderingOptions,
           } as SelectOptions,
         },
-        { name: "location", options: null },
+        { name: 'location', options: null },
         {
-          name: "theme",
+          name: 'theme',
           options: {
             options: themeOptions,
           } as ButtonsOptions,
@@ -59,11 +55,11 @@ function Journals() {
       next: string;
       previous: string;
       results: ShortForm[];
-    }>(`community/short-form`, {
+    }>('community/short-form', {
       params: {
         ordering: orderingOptionMap.get(filter.sort),
-        location: filter.location.join(","),
-        theme: filter.theme.map((item) => themeCodeMap.get(item)).join(","),
+        location: filter.location.join(','),
+        theme: filter.theme.map((item) => themeCodeMap.get(item)).join(','),
       },
     });
 
@@ -78,7 +74,7 @@ function Journals() {
   useEffect(() => {
     const options = {
       root: null,
-      rootMargin: "0px",
+      rootMargin: '0px',
       threshold: 0,
     };
 
@@ -88,11 +84,10 @@ function Journals() {
           next: string;
           previous: string;
           results: ShortForm[];
-        }>(next)
-          .then((response) => {
-            setShortForms([...shortForms, ...response.data.results]);
-            setNext(response.data.next);
-          });
+        }>(next).then((response) => {
+          setShortForms([...shortForms, ...response.data.results]);
+          setNext(response.data.next);
+        });
       }
     }, options);
 
@@ -120,7 +115,7 @@ function Journals() {
       </S.FixedControlBox>
       <S.ContentBox>
         {tabs[activeCategoryIndex].contents}
-        <div ref={infiniteRef} style={{ height: "50px" }} />
+        <div ref={infiniteRef} style={{ height: '50px' }} />
       </S.ContentBox>
     </S.Container>
   );

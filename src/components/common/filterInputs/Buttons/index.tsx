@@ -1,6 +1,6 @@
-import React from "react";
-import * as S from "./style";
-import { ButtonsOptions } from "../../../../assets/types/FilterTypes";
+import React from 'react';
+import * as S from './style';
+import { ButtonsOptions } from '../../../../assets/types/FilterTypes';
 
 export interface Props extends ButtonsOptions {
   filter: string[];
@@ -21,7 +21,7 @@ function Buttons({ filter, setFilter, options }: Props) {
       {options.map(({ label, value }) => (
         <S.Item checked={filter.includes(value)}>
           <S.CheckboxInput
-            type={"checkbox"}
+            type="checkbox"
             id={value}
             checked={filter.includes(value)}
             onChange={() => {

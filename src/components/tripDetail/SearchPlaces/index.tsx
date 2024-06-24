@@ -1,13 +1,13 @@
-import * as S from "./style";
-import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import SearchIcon from "../../../assets/icons/search.svg?react";
-import RecommendationListItem from "../RecommendationListItem";
-import SelectedPlaceItem from "../SelectedPlaceItem";
-import { selectedPlacesState } from "../../../recoil/mytrip/selectedPlacesState";
-import { useEffect, useState } from "react";
-import { get } from "../../../utils/api";
-import useDebounce from "../../../hooks/useDebounce";
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { useEffect, useState } from 'react';
+import * as S from './style';
+import SearchIcon from '../../../assets/icons/search.svg?react';
+import RecommendationListItem from '../RecommendationListItem';
+import SelectedPlaceItem from '../SelectedPlaceItem';
+import { selectedPlacesState } from '../../../recoil/mytrip/selectedPlacesState';
+import { get } from '../../../utils/api';
+import useDebounce from '../../../hooks/useDebounce';
 
 interface Props {
   tripId: number;
@@ -18,11 +18,11 @@ interface Props {
 }
 
 interface TPlace {
-  id: number,
-  image: null | string,
-  location: string,
-  name: string,
-  theme: string,
+  id: number;
+  image: null | string;
+  location: string;
+  name: string;
+  theme: string;
 }
 
 function SearchPlaces({ tripId, keyword, location, popupOpen, setNewLocation }: Props) {
@@ -32,17 +32,16 @@ function SearchPlaces({ tripId, keyword, location, popupOpen, setNewLocation }: 
   const navigate = useNavigate();
 
   function onDelete(id: number) {
-    setSelectedPlaces((prev) =>
-      prev.filter((SelectedPlace) => SelectedPlace.id !== id)
-    );
+    setSelectedPlaces((prev) => prev.filter((SelectedPlace) => SelectedPlace.id !== id));
   }
 
   useEffect(() => {
-    get<TPlace[]>(`/place/list-search?location=${location.toLocaleString()}&query=${keywords}`)
-      .then((response) => {
-        setSearchedPlaces(response.data);
-      })
-  }, [keywords])
+    get<TPlace[]>(
+      `/place/list-search?location=${location.toLocaleString()}&query=${keywords}`,
+    ).then((response) => {
+      setSearchedPlaces(response.data);
+    });
+  }, [keywords]);
 
   return (
     <>

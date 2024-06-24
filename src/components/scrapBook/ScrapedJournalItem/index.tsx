@@ -1,8 +1,8 @@
-import * as S from "./style";
-import UserIcon from "../../../assets/icons/my.svg?react";
-import ClapIcon from "../../../assets/icons/clap.svg?react";
-import BookMarkIcon from "../../../assets/icons/bookmark.svg?react";
-import imageIcon from "../../../assets/icons/image.svg";
+import * as S from './style';
+import UserIcon from '../../../assets/icons/my.svg?react';
+import ClapIcon from '../../../assets/icons/clap.svg?react';
+import BookMarkIcon from '../../../assets/icons/bookmark.svg?react';
+import imageIcon from '../../../assets/icons/image.svg';
 
 interface Props {
   title: string;
@@ -11,16 +11,10 @@ interface Props {
   like: number;
   scraped: number;
 }
-function ScrapedJournalItem({
-  title,
-  thumbnail,
-  username,
-  like,
-  scraped,
-}: Props) {
+function ScrapedJournalItem({ title, thumbnail, username, like, scraped }: Props) {
   return (
     <S.JournalItem>
-      <S.StyledLink to={"/"}>
+      <S.StyledLink to="/">
         <S.InfoBox>
           <S.JournalTitle>{title}</S.JournalTitle>
           <S.BottomInfoList>
@@ -44,12 +38,9 @@ function ScrapedJournalItem({
           </S.BottomInfoList>
         </S.InfoBox>
         {thumbnail ? (
-          <S.ThumbnailImage src={thumbnail} alt={""} />
+          <S.ThumbnailImage src={thumbnail} alt="" />
         ) : (
-          <S.ThumbnailImagePlaceHolder
-            src={imageIcon}
-            alt={"이미지 불러오기에 실패했습니다."}
-          />
+          <S.ThumbnailImagePlaceHolder src={imageIcon} alt="이미지 불러오기에 실패했습니다." />
         )}
       </S.StyledLink>
     </S.JournalItem>

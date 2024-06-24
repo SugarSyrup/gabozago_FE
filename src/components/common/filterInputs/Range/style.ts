@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   position: relative;
@@ -22,7 +22,7 @@ export const TrackContainer = styled.div<{
   &::before {
     position: absolute;
     top: 0;
-    content: "";
+    content: '';
     display: block;
     border-radius: 10px;
     width: 100%;
@@ -35,9 +35,8 @@ export const TrackContainer = styled.div<{
     top: 0;
     margin: 6px 0;
     left: ${({ max, value }) => 100 / (max / value[0])}%;
-    width: ${({ min, max, value }) =>
-      ((value[1] - value[0]) / (max - min)) * 100}%;
-    content: "";
+    width: ${({ min, max, value }) => ((value[1] - value[0]) / (max - min)) * 100}%;
+    content: '';
     display: block;
     border-radius: 10px;
     height: 8px;
@@ -65,12 +64,12 @@ export const InputContainer = styled.div`
   }
 `;
 
-export const SliderLabel = styled.span<{ position: "left" | "right" }>`
+export const SliderLabel = styled.span<{ position: 'left' | 'right' }>`
   position: absolute;
   top: 25px;
 
   ${({ position }) =>
-    position === "left"
+    position === 'left'
       ? css`
           left: 0;
         `

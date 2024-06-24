@@ -1,18 +1,12 @@
-import {
-  Dispatch,
-  SetStateAction,
-  createRef,
-  useEffect,
-  useState,
-} from "react";
-import * as S from "./style";
-import { useSearchParams } from "react-router-dom";
+import { Dispatch, SetStateAction, createRef, useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import * as S from './style';
 
 interface Props {
   tabs: { id: number | string; name: string }[];
   focusedTabIndex: number;
   setFocusedTabIndex: Dispatch<SetStateAction<number>>;
-  widthStyle?: "fit-content" | "flexible" | undefined;
+  widthStyle?: 'fit-content' | 'flexible' | undefined;
   fontSize?: string | undefined;
   color?: string | undefined;
 }
@@ -21,9 +15,9 @@ function TabBar({
   tabs,
   focusedTabIndex,
   setFocusedTabIndex,
-  widthStyle = "flexible",
-  fontSize = "14px",
-  color = "default",
+  widthStyle = 'flexible',
+  fontSize = '14px',
+  color = 'default',
 }: Props) {
   const [query, setQuery] = useSearchParams();
   const tabRefs = tabs.map(() => createRef<HTMLLIElement>());
@@ -48,7 +42,7 @@ function TabBar({
             ref={tabRefs[index]}
             onClick={() => {
               setFocusedTabIndex(index);
-              query.set("tab", String(index));
+              query.set('tab', String(index));
               setQuery(query);
             }}
             focused={index === focusedTabIndex}

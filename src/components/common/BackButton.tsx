@@ -1,5 +1,5 @@
-import { useNavigate } from "react-router-dom";
-import LeftChevronIcon from "../../assets/icons/chevron_left.svg?react";
+import { useNavigate } from 'react-router-dom';
+import LeftChevronIcon from '../../assets/icons/chevron_left.svg?react';
 
 function BackButton() {
   const navigate = useNavigate();
@@ -8,7 +8,7 @@ function BackButton() {
       onClick={() => {
         navigate(-1);
       }}
-      style={{ cursor: "pointer" }}
+      style={{ cursor: 'pointer' }}
     />
   );
 }

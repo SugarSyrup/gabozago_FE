@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { FilterButton } from "../FilterButton/style";
+import styled from 'styled-components';
+import { FilterButton } from '../FilterButton/style';
 
 export const FilterList = styled.ol`
   padding-bottom: 5px;

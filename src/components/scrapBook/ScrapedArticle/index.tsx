@@ -1,10 +1,10 @@
-import * as S from "./style";
-import { useNavigate } from "react-router-dom";
-import Typography from "../../common/Typography";
-import imageIcon from "../../../assets/icons/image.svg";
-import ClapIcon from "../../../assets/icons/clap_gray_secondary.svg?react";
-import CommentIcon from "../../../assets/icons/comment.svg?react";
-import BookMarkIcon from "../../../assets/icons/bookmark_black.svg?react";
+import { useNavigate } from 'react-router-dom';
+import * as S from './style';
+import Typography from '../../common/Typography';
+import imageIcon from '../../../assets/icons/image.svg';
+import ClapIcon from '../../../assets/icons/clap_gray_secondary.svg?react';
+import CommentIcon from '../../../assets/icons/comment.svg?react';
+import BookMarkIcon from '../../../assets/icons/bookmark_black.svg?react';
 
 interface Props {
   id: number;
@@ -16,15 +16,7 @@ interface Props {
   bookmark: number;
 }
 
-function ScrapedArticle({
-  id,
-  title,
-  subtitle,
-  thumbnailURL,
-  claps,
-  comment,
-  bookmark,
-}: Props) {
+function ScrapedArticle({ id, title, subtitle, thumbnailURL, claps, comment, bookmark }: Props) {
   const navigate = useNavigate();
 
   return (
@@ -54,13 +46,10 @@ function ScrapedArticle({
           </span>
         </S.BottomInfoContainer>
       </S.InfoContainer>
-      {thumbnailURL || thumbnailURL !== "" ? (
-        <S.ThumbnailImage src={thumbnailURL} alt={""} />
+      {thumbnailURL || thumbnailURL !== '' ? (
+        <S.ThumbnailImage src={thumbnailURL} alt="" />
       ) : (
-        <S.ThumbnailImagePlaceHolder
-          src={imageIcon}
-          alt={"이미지 불러오기에 실패했습니다."}
-        />
+        <S.ThumbnailImagePlaceHolder src={imageIcon} alt="이미지 불러오기에 실패했습니다." />
       )}
     </S.ArticleContainer>
   );

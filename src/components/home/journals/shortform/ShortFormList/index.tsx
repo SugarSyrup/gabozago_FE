@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
-import LocationIcon from "../../../../../assets/icons/location.svg?react";
-import ThemeIcon from "../../../../../assets/icons/theme.svg?react";
-import Typography from "../../../../common/Typography";
+import LocationIcon from '../../../../../assets/icons/location.svg?react';
+import ThemeIcon from '../../../../../assets/icons/theme.svg?react';
+import Typography from '../../../../common/Typography';
 
 import * as S from "./style";
 import { useEffect } from "react";
@@ -31,10 +31,7 @@ function ShortFormList({ data }: Props) {
         <S.ListItem key={id}>
           <Link to={`/journal/shortform/${id}`}>
             <S.Container>
-              <S.ThumbnailImage
-                src={"http://img.youtube.com/vi/" + videoId + "/oar2.jpg"}
-                alt=""
-              />
+              <S.ThumbnailImage src={`http://img.youtube.com/vi/${videoId}/oar2.jpg`} alt="" />
               <S.Views>
                 <Typography.Label size="sm" color="white">
                   조회수 {views}
@@ -45,27 +42,19 @@ function ShortFormList({ data }: Props) {
                   <LocationIcon />
                   {location !== undefined
                     ? location.map((item) => (
-                        <Typography.Label
-                          size="md"
-                          color="white"
-                          key={id + item}
-                        >
+                        <Typography.Label size="md" color="white" key={id + item}>
                           {item}
                         </Typography.Label>
                       ))
-                    : "-"}
+                    : '-'}
                   <ThemeIcon />
                   {theme !== undefined
                     ? theme.map((item) => (
-                        <Typography.Label
-                          size="md"
-                          color="white"
-                          key={id + item}
-                        >
+                        <Typography.Label size="md" color="white" key={id + item}>
                           {item}
                         </Typography.Label>
                       ))
-                    : "-"}
+                    : '-'}
                 </p>
                 <Typography.Title size="sm" color="white">
                   {title}

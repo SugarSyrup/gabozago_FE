@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 const defaultButton = css`
   padding: 22px;
@@ -40,5 +40,5 @@ export const AddButton = styled.button<{ size: string }>`
   &:active {
     background-color: ${({ theme }) => theme.gray04};
   }
-  ${({ size }) => (size === "small" ? smallButton : defaultButton)}
+  ${({ size }) => (size === 'small' ? smallButton : defaultButton)}
 `;

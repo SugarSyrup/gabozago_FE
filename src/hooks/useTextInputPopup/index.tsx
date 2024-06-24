@@ -1,17 +1,13 @@
-import { FormEventHandler, useRef } from "react";
-import * as S from "./style";
-import usePopup from "../usePopup";
+import { FormEventHandler, useRef } from 'react';
+import * as S from './style';
+import usePopup from '../usePopup';
 
-function useTextInputPopup(
-  title: string,
-  maxLength: number,
-  defaultValue: string = ""
-) {
+function useTextInputPopup(title: string, maxLength: number, defaultValue: string = '') {
   const {
     Popup,
     popupOpen: textInputPopupOpen,
     popupClose: textInputPopupClose,
-    isOpend: isOpend,
+    isOpend,
   } = usePopup();
   const inputRef = useRef<HTMLInputElement>(null);
 

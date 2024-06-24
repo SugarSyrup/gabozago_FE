@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 export const ButtonContainer = styled.div`
-  position:fixed;
-  bottom:0px;
+  position: fixed;
+  bottom: 0px;
   padding: 20px;
   width: 100%;
   max-width: 500px;
@@ -11,8 +11,8 @@ export const ButtonContainer = styled.div`
 
 export const Container = styled.div`
   padding: 20px;
-  width:calc(100% + 40px);
-  margin-left:-20px;
+  width: calc(100% + 40px);
+  margin-left: -20px;
 `;
 
 export const StyledLink = styled(Link)`
@@ -114,7 +114,7 @@ export const QuestionList = styled.ul`
 
       &::before {
         margin-right: 6px;
-        content: "Q.";
+        content: 'Q.';
         color: ${({ theme }) => theme.gray01};
       }
     }

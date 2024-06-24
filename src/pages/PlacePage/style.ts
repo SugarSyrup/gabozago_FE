@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 export const ModalContainer = styled.div`
   position: fixed;
@@ -14,9 +14,9 @@ export const ModalContainer = styled.div`
   max-height: 100dvh;
   width: 100%;
   height: 100dvh;
- @supports (-webkit-touch-callout: none) {
-  height: -webkit-fill-available;
-}
+  @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+  }
 
   background-color: ${({ theme }) => theme.white};
   z-index: 0;
@@ -39,7 +39,7 @@ export const ContentContainer = styled.div`
 
 export const ImgSlider = styled.div`
   width: 100%;
-  max-height:200px;
+  max-height: 200px;
   overflow: auto;
   position: relative;
 
@@ -50,7 +50,7 @@ export const ImgSlider = styled.div`
 
   img {
     width: 100%;
-    max-height:200px;
+    max-height: 200px;
     scroll-snap-align: start;
     object-fit: cover;
     flex-shrink: 0;
@@ -63,11 +63,11 @@ export const ImgSlider = styled.div`
 `;
 
 export const TmpImg = styled.img`
-    width: 100%;
-    max-height:200px;
-    object-fit: cover;
-    flex-shrink: 0;
-`
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  flex-shrink: 0;
+`;
 
 export const ImgRegistContainer = styled.div`
   width: 100%;
@@ -178,14 +178,14 @@ export const Button = styled.div`
 `;
 
 export const AlertMessageContainer = styled.div`
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  span:last-child{
+  span:last-child {
     flex-shrink: 0;
   }
-`
+`;
 
 export const AlertMessageName = styled.span`
   color: white;
@@ -201,4 +201,4 @@ export const AlertMessageName = styled.span`
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
-`
+`;

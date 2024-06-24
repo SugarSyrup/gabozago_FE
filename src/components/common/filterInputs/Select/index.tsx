@@ -1,6 +1,6 @@
-import React from "react";
-import * as S from "./style";
-import { SelectOptions } from "../../../../assets/types/FilterTypes";
+import React from 'react';
+import * as S from './style';
+import { SelectOptions } from '../../../../assets/types/FilterTypes';
 
 export interface Props extends SelectOptions {
   filter: string[] | string;
@@ -23,7 +23,7 @@ function Select({ filter, setFilter, options, multiple = false }: Props) {
           checked={multiple ? filter.includes(value) : filter === value}
         >
           <S.CheckboxInput
-            type={"checkbox"}
+            type="checkbox"
             id={value}
             checked={multiple ? filter.includes(value) : filter === value}
             onChange={() => {

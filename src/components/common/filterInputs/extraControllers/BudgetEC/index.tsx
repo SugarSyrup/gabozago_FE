@@ -1,5 +1,5 @@
-import { ChangeEvent } from "react";
-import * as S from "./style";
+import { ChangeEvent } from 'react';
+import * as S from './style';
 
 interface Props {
   filter: [number, number];
@@ -11,7 +11,7 @@ function BudgetEC({ filter, setFilter, step }: Props) {
   const min = 10000;
   const max = 9990000;
 
-  const validateAndSetFilter = (value: number, type: "min" | "max") => {
+  const validateAndSetFilter = (value: number, type: 'min' | 'max') => {
     let newValue = value;
 
     if (value > max) {
@@ -22,7 +22,7 @@ function BudgetEC({ filter, setFilter, step }: Props) {
 
     setFilter((prev) => {
       const newFilter = [...prev];
-      const index = type === "min" ? 0 : 1;
+      const index = type === 'min' ? 0 : 1;
       newFilter[index] = newValue / 10000;
       return newFilter as [number, number];
     });
@@ -31,7 +31,7 @@ function BudgetEC({ filter, setFilter, step }: Props) {
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     const truncatedValue = Math.trunc(Number(value) / 10000) * 10000;
-    validateAndSetFilter(truncatedValue, id as "min" | "max");
+    validateAndSetFilter(truncatedValue, id as 'min' | 'max');
   };
 
   return (

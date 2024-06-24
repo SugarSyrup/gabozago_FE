@@ -1,4 +1,4 @@
-import * as S from "./style";
+import * as S from './style';
 
 interface Props {
   filter: [number, number];
@@ -9,23 +9,23 @@ interface Props {
 function HeadCountEC({ filter, setFilter, max }: Props) {
   const options: { text: string; value: [number, number] }[] = [
     {
-      text: "1인",
+      text: '1인',
       value: [1, 1],
     },
     {
-      text: "2인",
+      text: '2인',
       value: [2, 2],
     },
     {
-      text: "3인",
+      text: '3인',
       value: [3, 3],
     },
     {
-      text: "4인",
+      text: '4인',
       value: [4, 4],
     },
     {
-      text: "5인+",
+      text: '5인+',
       value: [5, max],
     },
   ];

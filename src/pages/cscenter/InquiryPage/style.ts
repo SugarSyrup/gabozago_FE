@@ -1,5 +1,5 @@
-import styled, { css } from "styled-components";
-import xSvg from "../../../assets/icons/circleX.svg";
+import styled, { css } from 'styled-components';
+import xSvg from '../../../assets/icons/circleX.svg';
 
 export const ButtonContainer = styled.div`
   padding: 20px;
@@ -214,7 +214,7 @@ export const FileBox = styled.div<{ image: string }>`
   }
 
   &:hover::after {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     top: 0;

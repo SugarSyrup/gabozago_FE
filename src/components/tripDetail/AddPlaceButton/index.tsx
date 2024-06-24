@@ -1,12 +1,12 @@
-import { MouseEventHandler } from "react";
-import MapPinIcon from "../../../assets/icons/map_pin.svg?react";
-import * as S from "./style";
+import { MouseEventHandler } from 'react';
+import MapPinIcon from '../../../assets/icons/map_pin.svg?react';
+import * as S from './style';
 
 interface Props {
-  size?: "default" | "small";
+  size?: 'default' | 'small';
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
-function AddPlaceButton({ size = "default", onClick = () => {} }: Props) {
+function AddPlaceButton({ size = 'default', onClick = () => {} }: Props) {
   return (
     <S.AddButton size={size} onClick={onClick}>
       <MapPinIcon />

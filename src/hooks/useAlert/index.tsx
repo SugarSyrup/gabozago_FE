@@ -1,5 +1,5 @@
-import { useState } from "react";
-import * as S from "./style";
+import { useState } from 'react';
+import * as S from './style';
 
 interface Props {
   LeftContent?: React.ReactNode;
@@ -25,9 +25,9 @@ function useAlert({ LeftContent, Content, RightContent }: Props) {
     return (
       <S.AlertWrapper>
         <S.Alert isOpen={isOpen}>
-          {LeftContent ? LeftContent : <div></div>}
+          {LeftContent || <div />}
           {Content}
-          {RightContent ? RightContent : <div></div>}
+          {RightContent || <div />}
         </S.Alert>
       </S.AlertWrapper>
     );

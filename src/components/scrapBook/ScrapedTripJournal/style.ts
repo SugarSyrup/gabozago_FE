@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const ModalWrapper = styled.div<{ isOpen: boolean }>`
   position: fixed;
@@ -37,8 +37,7 @@ export const GroupItem = styled.li<{ background?: string | undefined }>`
 
     border-radius: 10px;
     background-color: ${({ theme }) => theme.gray05};
-    background-image: ${({ background }) =>
-      background ? `url(${background})` : "none"};
+    background-image: ${({ background }) => (background ? `url(${background})` : 'none')};
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
