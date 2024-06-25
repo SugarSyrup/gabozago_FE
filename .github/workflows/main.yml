@@ -19,7 +19,7 @@ jobs:
           script: |
             cd gabozago_FE
             git pull 
-            npm ci
+            npm install --force
             npm run build
             sudo docker-compose stop
             sudo docker-compose build
