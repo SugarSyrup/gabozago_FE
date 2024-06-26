@@ -18,9 +18,6 @@ import UserEditPage from './pages/profile/UserEditPage';
 import HomePage from './pages/home/HomePage';
 import SettingsPage from './pages/profile/SettingsPage';
 import ShortFormPage from './pages/journal/ShortformPage';
-// import SnapshotPage from "./pages/journal/SnapshotPage";
-// import PostPage from "./pages/journal/PostPage";
-// import VideoPage from "./pages/journal/VideoPage";
 import LoginPage from './pages/auth/LoginPage';
 import SignUpPage from './pages/auth/SignUpPage';
 import ArticlePage from './pages/ArticlePage';
@@ -39,6 +36,7 @@ import { get } from './utils/api';
 import InquiryDetailPage from './pages/cscenter/InquiryDetailPage';
 import IsLoginTemplate from './components/common/isLoginTemplate';
 import MemoPage from './pages/mytrip/MemoPage';
+import ShareTargetPage from './pages/Share/share-target';
 
 const router = createBrowserRouter([
   {
@@ -375,6 +373,11 @@ const router = createBrowserRouter([
         <ResignDonePage />
       </IsLoginTemplate>
     ),
+  },
+  {
+    // Share Target Page
+    path: '/share-target',
+    element: <ShareTargetPage />,
   },
 ]);
 
