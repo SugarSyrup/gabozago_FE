@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 
 import PageTemplate from '../../../components/common/PageTemplate';
 import TabBar from '../../../components/common/TabBar';
@@ -69,6 +69,8 @@ function HomePage() {
       }
     >
       <Alert />
+      <span>PWA 동작 범위 테스트</span>
+      <Link to="share-target">Share Target</Link>
       {tabs[focusedTabIndex].content}
     </PageTemplate>
   );

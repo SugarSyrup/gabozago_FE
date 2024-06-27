@@ -40,13 +40,20 @@ export default defineConfig({
           },
         ],
         "share_target": {
-          "method": "GET",
           "action": "/share-target",
+          "method": "POST",
+          "enctype": "multipart/form-data",
           "params": {
-            "title": "data",
+            "title": "title",
             "text": "text",
-            "url": ""
-          }
+            "url": "url",
+            "files": [
+              {
+                "name": "file",
+                "accept": ["image/*"]
+              }
+            ],
+          },
         },
       },
     }),
