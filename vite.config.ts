@@ -4,6 +4,13 @@ import svgr from 'vite-plugin-svgr';
 import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
+  build: {
+    rollupOptions: {
+      output: {
+        chunkFileNames: `[name].[hash].js`,
+      }
+    }
+  },
   plugins: [
     react(),
     svgr(),
