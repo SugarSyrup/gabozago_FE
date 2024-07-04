@@ -46,7 +46,7 @@ function LocationRecommendContents({ locations }: Props) {
   return (
     <>
       {data && (data[0].article || data[1].short_form) && (
-        <Typography.Title size="lg">추가한 여행지를 포함한 콘텐츠 제공</Typography.Title>
+        <Typography.Title size="lg">추가한 여행지를 포함한 콘텐츠</Typography.Title>
       )}
       <S.RecommendatoinReviewList>
         {data && data[0].article && (
