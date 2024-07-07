@@ -8,6 +8,29 @@ export const Header = styled.header`
   background-color: ${({ theme }) => theme.white};
 `;
 
+export const NavigationHeader = styled.div`
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  svg {
+    width: 28px;
+    height: 28px;
+
+    path {
+      fill: ${({ theme }) => theme.colors.black.primary};
+    }
+  }
+
+  svg:last-child {
+    path {
+      stroke: ${({ theme }) => theme.colors.black.primary};
+    }
+  }
+`;
+
 export const DateParagraph = styled.p`
   display: flex;
   align-items: center;

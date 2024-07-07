@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useLoaderData, useParams } from 'react-router-dom';
 import { useRecoilState, useResetRecoilState } from 'recoil';
-import * as S from './style';
+
 import { get } from '../../../utils/api';
 import { parseDateString, DateObject } from '../../../utils/parseDateString';
+
+import OptionIcon from '../../../assets/icons/menu_kebab.svg?react';
 
 import PageTemplate from '../../../components/common/PageTemplate';
 import TripPlanList, { DayPlan } from '../../../components/tripDetail/TripPlanList';
@@ -13,6 +15,9 @@ import Typography from '../../../components/common/Typography';
 import CalendarIcon from '../../../assets/icons/calendar.svg?react';
 import { SortableDayPlan, editingTripPlanState, tripState } from '../../../recoil/tripState';
 import PlanEditMode from '../../../components/tripDetail/PlanEditMode';
+import BackButton from '../../../components/common/BackButton';
+
+import * as S from './style';
 
 export const markerColors = [
   '#5276FA',
@@ -137,6 +142,10 @@ function MyTripDetailPage() {
       nav={isEditMode ? <EditModeBottomControlBox /> : 'default'}
       header={
         <S.Header>
+          <S.NavigationHeader>
+            <BackButton />
+            <OptionIcon />
+          </S.NavigationHeader>
           <Typography.Headline size="md">{data.title}</Typography.Headline>
           <S.DateParagraph>
             <CalendarIcon />
