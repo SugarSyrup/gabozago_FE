@@ -18,7 +18,7 @@ function useAlert({ LeftContent, Content, RightContent }: Props) {
     setIsOpen(true);
     setTimeout(() => {
       alertClose();
-    }, 3000);
+    }, 5000);
   }
 
   function Alert() {
