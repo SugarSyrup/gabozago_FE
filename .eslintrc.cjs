@@ -23,6 +23,11 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     'react/require-default-props': 'warn',
-    'consistent-return': 'off'
+    'consistent-return': 'off',
+    "jsx-a11y/label-has-associated-control": [
+      2, {
+        "labelAttributes": ["htmlFor"]
+      }
+    ]
   },
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import LocationIcon from '../../assets/icons/location.svg?react';
@@ -18,7 +18,6 @@ import PlaceGoogleMap from '../../components/journal/GoogleMap';
 import { get, post } from '../../utils/api';
 
 import * as S from './style';
-import useAlert from '../../hooks/useAlert';
 
 type TData = {
   region: string;
@@ -39,11 +38,6 @@ function PlacePage() {
   const [data, setData] = useState<TData>();
   const [imageURL, setImageURL] = useState<string>('');
 
-  const [alertMessage, setAlertMessage] = useState<React.ReactNode>();
-  const { Alert, alertOpen } = useAlert({
-    Content: alertMessage,
-  });
-
   useEffect(() => {
     get<TData>(`/place/${id}`).then((response) => {
       setData(response.data);
@@ -59,7 +53,6 @@ function PlacePage() {
       }
       nav={false}
     >
-      <Alert />
       {data !== undefined && (
         <S.ContentContainer>
           {data.image.length === 0 && imageURL === '' ? (
@@ -99,8 +92,8 @@ function PlacePage() {
             </S.ImgRegistContainer>
           ) : (
             <S.ImgSlider>
-              {data.image.map((img) => (
-                <img src={img} />
+              {data.image.map((img, index) => (
+                <img src={img} key={img} alt={`${index} IMG`} />
               ))}
             </S.ImgSlider>
           )}
@@ -154,26 +147,10 @@ function PlacePage() {
                     placeId: id,
                   }).then((response) => {
                     if (response.data.message === 'Create Success') {
-                      setAlertMessage(
-                        <S.AlertMessageContainer>
-                          <S.AlertMessageName>{data.name}</S.AlertMessageName>
-                          <Typography.Body size="lg" color="white" maxWidth={140}>
-                            (이)가 스크랩 되었습니다.
-                          </Typography.Body>
-                        </S.AlertMessageContainer>,
-                      );
+                      // @TODO: 스크랩 성공 엑션
                     } else {
-                      setAlertMessage(
-                        <S.AlertMessageContainer>
-                          <S.AlertMessageName>{data.name}</S.AlertMessageName>
-                          <Typography.Body size="lg" color="white" maxWidth={140}>
-                            (이)가 스크랩 목록에서 삭제되었습니다.
-                          </Typography.Body>
-                        </S.AlertMessageContainer>,
-                      );
+                      // @TODO: 스크랩 실패 엑션
                     }
-
-                    alertOpen();
                   });
                 }}
               >
