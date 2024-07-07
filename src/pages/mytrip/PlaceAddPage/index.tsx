@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 
+import { TMyTravelItem } from '@_types/MyTravelItem';
 import InfomationIcon from '../../../assets/icons/exclamation_circle.svg?react';
 import XIcon from '../../../assets/icons/x.svg?react';
 import PageHeader from '../../../components/common/PageHeader';
@@ -16,20 +17,6 @@ import { get, post } from '../../../utils/api';
 
 import * as S from './style';
 import { datesState } from '../../../recoil/mytrip/createData';
-
-export interface TMyTravelItem {
-  id: number;
-  name: string;
-  departureDate: string;
-  arrivalDate: string;
-  location: string[];
-  days: {
-    day: number;
-    date: string;
-    dayOfWeek: string;
-  }[];
-  thumbnailURL: string;
-}
 
 function PlaceAddPage() {
   const { id } = useParams();
@@ -101,7 +88,7 @@ function PlaceAddPage() {
                 myTravelId: currentSelectedItem.id,
                 day: currentSelectedItem.day,
               })
-                .then((response) => {
+                .then(() => {
                   alertOpen();
                 })
                 .catch((err) => {
@@ -217,9 +204,10 @@ function PlaceAddPage() {
       <S.MyTravelList>
         {data.map((item) => (
           <LocationAddItem
-            {...item}
+            key={item.id}
             currentSelectedItemId={currentSelectedItem.id}
             setCurrentSelectedItem={setCurrentSelectedItem}
+            {...item}
           />
         ))}
       </S.MyTravelList>

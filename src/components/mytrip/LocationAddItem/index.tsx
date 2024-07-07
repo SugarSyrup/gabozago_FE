@@ -1,9 +1,9 @@
 import React, { Dispatch, useState } from 'react';
 
+import { TMyTravelItem } from '@_types/MyTravelItem';
 import LogoIcon from '../../../assets/icons/logo_small.svg?react';
 import CalendarIcon from '../../../assets/icons/calendar.svg?react';
 import LocationIcon from '../../../assets/icons/location.svg?react';
-import { TMyTravelItem } from '../../../pages/mytrip/PlaceAddPage';
 
 import Typography from '../../common/Typography';
 
@@ -31,11 +31,18 @@ function LocationAddItem({
     <S.Container>
       <S.InfoContainer
         onClick={() => {
+          if (currentSelectedItemId !== id) {
+            setClickedDay(-1);
+          }
           setCurrentSelectedItem({ id });
         }}
       >
         <S.MyTravelItemThumbnailWrapper>
-          {thumbnailURL !== '' ? <LogoIcon /> : <img src={thumbnailURL} />}
+          {thumbnailURL !== '' ? (
+            <LogoIcon />
+          ) : (
+            <img src={thumbnailURL} alt={`${id} ${thumbnailURL}`} />
+          )}
         </S.MyTravelItemThumbnailWrapper>
         <S.MyTravelItemTextContainer>
           <Typography.Title size="md">{name}</Typography.Title>
@@ -57,6 +64,7 @@ function LocationAddItem({
         <S.DayList>
           {days.map((day, index) => (
             <S.DayItem
+              key={`${id} ${day.day}`}
               isClicked={index === clickedDay}
               onClick={() => {
                 setClickedDay(index);
