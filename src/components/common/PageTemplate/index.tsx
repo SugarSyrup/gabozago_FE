@@ -1,9 +1,14 @@
+// libraries
 import { ReactNode, useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import * as S from './style';
-import BottomNavBar from '../BottomNavBar';
-import { modalState } from '../../../recoil/modalState';
+
 import useModal from '../../../hooks/useModal';
+import { modalState } from '../../../recoil/modalState';
+
+import { Toaster } from '../Toast/Toaster';
+import BottomNavBar from '../BottomNavBar';
+
+import * as S from './style';
 
 interface Props {
   children: ReactNode;
@@ -44,6 +49,7 @@ function PageTemplate({ children, nav = 'default', header }: Props) {
   return (
     <S.Container header={!!header}>
       <Modal>{modal.contents}</Modal>
+      <Toaster position="bottom-center" reverseOrder={false} containerStyle={{ bottom: 100 }} />
       <S.Header ref={headerRef}>{header && header}</S.Header>
       <S.Content header={headerHeight} nav={!!(nav || nav === 'default')}>
         {children}
