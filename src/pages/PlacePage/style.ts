@@ -176,29 +176,3 @@ export const Button = styled.div`
     }
   }
 `;
-
-export const AlertMessageContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  span:last-child {
-    flex-shrink: 0;
-  }
-`;
-
-export const AlertMessageName = styled.span`
-  color: white;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 24px;
-  letter-spacing: 0.5px;
-
-  word-break: keep-all;
-  overflow-wrap: anywhere;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-`;

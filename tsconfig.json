@@ -5,6 +5,12 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
+    "paths": {
+      //"@_apis/*": ["src/api/*"],
+      "@_types/*": ["./src/assets/types/*"],
+      "@_icons/*": ["./src/assets/icons/*"],
+      "@_imgs/*": ["./src/assets/imgs/*"],
+    },
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -18,7 +24,8 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    
   },
   "include": [".eslintrc.cjs", "src"],
   "references": [{ "path": "./tsconfig.node.json" }]

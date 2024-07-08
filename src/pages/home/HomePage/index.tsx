@@ -69,8 +69,6 @@ function HomePage() {
       }
     >
       <Alert />
-      <span>PWA 동작 범위 테스트</span>
-      <Link to="share-target">Share Target</Link>
       {tabs[focusedTabIndex].content}
     </PageTemplate>
   );

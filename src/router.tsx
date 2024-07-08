@@ -40,11 +40,7 @@ import ShareTargetPage from './pages/Share/share-target';
 
 const router = createBrowserRouter([
   {
-    path: '*',
-    element: <HomePage />,
-  },
-  {
-    path: '/:idx',
+    path: '/',
     element: <HomePage />,
   },
   /* ---- 여행기 페이지 ---- */
