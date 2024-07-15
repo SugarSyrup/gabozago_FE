@@ -5,7 +5,7 @@ import { useRecoilState } from 'recoil';
 import useModal from '../../../hooks/useModal';
 import { modalState } from '../../../recoil/modalState';
 
-import { Toaster } from '../Toast/Toaster';
+import { Toaster } from '../Toast';
 import BottomNavBar from '../BottomNavBar';
 
 import * as S from './style';
