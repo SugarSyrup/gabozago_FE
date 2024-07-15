@@ -45,7 +45,6 @@ function useReportPopup({ type, postId = null, commentId = null, setIsReported }
         },
       );
 
-      console.log(data);
       if (data.message === 'Comment report success' || data.message === 'Post report success') {
         if (setIsReported) {
           setIsReported(true);
