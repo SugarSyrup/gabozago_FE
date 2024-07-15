@@ -1,9 +1,12 @@
 import { FormEvent } from 'react';
-import * as S from './style';
-import { post } from '../../utils/api';
-import usePopup from '../usePopup';
+import toast from 'react-hot-toast';
+
 import Typography from '../../components/common/Typography';
-import useAlert from '../useAlert';
+import { ReportToast } from '../../components/common/Toast';
+import { post } from '../../utils/api';
+
+import usePopup from '../usePopup';
+import * as S from './style';
 
 interface Options {
   type: 'short-form' | 'article' | 'video' | 'report' | 'travelog';
@@ -13,13 +16,6 @@ interface Options {
 }
 
 function useReportPopup({ type, postId = null, commentId = null, setIsReported }: Options) {
-  const { Alert, alertOpen } = useAlert({
-    Content: (
-      <Typography.Body size="lg" color="white">
-        신고가 접수되었습니다.
-      </Typography.Body>
-    ),
-  });
   const { Popup, popupOpen, popupClose } = usePopup();
   const reasons = [
     '욕설 / 비방',
@@ -49,9 +45,13 @@ function useReportPopup({ type, postId = null, commentId = null, setIsReported }
         },
       );
 
+      console.log(data);
       if (data.message === 'Comment report success' || data.message === 'Post report success') {
-        setIsReported && setIsReported(true);
-        alertOpen();
+        if (setIsReported) {
+          setIsReported(true);
+        }
+
+        toast.custom(() => <ReportToast />);
         popupClose();
       }
     } catch (error) {
@@ -61,15 +61,16 @@ function useReportPopup({ type, postId = null, commentId = null, setIsReported }
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (e.target.reportReason) {
-      sendReport(e.target.reportReason.value);
+    const formData = new FormData(e.target as HTMLFormElement);
+
+    if (formData.get('reportReason')) {
+      sendReport(formData.get('reportReason') as string);
     }
   };
 
   function ReportPopup() {
     return (
       <>
-        <Alert />
         <Popup padding="0">
           <S.ReportForm onSubmit={onSubmit}>
             <Typography.Title size="lg">신고하기</Typography.Title>

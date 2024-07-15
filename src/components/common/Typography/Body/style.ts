@@ -36,6 +36,8 @@ export const Body = styled.span<Props>`
           line-height: 16px;
           letter-spacing: 0.4px;
         `;
+      default:
+        return css``;
     }
   }}
 

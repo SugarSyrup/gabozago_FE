@@ -2,7 +2,7 @@ import { Toaster as DefaultToaster, ToastBar, ToasterProps } from 'react-hot-toa
 
 export interface Props extends ToasterProps {}
 
-export function Toaster({ ...props }: Props) {
+export default function Toaster({ ...props }: Props) {
   const { position, toastOptions, reverseOrder, gutter, containerStyle, containerClassName } =
     props;
 

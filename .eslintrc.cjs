@@ -29,6 +29,7 @@ module.exports = {
         "labelAttributes": ["htmlFor"]
       }
     ],
-    "react/jsx-no-useless-fragment": 'off'
+    "react/jsx-no-useless-fragment": 'off',
+    "react/no-array-index-key": 'off'
   },
 };
