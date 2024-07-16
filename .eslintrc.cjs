@@ -28,6 +28,8 @@ module.exports = {
       2, {
         "labelAttributes": ["htmlFor"]
       }
-    ]
+    ],
+    "react/jsx-no-useless-fragment": 'off',
+    "react/no-array-index-key": 'off'
   },
 };

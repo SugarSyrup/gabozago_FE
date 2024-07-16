@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import * as S from './style';
 
 import UserIcon from '../../../assets/icons/user.svg?react';
@@ -12,10 +13,10 @@ import DeleteIcon from '../../../assets/icons/delete.svg?react';
 import useModal from '../../../hooks/useModal';
 import MenuOptionList from '../../common/MenuOptionList';
 import { post } from '../../../utils/api';
-import useConfirm from '../../../hooks/useConfirm';
 import useReportPopup from '../../../hooks/useReportPopup';
 import useAlert from '../../../hooks/useAlert';
 import Typography from '../../common/Typography';
+import CommentDeleteToast from '../../common/Toast/Toast/CommentDeleteToast';
 
 export interface Comment {
   id: number;
@@ -80,13 +81,6 @@ function CommentItem({
     handle: true,
     borderRadius: '16px',
   });
-  const { ConfirmPopup, confirmPopupOpen } = useConfirm(
-    '댓글을 삭제하시겠어요?',
-    '삭제한 댓글은 되돌릴 수 없습니다.',
-    null,
-    '아니요',
-    '네, 삭제할래요',
-  );
   const { ReportPopup, reportPopupOpen } = useReportPopup({
     type,
     commentId: id,
@@ -106,8 +100,6 @@ function CommentItem({
       setIsLiked((prev) => !prev);
       setLikeCount(data.clap);
     } catch (error) {
-      console.log(error);
-      console.log(error.response.data.message);
       if (error.response.data.message === "It's your comment!") {
         alert('내가 작성한 댓글은 좋아요 할 수 없습니다.');
       }
@@ -123,7 +115,8 @@ function CommentItem({
       ),
       name: '삭제하기',
       onClick: () => {
-        confirmPopupOpen();
+        deleteComments(id);
+        toast.custom(() => <CommentDeleteToast />);
         commentMenuModalClose();
       },
     },
@@ -173,11 +166,6 @@ function CommentItem({
     >
       <Alert />
       <ReportPopup />
-      <ConfirmPopup
-        onConfirm={() => {
-          deleteComments(id);
-        }}
-      />
       <CommentMenuModal>
         <MenuOptionList menus={isMine ? myCommentMenus : notMyCommentMenus} />
       </CommentMenuModal>
