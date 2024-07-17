@@ -1,34 +1,29 @@
 import styled from 'styled-components';
 
-export const Nav = styled.nav<{ backgroundColor: string }>`
+export const NavList = styled.ol`
   width: 100%;
   max-width: 500px;
-  background-color: ${({ backgroundColor }) => backgroundColor};
-  z-index: 20;
+  background-color: white;
 
-  position: fixed;
-  bottom: 0;
-`;
+  padding-top: 8px;
+  padding-bottom: 15px;
 
-export const NavList = styled.ul`
-  margin: auto;
-  margin-bottom: 10px;
-  width: 100%;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
 `;
 
-export const ListItem = styled.li<{ active?: boolean; activeColor: string }>`
+export const ListItem = styled.li<{ isActive?: boolean }>`
   a {
-    padding: 12px;
+    padding-left: 10px;
+    padding-right: 10px;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
     text-decoration: none;
-    color: ${({ active, activeColor, theme }) =>
-      active ? (activeColor === 'white' ? theme.white : theme.main) : theme.gray02};
+    color: ${({ isActive, theme }) => (isActive ? theme.main : theme.gray02)};
     transition: all ease-in-out 0.3s;
 
     span {
@@ -37,10 +32,14 @@ export const ListItem = styled.li<{ active?: boolean; activeColor: string }>`
       line-height: 12px;
       margin-top: 2px;
     }
-    path {
-      transition: all ease-in-out 0.3s;
-      fill: ${({ active, activeColor, theme }) =>
-        active ? (activeColor === 'white' ? theme.white : theme.main) : theme.gray02};
+    svg {
+      width: 24px;
+      height: 24px;
+
+      path {
+        transition: all ease-in-out 0.3s;
+        fill: ${({ isActive, theme }) => (isActive ? theme.main : theme.gray02)};
+      }
     }
 
     @media (hover: hover) {

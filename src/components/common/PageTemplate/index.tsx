@@ -54,7 +54,7 @@ function PageTemplate({ children, nav = 'default', header }: Props) {
       <S.Content header={headerHeight} nav={!!(nav || nav === 'default')}>
         {children}
       </S.Content>
-      {nav === 'default' ? <BottomNavBar /> : nav}
+      <S.BottomNavigation>{nav === 'default' ? <BottomNavBar /> : nav}</S.BottomNavigation>
     </S.Container>
   );
 }
