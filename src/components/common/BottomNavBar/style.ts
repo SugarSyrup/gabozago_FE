@@ -26,11 +26,8 @@ export const ListItem = styled.li<{ isActive?: boolean }>`
     color: ${({ isActive, theme }) => (isActive ? theme.main : theme.gray02)};
     transition: all ease-in-out 0.3s;
 
-    span {
-      font-size: 10px;
-      font-weight: 600;
-      line-height: 12px;
-      margin-top: 2px;
+    label {
+      font-weight: ${({ isActive }) => (isActive ? 700 : 400)};
     }
     svg {
       width: 24px;
