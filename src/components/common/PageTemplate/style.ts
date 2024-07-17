@@ -24,3 +24,12 @@ export const Header = styled.header`
   top: 0;
   z-index: 100;
 `;
+
+export const BottomNavigation = styled.div`
+  width: 100%;
+  max-width: 500px;
+  border-top: 1px solid ${({ theme }) => theme.colors.gray.tertiary};
+
+  position: fixed;
+  bottom: 0px;
+`;

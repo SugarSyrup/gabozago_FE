@@ -30,6 +30,7 @@ module.exports = {
       }
     ],
     "react/jsx-no-useless-fragment": 'off',
-    "react/no-array-index-key": 'off'
+    "react/no-array-index-key": 'off',
+    "import/order" : "off"
   },
 };
