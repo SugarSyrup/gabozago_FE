@@ -49,7 +49,7 @@ function ProfilePage() {
   const [currentTap, setCurrentTap] = useState<'trip' | 'activity'>('trip');
   const swiperRef = useRef<HTMLDivElement>(null);
 
-  const { id, nickname, description, avatarURL } = useLoaderData() as TUserProfile;
+  const { nickname, description, avatarURL } = useLoaderData() as TUserProfile;
   useEffect(() => {
     get<{
       myTravelDay: number;

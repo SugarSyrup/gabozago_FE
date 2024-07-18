@@ -8,7 +8,7 @@ import UserCommentsList from '../UserCommentsList';
 
 import { get, post } from '../../../utils/api';
 
-export interface articleResponseType {
+export interface ArticleResponseType {
   next: string | null;
   previous: string | null;
   results: {
@@ -22,21 +22,7 @@ export interface articleResponseType {
   }[];
 }
 
-export interface shortsResponseType {
-  next: string | null;
-  previous: string | null;
-  results: {
-    id: number;
-    title: string;
-    nickname: string;
-    avatarURL: string;
-    videoId: string;
-    clapCount: number;
-    commentCount: number;
-  }[];
-}
-
-export interface commentsResponseType {
+export interface CommentsResponseType {
   next: string | null;
   previous: string | null;
   results: {
@@ -48,38 +34,30 @@ export interface commentsResponseType {
 
 function UserActivity() {
   const [actFilter, setActFilter] = useState<'clap' | 'comment'>('clap');
-  const [postFilter, setPostFilter] = useState<'short-form' | 'article'>('article');
   const [next, setNext] = useState<string | null>(null);
   const [data, setData] = useState<
-    articleResponseType['results'] | shortsResponseType['results'] | commentsResponseType['results']
+    ArticleResponseType['results'] | CommentsResponseType['results']
   >([]);
 
   const dataContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (actFilter === 'clap' && postFilter === 'short-form') {
-      get<shortsResponseType>(
-        `/user/profile/my-activity?sort=${actFilter}&community=${postFilter}`,
-      ).then((response) => {
-        setData(response.data.results);
-        setNext(response.data.next);
-      });
-    } else if (actFilter === 'clap' && postFilter === 'article') {
-      get<articleResponseType>(
-        `/user/profile/my-activity?sort=${actFilter}&community=${postFilter}`,
+    if (actFilter === 'clap') {
+      get<ArticleResponseType>(
+        `/user/profile/my-activity?sort=${actFilter}&community=article`,
       ).then((response) => {
         setData(response.data.results);
         setNext(response.data.next);
       });
     } else {
-      get<commentsResponseType>(
-        `/user/profile/my-activity?sort=${actFilter}&community=${postFilter}`,
+      get<CommentsResponseType>(
+        `/user/profile/my-activity?sort=${actFilter}&community=article`,
       ).then((response) => {
         setData(response.data.results);
         setNext(response.data.next);
       });
     }
-  }, [actFilter, postFilter]);
+  }, [actFilter]);
 
   useEffect(() => {
     let observer = new IntersectionObserver(() => {});
@@ -87,26 +65,18 @@ function UserActivity() {
     if (dataContainerRef.current) {
       observer = new IntersectionObserver(([entry]) => {
         if (entry.isIntersecting && next) {
-          if (actFilter === 'clap' && postFilter === 'short-form') {
-            get<shortsResponseType>(next).then((response) => {
+          if (actFilter === 'clap') {
+            get<ArticleResponseType>(next).then((response) => {
               setData((prev) => {
-                const prevData = prev as shortsResponseType['results'];
-                return [...prevData, ...response.data.results];
-              });
-              setNext(response.data.next);
-            });
-          } else if (actFilter === 'clap' && postFilter === 'article') {
-            get<articleResponseType>(next).then((response) => {
-              setData((prev) => {
-                const prevData = prev as articleResponseType['results'];
+                const prevData = prev as ArticleResponseType['results'];
                 return [...prevData, ...response.data.results];
               });
               setNext(response.data.next);
             });
           } else {
-            get<commentsResponseType>(next).then((response) => {
+            get<CommentsResponseType>(next).then((response) => {
               setData((prev) => {
-                const prevData = prev as commentsResponseType['results'];
+                const prevData = prev as CommentsResponseType['results'];
                 return [...prevData, ...response.data.results];
               });
               setNext(response.data.next);
@@ -119,23 +89,17 @@ function UserActivity() {
     }
 
     return () => {
-      observer && observer.disconnect();
+      if (observer) observer.disconnect();
     };
   }, [next, dataContainerRef]);
 
   return (
     <S.Container>
-      <UserActivityFilter setActFilter={setActFilter} setPostFilter={setPostFilter} />
+      <UserActivityFilter setActFilter={setActFilter} actFilter={actFilter} />
       {data !== undefined && actFilter === 'clap' ? (
-        postFilter === 'short-form' ? (
-          <UserClapsPostList data={data as shortsResponseType['results']} type="short-form" />
-        ) : (
-          <UserClapsPostList data={data as articleResponseType['results']} type="article" />
-        )
+        <UserClapsPostList data={data as ArticleResponseType['results']} type="article" />
       ) : (
-        data !== undefined && (
-          <UserCommentsList data={data as commentsResponseType['results']} type={postFilter} />
-        )
+        <UserCommentsList data={data as CommentsResponseType['results']} type="article" />
       )}
 
       <div ref={dataContainerRef} />
