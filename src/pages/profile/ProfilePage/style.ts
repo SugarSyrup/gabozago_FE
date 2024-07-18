@@ -1,44 +1,54 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-export const SettingIconWrapper = styled.div`
-  position: absolute;
-  top: 15px;
-  right: 20px;
-
-  z-index: 10;
-  cursor: pointer;
-
-  svg {
-    width: 30px;
-    height: 30px;
-
-    path {
-      width: 30px !important;
-      height: 30px !important;
-    }
-  }
-`;
-
 export const FixedContainer = styled.div`
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  z-index: 2;
-
-  padding-top: 45px;
-  padding-left: 24px;
-  padding-right: 24px;
+  padding-left: 20px;
+  padding-right: 20px;
   width: 100%;
 
   background-color: white;
 `;
 
-export const Content = styled.div<{ FixedContainerHeight: number | undefined }>`
-  padding-top: ${({ FixedContainerHeight }) =>
-    FixedContainerHeight ? `${FixedContainerHeight - 10}px` : '200px'};
+// Header Section
+export const Header = styled.header`
+  width: 100%;
+  padding-top: 8px;
+  padding-bottom: 8px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas: 'left center right';
 `;
 
-export const Header = styled.header`
+export const HeaderText = styled.div`
+  grid-area: center;
+
+  display: flex;
+  justify-content: center;
+  color: black;
+`;
+
+export const IconContainer = styled.div`
+  grid-area: right;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 28px;
+
+  svg {
+    width: 28px;
+    height: 28px;
+
+    path {
+      color: ${({ theme }) => theme.colors.gray.secondary};
+    }
+  }
+`;
+
+// User Information Section
+
+export const UserInfomation = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -52,28 +62,23 @@ export const UserProfile = styled.div`
   gap: 10px;
 
   svg {
-    width: 44px;
-    height: 44px;
+    width: 64px;
+    height: 64px;
     path {
       fill: ${({ theme }) => theme.main};
     }
   }
 
   img {
-    width: 44px;
-    height: 44px;
+    width: 64px;
+    height: 64px;
     border-radius: 100%;
     object-fit: cover;
   }
 `;
 
-export const ProfileEditBtn = styled.button`
-  padding: 4px 20px;
-  border: none;
-  border-radius: 6px;
+export const ProfileEditBtn = styled(Link)`
   cursor: pointer;
-
-  color: ${({ theme }) => theme.main};
 `;
 
 export const UserIntroduce = styled.div`
@@ -85,6 +90,7 @@ export const UserIntroduce = styled.div`
   margin-top: 10px;
 `;
 
+// User Statics Section
 export const Statics = styled.ol`
   width: 100%;
   margin-top: 10px;
