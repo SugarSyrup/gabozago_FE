@@ -45,19 +45,22 @@ function TripItem({ id, title, location, departureDate, arrivalDate, thumbnailUR
         </S.ThumbnailWrapper>
         <S.Info>
           <S.Name>
-            <Typography.Title size="md" noOfLine={2}>
+            <Typography.Title size="md" noOfLine={2} color="inherit">
               {title}
             </Typography.Title>
           </S.Name>
           <S.Desc>
-            <CalendarIcon />{' '}
-            <Typography.Label size="md" color="#424242">
-              {departureDate} ~ {arrivalDate}
+            <CalendarIcon />
+            <Typography.Label size="md" color="inherit">
+              {departureDate.replace('-', '.').replace('-', '.')} ~{' '}
+              {arrivalDate.slice(0, 4) === departureDate.slice(0, 4)
+                ? arrivalDate.slice(5).replace('-', '.').replace('-', '.')
+                : arrivalDate.replace('-', '.').replace('-', '.')}
             </Typography.Label>
           </S.Desc>
           <S.Desc>
-            <LocationIcon />{' '}
-            <Typography.Label size="md" color="#424242">
+            <LocationIcon />
+            <Typography.Label size="md" color="inherit">
               {location.toLocaleString()}
             </Typography.Label>
           </S.Desc>

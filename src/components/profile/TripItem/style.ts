@@ -16,8 +16,8 @@ export const Container = styled.li`
 `;
 
 export const ThumbnailWrapper = styled.div`
-  width: 70px;
-  height: 70px;
+  width: 68px;
+  height: 68px;
   position: relative;
 
   flex-shrink: 0;
@@ -51,10 +51,11 @@ export const Name = styled.span`
   font-weight: 600;
 
   margin-bottom: 3px;
+  color: ${({ theme }) => theme.colors.font.primary};
 `;
 
 export const Desc = styled.span`
-  color: ${({ theme }) => theme.gray01};
+  color: ${({ theme }) => theme.colors.font.secondary};
   font-size: 10px;
   font-weight: 500;
 

@@ -23,8 +23,8 @@ function TripList() {
 
   return (
     <S.List>
-      {data.map((trip) => (
-        <TripItem {...trip} />
+      {data.map((trip, index) => (
+        <TripItem {...trip} key={`${trip.id} ${index}`} />
       ))}
     </S.List>
   );
