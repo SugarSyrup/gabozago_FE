@@ -139,27 +139,35 @@ export const StaticItemStat = styled.span`
   color: ${({ theme }) => theme.gray};
 `;
 
-export const TapNavigationBar = styled.nav`
+// Tap Navigation Section
+export const TapNavigationBar = styled.nav<{ currentTap: string }>`
   width: 100%;
-  margin-top: 20px;
+  overflow-x: auto;
+  margin-top: 15px;
 
   display: flex;
-  gap: 24px;
   justify-content: flex-start;
   align-items: center;
+
+  &::before {
+    content: '';
+    width: 84px;
+    border-bottom: 2px solid ${({ theme }) => theme.colors.blue.primary};
+
+    position: absolute;
+    left: ${({ currentTap }) => (currentTap === 'trip' ? '20px' : '104px')};
+    bottom: -2px;
+    z-index: 10;
+
+    transition: left 0.3s;
+  }
 `;
 
 export const TapNavigation = styled.span<{ isHighlight?: boolean }>`
-  padding-bottom: 6px;
-
-  color: ${({ theme }) => theme.gray01};
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 22px;
-  letter-spacing: 0.2px;
-
+  padding: 14px 16px;
   box-sizing: content-box;
 
+  white-space: nowrap;
   color: ${({ theme, isHighlight }) => (isHighlight ? theme.main : theme.gray01)};
 `;
 
@@ -169,16 +177,4 @@ export const SeperateLine = styled.div`
   height: 2px;
   left: 0px;
   background-color: ${({ theme }) => theme.gray05};
-`;
-
-export const HighLightLine = styled.div<{ position: string }>`
-  position: absolute;
-  width: 60px;
-  height: 2px;
-  background-color: ${({ theme }) => theme.main};
-
-  left: ${({ position }) => position === 'trip' && '20px'};
-  left: ${({ position }) => position === 'activity' && '96px'};
-
-  transition: left 0.2s ease-in-out;
 `;

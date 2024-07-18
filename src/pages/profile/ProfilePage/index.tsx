@@ -120,14 +120,16 @@ function ProfilePage() {
             ))}
           </S.Statics>
 
-          <S.TapNavigationBar>
+          <S.TapNavigationBar currentTap={currentTap}>
             <S.TapNavigation
               onClick={() => {
                 setCurrentTap('trip');
               }}
               isHighlight={currentTap === 'trip'}
             >
-              <Typography.Title size="md">나의 여행</Typography.Title>
+              <Typography.Title size="md" color="inherit" noOfLine={1}>
+                나의 여행
+              </Typography.Title>
             </S.TapNavigation>
             <S.TapNavigation
               onClick={() => {
@@ -135,12 +137,12 @@ function ProfilePage() {
               }}
               isHighlight={currentTap === 'activity'}
             >
-              <Typography.Title size="md">나의 활동</Typography.Title>
+              <Typography.Title size="md" color="inherit">
+                나의 활동
+              </Typography.Title>
             </S.TapNavigation>
           </S.TapNavigationBar>
-          <S.SeperateLine>
-            <S.HighLightLine position={currentTap} />
-          </S.SeperateLine>
+          <S.SeperateLine />
         </S.FixedContainer>
       }
     >
