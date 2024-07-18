@@ -10,15 +10,15 @@ import * as S from './style';
 function UserTrip() {
   return (
     <S.Container>
-      <TripList />
       <S.Header>
         <S.TravelLink to="/mytrip/all">
-          <Typography.Body size="lg" color="#424242">
+          <Typography.Body size="lg" color="inherit">
             전체보기
           </Typography.Body>
           <ChevronRightIcon />
         </S.TravelLink>
       </S.Header>
+      <TripList />
       <S.CreateMyTrip to="/mytrip/create">
         <Button type="text" size="md">
           <CirclePlusIcon />

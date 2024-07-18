@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  margin-top: 30px;
+  margin-top: 15px;
 
   display: flex;
   flex-direction: column;
@@ -24,11 +24,16 @@ export const TravelLink = styled(Link)`
   gap: 5px;
 
   text-decoration: none;
+  color: ${({ theme }) => theme.colors.font.secondary};
   cursor: pointer;
 
   svg {
     width: 16px;
     height: 16px;
+
+    path {
+      fill: ${({ theme }) => theme.colors.font.secondary};
+    }
   }
 `;
 

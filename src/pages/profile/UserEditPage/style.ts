@@ -124,39 +124,26 @@ export const ExitButton = styled.button`
 
 export const PopupContainer = styled.div`
   width: 100%;
-  padding-top: 20px;
+  padding: 24px;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 30px;
+  gap: 20px;
 
   div {
     width: calc(100% + 40px);
     margin: 0 -20px -20px;
-    border-radius: 0 0 15px 15px;
     overflow: hidden;
     display: flex;
-    border-top: 1px solid ${({ theme }) => theme.gray04};
+    justify-content: space-between;
   }
 `;
 
-export const PopupConfirmButton = styled.button<{
-  type: 'secondary' | 'primary';
-}>`
-  cursor: pointer;
-  flex: 1 1 100%;
-  padding: 14px;
-  border: 0;
-  color: ${({ theme, type }) => (type === 'secondary' ? theme.gray02 : theme.main)};
-  background-color: transparent;
-
-  &:last-of-type {
-    border-left: 1px solid ${({ theme }) => theme.gray04};
-  }
-
-  &:hover {
-    background-color: ${({ theme }) => theme.gray06};
-  }
+export const PopupConfirmButton = styled.button`
+  width: calc(50% - 10px);
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
 `;

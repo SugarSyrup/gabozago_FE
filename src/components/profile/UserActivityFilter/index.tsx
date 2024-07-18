@@ -1,30 +1,25 @@
 import { Dispatch } from 'react';
 
 import * as S from './style';
+import Typography from '../../common/Typography';
 
 interface Props {
+  actFilter: 'clap' | 'comment';
   setActFilter: Dispatch<React.SetStateAction<'clap' | 'comment'>>;
-  setPostFilter: Dispatch<React.SetStateAction<'short-form' | 'article'>>;
 }
 
-function UserActivityFilter({ setActFilter, setPostFilter }: Props) {
+function UserActivityFilter({ actFilter, setActFilter }: Props) {
   return (
     <S.FilterList>
-      <S.FilterItem
-        onInput={(e) => {
-          setActFilter(e.currentTarget.value as 'clap' | 'comment');
-        }}
-      >
-        <option value="clap">공감한 글</option>
-        <option value="comment">댓글 단 글</option>
+      <S.FilterItem isActive={actFilter === 'clap'} onClick={() => setActFilter('clap')}>
+        <Typography.Title size="sm" color="inherit">
+          공감한 글
+        </Typography.Title>
       </S.FilterItem>
-      <S.FilterItem
-        onInput={(e) => {
-          setPostFilter(e.currentTarget.value as 'short-form' | 'article');
-        }}
-      >
-        <option value="article">아티클</option>
-        <option value="short-form">숏폼</option>
+      <S.FilterItem isActive={actFilter === 'comment'} onClick={() => setActFilter('comment')}>
+        <Typography.Title size="sm" color="inherit">
+          댓글 단 글
+        </Typography.Title>
       </S.FilterItem>
     </S.FilterList>
   );
