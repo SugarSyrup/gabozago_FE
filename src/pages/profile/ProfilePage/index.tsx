@@ -15,6 +15,25 @@ import Typography from '../../../components/common/Typography';
 import * as S from './style';
 import { get } from '../../../utils/api';
 
+const userStatics = [
+  {
+    name: '공감 수',
+    value: 'reactionCount',
+  },
+  {
+    name: '스크랩 수',
+    value: 'favoriteCount',
+  },
+  {
+    name: '여행 일',
+    value: 'myTravelDay',
+  },
+  {
+    name: '여행 수',
+    value: 'myTravelCount',
+  },
+];
+
 function ProfilePage() {
   const [myNumbericalInfo, setMyNumbericalInfo] = useState<{
     myTravelDay: number;
@@ -85,54 +104,20 @@ function ProfilePage() {
           </S.UserIntroduce>
 
           <S.Statics>
-            <S.StaticItem>
-              <S.StaticItemName>
-                <Typography.Title size="md" color="inherit">
-                  공감 수
-                </Typography.Title>
-              </S.StaticItemName>
-              <S.StaticItemStat>
-                <Typography.Title size="md" color="inherit">
-                  {myNumbericalInfo.reactionCount}
-                </Typography.Title>
-              </S.StaticItemStat>
-            </S.StaticItem>
-            <S.StaticItem>
-              <S.StaticItemName>
-                <Typography.Title size="md" color="inherit">
-                  스크랩 수
-                </Typography.Title>
-              </S.StaticItemName>
-              <S.StaticItemStat>
-                <Typography.Title size="md" color="inherit">
-                  {myNumbericalInfo.favoriteCount}
-                </Typography.Title>
-              </S.StaticItemStat>
-            </S.StaticItem>
-            <S.StaticItem>
-              <S.StaticItemName>
-                <Typography.Title size="md" color="inherit">
-                  여행 일
-                </Typography.Title>
-              </S.StaticItemName>
-              <S.StaticItemStat>
-                <Typography.Title size="md" color="inherit">
-                  {myNumbericalInfo.myTravelDay}
-                </Typography.Title>
-              </S.StaticItemStat>
-            </S.StaticItem>
-            <S.StaticItem>
-              <S.StaticItemName>
-                <Typography.Title size="md" color="inherit">
-                  여행 수
-                </Typography.Title>
-              </S.StaticItemName>
-              <S.StaticItemStat>
-                <Typography.Title size="md" color="inherit">
-                  {myNumbericalInfo.myTravelCount}
-                </Typography.Title>
-              </S.StaticItemStat>
-            </S.StaticItem>
+            {userStatics.map((staticItem, index) => (
+              <S.StaticItem key={`${staticItem.name} ${index}`}>
+                <S.StaticItemName>
+                  <Typography.Title size="md" color="inherit">
+                    {staticItem.name}
+                  </Typography.Title>
+                </S.StaticItemName>
+                <S.StaticItemStat>
+                  <Typography.Title size="md" color="inherit">
+                    {myNumbericalInfo[staticItem.value as keyof typeof myNumbericalInfo]}
+                  </Typography.Title>
+                </S.StaticItemStat>
+              </S.StaticItem>
+            ))}
           </S.Statics>
 
           <S.TapNavigationBar>
