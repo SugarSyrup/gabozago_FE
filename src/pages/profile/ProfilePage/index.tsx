@@ -47,6 +47,7 @@ function ProfilePage() {
     favoriteCount: 0,
   });
   const [currentTap, setCurrentTap] = useState<'trip' | 'activity'>('trip');
+  const swiperRef = useRef<HTMLDivElement>(null);
 
   const { id, nickname, description, avatarURL } = useLoaderData() as TUserProfile;
   useEffect(() => {
@@ -70,6 +71,31 @@ function ProfilePage() {
       }));
     });
   }, []);
+
+  useEffect(() => {
+    if (!swiperRef.current) return;
+    swiperRef.current.addEventListener('scrollend', (e: Event) => {
+      const currentTarget = e.currentTarget as HTMLDivElement;
+
+      if (
+        swiperRef.current !== null &&
+        currentTarget.scrollLeft < swiperRef.current.offsetWidth / 2
+      ) {
+        setCurrentTap('trip');
+      } else {
+        setCurrentTap('activity');
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!swiperRef.current) return;
+    if (currentTap === 'trip') {
+      swiperRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+    } else {
+      swiperRef.current.scrollTo({ left: swiperRef.current?.offsetWidth, behavior: 'smooth' });
+    }
+  }, [currentTap]);
 
   return (
     <PageTemplate
@@ -146,16 +172,14 @@ function ProfilePage() {
         </S.FixedContainer>
       }
     >
-      {(() => {
-        switch (currentTap) {
-          case 'trip':
-            return <UserTrip />;
-          case 'activity':
-            return <UserActivity />;
-          default:
-            return null;
-        }
-      })()}
+      <S.MyPageSwiper ref={swiperRef}>
+        <S.SwiperItem>
+          <UserTrip />
+        </S.SwiperItem>
+        <S.SwiperItem>
+          <UserActivity />
+        </S.SwiperItem>
+      </S.MyPageSwiper>
     </PageTemplate>
   );
 }

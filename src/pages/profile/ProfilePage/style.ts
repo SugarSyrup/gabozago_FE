@@ -178,3 +178,24 @@ export const SeperateLine = styled.div`
   left: 0px;
   background-color: ${({ theme }) => theme.gray05};
 `;
+
+export const MyPageSwiper = styled.div`
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+
+  overflow-x: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+`;
+
+export const SwiperItem = styled.div`
+  scroll-snap-align: start;
+  width: 100%;
+
+  background-color: white;
+  flex-shrink: 0;
+`;
