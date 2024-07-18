@@ -34,7 +34,8 @@
     "recoil": "^0.7.7",
     "sortablejs": "^1.15.2",
     "styled-components": "^6.1.8",
-    "use-long-press": "^3.2.0"
+    "use-long-press": "^3.2.0",
+    "vite-tsconfig-paths": "^4.3.2"
   },
   "devDependencies": {
     "@types/blueimp-load-image": "^5.16.6",
