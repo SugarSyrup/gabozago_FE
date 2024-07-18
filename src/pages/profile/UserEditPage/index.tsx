@@ -20,16 +20,7 @@ import { patch } from '../../../utils/api';
 import Nickname from '../../../components/signUp/Nickname';
 
 function UserEditPage() {
-  const {
-    id,
-    nickname,
-    description,
-    avatarURL,
-    clapCount,
-    scrapCount,
-    myTravelCount,
-    myTravelDay,
-  } = useLoaderData() as TUserProfile;
+  const { nickname, description, avatarURL } = useLoaderData() as TUserProfile;
   const { Popup, popupOpen, popupClose } = usePopup();
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [nameValue, setNameValue] = useState(nickname);
@@ -44,30 +35,28 @@ function UserEditPage() {
     <PageTemplate nav={null}>
       <Popup>
         <S.PopupContainer>
-          <Typography.Title size="lg">정말 로그아웃 하시겠습니까?</Typography.Title>
+          <Typography.Headline size="sm">정말 로그아웃 하시겠습니까?</Typography.Headline>
           <div>
             <S.PopupConfirmButton
-              type="secondary"
               onClick={() => {
                 popupClose();
               }}
             >
-              <Typography.Label size="lg" color="inherit">
+              <Typography.Title size="lg" color="#A6A6A6">
                 취소
-              </Typography.Label>
+              </Typography.Title>
             </S.PopupConfirmButton>
             <S.PopupConfirmButton
-              type="primary"
               onClick={() => {
-                popupClose();
                 localStorage.removeItem('access_token');
                 localStorage.removeItem('refresh_token');
+                popupClose();
                 navigate('/');
               }}
             >
-              <Typography.Label size="lg" color="inherit">
+              <Typography.Title size="lg" color="#5276FA">
                 확인
-              </Typography.Label>
+              </Typography.Title>
             </S.PopupConfirmButton>
           </div>
         </S.PopupContainer>
