@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 
 import SettingIcon from '@_icons/setting.svg?react';
 import UserIcon from '@_icons/user.svg?react';
@@ -35,6 +35,7 @@ const userStatics = [
 ];
 
 function ProfilePage() {
+  const navigate = useNavigate();
   const [myNumbericalInfo, setMyNumbericalInfo] = useState<{
     myTravelDay: number;
     myTravelCount: number;
@@ -109,7 +110,11 @@ function ProfilePage() {
             </S.HeaderText>
             <S.IconContainer>
               <BellIcon />
-              <SettingIcon />
+              <SettingIcon
+                onClick={() => {
+                  navigate('/profile/settings');
+                }}
+              />
             </S.IconContainer>
           </S.Header>
 
