@@ -28,24 +28,29 @@ export const ConfirmButtonsContainer = styled.div`
 export const ConfirmButton = styled.button<{
   styleTheme: 'primary' | 'secondary';
 }>`
-  padding: 12px;
   width: 100%;
-  font-size: 14px;
-  line-height: 22px;
+  padding-top: 12.5px;
+  padding-bottom: 12.5px;
+
   border: 0;
   border-radius: 30px;
+
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.28px;
+  text-align: center;
 
   ${({ styleTheme, theme }) =>
     styleTheme === 'primary'
       ? css`
-          font-weight: 300;
-          color: ${theme.white};
-          background-color: ${theme.main};
+          font-weight: 500;
+          color: ${theme.colors.white.primary};
+          background-color: ${theme.colors.blue.primary};
         `
       : css`
           font-weight: 400;
-          color: ${theme.gray01};
-          background-color: ${theme.gray05};
+          color: ${theme.colors.gray.secondary};
+          background-color: ${theme.colors.gray.tertiary};
         `}
 `;
 

@@ -10,6 +10,7 @@ import { post } from '../../../utils/api';
 
 import * as S from './style';
 import SuggestionContainer from '../SuggestionContainer';
+import { HeaderWithBack } from '../../../components/common/Header';
 
 interface TReason {
   value: string;
@@ -90,11 +91,7 @@ function ResignPage() {
           </S.ConfirmButton>
         </S.ConfirmButtonsContainer>
       }
-      header={
-        <PageHeader>
-          <Typography.Title size="lg">탈퇴하기</Typography.Title>
-        </PageHeader>
-      }
+      header={<HeaderWithBack>탈퇴하기</HeaderWithBack>}
     >
       <S.NoticeContainer>
         <S.TitleHeading>정말로 탈퇴하시겠어요?</S.TitleHeading>

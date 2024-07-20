@@ -67,6 +67,7 @@ export const SettingsContainer = styled.div`
 
 export const SettingTitleParagraph = styled.p`
   margin-bottom: 5px;
+  color: ${({ theme }) => theme.colors.font.primary};
 `;
 
 export const SettingItem = styled.li`
