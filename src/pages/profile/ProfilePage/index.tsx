@@ -14,6 +14,7 @@ import Typography from '../../../components/common/Typography';
 
 import * as S from './style';
 import { get } from '../../../utils/api';
+import { Header, HeaderText } from '../../../components/common/Header';
 
 const userStatics = [
   {
@@ -102,21 +103,21 @@ function ProfilePage() {
     <PageTemplate
       header={
         <S.FixedContainer>
-          <S.Header>
-            <S.HeaderText>
+          <Header>
+            <HeaderText>
               <Typography.Headline size="sm" color="inherit">
                 MY
               </Typography.Headline>
-            </S.HeaderText>
-            <S.IconContainer>
+            </HeaderText>
+            <S.RightIconContainer>
               <BellIcon />
               <SettingIcon
                 onClick={() => {
                   navigate('/profile/settings');
                 }}
               />
-            </S.IconContainer>
-          </S.Header>
+            </S.RightIconContainer>
+          </Header>
 
           <S.UserInfomation>
             <S.UserProfile>

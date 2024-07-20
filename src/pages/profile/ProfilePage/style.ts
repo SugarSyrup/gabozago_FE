@@ -10,25 +10,7 @@ export const FixedContainer = styled.div`
 `;
 
 // Header Section
-export const Header = styled.header`
-  width: 100%;
-  padding-top: 8px;
-  padding-bottom: 8px;
-
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-areas: 'left center right';
-`;
-
-export const HeaderText = styled.div`
-  grid-area: center;
-
-  display: flex;
-  justify-content: center;
-  color: black;
-`;
-
-export const IconContainer = styled.div`
+export const RightIconContainer = styled.div`
   grid-area: right;
 
   display: flex;
