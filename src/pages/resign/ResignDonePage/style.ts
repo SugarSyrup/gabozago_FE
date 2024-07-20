@@ -6,7 +6,7 @@ export const NavContainer = styled.div`
 
   position: fixed;
   bottom: 0;
-  padding: 20px;
+  padding: 15px 30px;
 `;
 
 export const Container = styled.div`
