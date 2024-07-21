@@ -1,10 +1,9 @@
 import { useNavigate, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-import Typography from '../../../components/common/Typography';
+import { HeaderWithBack } from '../../../components/common/Header';
 import PageTemplate from '../../../components/common/PageTemplate';
-import PageHeader from '../../../components/common/PageHeader';
-import Button from '../../../components/common/Button';
+import NavigationButtonContainer from '../../../components/cscenter/NavigationButtonContainer';
 
 import QuestionsIcon from '../../../assets/icons/cs-questions.svg?react';
 import SettingsIcon from '../../../assets/icons/cs-settings.svg?react';
@@ -14,7 +13,6 @@ import RightChevron from '../../../assets/icons/chevron_right.svg?react';
 import { get } from '../../../utils/api';
 
 import * as S from './style';
-import { HeaderWithBack } from '../../../components/common/Header';
 
 function CSCenterPage() {
   const [focusedCategory, setFocusedCategory] = useState<string>('01');
@@ -53,19 +51,14 @@ function CSCenterPage() {
   return (
     <PageTemplate
       nav={
-        <S.ButtonContainer>
-          <Button
-            active
-            size="lg"
-            type="normal"
-            width="100%"
-            onClick={() => {
-              navigate('./inquiry');
-            }}
-          >
-            서비스 문의하기
-          </Button>
-        </S.ButtonContainer>
+        <NavigationButtonContainer
+          onClick={() => {
+            navigate('./inquiry');
+          }}
+          bgColor="blue"
+        >
+          서비스 문의하기
+        </NavigationButtonContainer>
       }
       header={<HeaderWithBack>고객센터•도움말</HeaderWithBack>}
     >
@@ -77,6 +70,7 @@ function CSCenterPage() {
           <S.CategoryButtonList>
             {categoryMap.map(({ value, text, icon }) => (
               <S.CategoryButton
+                key={value}
                 className={focusedCategory === value ? 'active' : ''}
                 onClick={() => {
                   setFocusedCategory(value);
@@ -89,7 +83,7 @@ function CSCenterPage() {
           </S.CategoryButtonList>
           <S.QuestionList>
             {questions.map(({ id, title }) => (
-              <li>
+              <li key={id}>
                 <Link to={`./faq/${id}`}>{title}</Link>
               </li>
             ))}
