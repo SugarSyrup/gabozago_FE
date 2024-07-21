@@ -1,16 +1,8 @@
 import styled from 'styled-components';
 
-export const ButtonContainer = styled.div`
-  padding: 20px;
-  width: 100%;
-  max-width: 500px;
-  background-color: ${({ theme }) => theme.gray07};
-
-  position: fixed;
-  bottom: 0px;
-`;
-
 export const Container = styled.div`
+  margin-top: 22px;
+
   display: flex;
   flex-direction: column;
   gap: 24px;

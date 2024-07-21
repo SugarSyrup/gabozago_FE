@@ -2,8 +2,8 @@ import { ChangeEventHandler, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import PageTemplate from '../../../components/common/PageTemplate';
-import PageHeader from '../../../components/common/PageHeader';
-import Button from '../../../components/common/Button';
+import { HeaderWithBack } from '../../../components/common/Header';
+import NavigationButtonContainer from '../../../components/cscenter/NavigationButtonContainer';
 import Typography from '../../../components/common/Typography';
 
 import { post } from '../../../utils/api';
@@ -68,23 +68,11 @@ function FeedBackPage() {
       </Popup>
       <PageTemplate
         nav={
-          <S.ButtonContainer>
-            <Button
-              active={text.length > 20 && !isSubmitted}
-              size="lg"
-              type="normal"
-              width="100%"
-              onClick={onSubmit}
-            >
-              제출하기
-            </Button>
-          </S.ButtonContainer>
+          <NavigationButtonContainer onClick={onSubmit} bgColor="blue">
+            의견 보내기
+          </NavigationButtonContainer>
         }
-        header={
-          <PageHeader>
-            <Typography.Title size="lg">의견 보내기</Typography.Title>
-          </PageHeader>
-        }
+        header={<HeaderWithBack>의견 보내기</HeaderWithBack>}
       >
         <S.Container>
           <div>

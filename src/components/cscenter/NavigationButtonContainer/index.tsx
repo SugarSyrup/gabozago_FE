@@ -1,10 +1,11 @@
+import { MouseEventHandler } from 'react';
 import { LongButton } from '../../common/Button/button.style';
 import Typography from '../../common/Typography';
 
 import * as S from './style';
 
 interface Props {
-  onClick: () => void;
+  onClick: MouseEventHandler<HTMLButtonElement>;
   bgColor: 'blue' | 'gray';
   children: React.ReactNode | string;
 }
