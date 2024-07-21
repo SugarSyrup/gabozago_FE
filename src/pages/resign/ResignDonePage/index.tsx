@@ -3,12 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import HandImage from '../../../assets/imgs/illustration-01.svg?react';
 
 import PageTemplate from '../../../components/common/PageTemplate';
-import PageHeader from '../../../components/common/PageHeader';
-import Button from '../../../components/common/Button';
 
 import * as S from './style';
-import { LongButton } from '../../../components/common/Button/button.style';
-import Typography from '../../../components/common/Typography';
+import NavigationButtonContainer from '../../../components/cscenter/NavigationButtonContainer';
 
 function ResignDonePage() {
   const navigate = useNavigate();
@@ -16,18 +13,14 @@ function ResignDonePage() {
   return (
     <PageTemplate
       nav={
-        <S.NavContainer>
-          <LongButton
-            onClick={() => {
-              navigate('/');
-            }}
-            bgColor="blue"
-          >
-            <Typography.Title size="lg" color="inherit">
-              홈으로 돌아가기
-            </Typography.Title>
-          </LongButton>
-        </S.NavContainer>
+        <NavigationButtonContainer
+          onClick={() => {
+            navigate('/');
+          }}
+          bgColor="blue"
+        >
+          로그인 화면으로 돌아가기
+        </NavigationButtonContainer>
       }
     >
       <S.Container>

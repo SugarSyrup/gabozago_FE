@@ -1,14 +1,5 @@
 import styled from 'styled-components';
 
-export const NavContainer = styled.div`
-  width: 100%;
-  max-width: 500px;
-
-  position: fixed;
-  bottom: 0;
-  padding: 15px 30px;
-`;
-
 export const Container = styled.div`
   @keyframes fadein {
     from {

@@ -14,6 +14,7 @@ import RightChevron from '../../../assets/icons/chevron_right.svg?react';
 import { get } from '../../../utils/api';
 
 import * as S from './style';
+import { HeaderWithBack } from '../../../components/common/Header';
 
 function CSCenterPage() {
   const [focusedCategory, setFocusedCategory] = useState<string>('01');
@@ -66,11 +67,7 @@ function CSCenterPage() {
           </Button>
         </S.ButtonContainer>
       }
-      header={
-        <PageHeader>
-          <Typography.Title size="lg">고객센터•도움말</Typography.Title>
-        </PageHeader>
-      }
+      header={<HeaderWithBack>고객센터•도움말</HeaderWithBack>}
     >
       <S.Container>
         <div>
