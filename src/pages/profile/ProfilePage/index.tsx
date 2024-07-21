@@ -102,7 +102,7 @@ function ProfilePage() {
   return (
     <PageTemplate
       header={
-        <S.FixedContainer>
+        <>
           <Header>
             <HeaderText>
               <Typography.Headline size="sm" color="inherit">
@@ -118,64 +118,65 @@ function ProfilePage() {
               />
             </S.RightIconContainer>
           </Header>
+          <S.FixedContainer>
+            <S.UserInfomation>
+              <S.UserProfile>
+                {avatarURL ? <img src={avatarURL} alt={`${nickname} img`} /> : <UserIcon />}
+                <Typography.Title size="lg">{nickname}</Typography.Title>
+              </S.UserProfile>
+              <S.ProfileEditBtn to="edit">
+                <ChevronRightIcon />
+              </S.ProfileEditBtn>
+            </S.UserInfomation>
 
-          <S.UserInfomation>
-            <S.UserProfile>
-              {avatarURL ? <img src={avatarURL} alt={`${nickname} img`} /> : <UserIcon />}
-              <Typography.Title size="lg">{nickname}</Typography.Title>
-            </S.UserProfile>
-            <S.ProfileEditBtn to="edit">
-              <ChevronRightIcon />
-            </S.ProfileEditBtn>
-          </S.UserInfomation>
+            <S.UserIntroduce>
+              <Typography.Body size="md" noOfLine={5}>
+                {description}
+              </Typography.Body>
+            </S.UserIntroduce>
 
-          <S.UserIntroduce>
-            <Typography.Body size="md" noOfLine={5}>
-              {description}
-            </Typography.Body>
-          </S.UserIntroduce>
+            <S.Statics>
+              {userStatics.map((staticItem, index) => (
+                <S.StaticItem key={`${staticItem.name} ${index}`}>
+                  <S.StaticItemName>
+                    <Typography.Title size="md" color="inherit">
+                      {staticItem.name}
+                    </Typography.Title>
+                  </S.StaticItemName>
+                  <S.StaticItemStat>
+                    <Typography.Title size="md" color="inherit">
+                      {myNumbericalInfo[staticItem.value as keyof typeof myNumbericalInfo]}
+                    </Typography.Title>
+                  </S.StaticItemStat>
+                </S.StaticItem>
+              ))}
+            </S.Statics>
 
-          <S.Statics>
-            {userStatics.map((staticItem, index) => (
-              <S.StaticItem key={`${staticItem.name} ${index}`}>
-                <S.StaticItemName>
-                  <Typography.Title size="md" color="inherit">
-                    {staticItem.name}
-                  </Typography.Title>
-                </S.StaticItemName>
-                <S.StaticItemStat>
-                  <Typography.Title size="md" color="inherit">
-                    {myNumbericalInfo[staticItem.value as keyof typeof myNumbericalInfo]}
-                  </Typography.Title>
-                </S.StaticItemStat>
-              </S.StaticItem>
-            ))}
-          </S.Statics>
-
-          <S.TapNavigationBar currentTap={currentTap}>
-            <S.TapNavigation
-              onClick={() => {
-                setCurrentTap('trip');
-              }}
-              isHighlight={currentTap === 'trip'}
-            >
-              <Typography.Title size="md" color="inherit" noOfLine={1}>
-                나의 여행
-              </Typography.Title>
-            </S.TapNavigation>
-            <S.TapNavigation
-              onClick={() => {
-                setCurrentTap('activity');
-              }}
-              isHighlight={currentTap === 'activity'}
-            >
-              <Typography.Title size="md" color="inherit">
-                나의 활동
-              </Typography.Title>
-            </S.TapNavigation>
-          </S.TapNavigationBar>
-          <S.SeperateLine />
-        </S.FixedContainer>
+            <S.TapNavigationBar currentTap={currentTap}>
+              <S.TapNavigation
+                onClick={() => {
+                  setCurrentTap('trip');
+                }}
+                isHighlight={currentTap === 'trip'}
+              >
+                <Typography.Title size="md" color="inherit" noOfLine={1}>
+                  나의 여행
+                </Typography.Title>
+              </S.TapNavigation>
+              <S.TapNavigation
+                onClick={() => {
+                  setCurrentTap('activity');
+                }}
+                isHighlight={currentTap === 'activity'}
+              >
+                <Typography.Title size="md" color="inherit">
+                  나의 활동
+                </Typography.Title>
+              </S.TapNavigation>
+            </S.TapNavigationBar>
+            <S.SeperateLine />
+          </S.FixedContainer>
+        </>
       }
     >
       <S.MyPageSwiper ref={swiperRef}>

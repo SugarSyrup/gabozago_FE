@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import PageTemplate from '../../../components/common/PageTemplate';
-import PageHeader from '../../../components/common/PageHeader';
+import { HeaderWithBack } from '../../../components/common/Header';
 import Typography from '../../../components/common/Typography';
 import { get } from '../../../utils/api';
 
@@ -22,21 +22,17 @@ function AnnouncePage() {
       next: string;
       previous: string;
       results: TData[];
-    }>('/settings/support/announcement').then(({ data }) => setData(data.results));
+    }>('/settings/support/announcement').then(({ data: responseData }) => {
+      setData(responseData.results);
+    });
   }, []);
 
   return (
-    <PageTemplate
-      header={
-        <PageHeader>
-          <Typography.Title size="lg">공지사항</Typography.Title>
-        </PageHeader>
-      }
-    >
+    <PageTemplate header={<HeaderWithBack>공지사항</HeaderWithBack>}>
       <S.Container>
         <S.OrderedList>
-          {data.map(({ id, title, createdAt }) => (
-            <S.ListItem>
+          {data.map(({ id, title, createdAt }, index) => (
+            <S.ListItem key={`${title} ${index}`}>
               <Link to={`./${id}`}>
                 <p className="title">
                   <Typography.Title size="md" color="inherit">

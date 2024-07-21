@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import * as S from './style';
-import PageTemplate from '../../../components/common/PageTemplate';
-import PageHeader from '../../../components/common/PageHeader';
+
 import { get } from '../../../utils/api';
 import Typography from '../../../components/common/Typography';
+import PageTemplate from '../../../components/common/PageTemplate';
+import { HeaderWithBack } from '../../../components/common/Header';
+
+import * as S from './style';
 
 interface TData {
   title: string;
@@ -21,18 +23,13 @@ function AnnounceDetailPage() {
   });
 
   useEffect(() => {
-    get<TData>(`/settings/support/announcement/${id}`).then(({ data }) => setData(data));
+    get<TData>(`/settings/support/announcement/${id}`).then(({ data: responseData }) =>
+      setData(responseData),
+    );
   }, []);
 
   return (
-    <PageTemplate
-      nav={false}
-      header={
-        <PageHeader>
-          <Typography.Title size="lg">공지사항</Typography.Title>
-        </PageHeader>
-      }
-    >
+    <PageTemplate nav={false} header={<HeaderWithBack>공지사항</HeaderWithBack>}>
       <S.Container>
         <S.InfoContainer>
           <p className="title">
@@ -48,8 +45,8 @@ function AnnounceDetailPage() {
         </S.InfoContainer>
         <S.ContentsContainer>
           <Typography.Body size="md" color="inherit" noOfLine={1000}>
-            {data.content.split('\n').map((line) => (
-              <p>{line}</p>
+            {data.content.split('\n').map((line, index) => (
+              <p key={`${line} ${index}`}>{line}</p>
             ))}
           </Typography.Body>
         </S.ContentsContainer>
