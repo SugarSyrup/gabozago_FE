@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 import PageTemplate from '../../../components/common/PageTemplate';
-import PageHeader from '../../../components/common/PageHeader';
+import { HeaderWithBack } from '../../../components/common/Header';
 import Typography from '../../../components/common/Typography';
 import { get } from '../../../utils/api';
 
@@ -34,14 +34,7 @@ function InquiryDetailPage() {
   }, []);
 
   return (
-    <PageTemplate
-      nav={false}
-      header={
-        <PageHeader>
-          <Typography.Title size="lg">내 문의 내역</Typography.Title>
-        </PageHeader>
-      }
-    >
+    <PageTemplate nav={false} header={<HeaderWithBack>내 문의 내역</HeaderWithBack>}>
       <S.Container>
         <S.InfoContainer>
           <S.TextContainer>

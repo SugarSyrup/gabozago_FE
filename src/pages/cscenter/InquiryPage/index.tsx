@@ -2,10 +2,13 @@ import { useSetRecoilState } from 'recoil';
 import { useEffect, useRef, useState } from 'react';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 
+import usePopup from '../../../hooks/usePopup';
 import { modalState } from '../../../recoil/modalState';
+
+import Typography from '../../../components/common/Typography';
 import PageTemplate from '../../../components/common/PageTemplate';
-import PageHeader from '../../../components/common/PageHeader';
-import Button from '../../../components/common/Button';
+import { HeaderWithBack } from '../../../components/common/Header';
+import NavigationButtonContainer from '../../../components/cscenter/NavigationButtonContainer';
 
 import ImportantIcon from '../../../assets/icons/exclamation_circle.svg?react';
 import BottomChevronIcon from '../../../assets/icons/chevron_bottom_small.svg?react';
@@ -13,8 +16,6 @@ import ImageAddIcon from '../../../assets/icons/image_add.svg?react';
 import { post } from '../../../utils/api';
 
 import * as S from './style';
-import usePopup from '../../../hooks/usePopup';
-import Typography from '../../../components/common/Typography';
 
 interface Form {
   type: string;
@@ -149,25 +150,20 @@ function InquiryPage() {
       </Popup>
       <PageTemplate
         nav={
-          <S.ButtonContainer>
-            <Button
-              active={!isSubmitted}
-              size="lg"
-              type="normal"
-              width="100%"
-              onClick={(e) => {
-                e.preventDefault();
+          <NavigationButtonContainer
+            onClick={(e) => {
+              e.preventDefault();
 
-                if (!isSubmitted && submitRef.current) {
-                  submitRef.current.click();
-                }
-              }}
-            >
-              제출하기
-            </Button>
-          </S.ButtonContainer>
+              if (!isSubmitted && submitRef.current) {
+                submitRef.current.click();
+              }
+            }}
+            bgColor="blue"
+          >
+            제출하기
+          </NavigationButtonContainer>
         }
-        header={<PageHeader>서비스 문의하기</PageHeader>}
+        header={<HeaderWithBack>서비스 문의하기</HeaderWithBack>}
       >
         <S.Form
           onSubmit={(e) => {

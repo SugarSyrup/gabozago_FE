@@ -5,22 +5,13 @@ import UserIcon from '../../../assets/icons/user.svg?react';
 import { TUserProfile } from '../../../assets/types/TUserProfile';
 
 import PageTemplate from '../../../components/common/PageTemplate';
-import PageHeader from '../../../components/common/PageHeader';
 import Typography from '../../../components/common/Typography';
 
 import * as S from './style';
+import { HeaderWithBack } from '../../../components/common/Header';
 
 function SettingsPage() {
-  const {
-    id,
-    nickname,
-    description,
-    avatarURL,
-    clapCount,
-    scrapCount,
-    myTravelCount,
-    myTravelDay,
-  } = useLoaderData() as TUserProfile;
+  const { nickname, avatarURL } = useLoaderData() as TUserProfile;
   const navigate = useNavigate();
   const settings = [
     {
@@ -60,29 +51,30 @@ function SettingsPage() {
   ];
 
   return (
-    <PageTemplate
-      header={
-        <PageHeader>
-          <Typography.Title size="lg">설정</Typography.Title>
-        </PageHeader>
-      }
-    >
+    <PageTemplate header={<HeaderWithBack>설정</HeaderWithBack>}>
       <S.ContentsWrapper>
-        <S.UserSettingButton onClick={() => navigate('/profile/edit')}>
+        {/* User Account Info & Setting Section */}
+        <S.UserSettingButton>
           <S.UserSettingLeftItems>
             {avatarURL ? <img src={avatarURL} alt="user avatar" /> : <UserIcon />}
             <div>
               <Typography.Title size="lg">{nickname}</Typography.Title>
-              <Typography.Label size="lg">프로필 및 계정 설정</Typography.Label>
+              <Typography.Label size="lg" color="#424242">
+                프로필 및 계정 설정
+              </Typography.Label>
             </div>
           </S.UserSettingLeftItems>
-          <ChevronRightIcon />
+          <ChevronRightIcon onClick={() => navigate('/profile/edit')} />
         </S.UserSettingButton>
+
+        {/* Settings Section */}
         <S.SettingsContainer>
-          {settings.map((group) => (
-            <div>
+          {settings.map((group, index) => (
+            <div key={`${group.title} ${index}`}>
               <S.SettingTitleParagraph>
-                <Typography.Title size="lg">{group.title}</Typography.Title>
+                <Typography.Title size="lg" color="inherit">
+                  {group.title}
+                </Typography.Title>
               </S.SettingTitleParagraph>
               <ol>
                 {group.items.map((item) => (
@@ -90,6 +82,7 @@ function SettingsPage() {
                     onClick={() => {
                       navigate(item.path);
                     }}
+                    key={`${item.text} ${index}`}
                   >
                     <Typography.Body size="md" color="inherit">
                       {item.text}

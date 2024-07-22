@@ -31,6 +31,7 @@ module.exports = {
     ],
     "react/jsx-no-useless-fragment": 'off',
     "react/no-array-index-key": 'off',
-    "import/order" : "off"
+    "import/order" : "off",
+    "react/jsx-props-no-spreading": 'off'
   },
 };

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 
 import SettingIcon from '@_icons/setting.svg?react';
 import UserIcon from '@_icons/user.svg?react';
@@ -14,6 +14,7 @@ import Typography from '../../../components/common/Typography';
 
 import * as S from './style';
 import { get } from '../../../utils/api';
+import { Header, HeaderText } from '../../../components/common/Header';
 
 const userStatics = [
   {
@@ -35,6 +36,7 @@ const userStatics = [
 ];
 
 function ProfilePage() {
+  const navigate = useNavigate();
   const [myNumbericalInfo, setMyNumbericalInfo] = useState<{
     myTravelDay: number;
     myTravelCount: number;
@@ -100,76 +102,81 @@ function ProfilePage() {
   return (
     <PageTemplate
       header={
-        <S.FixedContainer>
-          <S.Header>
-            <S.HeaderText>
+        <>
+          <Header>
+            <HeaderText>
               <Typography.Headline size="sm" color="inherit">
                 MY
               </Typography.Headline>
-            </S.HeaderText>
-            <S.IconContainer>
+            </HeaderText>
+            <S.RightIconContainer>
               <BellIcon />
-              <SettingIcon />
-            </S.IconContainer>
-          </S.Header>
+              <SettingIcon
+                onClick={() => {
+                  navigate('/profile/settings');
+                }}
+              />
+            </S.RightIconContainer>
+          </Header>
+          <S.FixedContainer>
+            <S.UserInfomation>
+              <S.UserProfile>
+                {avatarURL ? <img src={avatarURL} alt={`${nickname} img`} /> : <UserIcon />}
+                <Typography.Title size="lg">{nickname}</Typography.Title>
+              </S.UserProfile>
+              <S.ProfileEditBtn to="edit">
+                <ChevronRightIcon />
+              </S.ProfileEditBtn>
+            </S.UserInfomation>
 
-          <S.UserInfomation>
-            <S.UserProfile>
-              {avatarURL ? <img src={avatarURL} alt={`${nickname} img`} /> : <UserIcon />}
-              <Typography.Title size="lg">{nickname}</Typography.Title>
-            </S.UserProfile>
-            <S.ProfileEditBtn to="edit">
-              <ChevronRightIcon />
-            </S.ProfileEditBtn>
-          </S.UserInfomation>
+            <S.UserIntroduce>
+              <Typography.Body size="md" noOfLine={5}>
+                {description}
+              </Typography.Body>
+            </S.UserIntroduce>
 
-          <S.UserIntroduce>
-            <Typography.Body size="md" noOfLine={5}>
-              {description}
-            </Typography.Body>
-          </S.UserIntroduce>
+            <S.Statics>
+              {userStatics.map((staticItem, index) => (
+                <S.StaticItem key={`${staticItem.name} ${index}`}>
+                  <S.StaticItemName>
+                    <Typography.Title size="md" color="inherit">
+                      {staticItem.name}
+                    </Typography.Title>
+                  </S.StaticItemName>
+                  <S.StaticItemStat>
+                    <Typography.Title size="md" color="inherit">
+                      {myNumbericalInfo[staticItem.value as keyof typeof myNumbericalInfo]}
+                    </Typography.Title>
+                  </S.StaticItemStat>
+                </S.StaticItem>
+              ))}
+            </S.Statics>
 
-          <S.Statics>
-            {userStatics.map((staticItem, index) => (
-              <S.StaticItem key={`${staticItem.name} ${index}`}>
-                <S.StaticItemName>
-                  <Typography.Title size="md" color="inherit">
-                    {staticItem.name}
-                  </Typography.Title>
-                </S.StaticItemName>
-                <S.StaticItemStat>
-                  <Typography.Title size="md" color="inherit">
-                    {myNumbericalInfo[staticItem.value as keyof typeof myNumbericalInfo]}
-                  </Typography.Title>
-                </S.StaticItemStat>
-              </S.StaticItem>
-            ))}
-          </S.Statics>
-
-          <S.TapNavigationBar currentTap={currentTap}>
-            <S.TapNavigation
-              onClick={() => {
-                setCurrentTap('trip');
-              }}
-              isHighlight={currentTap === 'trip'}
-            >
-              <Typography.Title size="md" color="inherit" noOfLine={1}>
-                나의 여행
-              </Typography.Title>
-            </S.TapNavigation>
-            <S.TapNavigation
-              onClick={() => {
-                setCurrentTap('activity');
-              }}
-              isHighlight={currentTap === 'activity'}
-            >
-              <Typography.Title size="md" color="inherit">
-                나의 활동
-              </Typography.Title>
-            </S.TapNavigation>
-          </S.TapNavigationBar>
-          <S.SeperateLine />
-        </S.FixedContainer>
+            <S.TapNavigationBar currentTap={currentTap}>
+              <S.TapNavigation
+                onClick={() => {
+                  setCurrentTap('trip');
+                }}
+                isHighlight={currentTap === 'trip'}
+              >
+                <Typography.Title size="md" color="inherit" noOfLine={1}>
+                  나의 여행
+                </Typography.Title>
+              </S.TapNavigation>
+              <S.TapNavigation
+                onClick={() => {
+                  setCurrentTap('activity');
+                }}
+                isHighlight={currentTap === 'activity'}
+              >
+                <Typography.Title size="md" color="inherit">
+                  나의 활동
+                </Typography.Title>
+              </S.TapNavigation>
+            </S.TapNavigationBar>
+            <S.SeperateLine />
+          </S.FixedContainer>
+        </>
       }
     >
       <S.MyPageSwiper ref={swiperRef}>

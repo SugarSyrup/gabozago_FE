@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import PageTemplate from '../../../components/common/PageTemplate';
-import PageHeader from '../../../components/common/PageHeader';
+import { HeaderWithBack } from '../../../components/common/Header';
 import Typography from '../../../components/common/Typography';
 import { get } from '../../../utils/api';
 
@@ -26,20 +26,12 @@ function FAQDetailPage() {
 
   useEffect(() => {
     get<TData>(`/settings/support/help/faq/${id}`).then((response) => {
-      console.log(response);
       setData(response.data);
     });
   }, []);
 
   return (
-    <PageTemplate
-      nav={false}
-      header={
-        <PageHeader>
-          <Typography.Title size="lg">고객센터 • 도움말</Typography.Title>
-        </PageHeader>
-      }
-    >
+    <PageTemplate nav={false} header={<HeaderWithBack>고객센터 • 도움말</HeaderWithBack>}>
       <S.Container>
         <S.InfoContainer>
           <p className="title">
@@ -54,8 +46,8 @@ function FAQDetailPage() {
           </p>
         </S.InfoContainer>
         <S.ContentsContainer>
-          {data.content.split('\n').map((line) => (
-            <p>{line}</p>
+          {data.content.split('\n').map((line, index) => (
+            <p key={`${line} ${index}`}>{line}</p>
           ))}
         </S.ContentsContainer>
       </S.Container>

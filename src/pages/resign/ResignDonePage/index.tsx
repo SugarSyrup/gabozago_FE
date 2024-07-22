@@ -1,9 +1,11 @@
 import { useNavigate } from 'react-router-dom';
-import * as S from './style';
-import PageTemplate from '../../../components/common/PageTemplate';
-import PageHeader from '../../../components/common/PageHeader';
+
 import HandImage from '../../../assets/imgs/illustration-01.svg?react';
-import Button from '../../../components/common/Button';
+
+import PageTemplate from '../../../components/common/PageTemplate';
+
+import * as S from './style';
+import NavigationButtonContainer from '../../../components/cscenter/NavigationButtonContainer';
 
 function ResignDonePage() {
   const navigate = useNavigate();
@@ -11,21 +13,15 @@ function ResignDonePage() {
   return (
     <PageTemplate
       nav={
-        <S.NavContainer>
-          <Button
-            width="100%"
-            type="normal"
-            active
-            size="lg"
-            onClick={() => {
-              navigate('/');
-            }}
-          >
-            홈으로 돌아가기
-          </Button>
-        </S.NavContainer>
+        <NavigationButtonContainer
+          onClick={() => {
+            navigate('/');
+          }}
+          bgColor="blue"
+        >
+          로그인 화면으로 돌아가기
+        </NavigationButtonContainer>
       }
-      header={<PageHeader>회원 탈퇴</PageHeader>}
     >
       <S.Container>
         <S.TitleParagraph>탈퇴가 완료되었습니다</S.TitleParagraph>

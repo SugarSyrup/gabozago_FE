@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { get } from '../../../utils/api';
 import PageTemplate from '../../../components/common/PageTemplate';
-import PageHeader from '../../../components/common/PageHeader';
-import Typography from '../../../components/common/Typography';
+import { HeaderWithBack } from '../../../components/common/Header';
 
 import * as S from './style';
 
@@ -26,19 +25,14 @@ function InquiryHistoryPage() {
         next: string | null;
         previous: string | null;
         results: THistoryList[];
-      }>('/settings/support/help/ask').then(({ data }) => setData(data.results));
+      }>('/settings/support/help/ask').then(({ data: responseData }) =>
+        setData(responseData.results),
+      );
     }
   }, []);
 
   return (
-    <PageTemplate
-      nav={false}
-      header={
-        <PageHeader>
-          <Typography.Title size="lg">내 문의 내역</Typography.Title>
-        </PageHeader>
-      }
-    >
+    <PageTemplate nav={false} header={<HeaderWithBack>내 문의 내역</HeaderWithBack>}>
       {data.length === 0 ? (
         <S.NoDataTextContainer>
           <p className="no_data-heading">문의하신 내역이 없습니다.</p>
@@ -54,6 +48,7 @@ function InquiryHistoryPage() {
         <S.List>
           {data.map(({ id, title, createdAt, status }) => (
             <li
+              key={id}
               onClick={() => {
                 navigate(`/cscenter/inquiry/${id}`);
               }}
