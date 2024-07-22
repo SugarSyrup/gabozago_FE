@@ -1,6 +1,5 @@
 import { MouseEventHandler } from 'react';
-import { LongButton } from '../../common/Button/button.style';
-import Typography from '../../common/Typography';
+import FilledButton from '../../common/Button/FilledButton';
 
 import * as S from './style';
 
@@ -13,14 +12,9 @@ interface Props {
 function NavigationButtonContainer({ onClick, bgColor, children }: Props) {
   return (
     <S.NavContainer>
-      <LongButton onClick={onClick} bgColor={bgColor}>
-        {typeof children === 'string' && (
-          <Typography.Title size="lg" color="inherit">
-            {children}
-          </Typography.Title>
-        )}
-        {typeof children !== 'string' && children}
-      </LongButton>
+      <FilledButton onClick={onClick} bgColor={bgColor} rounded>
+        {children}
+      </FilledButton>
     </S.NavContainer>
   );
 }
