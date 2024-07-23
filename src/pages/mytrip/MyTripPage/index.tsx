@@ -17,7 +17,7 @@ import MyLastScheduleCard from '../../../components/mytrip/MyLastScheduleCard';
 import { datesState } from '../../../recoil/mytrip/createData';
 import { createTravelState } from '../../../recoil/mytrip/createTravelState';
 
-type travelResponseType = {
+type TravelResponseType = {
   next: null | '';
   previous: null | '';
   results: {
@@ -34,19 +34,19 @@ function MyTripPage() {
   const navigate = useNavigate();
   const setDatesState = useSetRecoilState(datesState);
   const setCreateTravelState = useSetRecoilState(createTravelState);
-  const [next, setNext] = useState<travelResponseType['next']>('');
-  const [tripHistory, setTripHistory] = useState<travelResponseType['results']>([]);
-  const [tripUpComing, setTripUpComing] = useState<travelResponseType['results']>([]);
+  const [next, setNext] = useState<TravelResponseType['next']>('');
+  const [tripHistory, setTripHistory] = useState<TravelResponseType['results']>([]);
+  const [tripUpComing, setTripUpComing] = useState<TravelResponseType['results']>([]);
   const [nickname, setNickname] = useState<string>('');
   const infiniteObserverRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    get<travelResponseType>('/my-travel/upcoming').then((response) => {
+    get<TravelResponseType>('/my-travel/upcoming').then((response) => {
       setNext(response.data.next);
       setTripUpComing(response.data.results);
     });
 
-    get<travelResponseType['results']>('/my-travel/past').then((response) => {
+    get<TravelResponseType['results']>('/my-travel/past').then((response) => {
       setTripHistory(response.data);
     });
 
@@ -58,7 +58,7 @@ function MyTripPage() {
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting && next) {
-        get<travelResponseType>(next).then((response) => {
+        get<TravelResponseType>(next).then((response) => {
           setNext(response.data.next);
           setTripUpComing([...tripUpComing, ...response.data.results]);
         });
@@ -74,8 +74,8 @@ function MyTripPage() {
 
   return (
     <PageTemplate>
-      {tripUpComing.length === 0 ? (
-        <S.NoUpCommingContainer>
+      <S.UpCommingContainer>
+        {tripUpComing.length === 0 ? (
           <S.HeadingContainer>
             <Typography.Headline size="md">{nickname} 님</Typography.Headline>
             {tripHistory.length !== 0 ? (
@@ -86,7 +86,16 @@ function MyTripPage() {
               <Typography.Title size="lg">아직 여행 일정이 없어요!</Typography.Title>
             )}
           </S.HeadingContainer>
+        ) : (
+          <S.HeadingContainer>
+            <Typography.Headline size="md">{nickname} 님</Typography.Headline>
+            <Typography.Title size="lg">
+              다가오는 여행이 <S.TextHighlight>{tripUpComing.length}개</S.TextHighlight>개 있어요!
+            </Typography.Title>
+          </S.HeadingContainer>
+        )}
 
+        {tripUpComing.length === 0 ? (
           <S.CreateMyTripButton>
             <S.CreateMyTripTextWrapper>
               <Typography.Title size="lg">
@@ -97,50 +106,29 @@ function MyTripPage() {
 
             <CalendarAddIcon />
           </S.CreateMyTripButton>
-
-          <S.CreateMyTripTextButton
-            onClick={() => {
-              setDatesState({ startDate: '', endDate: '' });
-              setCreateTravelState('create');
-              navigate('/mytrip/create');
-            }}
-            hasTripHistory={false}
-          >
-            <CirclePlusIcon />
-            <Typography.Title size="md" color="white">
-              새로운 여행 일정 만들기
-            </Typography.Title>
-          </S.CreateMyTripTextButton>
-        </S.NoUpCommingContainer>
-      ) : (
-        <S.ContainerWithPlan>
-          <S.HeadingContainer>
-            <Typography.Headline size="md">{nickname} 님</Typography.Headline>
-            <Typography.Title size="lg">다가오는 여행이 있어요!</Typography.Title>
-          </S.HeadingContainer>
-
+        ) : (
           <S.ScheduleCardContainer>
             {tripUpComing.map((tripData) => (
-              <MyScheduleCard {...tripData} />
+              <MyScheduleCard {...tripData} key={tripData.id} />
             ))}
             <div ref={infiniteObserverRef} />
           </S.ScheduleCardContainer>
+        )}
 
-          <S.CreateMyTripTextButton
-            onClick={() => {
-              navigate('/mytrip/create');
-              setCreateTravelState('create');
-              setDatesState({ startDate: '', endDate: '' });
-            }}
-            hasTripHistory
-          >
-            <CirclePlusIcon />
-            <Typography.Title size="md" color="#484848">
-              새로운 여행 일정 만들기
-            </Typography.Title>
-          </S.CreateMyTripTextButton>
-        </S.ContainerWithPlan>
-      )}
+        <S.CreateMyTripTextButton
+          onClick={() => {
+            navigate('/mytrip/create');
+            setCreateTravelState('create');
+            setDatesState({ startDate: '', endDate: '' });
+          }}
+          hasTripUpcoming={tripUpComing.length !== 0}
+        >
+          <CirclePlusIcon />
+          <Typography.Title size="lg" color="inherit">
+            새로운 여행 일정 만들기
+          </Typography.Title>
+        </S.CreateMyTripTextButton>
+      </S.UpCommingContainer>
 
       {tripHistory.length !== 0 && (
         <>
@@ -155,7 +143,7 @@ function MyTripPage() {
           </S.ContentHeadingWrappper>
           <S.ContentContainer>
             {tripHistory.map((trip) => (
-              <MyLastScheduleCard {...trip} />
+              <MyLastScheduleCard {...trip} key={trip.id} />
             ))}
           </S.ContentContainer>
         </>
