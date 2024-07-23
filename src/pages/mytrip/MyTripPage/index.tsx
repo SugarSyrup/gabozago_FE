@@ -1,34 +1,22 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { get } from '../../../utils/api';
 
 import PageTemplate from '../../../components/common/PageTemplate';
-import MyScheduleCard from '../../../components/mytrip/MyScheduleCard';
 import Typography from '../../../components/common/Typography';
+import MyLastScheduleCard from '../../../components/mytrip/MyLastScheduleCard';
+import TripCarousel from '../../../components/mytrip/TripCarousel';
 
 import CirclePlusIcon from '../../../assets/icons/plus_circle.svg?react';
 import RightChevronIcon from '../../../assets/icons/chevron_right.svg?react';
 import CalendarAddIcon from '../../../assets/icons/calendar_add.svg?react';
-
-import * as S from './style';
-import MyLastScheduleCard from '../../../components/mytrip/MyLastScheduleCard';
 import { datesState } from '../../../recoil/mytrip/createData';
 import { createTravelState } from '../../../recoil/mytrip/createTravelState';
+import { TravelResponseType } from '@_types/TravelRespones.type';
 
-type TravelResponseType = {
-  next: null | '';
-  previous: null | '';
-  results: {
-    id: number;
-    title: string;
-    departure_date: string;
-    arrival_date: string;
-    regions: string[];
-    thumbnailURL: string;
-  }[];
-};
+import * as S from './style';
 
 function MyTripPage() {
   const navigate = useNavigate();
@@ -38,7 +26,6 @@ function MyTripPage() {
   const [tripHistory, setTripHistory] = useState<TravelResponseType['results']>([]);
   const [tripUpComing, setTripUpComing] = useState<TravelResponseType['results']>([]);
   const [nickname, setNickname] = useState<string>('');
-  const infiniteObserverRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     get<TravelResponseType>('/my-travel/upcoming').then((response) => {
@@ -53,23 +40,6 @@ function MyTripPage() {
     get<{ nickname: string }>('/user/profile').then((response) => {
       setNickname(response.data.nickname);
     });
-  }, []);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && next) {
-        get<TravelResponseType>(next).then((response) => {
-          setNext(response.data.next);
-          setTripUpComing([...tripUpComing, ...response.data.results]);
-        });
-      }
-    });
-
-    if (infiniteObserverRef.current) {
-      observer.observe(infiniteObserverRef.current);
-    }
-
-    return () => observer.disconnect();
   }, []);
 
   return (
@@ -107,12 +77,7 @@ function MyTripPage() {
             <CalendarAddIcon />
           </S.CreateMyTripButton>
         ) : (
-          <S.ScheduleCardContainer>
-            {tripUpComing.map((tripData) => (
-              <MyScheduleCard {...tripData} key={tripData.id} />
-            ))}
-            <div ref={infiniteObserverRef} />
-          </S.ScheduleCardContainer>
+          <TripCarousel tripUpComing={tripUpComing} next={next} />
         )}
 
         <S.CreateMyTripTextButton

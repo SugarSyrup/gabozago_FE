@@ -53,7 +53,7 @@ export const TextHighlight = styled.span`
 export const CreateMyTripTextButton = styled.div<{
   hasTripUpcoming: boolean;
 }>`
-  width: 100%;
+  width: calc(100% - 20px);
 
   display: flex;
   justify-content: center;
@@ -61,6 +61,7 @@ export const CreateMyTripTextButton = styled.div<{
   gap: 8px;
 
   padding: 12px 20px;
+  margin-left: 10px;
 
   background-color: ${({ theme, hasTripUpcoming }) => (hasTripUpcoming ? theme.white : theme.main)};
   border: ${({ theme, hasTripUpcoming }) => hasTripUpcoming && `.5px solid ${theme.main}`};
@@ -76,22 +77,6 @@ export const CreateMyTripTextButton = styled.div<{
     path {
       fill: ${({ theme, hasTripUpcoming }) => (hasTripUpcoming ? '#BDBDBD' : theme.white)};
     }
-  }
-`;
-
-export const ScheduleCardContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  gap: 15px;
-
-  width: 100%;
-  overflow: auto;
-
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
   }
 `;
 

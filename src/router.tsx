@@ -270,7 +270,6 @@ const router = createBrowserRouter([
     element: <InquiryPage />,
     loader: async () => {
       const { data } = await get<TUserProfile>('/user/profile');
-      console.dir(data);
       return data.nickname;
     },
   },
