@@ -1,5 +1,5 @@
 import { MouseEventHandler } from 'react';
-import FilledButton from '../../common/Button/FilledButton';
+import FilledButton from '../Button/FilledButton';
 
 import * as S from './style';
 
@@ -9,14 +9,14 @@ interface Props {
   children: React.ReactNode | string;
 }
 
-function NavigationButtonContainer({ onClick, bgColor, children }: Props) {
+function BottomButtonContainer({ onClick, bgColor, children }: Props) {
   return (
-    <S.NavContainer>
+    <S.Container>
       <FilledButton onClick={onClick} bgColor={bgColor} rounded>
         {children}
       </FilledButton>
-    </S.NavContainer>
+    </S.Container>
   );
 }
 
-export default NavigationButtonContainer;
+export default BottomButtonContainer;

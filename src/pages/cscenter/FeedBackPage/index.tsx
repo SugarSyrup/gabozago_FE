@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import PageTemplate from '../../../components/common/PageTemplate';
 import { HeaderWithBack } from '../../../components/common/Header';
-import NavigationButtonContainer from '../../../components/cscenter/NavigationButtonContainer';
+import BottomButtonContainer from '../../../components/common/BottomButtonContainer';
 import Typography from '../../../components/common/Typography';
 
 import { post } from '../../../utils/api';
@@ -68,9 +68,9 @@ function FeedBackPage() {
       </Popup>
       <PageTemplate
         nav={
-          <NavigationButtonContainer onClick={onSubmit} bgColor="blue">
+          <BottomButtonContainer onClick={onSubmit} bgColor="blue">
             의견 보내기
-          </NavigationButtonContainer>
+          </BottomButtonContainer>
         }
         header={<HeaderWithBack>의견 보내기</HeaderWithBack>}
       >
