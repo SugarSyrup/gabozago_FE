@@ -18,7 +18,7 @@ export const InfoContainer = styled.div`
   height: 98px;
 
   cursor: pointer;
-  padding: 15px;
+  padding: 15px 10px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -59,7 +59,7 @@ export const TextContainer = styled.div`
 export const Infos = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 3px;
 `;
 
 export const Info = styled.span`
@@ -71,6 +71,7 @@ export const Info = styled.span`
   svg {
     width: 16px;
     height: 16px;
+    flex-shrink: 0;
 
     path {
       fill: ${({ theme }) => theme.main};

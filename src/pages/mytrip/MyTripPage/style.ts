@@ -97,7 +97,7 @@ export const CreateMyTripScheduleBtn = styled.div`
 `;
 
 export const ContentHeadingWrappper = styled.div`
-  margin-top: 35px;
+  margin-top: 15px;
 
   display: flex;
   justify-content: space-between;
@@ -107,7 +107,7 @@ export const ContentHeadingWrappper = styled.div`
 export const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 20px 13px;
+  padding-top: 15px;
   gap: 20px;
 `;
 
