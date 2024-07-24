@@ -34,5 +34,8 @@ module.exports = {
     "import/order" : "off",
     "react/jsx-props-no-spreading": 'off',
     "default-case": 'off',
+    "jsx-a11y/click-events-have-key-events": 'off',
+    "jsx-a11y/no-static-element-interactions": 'off',
+    "no-plusplus": 'off'
   },
 };
