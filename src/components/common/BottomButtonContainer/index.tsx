@@ -7,12 +7,13 @@ interface Props {
   onClick: MouseEventHandler<HTMLButtonElement>;
   bgColor: 'blue' | 'gray';
   children: React.ReactNode | string;
+  rounded?: boolean;
 }
 
-function BottomButtonContainer({ onClick, bgColor, children }: Props) {
+function BottomButtonContainer({ onClick, bgColor, children, rounded = true }: Props) {
   return (
     <S.Container>
-      <FilledButton onClick={onClick} bgColor={bgColor} rounded>
+      <FilledButton onClick={onClick} bgColor={bgColor} rounded={rounded}>
         {children}
       </FilledButton>
     </S.Container>

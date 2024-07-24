@@ -28,8 +28,8 @@ export const Footer = styled.footer`
   align-items: center;
   gap: 14px;
 
-  padding: 15px 30px;
-  padding-bottom: 40px;
+  /* padding: 15px 30px; */
+  /* padding-bottom: 40px; */
 
   width: 100%;
   max-width: 500px;
@@ -38,22 +38,11 @@ export const Footer = styled.footer`
   background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #fff 50%);
 `;
 
-export const Button = styled.button<{
-  bgColor: boolean;
-}>`
-  width: 100%;
-  padding: 12px 20px;
-  border-radius: 30px;
-  border: none;
-
+export const Button = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
-
-  background-color: ${({ theme, bgColor }) => (bgColor ? theme.main : '#a6a6a6')};
-  text-decoration: none;
-  cursor: pointer;
   svg {
     width: 28px;
     height: 28px;

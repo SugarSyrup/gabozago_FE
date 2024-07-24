@@ -10,6 +10,7 @@ import Calendar from '../Calendar/index.tsx';
 import { addLocationState, createTravelState } from '../../../recoil/mytrip/createTravelState.ts';
 import * as S from './style.ts';
 import { patch, post } from '../../../utils/api.ts';
+import BottomButtonContainer from '../../common/BottomButtonContainer/index.tsx';
 
 function CalendarContainer() {
   const navigate = useNavigate();
@@ -108,8 +109,8 @@ function CalendarContainer() {
       <S.CalendarContainer>{drawCalendars()}</S.CalendarContainer>
 
       <S.Footer>
-        <S.Button
-          bgColor={dates.startDate !== '' && dates.endDate !== ''}
+        <BottomButtonContainer
+          bgColor={dates.startDate !== '' && dates.endDate !== '' ? 'blue' : 'gray'}
           onClick={() => {
             setSelectedLocation([]);
             if (dates.startDate !== '' && dates.endDate !== '') {
@@ -139,13 +140,16 @@ function CalendarContainer() {
             }
           }}
         >
-          <CalendarAddIcon />
-          <Typography.Title size="lg" color="white">
-            {dates.startDate !== '' && dates.endDate !== ''
-              ? `${dates.startDate.slice(0, 4)}.${dates.startDate.slice(4, 6)}.${dates.startDate.slice(6, 8)} ${dates.startDate === dates.endDate ? '' : '~'} ${dates.startDate.slice(0, 4) !== dates.endDate.slice(0, 4) ? `${dates.endDate.slice(0, 4)}.` : ''}${dates.startDate.slice(4, 6) !== dates.endDate.slice(4, 6) ? `${dates.endDate.slice(4, 6)}.` : ''}${dates.startDate.slice(6, 8) !== dates.endDate.slice(6, 8) ? `${dates.endDate.slice(6, 8)}.` : ''} / ${dateDiff}박 ${dateDiff + 1}일`
-              : '날짜를 선택해주세요.'}
-          </Typography.Title>
-        </S.Button>
+          <S.Button>
+            {/* // bgColor={dates.startDate !== '' && dates.endDate !== ''} */}
+            <CalendarAddIcon />
+            <Typography.Title size="lg" color="white">
+              {dates.startDate !== '' && dates.endDate !== ''
+                ? `${dates.startDate.slice(0, 4)}.${dates.startDate.slice(4, 6)}.${dates.startDate.slice(6, 8)} ${dates.startDate === dates.endDate ? '' : '~'} ${dates.startDate.slice(0, 4) !== dates.endDate.slice(0, 4) ? `${dates.endDate.slice(0, 4)}.` : ''}${dates.startDate.slice(4, 6) !== dates.endDate.slice(4, 6) ? `${dates.endDate.slice(4, 6)}.` : ''}${dates.startDate.slice(6, 8) !== dates.endDate.slice(6, 8) ? `${dates.endDate.slice(6, 8)}.` : ''} / ${dateDiff}박 ${dateDiff + 1}일`
+                : '날짜를 선택해주세요.'}
+            </Typography.Title>
+          </S.Button>
+        </BottomButtonContainer>
       </S.Footer>
     </>
   );
