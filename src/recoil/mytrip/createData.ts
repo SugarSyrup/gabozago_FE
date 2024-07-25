@@ -17,3 +17,8 @@ export const datesState = atom<Dates>({
     endDate: '',
   },
 });
+
+export const dateClickFlagState = atom<boolean>({
+  key: 'dateClickFlag',
+  default: true,
+});

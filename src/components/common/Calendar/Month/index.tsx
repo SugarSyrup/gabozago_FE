@@ -1,16 +1,42 @@
 // import { useEffect } from 'react';
+import { ForwardedRef, forwardRef } from 'react';
 import Typography from '../../Typography';
 import * as S from './style';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { dateClickFlagState, datesState } from '@_recoil/mytrip/createData';
 
 interface Props {
   year: number;
   month: number;
-  startDate: string;
-  endDate: string;
-  onDateClick: (date: string) => void;
 }
 
-function Month({ year, month, startDate, endDate, onDateClick }: Props) {
+const Month = forwardRef(({ year, month }: Props, ref: ForwardedRef<HTMLDivElement>) => {
+  const [{ startDate, endDate }, setDates] = useRecoilState(datesState);
+  const [dateClickFlag, setDateClickFlag] = useRecoilState(dateClickFlagState);
+
+  function onDateClick(date: string) {
+    if (dateClickFlag) {
+      setDates({
+        startDate: date,
+        endDate: '',
+      });
+      setDateClickFlag((prev) => !prev);
+    } else {
+      if (Number(date) < Number(startDate)) {
+        setDates({
+          startDate: date,
+          endDate: startDate,
+        });
+      } else {
+        setDates({
+          startDate,
+          endDate: date,
+        });
+      }
+      setDateClickFlag((prev) => !prev);
+    }
+  }
+
   function FillDate() {
     const currentMonthStartDay = new Date(year, month - 1, 1).getDay();
     const currentMonthLastDate = new Date(year, month, 0).getDate();
@@ -30,6 +56,7 @@ function Month({ year, month, startDate, endDate, onDateClick }: Props) {
           onClick={() => {
             onDateClick(thisDate);
           }}
+          isToday={Number(todayDate) === Number(thisDate)}
         >
           {Number(startDate) === Number(thisDate) || Number(endDate) === Number(thisDate) ? (
             <S.DateHightlight
@@ -56,7 +83,7 @@ function Month({ year, month, startDate, endDate, onDateClick }: Props) {
   }
 
   return (
-    <div>
+    <div ref={ref} style={{ scrollSnapAlign: 'center' }}>
       <S.CalendarHeader>
         {year}년{month}월
       </S.CalendarHeader>
@@ -72,6 +99,7 @@ function Month({ year, month, startDate, endDate, onDateClick }: Props) {
       </S.Calendar>
     </div>
   );
-}
+});
 
+Month.displayName = 'Month';
 export default Month;

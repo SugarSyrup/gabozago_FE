@@ -33,6 +33,7 @@ export const Day = styled.div`
 `;
 interface DateProps {
   isDuring: boolean;
+  isToday: boolean;
 }
 
 // 날짜
@@ -67,6 +68,8 @@ export const Date = styled.div<DateProps>`
         z-index: -1;
       }
     `}
+
+  color: ${({ isToday, theme }) => isToday && theme.colors.blue.primary};
 `;
 
 export const DateHightlight = styled.div<{

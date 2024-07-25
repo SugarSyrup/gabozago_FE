@@ -10,6 +10,8 @@
       "@_types/*": ["./src/assets/types/*"],
       "@_icons/*": ["./src/assets/icons/*"],
       "@_imgs/*": ["./src/assets/imgs/*"],
+      "@_common/*": ["./src/components/common/*"],
+      "@_recoil/*": ["./src/recoil/*"],
     },
 
     /* Bundler mode */
