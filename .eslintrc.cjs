@@ -38,6 +38,7 @@ module.exports = {
     "jsx-a11y/no-static-element-interactions": 'off',
     "no-plusplus": 'off',
     "react/jsx-no-bind": 'off',
-    "@typescript-eslint/no-use-before-define": 'off'
+    "@typescript-eslint/no-use-before-define": 'off',
+    "react/no-unstable-nested-components": 'off'
   },
 };

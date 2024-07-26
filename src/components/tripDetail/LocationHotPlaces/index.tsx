@@ -37,6 +37,7 @@ function LocationHotPlaces({ locations, setNewLocation, popupOpen }: Props) {
         <S.RecommendationList>
           {recommendPlaces.map(({ name, theme, id, location }) => (
             <RecommendationListItem
+              key={id}
               name={name}
               theme={theme}
               location={location}

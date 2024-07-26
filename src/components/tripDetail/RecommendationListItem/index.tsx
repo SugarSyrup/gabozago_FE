@@ -63,7 +63,7 @@ function RecommendationListItem({
       <S.LeftItems>
         <S.Thumbnail>
           {thumbnail ? (
-            <img src={thumbnail} />
+            <img src={thumbnail} alt={thumbnail} />
           ) : (
             <LocationPlaceholderIcon type={((id % 5) + 1) as 1 | 2 | 3 | 4 | 5} />
           )}
@@ -76,7 +76,7 @@ function RecommendationListItem({
                   name.indexOf(keyword) <= index &&
                   index < name.indexOf(keyword) + keyword.length
                 ) {
-                  return <S.HighlightName>{word}</S.HighlightName>;
+                  return <S.HighlightName key={word}>{word}</S.HighlightName>;
                 }
                 return <>{word}</>;
               })}

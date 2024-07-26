@@ -23,17 +23,19 @@ export const Input = styled.input<{
   disabled: boolean;
 }>`
   width: 100%;
-  padding: 10px 16px;
+  padding: 8px;
 
   border-radius: 4px;
   border: 1px solid #dcdcdc;
   background: ${({ disabled, theme }) => (disabled ? theme.gray06 : theme.white)};
 
   color: ${({ disabled, theme }) => (disabled ? theme.gray02 : theme.black)};
-  font-size: 16px;
+
+  font-size: 14px;
+  font-style: normal;
   font-weight: 400;
-  line-height: 22px;
-  letter-spacing: 0.2px;
+  line-height: 24px;
+  letter-spacing: 0.5px;
 `;
 
 export const InputExplain = styled.span`
