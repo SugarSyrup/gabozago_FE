@@ -34,7 +34,8 @@ export const PinContainer = styled.div<{ color: string }>`
 `;
 
 export const InfoTopContainer = styled.div`
-  padding: 3px 2px 0 5px;
+  padding-top: 1px;
+  padding-left: 4px;
   & > p:first-child {
     display: flex;
     flex-wrap: wrap;
