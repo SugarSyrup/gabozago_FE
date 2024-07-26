@@ -64,25 +64,17 @@ function PastNFutureCalendar() {
             setData((prev) => [{ year, month }, ...prev]);
             flagDate.setMonth(flagDate.getMonth() - 1);
           }
+
           setPastHead({
             year: Number(flagDate.getFullYear()),
             month: Number(flagDate.getMonth()),
           });
 
-          // console.log(containerRef.current.scrollTop);
-          // containerRef.current.scrollTo({
-          //   top: 320 * 4 + 294 + containerRef.current.scrollTop,
-          // });
           setTimeout(() => {
             if (containerRef.current) {
-              // console.log(containerRef.current.scrollTop);
               containerRef.current.scrollTo(0, 320 * 4 + 294 + containerRef.current.scrollTop);
-              // console.log(containerRef.current.scrollTop);
             }
           }, 0);
-          // containerRef.current.scrollTo(0, 32000);
-          // console.log(containerRef.current.scrollTop);
-          // containerRef.current.style.overflow = 'none';
         }
       });
     }, options);

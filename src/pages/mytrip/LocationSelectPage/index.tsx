@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 
@@ -14,11 +14,11 @@ import LocationTag from '../../../components/mytrip/LocationTag';
 import SearchedLocations from '../../../components/mytrip/SearchedLocations';
 
 import useSearchInput from '../../../hooks/useSearchInput';
-import { get, post } from '../../../utils/api';
+import { post } from '../../../utils/api';
 
 import * as S from './style';
 
-export interface locationResponseType {
+export interface LocationResponseType {
   id: number;
   name: string;
   category: string;
@@ -38,10 +38,10 @@ const defaultLocations = [
   '제주',
 ];
 function MyTripLocationSelectPage() {
-  const locations = useLoaderData() as locationResponseType[];
+  const locations = useLoaderData() as LocationResponseType[];
   const navigate = useNavigate();
   const [selectedLocations, setSelectedLocations] = useRecoilState(selectedLocationsState);
-  const [searchedLocations, setSearchedLocations] = useState<locationResponseType[]>([]);
+  const [searchedLocations, setSearchedLocations] = useState<LocationResponseType[]>([]);
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const dates = useRecoilValue(datesState);
 
@@ -68,6 +68,10 @@ function MyTripLocationSelectPage() {
     setSelectedLocations((prev) => prev.filter((item) => location !== item));
   }
 
+  function searchResult(keyword: string) {
+    return locations.filter((location) => location.name.includes(keyword));
+  }
+
   function onChange() {
     if (inputRef.current) {
       if (inputRef.current?.value === '') {
@@ -77,10 +81,6 @@ function MyTripLocationSelectPage() {
         setSearchedLocations(searchResult(inputRef.current?.value));
       }
     }
-  }
-
-  function searchResult(keyword: string) {
-    return locations.filter((location) => location.name.includes(keyword));
   }
 
   return (
@@ -108,11 +108,11 @@ function MyTripLocationSelectPage() {
 
               if (rednerLocation) {
                 return (
-                  <S.LocationItem>
+                  <S.LocationItem key={rednerLocation.name}>
                     <S.LocationInfomation>
                       <S.LocationImgWrapper>
                         {rednerLocation.image ? (
-                          <img src={rednerLocation.image} alt={`${rednerLocation.name} image`} />
+                          <img src={rednerLocation.image} alt={`${rednerLocation.name}`} />
                         ) : (
                           <LogoTextIcon />
                         )}
@@ -122,9 +122,11 @@ function MyTripLocationSelectPage() {
                     <S.LocationSelectButton
                       isActive={isActive}
                       onClick={() => {
-                        isActive
-                          ? deleteLocation(rednerLocation.name)
-                          : selectLocation(rednerLocation.name);
+                        if (isActive) {
+                          deleteLocation(rednerLocation.name);
+                        } else {
+                          selectLocation(rednerLocation.name);
+                        }
                       }}
                     >
                       <Typography.Label size="lg" color="inherit">

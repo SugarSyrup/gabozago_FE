@@ -11,7 +11,7 @@ export const Container = styled.div`
 export const Info = styled.div`
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 16px;
 `;
 
 export const Name = styled.span`
