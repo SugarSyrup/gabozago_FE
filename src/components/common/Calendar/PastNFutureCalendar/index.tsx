@@ -56,7 +56,7 @@ function PastNFutureCalendar() {
           if (pastHead === undefined) return;
           const flagDate = new Date();
           flagDate.setFullYear(pastHead.year);
-          flagDate.setMonth(pastHead.month - 2);
+          flagDate.setMonth(pastHead.month - 1);
 
           for (let i = 0; i < 5; i++) {
             const year = flagDate.getFullYear();
@@ -67,7 +67,7 @@ function PastNFutureCalendar() {
 
           setPastHead({
             year: Number(flagDate.getFullYear()),
-            month: Number(flagDate.getMonth()),
+            month: Number(flagDate.getMonth() + 1),
           });
 
           setTimeout(() => {

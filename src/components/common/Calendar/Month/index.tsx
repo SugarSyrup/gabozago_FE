@@ -1,5 +1,5 @@
 // import { useEffect } from 'react';
-import { ForwardedRef, forwardRef, useEffect } from 'react';
+import { ForwardedRef, forwardRef, useEffect, useRef, useState } from 'react';
 import Typography from '../../Typography';
 import * as S from './style';
 import { useRecoilState } from 'recoil';
@@ -11,8 +11,10 @@ interface Props {
 }
 
 const Month = forwardRef(({ year, month }: Props, ref: ForwardedRef<HTMLDivElement>) => {
+  const [opacity, setOpacity] = useState<number>(0.3);
   const [{ startDate, endDate }, setDates] = useRecoilState(datesState);
   const [dateClickFlag, setDateClickFlag] = useRecoilState(dateClickFlagState);
+  const monthRef = useRef<HTMLDivElement>(null);
 
   function onDateClick(date: string) {
     if (dateClickFlag) {
@@ -82,8 +84,42 @@ const Month = forwardRef(({ year, month }: Props, ref: ForwardedRef<HTMLDivEleme
     return arr;
   }
 
+  useEffect(() => {
+    let currentMonthRef;
+    if (ref) {
+      currentMonthRef = ref as React.MutableRefObject<HTMLDivElement | null>;
+    } else {
+      currentMonthRef = monthRef;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const entryIntersectionRatio = Math.floor(entry.intersectionRatio * 100) / 100;
+          if (entryIntersectionRatio >= 0.85) {
+            setOpacity(1);
+          } else if (entryIntersectionRatio <= 0.35) {
+            setOpacity(0.3);
+          } else {
+            setOpacity(entryIntersectionRatio);
+          }
+        });
+      },
+      {
+        threshold: [
+          0.3, 0.325, 0.35, 0.375, 0.4, 0.425, 0.45, 0.475, 0.5, 0.525, 0.55, 0.575, 0.6, 0.625,
+          0.65, 0.675, 0.7, 0.725, 0.75, 0.775, 0.8, 0.825, 0.85, 0.875, 0.9,
+        ],
+      },
+    );
+
+    if (currentMonthRef.current) {
+      observer.observe(currentMonthRef.current);
+    }
+  }, []);
+
   return (
-    <div ref={ref} style={{ scrollSnapAlign: 'center' }}>
+    <div ref={ref || monthRef} style={{ scrollSnapAlign: 'center', opacity }}>
       <S.CalendarHeader>
         {year}년{month}월
       </S.CalendarHeader>
