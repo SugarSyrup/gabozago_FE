@@ -42,38 +42,59 @@ function PastNFutureCalendar() {
     setFutureHead({ year: futureYear, month: futureMonth });
   }, []);
 
-  // useEffect(() => {
-  //   const options = {
-  //     root: null,
-  //     rootMargin: '0px',
-  //     threshold: 0,
-  //   };
+  // past Infinite Scroll
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: '100px',
+      threshold: 0,
+    };
 
-  //   const observer = new IntersectionObserver((entries) => {
-  //     entries.forEach((entry) => {
-  //       if (entry.isIntersecting) {
-  //         if (pastHead === undefined) return;
-  //         const flagDate = new Date();
-  //         flagDate.setFullYear(pastHead.year);
-  //         flagDate.setMonth(pastHead.month - 2);
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          if (pastHead === undefined) return;
+          const flagDate = new Date();
+          flagDate.setFullYear(pastHead.year);
+          flagDate.setMonth(pastHead.month - 2);
 
-  //         for (let i = 0; i < 5; i++) {
-  //           const year = flagDate.getFullYear();
-  //           const month = flagDate.getMonth() + 1;
-  //           setData((prev) => [{ year, month }, ...prev]);
-  //           flagDate.setMonth(flagDate.getMonth() - 1);
-  //         }
-  //       }
-  //     });
-  //   }, options);
+          for (let i = 0; i < 5; i++) {
+            const year = flagDate.getFullYear();
+            const month = flagDate.getMonth() + 1;
+            setData((prev) => [{ year, month }, ...prev]);
+            flagDate.setMonth(flagDate.getMonth() - 1);
+          }
+          setPastHead({
+            year: Number(flagDate.getFullYear()),
+            month: Number(flagDate.getMonth()),
+          });
 
-  //   if (pastInfinitScrollRef.current !== null) {
-  //     observer.observe(pastInfinitScrollRef.current as HTMLDivElement);
-  //   }
+          // console.log(containerRef.current.scrollTop);
+          // containerRef.current.scrollTo({
+          //   top: 320 * 4 + 294 + containerRef.current.scrollTop,
+          // });
+          setTimeout(() => {
+            if (containerRef.current) {
+              // console.log(containerRef.current.scrollTop);
+              containerRef.current.scrollTo(0, 320 * 4 + 294 + containerRef.current.scrollTop);
+              // console.log(containerRef.current.scrollTop);
+            }
+          }, 0);
+          // containerRef.current.scrollTo(0, 32000);
+          // console.log(containerRef.current.scrollTop);
+          // containerRef.current.style.overflow = 'none';
+        }
+      });
+    }, options);
 
-  //   return () => observer.disconnect();
-  // }, [pastHead, pastInfinitScrollRef]);
+    if (pastInfinitScrollRef.current !== null) {
+      observer.observe(pastInfinitScrollRef.current as HTMLDivElement);
+    }
 
+    return () => observer.disconnect();
+  }, [pastHead, pastInfinitScrollRef]);
+
+  // future Infinite Scroll
   useEffect(() => {
     const options = {
       root: null,
@@ -114,31 +135,13 @@ function PastNFutureCalendar() {
   return (
     <>
       <S.CalendarContainer ref={containerRef}>
+        <div ref={pastInfinitScrollRef} />
         {data.map((calendarData, index) => {
           const currentDate = new Date();
           const isToday =
             calendarData.year === currentDate.getFullYear() &&
             calendarData.month === currentDate.getMonth() + 1;
-          // if (index === 0) {
-          //   return (
-          //     <Month
-          //       key={`${calendarData.year}-${calendarData.month}-${index}`}
-          //       year={calendarData.year}
-          //       month={calendarData.month}
-          //       ref={pastInfinitScrollRef}
-          //     />
-          //   );
-          // }
-          // if (index === data.length - 1) {
-          //   return (
-          //     <Month
-          //       key={`${calendarData.year}-${calendarData.month}-${index}`}
-          //       year={calendarData.year}
-          //       month={calendarData.month}
-          //       ref={futureInfinitScrollRef}
-          //     />
-          //   );
-          // }
+
           return (
             <Month
               key={`${calendarData.year}-${calendarData.month}-${index}`}
