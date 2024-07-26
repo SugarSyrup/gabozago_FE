@@ -1,18 +1,23 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+export const UpCommingContainer = styled.div`
+  width: 100%;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
+
+  padding-top: 15px;
+  padding-bottom: 15px;
+`;
+
 export const HeadingContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-`;
-
-export const NoUpCommingContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  padding-top: 15px;
 `;
 
 export const CreateMyTripButton = styled.div`
@@ -20,6 +25,7 @@ export const CreateMyTripButton = styled.div`
   padding: 20px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   border: ${({ theme }) => `1px dashed ${theme.blue02}`};
   border-radius: 10px;
@@ -45,17 +51,21 @@ export const TextHighlight = styled.span`
 `;
 
 export const CreateMyTripTextButton = styled.div<{
-  hasTripHistory: boolean;
+  hasTripUpcoming: boolean;
 }>`
+  width: calc(100% - 20px);
+
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 7px;
+  gap: 8px;
 
-  padding-top: 15px;
-  padding-bottom: 15px;
-  background-color: ${({ theme, hasTripHistory }) => (hasTripHistory ? theme.white : theme.main)};
-  border: ${({ theme, hasTripHistory }) => hasTripHistory === true && `.5px solid ${theme.main}`};
+  padding: 12px 20px;
+  margin-left: 10px;
+
+  background-color: ${({ theme, hasTripUpcoming }) => (hasTripUpcoming ? theme.white : theme.main)};
+  border: ${({ theme, hasTripUpcoming }) => hasTripUpcoming && `.5px solid ${theme.main}`};
+  color: ${({ hasTripUpcoming }) => (hasTripUpcoming ? `#484848` : `white`)};
   border-radius: 10px;
 
   cursor: pointer;
@@ -65,34 +75,8 @@ export const CreateMyTripTextButton = styled.div<{
     height: 20px;
 
     path {
-      fill: ${({ theme, hasTripHistory }) => (hasTripHistory ? '#BDBDBD' : theme.white)};
+      fill: ${({ theme, hasTripUpcoming }) => (hasTripUpcoming ? '#BDBDBD' : theme.white)};
     }
-  }
-`;
-
-export const ContainerWithPlan = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-
-  width: 100%;
-  position: relative;
-  padding-top: 15px;
-`;
-
-export const ScheduleCardContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  gap: 15px;
-
-  width: 100%;
-  overflow: auto;
-
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
   }
 `;
 
@@ -113,7 +97,7 @@ export const CreateMyTripScheduleBtn = styled.div`
 `;
 
 export const ContentHeadingWrappper = styled.div`
-  margin-top: 35px;
+  margin-top: 15px;
 
   display: flex;
   justify-content: space-between;
@@ -123,7 +107,7 @@ export const ContentHeadingWrappper = styled.div`
 export const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 20px 13px;
+  padding-top: 15px;
   gap: 20px;
 `;
 

@@ -26,7 +26,7 @@ function MyLastScheduleCard({
   thumbnailURL,
 }: Props) {
   const navigate = useNavigate();
-  const { MyTripModal, modalOpen, modalClose, isModalOpend } = useMyTripModal({
+  const { MyTripModal, modalOpen } = useMyTripModal({
     id,
     title,
     departureDate: departure_date,
@@ -46,14 +46,14 @@ function MyLastScheduleCard({
               navigate(`/mytrip/${id}`);
             }}
           >
-            <Typography.Title size="md" noOfLine={2} maxWidth={300}>
+            <Typography.Title size="md" noOfLine={2} maxWidth={150}>
               {title}
             </Typography.Title>
             <S.Infos>
               <S.Info>
                 <CalendarIcon />
                 <Typography.Label size="md" color="#424242">
-                  {departure_date} ~{arrival_date}
+                  {departure_date} ~ {arrival_date}
                 </Typography.Label>
               </S.Info>
               <S.Info>

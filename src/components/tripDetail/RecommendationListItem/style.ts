@@ -11,7 +11,7 @@ export const Container = styled.div`
 
 export const LeftItems = styled.div`
   display: flex;
-  gap: 14px;
+  gap: 12px;
 `;
 
 export const Thumbnail = styled.div`

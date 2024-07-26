@@ -8,7 +8,7 @@ import { modalState } from '../../../recoil/modalState';
 import Typography from '../../../components/common/Typography';
 import PageTemplate from '../../../components/common/PageTemplate';
 import { HeaderWithBack } from '../../../components/common/Header';
-import NavigationButtonContainer from '../../../components/cscenter/NavigationButtonContainer';
+import BottomButtonContainer from '../../../components/common/BottomButtonContainer';
 
 import ImportantIcon from '../../../assets/icons/exclamation_circle.svg?react';
 import BottomChevronIcon from '../../../assets/icons/chevron_bottom_small.svg?react';
@@ -150,7 +150,7 @@ function InquiryPage() {
       </Popup>
       <PageTemplate
         nav={
-          <NavigationButtonContainer
+          <BottomButtonContainer
             onClick={(e) => {
               e.preventDefault();
 
@@ -161,7 +161,7 @@ function InquiryPage() {
             bgColor="blue"
           >
             제출하기
-          </NavigationButtonContainer>
+          </BottomButtonContainer>
         }
         header={<HeaderWithBack>서비스 문의하기</HeaderWithBack>}
       >

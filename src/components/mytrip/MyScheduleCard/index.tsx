@@ -17,11 +17,24 @@ interface Props {
   arrival_date: string;
   regions: string[];
   thumbnailURL: string;
+  itemIndex: number;
+  carouselIndex: number;
+  setCarouselIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
-function MyScheduleCard({ id, title, departure_date, arrival_date, regions, thumbnailURL }: Props) {
+function MyScheduleCard({
+  id,
+  title,
+  departure_date,
+  arrival_date,
+  regions,
+  thumbnailURL,
+  itemIndex,
+  carouselIndex,
+  setCarouselIndex,
+}: Props) {
   const navigate = useNavigate();
-  const { MyTripModal, modalOpen, modalClose, isModalOpend } = useMyTripModal({
+  const { MyTripModal, modalOpen } = useMyTripModal({
     id,
     title,
     departureDate: departure_date,
@@ -31,7 +44,15 @@ function MyScheduleCard({ id, title, departure_date, arrival_date, regions, thum
   return (
     <>
       <MyTripModal />
-      <S.Card>
+      <S.Card
+        onClick={() => {
+          if (itemIndex === carouselIndex) {
+            navigate(`/mytrip/${id}`);
+          } else {
+            setCarouselIndex(itemIndex);
+          }
+        }}
+      >
         <S.InfoContainer>
           <S.ThumbnailWrapper>
             {thumbnailURL ? <img src={thumbnailURL} alt="thumbnail" /> : <LogoSmallIcon />}
@@ -50,7 +71,7 @@ function MyScheduleCard({ id, title, departure_date, arrival_date, regions, thum
               <S.Info>
                 <LocationIcon />
                 {regions.map((region, idx) => (
-                  <Typography.Label size="md" color="#424242">
+                  <Typography.Label size="md" color="#424242" key={`${region} ${idx}`}>
                     {region}
                     {idx !== regions.length - 1 && ','}
                   </Typography.Label>
@@ -66,18 +87,6 @@ function MyScheduleCard({ id, title, departure_date, arrival_date, regions, thum
             <KebabMenuIcon />
           </S.MenuIcon>
         </S.InfoContainer>
-        <S.ButtonContainer>
-          <S.ButtonValue
-            onClick={() => {
-              navigate(`/mytrip/${id}`);
-            }}
-          >
-            <Typography.Label size="lg" color="#5276FA">
-              일정 보러가기
-            </Typography.Label>
-            <RightCircleIcon />
-          </S.ButtonValue>
-        </S.ButtonContainer>
       </S.Card>
     </>
   );

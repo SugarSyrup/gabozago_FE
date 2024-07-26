@@ -38,7 +38,7 @@ function MarkerWithInfoWindow({
         </S.PinContainer>
       </AdvancedMarker>
       {infoWindowShown && (
-        <InfoWindow maxWidth={250} anchor={marker} onClose={handleClose} shouldFocus>
+        <InfoWindow maxWidth={250} anchor={marker} onClose={handleClose} shouldFocus headerDisabled>
           <S.InfoTopContainer>
             <p>
               <Typography.Title size="md" noOfLine={2}>

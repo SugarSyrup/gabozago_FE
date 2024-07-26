@@ -4,7 +4,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import InfomationIcon from '../../../assets/icons/exclamation_circle.svg?react';
 import LeftChevronIcon from '../../../assets/icons/chevron_left.svg?react';
-import { journalFilterState } from '../../../recoil/filters/journalState';
+// import { journalFilterState } from '../../../recoil/filters/journalState';
 
 import PageTemplate from '../../../components/common/PageTemplate';
 import Typography from '../../../components/common/Typography';
@@ -60,7 +60,7 @@ function MyTripLocationSearchPage() {
       location: string[];
     }>(`/my-travel/${id}`).then((response) => {
       setLocations(response.data.location);
-      console.log(response.data.location);
+      // console.log(response.data.location);
       setActiveFilters((prev) => ({
         ...prev,
         location: response.data.location,

@@ -28,7 +28,7 @@ export const Form = styled.form`
 export const InputList = styled.ol`
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: 20px;
 `;
 
 export const Input = styled.input`
@@ -51,12 +51,12 @@ export const ButtonWrapper = styled.div`
   padding: 15px;
 
   position: fixed;
-  bottom: 40px;
+  bottom: 0;
 `;
 
 export const Button = styled.button<{ isActive: boolean }>`
   width: 100%;
-  padding: 10px 20px 15px 20px;
+  padding: 12px 20px;
   border-radius: 30px;
 
   display: flex;
@@ -152,4 +152,13 @@ export const PopupButton = styled.button<{ isMain: boolean }>`
   background-color: ${({ isMain, theme }) => (isMain ? '#F3F6FF' : theme.gray06)};
   color: ${({ isMain, theme }) => (isMain ? theme.main : theme.black)};
   cursor: pointer;
+`;
+
+export const LinkTypo = styled.span`
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  text-decoration-line: underline;
 `;

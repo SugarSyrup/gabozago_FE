@@ -73,7 +73,7 @@ export const LocationItem = styled.li`
 export const LocationInfomation = styled.div`
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 16px;
 `;
 
 export const LocationImgWrapper = styled.div`

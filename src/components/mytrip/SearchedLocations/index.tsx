@@ -17,6 +17,7 @@ function SearchedLocations({ searchedLocations, keyword }: Props) {
           if (keyword) {
             return (
               <SearchResultItem
+                key={searchedLocation.name}
                 name={searchedLocation.name}
                 desc={searchedLocation.category}
                 keyword={keyword}

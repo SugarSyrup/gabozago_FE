@@ -32,6 +32,13 @@ module.exports = {
     "react/jsx-no-useless-fragment": 'off',
     "react/no-array-index-key": 'off',
     "import/order" : "off",
-    "react/jsx-props-no-spreading": 'off'
+    "react/jsx-props-no-spreading": 'off',
+    "default-case": 'off',
+    "jsx-a11y/click-events-have-key-events": 'off',
+    "jsx-a11y/no-static-element-interactions": 'off',
+    "no-plusplus": 'off',
+    "react/jsx-no-bind": 'off',
+    "@typescript-eslint/no-use-before-define": 'off',
+    "react/no-unstable-nested-components": 'off'
   },
 };

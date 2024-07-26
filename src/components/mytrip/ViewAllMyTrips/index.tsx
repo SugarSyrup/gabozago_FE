@@ -60,7 +60,7 @@ function ViewAllMyTrips() {
     <S.CardList>
       {
         tripData.map((trip) => (
-          <MyLastScheduleCard {...trip} />
+          <MyLastScheduleCard {...trip} key={trip.id} />
         ))
         // tripData.map((trip) => <span>{trip.title}</span>)
       }

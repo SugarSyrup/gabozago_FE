@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRef, useState } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
 import { postcodeScriptUrl } from 'react-daum-postcode/lib/loadPostcode';
 
@@ -16,6 +16,8 @@ import { get, post } from '../../../utils/api';
 import usePopup from '../../../hooks/usePopup';
 import { selectedPlacesState } from '../../../recoil/mytrip/selectedPlacesState';
 import * as S from './style';
+import toast from 'react-hot-toast';
+import { Toast } from '@_common/Toast';
 
 function MyTripPlaceCreatePage() {
   const navigate = useNavigate();
@@ -103,6 +105,7 @@ function MyTripPlaceCreatePage() {
         onSubmit={(e) => {
           e.preventDefault();
           const formData = new FormData(e.currentTarget);
+
           post<{
             id: number;
             location: string;
@@ -131,7 +134,20 @@ function MyTripPlaceCreatePage() {
               if (!response.data.location.includes(newLocation)) {
                 popupOpen();
               } else {
-                navigate(-1);
+                toast.custom(() => (
+                  <Toast>
+                    <Typography.Body size="lg" color="white">
+                      장소가 추가되었습니다.
+                    </Typography.Body>
+                    <S.LinkTypo
+                      onClick={() => {
+                        navigate(-1);
+                      }}
+                    >
+                      장소 검색 돌아가기
+                    </S.LinkTypo>
+                  </Toast>
+                ));
               }
             });
           });

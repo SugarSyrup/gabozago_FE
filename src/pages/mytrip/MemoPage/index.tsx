@@ -6,6 +6,7 @@ import Button from '../../../components/common/Button';
 import { patch } from '../../../utils/api';
 import PageHeader from '../../../components/common/PageHeader';
 import Typography from '../../../components/common/Typography';
+import BackButton from '@_common/BackButton';
 
 function MemoPage() {
   const navigate = useNavigate();
@@ -28,23 +29,10 @@ function MemoPage() {
 
   return (
     <PageTemplate
-      nav={
-        <S.ButtonWrapper>
-          <Button
-            type="normal"
-            width="100%"
-            active
-            size="lg"
-            onClick={() => {
-              saveMemo(detailRouteId, text);
-            }}
-          >
-            저장
-          </Button>
-        </S.ButtonWrapper>
-      }
+      nav={<></>}
       header={
-        <PageHeader>
+        <S.Header>
+          <BackButton />
           <S.PlaceInfoContainer>
             <Typography.Headline size="sm">
               {query.get('placeName') || '장소명'}
@@ -56,7 +44,7 @@ function MemoPage() {
               </Typography.Title>
             </S.PlaceInfoBottomBox>
           </S.PlaceInfoContainer>
-        </PageHeader>
+        </S.Header>
       }
     >
       <S.MemoTextArea
@@ -71,6 +59,21 @@ function MemoPage() {
         {text.length}
         /200
       </S.TextCountParagraph>
+      <S.ButtonWrapper>
+        <Button
+          type="normal"
+          width="100%"
+          active
+          size="lg"
+          onClick={() => {
+            saveMemo(detailRouteId, text);
+          }}
+        >
+          <Typography.Title size="lg" color="inherit">
+            저장
+          </Typography.Title>
+        </Button>
+      </S.ButtonWrapper>
     </PageTemplate>
   );
 }

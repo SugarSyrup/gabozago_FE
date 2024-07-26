@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { HeaderWithBack } from '../../../components/common/Header';
 import PageTemplate from '../../../components/common/PageTemplate';
-import NavigationButtonContainer from '../../../components/cscenter/NavigationButtonContainer';
+import BottomButtonContainer from '../../../components/common/BottomButtonContainer';
 
 import QuestionsIcon from '../../../assets/icons/cs-questions.svg?react';
 import SettingsIcon from '../../../assets/icons/cs-settings.svg?react';
@@ -51,14 +51,14 @@ function CSCenterPage() {
   return (
     <PageTemplate
       nav={
-        <NavigationButtonContainer
+        <BottomButtonContainer
           onClick={() => {
             navigate('./inquiry');
           }}
           bgColor="blue"
         >
           서비스 문의하기
-        </NavigationButtonContainer>
+        </BottomButtonContainer>
       }
       header={<HeaderWithBack>고객센터•도움말</HeaderWithBack>}
     >

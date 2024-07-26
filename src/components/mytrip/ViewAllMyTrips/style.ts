@@ -5,6 +5,7 @@ export const CardList = styled.ol`
   flex-direction: column;
   gap: 16px;
   overflow-y: auto;
+  margin-top: 24px;
 `;
 
 export const Container = styled.div`

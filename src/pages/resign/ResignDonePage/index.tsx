@@ -5,7 +5,7 @@ import HandImage from '../../../assets/imgs/illustration-01.svg?react';
 import PageTemplate from '../../../components/common/PageTemplate';
 
 import * as S from './style';
-import NavigationButtonContainer from '../../../components/cscenter/NavigationButtonContainer';
+import BottomButtonContainer from '../../../components/common/BottomButtonContainer';
 
 function ResignDonePage() {
   const navigate = useNavigate();
@@ -13,14 +13,14 @@ function ResignDonePage() {
   return (
     <PageTemplate
       nav={
-        <NavigationButtonContainer
+        <BottomButtonContainer
           onClick={() => {
             navigate('/');
           }}
           bgColor="blue"
         >
           로그인 화면으로 돌아가기
-        </NavigationButtonContainer>
+        </BottomButtonContainer>
       }
     >
       <S.Container>

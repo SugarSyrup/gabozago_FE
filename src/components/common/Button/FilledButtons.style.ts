@@ -20,7 +20,7 @@ export const Button = styled(DefaultButton)<{
           color: ${theme.colors.white.primary};
         `
       : css`
-          background-color: ${theme.colors.gray.tertiary};
+          background-color: ${theme.colors.gray.secondary};
           color: ${theme.colors.gray.secondary};
         `}
 `;
