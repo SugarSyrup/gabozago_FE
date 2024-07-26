@@ -7,7 +7,7 @@ import XIcon from '@_icons/grayx.svg?react';
 import Heading from '@_common/Heading';
 import Typography from '@_common/Typography';
 import PageTemplate from '@_common/PageTemplate';
-import CalendarContainer from '@_common/Calendar/tmpCalendarContainer';
+import PastNFutureCalendar from '@_common/Calendar/PastNFutureCalendar';
 import BottomButtonContainer from '@_common/BottomButtonContainer';
 
 import { datesState, selectedLocationsState } from '@_recoil/mytrip/createData';
@@ -57,9 +57,7 @@ function MyTripDatesSelectPage() {
         </S.HeadingWrapper>
       }
     >
-      <CalendarContainer />
-      {/* <S.MainContainer>
-      </S.MainContainer> */}
+      <PastNFutureCalendar />
     </PageTemplate>
   );
 }

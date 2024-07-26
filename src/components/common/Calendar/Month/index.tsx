@@ -1,8 +1,8 @@
 // import { useEffect } from 'react';
-import { ForwardedRef, forwardRef } from 'react';
+import { ForwardedRef, forwardRef, useEffect } from 'react';
 import Typography from '../../Typography';
 import * as S from './style';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { dateClickFlagState, datesState } from '@_recoil/mytrip/createData';
 
 interface Props {

@@ -10,10 +10,14 @@ export const CalendarContainer = styled.div`
   overflow: auto;
   /* overflow-y: hidden; */
 
-  scroll-snap-type: y mandatory;
+  /* scroll-snap-type: y mandatory; */
 
   &::-webkit-scrollbar {
     display: none;
     scrollbar-width: none;
   }
+`;
+
+export const InfiniteScrollWrapper = styled.div`
+  width: 100%;
 `;
