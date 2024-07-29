@@ -31,8 +31,8 @@ export const TravelSettings = styled.div`
 `;
 
 export const PopupContainer = styled.div`
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 24px;
+  padding-bottom: 24px;
 
   display: flex;
   flex-direction: column;
@@ -71,6 +71,8 @@ export const PopupButton = styled.div`
 `;
 
 export const ChangePopupContainer = styled.form`
+  width: 100%;
+
   display: flex;
   flex-direction: column;
   gap: 14px;

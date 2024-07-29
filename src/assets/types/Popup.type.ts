@@ -13,4 +13,5 @@ export interface TPopupValue {
     onClick?: MouseEventHandler<HTMLButtonElement>;
     text: string;
   };
+  Custom?: React.ReactNode;
 }
