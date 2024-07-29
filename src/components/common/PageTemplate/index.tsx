@@ -1,6 +1,6 @@
 // libraries
 import { ReactNode, useEffect, useRef, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import useModal from '../../../hooks/useModal';
 import { modalState } from '../../../recoil/modalState';
@@ -9,6 +9,8 @@ import { Toaster } from '../Toast';
 import BottomNavBar from '../BottomNavBar';
 
 import * as S from './style';
+import { popupIsOpen } from '@_recoil/common/PopupValue';
+import Popup from '@_common/Popup';
 
 interface Props {
   children: ReactNode;
@@ -19,6 +21,9 @@ interface Props {
 function PageTemplate({ children, nav = 'default', header }: Props) {
   const headerRef = useRef<HTMLDivElement>(null);
   const [headerHeight, setHeaderHeight] = useState<number>(0);
+
+  const popuupOpenState = useRecoilValue(popupIsOpen);
+
   const [modal, setModal] = useRecoilState(modalState);
   const { Modal, modalOpen, modalClose } = useModal({
     title: modal.title,
@@ -48,6 +53,7 @@ function PageTemplate({ children, nav = 'default', header }: Props) {
 
   return (
     <S.Container header={!!header}>
+      {popuupOpenState && <Popup />}
       <Modal>{modal.contents}</Modal>
       <Toaster position="bottom-center" reverseOrder={false} containerStyle={{ bottom: 100 }} />
       <S.Header ref={headerRef}>{header && header}</S.Header>
