@@ -65,6 +65,8 @@ export const TextContainer = styled.div`
 export const ButtonContainer = styled.div`
   width: 100%;
 
+  padding-top: 20px;
+
   display: flex;
   flex-direction: row;
   justify-content: space-between;

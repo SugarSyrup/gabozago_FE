@@ -43,11 +43,11 @@ export const popupWarningSelector = selector({
   },
 });
 
-export const popupActiveButtonSelector = selector({
-  key: 'popupActiveButtonSelector',
-  get: ({ get }) => get(popupValue).ActiveButton,
+export const popupConfirmButtonSelector = selector({
+  key: 'popupConfirmButtonSelector',
+  get: ({ get }) => get(popupValue).ConfirmButton,
   set: ({ set }, newValue) => {
-    set(popupValue, { ActiveButton: newValue as TPopupValue['ActiveButton'], ...popupValue });
+    set(popupValue, { ConfirmButton: newValue as TPopupValue['ConfirmButton'], ...popupValue });
   },
 });
 

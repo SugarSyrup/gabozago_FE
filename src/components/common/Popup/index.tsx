@@ -15,9 +15,9 @@ function Popup() {
         {PopupValue.Icon && <S.IconWrapper>{PopupValue.Icon}</S.IconWrapper>}
         <S.TextContainer>
           {PopupValue.Header && (
-            <Typography.Title size="sm" color="#121212" noOfLine={2}>
+            <Typography.Headline size="sm" color="#121212" noOfLine={2}>
               {PopupValue.Header}
-            </Typography.Title>
+            </Typography.Headline>
           )}
           {PopupValue.Description && (
             <Typography.Body size="lg" color="#727272" noOfLine={3}>
@@ -30,16 +30,16 @@ function Popup() {
             </Typography.Body>
           )}
         </S.TextContainer>
-        {PopupValue.CloseButton && PopupValue.ActiveButton && (
+        {(PopupValue.CloseButton || PopupValue.ConfirmButton) && (
           <S.ButtonContainer>
             {PopupValue.CloseButton && (
               <PopupButton bgColor="gray" rounded onClick={PopupValue.CloseButton.onClick}>
-                {PopupValue.CloseButton.text}
+                <span>{PopupValue.CloseButton.text}</span>
               </PopupButton>
             )}
-            {PopupValue.CloseButton && (
-              <PopupButton bgColor="blue" rounded onClick={PopupValue.ActiveButton.onClick}>
-                {PopupValue.ActiveButton.text}
+            {PopupValue.ConfirmButton && (
+              <PopupButton bgColor="blue" rounded onClick={PopupValue.ConfirmButton.onClick}>
+                <span>{PopupValue.ConfirmButton.text}</span>
               </PopupButton>
             )}
           </S.ButtonContainer>

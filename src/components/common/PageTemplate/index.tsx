@@ -1,6 +1,6 @@
 // libraries
 import { ReactNode, useEffect, useRef, useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 import useModal from '../../../hooks/useModal';
 import { modalState } from '../../../recoil/modalState';
@@ -22,7 +22,7 @@ function PageTemplate({ children, nav = 'default', header }: Props) {
   const headerRef = useRef<HTMLDivElement>(null);
   const [headerHeight, setHeaderHeight] = useState<number>(0);
 
-  const popuupOpenState = useRecoilValue(popupIsOpen);
+  const [popuupOpenState, setPopupOpenState] = useRecoilState(popupIsOpen);
 
   const [modal, setModal] = useRecoilState(modalState);
   const { Modal, modalOpen, modalClose } = useModal({
@@ -40,6 +40,10 @@ function PageTemplate({ children, nav = 'default', header }: Props) {
   useEffect(() => {
     setModal((prev) => ({ ...prev, isOpend: false }));
   }, [children]);
+
+  useEffect(() => {
+    setPopupOpenState(false);
+  }, []);
 
   useEffect(() => {
     if (!headerRef.current) return;

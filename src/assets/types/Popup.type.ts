@@ -5,7 +5,7 @@ export interface TPopupValue {
   Header?: string;
   Description?: string;
   Warning?: string;
-  ActiveButton?: {
+  ConfirmButton?: {
     onClick?: MouseEventHandler<HTMLButtonElement>;
     text: string;
   };

@@ -11,6 +11,7 @@ export const Button = styled.button<{
   padding-right: 16px;
 
   border: none;
+  border-radius: 8px;
 
   display: flex;
   justify-content: center;
@@ -23,7 +24,7 @@ export const Button = styled.button<{
     bgColor === 'blue'
       ? css`
           background-color: ${theme.colors.blue.secondary};
-          color: ${theme.colors.white.primary};
+          color: ${theme.colors.blue.primary};
         `
       : css`
           background-color: ${theme.colors.gray.tertiary};
