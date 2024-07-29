@@ -44,20 +44,28 @@ function MyScheduleCard({
   return (
     <>
       <MyTripModal />
-      <S.Card
-        onClick={() => {
-          if (itemIndex === carouselIndex) {
-            navigate(`/mytrip/${id}`);
-          } else {
-            setCarouselIndex(itemIndex);
-          }
-        }}
-      >
+      <S.Card>
         <S.InfoContainer>
-          <S.ThumbnailWrapper>
+          <S.ThumbnailWrapper
+            onClick={() => {
+              if (itemIndex === carouselIndex) {
+                navigate(`/mytrip/${id}`);
+              } else {
+                setCarouselIndex(itemIndex);
+              }
+            }}
+          >
             {thumbnailURL ? <img src={thumbnailURL} alt="thumbnail" /> : <LogoSmallIcon />}
           </S.ThumbnailWrapper>
-          <S.TextContainer>
+          <S.TextContainer
+            onClick={() => {
+              if (itemIndex === carouselIndex) {
+                navigate(`/mytrip/${id}`);
+              } else {
+                setCarouselIndex(itemIndex);
+              }
+            }}
+          >
             <Typography.Title size="md" maxWidth={300} noOfLine={2}>
               {title}
             </Typography.Title>

@@ -1,18 +1,23 @@
 import { MouseEvent, ReactNode, useState } from 'react';
 import * as S from './style';
-import useBodyScrollLock from '../useBodyScrollLock';
+// import useBodyScrollLock from '../useBodyScrollLock';s
+import { useRecoilState } from 'recoil';
+import { popupIsOpen } from '@_recoil/common/PopupValue';
 
 function usePopup() {
   const [isOpend, setIsOpend] = useState(false);
-  const { lockScroll, unlockScroll } = useBodyScrollLock();
+  const [, setOpenState] = useRecoilState(popupIsOpen);
+  // const { lockScroll, unlockScroll } = useBodyScrollLock();
 
   const popupOpen = () => {
-    setIsOpend(true);
-    lockScroll();
+    // setIsOpend(true);
+    // lockScroll();
+    setOpenState(true);
   };
   const popupClose = () => {
-    setIsOpend(false);
-    unlockScroll();
+    // setIsOpend(false);
+    // unlockScroll();
+    setOpenState(false);
   };
 
   interface Props {

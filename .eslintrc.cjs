@@ -39,6 +39,9 @@ module.exports = {
     "no-plusplus": 'off',
     "react/jsx-no-bind": 'off',
     "@typescript-eslint/no-use-before-define": 'off',
-    "react/no-unstable-nested-components": 'off'
+    "react/no-unstable-nested-components": 'off',
+    "jsx-a11y/no-noninteractive-element-interactions": 'off',
+    "jsx-a11y/label-has-associated-control": 'off',
+
   },
 };

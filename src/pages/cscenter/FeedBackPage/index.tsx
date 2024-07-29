@@ -1,26 +1,28 @@
-import { ChangeEventHandler, useEffect, useState } from 'react';
+import { ChangeEventHandler, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import PageTemplate from '../../../components/common/PageTemplate';
 import { HeaderWithBack } from '../../../components/common/Header';
 import BottomButtonContainer from '../../../components/common/BottomButtonContainer';
-import Typography from '../../../components/common/Typography';
 
 import { post } from '../../../utils/api';
 import usePopup from '../../../hooks/usePopup';
 
 import * as S from './style';
+import { useSetRecoilState } from 'recoil';
+import { popupValue } from '@_recoil/common/PopupValue';
 
 function FeedBackPage() {
   const navigate = useNavigate();
   const [text, setText] = useState<string>('');
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+  const setPopupState = useSetRecoilState(popupValue);
   const suggestionChangeHandler: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     if (text.length <= 2000) {
       setText(e.target.value);
     }
   };
-  const { Popup, popupOpen, isOpend: isPopupOpened } = usePopup();
+  const { popupOpen, popupClose } = usePopup();
   const onSubmit = async () => {
     if (text.length < 20) {
       alert('20자 이상 작성해주세요.');
@@ -33,39 +35,23 @@ function FeedBackPage() {
       });
 
       setIsSubmitted(true);
+      setPopupState({
+        Header: '의견을 남겨주셔서 감사합니다.',
+        Description: '더욱 발전하는 가보자고가 되겠습니다:)',
+        ConfirmButton: {
+          onClick: () => {
+            popupClose();
+            navigate(-1);
+          },
+          text: '확인',
+        },
+      });
       popupOpen();
     }
   };
 
-  useEffect(() => {
-    if (!isPopupOpened && isSubmitted) {
-      navigate(-1);
-    }
-  }, [isPopupOpened]);
-
   return (
     <>
-      <Popup>
-        <S.PopupContainer>
-          <Typography.Title size="lg" noOfLine={2}>
-            의견을 남겨주셔서 <br /> 감사합니다.
-          </Typography.Title>
-          <Typography.Body size="lg" color="#545454">
-            더욱 발전하는 가보자고가 되겠습니다:)
-          </Typography.Body>
-          <div>
-            <S.PopupConfirmButton
-              onClick={() => {
-                navigate(-1);
-              }}
-            >
-              <Typography.Label size="lg" color="inherit">
-                확인
-              </Typography.Label>
-            </S.PopupConfirmButton>
-          </div>
-        </S.PopupContainer>
-      </Popup>
       <PageTemplate
         nav={
           <BottomButtonContainer onClick={onSubmit} bgColor="blue">

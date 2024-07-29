@@ -12,6 +12,7 @@ import usePopup from '../usePopup';
 import * as S from './style';
 import { datesState } from '../../recoil/mytrip/createData';
 import { createTravelState } from '../../recoil/mytrip/createTravelState';
+import { popupCustomSelector, popupValue } from '@_recoil/common/PopupValue';
 
 interface Props {
   id: number;
@@ -25,8 +26,10 @@ function useMyTripModal({ id, title, departureDate, arrivalDate }: Props) {
   const setCreateTravelState = useSetRecoilState(createTravelState);
   const { Modal, modalOpen, modalClose, isOpend: isModalOpend } = useModal({});
   const { Popup, popupOpen, popupClose, isOpend: isPopupOpend } = usePopup();
-  const [popupType, setPopupType] = useState<'CHANGE' | 'DELETE'>('CHANGE');
+  const [popupType] = useState<'CHANGE' | 'DELETE'>('CHANGE');
   const setDates = useSetRecoilState(datesState);
+  const setPopupValue = useSetRecoilState(popupValue);
+  const setCustomPopup = useSetRecoilState(popupCustomSelector);
 
   function MyTripModal() {
     return (
@@ -100,7 +103,29 @@ function useMyTripModal({ id, title, departureDate, arrivalDate }: Props) {
             <div
               onClick={() => {
                 modalClose();
-                setPopupType('DELETE');
+                setPopupValue({
+                  Icon: <InfomationIcon />,
+                  Header: `'${title}'을(를) 삭제하시겠어요?`,
+                  Description: '삭제한 여행 일정은 되돌릴 수 없습니다.',
+                  ConfirmButton: {
+                    text: '네, 삭제할래요',
+                    onClick: () => {
+                      deletes<{ message: string }>('/my-travel', { id }).then((response) => {
+                        if (response.data.message === 'DELETE SUCCESS') {
+                          modalClose();
+                          popupClose();
+                          navigate(0);
+                        }
+                      });
+                    },
+                  },
+                  CloseButton: {
+                    text: '아니요',
+                    onClick: () => {
+                      popupClose();
+                    },
+                  },
+                });
                 popupOpen();
               }}
             >
@@ -109,7 +134,37 @@ function useMyTripModal({ id, title, departureDate, arrivalDate }: Props) {
             <div
               onClick={() => {
                 modalClose();
-                setPopupType('CHANGE');
+                // setPopupType('CHANGE');
+                setCustomPopup(
+                  <S.ChangePopupContainer
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      const formData = new FormData(e.currentTarget);
+                      patch('/my-travel', {
+                        id,
+                        title: formData.get('title'),
+                      }).then(() => {
+                        popupClose();
+                        navigate(0);
+                      });
+                    }}
+                  >
+                    <S.ChangePopupHeader>
+                      <Typography.Title size="sm">일정 제목 변경</Typography.Title>
+                      <S.FormButton>
+                        <Typography.Title size="sm" color="#5276FA">
+                          저장
+                        </Typography.Title>
+                      </S.FormButton>
+                    </S.ChangePopupHeader>
+                    <S.ChangePopupInput
+                      defaultValue={title}
+                      name="title"
+                      type="text"
+                      maxLength={38}
+                    />
+                  </S.ChangePopupContainer>,
+                );
                 popupOpen();
               }}
             >

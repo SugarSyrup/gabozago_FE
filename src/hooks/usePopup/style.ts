@@ -54,7 +54,7 @@ export const PopupContainer = styled.div`
 export const Popup = styled.div<{ padding?: string }>`
   width: 90%;
   position: relative;
-  padding: ${({ padding }) => padding || '20px'};
+  padding: ${({ padding }) => padding || '24px'};
   background-color: ${({ theme }) => theme.white};
   border-radius: 15px;
   box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);

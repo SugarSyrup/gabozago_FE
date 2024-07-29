@@ -21,6 +21,7 @@ import * as S from './style';
 import usePopup from '../../../hooks/usePopup';
 import { selectedPlacesState } from '../../../recoil/mytrip/selectedPlacesState';
 import { scrapPlaceFilterState } from '../../../recoil/filters/scrapPlaceFilterState';
+import { popupValue } from '@_recoil/common/PopupValue';
 
 function MyTripLocationSearchPage() {
   const { id } = useParams();
@@ -41,8 +42,9 @@ function MyTripLocationSearchPage() {
       e.preventDefault();
     },
   });
-  const { Popup, popupOpen, popupClose, isOpend } = usePopup();
+  const { popupOpen, popupClose } = usePopup();
   const [, setSelectedPlaces] = useRecoilState(selectedPlacesState);
+  const setPopupValue = useSetRecoilState(popupValue);
 
   function onChange() {
     if (inputRef.current) {
@@ -60,11 +62,39 @@ function MyTripLocationSearchPage() {
       location: string[];
     }>(`/my-travel/${id}`).then((response) => {
       setLocations(response.data.location);
-      // console.log(response.data.location);
       setActiveFilters((prev) => ({
         ...prev,
         location: response.data.location,
       }));
+    });
+  }, []);
+
+  useEffect(() => {
+    setPopupValue({
+      Icon: <InfomationIcon />,
+      Header: '지역을 추가하시겠어요?',
+      Description: `선택하신 여행 장소는 ${locations?.toLocaleString()}을 벗어나요.\n
+      ${newLocation}도 여행 계획에 추가하시겠어요?`,
+      Warning: '*지역을 추가하지 않으면, 해당 장소도 추가되지 않아요.',
+      CloseButton: {
+        text: '아니요',
+        onClick: () => {
+          setSelectedPlaces((prev) =>
+            prev.filter((selectedPlace) => selectedPlace.name !== newRegion),
+          );
+          popupClose();
+        },
+      },
+      ConfirmButton: {
+        text: '네, 추가할게요',
+        onClick: () => {
+          post<{ message: string }>('/my-travel/location', {
+            myTravelId: id,
+            location: newLocation,
+          }).then(() => {});
+          popupClose();
+        },
+      },
     });
   }, []);
 
@@ -116,57 +146,6 @@ function MyTripLocationSearchPage() {
         </S.Header>
       }
     >
-      <S.PopupWrapper isOpen={isOpend}>
-        <Popup>
-          <S.PopupContentsContainer>
-            <InfomationIcon />
-            <S.PopupTextContainer>
-              <Typography.Headline size="sm">지역을 추가하시겠어요?</Typography.Headline>
-              <Typography.Body size="lg" color="inherit" noOfLine={3}>
-                선택하신 여행 장소는 {locations?.toLocaleString()}을 벗어나요.
-              </Typography.Body>
-              <Typography.Body size="lg" color="inherit">
-                {newLocation}도 여행 계획에 추가하시겠어요?
-              </Typography.Body>
-              <Typography.Body size="md" color="#FA5252">
-                *지역을 추가하지 않으면, 해당 장소도 추가되지 않아요.
-              </Typography.Body>
-            </S.PopupTextContainer>
-            <S.PopupButtons>
-              <S.PopupButton
-                isMain={false}
-                onClick={() => {
-                  setSelectedPlaces((prev) =>
-                    prev.filter((selectedPlace) => selectedPlace.name !== newRegion),
-                  );
-                  popupClose();
-                }}
-              >
-                <Typography.Body size="lg" color="inherit">
-                  아니요
-                </Typography.Body>
-              </S.PopupButton>
-              <S.PopupButton
-                isMain
-                onClick={() => {
-                  post<{ message: string }>('/my-travel/location', {
-                    myTravelId: id,
-                    location: newLocation,
-                  }).then((response) => {
-                    console.log(response.data);
-                  });
-                  popupClose();
-                }}
-              >
-                <Typography.Body size="lg" color="inherit">
-                  네, 추가할게요
-                </Typography.Body>
-              </S.PopupButton>
-            </S.PopupButtons>
-          </S.PopupContentsContainer>
-        </Popup>
-      </S.PopupWrapper>
-
       {isSearching && (
         <SearchPlaces
           tripId={Number(id)}
