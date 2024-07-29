@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
 import { postcodeScriptUrl } from 'react-daum-postcode/lib/loadPostcode';
@@ -18,6 +18,7 @@ import { selectedPlacesState } from '../../../recoil/mytrip/selectedPlacesState'
 import * as S from './style';
 import toast from 'react-hot-toast';
 import { Toast } from '@_common/Toast';
+import { popupValue } from '@_recoil/common/PopupValue';
 
 function MyTripPlaceCreatePage() {
   const navigate = useNavigate();
@@ -28,10 +29,11 @@ function MyTripPlaceCreatePage() {
   const [addrInfo, setAddrInfo] = useState<string>();
   const setSelectedPlaces = useSetRecoilState(selectedPlacesState);
   const NameRef = useRef<HTMLInputElement>(null);
-  const { Popup, popupOpen, popupClose, isOpend } = usePopup();
+  const { popupOpen, popupClose } = usePopup();
   const [newLocation, setNewLocation] = useState<string>('');
   const [newLocationName, setNewLocationName] = useState<string>('');
   const [locations, setLocations] = useState<string[]>();
+  const setPopupValue = useSetRecoilState(popupValue);
 
   const handleComplete = (data: any) => {
     const { roadAddress } = data;
@@ -49,58 +51,6 @@ function MyTripPlaceCreatePage() {
         </S.Header>
       }
     >
-      <S.PopupWrapper isOpen={isOpend}>
-        <Popup>
-          <S.PopupContentsContainer>
-            <InfomationIcon />
-            <S.PopupTextContainer>
-              <Typography.Headline size="sm">지역을 추가하시겠어요?</Typography.Headline>
-              <Typography.Body size="lg" color="inherit" noOfLine={3}>
-                선택하신 여행 장소는
-                {locations?.toLocaleString()}을 벗어나요.
-              </Typography.Body>
-              <Typography.Body size="lg" color="inherit">
-                {newLocation}도 여행 계획에 추가하시겠어요?
-              </Typography.Body>
-              <Typography.Body size="md" color="#FA5252">
-                *지역을 추가하지 않으면, 해당 장소도 추가되지 않아요.
-              </Typography.Body>
-            </S.PopupTextContainer>
-            <S.PopupButtons>
-              <S.PopupButton
-                isMain={false}
-                onClick={() => {
-                  setSelectedPlaces((prev) =>
-                    prev.filter((selectedPlace) => selectedPlace.name !== newLocationName),
-                  );
-                  popupClose();
-                }}
-              >
-                <Typography.Body size="lg" color="inherit">
-                  아니요
-                </Typography.Body>
-              </S.PopupButton>
-              <S.PopupButton
-                isMain
-                onClick={() => {
-                  post<{ message: string }>('/my-travel/location', {
-                    myTravelId: id,
-                    location: newLocation,
-                  }).then((response) => {
-                    navigate(-1);
-                  });
-                  popupClose();
-                }}
-              >
-                <Typography.Body size="lg" color="inherit">
-                  네, 추가할게요
-                </Typography.Body>
-              </S.PopupButton>
-            </S.PopupButtons>
-          </S.PopupContentsContainer>
-        </Popup>
-      </S.PopupWrapper>
-
       <S.Form
         onSubmit={(e) => {
           e.preventDefault();
@@ -132,6 +82,34 @@ function MyTripPlaceCreatePage() {
             }>(`/my-travel/${id}`).then((response) => {
               setLocations(response.data.location);
               if (!response.data.location.includes(newLocation)) {
+                setPopupValue({
+                  Icon: <InfomationIcon />,
+                  Header: '지역을 추가하시겠어요?',
+                  Description: `선택하신 여행 장소는 ${locations?.toLocaleString()}을 벗어나요.\n
+      ${newLocation}도 여행 계획에 추가하시겠어요?`,
+                  Warning: '*지역을 추가하지 않으면, 해당 장소도 추가되지 않아요.',
+                  CloseButton: {
+                    text: '아니요',
+                    onClick: () => {
+                      setSelectedPlaces((prev) =>
+                        prev.filter((selectedPlace) => selectedPlace.name !== newLocationName),
+                      );
+                      popupClose();
+                    },
+                  },
+                  ConfirmButton: {
+                    text: '네, 추가할게요',
+                    onClick: () => {
+                      post<{ message: string }>('/my-travel/location', {
+                        myTravelId: id,
+                        location: newLocation,
+                      }).then(() => {
+                        navigate(-1);
+                      });
+                      popupClose();
+                    },
+                  },
+                });
                 popupOpen();
               } else {
                 toast.custom(() => (

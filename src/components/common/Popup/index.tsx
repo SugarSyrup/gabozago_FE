@@ -23,7 +23,9 @@ function Popup() {
               )}
               {PopupValue.Description && (
                 <Typography.Body size="lg" color="#727272" noOfLine={3}>
-                  {PopupValue.Description}
+                  <span style={{ textAlign: 'center', display: 'inline-block' }}>
+                    {PopupValue.Description}
+                  </span>
                 </Typography.Body>
               )}
               {PopupValue.Warning && (
