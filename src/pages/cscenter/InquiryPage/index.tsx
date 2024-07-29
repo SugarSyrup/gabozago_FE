@@ -1,4 +1,4 @@
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { useEffect, useRef, useState } from 'react';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 
@@ -16,6 +16,8 @@ import ImageAddIcon from '../../../assets/icons/image_add.svg?react';
 import { post } from '../../../utils/api';
 
 import * as S from './style';
+import { popupValue } from '@_recoil/common/PopupValue';
+// import ImportantIcon from '@_icons/exclamation_circle.svg?react';
 
 interface Form {
   type: string;
@@ -49,8 +51,8 @@ function InquiryPage() {
     files: [],
   });
   const [previewImages, setPreviewImages] = useState<string[]>([]);
-  const [popupState, setPopupState] = useState<'files' | 'submit'>('files');
-  const { Popup, popupOpen, popupClose } = usePopup();
+  const setPopupValue = useSetRecoilState(popupValue);
+  const { popupOpen, popupClose } = usePopup();
 
   const submitForm = async () => {
     const token = localStorage.getItem('access_token');
@@ -83,7 +85,17 @@ function InquiryPage() {
         setIsSubmitted(true);
       }
 
-      setPopupState('submit');
+      setPopupValue({
+        Icon: <ImportantIcon />,
+        Header: '문의하신 내용이 등록되었습니다.',
+        ConfirmButton: {
+          text: '확인',
+          onClick: () => {
+            popupClose();
+            navigate(-1);
+          },
+        },
+      });
       popupOpen();
     }
   };
@@ -96,6 +108,7 @@ function InquiryPage() {
         <S.SelectOptionList>
           {activeInquiryTypes.map((item) => (
             <li
+              key={item.toString()}
               onClick={() => {
                 setForm((prev) => ({ ...prev, type: item }));
                 setModal((prev) => ({ ...prev, isOpend: false }));
@@ -111,43 +124,6 @@ function InquiryPage() {
 
   return (
     <>
-      <Popup>
-        <S.PopupContainer>
-          {popupState === 'files' ? (
-            <>
-              <ImportantIcon style={{ marginBottom: '10px' }} />
-              <Typography.Title size="lg" noOfLine={2}>
-                사진 첨부는 최대 5개까지
-                <br />
-                가능합니다.
-              </Typography.Title>
-            </>
-          ) : (
-            <>
-              <Typography.Title size="lg">문의가 등록되었습니다.</Typography.Title>
-              <Typography.Body size="lg" color="#545454" noOfLine={2}>
-                문의하신 내용은 빠른 시간 내에
-                <br />
-                답변을 드리도록 하겠습니다.
-              </Typography.Body>
-            </>
-          )}
-          <div>
-            <S.PopupConfirmButton
-              onClick={() => {
-                popupClose();
-                if (popupState === 'submit') {
-                  navigate('/cscenter/history');
-                }
-              }}
-            >
-              <Typography.Label size="lg" color="inherit">
-                확인
-              </Typography.Label>
-            </S.PopupConfirmButton>
-          </div>
-        </S.PopupContainer>
-      </Popup>
       <PageTemplate
         nav={
           <BottomButtonContainer
@@ -183,7 +159,7 @@ function InquiryPage() {
                 <S.TitleHeading>문의하려는 내용이 무엇인가요?</S.TitleHeading>
               </label>
               <S.DescSpan>
-                서비스 이용 중 제안사항은 ‘서비스 개선 제안'으로 선택해주세요:)
+                서비스 이용 중 제안사항은 &#39;서비스 개선 제안&#39;으로 선택해주세요:)
               </S.DescSpan>
             </div>
             <S.SelectButton
@@ -249,16 +225,16 @@ function InquiryPage() {
               </S.FileLabel>
               <S.FileList>
                 {previewImages.map((item, targetIndex) => (
-                  <li>
+                  <li key={item}>
                     <S.FileBox
                       image={item}
                       onClick={() => {
                         setForm((prev) => ({
                           ...prev,
-                          files: prev.files.filter((item, index) => index !== targetIndex),
+                          files: prev.files.filter((_, index) => index !== targetIndex),
                         }));
                         setPreviewImages((prev) =>
-                          prev.filter((item, index) => index !== targetIndex),
+                          prev.filter((_, index) => index !== targetIndex),
                         );
                       }}
                     />
@@ -280,11 +256,21 @@ function InquiryPage() {
                 /* ==== Validation 시작 ==== */
                 // 최대 개수를 초과할 수 없음
                 if (fileArray.length > 5) {
-                  setPopupState('files');
+                  setPopupValue({
+                    Icon: <ImportantIcon />,
+                    Header: ' 사진 첨부는 최대 5개까지 가능합니다.',
+                    ConfirmButton: {
+                      text: '확인',
+                      onClick: () => {
+                        popupClose();
+                      },
+                    },
+                  });
                   popupOpen();
+                  return;
                 }
                 // 이미지 크기 제한 체크
-                newFileArray.map(({ name, size }) => {
+                newFileArray.forEach(({ name, size }) => {
                   if (size > maxSize) {
                     return alert(`10MB 이내 이미지 파일만 첨부할 수 있습니다. \nfile: ${name}`);
                   }
@@ -298,7 +284,7 @@ function InquiryPage() {
 
                 // 미리보기 이미지 url 생성해 PreviewImages에 저장
                 setPreviewImages([]);
-                fileArray.map((item) => {
+                fileArray.forEach((item) => {
                   const fileRead = new FileReader();
                   fileRead.onload = () => {
                     setPreviewImages((prev) => [...prev, String(fileRead.result)]);
