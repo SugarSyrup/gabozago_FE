@@ -12,7 +12,7 @@ export const Button = styled(DefaultButton)<{
       border-radius: 30px;
     `}
 
-  color: ${theme.colors.white.primary};
+  color: ${({ theme }) => theme.colors.white.primary};
   /* bgColor */
   ${({ bgColor, theme }) =>
     bgColor === 'blue'
