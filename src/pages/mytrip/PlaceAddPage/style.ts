@@ -78,3 +78,21 @@ export const Button = styled.button<{ isActive: boolean }>`
   justify-content: center;
   align-items: center;
 `;
+
+export const TaostContainer = styled.div`
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const TaostLink = styled.span`
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  text-decoration-line: underline;
+  cursor: pointer;
+`;
