@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import LocationIcon from '../../assets/icons/location.svg?react';
-import PhoneIcon from '../../assets/icons/phone.svg?react';
-import TimeIcon from '../../assets/icons/clock.svg?react';
-import LinkIcon from '../../assets/icons/web.svg?react';
-import CalendarAddIcon from '../../assets/icons/calendar_add_border.svg?react';
-import ScrapIcon from '../../assets/icons/bookmark.svg?react';
-import PlusIcon from '../../assets/icons/plus_circle_blue.svg?react';
+import LocationIcon from '@_icons/location.svg?react';
+import PhoneIcon from '@_icons/phone.svg?react';
+import TimeIcon from '@_icons/clock.svg?react';
+import LinkIcon from '@_icons/web.svg?react';
+import CalendarAddIcon from '@_icons/calendar_add_border.svg?react';
+import ScrapIcon from '@_icons/bookmark.svg?react';
+import PlusIcon from '@_icons/plus_circle_blue.svg?react';
 
 import BackButton from '../../components/common/BackButton';
 import PageHeader from '../../components/common/PageHeader';
