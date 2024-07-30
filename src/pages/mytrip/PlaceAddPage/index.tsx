@@ -17,6 +17,7 @@ import { get, post } from '../../../utils/api';
 
 import * as S from './style';
 import { datesState } from '../../../recoil/mytrip/createData';
+import BottomButtonContainer from '@_common/BottomButtonContainer';
 
 function PlaceAddPage() {
   const { id } = useParams();
@@ -73,36 +74,62 @@ function PlaceAddPage() {
         />
       }
       nav={
-        <S.Footer>
-          <S.Button
-            isActive={typeof currentSelectedItem.day === 'number'}
-            onClick={() => {
-              if (currentSelectedItem.id === -1) return;
-              if (currentSelectedItem.day === undefined) return;
+        <BottomButtonContainer
+          bgColor={typeof currentSelectedItem.day === 'number' ? 'blue' : 'gray'}
+          onClick={() => {
+            if (currentSelectedItem.id === -1) return;
+            if (currentSelectedItem.day === undefined) return;
 
-              post<{
-                id: number;
-                name: number;
-              }>('/my-travel/community/place', {
-                placeId: id,
-                myTravelId: currentSelectedItem.id,
-                day: currentSelectedItem.day,
+            post<{
+              id: number;
+              name: number;
+            }>('/my-travel/community/place', {
+              placeId: id,
+              myTravelId: currentSelectedItem.id,
+              day: currentSelectedItem.day,
+            })
+              .then(() => {
+                alertOpen();
               })
-                .then(() => {
-                  alertOpen();
-                })
-                .catch((err) => {
-                  if (err.response.status === 400) {
-                    popupOpen();
-                  }
-                });
-            }}
-          >
-            <Typography.Title size="lg" color="inherit">
-              이 일정에 장소를 추가할게요!
-            </Typography.Title>
-          </S.Button>
-        </S.Footer>
+              .catch((err) => {
+                if (err.response.status === 400) {
+                  popupOpen();
+                }
+              });
+          }}
+        >
+          이 일정에 장소를 추가할게요!
+        </BottomButtonContainer>
+        // <S.Footer>
+        //   <S.Button
+        //     isActive={typeof currentSelectedItem.day === 'number'}
+        // onClick={() => {
+        //   if (currentSelectedItem.id === -1) return;
+        //   if (currentSelectedItem.day === undefined) return;
+
+        //   post<{
+        //     id: number;
+        //     name: number;
+        //   }>('/my-travel/community/place', {
+        //     placeId: id,
+        //     myTravelId: currentSelectedItem.id,
+        //     day: currentSelectedItem.day,
+        //   })
+        //     .then(() => {
+        //       alertOpen();
+        //     })
+        //     .catch((err) => {
+        //       if (err.response.status === 400) {
+        //         popupOpen();
+        //       }
+        //     });
+        // }}
+        //   >
+        //     <Typography.Title size="lg" color="inherit">
+        //       이 일정에 장소를 추가할게요!
+        //     </Typography.Title>
+        //   </S.Button>
+        // </S.Footer>
       }
     >
       <Alert />

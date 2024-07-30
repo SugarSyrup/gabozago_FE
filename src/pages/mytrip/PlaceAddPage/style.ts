@@ -67,7 +67,7 @@ export const Footer = styled.footer`
 
 export const Button = styled.button<{ isActive: boolean }>`
   width: 100%;
-  padding: 10px 20px 15px 20px;
+  padding: 12px 20px;
   border: none;
   border-radius: 30px;
 
