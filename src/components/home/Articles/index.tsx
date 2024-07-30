@@ -58,6 +58,7 @@ function Articles() {
       <S.ArticleList>
         {articleData.map((article) => (
           <ArticleItem
+            key={article.id}
             id={article.id}
             title={article.title}
             desc={article.subtitle}

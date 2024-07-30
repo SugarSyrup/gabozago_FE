@@ -37,11 +37,16 @@ import InquiryDetailPage from './pages/cscenter/InquiryDetailPage';
 import IsLoginTemplate from './components/common/isLoginTemplate';
 import MemoPage from './pages/mytrip/MemoPage';
 import ShareTargetPage from './pages/Share/share-target';
+import ArticlesPage from './pages/home/ArticlePage';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <HomePage />,
+  },
+  {
+    path: '/articles',
+    element: <ArticlesPage />,
   },
   /* ---- 여행기 페이지 ---- */
   {

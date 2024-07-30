@@ -10,6 +10,8 @@ import Typography from '../../common/Typography';
 import * as S from './style';
 import { get, post } from '../../../utils/api';
 import usePopup from '../../../hooks/usePopup';
+import { useSetRecoilState } from 'recoil';
+import { popupValue } from '@_recoil/common/PopupValue';
 
 type TScrapFolder = {
   id: number;
@@ -49,40 +51,11 @@ function useScrapModal({ id, type, setIsScraped }: Props) {
   }, [isOpend]);
 
   function ScrapModal() {
-    const { Popup, popupOpen, popupClose, isOpend } = usePopup();
+    const { popupOpen, popupClose } = usePopup();
+    const setPopupUI = useSetRecoilState(popupValue);
 
     return (
       <>
-        <S.PopupWrapper isOpend={isOpend}>
-          <Popup>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-
-                const formData = new FormData(e.currentTarget);
-                post<{ id: number; name: string }>('folder/community', {
-                  name: formData.get('newFolderName'),
-                }).then((response) => {
-                  setScrapFolderData((prev) => [
-                    ...prev,
-                    {
-                      id: response.data.id,
-                      name: response.data.name,
-                      status: false,
-                    },
-                  ]);
-                  popupClose();
-                });
-              }}
-            >
-              <S.Header>
-                <S.Title>새 폴더 이름</S.Title>
-                <S.SaveButton type="submit">저장</S.SaveButton>
-              </S.Header>
-              <S.Input type="text" name="newFolderName" maxLength={38} minLength={1} required />
-            </form>
-          </Popup>
-        </S.PopupWrapper>
         <Modal>
           <S.CourseModalContainer>
             <S.ScrapModalHeader>
@@ -132,6 +105,45 @@ function useScrapModal({ id, type, setIsScraped }: Props) {
               <Typography.Title size="md">내 폴더</Typography.Title>
               <S.TravelCreate
                 onClick={() => {
+                  setPopupUI({
+                    Custom: (
+                      <form
+                        style={{
+                          width: '100%',
+                        }}
+                        onSubmit={(e) => {
+                          e.preventDefault();
+
+                          const formData = new FormData(e.currentTarget);
+                          post<{ id: number; name: string }>('folder/community', {
+                            name: formData.get('newFolderName'),
+                          }).then((response) => {
+                            setScrapFolderData((prev) => [
+                              ...prev,
+                              {
+                                id: response.data.id,
+                                name: response.data.name,
+                                status: false,
+                              },
+                            ]);
+                            popupClose();
+                          });
+                        }}
+                      >
+                        <S.Header>
+                          <S.Title>새 폴더 이름</S.Title>
+                          <S.SaveButton type="submit">저장</S.SaveButton>
+                        </S.Header>
+                        <S.Input
+                          type="text"
+                          name="newFolderName"
+                          maxLength={38}
+                          minLength={1}
+                          required
+                        />
+                      </form>
+                    ),
+                  });
                   popupOpen();
                 }}
               >
@@ -142,7 +154,7 @@ function useScrapModal({ id, type, setIsScraped }: Props) {
             </S.TravelListHeader>
             <S.TravelList>
               {scrapFolderData.map((folder, index) => (
-                <S.TravelItem>
+                <S.TravelItem key={folder.id}>
                   <S.TravelInfoContainer>
                     <S.TravelThumbnailWrapper>
                       <LogoSmallIcon />

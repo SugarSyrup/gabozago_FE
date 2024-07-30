@@ -1,34 +1,37 @@
 import styled, { keyframes } from 'styled-components';
 
-export const ModalWrapper = styled.div`
-  width: 100%;
-  max-width: 500px;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  position: fixed;
-  bottom: 0px;
-  z-index: 40;
-  margin-left: -20px;
-`;
-
 export const CourseModalContainer = styled.div`
   width: 100%;
   padding-top: 10px;
   padding-left: 20px;
   padding-right: 20px;
-  padding-bottom: 34px;
+  padding-bottom: 10px;
 
   display: flex;
   flex-direction: column;
 `;
 
-export const CourseModalHeader = styled.div`
+// Modal Header
+
+export const ScrapModalHeader = styled.div`
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
   display: flex;
-  gap: 10px;
+  justify-content: space-between;
   align-items: center;
+
+  svg {
+    width: 30px;
+    height: 30px;
+  }
+`;
+
+export const HeaderLeftItems = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 15px;
 `;
 
 export const TravelThumbnailWrapper = styled.div`
@@ -50,6 +53,34 @@ export const TravelThumbnailWrapper = styled.div`
   }
 `;
 
+export const CourseModalHeader = styled.div`
+  display: flex;
+  gap: 10px;
+  align-items: center;
+`;
+
+export const ScrapIconWrapper = styled.div<{ isScraped: boolean }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 32px;
+    height: 32px;
+    path {
+      fill: ${({ theme, isScraped }) => (isScraped ? theme.main : theme.gray01)};
+    }
+  }
+`;
+
+// Seperate Line
+export const SeperateLine = styled.div`
+  width: calc(100% + 40px);
+  border-bottom: 1px solid #e4e4e4;
+  margin-left: -20px;
+`;
+
+// TravelList Header
 export const TravelListHeader = styled.div`
   width: 100%;
   padding: 10px 0;
@@ -58,6 +89,15 @@ export const TravelListHeader = styled.div`
   justify-content: space-between;
 `;
 
+export const TravelCreate = styled.span`
+  color: ${({ theme }) => theme.main};
+  font-size: 12px;
+  line-height: 22px;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+`;
+
+// TravelList
 export const TravelList = styled.ol`
   max-height: 40dvh;
   width: 100%;
@@ -69,14 +109,6 @@ export const TravelList = styled.ol`
   justify-content: space-between;
   align-items: flex-start;
   gap: 15px;
-`;
-
-export const TravelCreate = styled.span`
-  color: ${({ theme }) => theme.main};
-  font-size: 12px;
-  line-height: 22px;
-  letter-spacing: 0.2px;
-  cursor: pointer;
 `;
 
 export const TravelItem = styled.li`
@@ -127,61 +159,6 @@ export const TravelAddBtn = styled.div<{ isClicked: boolean }>`
   }
 `;
 
-export const ScrapModalHeader = styled.div`
-  width: 100%;
-  margin-top: -24px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  svg {
-    width: 30px;
-    height: 30px;
-  }
-`;
-
-export const HeaderLeftItems = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 15px;
-`;
-
-export const SeperateLine = styled.div`
-  width: calc(100% + 40px);
-  border-bottom: 1px solid #e4e4e4;
-  margin-left: -20px;
-`;
-
-export const ScrapIconWrapper = styled.div<{ isScraped: boolean }>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  svg {
-    width: 30px;
-    height: 30px;
-    path {
-      fill: ${({ theme, isScraped }) => (isScraped ? theme.main : theme.gray01)};
-    }
-  }
-`;
-
-export const CreateScrapFolder = styled.div<{ isOpen: boolean }>`
-  display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
-  left: 0;
-  right: 0;
-  bottom: 0;
-
-  justify-content: center;
-  align-items: center;
-
-  overflow: hidden;
-  z-index: 50;
-`;
-
 export const CreateScrapFolderContainer = styled.div`
   width: 100%;
 
@@ -210,21 +187,6 @@ export const CreateScrapHeader = styled.div`
 
 export const SaveText = styled.span`
   color: ${({ theme }) => theme.main};
-`;
-
-export const PopupWrapper = styled.div<{ isOpend: boolean }>`
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  z-index: ${({ isOpend }) => (isOpend ? 300 : -10)};
-
-  margin: auto;
-  max-width: 500px;
-  max-height: 100dvh;
-  width: 100%;
-  height: 100dvh;
 `;
 
 export const Header = styled.div`
@@ -261,4 +223,17 @@ export const Input = styled.input`
   border-bottom: 2px solid ${({ theme }) => theme.gray04};
 
   font-size: 16px;
+`;
+
+export const CreateScrapFolder = styled.div<{ isOpen: boolean }>`
+  display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  justify-content: center;
+  align-items: center;
+
+  overflow: hidden;
+  z-index: 50;
 `;

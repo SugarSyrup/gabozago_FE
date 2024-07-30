@@ -57,7 +57,7 @@ export const Modal = styled.div<{ borderRadius: string }>`
 `;
 
 export const CloseHandle = styled.button`
-  padding: 12px 0 16px;
+  padding: 15px 10px;
   width: 100%;
   cursor: grab;
   border: 0;
