@@ -1,25 +1,27 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
+import toast from 'react-hot-toast';
 
 import { TMyTravelItem } from '@_types/MyTravelItem';
-import InfomationIcon from '../../../assets/icons/exclamation_circle.svg?react';
-import XIcon from '../../../assets/icons/x.svg?react';
-import PageHeader from '../../../components/common/PageHeader';
-import PageTemplate from '../../../components/common/PageTemplate';
-import Typography from '../../../components/common/Typography';
-import LocationAddItem from '../../../components/mytrip/LocationAddItem';
+import { addLocationState, createTravelState } from '@_recoil/mytrip/createTravelState';
+import { datesState } from '@_recoil/mytrip/createData';
+import { popupValue } from '@_recoil/common/PopupValue';
 
-import { addLocationState, createTravelState } from '../../../recoil/mytrip/createTravelState';
+import InfomationIcon from '@_icons/exclamation_circle.svg?react';
+import XIcon from '@_icons/x.svg?react';
+
+import PageHeader from '@_common/PageHeader';
+import PageTemplate from '@_common/PageTemplate';
+import Typography from '@_common/Typography';
+import BottomButtonContainer from '@_common/BottomButtonContainer';
+import { Toast } from '@_common/Toast';
+
+import LocationAddItem from '../../../components/mytrip/LocationAddItem';
 import usePopup from '../../../hooks/usePopup';
 import { get, post } from '../../../utils/api';
 
 import * as S from './style';
-import { datesState } from '../../../recoil/mytrip/createData';
-import BottomButtonContainer from '@_common/BottomButtonContainer';
-import { popupValue } from '@_recoil/common/PopupValue';
-import toast from 'react-hot-toast';
-import { Toast } from '@_common/Toast';
 
 function PlaceAddPage() {
   const { id } = useParams();
