@@ -7,6 +7,8 @@ import { post } from '../../utils/api';
 
 import usePopup from '../usePopup';
 import * as S from './style';
+import { useSetRecoilState } from 'recoil';
+import { popupValue } from '@_recoil/common/PopupValue';
 
 interface Options {
   type: 'short-form' | 'article' | 'video' | 'report' | 'travelog';
@@ -17,6 +19,7 @@ interface Options {
 
 function useReportPopup({ type, postId = null, commentId = null, setIsReported }: Options) {
   const { Popup, popupOpen, popupClose } = usePopup();
+  const setPopupUI = useSetRecoilState(popupValue);
   const reasons = [
     '욕설 / 비방',
     '차별 / 혐오',
@@ -70,7 +73,7 @@ function useReportPopup({ type, postId = null, commentId = null, setIsReported }
   function ReportPopup() {
     return (
       <>
-        <Popup padding="0">
+        <S.PopupConatiner>
           <S.ReportForm onSubmit={onSubmit}>
             <Typography.Title size="lg">신고하기</Typography.Title>
             <S.ReasonList>
@@ -104,13 +107,17 @@ function useReportPopup({ type, postId = null, commentId = null, setIsReported }
               </S.Button>
             </S.ControlBox>
           </S.ReportForm>
-        </Popup>
+        </S.PopupConatiner>
       </>
     );
   }
   return {
-    ReportPopup,
-    reportPopupOpen: popupOpen,
+    reportPopupOpen: () => {
+      setPopupUI({
+        NoTemplateCustom: <ReportPopup />,
+      });
+      popupOpen();
+    },
     reportPopupClose: popupClose,
   };
 }

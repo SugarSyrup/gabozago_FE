@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
-import DoubleChevronBottom from '../../assets/icons/double_chevron_bottom.svg?react';
+import DoubleChevronBottom from '@_icons/double_chevron_bottom.svg?react';
 
-import BackButton from '../../components/common/BackButton';
-import PageTemplate from '../../components/common/PageTemplate';
-import Typography from '../../components/common/Typography';
+import BackButton from '@_common/BackButton';
+import PageTemplate from '@_common/PageTemplate';
+import Typography from '@_common/Typography';
+import { Toast } from '@_common/Toast';
+
 import BottomNav from '../../components/post/BottomNav';
 import Comment from '../../components/journal/Comment';
 
@@ -21,7 +24,6 @@ import InterviewProfile from '../../components/article/InterviewProfile';
 
 import { get } from '../../utils/api';
 import useModal from '../../hooks/useModal';
-import useAlert from '../../hooks/useAlert';
 import * as S from './style';
 
 interface TArticle {
@@ -94,17 +96,10 @@ function ArticlePage() {
   const [userCommentCount, setUserCommentCount] = useState<number>(0);
   const stationRefs = useRef<null[] | HTMLDivElement[]>([]);
 
-  const { Modal, modalOpen, modalClose, isOpend } = useModal({
+  const { Modal, modalOpen } = useModal({
     title: '',
     handle: false,
     borderRadius: '16px',
-  });
-  const { Alert, alertOpen, alertClose } = useAlert({
-    Content: (
-      <Typography.Title size="md" color="white">
-        URL이 복사되었습니다.
-      </Typography.Title>
-    ),
   });
 
   useEffect(() => {
@@ -154,12 +149,17 @@ function ArticlePage() {
               }}
               bookmark={data.bookmark}
               onShareClick={() => {
-                alertOpen();
+                toast.custom(() => (
+                  <Toast>
+                    <Typography.Title size="md" color="white">
+                      URL이 복사되었습니다.
+                    </Typography.Title>
+                  </Toast>
+                ));
               }}
             />
           }
         >
-          <Alert />
           <Modal>
             <Comment
               id={id}
@@ -174,7 +174,7 @@ function ArticlePage() {
             <BackButton />
           </S.BackButtonWrapper>
           <S.ThumbnailWrapper>
-            <img src={data.thumbnailURL} />
+            <img src={data.thumbnailURL} alt={data.thumbnailURL} />
             <S.Header>
               <S.Type>Article by. 가보자고</S.Type>
               <S.Title>{data.title}</S.Title>

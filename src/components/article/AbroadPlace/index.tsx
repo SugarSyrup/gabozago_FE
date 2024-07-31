@@ -11,7 +11,7 @@ interface Props {
 function AbroadPlace({ imageURL, name, address }: Props) {
   return (
     <S.Container>
-      <img src={imageURL} />
+      <img src={imageURL} alt={name} />
       <S.Infomation>
         <S.TextContainer>
           <S.Name>

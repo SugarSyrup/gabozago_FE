@@ -4,6 +4,9 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
 
+  padding-left: 8px;
+  padding-right: 8px;
+
   img {
     width: 100%;
     object-fit: contain;
@@ -19,9 +22,7 @@ export const Infomation = styled.div`
   flex-direction: row;
   justify-content: space-between;
 
-  padding: 15px 10px;
-  border-radius: 5px;
-  border: 1px solid ${({ theme }) => theme.blue02};
+  padding: 16px 10px;
   background: ${({ theme }) => theme.blue05};
 `;
 
@@ -46,13 +47,13 @@ export const Name = styled.span`
   }
 
   svg {
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
   }
 
   svg:last-child {
-    width: 24px;
-    height: 24px;
+    width: 16px;
+    height: 16px;
 
     path {
       fill: #121212;
@@ -90,12 +91,12 @@ export const Icon = styled.div`
     height: 24px;
 
     path {
-      fill: ${({ theme }) => theme.black};
+      fill: ${({ theme }) => theme.colors.gray.secondary};
     }
   }
 
   span {
-    color: ${({ theme }) => theme.gray01};
+    color: ${({ theme }) => theme.colors.gray.secondary};
     text-align: center;
     font-size: 8px;
     white-space: nowrap;

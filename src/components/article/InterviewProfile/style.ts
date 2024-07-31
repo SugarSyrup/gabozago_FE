@@ -49,10 +49,12 @@ export const Division = styled.span`
   font-weight: 600;
   line-height: 20px;
   letter-spacing: 0.1px;
+  margin-left: 4px;
 `;
 
 export const Desc = styled.span`
-  color: ${({ theme }) => theme.gray01};
+  color: ${({ theme }) => theme.colors.font.secondary};
+
   font-size: 11px;
   font-weight: 400;
   line-height: 16px;

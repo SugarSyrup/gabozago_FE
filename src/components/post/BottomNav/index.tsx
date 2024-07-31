@@ -16,6 +16,8 @@ import ShareIcon from '../../../assets/icons/share.svg?react';
 import isLogin from '../../../utils/isLogin';
 
 import * as S from './style';
+import { useSetRecoilState } from 'recoil';
+import { popupValue } from '@_recoil/common/PopupValue';
 
 interface Props {
   postId: number;
@@ -45,6 +47,8 @@ function BottomNav({
   const [isUserScraped, setIsUserScraped] = useState<boolean>(isBookmarked);
   const [isUserClap, setIsUserClap] = useState<boolean>(isClap);
   const [isUserClpas, setIsUserClpas] = useState<number>(claps);
+  const setPopupUI = useSetRecoilState(popupValue);
+
   const { Alert, alertOpen } = useAlert({
     Content: (
       <Typography.Body size="lg" color="white">
@@ -89,20 +93,6 @@ function BottomNav({
     <>
       <Alert />
       <ScrapModal />
-      <Popup>
-        <S.UrlLabel htmlFor="urlCopy">아래 링크를 복사해 공유해보세요!</S.UrlLabel>
-        <S.UrlInput
-          type="url"
-          name="현재 링크 복사"
-          id="urlCopy"
-          value={window.location.href}
-          onClick={() => {
-            navigator.clipboard.writeText(`${title}\n${window.location.href}`);
-            popupClose();
-            onShareClick && onShareClick();
-          }}
-        />
-      </Popup>
       <S.Navigation>
         <S.NavigationItem
           onClick={() => {
@@ -164,6 +154,24 @@ function BottomNav({
         </S.NavigationItem>
         <S.NavigationItem
           onClick={() => {
+            setPopupUI({
+              Custom: (
+                <>
+                  <S.UrlLabel htmlFor="urlCopy">아래 링크를 복사해 공유해보세요!</S.UrlLabel>
+                  <S.UrlInput
+                    type="url"
+                    name="현재 링크 복사"
+                    id="urlCopy"
+                    value={window.location.href}
+                    onClick={() => {
+                      navigator.clipboard.writeText(`${title}\n${window.location.href}`);
+                      popupClose();
+                      if (onShareClick) onShareClick();
+                    }}
+                  />
+                </>
+              ),
+            });
             popupOpen();
           }}
         >

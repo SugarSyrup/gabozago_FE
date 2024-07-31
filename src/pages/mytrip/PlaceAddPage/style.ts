@@ -67,7 +67,7 @@ export const Footer = styled.footer`
 
 export const Button = styled.button<{ isActive: boolean }>`
   width: 100%;
-  padding: 10px 20px 15px 20px;
+  padding: 12px 20px;
   border: none;
   border-radius: 30px;
 
@@ -79,66 +79,20 @@ export const Button = styled.button<{ isActive: boolean }>`
   align-items: center;
 `;
 
-export const PopupWrapper = styled.div<{ isOpend: boolean }>`
-  width: 100%;
-  height: 100%;
-  max-width: 500px;
-
-  margin-left: -20px;
-
-  position: fixed;
-  top: 0;
-  z-index: ${({ isOpend }) => (isOpend ? 100 : -1)};
-`;
-
-export const PopupContentsContainer = styled.div`
-  width: 100%;
-  padding: 10px;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 20px;
-
-  svg {
-    width: 40px;
-    height: 40px;
-  }
-`;
-
-export const PopupTextContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  span:last-child {
-    margin-top: 10px;
-  }
-`;
-
-export const PopupButtons = styled.div`
+export const TaostContainer = styled.div`
   width: 100%;
 
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  gap: 12px;
 `;
 
-export const PopupButton = styled.button<{ isMain: boolean }>`
-  width: 100%;
-  padding-top: 12px;
-  padding-bottom: 12px;
-
-  border: none;
-  border-radius: 30px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  background-color: ${({ isMain, theme }) => (isMain ? '#F3F6FF' : theme.gray06)};
-  color: ${({ isMain, theme }) => (isMain ? theme.main : theme.black)};
+export const TaostLink = styled.span`
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  text-decoration-line: underline;
   cursor: pointer;
 `;

@@ -5,11 +5,10 @@ export const MenuList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding-bottom: 10px;
 `;
 
 export const MenuItem = styled.li<{ color?: string }>`
-  padding: 5px 0;
+  padding: 20px 0;
   display: grid;
   grid-template-columns: 24px 1fr;
   grid-auto-rows: fit-content;

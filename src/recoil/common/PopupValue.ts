@@ -74,3 +74,11 @@ export const popupCustomSelector = selector({
     set(popupValue, { Custom: newValue as TPopupValue['Custom'] });
   },
 });
+
+export const popupNoTemplateCustomSelector = selector({
+  key: 'popupNoTemplateCustomSelector',
+  get: ({ get }) => get(popupValue).NoTemplateCustom,
+  set: ({ set }, newValue) => {
+    set(popupValue, { NoTemplateCustom: newValue as TPopupValue['NoTemplateCustom'] });
+  },
+});

@@ -12,15 +12,14 @@ export const Button = styled(DefaultButton)<{
       border-radius: 30px;
     `}
 
+  color: ${({ theme }) => theme.colors.white.primary};
   /* bgColor */
   ${({ bgColor, theme }) =>
     bgColor === 'blue'
       ? css`
           background-color: ${theme.colors.blue.primary};
-          color: ${theme.colors.white.primary};
         `
       : css`
           background-color: ${theme.colors.gray.secondary};
-          color: ${theme.colors.gray.secondary};
         `}
 `;

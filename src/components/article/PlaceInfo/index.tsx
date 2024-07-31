@@ -50,7 +50,7 @@ function PlaceInfo({ placeId, imageURL }: Props) {
       <Alert />
       {data && (
         <>
-          <img src={imageURL} />
+          <img src={imageURL} alt={data.name} />
           <S.Infomation>
             <S.TextContainer>
               <S.Name

@@ -1,22 +1,27 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
+import toast from 'react-hot-toast';
 
 import { TMyTravelItem } from '@_types/MyTravelItem';
-import InfomationIcon from '../../../assets/icons/exclamation_circle.svg?react';
-import XIcon from '../../../assets/icons/x.svg?react';
-import PageHeader from '../../../components/common/PageHeader';
-import PageTemplate from '../../../components/common/PageTemplate';
-import Typography from '../../../components/common/Typography';
-import LocationAddItem from '../../../components/mytrip/LocationAddItem';
+import { addLocationState, createTravelState } from '@_recoil/mytrip/createTravelState';
+import { datesState } from '@_recoil/mytrip/createData';
+import { popupValue } from '@_recoil/common/PopupValue';
 
-import { addLocationState, createTravelState } from '../../../recoil/mytrip/createTravelState';
+import InfomationIcon from '@_icons/exclamation_circle.svg?react';
+import XIcon from '@_icons/x.svg?react';
+
+import PageHeader from '@_common/PageHeader';
+import PageTemplate from '@_common/PageTemplate';
+import Typography from '@_common/Typography';
+import BottomButtonContainer from '@_common/BottomButtonContainer';
+import { Toast } from '@_common/Toast';
+
+import LocationAddItem from '../../../components/mytrip/LocationAddItem';
 import usePopup from '../../../hooks/usePopup';
-import useAlert from '../../../hooks/useAlert';
 import { get, post } from '../../../utils/api';
 
 import * as S from './style';
-import { datesState } from '../../../recoil/mytrip/createData';
 
 function PlaceAddPage() {
   const { id } = useParams();
@@ -35,14 +40,8 @@ function PlaceAddPage() {
   const setCreateTravelState = useSetRecoilState(createTravelState);
   const setAddLocationState = useSetRecoilState(addLocationState);
 
-  const { Popup, popupOpen, popupClose, isOpend } = usePopup();
-  const { Alert, alertOpen, alertClose } = useAlert({
-    Content: (
-      <Typography.Body size="lg" color="white">
-        장소가 추가되었습니다.
-      </Typography.Body>
-    ),
-  });
+  const { popupOpen, popupClose } = usePopup();
+  const setPopupUI = useSetRecoilState(popupValue);
 
   useEffect(() => {
     get<TMyTravelItem[]>(`/my-travel/community/place/${id}`).then((response) => {
@@ -73,109 +72,180 @@ function PlaceAddPage() {
         />
       }
       nav={
-        <S.Footer>
-          <S.Button
-            isActive={typeof currentSelectedItem.day === 'number'}
-            onClick={() => {
-              if (currentSelectedItem.id === -1) return;
-              if (currentSelectedItem.day === undefined) return;
+        <BottomButtonContainer
+          bgColor={typeof currentSelectedItem.day === 'number' ? 'blue' : 'gray'}
+          onClick={() => {
+            if (currentSelectedItem.id === -1) return;
+            if (currentSelectedItem.day === undefined) return;
 
-              post<{
-                id: number;
-                name: number;
-              }>('/my-travel/community/place', {
-                placeId: id,
-                myTravelId: currentSelectedItem.id,
-                day: currentSelectedItem.day,
+            post<{
+              id: number;
+              name: number;
+            }>('/my-travel/community/place', {
+              placeId: id,
+              myTravelId: currentSelectedItem.id,
+              day: currentSelectedItem.day,
+            })
+              .then(() => {
+                toast.custom(() => (
+                  <Toast>
+                    <Typography.Body size="lg" color="white">
+                      장소가 추가되었습니다.
+                    </Typography.Body>
+                  </Toast>
+                ));
               })
-                .then(() => {
-                  alertOpen();
-                })
-                .catch((err) => {
-                  if (err.response.status === 400) {
-                    popupOpen();
-                  }
-                });
-            }}
-          >
-            <Typography.Title size="lg" color="inherit">
-              이 일정에 장소를 추가할게요!
-            </Typography.Title>
-          </S.Button>
-        </S.Footer>
+              .catch((err) => {
+                if (err.response.status === 400) {
+                  setPopupUI({
+                    Icon: <InfomationIcon />,
+                    Header: '지역을 추가하시겠어요?',
+                    Description: `선택하신 여행 장소는
+                    ${
+                      currentSelectedItem.id !== -1 &&
+                      data
+                        .filter((item) => item.id === currentSelectedItem.id)[0]
+                        .location.toLocaleString()
+                    }
+                    을 벗어나요.\n ${placeData?.region}도 여행 계획에 추가하시겠어요?`,
+                    Warning: '*지역을 추가하지 않으면, 해당 장소도 추가되지 않아요.',
+                    ConfirmButton: {
+                      text: '네, 추가할게요',
+                      onClick: () => {
+                        post<{ message: string }>('/my-travel/location', {
+                          myTravelId: currentSelectedItem.id,
+                          location: placeData?.region,
+                        }).then((response) => {
+                          if (response.status === 201) {
+                            post<{
+                              id: number;
+                              name: number;
+                            }>('/my-travel/community/place', {
+                              placeId: id,
+                              myTravelId: currentSelectedItem.id,
+                              day: currentSelectedItem.day,
+                            }).then((placeResponse) => {
+                              if (placeResponse.status === 400) {
+                                setPopupUI({
+                                  Icon: <InfomationIcon />,
+                                  Header: '지역을 추가하시겠어요?',
+                                  Description: `선택하신 여행 장소는
+                                  ${
+                                    currentSelectedItem.id !== -1 &&
+                                    data
+                                      .filter((item) => item.id === currentSelectedItem.id)[0]
+                                      .location.toLocaleString()
+                                  }
+                                  을 벗어나요.\n ${placeData?.region}도 여행 계획에 추가하시겠어요?`,
+                                  Warning: '*지역을 추가하지 않으면, 해당 장소도 추가되지 않아요.',
+                                  ConfirmButton: {
+                                    text: '네, 추가할게요',
+                                    onClick: () => {
+                                      post<{ message: string }>('/my-travel/location', {
+                                        myTravelId: currentSelectedItem.id,
+                                        location: placeData?.region,
+                                      }).then((locationResponse) => {
+                                        if (locationResponse.status === 201) {
+                                          post<{
+                                            id: number;
+                                            name: number;
+                                          }>('/my-travel/community/place', {
+                                            placeId: id,
+                                            myTravelId: currentSelectedItem.id,
+                                            day: currentSelectedItem.day,
+                                          }).then((placeAddResponse) => {
+                                            if (placeAddResponse.status === 400) {
+                                              popupOpen();
+                                            } else {
+                                              popupClose();
+
+                                              toast.custom(() => (
+                                                <Toast>
+                                                  <Typography.Body size="lg" color="white">
+                                                    장소가 추가되었습니다.
+                                                  </Typography.Body>
+                                                </Toast>
+                                              ));
+                                            }
+                                          });
+                                        } else {
+                                          toast.custom(() => (
+                                            <Toast>
+                                              <Typography.Body size="lg" color="white">
+                                                이미 내 여행 지역에 추가되어 있습니다.
+                                              </Typography.Body>
+                                            </Toast>
+                                          ));
+                                        }
+                                      });
+                                      popupClose();
+                                    },
+                                  },
+                                  CloseButton: {
+                                    text: '아니요',
+                                    onClick: () => {
+                                      popupClose();
+                                    },
+                                  },
+                                });
+                                popupOpen();
+                              } else {
+                                popupClose();
+                                toast.custom(() => (
+                                  <Toast>
+                                    <Typography.Body size="lg" color="white">
+                                      장소가 추가되었습니다.
+                                    </Typography.Body>
+                                  </Toast>
+                                ));
+                              }
+                            });
+                          } else {
+                            toast.custom(() => (
+                              <Toast>
+                                <Typography.Body size="lg" color="white">
+                                  이미 내 여행 지역에 추가되어 있습니다.
+                                </Typography.Body>
+                              </Toast>
+                            ));
+                          }
+                        });
+                        popupClose();
+                        navigate(-1);
+                        toast.custom(() => (
+                          <Toast>
+                            <S.TaostContainer>
+                              <Typography.Body size="lg" color="white">
+                                일정에 장소가 추가되었습니다
+                              </Typography.Body>
+                              <S.TaostLink
+                                onClick={() => {
+                                  navigate(`/mytrip/${currentSelectedItem.id}`);
+                                }}
+                              >
+                                일정 보러가기
+                              </S.TaostLink>
+                            </S.TaostContainer>
+                          </Toast>
+                        ));
+                      },
+                    },
+                    CloseButton: {
+                      text: '아니요',
+                      onClick: () => {
+                        popupClose();
+                      },
+                    },
+                  });
+                  popupOpen();
+                }
+              });
+          }}
+        >
+          이 일정에 장소를 추가할게요!
+        </BottomButtonContainer>
       }
     >
-      <Alert />
-      <S.PopupWrapper isOpend={isOpend}>
-        <Popup>
-          <S.PopupContentsContainer>
-            <InfomationIcon />
-            <S.PopupTextContainer>
-              <Typography.Headline size="sm">지역을 추가하시겠어요?</Typography.Headline>
-              <Typography.Body size="lg" color="inherit">
-                선택하신 여행 장소는
-                {currentSelectedItem.id !== -1 &&
-                  data
-                    .filter((item) => item.id === currentSelectedItem.id)[0]
-                    .location.toLocaleString()}
-                을 벗어나요.
-              </Typography.Body>
-              <Typography.Body size="lg" color="inherit">
-                {placeData?.region}도 여행 계획에 추가하시겠어요?
-              </Typography.Body>
-              <Typography.Body size="md" color="#FA5252">
-                *지역을 추가하지 않으면, 해당 장소도 추가되지 않아요.
-              </Typography.Body>
-            </S.PopupTextContainer>
-            <S.PopupButtons>
-              <S.PopupButton
-                isMain={false}
-                onClick={() => {
-                  popupClose();
-                }}
-              >
-                <Typography.Body size="lg" color="inherit">
-                  아니요
-                </Typography.Body>
-              </S.PopupButton>
-              <S.PopupButton
-                isMain
-                onClick={() => {
-                  post<{ message: string }>('/my-travel/location', {
-                    myTravelId: currentSelectedItem.id,
-                    location: placeData?.region,
-                  }).then((response) => {
-                    if (response.status === 201) {
-                      post<{
-                        id: number;
-                        name: number;
-                      }>('/my-travel/community/place', {
-                        placeId: id,
-                        myTravelId: currentSelectedItem.id,
-                        day: currentSelectedItem.day,
-                      }).then((response) => {
-                        if (response.status === 400) {
-                          popupOpen();
-                        } else {
-                          popupClose();
-                          alertOpen();
-                        }
-                      });
-                    } else {
-                      window.alert('이미 내 여행 지역에 추가되어 있습니다.');
-                    }
-                  });
-                  popupClose();
-                }}
-              >
-                <Typography.Body size="lg" color="inherit">
-                  네, 추가할게요
-                </Typography.Body>
-              </S.PopupButton>
-            </S.PopupButtons>
-          </S.PopupContentsContainer>
-        </Popup>
-      </S.PopupWrapper>
       <S.Header>
         <Typography.Headline size="md">장소를 추가할</Typography.Headline>
         <Typography.Headline size="md">
