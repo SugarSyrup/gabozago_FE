@@ -1,25 +1,31 @@
 import YouTube from 'react-youtube';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import { Suspense, useEffect, useRef, useState } from 'react';
-import * as S from './style';
-import UserIcon from '../../../../../assets/icons/user.svg?react';
-import LocationIcon from '../../../../../assets/icons/location.svg?react';
-import ThemeIcon from '../../../../../assets/icons/theme.svg?react';
-import BookMarkIcon from '../../../../../assets/icons/bookmark.svg?react';
-import FilledBookMarkIcon from '../../../../../assets/icons/bookmark_filled_white.svg?react';
-import CommentIcon from '../../../../../assets/icons/comment.svg?react';
-import LikeIcon from '../../../../../assets/icons/clap.svg?react';
-import FilledLikeIcon from '../../../../../assets/icons/clap_blue.svg?react';
-import PlaceIcon from '../../../../../assets/icons/place.svg?react';
-import ShareIcon from '../../../../../assets/icons/share.svg?react';
+
+import UserIcon from '@_icons/user.svg?react';
+import LocationIcon from '@_icons/location.svg?react';
+import ThemeIcon from '@_icons/theme.svg?react';
+import BookMarkIcon from '@_icons/bookmark.svg?react';
+import FilledBookMarkIcon from '@_icons/bookmark_filled_white.svg?react';
+import CommentIcon from '@_icons/comment.svg?react';
+import LikeIcon from '@_icons/clap.svg?react';
+import FilledLikeIcon from '@_icons/clap_blue.svg?react';
+import PlaceIcon from '@_icons/place.svg?react';
+import ShareIcon from '@_icons/share.svg?react';
+
+import Typography from '@_common/Typography';
+import { Toast } from '@_common/Toast';
 import { get, post } from '../../../../../utils/api';
 import useModal from '../../../../../hooks/useModal';
-import useScrapModal from '../../../../video/useScrapModal';
-import PlacesModalContents from '../PlacesModalContents';
 import useAlert from '../../../../../hooks/useAlert';
-import Typography from '../../../../common/Typography';
 import usePopup from '../../../../../hooks/usePopup';
+
+import useScrapModal from '../../../../video/useScrapModal';
 import Comment from '../../../../journal/Comment';
+
+import PlacesModalContents from '../PlacesModalContents';
+import * as S from './style';
 
 export interface TShortForm {
   id: number;
@@ -127,13 +133,6 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
     borderRadius: '16px',
   });
   const { Popup, popupOpen, popupClose } = usePopup();
-  const { Alert: UrlAlert, alertOpen: urlAlertOpen } = useAlert({
-    Content: (
-      <Typography.Title size="md" color="white">
-        URL이 복사되었습니다.
-      </Typography.Title>
-    ),
-  });
 
   const createCopyURL = (id: number) => {
     const arr = window.location.href.split('/').slice(0, -1);
@@ -190,7 +189,6 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
       {data && (
         <>
           <LoginALlert />
-          <UrlAlert />
           <PlacesModal>
             <PlacesModalContents id={shortFormId} />
           </PlacesModal>
@@ -215,7 +213,13 @@ function ShortForm({ shortFormId, visible, videoId }: Props) {
               onClick={(e) => {
                 e.preventDefault();
                 navigator.clipboard.writeText(`${data.title}\n${createCopyURL(shortFormId)}`);
-                urlAlertOpen();
+                toast.custom(() => (
+                  <Toast>
+                    <Typography.Title size="md" color="white">
+                      URL이 복사되었습니다.
+                    </Typography.Title>
+                  </Toast>
+                ));
                 popupClose();
               }}
             />
