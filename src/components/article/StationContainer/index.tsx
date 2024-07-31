@@ -15,7 +15,7 @@ interface Props {
 }
 
 function StationContainer({ data, refs }: Props) {
-  const { Modal, modalOpen, modalClose, isOpend } = useModal({});
+  const { Modal, modalOpen, modalClose } = useModal({});
 
   return (
     <>
@@ -24,7 +24,7 @@ function StationContainer({ data, refs }: Props) {
         <S.StationList isBackground={false}>
           {data !== undefined &&
             data.map((station, index) => (
-              <S.StationItem>
+              <S.StationItem key={station.name}>
                 <S.Linker isFirst={index === 0} isLast={index + 1 === data.length}>
                   <DoubleCircleIcon />
                 </S.Linker>
@@ -51,7 +51,7 @@ function StationContainer({ data, refs }: Props) {
       </Modal>
       <S.StationList isBackground>
         {data.map((station, index) => (
-          <S.StationItem>
+          <S.StationItem key={station.name}>
             <S.Linker isFirst={index === 0} isLast={index + 1 === data.length}>
               <DoubleCircleIcon />
             </S.Linker>

@@ -20,8 +20,6 @@ export const Infomation = styled.div`
   justify-content: space-between;
 
   padding: 15px 10px;
-  border-radius: 5px;
-  border: 1px solid ${({ theme }) => theme.blue02};
   background: ${({ theme }) => theme.blue05};
 `;
 
