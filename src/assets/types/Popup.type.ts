@@ -14,4 +14,5 @@ export interface TPopupValue {
     text: string;
   };
   Custom?: React.ReactNode;
+  NoTemplateCustom?: React.ReactNode;
 }

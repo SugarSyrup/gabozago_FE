@@ -14,9 +14,9 @@ import useModal from '../../../hooks/useModal';
 import MenuOptionList from '../../common/MenuOptionList';
 import { post } from '../../../utils/api';
 import useReportPopup from '../../../hooks/useReportPopup';
-import useAlert from '../../../hooks/useAlert';
 import Typography from '../../common/Typography';
 import CommentDeleteToast from '../../common/Toast/Toast/CommentDeleteToast';
+import { Toast } from '@_common/Toast';
 
 export interface Comment {
   id: number;
@@ -81,17 +81,10 @@ function CommentItem({
     handle: true,
     borderRadius: '16px',
   });
-  const { ReportPopup, reportPopupOpen } = useReportPopup({
+  const { reportPopupOpen } = useReportPopup({
     type,
     commentId: id,
     setIsReported,
-  });
-  const { Alert, alertOpen } = useAlert({
-    Content: (
-      <Typography.Body size="lg" color="white">
-        이미 신고한 댓글입니다.
-      </Typography.Body>
-    ),
   });
 
   const toggleLike = async () => {
@@ -128,10 +121,17 @@ function CommentItem({
       iconColor: 'white',
       onClick: () => {
         if (isReported) {
-          alertOpen();
+          toast.custom(() => (
+            <Toast>
+              <Typography.Body size="lg" color="white">
+                이미 신고한 댓글입니다.
+              </Typography.Body>
+            </Toast>
+          ));
           commentMenuModalClose();
           return;
         }
+
         reportPopupOpen();
         commentMenuModalClose();
       },
@@ -164,8 +164,6 @@ function CommentItem({
         }
       }}
     >
-      <Alert />
-      <ReportPopup />
       <CommentMenuModal>
         <MenuOptionList menus={isMine ? myCommentMenus : notMyCommentMenus} />
       </CommentMenuModal>

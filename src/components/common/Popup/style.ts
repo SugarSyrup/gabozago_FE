@@ -47,6 +47,10 @@ export const Popup = styled.div`
   align-items: center;
 `;
 
+export const PopupNoPadding = styled(Popup)`
+  padding: 0px;
+`;
+
 export const IconWrapper = styled.div`
   width: 48px;
   height: 48px;

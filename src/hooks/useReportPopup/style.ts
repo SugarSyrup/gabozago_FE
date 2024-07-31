@@ -1,7 +1,13 @@
 import styled from 'styled-components';
 
+export const PopupConatiner = styled.div`
+  width: 100%;
+`;
+
 export const ReportForm = styled.form`
-  padding-top: 11px;
+  width: 100%;
+
+  padding-top: 10px;
   border-radius: 15px;
   overflow: hidden;
   position: relative;
