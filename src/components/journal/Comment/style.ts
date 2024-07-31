@@ -29,7 +29,7 @@ export const Contents = styled.div<{ position: 'bottom' | 'top' }>`
     position === 'bottom'
       ? css`
           height: 80dvh;
-          padding: 35px 0 120px;
+          padding: 62px 0 120px;
           overflow-y: auto;
         `
       : css`
