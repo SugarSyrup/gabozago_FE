@@ -32,10 +32,13 @@ function StationContainer({ data, refs }: Props) {
                   isLast={index + 1 === data.length}
                   onClick={() => {
                     if (isLogin()) {
+                      const topPos = refs.current[station.index]?.offsetTop as number;
+
+                      modalClose();
+                      // window.scroll(0, topPos);
                       refs.current[station.index]?.scrollIntoView({
                         behavior: 'smooth',
                       });
-                      modalClose();
                     }
                   }}
                 >
@@ -59,10 +62,13 @@ function StationContainer({ data, refs }: Props) {
               isLast={index + 1 === data.length}
               onClick={() => {
                 if (isLogin()) {
+                  const topPos = refs.current[station.index]?.offsetTop as number;
+
+                  // window.scroll(0, topPos);
                   refs.current[station.index]?.scrollIntoView({
+                    //   block: 'start',
                     behavior: 'smooth',
                   });
-                  modalClose();
                 }
               }}
             >
