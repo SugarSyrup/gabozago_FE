@@ -1,50 +1,94 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import { TUserProfile } from './assets/types/TUserProfile';
-import MyTripPage from './pages/Mytrip/MyTripPage';
-import PlacePage from './pages/Place';
-import TermsPage from './pages/Profile/Terms';
 
-import MyTripDetailPage from './pages/Mytrip/DetailPage';
-import MyTripLocationSelectPage, { locationResponseType } from './pages/Mytrip/LocationSelectPage';
-import MyTripDatesSelectPage from './pages/Mytrip/DatesSelectPage';
-import MyTripLocationSearchPage from './pages/Mytrip/LocationSearchPage';
-import MyTripPlaceCreatePage from './pages/Mytrip/PlaceCreatePage';
-import ViewAllPage from './pages/Mytrip/ViewAllPage';
-import ScrapBookPage from './pages/Scrap/ScrapBookPage';
-import ScrapBookGroupPage from './pages/Scrap/ScrapBookGroupPage';
-import ProfilePage from './pages/Profile/ProfilePage';
-import UserEditPage from './pages/Profile/UserEditPage';
+/* ---- 홈 페이지 ---- */
 import HomePage from './pages/Home';
-import SettingsPage from './pages/Profile/SettingsPage';
-import LoginPage from './pages/Auth/LoginPage';
-import SignUpPage from './pages/Auth/SignUpPage';
-import ArticlePage from './pages/Article/ArticlePage';
-import ResignPage from './pages/Profile/Resign/ResignPage';
-import ResignDonePage from './pages/Profile/Resign/ResignDonePage';
-import AnnouncePage from './pages/Cscenter/AnnouncePage';
-import AnnounceDetailPage from './pages/Cscenter/AnnounceDetailPage';
-import FeedBackPage from './pages/Cscenter/FeedBackPage';
-import CSCenterPage from './pages/Cscenter/CSCenterPage';
-import FAQPage from './pages/Cscenter/FAQPage';
-import FAQDetailPage from './pages/Cscenter/FAQDetailPage';
-import InquiryPage from './pages/Cscenter/InquiryPage';
-import InquiryHistoryPage from './pages/Cscenter/InquiryHistoryPage';
-import PlaceAddPage from './pages/Mytrip/PlaceAddPage';
+
+/* ---- 로그인 페이지 ---- */
+import { LoginPage, SignUpPage } from './pages/Auth';
+
+/* ---- 아티클 페이지 ---- */
+import { ArticlePage, ArticlesPage } from './pages/Article';
+
+/* ---- 내 여행 페이지 ---- */
+import {
+  MyTripDatesSelectPage,
+  MyTripLocationSelectPage,
+  MyTripLocationSearchPage,
+  MyTripPlaceCreatePage,
+  MyTripDetailPage,
+  MemoPage,
+  MyTripPage,
+  ViewAllPage,
+  PlaceAddPage,
+} from './pages/Mytrip';
+
+/* ---- 스크랩 페이지 ---- */
+import { ScrapBookPage, ScrapBookGroupPage } from './pages/Scrap';
+
+/* ---- 장소 페이지 ---- */
+import PlacePage from './pages/Place';
+
+/* ---- 유저 프로필 페이지 ---- */
+import {
+  TermsPage,
+  ProfilePage,
+  UserEditPage,
+  SettingsPage,
+  ResignDonePage,
+  ResignPage,
+} from './pages/Profile';
+
+/* ---- 고객센터 페이지 ---- */
+import {
+  AnnouncePage,
+  AnnounceDetailPage,
+  FeedBackPage,
+  CSCenterPage,
+  FAQPage,
+  FAQDetailPage,
+  InquiryDetailPage,
+  InquiryPage,
+  InquiryHistoryPage,
+} from './pages/Cscenter';
+
 import { get } from '@_utils/api';
-import InquiryDetailPage from './pages/Cscenter/InquiryDetailPage';
-import IsLoginTemplate from './components/common/isLoginTemplate';
-import MemoPage from './pages/Mytrip/MemoPage';
-import ArticlesPage from './pages/Article/ArticlesPage';
+import IsLoginTemplate from '@_common/isLoginTemplate';
+import { LocationResponseType } from './pages/Mytrip/LocationSelectPage';
 
 const router = createBrowserRouter([
+  /* ---- 홈 페이지 ---- */
   {
     path: '/',
     element: <HomePage />,
   },
+
+  /* ---- 아티클 페이지 ---- */
   {
     path: '/articles',
     element: <ArticlesPage />,
+  },
+  {
+    path: '/article/:id',
+    element: <ArticlePage />,
+    loader: async () => {
+      if (localStorage.getItem('access_token')) {
+        const { data } = await get<TUserProfile>('/user/profile');
+        return data.avatarURL;
+      }
+      return '';
+    },
+  },
+
+  /* ---- 로그인 페이지 ---- */
+  {
+    path: '/login',
+    element: <LoginPage />,
+  },
+  {
+    path: '/signup',
+    element: <SignUpPage />,
   },
 
   /* ---- 내 여행 페이지 ---- */
@@ -80,7 +124,7 @@ const router = createBrowserRouter([
       </IsLoginTemplate>
     ),
     loader: async () => {
-      const { data } = await get<locationResponseType[]>('/region');
+      const { data } = await get<LocationResponseType[]>('/region');
       return data;
     },
   },
@@ -136,6 +180,25 @@ const router = createBrowserRouter([
       </IsLoginTemplate>
     ),
   },
+
+  /* ---- 스크랩 페이지 ---- */
+  {
+    path: '/scrapbook',
+    element: (
+      <IsLoginTemplate>
+        <ScrapBookPage />
+      </IsLoginTemplate>
+    ),
+  },
+  {
+    path: '/scrapbook/:id',
+    element: (
+      <IsLoginTemplate>
+        <ScrapBookGroupPage />
+      </IsLoginTemplate>
+    ),
+  },
+
   /* ---- 유저 프로필 페이지 ---- */
   {
     path: '/profile',
@@ -182,32 +245,7 @@ const router = createBrowserRouter([
       return data;
     },
   },
-  /* ---- 스크랩 페이지 ---- */
-  {
-    path: '/scrapbook',
-    element: (
-      <IsLoginTemplate>
-        <ScrapBookPage />
-      </IsLoginTemplate>
-    ),
-  },
-  {
-    path: '/scrapbook/:id',
-    element: (
-      <IsLoginTemplate>
-        <ScrapBookGroupPage />
-      </IsLoginTemplate>
-    ),
-  },
-  /* ---- 로그인 페이지 ---- */
-  {
-    path: '/login',
-    element: <LoginPage />,
-  },
-  {
-    path: '/signup',
-    element: <SignUpPage />,
-  },
+
   /* ---- 고객센터 페이지 ---- */
   {
     // 고객센터/도움말
@@ -298,18 +336,6 @@ const router = createBrowserRouter([
         <PlacePage />
       </IsLoginTemplate>
     ),
-  },
-  // 아티클
-  {
-    path: '/article/:id',
-    element: <ArticlePage />,
-    loader: async () => {
-      if (localStorage.getItem('access_token')) {
-        const { data } = await get<TUserProfile>('/user/profile');
-        return data.avatarURL;
-      }
-      return '';
-    },
   },
   {
     // 약관
