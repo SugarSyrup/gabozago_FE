@@ -16,7 +16,7 @@ import ShareIcon from '@_icons/share.svg?react';
 
 import Typography from '@_common/Typography';
 import { Toast } from '@_common/Toast';
-import { get, post } from '../../../../../utils/api';
+import { get, post } from '@_utils/api';
 import useModal from '../../../../../hooks/useModal';
 import useAlert from '../../../../../hooks/useAlert';
 import usePopup from '../../../../../hooks/usePopup';

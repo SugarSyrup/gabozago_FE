@@ -1,6 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import * as S from './style';
-import { get } from '../../../../utils/api';
+import { get } from '@_utils/api';
 import LocationTag from '../../../mytrip/LocationTag';
 
 interface LocationGroupByCategory {

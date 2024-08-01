@@ -9,7 +9,7 @@ import BookMarkIcon from '../../../assets/icons/bookmark.svg?react';
 
 import * as S from './style';
 import ShortFormList from '../journals/shortform/ShortFormList';
-import { get, post } from '../../../utils/api';
+import { get, post } from '@_utils/api';
 import useScrapModal from '../../video/useScrapModal';
 
 interface TArticle {

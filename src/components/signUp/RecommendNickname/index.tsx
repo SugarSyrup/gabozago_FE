@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import InputContainer from '../../common/InputContainer';
-import { get } from '../../../utils/api';
+import { get } from '@_utils/api';
 
 import * as S from './style';
 

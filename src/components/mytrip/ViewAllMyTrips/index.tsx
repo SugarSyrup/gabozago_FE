@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import MyLastScheduleCard from '../MyLastScheduleCard';
-import { get } from '../../../utils/api';
+import { get } from '@_utils/api';
 
 import * as S from './style';
 

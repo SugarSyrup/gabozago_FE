@@ -8,7 +8,7 @@ import ScrapBorderIcon from '../../../assets/icons/bookmark.svg?react';
 
 import Typography from '../../common/Typography';
 import * as S from './style';
-import { get, post } from '../../../utils/api';
+import { get, post } from '@_utils/api';
 import usePopup from '../../../hooks/usePopup';
 import { useSetRecoilState } from 'recoil';
 import { popupValue } from '@_recoil/common/PopupValue';

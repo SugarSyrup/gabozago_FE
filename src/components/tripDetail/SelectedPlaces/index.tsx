@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import MapIcon from '../../../assets/icons/map.svg?react';
 import { selectedPlacesState } from '../../../recoil/mytrip/selectedPlacesState';
-import { post } from '../../../utils/api';
+import { post } from '@_utils/api';
 
 import SelectedPlaceItem from '../SelectedPlaceItem';
 import Typography from '../../common/Typography';

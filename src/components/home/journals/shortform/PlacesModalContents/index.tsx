@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './style';
-import { get, post } from '../../../../../utils/api';
+import { get, post } from '@_utils/api';
 import Typography from '../../../../common/Typography';
 import LocationPlaceholderIcon from '../../../../mytrip/LocationPlaceholderIcon';
 import MapPinIcon from '../../../../../assets/icons/location.svg?react';

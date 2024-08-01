@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { get } from '../../../utils/api';
+import { get } from '@_utils/api';
 import PageTemplate from '../../../components/common/PageTemplate';
 import { HeaderWithBack } from '../../../components/common/Header';
 

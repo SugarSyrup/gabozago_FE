@@ -15,7 +15,7 @@ import GoogleIcon from '../../../assets/icons/google.svg?react';
 import AppleIcon from '../../../assets/icons/apple.svg?react';
 
 import * as S from './style';
-import { post } from '../../../utils/api';
+import { post } from '@_utils/api';
 
 interface loginResponse {
   status: 'ACTIVE' | 'INACTIVE';

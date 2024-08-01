@@ -22,7 +22,7 @@ import ContentStation from '../../components/article/ContentStation';
 import StationContainer from '../../components/article/StationContainer';
 import InterviewProfile from '../../components/article/InterviewProfile';
 
-import { get } from '../../utils/api';
+import { get } from '@_utils/api';
 import useModal from '../../hooks/useModal';
 import * as S from './style';
 

@@ -7,7 +7,7 @@ import BookMarkIcon from '../../../assets/icons/bookmark.svg?react';
 import RightChevron from '../../../assets/icons/chevron_right.svg?react';
 
 import * as S from './style';
-import { get, post } from '../../../utils/api';
+import { get, post } from '@_utils/api';
 import useAlert from '../../../hooks/useAlert';
 import Typography from '../../common/Typography';
 

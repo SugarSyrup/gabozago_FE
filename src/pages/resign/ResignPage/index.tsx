@@ -3,10 +3,9 @@ import { useLoaderData, useNavigate } from 'react-router-dom';
 
 import Typography from '../../../components/common/Typography';
 import PageTemplate from '../../../components/common/PageTemplate';
-import PageHeader from '../../../components/common/PageHeader';
 import CheckBoxItem from '../../../components/common/CheckBox';
 
-import { post } from '../../../utils/api';
+import { post } from '@_utils/api';
 
 import * as S from './style';
 import SuggestionContainer from '../SuggestionContainer';

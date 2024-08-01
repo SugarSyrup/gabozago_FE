@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { useLoaderData, useParams } from 'react-router-dom';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 
-import { get } from '../../../utils/api';
-import { parseDateString, DateObject } from '../../../utils/parseDateString';
+import { get } from '@_utils/api';
+import { parseDateString, DateObject } from '@_utils/calendar';
 
 import OptionIcon from '../../../assets/icons/menu_kebab.svg?react';
 

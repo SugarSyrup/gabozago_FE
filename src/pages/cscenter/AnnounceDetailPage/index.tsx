@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { get } from '../../../utils/api';
+import { get } from '@_utils/api';
 import Typography from '../../../components/common/Typography';
 import PageTemplate from '../../../components/common/PageTemplate';
 import { HeaderWithBack } from '../../../components/common/Header';

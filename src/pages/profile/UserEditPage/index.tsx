@@ -16,7 +16,7 @@ import ExtraButton from '../../../components/common/ExtraButton';
 import usePopup from '../../../hooks/usePopup';
 import { BrandIcon } from '../../auth/SignUpPage/style';
 import Typography from '../../../components/common/Typography';
-import { patch } from '../../../utils/api';
+import { patch } from '@_utils/api';
 import Nickname from '../../../components/signUp/Nickname';
 
 function UserEditPage() {

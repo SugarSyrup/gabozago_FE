@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import * as S from './style';
-import { DateObject, parseDateString } from '../../../utils/parseDateString';
+import { DateObject, parseDateString } from '@_utils/calendar';
 import TripPlanPlaceItem, { PlaceData } from '../TripPlanPlaceItem';
 import AddPlaceButton from '../AddPlaceButton';
 import { selectedPlacesState } from '../../../recoil/mytrip/selectedPlacesState';

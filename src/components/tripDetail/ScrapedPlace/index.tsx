@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { selectedPlacesState } from '../../../recoil/mytrip/selectedPlacesState';
 import BookMarkIcon from '../../../assets/icons/bookmark_filled.svg?react';
-import { get } from '../../../utils/api';
+import { get } from '@_utils/api';
 import {
   activeScrapPlaceFilterListState,
   scrapPlaceFilterState,

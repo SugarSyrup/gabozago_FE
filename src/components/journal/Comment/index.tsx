@@ -5,7 +5,7 @@ import Heading from '../../common/Heading';
 import SendIcon from '../../../assets/icons/send.svg?react';
 import UserIcon from '../../../assets/icons/user.svg?react';
 import CommentItem, { Comment as TComment } from '../CommentItem';
-import { deletes, get, post } from '../../../utils/api';
+import { deletes, get, post } from '@_utils/api';
 
 interface TParsedComment extends TComment {
   replys: TComment[];

@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { post } from '../../../utils/api';
+import { post } from '@_utils/api';
 
 import AuthCheck from '../../../components/common/AuthCheck';
 import PageTemplate from '../../../components/common/PageTemplate';

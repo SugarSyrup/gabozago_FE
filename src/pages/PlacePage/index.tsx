@@ -15,7 +15,7 @@ import PageTemplate from '../../components/common/PageTemplate';
 import Typography from '../../components/common/Typography';
 import PlaceOperateTime from '../../components/journal/PlaceOperateTime';
 import PlaceGoogleMap from '../../components/journal/GoogleMap';
-import { get, post } from '../../utils/api';
+import { get, post } from '@_utils/api';
 
 import * as S from './style';
 

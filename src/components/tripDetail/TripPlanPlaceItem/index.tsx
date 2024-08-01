@@ -5,7 +5,7 @@ import ThemeIcon from '../../../assets/icons/theme.svg?react';
 import LocationIcon from '../../../assets/icons/location.svg?react';
 import EditIcon from '../../../assets/icons/edit.svg?react';
 import Typography from '../../common/Typography';
-import { DateObject } from '../../../utils/parseDateString';
+import { DateObject } from '@_utils/calendar';
 
 export interface PlaceData {
   detailRouteId: number;

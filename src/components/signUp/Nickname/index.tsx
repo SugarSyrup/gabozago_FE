@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import InputContainer from '../../common/InputContainer';
-import { get } from '../../../utils/api';
+import { get } from '@_utils/api';
 
 import * as S from './style';
 

@@ -11,7 +11,7 @@ import PastNFutureCalendar from '@_common/Calendar/PastNFutureCalendar';
 import BottomButtonContainer from '@_common/BottomButtonContainer';
 
 import { datesState, selectedLocationsState } from '@_recoil/mytrip/createData';
-import { calculateDateDiff } from '../../../utils/calendar';
+import { calculateDateDiff } from '@_utils/calendar';
 
 import * as S from './style';
 

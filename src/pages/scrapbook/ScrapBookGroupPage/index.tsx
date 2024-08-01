@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
-import { get } from '../../../utils/api';
+import { get } from '@_utils/api';
 import * as S from './style';
 import PageTemplate from '../../../components/common/PageTemplate';
 import PageHeader from '../../../components/common/PageHeader';

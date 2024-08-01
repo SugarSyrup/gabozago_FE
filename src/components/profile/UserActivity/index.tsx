@@ -6,7 +6,7 @@ import UserActivityFilter from '../UserActivityFilter';
 import UserClapsPostList from '../UserClapsPostList';
 import UserCommentsList from '../UserCommentsList';
 
-import { get, post } from '../../../utils/api';
+import { get, post } from '@_utils/api';
 
 export interface ArticleResponseType {
   next: string | null;

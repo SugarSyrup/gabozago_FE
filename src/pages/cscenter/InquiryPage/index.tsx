@@ -13,7 +13,7 @@ import BottomButtonContainer from '../../../components/common/BottomButtonContai
 import ImportantIcon from '../../../assets/icons/exclamation_circle.svg?react';
 import BottomChevronIcon from '../../../assets/icons/chevron_bottom_small.svg?react';
 import ImageAddIcon from '../../../assets/icons/image_add.svg?react';
-import { post } from '../../../utils/api';
+import { post } from '@_utils/api';
 
 import * as S from './style';
 import { popupValue } from '@_recoil/common/PopupValue';

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { post } from '../../../utils/api';
+import { post } from '@_utils/api';
 import usePopup from '../../../hooks/usePopup';
 import useAlert from '../../../hooks/useAlert';
 import Typography from '../../common/Typography';
@@ -13,7 +13,7 @@ import CommentIcon from '../../../assets/icons/comment.svg?react';
 import BookMarkIcon from '../../../assets/icons/bookmark.svg?react';
 import ShareIcon from '../../../assets/icons/share.svg?react';
 
-import isLogin from '../../../utils/isLogin';
+import isLogin from '@_utils/isLogin';
 
 import * as S from './style';
 import { useSetRecoilState } from 'recoil';

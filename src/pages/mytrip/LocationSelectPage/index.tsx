@@ -14,7 +14,7 @@ import LocationTag from '../../../components/mytrip/LocationTag';
 import SearchedLocations from '../../../components/mytrip/SearchedLocations';
 
 import useSearchInput from '../../../hooks/useSearchInput';
-import { post } from '../../../utils/api';
+import { post } from '@_utils/api';
 
 import * as S from './style';
 

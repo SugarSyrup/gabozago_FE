@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import * as S from './style';
-import { patch } from '../../../utils/api';
+import { patch } from '@_utils/api';
 import DayPlanEdit from '../DayPlanEdit';
 import { DayPlan } from '../TripPlanList';
 import { editingTripPlanState, tripState } from '../../../recoil/tripState';

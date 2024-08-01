@@ -19,7 +19,7 @@ import { Toast } from '@_common/Toast';
 
 import LocationAddItem from '../../../components/mytrip/LocationAddItem';
 import usePopup from '../../../hooks/usePopup';
-import { get, post } from '../../../utils/api';
+import { get, post } from '@_utils/api';
 
 import * as S from './style';
 
