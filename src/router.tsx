@@ -17,7 +17,6 @@ import ProfilePage from './pages/profile/ProfilePage';
 import UserEditPage from './pages/profile/UserEditPage';
 import HomePage from './pages/home/HomePage';
 import SettingsPage from './pages/profile/SettingsPage';
-import ShortFormPage from './pages/journal/ShortformPage';
 import LoginPage from './pages/auth/LoginPage';
 import SignUpPage from './pages/auth/SignUpPage';
 import ArticlePage from './pages/ArticlePage';
@@ -36,7 +35,6 @@ import { get } from './utils/api';
 import InquiryDetailPage from './pages/cscenter/InquiryDetailPage';
 import IsLoginTemplate from './components/common/isLoginTemplate';
 import MemoPage from './pages/mytrip/MemoPage';
-import ShareTargetPage from './pages/Share/share-target';
 import ArticlesPage from './pages/home/ArticlePage';
 
 const router = createBrowserRouter([
@@ -48,30 +46,7 @@ const router = createBrowserRouter([
     path: '/articles',
     element: <ArticlesPage />,
   },
-  /* ---- 여행기 페이지 ---- */
-  {
-    path: '/journal/shortform/:id',
-    element: <ShortFormPage />,
-    loader: async () => {
-      if (localStorage.getItem('access_token')) {
-        const { data } = await get<TUserProfile>('/user/profile');
-        return data.avatarURL;
-      }
-      return '';
-    },
-  },
-  // {
-  //   path: "/journal/snapshot/:id",
-  //   element: <SnapshotPage />,
-  // },
-  // {
-  //   path: "/journal/post/:id",
-  //   element: <PostPage />,
-  // },
-  // {
-  //   path: "/journal/video/:id",
-  //   element: <VideoPage />,
-  // },
+
   /* ---- 내 여행 페이지 ---- */
   {
     path: '/mytrip',
@@ -182,14 +157,6 @@ const router = createBrowserRouter([
       };
     },
   },
-  // {
-  //   path: "/profile/:uid/follow",
-  //   element: (
-  //     <IsLoginTemplate>
-  //       <UserFollowPage />
-  //     </IsLoginTemplate>
-  //   ),
-  // },
   {
     // TODO : [LOGIN 기능 정의 이후] LOGIN 정보를 기반으로 접근 허용 / 거부
     path: '/profile/edit',
@@ -373,11 +340,6 @@ const router = createBrowserRouter([
         <ResignDonePage />
       </IsLoginTemplate>
     ),
-  },
-  {
-    // Share Target Page
-    path: '/share-target',
-    element: <ShareTargetPage />,
   },
 ]);
 

@@ -40,11 +40,11 @@ function HomePage() {
       </Typography.Body>
     ),
   });
-  const tabs = [
-    { id: '추천', name: '추천', content: <Recommendation /> },
-    { id: '아티클', name: '아티클', content: <Articles /> },
-    { id: '숏폼', name: '숏폼', content: <Journals /> },
-  ];
+  // const tabs = [
+  //   { id: '추천', name: '추천', content: <Recommendation /> },
+  //   { id: '아티클', name: '아티클', content: <Articles /> },
+  //   { id: '숏폼', name: '숏폼', content: <Journals /> },
+  // ];
 
   useEffect(() => {
     if (isLoginAlertState) {
@@ -57,19 +57,20 @@ function HomePage() {
     <PageTemplate
       header={
         <S.Header>
-          <TabBar
+          {/* <TabBar
             tabs={tabs}
             focusedTabIndex={focusedTabIndex}
             setFocusedTabIndex={setFocusedTabIndex}
             widthStyle="fit-content"
             fontSize="20px"
             color="#424242"
-          />
+          /> */}
         </S.Header>
       }
     >
       <Alert />
-      {tabs[focusedTabIndex].content}
+      {/* {tabs[focusedTabIndex].content} */}
+      <Recommendation />
     </PageTemplate>
   );
 }
