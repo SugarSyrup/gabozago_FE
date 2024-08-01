@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import PageTemplate from '../../components/common/PageTemplate';
-import PageHeader from '../../components/common/PageHeader';
-import Typography from '../../components/common/Typography';
+import PageTemplate from '@_common/PageTemplate';
+import PageHeader from '@_common/PageHeader';
+import Typography from '@_common/Typography';
 
 import * as S from './style';
 

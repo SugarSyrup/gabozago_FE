@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 import { ItemInterface } from 'react-sortablejs';
-import { TripData } from '../pages/mytrip/DetailPage';
+import { TripData } from '../pages/Mytrip/DetailPage';
 import { DayPlan } from '../components/tripDetail/TripPlanList';
 import { PlaceData } from '../components/tripDetail/TripPlanPlaceItem';
 

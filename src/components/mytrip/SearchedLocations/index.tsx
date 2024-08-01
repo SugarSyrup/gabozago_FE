@@ -2,7 +2,7 @@ import * as S from './style';
 
 import SearchResultItem from '../SearchResultItem';
 import SearchNotFounded from '../SearchNotFounded';
-import { locationResponseType } from '../../../pages/mytrip/LocationSelectPage';
+import { locationResponseType } from '../../../pages/Mytrip/LocationSelectPage';
 
 interface Props {
   searchedLocations: locationResponseType[];

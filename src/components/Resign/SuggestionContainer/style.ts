@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { Container } from '../ResignPage/style';
+import { Container } from '../../../pages/Profile/Resign/ResignPage/style';
 
 const borderCSS = css`
   padding: 20px;

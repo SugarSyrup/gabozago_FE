@@ -14,7 +14,7 @@ import KakaoIcon from '../../../assets/icons/kakao.svg?react';
 import InputContainer from '../../../components/common/InputContainer';
 import ExtraButton from '../../../components/common/ExtraButton';
 import usePopup from '../../../hooks/usePopup';
-import { BrandIcon } from '../../auth/SignUpPage/style';
+import { BrandIcon } from '../../Auth/SignUpPage/style';
 import Typography from '../../../components/common/Typography';
 import { patch } from '@_utils/api';
 import Nickname from '../../../components/signUp/Nickname';

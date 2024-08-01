@@ -9,21 +9,21 @@ import PageTemplate from '@_common/PageTemplate';
 import Typography from '@_common/Typography';
 import { Toast } from '@_common/Toast';
 
-import BottomNav from '../../components/post/BottomNav';
-import Comment from '../../components/journal/Comment';
+import BottomNav from '../../../components/post/BottomNav';
+import Comment from '../../../components/journal/Comment';
 
-import Editor from '../../components/article/Editor';
-import Interview from '../../components/article/Interview';
-import PlaceInfo from '../../components/article/PlaceInfo';
-import PlacePhoto from '../../components/article/PlacePhoto';
-import CheckPoints from '../../components/article/CheckPoints';
-import AbroadPlace from '../../components/article/AbroadPlace';
-import ContentStation from '../../components/article/ContentStation';
-import StationContainer from '../../components/article/StationContainer';
-import InterviewProfile from '../../components/article/InterviewProfile';
+import Editor from '../../../components/article/Editor';
+import Interview from '../../../components/article/Interview';
+import PlaceInfo from '../../../components/article/PlaceInfo';
+import PlacePhoto from '../../../components/article/PlacePhoto';
+import CheckPoints from '../../../components/article/CheckPoints';
+import AbroadPlace from '../../../components/article/AbroadPlace';
+import ContentStation from '../../../components/article/ContentStation';
+import StationContainer from '../../../components/article/StationContainer';
+import InterviewProfile from '../../../components/article/InterviewProfile';
 
 import { get } from '@_utils/api';
-import useModal from '../../hooks/useModal';
+import useModal from '../../../hooks/useModal';
 import * as S from './style';
 
 interface TArticle {

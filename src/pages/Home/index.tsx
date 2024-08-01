@@ -2,17 +2,17 @@ import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 
-import PageTemplate from '../../../components/common/PageTemplate';
-import TabBar from '../../../components/common/TabBar';
+import PageTemplate from '../../components/common/PageTemplate';
+import TabBar from '../../components/common/TabBar';
 
-import Journals from '../../../components/home/journals/Journals';
-import Recommendation from '../../../components/home/Recommendation';
-import Articles from '../../../components/home/Articles';
+import Journals from '../../components/home/journals/Journals';
+import Recommendation from '../../components/home/Recommendation';
+import Articles from '../../components/home/Articles';
 
 import * as S from './style';
-import useAlert from '../../../hooks/useAlert';
-import Typography from '../../../components/common/Typography';
-import { loginAlertState } from '../../../recoil/loginAlertState';
+import useAlert from '../../hooks/useAlert';
+import Typography from '../../components/common/Typography';
+import { loginAlertState } from '../../recoil/loginAlertState';
 
 function HomePage() {
   const [query] = useSearchParams();

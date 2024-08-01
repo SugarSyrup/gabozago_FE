@@ -1,15 +1,16 @@
 import { ChangeEventHandler, useRef, useState } from 'react';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 
-import Typography from '../../../components/common/Typography';
-import PageTemplate from '../../../components/common/PageTemplate';
-import CheckBoxItem from '../../../components/common/CheckBox';
+import Typography from '../../../../components/common/Typography';
+import PageTemplate from '../../../../components/common/PageTemplate';
+import CheckBoxItem from '../../../../components/common/CheckBox';
 
 import { post } from '@_utils/api';
 
+import SuggestionContainer from '../../../../components/Resign/SuggestionContainer';
+import { HeaderWithBack } from '../../../../components/common/Header';
+
 import * as S from './style';
-import SuggestionContainer from '../SuggestionContainer';
-import { HeaderWithBack } from '../../../components/common/Header';
 
 interface TReason {
   value: string;

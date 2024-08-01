@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 
-import HandImage from '../../../assets/imgs/illustration-01.svg?react';
+import HandImage from '../../../../assets/imgs/illustration-01.svg?react';
 
-import PageTemplate from '../../../components/common/PageTemplate';
+import PageTemplate from '../../../../components/common/PageTemplate';
 
 import * as S from './style';
-import BottomButtonContainer from '../../../components/common/BottomButtonContainer';
+import BottomButtonContainer from '../../../../components/common/BottomButtonContainer';
 
 function ResignDonePage() {
   const navigate = useNavigate();
