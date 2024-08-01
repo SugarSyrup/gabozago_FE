@@ -1,57 +1,77 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import { TUserProfile } from './assets/types/TUserProfile';
-import MyTripPage from './pages/mytrip/MyTripPage';
-import PlacePage from './pages/PlacePage';
-import TermsPage from './pages/TermsPage';
 
-import MyTripDetailPage from './pages/mytrip/DetailPage';
-import MyTripLocationSelectPage, { locationResponseType } from './pages/mytrip/LocationSelectPage';
-import MyTripDatesSelectPage from './pages/mytrip/DatesSelectPage';
-import MyTripLocationSearchPage from './pages/mytrip/LocationSearchPage';
-import MyTripPlaceCreatePage from './pages/mytrip/PlaceCreatePage';
-import ViewAllPage from './pages/mytrip/ViewAllPage';
-import ScrapBookPage from './pages/scrapbook/ScrapBookPage';
-import ScrapBookGroupPage from './pages/scrapbook/ScrapBookGroupPage';
-import ProfilePage from './pages/profile/ProfilePage';
-import UserEditPage from './pages/profile/UserEditPage';
-import HomePage from './pages/home/HomePage';
-import SettingsPage from './pages/profile/SettingsPage';
-import ShortFormPage from './pages/journal/ShortformPage';
-import LoginPage from './pages/auth/LoginPage';
-import SignUpPage from './pages/auth/SignUpPage';
-import ArticlePage from './pages/ArticlePage';
-import ResignPage from './pages/resign/ResignPage';
-import ResignDonePage from './pages/resign/ResignDonePage';
-import AnnouncePage from './pages/cscenter/AnnouncePage';
-import AnnounceDetailPage from './pages/cscenter/AnnounceDetailPage';
-import FeedBackPage from './pages/cscenter/FeedBackPage';
-import CSCenterPage from './pages/cscenter/CSCenterPage';
-import FAQPage from './pages/cscenter/FAQPage';
-import FAQDetailPage from './pages/cscenter/FAQDetailPage';
-import InquiryPage from './pages/cscenter/InquiryPage';
-import InquiryHistoryPage from './pages/cscenter/InquiryHistoryPage';
-import PlaceAddPage from './pages/mytrip/PlaceAddPage';
-import { get } from './utils/api';
-import InquiryDetailPage from './pages/cscenter/InquiryDetailPage';
-import IsLoginTemplate from './components/common/isLoginTemplate';
-import MemoPage from './pages/mytrip/MemoPage';
-import ShareTargetPage from './pages/Share/share-target';
-import ArticlesPage from './pages/home/ArticlePage';
+/* ---- 홈 페이지 ---- */
+import HomePage from './pages/Home';
+
+/* ---- 로그인 페이지 ---- */
+import { LoginPage, SignUpPage } from './pages/Auth';
+
+/* ---- 아티클 페이지 ---- */
+import { ArticlePage, ArticlesPage } from './pages/Article';
+
+/* ---- 내 여행 페이지 ---- */
+import {
+  MyTripDatesSelectPage,
+  MyTripLocationSelectPage,
+  MyTripLocationSearchPage,
+  MyTripPlaceCreatePage,
+  MyTripDetailPage,
+  MemoPage,
+  MyTripPage,
+  ViewAllPage,
+  PlaceAddPage,
+} from './pages/Mytrip';
+
+/* ---- 스크랩 페이지 ---- */
+import { ScrapBookPage, ScrapBookGroupPage } from './pages/Scrap';
+
+/* ---- 장소 페이지 ---- */
+import PlacePage from './pages/Place';
+
+/* ---- 유저 프로필 페이지 ---- */
+import {
+  TermsPage,
+  ProfilePage,
+  UserEditPage,
+  SettingsPage,
+  ResignDonePage,
+  ResignPage,
+} from './pages/Profile';
+
+/* ---- 고객센터 페이지 ---- */
+import {
+  AnnouncePage,
+  AnnounceDetailPage,
+  FeedBackPage,
+  CSCenterPage,
+  FAQPage,
+  FAQDetailPage,
+  InquiryDetailPage,
+  InquiryPage,
+  InquiryHistoryPage,
+} from './pages/Cscenter';
+
+import { get } from '@_utils/api';
+import IsLoginTemplate from '@_common/isLoginTemplate';
+import { LocationResponseType } from './pages/Mytrip/LocationSelectPage';
 
 const router = createBrowserRouter([
+  /* ---- 홈 페이지 ---- */
   {
     path: '/',
     element: <HomePage />,
   },
+
+  /* ---- 아티클 페이지 ---- */
   {
     path: '/articles',
     element: <ArticlesPage />,
   },
-  /* ---- 여행기 페이지 ---- */
   {
-    path: '/journal/shortform/:id',
-    element: <ShortFormPage />,
+    path: '/article/:id',
+    element: <ArticlePage />,
     loader: async () => {
       if (localStorage.getItem('access_token')) {
         const { data } = await get<TUserProfile>('/user/profile');
@@ -60,18 +80,17 @@ const router = createBrowserRouter([
       return '';
     },
   },
-  // {
-  //   path: "/journal/snapshot/:id",
-  //   element: <SnapshotPage />,
-  // },
-  // {
-  //   path: "/journal/post/:id",
-  //   element: <PostPage />,
-  // },
-  // {
-  //   path: "/journal/video/:id",
-  //   element: <VideoPage />,
-  // },
+
+  /* ---- 로그인 페이지 ---- */
+  {
+    path: '/login',
+    element: <LoginPage />,
+  },
+  {
+    path: '/signup',
+    element: <SignUpPage />,
+  },
+
   /* ---- 내 여행 페이지 ---- */
   {
     path: '/mytrip',
@@ -105,7 +124,7 @@ const router = createBrowserRouter([
       </IsLoginTemplate>
     ),
     loader: async () => {
-      const { data } = await get<locationResponseType[]>('/region');
+      const { data } = await get<LocationResponseType[]>('/region');
       return data;
     },
   },
@@ -161,6 +180,25 @@ const router = createBrowserRouter([
       </IsLoginTemplate>
     ),
   },
+
+  /* ---- 스크랩 페이지 ---- */
+  {
+    path: '/scrapbook',
+    element: (
+      <IsLoginTemplate>
+        <ScrapBookPage />
+      </IsLoginTemplate>
+    ),
+  },
+  {
+    path: '/scrapbook/:id',
+    element: (
+      <IsLoginTemplate>
+        <ScrapBookGroupPage />
+      </IsLoginTemplate>
+    ),
+  },
+
   /* ---- 유저 프로필 페이지 ---- */
   {
     path: '/profile',
@@ -182,14 +220,6 @@ const router = createBrowserRouter([
       };
     },
   },
-  // {
-  //   path: "/profile/:uid/follow",
-  //   element: (
-  //     <IsLoginTemplate>
-  //       <UserFollowPage />
-  //     </IsLoginTemplate>
-  //   ),
-  // },
   {
     // TODO : [LOGIN 기능 정의 이후] LOGIN 정보를 기반으로 접근 허용 / 거부
     path: '/profile/edit',
@@ -215,32 +245,7 @@ const router = createBrowserRouter([
       return data;
     },
   },
-  /* ---- 스크랩 페이지 ---- */
-  {
-    path: '/scrapbook',
-    element: (
-      <IsLoginTemplate>
-        <ScrapBookPage />
-      </IsLoginTemplate>
-    ),
-  },
-  {
-    path: '/scrapbook/:id',
-    element: (
-      <IsLoginTemplate>
-        <ScrapBookGroupPage />
-      </IsLoginTemplate>
-    ),
-  },
-  /* ---- 로그인 페이지 ---- */
-  {
-    path: '/login',
-    element: <LoginPage />,
-  },
-  {
-    path: '/signup',
-    element: <SignUpPage />,
-  },
+
   /* ---- 고객센터 페이지 ---- */
   {
     // 고객센터/도움말
@@ -332,18 +337,6 @@ const router = createBrowserRouter([
       </IsLoginTemplate>
     ),
   },
-  // 아티클
-  {
-    path: '/article/:id',
-    element: <ArticlePage />,
-    loader: async () => {
-      if (localStorage.getItem('access_token')) {
-        const { data } = await get<TUserProfile>('/user/profile');
-        return data.avatarURL;
-      }
-      return '';
-    },
-  },
   {
     // 약관
     path: '/terms/:id',
@@ -373,11 +366,6 @@ const router = createBrowserRouter([
         <ResignDonePage />
       </IsLoginTemplate>
     ),
-  },
-  {
-    // Share Target Page
-    path: '/share-target',
-    element: <ShareTargetPage />,
   },
 ]);
 

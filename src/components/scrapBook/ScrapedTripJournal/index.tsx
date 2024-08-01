@@ -5,7 +5,7 @@ import addCircle from '../../../assets/icons/add_circle.svg';
 import KebabMenuIcon from '../../../assets/icons/menu_kebab.svg?react';
 import EditIcon from '../../../assets/icons/edit.svg?react';
 import DeleteIcon from '../../../assets/icons/delete.svg?react';
-import { deletes, get, patch, post } from '../../../utils/api';
+import { deletes, get, patch, post } from '@_utils/api';
 import useTextInputPopup from '../../../hooks/useTextInputPopup';
 import useModal from '../../../hooks/useModal';
 import MenuOptionList from '../../common/MenuOptionList';

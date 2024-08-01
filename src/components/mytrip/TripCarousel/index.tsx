@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { TravelResponseType } from '@_types/TravelRespones.type';
 
-import { get } from '../../../utils/api';
+import { get } from '@_utils/api';
 
 import MyScheduleCard from '../MyScheduleCard';
 import * as S from './style';

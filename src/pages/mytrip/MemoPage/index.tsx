@@ -3,8 +3,7 @@ import { useState } from 'react';
 import * as S from './style';
 import PageTemplate from '../../../components/common/PageTemplate';
 import Button from '../../../components/common/Button';
-import { patch } from '../../../utils/api';
-import PageHeader from '../../../components/common/PageHeader';
+import { patch } from '@_utils/api';
 import Typography from '../../../components/common/Typography';
 import BackButton from '@_common/BackButton';
 

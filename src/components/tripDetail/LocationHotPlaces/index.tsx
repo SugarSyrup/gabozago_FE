@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { get } from '../../../utils/api';
+import { get } from '@_utils/api';
 import Typography from '../../common/Typography';
 
 import RecommendationListItem from '../RecommendationListItem';

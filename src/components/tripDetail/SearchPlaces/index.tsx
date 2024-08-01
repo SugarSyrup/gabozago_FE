@@ -6,7 +6,7 @@ import SearchIcon from '../../../assets/icons/search.svg?react';
 import RecommendationListItem from '../RecommendationListItem';
 import SelectedPlaceItem from '../SelectedPlaceItem';
 import { selectedPlacesState } from '../../../recoil/mytrip/selectedPlacesState';
-import { get } from '../../../utils/api';
+import { get } from '@_utils/api';
 import useDebounce from '../../../hooks/useDebounce';
 
 interface Props {

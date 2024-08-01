@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { get } from '../../../utils/api';
+import { get } from '@_utils/api';
 import ArticleItem from '../ArticleItem';
 
 import * as S from './style';

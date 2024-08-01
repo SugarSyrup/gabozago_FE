@@ -1,7 +1,7 @@
 import DoubleCircleIcon from '../../../assets/icons/double_circle.svg?react';
 import BookIcon from '../../../assets/icons/book.svg?react';
 import useModal from '../../../hooks/useModal';
-import isLogin from '../../../utils/isLogin';
+import isLogin from '@_utils/isLogin';
 
 import * as S from './style';
 

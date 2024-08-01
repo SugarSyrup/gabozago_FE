@@ -12,7 +12,7 @@ import ExclamationIcon from '../../../assets/icons/exclamation_circle.svg?react'
 import DeleteIcon from '../../../assets/icons/delete.svg?react';
 import useModal from '../../../hooks/useModal';
 import MenuOptionList from '../../common/MenuOptionList';
-import { post } from '../../../utils/api';
+import { post } from '@_utils/api';
 import useReportPopup from '../../../hooks/useReportPopup';
 import Typography from '../../common/Typography';
 import CommentDeleteToast from '../../common/Toast/Toast/CommentDeleteToast';

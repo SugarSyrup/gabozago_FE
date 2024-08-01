@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 
 import Typography from '../../components/common/Typography';
 import { ReportToast } from '../../components/common/Toast';
-import { post } from '../../utils/api';
+import { post } from '@_utils/api';
 
 import usePopup from '../usePopup';
 import * as S from './style';

@@ -12,7 +12,7 @@ import PageTemplate from '../../../components/common/PageTemplate';
 import Typography from '../../../components/common/Typography';
 import Heading from '../../../components/common/Heading';
 
-import { get, post } from '../../../utils/api';
+import { get, post } from '@_utils/api';
 import usePopup from '../../../hooks/usePopup';
 import { selectedPlacesState } from '../../../recoil/mytrip/selectedPlacesState';
 import * as S from './style';

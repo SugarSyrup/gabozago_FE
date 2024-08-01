@@ -15,7 +15,7 @@ import SearchPlaces from '../../../components/tripDetail/SearchPlaces';
 import LocationHotPlaces from '../../../components/tripDetail/LocationHotPlaces';
 import LocationRecommendContents from '../../../components/tripDetail/LocationRecommendContents';
 import ScrapedPlace from '../../../components/tripDetail/ScrapedPlace';
-import { get, post } from '../../../utils/api';
+import { get, post } from '@_utils/api';
 
 import * as S from './style';
 import usePopup from '../../../hooks/usePopup';

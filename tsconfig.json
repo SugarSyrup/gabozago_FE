@@ -12,6 +12,7 @@
       "@_imgs/*": ["./src/assets/imgs/*"],
       "@_common/*": ["./src/components/common/*"],
       "@_recoil/*": ["./src/recoil/*"],
+      "@_utils/*": ["./src/utils/*"],
     },
 
     /* Bundler mode */

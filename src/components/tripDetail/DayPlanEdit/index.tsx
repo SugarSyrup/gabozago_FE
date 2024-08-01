@@ -2,7 +2,7 @@ import { Droppable } from 'react-beautiful-dnd';
 import { useRecoilState } from 'recoil';
 import * as S from './style';
 import EditablePlaceItem from '../EditablePlaceItem';
-import { parseDateString } from '../../../utils/parseDateString';
+import { parseDateString } from '@_utils/calendar';
 import { editingTripPlanState } from '../../../recoil/tripState';
 
 interface Props {

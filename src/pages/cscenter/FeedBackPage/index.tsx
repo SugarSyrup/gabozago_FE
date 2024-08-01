@@ -5,7 +5,7 @@ import PageTemplate from '../../../components/common/PageTemplate';
 import { HeaderWithBack } from '../../../components/common/Header';
 import BottomButtonContainer from '../../../components/common/BottomButtonContainer';
 
-import { post } from '../../../utils/api';
+import { post } from '@_utils/api';
 import usePopup from '../../../hooks/usePopup';
 
 import * as S from './style';

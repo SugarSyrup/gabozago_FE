@@ -8,7 +8,7 @@ import {
   journalFilterState,
   journalOrderingOptions,
 } from '../../../../recoil/filters/journalState';
-import { get } from '../../../../utils/api';
+import { get } from '@_utils/api';
 import { orderingOptionMap, themeCodeMap, themeOptions } from '../../../../recoil/filters/codeMap';
 import {
   ButtonsOptions,

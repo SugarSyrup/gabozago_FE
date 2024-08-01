@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 import * as S from './style';
 import BookMarkIcon from '../../../assets/icons/bookmark_filled.svg?react';
-import { get, post } from '../../../utils/api';
+import { get, post } from '@_utils/api';
 import RightChevronIcon from '../../../assets/icons/chevron_right.svg?react';
 import Typography from '../../common/Typography';
 import { scrapPlaceFilterState } from '../../../recoil/filters/scrapPlaceFilterState';

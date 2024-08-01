@@ -4,7 +4,7 @@ import * as S from './style';
 import ChevronBottomIcon from '../../../assets/icons/chevron_bottom.svg?react';
 import ChevronTopIcon from '../../../assets/icons/chevron_top.svg?react';
 import { DayPlan } from '../TripPlanList';
-import { markerColors } from '../../../pages/mytrip/DetailPage';
+import { markerColors } from '../../../pages/Mytrip/DetailPage';
 import MarkerWithInfoWindow from '../MarkerWithInfoWindow';
 import Polyline from '../Polyline';
 

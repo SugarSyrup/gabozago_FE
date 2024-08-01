@@ -10,7 +10,7 @@ import SettingsIcon from '../../../assets/icons/cs-settings.svg?react';
 import ServicesIcon from '../../../assets/icons/cs-services.svg?react';
 import RightChevron from '../../../assets/icons/chevron_right.svg?react';
 
-import { get } from '../../../utils/api';
+import { get } from '@_utils/api';
 
 import * as S from './style';
 

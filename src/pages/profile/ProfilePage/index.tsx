@@ -13,7 +13,7 @@ import UserActivity from '../../../components/profile/UserActivity';
 import Typography from '../../../components/common/Typography';
 
 import * as S from './style';
-import { get } from '../../../utils/api';
+import { get } from '@_utils/api';
 import { Header, HeaderText } from '../../../components/common/Header';
 
 const userStatics = [

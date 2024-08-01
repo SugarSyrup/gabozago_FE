@@ -11,7 +11,7 @@ import {
 import useSelect from '../../../hooks/useSelect';
 import useModal from '../../../hooks/useModal';
 import Typography from '../../common/Typography';
-import { parseDateString } from '../../../utils/parseDateString';
+import { parseDateString } from '@_utils/calendar';
 import Button from '../../common/Button';
 
 function EditModeBottomControlBox() {

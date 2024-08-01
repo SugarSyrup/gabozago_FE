@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import Typography from '../../components/common/Typography';
 import InfomationIcon from '../../assets/icons/exclamation_circle.svg?react';
-import { deletes, patch } from '../../utils/api';
+import { deletes, patch } from '@_utils/api';
 
 import useModal from '../useModal';
 import usePopup from '../usePopup';

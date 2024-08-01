@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import TripItem from '../TripItem';
 
 import * as S from './style';
-import { get } from '../../../utils/api';
+import { get } from '@_utils/api';
 
 interface travelType {
   id: number;

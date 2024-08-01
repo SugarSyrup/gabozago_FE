@@ -6,7 +6,7 @@ import Typography from '../../common/Typography';
 
 import * as S from './style';
 import useScrapModal from '../../video/useScrapModal';
-import { post } from '../../../utils/api';
+import { post } from '@_utils/api';
 
 interface Props {
   id: number;
