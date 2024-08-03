@@ -8,7 +8,6 @@ import Title from '../../common/Typography/Title';
 import BookMarkIcon from '../../../assets/icons/bookmark.svg?react';
 
 import * as S from './style';
-import ShortFormList from '../journals/shortform/ShortFormList';
 import { get, post } from '@_utils/api';
 import useScrapModal from '../../video/useScrapModal';
 
@@ -24,23 +23,23 @@ interface TArticle {
   }[];
 }
 
-interface TShortForms {
-  next: string | null;
-  previous: string | null;
-  results: {
-    id: number;
-    title: string;
-    videoId: string;
-    location: string[];
-    theme: string[];
-    views: number;
-  }[];
-}
+// interface TShortForms {
+//   next: string | null;
+//   previous: string | null;
+//   results: {
+//     id: number;
+//     title: string;
+//     videoId: string;
+//     location: string[];
+//     theme: string[];
+//     views: number;
+//   }[];
+// }
 
 function Recommendation() {
   const navigate = useNavigate();
   const [articleData, setArticleData] = useState<TArticle['results']>([]);
-  const [shortformData, setShortformData] = useState<TShortForms['results']>([]);
+  // const [shortformData, setShortformData] = useState<TShortForms['results']>([]);
   const [currentArticleId, setCurrentArticleId] = useState<number>(0);
   const [currentArticleIdx, setCurrentArticleIdx] = useState<number>(0);
   const [isUserScrapedList, setIsUserScrapedList] = useState<boolean[]>([]);
@@ -172,9 +171,7 @@ function Recommendation() {
       <S.ContentSpace />
       <S.ContentsContainer>
         <Headline size="sm">인기 숏폼 콘텐츠</Headline>
-        <S.ShortFormListContainer>
-          <ShortFormList data={shortformData} />
-        </S.ShortFormListContainer>
+        <S.ShortFormListContainer />
       </S.ContentsContainer>
     </>
   );

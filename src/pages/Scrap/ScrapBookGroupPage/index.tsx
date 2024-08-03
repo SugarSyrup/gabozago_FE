@@ -8,9 +8,9 @@ import PageHeader from '../../../components/common/PageHeader';
 import TabBar from '../../../components/common/TabBar';
 import ScrapedArticle from '../../../components/scrapBook/ScrapedArticle';
 import FilterList from '../../../components/common/FilterList';
-import ShortFormList, {
-  ShortForm,
-} from '../../../components/home/journals/shortform/ShortFormList';
+// import ShortFormList, {
+//   ShortForm,
+// } from '../../../components/home/journals/shortform/ShortFormList';
 import {
   ButtonsOptions,
   SelectOptions,
@@ -199,9 +199,7 @@ function ScrapBookGroupPage() {
             </li>
           ))}
         </S.ArticleList>
-        <S.ShortformContainer>
-          <ShortFormList data={shortForms} />
-        </S.ShortformContainer>
+        <S.ShortformContainer>{/* <ShortFormList data={shortForms} /> */}</S.ShortformContainer>
       </S.ContentsContainer>
     </PageTemplate>
   );
