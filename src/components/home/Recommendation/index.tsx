@@ -168,11 +168,6 @@ function Recommendation() {
           ))}
         </S.Slider>
       </S.ContentsContainer>
-      <S.ContentSpace />
-      <S.ContentsContainer>
-        <Headline size="sm">인기 숏폼 콘텐츠</Headline>
-        <S.ShortFormListContainer />
-      </S.ContentsContainer>
     </>
   );
 }

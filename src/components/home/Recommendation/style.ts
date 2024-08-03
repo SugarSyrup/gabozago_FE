@@ -79,18 +79,3 @@ export const BookMarkWrapper = styled.div<{ isBookmark: boolean }>`
     }
   }
 `;
-
-export const ShortFormListContainer = styled.div`
-  width: 100%;
-  padding-top: 20px;
-`;
-
-export const ContentSpace = styled.div`
-  position: absolute;
-  margin-left: -20px;
-
-  width: 100%;
-  height: 14px;
-
-  background-color: ${({ theme }) => theme.gray06};
-`;
