@@ -1,16 +1,23 @@
-import * as S from './style';
+import { useNavigate } from 'react-router-dom';
+import { isAndroid, isIOS } from 'react-device-detect';
 
 import LogoIcon from '@_icons/logo_text.svg?react';
 import BellIcon from '@_icons/bell_pin_fill.svg?react';
 import LogoForeIcon from '@_icons/logo_fore.svg?react';
 import InstagramIcon from '@_icons/instagram.svg?react';
+import ChevronRightIcon from '@_icons/chevron_right.svg?react';
+
+import Typography from '@_common/Typography';
+import OutlineButton from '@_common/Button/OutlineButton';
 
 import PageTemplate from '../../components/common/PageTemplate';
-import Recommendation from '../../components/home/Recommendation';
-import Typography from '@_common/Typography';
-import { isAndroid, isIOS } from 'react-device-detect';
+import PopularArticles from '../../components/home/PopularArticles';
+import HotArticles from '../../components/home/HotArticles';
+
+import * as S from './style';
 
 function HomePage() {
+  const navigate = useNavigate();
   return (
     <PageTemplate>
       {/* Header */}
@@ -22,8 +29,48 @@ function HomePage() {
       </S.Header>
       {/* Banner */}
       {/* Place Recommend */}
+
       {/* Articles */}
-      <Recommendation />
+      <S.ArticleContainer>
+        <S.ArticleIntroduceTitle>
+          <Typography.Headline size="sm" color="inherit" noOfLine={2}>
+            오직 가보자고에서만!
+            <br />
+            놓칠 수 없는 <S.FontHighlight>여행 정보 아티클</S.FontHighlight>
+          </Typography.Headline>
+        </S.ArticleIntroduceTitle>
+
+        <S.ArticleIntroduceTitle>
+          <Typography.Headline size="sm" color="inherit" noOfLine={-1}>
+            금주 인기 아티클 Top 5
+          </Typography.Headline>
+        </S.ArticleIntroduceTitle>
+
+        <PopularArticles />
+
+        <S.ArticleIntroduceTitle>
+          <Typography.Headline size="sm" color="inherit" noOfLine={-1}>
+            인기 급상승 아티클 🔥
+          </Typography.Headline>
+        </S.ArticleIntroduceTitle>
+
+        <HotArticles />
+
+        <OutlineButton
+          onClick={() => {
+            navigate('/aritcles');
+          }}
+        >
+          <S.ButtonContent>
+            <Typography.Title size="sm" color="inherit">
+              아티클 더보기
+            </Typography.Title>
+            <ChevronRightIcon />
+          </S.ButtonContent>
+        </OutlineButton>
+      </S.ArticleContainer>
+
+      {/* Footer */}
       <S.Footer>
         <S.FooterTitle>
           <Typography.Title size="sm" color="inherit">

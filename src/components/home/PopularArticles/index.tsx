@@ -36,7 +36,7 @@ interface TArticle {
 //   }[];
 // }
 
-function Recommendation() {
+function PopularArticles() {
   const navigate = useNavigate();
   const [articleData, setArticleData] = useState<TArticle['results']>([]);
   // const [shortformData, setShortformData] = useState<TShortForms['results']>([]);
@@ -172,4 +172,4 @@ function Recommendation() {
   );
 }
 
-export default Recommendation;
+export default PopularArticles;
