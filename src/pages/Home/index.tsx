@@ -40,19 +40,19 @@ function HomePage() {
           </Typography.Headline>
         </S.ArticleIntroduceTitle>
 
-        <S.ArticleIntroduceTitle>
+        <S.ArticleTitle>
           <Typography.Headline size="sm" color="inherit" noOfLine={-1}>
             금주 인기 아티클 Top 5
           </Typography.Headline>
-        </S.ArticleIntroduceTitle>
+        </S.ArticleTitle>
 
         <PopularArticles />
 
-        <S.ArticleIntroduceTitle>
+        <S.ArticleTitle>
           <Typography.Headline size="sm" color="inherit" noOfLine={-1}>
             인기 급상승 아티클 🔥
           </Typography.Headline>
-        </S.ArticleIntroduceTitle>
+        </S.ArticleTitle>
 
         <HotArticles />
 

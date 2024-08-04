@@ -50,6 +50,15 @@ export const ArticleIntroduceTitle = styled.div`
   color: ${({ theme }) => theme.colors.font.primary};
 `;
 
+export const ArticleTitle = styled.h4`
+  width: 100%;
+
+  display: flex;
+  justify-content: flex-start;
+
+  color: ${({ theme }) => theme.colors.font.primary};
+`;
+
 export const FontHighlight = styled.span`
   color: ${({ theme }) => theme.colors.blue.primary};
 `;
