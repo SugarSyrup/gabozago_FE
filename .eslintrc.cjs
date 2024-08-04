@@ -42,6 +42,6 @@ module.exports = {
     "react/no-unstable-nested-components": 'off',
     "jsx-a11y/no-noninteractive-element-interactions": 'off',
     "jsx-a11y/label-has-associated-control": 'off',
-
+    "no-param-reassign": 'off'
   },
 };
