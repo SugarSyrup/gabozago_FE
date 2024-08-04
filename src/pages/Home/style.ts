@@ -28,9 +28,19 @@ export const BellWrapper = styled.div<{ isAlert: boolean }>`
   }
 `;
 
+// Place Recommendation
+export const PlaceRecommendContainer = styled.section`
+  width: 100%;
+
+  margin-bottom: 32px;
+
+  display: flex;
+  flex-direction: column;
+`;
+
+// Articles
 export const ArticleContainer = styled.section`
   width: 100%;
-  padding-top: 20px;
   margin-bottom: 40px;
 
   display: flex;

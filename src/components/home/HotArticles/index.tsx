@@ -76,9 +76,9 @@ function HotArticles() {
               </Label>
             </div>
             <S.BookMarkWrapper
-              isBookmark={isUserScrapedList[idx + 5]}
+              isBookmark={isUserScrapedList[idx + 6]}
               onClick={() => {
-                setCurrentArticleIdx(idx + 5);
+                setCurrentArticleIdx(idx + 6);
                 if (localStorage.getItem('access_token')) {
                   if (!article.isBookmarked) {
                     post<{ message: 'Create Success' | 'Delete Success' }>(
@@ -90,7 +90,7 @@ function HotArticles() {
                     ).then(() => {});
                   }
                   setIsUserScrapedList((prev) => {
-                    prev[idx + 5] = true;
+                    prev[idx + 6] = true;
                     return [...prev];
                   });
                   setCurrentArticleId(article.id);
@@ -98,7 +98,7 @@ function HotArticles() {
                 }
               }}
             >
-              {isUserScrapedList[idx + 5] ? <BookMarkFilledIcon /> : <BookMarkIcon />}
+              {isUserScrapedList[idx + 6] ? <BookMarkFilledIcon /> : <BookMarkIcon />}
             </S.BookMarkWrapper>
           </S.SliderItem>
         ))}

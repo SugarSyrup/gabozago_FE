@@ -51,7 +51,7 @@ function PopularArticles() {
     <>
       <ScrapModal />
       <S.Slider>
-        {articleData?.slice(5, articleData.length).map((article, idx) => (
+        {articleData?.slice(0, 5).map((article, idx) => (
           <S.SliderItem key={article.id}>
             <S.SliderImg
               src={article.thumbnailURL}
@@ -69,9 +69,9 @@ function PopularArticles() {
               </Label>
             </div>
             <S.BookMarkWrapper
-              isBookmark={isUserScrapedList[idx + 5]}
+              isBookmark={isUserScrapedList[idx]}
               onClick={() => {
-                setCurrentArticleIdx(idx + 5);
+                setCurrentArticleIdx(idx);
                 if (localStorage.getItem('access_token')) {
                   if (!article.isBookmarked) {
                     post<{ message: 'Create Success' | 'Delete Success' }>(
@@ -83,7 +83,7 @@ function PopularArticles() {
                     ).then(() => {});
                   }
                   setIsUserScrapedList((prev) => {
-                    prev[idx + 5] = true;
+                    prev[idx] = true;
                     return [...prev];
                   });
                   setCurrentArticleId(article.id);
@@ -91,7 +91,7 @@ function PopularArticles() {
                 }
               }}
             >
-              {isUserScrapedList[idx + 5] ? <BookMarkFilledIcon /> : <BookMarkIcon />}
+              {isUserScrapedList[idx] ? <BookMarkFilledIcon /> : <BookMarkIcon />}
             </S.BookMarkWrapper>
           </S.SliderItem>
         ))}

@@ -13,11 +13,26 @@ import OutlineButton from '@_common/Button/OutlineButton';
 import PageTemplate from '../../components/common/PageTemplate';
 import PopularArticles from '../../components/home/PopularArticles';
 import HotArticles from '../../components/home/HotArticles';
+import PlaceRecommendation from '../../components/home/PlaceRecommendation';
 
 import * as S from './style';
+import { useEffect, useState } from 'react';
+import isLogin from '@_utils/isLogin';
+import { get } from '@_utils/api';
+import { TUserProfile } from '@_types/TUserProfile';
 
 function HomePage() {
   const navigate = useNavigate();
+  const [username, setUsername] = useState<string>('');
+
+  useEffect(() => {
+    if (isLogin()) {
+      get<TUserProfile>('/user/profile').then((response) => {
+        setUsername(response.data.nickname);
+      });
+    }
+  }, []);
+
   return (
     <PageTemplate>
       {/* Header */}
@@ -29,6 +44,16 @@ function HomePage() {
       </S.Header>
       {/* Banner */}
       {/* Place Recommend */}
+      <S.PlaceRecommendContainer>
+        <S.ArticleIntroduceTitle>
+          <Typography.Headline size="sm" color="inherit" noOfLine={2}>
+            <S.FontHighlight>{username} 님</S.FontHighlight>
+            <br />
+            이런 장소는 어떠세요?
+          </Typography.Headline>
+        </S.ArticleIntroduceTitle>
+        <PlaceRecommendation />
+      </S.PlaceRecommendContainer>
 
       {/* Articles */}
       <S.ArticleContainer>
