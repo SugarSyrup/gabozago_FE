@@ -47,7 +47,7 @@ function HomePage() {
         });
         return prev === 2 ? 1 : prev + 1;
       });
-    }, 4000);
+    }, 5000);
   }, []);
 
   return (
@@ -62,7 +62,11 @@ function HomePage() {
 
       {/* Banner */}
       <S.Banner ref={bannerRef}>
-        <S.TripBanner>
+        <S.TripBanner
+          onClick={() => {
+            navigate('/mytrip');
+          }}
+        >
           <Typography.Title size="lg" color="inherit" noOfLine={2}>
             가보자고와 함께하는
             <br />
