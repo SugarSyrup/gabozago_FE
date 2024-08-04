@@ -14,6 +14,7 @@ import PageTemplate from '../../components/common/PageTemplate';
 import PopularArticles from '../../components/home/PopularArticles';
 import HotArticles from '../../components/home/HotArticles';
 import PlaceRecommendation from '../../components/home/PlaceRecommendation';
+import TripBucketList from '../../components/home/TripBucketList';
 
 import * as S from './style';
 import { useEffect, useState } from 'react';
@@ -43,6 +44,21 @@ function HomePage() {
         </S.BellWrapper>
       </S.Header>
       {/* Banner */}
+
+      {/* Recently Trip Bucket */}
+      <S.TripBucketContainer>
+        <S.TripBucketTitle>
+          <Typography.Headline size="sm" color="inherit" noOfLine={-1}>
+            최근 담은 트립 버킷
+          </Typography.Headline>
+          <S.TripBucketAll>
+            <span>전체 보기</span>
+            <ChevronRightIcon />
+          </S.TripBucketAll>
+        </S.TripBucketTitle>
+        <TripBucketList />
+      </S.TripBucketContainer>
+
       {/* Place Recommend */}
       <S.PlaceRecommendContainer>
         <S.ArticleIntroduceTitle>

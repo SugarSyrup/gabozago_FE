@@ -28,6 +28,46 @@ export const BellWrapper = styled.div<{ isAlert: boolean }>`
   }
 `;
 
+// Rectently Trip Bucket
+export const TripBucketContainer = styled.section`
+  padding-top: 8px;
+  padding-bottom: 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
+
+export const TripBucketTitle = styled.div`
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const TripBucketAll = styled.div`
+  display: flex;
+  align-items: center;
+  color: ${({ theme }) => theme.colors.font.tertiary};
+
+  span {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: -0.048px;
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+
+    path {
+      fill: ${({ theme }) => theme.colors.font.tertiary};
+    }
+  }
+`;
+
 // Place Recommendation
 export const PlaceRecommendContainer = styled.section`
   width: 100%;
