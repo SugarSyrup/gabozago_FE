@@ -1,40 +1,13 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-export const ModalContainer = styled.div`
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  grid-template-columns: 100%;
-  margin: auto;
-
-  max-width: 500px;
-  max-height: 100dvh;
-  width: 100%;
-  height: 100dvh;
-  @supports (-webkit-touch-callout: none) {
-    height: -webkit-fill-available;
-  }
-
-  background-color: ${({ theme }) => theme.white};
-  z-index: 0;
-`;
-
-export const TopBarText = styled.span`
-  color: ${({ theme }) => theme.black};
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 22px;
-
-  padding-bottom: 14px;
-  padding-top: 14px;
-`;
-
 export const ContentContainer = styled.div`
   width: calc(100% + 40px);
   margin-left: -20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 `;
 
 export const ImgSlider = styled.div`
@@ -62,77 +35,92 @@ export const ImgSlider = styled.div`
   }
 `;
 
-export const TmpImg = styled.img`
+export const TextContainer = styled.div`
   width: 100%;
-  max-height: 200px;
-  object-fit: cover;
-  flex-shrink: 0;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 `;
 
-export const ImgRegistContainer = styled.div`
+export const PlaceTitle = styled.div`
+  position: relative;
   width: 100%;
-  height: 200px;
-
-  background-color: #e4e4e4;
-  color: #a6a6a6;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  gap: 8px;
+  align-items: flex-start;
 
-  svg {
-    width: 56px;
-    height: 56px;
-    cursor: pointer;
-  }
+  button {
+    position: absolute;
+    right: 0;
 
-  input {
-    display: none;
+    border: 1px solid rgba(0, 0, 0, 0.1);
   }
 `;
 
+export const ScrapButton = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+
+  color: ${({ theme }) => theme.colors.font.tertiary};
+
+  svg {
+    width: 16px;
+    height: 16px;
+
+    path {
+      fill: ${({ theme }) => theme.colors.font.tertiary};
+    }
+  }
+`;
+
+// ContentList
 export const ContentList = styled.div`
   width: 100%;
-  padding-left: 20px;
-  padding-right: 20px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 8px;
 `;
 
 export const InfomationList = styled.ol`
   width: 100%;
-  margin-top: 8px;
-  padding-left: 20px;
-  padding-right: 20px;
 
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 8px;
 `;
 
 export const InfomationItem = styled.li`
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 4px;
+  padding-bottom: 4px;
 
   display: flex;
   justify-content: flex-start;
   gap: 20px;
 
   svg {
+    flex-shrink: 0;
     width: 20px;
     height: 20px;
     path {
-      fill: ${({ theme }) => theme.gray};
+      fill: ${({ theme }) => theme.colors.gray.secondary};
     }
   }
 `;
 
 export const InfomationText = styled.span`
-  color: ${({ theme }) => theme.black};
-  font-size: 12px;
+  color: ${({ theme }) => theme.colors.font.primary};
+  font-size: 14px;
   font-weight: 400;
-  line-height: 20px;
-  letter-spacing: 0.25px;
+  line-height: 24px;
 `;
 
 export const InfomationLink = styled(Link)`
@@ -144,35 +132,88 @@ export const InfomationLink = styled(Link)`
   text-decoration-line: underline;
 `;
 
-export const Buttons = styled.div`
+export const SeperateLine = styled.div`
   width: 100%;
-  margin-top: 14px;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.gray.tertiary};
 `;
 
-export const Button = styled.div`
+export const MemoContainer = styled.div`
   width: 100%;
-  padding: 9px 27px;
-
-  border-radius: 6px;
-  background-color: ${({ theme }) => theme.gray05};
+  padding-top: 8px;
+  padding-bottom: 8px;
 
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 16px;
+`;
+
+export const MemoDataList = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
+export const MemoItem = styled.div`
+  width: 100%;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 32px;
+
+  h3 {
+    flex-shrink: 0;
+  }
+`;
+
+export const MemoLink = styled.a`
+  color: ${({ theme }) => theme.colors.blue.primary};
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.3px;
+  text-decoration-line: underline;
+`;
+
+export const Memo = styled.span`
+  color: ${({ theme }) => theme.colors.font.tertiary};
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.3px;
+`;
+
+export const ExtraInfomationContainer = styled.div`
+  width: 100%;
+  padding-top: 8px;
+  padding-bottom: 8px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
+
+export const ExtraInfomation = styled.div`
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const ExtraInfomationItem = styled.div`
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 10px;
-  cursor: pointer;
+  color: ${({ theme }) => theme.colors.font.secondary};
 
   svg {
-    width: 18px;
-    height: 18px;
-
-    path {
-      fill: #a6a6a6;
-    }
+    width: 32px;
+    height: 32px;
   }
 `;

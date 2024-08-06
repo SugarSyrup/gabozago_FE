@@ -10,6 +10,7 @@ export const Header = styled.header`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-areas: 'left center right';
+  background-color: white;
 `;
 
 export const LeftBackButtonWrapper = styled.div`
