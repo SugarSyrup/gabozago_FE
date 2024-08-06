@@ -7,4 +7,5 @@ export const Container = styled.div`
   padding: 15px 30px;
 
   border-top: 1px solid ${({ theme }) => theme.colors.gray.tertiary};
+  background-color: white;
 `;
