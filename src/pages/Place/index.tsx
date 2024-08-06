@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import LocationIcon from '@_icons/location.svg?react';
@@ -11,6 +11,7 @@ import DogIcon from '@_icons/dog.svg?react';
 import WheelChairIcon from '@_icons/wheelChair.svg?react';
 import BabyCarrigeIcon from '@_icons/babyCarrige.svg?react';
 import ScrapIcon from '@_icons/bookmark.svg?react';
+import ArrowTopIcon from '@_icons/arrow_top.svg?react';
 
 import PageTemplate from '../../components/common/PageTemplate';
 import Typography from '../../components/common/Typography';
@@ -37,10 +38,11 @@ type TData = {
 };
 
 function PlacePage() {
-  const navigate = useNavigate();
   const { id } = useParams();
   const [data, setData] = useState<TData>();
-  const [imageURL, setImageURL] = useState<string>('');
+  const [opacity, setOpacity] = useState(0);
+  const titleRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     get<TData>(`/place/${id}`).then((response) => {
@@ -48,11 +50,43 @@ function PlacePage() {
     });
   }, []);
 
+  useEffect(() => {
+    if (!titleRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          const entryIntersectionRatio = Math.floor(entry.intersectionRatio * 100) / 100;
+          if (entryIntersectionRatio >= 0.6) {
+            headerRef.current?.style.setProperty('opacity', `0`);
+          } else {
+            headerRef.current?.style.setProperty('opacity', `1`);
+          }
+        });
+      },
+      {
+        threshold: [0.6, 0.625, 0.65, 0.675, 0.7, 0.725, 0.75, 0.775, 0.8, 0.825, 0.85, 0.875, 0.9],
+      },
+    );
+    observer.observe(titleRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   return (
-    <PageTemplate header={<HeaderWithBack>{data ? data.name : ''}</HeaderWithBack>} nav={false}>
+    <PageTemplate
+      header={
+        <HeaderWithBack>
+          {data ? <S.HeaderName ref={headerRef}>{data.name}</S.HeaderName> : ''}
+        </HeaderWithBack>
+      }
+      nav={false}
+    >
       {data !== undefined && (
         <S.ContentContainer>
-          {data.image.length === 0 && imageURL === '' ? (
+          {data.image.length === 0 ? (
             <PlaceGoogleMap
               height="200px"
               center={{
@@ -76,7 +110,7 @@ function PlacePage() {
 
           {/* Text Infomation */}
           <S.TextContainer>
-            <S.PlaceTitle>
+            <S.PlaceTitle ref={titleRef}>
               <Typography.Headline size="md" color="#000">
                 {data.name}
               </Typography.Headline>
@@ -93,6 +127,13 @@ function PlacePage() {
               </OutlineButton>
             </S.PlaceTitle>
 
+            {/* <button
+              onClick={() => {
+                setOpacity(1);
+              }}
+            >
+              asdf
+            </button> */}
             {/* ContentList */}
             <S.ContentList>
               <S.InfomationList>
@@ -145,6 +186,8 @@ function PlacePage() {
               ]}
             />
             <S.SeperateLine />
+
+            {/* Memo */}
             <S.MemoContainer>
               <Typography.Headline size="sm" color="inherit">
                 저장된 메모
@@ -168,6 +211,8 @@ function PlacePage() {
               </S.MemoDataList>
             </S.MemoContainer>
             <S.SeperateLine />
+
+            {/* Extra Info */}
             <S.ExtraInfomationContainer>
               <Typography.Headline size="sm" color="inherit">
                 상세 정보
@@ -200,32 +245,15 @@ function PlacePage() {
               </S.ExtraInfomation>
             </S.ExtraInfomationContainer>
             <S.SeperateLine />
-            {/* <S.Buttons>
-                <S.Button
-                  onClick={() => {
-                    navigate(`/mytrip/place/${id}`);
-                  }}
-                >
-                  <CalendarAddIcon />
-                  <Typography.Label size="lg">내 일정에 추가하기</Typography.Label>
-                </S.Button>
-                <S.Button
-                  onClick={() => {
-                    post<{ message: string }>('/folder/scrap/place', {
-                      placeId: id,
-                    }).then((response) => {
-                      if (response.data.message === 'Create Success') {
-                        // @TODO: 스크랩 성공 엑션
-                      } else {
-                        // @TODO: 스크랩 실패 엑션
-                      }
-                    });
-                  }}
-                >
-                  <ScrapIcon />
-                  <Typography.Label size="lg">장소 스크랩에 저장</Typography.Label>
-                </S.Button>
-              </S.Buttons> */}
+
+            {/* UpButton */}
+            <S.UpButton
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            >
+              <ArrowTopIcon />
+            </S.UpButton>
           </S.TextContainer>
         </S.ContentContainer>
       )}

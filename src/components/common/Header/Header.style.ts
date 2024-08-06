@@ -8,7 +8,7 @@ export const Header = styled.header`
   padding-right: 20px;
 
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 32px 1fr 32px;
   grid-template-areas: 'left center right';
   background-color: white;
 `;

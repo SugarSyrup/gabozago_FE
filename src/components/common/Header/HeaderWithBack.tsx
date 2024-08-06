@@ -4,7 +4,7 @@ import BackButton from '@_icons/chevron_left.svg?react';
 import Typography from '../Typography';
 
 interface Props {
-  children: string;
+  children: string | React.ReactNode;
 }
 
 function HeaderWithBack({ children }: Props) {

@@ -10,6 +10,10 @@ export const ContentContainer = styled.div`
   gap: 16px;
 `;
 
+export const HeaderName = styled.div`
+  opacity: ${({ opacity }) => opacity};
+`;
+
 export const ImgSlider = styled.div`
   width: 100%;
   max-height: 200px;
@@ -42,6 +46,7 @@ export const TextContainer = styled.div`
 
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 16px;
 `;
 
@@ -216,4 +221,20 @@ export const ExtraInfomationItem = styled.div`
     width: 32px;
     height: 32px;
   }
+`;
+
+export const UpButton = styled.div`
+  margin-top: 8px;
+
+  display: flex;
+  width: 32px;
+  height: 32px;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 36px;
+  border: 1px solid ${({ theme }) => theme.colors.gray.tertiary};
+  background: #fff;
+
+  cursor: pointer;
 `;
