@@ -10,9 +10,7 @@ export const ContentContainer = styled.div`
   gap: 16px;
 `;
 
-export const HeaderName = styled.div`
-  opacity: ${({ opacity }) => opacity};
-`;
+export const HeaderName = styled.div``;
 
 export const ImgSlider = styled.div`
   width: 100%;
@@ -237,4 +235,20 @@ export const UpButton = styled.div`
   background: #fff;
 
   cursor: pointer;
+`;
+
+export const BottomContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  svg {
+    width: 28px;
+    height: 28px;
+
+    path: {
+      fill: white;
+    }
+  }
 `;

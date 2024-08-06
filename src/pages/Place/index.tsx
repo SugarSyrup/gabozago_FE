@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import LocationIcon from '@_icons/location.svg?react';
 import PhoneIcon from '@_icons/phone.svg?react';
@@ -13,16 +13,17 @@ import BabyCarrigeIcon from '@_icons/babyCarrige.svg?react';
 import ScrapIcon from '@_icons/bookmark.svg?react';
 import ArrowTopIcon from '@_icons/arrow_top.svg?react';
 
-import PageTemplate from '../../components/common/PageTemplate';
-import Typography from '../../components/common/Typography';
-import PlaceOperateTime from '../../components/journal/PlaceOperateTime';
-import PlaceGoogleMap from '../../components/journal/GoogleMap';
-import { get, post } from '@_utils/api';
-
-import * as S from './style';
 import { HeaderWithBack } from '@_common/Header';
 import OutlineButton from '@_common/Button/OutlineButton';
+import PageTemplate from '@_common/PageTemplate';
+import Typography from '@_common/Typography';
+import BottomButtonContainer from '@_common/BottomButtonContainer';
+
 import AdditionalText from '../../components/place/AdditionalText';
+import PlaceGoogleMap from '../../components/journal/GoogleMap';
+import { get } from '@_utils/api';
+
+import * as S from './style';
 
 type TData = {
   region: string;
@@ -40,7 +41,6 @@ type TData = {
 function PlacePage() {
   const { id } = useParams();
   const [data, setData] = useState<TData>();
-  const [opacity, setOpacity] = useState(0);
   const titleRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
 
@@ -82,7 +82,16 @@ function PlacePage() {
           {data ? <S.HeaderName ref={headerRef}>{data.name}</S.HeaderName> : ''}
         </HeaderWithBack>
       }
-      nav={false}
+      nav={
+        <BottomButtonContainer onClick={() => {}} bgColor="blue">
+          <S.BottomContainer>
+            <CalendarAddIcon />
+            <Typography.Title size="lg" color="inherit">
+              내 일정에 추가하기
+            </Typography.Title>
+          </S.BottomContainer>
+        </BottomButtonContainer>
+      }
     >
       {data !== undefined && (
         <S.ContentContainer>
@@ -127,13 +136,6 @@ function PlacePage() {
               </OutlineButton>
             </S.PlaceTitle>
 
-            {/* <button
-              onClick={() => {
-                setOpacity(1);
-              }}
-            >
-              asdf
-            </button> */}
             {/* ContentList */}
             <S.ContentList>
               <S.InfomationList>
