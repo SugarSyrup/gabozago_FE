@@ -1,6 +1,9 @@
 # 여행을 더 쉽게, “가보자고”
 
+<div style="width:300px">
+
 ![가보자고 로고](https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F3f1491e7-46b5-42fd-87ce-f24dfdb71617%2Fae19eeb1-29a2-4078-876b-f9946a63a062%2F%25E1%2584%258B%25E1%2585%25A1%25E1%2584%258B%25E1%2585%25B5%25E1%2584%258F%25E1%2585%25A9%25E1%2586%25AB.png?table=block&id=69c4722a-d984-4756-8eb2-f5a9b5aab8a6&spaceId=3f1491e7-46b5-42fd-87ce-f24dfdb71617&width=1440&userId=d4c95a7f-c7aa-4b3b-b9a5-fc3cd96b3c41&cache=v2)
+</div>
 
 ## 💡프로젝트 소개
 
@@ -13,6 +16,14 @@
 **🏆 `2024.03.20.` 2024년 꿈터 플러스 제 1회 대학생 창업 아이디어 경진대회** 최우수상
 
 **🏆 `2024.02.16.` 부산권 LINC 3.0 창업공유대학 IR 피칭 경진대회** 우수/인기상
+
+### 주요 기능
+- 여행/미식 관련 아티클 및 숏폼 보기
+- 여행 일정 생성 및 관리하기
+- 지도에서 행선지 확인 및 편집하기
+- 컨텐츠 스크랩
+- ...
+
 
 ### 팀원
 
@@ -279,7 +290,7 @@ npm run dev
 
 ### 장소 페이지
 
-<table>
+<table width="50%">
 <tr>
 <th width="50%">장소 페이지</th>
 </tr>
@@ -315,7 +326,7 @@ npm run dev
 
 ### 에러 페이지
 
-<table>
+<table width="50%">
 <tr>
 <th width="50%">에러 페이지</th>
 </tr>
@@ -416,7 +427,7 @@ npm run dev
 
 ### 프로필 수정 페이지
 
-<table>
+<table width="50%">
 <tr>
 <th width="50%">프로필 수정 페이지</th>
 </tr>
