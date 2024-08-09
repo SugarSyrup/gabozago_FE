@@ -5,6 +5,9 @@ import { TUserProfile } from './assets/types/TUserProfile';
 /* ---- 홈 페이지 ---- */
 import HomePage from './pages/Home';
 
+/* ---- 홈 페이지 ---- */
+import AlertPage from './pages/Alert';
+
 /* ---- 로그인 페이지 ---- */
 import { LoginPage, SignUpPage, RedirectPage } from './pages/Auth';
 
@@ -62,6 +65,10 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <HomePage />,
+  },
+  {
+    path: '/alert',
+    element: <AlertPage />,
   },
 
   /* ---- 아티클 페이지 ---- */
