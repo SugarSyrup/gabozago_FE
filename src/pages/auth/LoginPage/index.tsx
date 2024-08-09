@@ -14,7 +14,7 @@ import AppleIcon from '../../../assets/icons/apple.svg?react';
 
 import * as S from './style';
 
-interface loginResponse {
+interface LoginResponse {
   status: 'ACTIVE' | 'INACTIVE';
   access: string;
   refresh: string;
@@ -27,7 +27,7 @@ interface loginResponse {
 }
 
 async function login() {
-  const response = await post<loginResponse>('/user/app/login', {
+  const response = await post<LoginResponse>('/user/app/login', {
     uid: 1234321,
     provider: 'google',
     email: 'gbzg_test@gmail.com',
@@ -67,7 +67,7 @@ function LoginPage() {
             onSubmit={(e) => {
               e.preventDefault();
               const formdata = new FormData(e.currentTarget);
-              post<loginResponse>('/user/app/login', {
+              post<LoginResponse>('/user/app/login', {
                 uid: Number(formdata.get('uid')),
                 provider: 'naver',
                 email: formdata.get('email'),
@@ -97,7 +97,8 @@ function LoginPage() {
             </S.FloatingMessage>
             <S.OAuthSquareButton
               onClick={() => {
-                developLogin('kakao');
+                // developLogin('kakao');
+                window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${import.meta.env.VITE_KAKAO_API_KEY}&redirect_uri=${import.meta.env.VITE_KAKAO_REDIRECT_URI}&response_type=code`;
               }}
             >
               <KakaoIcon />
@@ -109,7 +110,8 @@ function LoginPage() {
             <S.OAuthCircleButton
               color="#00BF18"
               onClick={() => {
-                developLogin('naver');
+                // developLogin('naver');
+                window.location.href = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${import.meta.env.VITE_NAVER_CLIENT_ID}&state=${import.meta.env.VITE_NAVER_STATE}&redirect_uri=${import.meta.env.VITE_NAVER_REDIRECT_URI}`;
               }}
             >
               <NaverIcon width={14} height={14} />
@@ -117,7 +119,8 @@ function LoginPage() {
             <S.OAuthCircleButton
               color="#FFFFFF"
               onClick={() => {
-                developLogin('google');
+                // developLogin('google');
+                window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${import.meta.env.VITE_GOOGLE_CLIENT_ID}&redirect_uri=${import.meta.env.VITE_GOOGLE_REDIRECT_URI}&response_type=code&scope=email+profile`;
               }}
             >
               <GoogleIcon width={20} height={20} />
