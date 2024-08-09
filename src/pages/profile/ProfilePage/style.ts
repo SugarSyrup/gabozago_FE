@@ -21,9 +21,10 @@ export const RightIconContainer = styled.div`
   svg {
     width: 28px;
     height: 28px;
+    flex-shrink: 0;
 
     path {
-      color: ${({ theme }) => theme.colors.gray.secondary};
+      fill: ${({ theme }) => theme.colors.gray.secondary};
     }
   }
 `;

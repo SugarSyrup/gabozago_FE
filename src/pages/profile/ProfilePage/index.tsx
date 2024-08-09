@@ -110,6 +110,7 @@ function ProfilePage() {
               </Typography.Headline>
             </HeaderText>
             <S.RightIconContainer>
+              {/* @TODO: BellIcon 안읽은 알람 유무에 따라  */}
               <BellIcon
                 onClick={() => {
                   navigate('/notifications');
@@ -133,11 +134,13 @@ function ProfilePage() {
               </S.ProfileEditBtn>
             </S.UserInfomation>
 
-            <S.UserIntroduce>
-              <Typography.Body size="md" noOfLine={5}>
-                {description}
-              </Typography.Body>
-            </S.UserIntroduce>
+            {description && (
+              <S.UserIntroduce>
+                <Typography.Body size="md" noOfLine={5}>
+                  {description}
+                </Typography.Body>
+              </S.UserIntroduce>
+            )}
 
             <S.Statics>
               {userStatics.map((staticItem, index) => (
