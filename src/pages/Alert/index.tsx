@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 
 import { HeaderWithBack } from '@_common/Header';
 import PageTemplate from '@_common/PageTemplate';
+import Typography from '@_common/Typography';
 import { get } from '@_utils/api';
 
+import AlertList from '../../components/alert/AlertList';
 import * as S from './style';
-import Typography from '@_common/Typography';
 
 function AlertPage() {
   const [data, setData] = useState<[]>([]);
@@ -25,7 +26,25 @@ function AlertPage() {
           </Typography.Title>
         </S.NoDataContainer>
       ) : (
-        <></>
+        <AlertList
+          data={[
+            {
+              name: '알림 이름',
+              time: '알림 시간',
+              isOpen: true,
+            },
+            {
+              name: '알림 이름',
+              time: '알림 시간',
+              isOpen: true,
+            },
+            {
+              name: '알림 이름',
+              time: '알림 시간',
+              isOpen: false,
+            },
+          ]}
+        />
       )}
     </PageTemplate>
   );
