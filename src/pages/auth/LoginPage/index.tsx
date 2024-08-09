@@ -110,7 +110,8 @@ function LoginPage() {
             <S.OAuthCircleButton
               color="#00BF18"
               onClick={() => {
-                developLogin('naver');
+                // developLogin('naver');
+                window.location.href = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${import.meta.env.VITE_NAVER_CLIENT_ID}&state=${import.meta.env.VITE_NAVER_STATE}&redirect_uri=${import.meta.env.VITE_NAVER_REDIRECT_URI}`;
               }}
             >
               <NaverIcon width={14} height={14} />
@@ -118,7 +119,8 @@ function LoginPage() {
             <S.OAuthCircleButton
               color="#FFFFFF"
               onClick={() => {
-                developLogin('google');
+                // developLogin('google');
+                window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${import.meta.env.VITE_GOOGLE_CLIENT_ID}&redirect_uri=${import.meta.env.VITE_GOOGLE_REDIRECT_URI}&response_type=code&scope=email+profile`;
               }}
             >
               <GoogleIcon width={20} height={20} />
