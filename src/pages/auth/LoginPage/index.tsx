@@ -14,7 +14,7 @@ import AppleIcon from '../../../assets/icons/apple.svg?react';
 
 import * as S from './style';
 
-interface loginResponse {
+interface LoginResponse {
   status: 'ACTIVE' | 'INACTIVE';
   access: string;
   refresh: string;
@@ -27,7 +27,7 @@ interface loginResponse {
 }
 
 async function login() {
-  const response = await post<loginResponse>('/user/app/login', {
+  const response = await post<LoginResponse>('/user/app/login', {
     uid: 1234321,
     provider: 'google',
     email: 'gbzg_test@gmail.com',
@@ -67,7 +67,7 @@ function LoginPage() {
             onSubmit={(e) => {
               e.preventDefault();
               const formdata = new FormData(e.currentTarget);
-              post<loginResponse>('/user/app/login', {
+              post<LoginResponse>('/user/app/login', {
                 uid: Number(formdata.get('uid')),
                 provider: 'naver',
                 email: formdata.get('email'),
@@ -97,7 +97,8 @@ function LoginPage() {
             </S.FloatingMessage>
             <S.OAuthSquareButton
               onClick={() => {
-                developLogin('kakao');
+                // developLogin('kakao');
+                window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${import.meta.env.VITE_KAKAO_API_KEY}&redirect_uri=${import.meta.env.VITE_KAKAO_REDIRECT_URI}&response_type=code`;
               }}
             >
               <KakaoIcon />
