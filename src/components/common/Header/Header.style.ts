@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 export const Header = styled.header`
   width: 100%;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   padding-left: 20px;
   padding-right: 20px;
 

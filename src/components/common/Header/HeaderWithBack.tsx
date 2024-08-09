@@ -19,7 +19,7 @@ function HeaderWithBack({ children }: Props) {
         />
       </S.LeftBackButtonWrapper>
       <S.HeaderText>
-        <Typography.Headline size="sm">{children}</Typography.Headline>
+        <Typography.Title size="lg">{children}</Typography.Title>
       </S.HeaderText>
     </S.Header>
   );

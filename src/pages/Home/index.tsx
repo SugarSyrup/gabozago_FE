@@ -40,7 +40,12 @@ function HomePage() {
       {/* Header */}
       <S.Header>
         <LogoIcon />
-        <S.BellWrapper isAlert>
+        <S.BellWrapper
+          isAlert
+          onClick={() => {
+            navigate('/notifications');
+          }}
+        >
           <BellIcon />
         </S.BellWrapper>
       </S.Header>
