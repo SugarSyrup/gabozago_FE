@@ -13,6 +13,9 @@ interface Props {
   }[];
 }
 
+// @TODO: 컴포넌트 누르면 isRead 세팅하기
+// @TODO: 컴포넌트 누르면 해당 페이지로 이동하게끔
+
 function AlertList({ data }: Props) {
   return (
     <S.AlertList>
