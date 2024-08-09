@@ -110,7 +110,11 @@ function ProfilePage() {
               </Typography.Headline>
             </HeaderText>
             <S.RightIconContainer>
-              <BellIcon />
+              <BellIcon
+                onClick={() => {
+                  navigate('/notifications');
+                }}
+              />
               <SettingIcon
                 onClick={() => {
                   navigate('/profile/settings');

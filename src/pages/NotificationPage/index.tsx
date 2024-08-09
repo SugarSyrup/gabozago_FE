@@ -3,13 +3,13 @@ import { useEffect, useState } from 'react';
 import { HeaderWithBack } from '@_common/Header';
 import PageTemplate from '@_common/PageTemplate';
 import Typography from '@_common/Typography';
-import { get } from '@_utils/api';
+// import { get } from '@_utils/api';
 
-import AlertList from '../../components/alert/AlertList';
+import NotificationList from '../../components/notification/NotificationList';
 import * as S from './style';
 
-function AlertPage() {
-  const [data, setData] = useState<[]>([]);
+function NotificationPage() {
+  const [data] = useState<[]>([]);
 
   useEffect(() => {
     // Alert DATA GET
@@ -26,28 +26,10 @@ function AlertPage() {
           </Typography.Title>
         </S.NoDataContainer>
       ) : (
-        <AlertList
-          data={[
-            {
-              name: '알림 이름',
-              time: '알림 시간',
-              isOpen: true,
-            },
-            {
-              name: '알림 이름',
-              time: '알림 시간',
-              isOpen: true,
-            },
-            {
-              name: '알림 이름',
-              time: '알림 시간',
-              isOpen: false,
-            },
-          ]}
-        />
+        <NotificationList data={data} />
       )}
     </PageTemplate>
   );
 }
 
-export default AlertPage;
+export default NotificationPage;

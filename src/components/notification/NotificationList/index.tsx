@@ -16,7 +16,7 @@ interface Props {
 // @TODO: 컴포넌트 누르면 isRead 세팅하기
 // @TODO: 컴포넌트 누르면 해당 페이지로 이동하게끔
 
-function AlertList({ data }: Props) {
+function NotificationList({ data }: Props) {
   return (
     <S.AlertList>
       {data.map((item, index) => (
@@ -38,4 +38,4 @@ function AlertList({ data }: Props) {
   );
 }
 
-export default AlertList;
+export default NotificationList;
