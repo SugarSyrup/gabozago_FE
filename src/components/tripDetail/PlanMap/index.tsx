@@ -33,8 +33,8 @@ function PlanMap({ isEditMode, data = [], dayFilter }: Props) {
   const setMarkerCoords = (data: DayPlan[]) => {
     const placePositions: google.maps.LatLngLiteral[] = [];
 
-    data.map((day) => {
-      day.route.map((place) => {
+    data.forEach((day) => {
+      day.route.forEach((place) => {
         placePositions.push({ lat: place.latitude, lng: place.longitude });
       });
     });
@@ -45,11 +45,10 @@ function PlanMap({ isEditMode, data = [], dayFilter }: Props) {
   useEffect(() => {
     if (isEditMode) {
       setMapOpend(false);
-      setBounds(coords);
     } else {
       setMapOpend(true);
-      setBounds(coords);
     }
+    setBounds(coords);
   }, [isEditMode]);
 
   useEffect(() => {
@@ -59,7 +58,15 @@ function PlanMap({ isEditMode, data = [], dayFilter }: Props) {
   useEffect(() => {
     if (!map) return;
     setBounds(coords);
-  }, [map, coords]);
+  }, [coords, map, mapFocused]);
+
+  // Map 편집모드로 갔다가 돌아올때, 지도의 Zoom 이 초기화 되는 문제 수정
+  useEffect(() => {
+    if (!map) return;
+    setTimeout(() => {
+      setBounds(coords);
+    }, 400);
+  }, [mapOpened]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent | TouchEvent) => {
