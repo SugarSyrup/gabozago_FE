@@ -7,11 +7,16 @@ import PopupButton from '@_common/Button/PopupButton';
 
 function Popup() {
   const PopupValue = useRecoilValue(popupValue);
-  const [isOpen] = useRecoilState(popupIsOpen);
+  const [isOpen, setIsOpen] = useRecoilState(popupIsOpen);
 
   return (
     <>
       <S.PopupWrapper isOpend={isOpen}>
+        <S.PopupBG
+          onClick={() => {
+            setIsOpen(false);
+          }}
+        />
         {PopupValue.NoTemplateCustom ? (
           <S.PopupNoPadding>{PopupValue.NoTemplateCustom}</S.PopupNoPadding>
         ) : (
