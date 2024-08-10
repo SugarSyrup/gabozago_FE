@@ -52,4 +52,5 @@ export const Button = styled.button<{ isActive: boolean }>`
   align-items: center;
 
   cursor: pointer;
+  flex-shrink: 0;
 `;
