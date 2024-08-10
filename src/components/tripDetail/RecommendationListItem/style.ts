@@ -28,6 +28,13 @@ export const Infomation = styled.div`
   justify-content: center;
 `;
 
+export const ExtraInfomation = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 4px;
+`;
+
 export const HighlightName = styled.span`
   color: ${({ theme }) => theme.main};
 `;
