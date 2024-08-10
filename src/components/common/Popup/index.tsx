@@ -32,7 +32,9 @@ function Popup() {
                 {PopupValue.Description && (
                   <Typography.Body size="lg" color="#727272" noOfLine={3}>
                     <span style={{ textAlign: 'center', display: 'inline-block' }}>
-                      {PopupValue.Description}
+                      {PopupValue.Description.split('\n').map((line, index) => (
+                        <p key={index}>{line}</p>
+                      ))}
                     </span>
                   </Typography.Body>
                 )}

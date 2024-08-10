@@ -85,7 +85,7 @@ function MyTripPlaceCreatePage() {
                 setPopupValue({
                   Icon: <InfomationIcon />,
                   Header: '지역을 추가하시겠어요?',
-                  Description: `선택하신 여행 장소는 ${locations?.toLocaleString()}을 벗어나요.\n
+                  Description: `선택하신 여행 장소는 ${response.data.location.toLocaleString()}을 벗어나요.\n
       ${newLocation}도 여행 계획에 추가하시겠어요?`,
                   Warning: '*지역을 추가하지 않으면, 해당 장소도 추가되지 않아요.',
                   CloseButton: {

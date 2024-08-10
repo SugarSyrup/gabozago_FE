@@ -65,6 +65,7 @@ export const Popup = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 16px;
 `;
 
 export const PopupNoPadding = styled(Popup)`
@@ -94,7 +95,7 @@ export const TextContainer = styled.div`
 export const ButtonContainer = styled.div`
   width: 100%;
 
-  padding-top: 20px;
+  padding-top: 4px;
 
   display: flex;
   flex-direction: row;
