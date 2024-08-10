@@ -1,6 +1,5 @@
 import { useRecoilState } from 'recoil';
 import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import * as S from './style';
 import { patch } from '@_utils/api';
@@ -18,7 +17,17 @@ function PlanEditMode({ setIsEditMode }: Props) {
   const [tempData, setTempData] = useRecoilState(editingTripPlanState);
 
   const patchTripPlan = (data: DayPlan[]) => {
-    patch<DayPlan[]>(`my-travel/${id}`, data);
+    const patchData = data.map((dayPlanItem) => {
+      const { day, route } = dayPlanItem;
+      return {
+        day,
+        route: route.map((place) => {
+          return { detailRouteId: place.detailRouteId, placeId: place.placeId };
+        }),
+      };
+    });
+    // @TODO: 다른 날짜의 여행지를 이동할 때, 500 에러 발생
+    patch<DayPlan[]>(`my-travel/${id}`, patchData);
   };
 
   const onCancle = () => {
@@ -59,7 +68,6 @@ function PlanEditMode({ setIsEditMode }: Props) {
       setTempData(
         tempData.map((dayPlan) => {
           if (dayPlan.day === sourceDay) {
-            console.log('here');
             const tempRoute = [...dayPlan.route];
             const targetPlace = tempRoute[source.index];
 
@@ -99,11 +107,6 @@ function PlanEditMode({ setIsEditMode }: Props) {
     document.body.style.userSelect = 'auto';
     document.body.style.cursor = 'auto';
   };
-
-  useEffect(() => {
-    console.dir('tempChanged:');
-    console.dir(tempData);
-  }, [tempData]);
 
   return (
     <>
