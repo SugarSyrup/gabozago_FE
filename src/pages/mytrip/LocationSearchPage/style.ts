@@ -75,6 +75,7 @@ export const Contents = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  gap: 20px;
 `;
 
 export const Footer = styled.footer`
