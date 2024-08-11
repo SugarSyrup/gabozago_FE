@@ -13,6 +13,7 @@ interface Props {
   theme: string;
   thumbnail?: string;
   keyword?: string;
+  address: string;
   location: string;
   locations: string[];
   popupOpen: () => void;
@@ -25,6 +26,7 @@ function RecommendationListItem({
   theme,
   id,
   keyword,
+  address,
   location,
   popupOpen,
   setNewLocation,
@@ -84,9 +86,20 @@ function RecommendationListItem({
           ) : (
             <Typography.Title size="lg">{name}</Typography.Title>
           )}
-          <Typography.Label size="lg" color="#A6A6A6">
-            <span>{theme}</span>
-          </Typography.Label>
+
+          <S.ExtraInfomation>
+            <Typography.Label size="lg" color="#A6A6A6">
+              <span>{theme}</span>
+            </Typography.Label>
+            {theme && address && (
+              <Typography.Label size="lg" color="#A6A6A6">
+                <span>|</span>
+              </Typography.Label>
+            )}
+            <Typography.Label size="lg" color="#A6A6A6">
+              <span>{address}</span>
+            </Typography.Label>
+          </S.ExtraInfomation>
         </S.Infomation>
       </S.LeftItems>
       <S.Button isActive={isActive} onClick={onBtnClick}>

@@ -7,11 +7,16 @@ import PopupButton from '@_common/Button/PopupButton';
 
 function Popup() {
   const PopupValue = useRecoilValue(popupValue);
-  const [isOpen] = useRecoilState(popupIsOpen);
+  const [isOpen, setIsOpen] = useRecoilState(popupIsOpen);
 
   return (
     <>
       <S.PopupWrapper isOpend={isOpen}>
+        <S.PopupBG
+          onClick={() => {
+            setIsOpen(false);
+          }}
+        />
         {PopupValue.NoTemplateCustom ? (
           <S.PopupNoPadding>{PopupValue.NoTemplateCustom}</S.PopupNoPadding>
         ) : (
@@ -27,7 +32,9 @@ function Popup() {
                 {PopupValue.Description && (
                   <Typography.Body size="lg" color="#727272" noOfLine={3}>
                     <span style={{ textAlign: 'center', display: 'inline-block' }}>
-                      {PopupValue.Description}
+                      {PopupValue.Description.split('\n').map((line, index) => (
+                        <p key={index}>{line}</p>
+                      ))}
                     </span>
                   </Typography.Body>
                 )}
