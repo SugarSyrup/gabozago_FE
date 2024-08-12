@@ -1,5 +1,5 @@
-import { useNavigate } from 'react-router-dom';
-import { post } from '@_utils/api';
+// import { useNavigate } from 'react-router-dom';
+// import { post } from '@_utils/api';
 
 import AuthCheck from '../../../components/common/AuthCheck';
 import PageTemplate from '../../../components/common/PageTemplate';
@@ -14,44 +14,44 @@ import AppleIcon from '../../../assets/icons/apple.svg?react';
 
 import * as S from './style';
 
-interface LoginResponse {
-  status: 'ACTIVE' | 'INACTIVE';
-  access: string;
-  refresh: string;
-  access_expires_at: string;
-  refresh_expires_at: string;
-  user_data?: {
-    email: string;
-    nickname: string;
-  };
-}
+// interface LoginResponse {
+//   status: 'ACTIVE' | 'INACTIVE';
+//   access: string;
+//   refresh: string;
+//   access_expires_at: string;
+//   refresh_expires_at: string;
+//   user_data?: {
+//     email: string;
+//     nickname: string;
+//   };
+// }
 
-async function login() {
-  const response = await post<LoginResponse>('/user/app/login', {
-    uid: 1234321,
-    provider: 'google',
-    email: 'gbzg_test@gmail.com',
-    nickname: 'tiredDeveloper',
-  });
+// async function login() {
+//   const response = await post<LoginResponse>('/user/app/login', {
+//     uid: 1234321,
+//     provider: 'google',
+//     email: 'gbzg_test@gmail.com',
+//     nickname: 'tiredDeveloper',
+//   });
 
-  return response;
-}
+//   return response;
+// }
 
 function LoginPage() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  async function developLogin(type: string) {
-    const response = await login();
+  // async function developLogin(type: string) {
+  //   const response = await login();
 
-    localStorage.setItem('access_token', response.data.access);
-    localStorage.setItem('refresh_token', response.data.refresh);
-    if (response.data.status === 'ACTIVE') {
-      navigate('/');
-    } else if (response.data.user_data) {
-      const { email, nickname } = response.data.user_data;
-      navigate(`/signup?type=${type}&email=${email}&nickname=${nickname}`);
-    }
-  }
+  //   localStorage.setItem('access_token', response.data.access);
+  //   localStorage.setItem('refresh_token', response.data.refresh);
+  //   if (response.data.status === 'ACTIVE') {
+  //     navigate('/');
+  //   } else if (response.data.user_data) {
+  //     const { email, nickname } = response.data.user_data;
+  //     navigate(`/signup?type=${type}&email=${email}&nickname=${nickname}`);
+  //   }
+  // }
 
   return (
     <AuthCheck>
@@ -63,7 +63,7 @@ function LoginPage() {
             <span>타인의 여행후기를</span>
             <span>나만의 여행으로 만드는 새로운 방법</span>
           </S.BrandCopy>
-          <form
+          {/* <form
             onSubmit={(e) => {
               e.preventDefault();
               const formdata = new FormData(e.currentTarget);
@@ -89,7 +89,7 @@ function LoginPage() {
             />
             <input type="email" name="email" placeholder="email 입력해주세요 (임시)" />
             <button type="submit">로그인</button>
-          </form>
+          </form> */}
           <S.MessageContainer>
             <S.FloatingMessage>
               <ThunderMoveIcon />
@@ -128,7 +128,7 @@ function LoginPage() {
             <S.OAuthCircleButton
               color="#000000"
               onClick={() => {
-                developLogin('apple');
+                // developLogin('apple');
               }}
             >
               <AppleIcon width={40} height={40} />
