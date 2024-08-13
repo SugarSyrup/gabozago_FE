@@ -15,7 +15,6 @@ import * as S from './style';
 import usePopup from '../../../hooks/usePopup';
 import { get } from '@_utils/api';
 
-
 interface LoginResponse {
   status: 'ACTIVE' | 'INACTIVE';
   access: string;
@@ -98,9 +97,11 @@ function LoginPage() {
                 try {
                   const res = await window.AppleID.auth.signIn();
                   console.log(res);
-                  get<LoginResponse>(`/user/apple/callback/?code=${res.authorization.code}`).then((response) => {
-                    console.log(response);
-                  }
+                  get<LoginResponse>(`/user/apple/callback/?code=${res.authorization.code}`).then(
+                    (response) => {
+                      console.log(response);
+                    },
+                  );
                 } catch (error) {
                   console.log(error);
                 }
