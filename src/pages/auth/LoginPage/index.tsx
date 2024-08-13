@@ -13,6 +13,20 @@ import AppleIcon from '@_icons/apple.svg?react';
 
 import * as S from './style';
 import usePopup from '../../../hooks/usePopup';
+import { get } from '@_utils/api';
+
+
+interface LoginResponse {
+  status: 'ACTIVE' | 'INACTIVE';
+  access: string;
+  refresh: string;
+  access_expires_at: string;
+  refresh_expires_at: string;
+  user_data?: {
+    email: string;
+    nickname: string;
+  };
+}
 
 function LoginPage() {
   return (
@@ -84,6 +98,9 @@ function LoginPage() {
                 try {
                   const res = await window.AppleID.auth.signIn();
                   console.log(res);
+                  get<LoginResponse>(`/user/apple/callback/?code=${res.authorization.code}`).then((response) => {
+                    console.log(response);
+                  }
                 } catch (error) {
                   console.log(error);
                 }
