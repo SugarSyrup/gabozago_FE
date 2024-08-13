@@ -27,5 +27,5 @@ dist-ssr
 *.sw?
 
 #Docker
-Dockerfile
-default.conf
+./Dockerfile
+./default.conf
