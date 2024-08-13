@@ -56,7 +56,7 @@ function LoginPage() {
             >
               <GoogleIcon width={20} height={20} />
             </S.OAuthCircleButton>
-            <AppleLogin
+            {/* <AppleLogin
               clientId={`${import.meta.env.VITE_APPLE_CLIENT_ID}`}
               redirectURI={`${import.meta.env.VITE_APPLE_REDIRECT_URI}`}
               responseType="code"
@@ -64,18 +64,33 @@ function LoginPage() {
               responseMode="form_post"
               callback={(response) => {
                 console.log(response);
+              }} */}
+            {/* render={(renderProps) => ( */}
+            <S.OAuthCircleButton
+              color="#000000"
+              onClick={async () => {
+                // renderProps.onClick();
+                console.log('sign in with apple');
+
+                window.AppleID.auth.init({
+                  clientId: `${import.meta.env.VITE_APPLE_CLIENT_ID}`,
+                  scope: 'name email',
+                  redirectURI: `${import.meta.env.VITE_APPLE_REDIRECT_URI}`,
+                  responseType: `code`,
+                });
+
+                try {
+                  const res = await window.AppleID.auth.signIn();
+                  console.log(res);
+                } catch (error) {
+                  console.log(error);
+                }
               }}
-              // render={(renderProps) => (
-              //   <S.OAuthCircleButton
-              //     color="#000000"
-              //     onClick={() => {
-              //       renderProps.onClick();
-              //     }}
-              //   >
-              //     <AppleIcon width={40} height={40} />
-              //   </S.OAuthCircleButton>
-              // )}
-            />
+            >
+              <AppleIcon width={40} height={40} />
+            </S.OAuthCircleButton>
+            {/* )} */}
+            {/* /> */}
           </S.OAuthButtons>
         </S.Container>
       </PageTemplate>
