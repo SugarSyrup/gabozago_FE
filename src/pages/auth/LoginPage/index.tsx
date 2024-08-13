@@ -59,8 +59,9 @@ function LoginPage() {
             <AppleLogin
               clientId={`${import.meta.env.VITE_APPLE_CLIENT_ID}`}
               redirectURI={`${import.meta.env.VITE_APPLE_REDIRECT_URI}`}
-              responseType="code id_token"
+              responseType="code"
               scope="name email"
+              responseMode="form_post"
               callback={(response) => {
                 console.log(response);
               }}
