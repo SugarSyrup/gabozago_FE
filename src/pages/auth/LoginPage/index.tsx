@@ -12,6 +12,7 @@ import NaverIcon from '@_icons/naver.svg?react';
 import AppleIcon from '@_icons/apple.svg?react';
 
 import * as S from './style';
+import usePopup from '../../../hooks/usePopup';
 
 function LoginPage() {
   return (
@@ -77,6 +78,7 @@ function LoginPage() {
                   scope: 'name email',
                   redirectURI: `${import.meta.env.VITE_APPLE_REDIRECT_URI}`,
                   responseType: `code`,
+                  usePopup: true,
                 });
 
                 try {
