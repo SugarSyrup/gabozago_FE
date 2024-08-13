@@ -60,7 +60,6 @@ function LoginPage() {
               clientId={`${import.meta.env.VITE_APPLE_CLIENT_ID}`}
               redirectURI={`${import.meta.env.VITE_APPLE_REDIRECT_URI}`}
               scope="name email"
-              responseMode="query"
               callback={(response) => {
                 console.log(response);
               }}
