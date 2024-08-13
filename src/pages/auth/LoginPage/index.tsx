@@ -1,16 +1,17 @@
 // import { useNavigate } from 'react-router-dom';
 // import { post } from '@_utils/api';
+import AppleLogin from 'react-apple-login';
 
-import AuthCheck from '../../../components/common/AuthCheck';
-import PageTemplate from '../../../components/common/PageTemplate';
+import AuthCheck from '@_common/AuthCheck';
+import PageTemplate from '@_common/PageTemplate';
 
-import LogoIcon from '../../../assets/icons/logo.svg?react';
-import LogoText from '../../../assets/icons/logo_text.svg?react';
-import ThunderMoveIcon from '../../../assets/icons/thuder_move.svg?react';
-import KakaoIcon from '../../../assets/icons/kakao.svg?react';
-import GoogleIcon from '../../../assets/icons/google.svg?react';
-import NaverIcon from '../../../assets/icons/naver.svg?react';
-import AppleIcon from '../../../assets/icons/apple.svg?react';
+import LogoIcon from '@_icons/logo.svg?react';
+import LogoText from '@_icons/logo_text.svg?react';
+import ThunderMoveIcon from '@_icons/thuder_move.svg?react';
+import KakaoIcon from '@_icons/kakao.svg?react';
+import GoogleIcon from '@_icons/google.svg?react';
+import NaverIcon from '@_icons/naver.svg?react';
+import AppleIcon from '@_icons/apple.svg?react';
 
 import * as S from './style';
 
@@ -125,14 +126,23 @@ function LoginPage() {
             >
               <GoogleIcon width={20} height={20} />
             </S.OAuthCircleButton>
-            <S.OAuthCircleButton
-              color="#000000"
-              onClick={() => {
-                // developLogin('apple');
+            <AppleLogin
+              clientId=""
+              redirectURI=""
+              callback={(response) => {
+                console.log(response);
               }}
-            >
-              <AppleIcon width={40} height={40} />
-            </S.OAuthCircleButton>
+              render={(renderProps) => (
+                <S.OAuthCircleButton
+                  color="#000000"
+                  onClick={() => {
+                    renderProps.onClick();
+                  }}
+                >
+                  <AppleIcon width={40} height={40} />
+                </S.OAuthCircleButton>
+              )}
+            />
           </S.OAuthButtons>
         </S.Container>
       </PageTemplate>
