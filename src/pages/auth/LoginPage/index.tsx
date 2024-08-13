@@ -1,5 +1,3 @@
-// import { useNavigate } from 'react-router-dom';
-// import { post } from '@_utils/api';
 import AppleLogin from 'react-apple-login';
 
 import AuthCheck from '@_common/AuthCheck';
@@ -15,45 +13,7 @@ import AppleIcon from '@_icons/apple.svg?react';
 
 import * as S from './style';
 
-// interface LoginResponse {
-//   status: 'ACTIVE' | 'INACTIVE';
-//   access: string;
-//   refresh: string;
-//   access_expires_at: string;
-//   refresh_expires_at: string;
-//   user_data?: {
-//     email: string;
-//     nickname: string;
-//   };
-// }
-
-// async function login() {
-//   const response = await post<LoginResponse>('/user/app/login', {
-//     uid: 1234321,
-//     provider: 'google',
-//     email: 'gbzg_test@gmail.com',
-//     nickname: 'tiredDeveloper',
-//   });
-
-//   return response;
-// }
-
 function LoginPage() {
-  // const navigate = useNavigate();
-
-  // async function developLogin(type: string) {
-  //   const response = await login();
-
-  //   localStorage.setItem('access_token', response.data.access);
-  //   localStorage.setItem('refresh_token', response.data.refresh);
-  //   if (response.data.status === 'ACTIVE') {
-  //     navigate('/');
-  //   } else if (response.data.user_data) {
-  //     const { email, nickname } = response.data.user_data;
-  //     navigate(`/signup?type=${type}&email=${email}&nickname=${nickname}`);
-  //   }
-  // }
-
   return (
     <AuthCheck>
       <PageTemplate nav={false}>
@@ -64,33 +24,6 @@ function LoginPage() {
             <span>타인의 여행후기를</span>
             <span>나만의 여행으로 만드는 새로운 방법</span>
           </S.BrandCopy>
-          {/* <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              const formdata = new FormData(e.currentTarget);
-              post<LoginResponse>('/user/app/login', {
-                uid: Number(formdata.get('uid')),
-                provider: 'naver',
-                email: formdata.get('email'),
-              }).then((response) => {
-                localStorage.setItem('access_token', response.data.access);
-                localStorage.setItem('refresh_token', response.data.refresh);
-                if (response.data.status === 'ACTIVE') {
-                  navigate('/');
-                } else {
-                  navigate(`/signup?type=naver&email=${formdata.get('email')}&nickname=`);
-                }
-              });
-            }}
-          >
-            <input
-              type="number"
-              name="uid"
-              placeholder="uid입력 란 입니다. 임의의 숫자를 입력해주세요 (숫자) (임시)"
-            />
-            <input type="email" name="email" placeholder="email 입력해주세요 (임시)" />
-            <button type="submit">로그인</button>
-          </form> */}
           <S.MessageContainer>
             <S.FloatingMessage>
               <ThunderMoveIcon />
@@ -98,7 +31,6 @@ function LoginPage() {
             </S.FloatingMessage>
             <S.OAuthSquareButton
               onClick={() => {
-                // developLogin('kakao');
                 window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${import.meta.env.VITE_KAKAO_API_KEY}&redirect_uri=${import.meta.env.VITE_KAKAO_REDIRECT_URI}&response_type=code`;
               }}
             >
@@ -111,7 +43,6 @@ function LoginPage() {
             <S.OAuthCircleButton
               color="#00BF18"
               onClick={() => {
-                // developLogin('naver');
                 window.location.href = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${import.meta.env.VITE_NAVER_CLIENT_ID}&state=${import.meta.env.VITE_NAVER_STATE}&redirect_uri=${import.meta.env.VITE_NAVER_REDIRECT_URI}`;
               }}
             >
@@ -120,28 +51,27 @@ function LoginPage() {
             <S.OAuthCircleButton
               color="#FFFFFF"
               onClick={() => {
-                // developLogin('google');
                 window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${import.meta.env.VITE_GOOGLE_CLIENT_ID}&redirect_uri=${import.meta.env.VITE_GOOGLE_REDIRECT_URI}&response_type=code&scope=email+profile`;
               }}
             >
               <GoogleIcon width={20} height={20} />
             </S.OAuthCircleButton>
             <AppleLogin
-              clientId=""
-              redirectURI=""
+              clientId={`${import.meta.env.VITE_APPLE_CLIENT_ID}`}
+              redirectURI={`${import.meta.env.VITE_APPLE_REDIRECT_URI}`}
               callback={(response) => {
                 console.log(response);
               }}
-              render={(renderProps) => (
-                <S.OAuthCircleButton
-                  color="#000000"
-                  onClick={() => {
-                    renderProps.onClick();
-                  }}
-                >
-                  <AppleIcon width={40} height={40} />
-                </S.OAuthCircleButton>
-              )}
+              // render={(renderProps) => (
+              //   <S.OAuthCircleButton
+              //     color="#000000"
+              //     onClick={() => {
+              //       renderProps.onClick();
+              //     }}
+              //   >
+              //     <AppleIcon width={40} height={40} />
+              //   </S.OAuthCircleButton>
+              // )}
             />
           </S.OAuthButtons>
         </S.Container>
