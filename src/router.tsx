@@ -59,7 +59,7 @@ import {
 import { get } from '@_utils/api';
 import IsLoginTemplate from '@_common/isLoginTemplate';
 import { LocationResponseType } from './pages/Mytrip/LocationSelectPage';
-import ErrorHandlingPage from './pages/ErrorHandling';
+import ErrorHandlingPage from './pages/ErrorHandling/Error404Page';
 
 const router = createBrowserRouter([
   /* ---- 홈 페이지 ---- */
