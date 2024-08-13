@@ -35,7 +35,33 @@ function RedirectPage() {
     });
   }, []);
 
-  return <div>asdf</div>;
+  return (
+    <div>
+      asdf
+      <button
+        onClick={async () => {
+          // renderProps.onClick();
+          console.log('sign in with apple');
+
+          window.AppleID.auth.init({
+            clientId: `${import.meta.env.VITE_APPLE_CLIENT_ID}`,
+            scope: 'name email',
+            redirectURI: `${import.meta.env.VITE_APPLE_REDIRECT_URI}`,
+            responseType: `code`,
+          });
+
+          try {
+            const res = await window.AppleID.auth.signIn();
+            console.log(res);
+          } catch (error) {
+            console.log(error);
+          }
+        }}
+      >
+        apple
+      </button>
+    </div>
+  );
 }
 
 export default RedirectPage;
