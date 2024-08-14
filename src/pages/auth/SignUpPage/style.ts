@@ -6,16 +6,6 @@ export const FormContainer = styled.form`
   justify-content: flex-start;
   gap: 18px;
 `;
-
-export const HeaderText = styled.span`
-  color: #000;
-  text-align: center;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 22px;
-  letter-spacing: 0.2px;
-`;
-
 export const ButtonWrapper = styled.div`
   width: 100%;
   max-width: 480px;

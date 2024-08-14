@@ -17,6 +17,7 @@ import AppleIcon from '../../../assets/icons/apple.svg?react';
 import * as S from './style';
 import { post } from '@_utils/api';
 import { LoginResponse } from '@_types/LoginResponse.type';
+import { HeaderWithBack } from '@_common/Header';
 
 function SignUpPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -39,14 +40,7 @@ function SignUpPage() {
   }, [isNicknameOk, checkboxActive]);
 
   return (
-    <PageTemplate
-      nav={false}
-      header={
-        <PageHeader>
-          <S.HeaderText>회원 가입</S.HeaderText>
-        </PageHeader>
-      }
-    >
+    <PageTemplate nav={false} header={<HeaderWithBack>회원 가입</HeaderWithBack>}>
       <S.FormContainer
         action="post"
         onSubmit={(e) => {
