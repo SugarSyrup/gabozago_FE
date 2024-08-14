@@ -1,4 +1,4 @@
-import AppleLogin from 'react-apple-login';
+import { useNavigate } from 'react-router-dom';
 
 import AuthCheck from '@_common/AuthCheck';
 import PageTemplate from '@_common/PageTemplate';
@@ -11,23 +11,51 @@ import GoogleIcon from '@_icons/google.svg?react';
 import NaverIcon from '@_icons/naver.svg?react';
 import AppleIcon from '@_icons/apple.svg?react';
 
-import * as S from './style';
-import usePopup from '../../../hooks/usePopup';
 import { get } from '@_utils/api';
+import { LoginResponse } from '@_types/LoginResponse.type';
 
-interface LoginResponse {
-  status: 'ACTIVE' | 'INACTIVE';
-  access: string;
-  refresh: string;
-  access_expires_at: string;
-  refresh_expires_at: string;
-  user_data?: {
-    email: string;
-    nickname: string;
-  };
+import * as S from './style';
+
+interface ClientConfig {
+  clientId: string;
+  redirectURI: string;
+  scope?: string;
+  state?: string;
+  nonce?: string;
+  responseType?: string;
+  usePopup?: boolean;
+}
+
+interface Authorization {
+  code: string;
+  id_token: string;
+  state?: string;
+}
+
+interface User {
+  email: string;
+  name: string;
+}
+
+interface SigninResponse {
+  authorization: Authorization;
+  user?: User;
+}
+
+declare global {
+  interface Window {
+    AppleID: {
+      auth: {
+        init: (config: ClientConfig) => void;
+        signIn: (config?: ClientConfig) => Promise<SigninResponse>;
+      };
+    };
+  }
 }
 
 function LoginPage() {
+  const navigate = useNavigate();
+
   return (
     <AuthCheck>
       <PageTemplate nav={false}>
@@ -70,22 +98,9 @@ function LoginPage() {
             >
               <GoogleIcon width={20} height={20} />
             </S.OAuthCircleButton>
-            {/* <AppleLogin
-              clientId={`${import.meta.env.VITE_APPLE_CLIENT_ID}`}
-              redirectURI={`${import.meta.env.VITE_APPLE_REDIRECT_URI}`}
-              responseType="code"
-              scope="name email"
-              responseMode="form_post"
-              callback={(response) => {
-                console.log(response);
-              }} */}
-            {/* render={(renderProps) => ( */}
             <S.OAuthCircleButton
               color="#000000"
               onClick={async () => {
-                // renderProps.onClick();
-                console.log('sign in with apple');
-
                 window.AppleID.auth.init({
                   clientId: `${import.meta.env.VITE_APPLE_CLIENT_ID}`,
                   scope: 'name email',
@@ -94,17 +109,20 @@ function LoginPage() {
                   usePopup: true,
                 });
 
-                try {
-                  const res = await window.AppleID.auth.signIn();
-                  console.log(res);
-                  get<LoginResponse>(`/user/apple/callback/?code=${res.authorization.code}`).then(
-                    (response) => {
-                      console.log(response);
-                    },
-                  );
-                } catch (error) {
-                  console.log(error);
-                }
+                const res = await window.AppleID.auth.signIn();
+                get<LoginResponse>(`/user/apple/callback/?code=${res.authorization.code}`).then(
+                  (response) => {
+                    localStorage.setItem('access_token', response.data.access);
+                    localStorage.setItem('refresh_token', response.data.refresh);
+                    if (response.data.status === 'ACTIVE') {
+                      navigate('/');
+                    } else {
+                      navigate(
+                        `/signup?type=apple&email=${response.data.user_data?.email}&nickname=${response.data.user_data?.nickname}`,
+                      );
+                    }
+                  },
+                );
               }}
             >
               <AppleIcon width={40} height={40} />
