@@ -8,7 +8,7 @@ import * as S from './style';
 
 interface Props {
   setIsNicknameOk: React.Dispatch<React.SetStateAction<boolean>>;
-  defaultValue?: string;
+  defaultValue?: string | null;
 }
 
 function Nickname({ setIsNicknameOk, defaultValue }: Props) {

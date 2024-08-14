@@ -16,25 +16,15 @@ import AppleIcon from '../../../assets/icons/apple.svg?react';
 
 import * as S from './style';
 import { post } from '@_utils/api';
-
-interface loginResponse {
-  status: 'ACTIVE' | 'INACTIVE';
-  access: string;
-  refresh: string;
-  access_expires_at: string;
-  refresh_expires_at: string;
-  user_data?: {
-    email: string;
-    nickname: string;
-  };
-}
+import { LoginResponse } from '@_types/LoginResponse.type';
 
 function SignUpPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
 
   const type = searchParams.get('type');
-  const email = searchParams.get('email');
+  const emailParmas = searchParams.get('email');
+  const nicknameParams = searchParams.get('nickname');
   const [isNicknameOk, setIsNicknameOk] = useState<boolean>(false);
   const [checkboxActive, setCheckboxActive] = useState(false);
   const [isButtonActive, setIsButtonActive] = useState(false);
@@ -63,12 +53,12 @@ function SignUpPage() {
           e.preventDefault();
 
           const formData = new FormData(e.currentTarget);
-          const { email, nickname, recommendName } = Object.fromEntries(formData);
+          const { nickname } = Object.fromEntries(formData);
           let body = {};
 
           if (type === 'naver') {
             body = {
-              email,
+              emailParmas,
               nickname,
               eventAgreement: formData.get('eventCheck') === 'on',
             };
@@ -86,7 +76,7 @@ function SignUpPage() {
             };
           }
 
-          post<loginResponse>('/user/sign-in', body).then((response) => {
+          post<LoginResponse>('/user/sign-in', body).then((response) => {
             localStorage.setItem('access_token', response.data.access);
             localStorage.setItem('refresh_token', response.data.refresh);
             navigate('/');
@@ -100,7 +90,7 @@ function SignUpPage() {
           disabled={false}
           readonly
           required
-          value={email || ''}
+          value={emailParmas || ''}
           explain={
             <>
               {(() => {
@@ -146,7 +136,7 @@ function SignUpPage() {
             </>
           }
         />
-        <Nickname setIsNicknameOk={setIsNicknameOk} />
+        <Nickname setIsNicknameOk={setIsNicknameOk} defaultValue={nicknameParams} />
         <CheckBoxs setCheckboxActive={setCheckboxActive} />
 
         <RecommendNickname setIsRecommendarOk={setIsRecommendarOk} />
