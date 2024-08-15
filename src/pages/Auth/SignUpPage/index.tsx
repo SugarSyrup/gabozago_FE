@@ -135,6 +135,26 @@ function SignUpPage() {
 
         <RecommendNickname setIsRecommendarOk={setIsRecommendarOk} />
 
+        <button
+          onClick={() => {
+            post<{
+              access: string;
+              access_expires_at: string;
+            }>('/user/jwt-token-auth/refresh')
+              .then((response) => {
+                console.log('response');
+                console.log(response);
+              })
+              .catch((error) => {
+                console.log('error');
+                console.log(error);
+              });
+          }}
+          type="button"
+        >
+          refresh token 테스트
+        </button>
+
         <S.ButtonWrapper>
           <S.Button formAction="" type="submit" disabled={!isButtonActive}>
             회원가입 완료
