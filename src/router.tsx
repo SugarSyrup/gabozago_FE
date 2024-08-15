@@ -198,9 +198,9 @@ const router = createBrowserRouter([
   {
     path: '/scrapbook',
     element: (
-      <IsLoginTemplate>
-        <ScrapBookPage />
-      </IsLoginTemplate>
+      // <IsLoginTemplate>
+      <ScrapBookPage />
+      // </IsLoginTemplate>
     ),
   },
   {

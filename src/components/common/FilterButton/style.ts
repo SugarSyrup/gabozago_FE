@@ -3,8 +3,8 @@ import styled from 'styled-components';
 export const FilterButton = styled.button`
   display: flex;
   align-items: center;
-  padding: 5px 11px;
-  gap: 6px;
+  padding: 4px 15px;
+  gap: 4px;
   box-sizing: border-box;
 
   word-break: keep-all;
@@ -16,7 +16,7 @@ export const FilterButton = styled.button`
   color: ${({ theme }) => theme.gray01};
   border: 0;
   box-shadow: 0 0 0 1px ${({ theme }) => theme.gray02} inset;
-  border-radius: 6px;
+  border-radius: 20px;
   background-color: ${({ theme }) => theme.gray07};
 
   &.active {

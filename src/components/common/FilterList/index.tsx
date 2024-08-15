@@ -28,12 +28,19 @@ function FilterList({
   activeFilterState,
   filterType,
 }: Props) {
-  const defaultFilter =
-    filterType === 'Journal'
-      ? journalDefaultFilter
-      : filterType === 'scrapArticle'
-        ? scrapArticleDefaultFilter
-        : scrapShortFormDefaultFilter;
+  let defaultFilter: TFilter;
+  switch (filterType) {
+    case 'Journal':
+      defaultFilter = journalDefaultFilter;
+      break;
+    case 'scrapArticle':
+      defaultFilter = scrapArticleDefaultFilter;
+      break;
+    case 'scrapShortForm':
+      defaultFilter = scrapShortFormDefaultFilter;
+      break;
+  }
+
   const setModal = useSetRecoilState(modalState);
   const deleteFilterChip = (type: keyof TFilter, value: string): void => {
     setFilterState((prev) => {
@@ -46,7 +53,6 @@ function FilterList({
           break;
         case 'location':
         case 'theme':
-          console.log(value);
           return {
             ...prev,
             [type]: prev[type].filter((item) => item !== value),
@@ -84,7 +90,7 @@ function FilterList({
     <>
       <S.FilterList>
         {filters.map((filter) => (
-          <S.FilterItem>
+          <S.FilterItem key={filter.name}>
             <FilterButton
               name={filterNameMap.get(filter.name) as TFilterName}
               onClick={() => {
@@ -101,6 +107,7 @@ function FilterList({
             onClick={() => {
               deleteFilterChip(type, value);
             }}
+            key={type}
           >
             {value}
             <DeleteIcon />

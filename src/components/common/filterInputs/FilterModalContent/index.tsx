@@ -23,7 +23,12 @@ function FilterModalContent({ type, filters, filterState, setFilterState, setMod
   const renderComponent = (filter: TFilterAndOptions) => {
     const Component = filterMap.get(type).component;
     return (
-      <Component filter={tempFilter} setFilter={setTempFilter} options={filter.options?.options} />
+      <Component
+        filter={tempFilter}
+        setFilter={setTempFilter}
+        options={filter.options?.options}
+        defaultSelected={filter.options?.defaultSelected}
+      />
     );
   };
 

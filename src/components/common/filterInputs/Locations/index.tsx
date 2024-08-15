@@ -66,10 +66,6 @@ function Location({ filter, setFilter }: Props) {
     getLocations();
   }, []);
 
-  useEffect(() => {
-    console.dir(locations);
-  }, [locations]);
-
   return (
     <S.Container>
       {!isSearching && (
