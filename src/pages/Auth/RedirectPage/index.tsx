@@ -15,11 +15,15 @@ function RedirectPage() {
       localStorage.setItem('access_token', response.data.access);
       localStorage.setItem('refresh_token', response.data.refresh);
       if (response.data.status === 'ACTIVE') {
-        navigate('/');
+        // navigate('/');
+        console.log('/');
       } else {
-        navigate(
+        console.log(
           `/signup?type=${type}&email=${response.data.user_data?.email}&nickname=${response.data.user_data?.nickname}`,
         );
+        // navigate(
+        //   `/signup?type=${type}&email=${response.data.user_data?.email}&nickname=${response.data.user_data?.nickname}`,
+        // );
       }
     });
   }, []);
