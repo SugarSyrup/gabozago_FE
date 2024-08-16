@@ -112,7 +112,7 @@ function LoginPage() {
                 const res = await window.AppleID.auth.signIn();
                 get<LoginResponse>(`/user/apple/callback/?code=${res.authorization.code}`).then(
                   (response) => {
-                    localStorage.setItem('access_token', response.data.access_token);
+                    localStorage.setItem('access_token', response.data.access);
                     if (response.data.status === 'ACTIVE') {
                       navigate('/');
                     } else {

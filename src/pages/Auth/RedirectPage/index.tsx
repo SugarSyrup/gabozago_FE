@@ -12,15 +12,10 @@ function RedirectPage() {
     const code = new URL(document.location.toString()).searchParams.get('code');
 
     get<LoginResponse>(`/user/${type}/callback/?code=${code}`).then((response) => {
-      localStorage.setItem('access_token', response.data.access_token);
-      localStorage.setItem('refresh_token', response.data.refresh);
+      localStorage.setItem('access_token', response.data.access);
       if (response.data.status === 'ACTIVE') {
         navigate('/');
-        // console.log('/');
       } else {
-        // console.log(
-        //   `/signup?type=${type}&email=${response.data.user_data?.email}&nickname=${response.data.user_data?.nickname}`,
-        // );
         navigate(
           `/signup?type=${type}&email=${response.data.user_data?.email}&nickname=${response.data.user_data?.nickname}`,
         );
