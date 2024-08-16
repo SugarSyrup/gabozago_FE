@@ -112,12 +112,12 @@ function LoginPage() {
                 const res = await window.AppleID.auth.signIn();
                 get<LoginResponse>(`/user/apple/callback/?code=${res.authorization.code}`).then(
                   (response) => {
-                    localStorage.setItem('access_token', response.data.access);
                     if (response.data.status === 'ACTIVE') {
+                      localStorage.setItem('access_token', response.data.access);
                       navigate('/');
                     } else {
                       navigate(
-                        `/signup?type=apple&email=${response.data.user_data?.email}&nickname=${response.data.user_data?.nickname}`,
+                        `/signup?type=apple&email=${response.data.user_data?.email}&nickname=${response.data.user_data?.nickname}&code=${response.data.access}`,
                       );
                     }
                   },
