@@ -5,7 +5,6 @@ import PageTemplate from '../../../components/common/PageTemplate';
 import InputContainer from '../../../components/common/InputContainer';
 
 import CheckBoxs from '../../../components/signUp/CheckBoxs';
-import PageHeader from '../../../components/common/PageHeader';
 import RecommendNickname from '../../../components/signUp/RecommendNickname';
 import Nickname from '../../../components/signUp/Nickname';
 
@@ -20,12 +19,13 @@ import { LoginResponse } from '@_types/LoginResponse.type';
 import { HeaderWithBack } from '@_common/Header';
 
 function SignUpPage() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
   const type = searchParams.get('type');
   const emailParmas = searchParams.get('email');
-  const nicknameParams = searchParams.get('nickname');
+  const codeParams = searchParams.get('code');
+
   const [isNicknameOk, setIsNicknameOk] = useState<boolean>(false);
   const [checkboxActive, setCheckboxActive] = useState(false);
   const [isButtonActive, setIsButtonActive] = useState(false);
@@ -69,10 +69,9 @@ function SignUpPage() {
               recommender: isRecommenderOk,
             };
           }
-
+          localStorage.setItem('access_token', codeParams as string);
           post<LoginResponse>('/user/sign-in', body).then((response) => {
             localStorage.setItem('access_token', response.data.access);
-            localStorage.setItem('refresh_token', response.data.refresh);
             navigate('/');
           });
         }}
@@ -130,30 +129,10 @@ function SignUpPage() {
             </>
           }
         />
-        <Nickname setIsNicknameOk={setIsNicknameOk} defaultValue={nicknameParams} />
+        <Nickname setIsNicknameOk={setIsNicknameOk} />
         <CheckBoxs setCheckboxActive={setCheckboxActive} />
 
         <RecommendNickname setIsRecommendarOk={setIsRecommendarOk} />
-
-        <button
-          onClick={() => {
-            post<{
-              access: string;
-              access_expires_at: string;
-            }>('/user/jwt-token-auth/refresh')
-              .then((response) => {
-                console.log('response');
-                console.log(response);
-              })
-              .catch((error) => {
-                console.log('error');
-                console.log(error);
-              });
-          }}
-          type="button"
-        >
-          refresh token 테스트
-        </button>
 
         <S.ButtonWrapper>
           <S.Button formAction="" type="submit" disabled={!isButtonActive}>
