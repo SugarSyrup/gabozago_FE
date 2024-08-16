@@ -24,7 +24,6 @@ function SignUpPage() {
 
   const type = searchParams.get('type');
   const emailParmas = searchParams.get('email');
-  const nicknameParams = searchParams.get('nickname');
   const codeParams = searchParams.get('code');
 
   const [isNicknameOk, setIsNicknameOk] = useState<boolean>(false);
@@ -130,7 +129,7 @@ function SignUpPage() {
             </>
           }
         />
-        <Nickname setIsNicknameOk={setIsNicknameOk} defaultValue={nicknameParams} />
+        <Nickname setIsNicknameOk={setIsNicknameOk} />
         <CheckBoxs setCheckboxActive={setCheckboxActive} />
 
         <RecommendNickname setIsRecommendarOk={setIsRecommendarOk} />

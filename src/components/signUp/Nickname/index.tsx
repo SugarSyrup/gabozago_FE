@@ -8,23 +8,17 @@ import * as S from './style';
 
 interface Props {
   setIsNicknameOk: React.Dispatch<React.SetStateAction<boolean>>;
-  defaultValue?: string | null;
 }
 
-function Nickname({ setIsNicknameOk, defaultValue }: Props) {
+function Nickname({ setIsNicknameOk }: Props) {
   const [searchParams, setSearchParams] = useSearchParams();
-
   const [nickname, setNicknameState] = useState(searchParams.get('nickname'));
   const [nicknameAlert, setNicknameAlert] = useState('');
 
+  const codeParams = searchParams.get('code');
+
   useEffect(() => {
-    if (nickname === '' || nickname === null) return;
-
-    // const access = localStorage.getItem('access_token');
-    // const refresh = localStorage.getItem('refresh_token');
-
-    // localStorage.removeItem('access_token');
-    // localStorage.removeItem('refresh_token');
+    if (nickname === '' || nickname === null || nickname === undefined) return;
 
     if (!isNicknameValid(nickname as string)) {
       setNicknameAlert('한글, 영어, 숫자, _, .만 가능합니다.');
@@ -32,6 +26,7 @@ function Nickname({ setIsNicknameOk, defaultValue }: Props) {
       return;
     }
 
+    localStorage.setItem('access_token', codeParams as string);
     get<{ message: string }>(`/user/nickname/${nickname}`)
       .then((res) => {
         if (res.data.message === 'POSSIBLE') {
@@ -45,11 +40,10 @@ function Nickname({ setIsNicknameOk, defaultValue }: Props) {
       .catch((err) => {
         setNicknameAlert(`${err.response.data.message}`);
         setIsNicknameOk(false);
+      })
+      .finally(() => {
+        localStorage.removeItem('access_token');
       });
-    // .finally(() => {
-    //   localStorage.setItem('access_token', access as string);
-    //   localStorage.setItem('refresh_token', refresh as string);
-    // });
   }, []);
 
   function isNicknameValid(nickname: string) {
@@ -66,7 +60,7 @@ function Nickname({ setIsNicknameOk, defaultValue }: Props) {
       label="닉네임"
       disabled={false}
       required
-      value={nickname || defaultValue}
+      value={nickname || ''}
       placeholder="닉네임을 입력하세요. (중복 불가)"
       minLength={2}
       maxLength={15}
@@ -81,18 +75,13 @@ function Nickname({ setIsNicknameOk, defaultValue }: Props) {
         setIsNicknameOk(false);
       }}
       onButtonClick={() => {
-        // const access = localStorage.getItem('access_token');
-        // const refresh = localStorage.getItem('refresh_token');
-
-        // localStorage.removeItem('access_token');
-        // localStorage.removeItem('refresh_token');
-
         if (!isNicknameValid(nickname as string)) {
           setNicknameAlert('한글, 영어, 숫자, _, .만 가능합니다.');
           setIsNicknameOk(false);
           return;
         }
 
+        localStorage.setItem('access_token', codeParams as string);
         get<{ message: string }>(`/user/nickname/${nickname}`)
           .then((res) => {
             if (res.data.message === 'POSSIBLE') {
@@ -103,11 +92,10 @@ function Nickname({ setIsNicknameOk, defaultValue }: Props) {
           .catch(() => {
             setNicknameAlert('사용 불가능한 닉네임이에요!');
             setIsNicknameOk(false);
+          })
+          .finally(() => {
+            localStorage.removeItem('access_token');
           });
-        // .finally(() => {
-        //   localStorage.setItem('access_token', access as string);
-        //   localStorage.setItem('refresh_token', refresh as string);
-        // });
       }}
     />
   );
