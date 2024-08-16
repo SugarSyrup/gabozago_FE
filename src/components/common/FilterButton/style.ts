@@ -22,7 +22,6 @@ export const FilterButton = styled.button`
   &.active {
     color: ${({ theme }) => theme.main};
     box-shadow: 0 0 0 1px ${({ theme }) => theme.main} inset;
-    background-color: ${({ theme }) => theme.blue05};
 
     svg path {
       stroke: ${({ theme }) => theme.main};
@@ -32,5 +31,10 @@ export const FilterButton = styled.button`
   &:hover,
   &:active {
     background-color: ${({ theme }) => theme.gray05};
+  }
+
+  label {
+    word-break: break-all !important;
+    text-align: left !important;
   }
 `;

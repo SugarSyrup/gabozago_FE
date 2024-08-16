@@ -1,6 +1,7 @@
 import { MouseEventHandler } from 'react';
 import * as S from './style';
 import ChevronBottomIcon from '../../../assets/icons/chevron_bottom_small.svg?react';
+import Typography from '@_common/Typography';
 
 interface Props {
   name: string;
@@ -11,7 +12,9 @@ interface Props {
 function FilterButton({ name, onClick, isActive }: Props) {
   return (
     <S.FilterButton onClick={onClick} className={isActive ? 'active' : ''}>
-      {name}
+      <Typography.Label size="lg" color="inherit" maxWidth={58}>
+        {name}
+      </Typography.Label>
       <ChevronBottomIcon />
     </S.FilterButton>
   );
