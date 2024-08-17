@@ -83,10 +83,7 @@ export const Title = styled.div`
   /* margin: 5px 0 20px;
   padding-left: 20px; */
   padding: 10px 20px;
-  color: ${({ theme }) => theme.gray02};
+  color: ${({ theme }) => theme.colors.black.primary};
   font-weight: 600;
-`;
-
-export const Contents = styled.div`
-  /* padding-top: 24px; */
+  border-bottom: 1px solid ${({ theme }) => theme.colors.gray.tertiary};
 `;

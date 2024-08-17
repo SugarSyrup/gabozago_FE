@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import * as S from './style';
 import { SelectOptions } from '../../../../assets/types/FilterTypes';
 
@@ -14,14 +14,6 @@ function Select({ filter, setFilter, options, multiple = false }: Props) {
       setFilter((prev) => [...prev, item]);
     }
   };
-
-  useEffect(() => {
-    console.log(multiple);
-    setFilter((prev) => {
-      console.log(prev);
-      return prev;
-    });
-  }, []);
 
   return (
     <S.List>
