@@ -6,6 +6,8 @@ import { TFilter } from '../../assets/types/FilterTypes';
 
 export const defaultFilter: TFilter = {
   location: [],
+  theme: [],
+  sort: '담은순',
 };
 
 export const scrapPlaceFilterState = atom<TFilter>({
@@ -20,9 +22,13 @@ export const activeScrapPlaceFilterListState = selector({
     const activeFilterValues: { type: keyof TFilter; value: string }[] = [];
 
     // 지역
-    if (filter.location) {
-      filter.location.map((item) => activeFilterValues.push({ type: 'location', value: item }));
-    }
+    // if (filter.location) {
+    filter.location.map((item) => activeFilterValues.push({ type: 'location', value: item }));
+    // } else if (filter.sort) {
+    activeFilterValues.push({ type: 'sort', value: filter.sort });
+    // } else if (filter.theme) {
+    filter.theme.map((item) => activeFilterValues.push({ type: 'theme', value: item }));
+    // }
 
     return activeFilterValues;
   },

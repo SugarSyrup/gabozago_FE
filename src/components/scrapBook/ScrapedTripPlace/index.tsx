@@ -33,7 +33,9 @@ function ScrapedTripPlace() {
         results: Place[];
       }>('folder/scrap/place', {
         params: {
-          location: filter.location.join(','),
+          sort: filter.sort,
+          location: filter.location?.join(','),
+          theme: filter.theme?.join(','),
         },
       });
       setPlaces(data.results);

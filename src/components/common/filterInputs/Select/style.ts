@@ -2,9 +2,12 @@ import styled from 'styled-components';
 import checkIcon from '../../../../assets/icons/check.svg';
 
 export const List = styled.ol`
+  padding-top: 20px;
+  padding-bottom: 20px;
+
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 20px;
 `;
 
 export const Item = styled.li<{ checked: boolean }>`
@@ -14,24 +17,23 @@ export const Item = styled.li<{ checked: boolean }>`
   line-height: 22px;
   word-break: keep-all;
   font-size: 16px;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.blue05};
-  }
+  cursor: pointer;
 `;
 
 export const CheckboxInput = styled.input`
   display: none;
 
   & + label {
-    padding: 10px 20px;
+    padding: 0px 20px;
 
     display: grid;
     grid-template-columns: 1fr fit-content(100%);
     align-items: center;
 
     color: ${({ theme }) => theme.gray01};
-    font-weight: 400;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 28px;
 
     &::after {
       content: '';
@@ -46,7 +48,9 @@ export const CheckboxInput = styled.input`
 
   &:checked + label {
     color: ${({ theme }) => theme.main};
-    font-weight: 500;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 28px;
 
     &::after {
       display: block;

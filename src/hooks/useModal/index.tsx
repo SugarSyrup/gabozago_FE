@@ -34,10 +34,8 @@ function useModal({ title = '', handle = true, borderRadius = '30px' }: Options)
               borderRadius={borderRadius}
             >
               {handle && <S.CloseHandle onClick={modalClose} />}
-              <S.Contents>
-                {title && <S.Title>{title}</S.Title>}
-                {children}
-              </S.Contents>
+              {title && <S.Title>{title}</S.Title>}
+              {children}
             </S.Modal>
           </S.ModalContainer>
         )}

@@ -2,6 +2,11 @@ import styled from 'styled-components';
 
 export const Container = styled.div``;
 
+export const SearchWrapper = styled.div`
+  padding: 10px 20px;
+  background-color: white;
+`;
+
 export const LocationContainer = styled.div`
   display: grid;
   width: 100%;
@@ -13,6 +18,14 @@ export const LocationContainer = styled.div`
 
   border-top: 1px solid ${({ theme }) => theme.gray04};
   border-bottom: 1px solid ${({ theme }) => theme.gray04};
+`;
+
+export const SearchedContainer = styled.div`
+  margin-top: -28px;
+  padding: 15px 20px;
+
+  max-height: 300px;
+  overflow-y: auto;
 `;
 
 export const CategoryList = styled.ul`
