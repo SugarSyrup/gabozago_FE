@@ -40,6 +40,16 @@ function UserEditPage() {
             <S.PopupConfirmButton
               onClick={() => {
                 popupClose();
+
+                if (window.Android) {
+                  window.Android.logout();
+                }
+                if (window.webkit) {
+                  window.webkit.messageHandlers.IosHandler.callback.message({
+                    action: 'logout',
+                    code: localStorage.getItem('access_token'),
+                  });
+                }
               }}
             >
               <Typography.Title size="lg" color="#A6A6A6">
