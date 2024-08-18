@@ -47,7 +47,7 @@ function UserEditPage() {
                 if (window.webkit) {
                   window.webkit.messageHandlers.IosHandler.callback.message({
                     action: 'logout',
-                    code: localStorage.getItem('access_token'),
+                    code: 'logout',
                   });
                 }
               }}
