@@ -2,6 +2,10 @@ import React, { useEffect, useLayoutEffect, useState } from 'react';
 import * as S from './style';
 import { get } from '@_utils/api';
 import LocationTag from '../../../mytrip/LocationTag';
+// import SearchedLocations from './SearchedLocations';
+import useSearchInput from '../../../../hooks/useSearchInput';
+import { LocationResponseType } from '../../../../pages/Mytrip/LocationSelectPage';
+import SearchedLocations from './SearchedLocations';
 
 interface LocationGroupByCategory {
   category: string;
@@ -20,8 +24,44 @@ function Location({ filter, setFilter }: Props) {
       regions: [],
     },
   ]);
+
   const [focusedCategoryIndex, setFocusedCategoryIndex] = useState<number>(0);
   const [isSearching, setIsSearching] = useState<boolean>(false);
+  const [searchedLocations, setSearchedLocations] = useState<LocationResponseType[]>([]);
+
+  const [inputRef, SearchInput] = useSearchInput({
+    placeholder: '지역명 검색 예) 천안',
+    onChange,
+    backgroundColor: 'white',
+    borderColor: '#ADADAD',
+    onSubmit: (e) => {
+      e.preventDefault();
+    },
+  });
+
+  function onChange() {
+    if (inputRef.current) {
+      if (inputRef.current?.value === '' || inputRef.current?.value === undefined) {
+        setIsSearching(false);
+      } else {
+        setIsSearching(true);
+
+        get<
+          {
+            id: number;
+            name: string;
+            full_name: string;
+            category: string;
+            image: string | null;
+          }[]
+        >('region').then(({ data }) => {
+          setSearchedLocations(
+            data.filter((location) => location.name.includes(inputRef.current?.value as string)),
+          );
+        });
+      }
+    }
+  }
 
   const getLocations = async () => {
     const { data } = await get<
@@ -47,6 +87,7 @@ function Location({ filter, setFilter }: Props) {
     }, [] as LocationGroupByCategory[]);
 
     setLocations(groupedData);
+    // setRegions(data);
   };
 
   function selectLocation(location: string) {
@@ -68,7 +109,20 @@ function Location({ filter, setFilter }: Props) {
 
   return (
     <S.Container>
-      {!isSearching && (
+      <S.SearchWrapper>
+        <SearchInput />
+      </S.SearchWrapper>
+      {isSearching ? (
+        <S.SearchedContainer>
+          <SearchedLocations
+            searchedLocations={searchedLocations}
+            keyword={inputRef.current?.value}
+            locations={locations}
+            selectLocation={selectLocation}
+            deleteLocation={deleteLocation}
+          />
+        </S.SearchedContainer>
+      ) : (
         <S.LocationContainer>
           <S.CategoryList>
             {locations.map(({ category }, index) => (
@@ -77,6 +131,7 @@ function Location({ filter, setFilter }: Props) {
                   setFocusedCategoryIndex(index);
                 }}
                 active={index === focusedCategoryIndex}
+                key={category}
               >
                 {category}
               </S.CategoryItem>
@@ -93,6 +148,7 @@ function Location({ filter, setFilter }: Props) {
                   }
                 }}
                 active={filter.includes(region)}
+                key={region}
               >
                 {region}
               </S.RegionItem>
