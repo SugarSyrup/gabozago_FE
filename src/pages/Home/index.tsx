@@ -35,6 +35,20 @@ function HomePage() {
     }
   }, []);
 
+  useEffect(() => {
+    if (window.Android) {
+      window.Android.postUUID({
+        code: localStorage.getItem('access_token'),
+      });
+    }
+    if (window.webkit) {
+      window.webkit.messageHandlers.IosHandler.callback.message({
+        action: 'postUUID',
+        code: localStorage.getItem('access_token'),
+      });
+    }
+  });
+
   return (
     <PageTemplate>
       {/* Header */}

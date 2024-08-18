@@ -28,7 +28,7 @@ import {
 } from './pages/Mytrip';
 
 /* ---- 스크랩 페이지 ---- */
-import { ScrapBookPage, ScrapBookGroupPage } from './pages/Scrap';
+import { ScrapBookPage, ScrapBookGroupPage, ScrapContentPage } from './pages/Scrap';
 
 /* ---- 장소 페이지 ---- */
 import PlacePage from './pages/Place';
@@ -208,6 +208,14 @@ const router = createBrowserRouter([
     element: (
       <IsLoginTemplate>
         <ScrapBookGroupPage />
+      </IsLoginTemplate>
+    ),
+  },
+  {
+    path: '/scrapbook/content/:id',
+    element: (
+      <IsLoginTemplate>
+        <ScrapContentPage />
       </IsLoginTemplate>
     ),
   },
