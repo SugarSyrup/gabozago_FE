@@ -6,6 +6,7 @@ import { TFilter } from '@_types/FilterTypes';
 import FilterList from '@_common/FilterList';
 import TabBar from '@_common/TabBar';
 
+import ScrapedContents from '../../../components/scrapBook/ScrapedContents/indes';
 import ScrapedTripJournal from '../../../components/scrapBook/ScrapedTripJournal';
 import ScrapedTripPlace from '../../../components/scrapBook/ScrapedTripPlace';
 
@@ -21,8 +22,8 @@ function ScrapBookPage() {
   const setActiveFilters = useSetRecoilState(scrapPlaceFilterState);
   const tabs = [
     { id: 1, name: '여행 장소', content: <ScrapedTripPlace /> },
-    { id: 2, name: '콘텐츠', content: <ScrapedTripJournal /> },
-    { id: 3, name: '아티클', content: <ScrapedTripPlace /> },
+    { id: 2, name: '콘텐츠', content: <ScrapedContents /> },
+    { id: 3, name: '아티클', content: <ScrapedTripJournal /> },
   ];
   const [filter, setFilter] = useRecoilState<TFilter>(scrapPlaceFilterState);
   const activeFilter = useRecoilValue(activeScrapPlaceFilterListState);
