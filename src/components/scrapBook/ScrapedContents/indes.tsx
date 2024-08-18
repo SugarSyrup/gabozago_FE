@@ -1,9 +1,12 @@
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import Typography from '@_common/Typography';
+
 import useSearchInput from '../../../hooks/useSearchInput';
 import InstagramIcon from '../../../assets/imgs/instagram_icon.png';
+
 import * as S from './style';
-import { useEffect, useState } from 'react';
-import { get } from '@_utils/api';
 
 interface ContentResponseType {
   id: number;
@@ -14,6 +17,7 @@ interface ContentResponseType {
 }
 
 function ScrapedContents() {
+  const navigate = useNavigate();
   const [data, setData] = useState<ContentResponseType[]>([]);
   const [inputRef, SearchInput] = useSearchInput({
     placeholder: '콘텐츠 를 검색해보세요.',
@@ -47,7 +51,11 @@ function ScrapedContents() {
       </S.ContentsHeader>
       <S.ContentsContainer>
         {/* @TODO: Item onClick */}
-        <S.ContentItem>
+        <S.ContentItem
+          onClick={() => {
+            navigate('/scrapbook/content/0');
+          }}
+        >
           <S.ImgWrapper>
             <img src="https://via.placeholder.com/150" alt="content" />
             <S.IconWrapper>
@@ -60,7 +68,11 @@ function ScrapedContents() {
             </Typography.Title>
           </S.Title>
         </S.ContentItem>
-        <S.ContentItem>
+        <S.ContentItem
+          onClick={() => {
+            navigate('/scrapbook/content/0');
+          }}
+        >
           <S.ImgWrapper>
             <img src="https://via.placeholder.com/150" alt="content" />
             <S.IconWrapper>
@@ -73,7 +85,11 @@ function ScrapedContents() {
             </Typography.Title>
           </S.Title>
         </S.ContentItem>
-        <S.ContentItem>
+        <S.ContentItem
+          onClick={() => {
+            navigate('/scrapbook/content/0');
+          }}
+        >
           <S.ImgWrapper>
             <img src="https://via.placeholder.com/150" alt="content" />
             <S.IconWrapper>
@@ -86,7 +102,11 @@ function ScrapedContents() {
             </Typography.Title>
           </S.Title>
         </S.ContentItem>
-        <S.ContentItem>
+        <S.ContentItem
+          onClick={() => {
+            navigate('/scrapbook/content/0');
+          }}
+        >
           <S.ImgWrapper>
             <S.NotWatched>
               <Typography.Title size="md" noOfLine={2} color="inherit">
