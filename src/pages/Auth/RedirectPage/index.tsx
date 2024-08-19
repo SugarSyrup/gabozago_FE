@@ -14,6 +14,19 @@ function RedirectPage() {
     get<LoginResponse>(`/user/${type}/callback/?code=${code}`).then((response) => {
       if (response.data.status === 'ACTIVE') {
         localStorage.setItem('access_token', response.data.access);
+
+        if (window.Android) {
+          window.Android.postUUID({
+            code: response.data.access,
+          });
+        }
+        if (window.webkit) {
+          window.webkit.messageHandlers.IosHandler.callback.message({
+            action: 'postUUID',
+            code: response.data.access,
+          });
+        }
+
         navigate('/');
       } else {
         navigate(

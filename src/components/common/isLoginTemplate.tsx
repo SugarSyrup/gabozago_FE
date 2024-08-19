@@ -30,7 +30,7 @@ function IsLoginTemplate({ children }: Props) {
       toast.custom(() => (
         <Toast>
           <Typography.Body size="lg" color="white">
-            로그인이 필요한 페이지 입니다
+            로그인이 필요한 서비스 입니다
           </Typography.Body>
           <ToastLink
             onClick={() => {
