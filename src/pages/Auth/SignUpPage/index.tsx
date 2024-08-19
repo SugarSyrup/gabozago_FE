@@ -72,6 +72,19 @@ function SignUpPage() {
           localStorage.setItem('access_token', codeParams as string);
           post<LoginResponse>('/user/sign-in', body).then((response) => {
             localStorage.setItem('access_token', response.data.access);
+
+            if (window.Android) {
+              window.Android.postUUID({
+                code: response.data.access,
+              });
+            }
+            if (window.webkit) {
+              window.webkit.messageHandlers.IosHandler.callback.message({
+                action: 'postUUID',
+                code: response.data.access,
+              });
+            }
+
             navigate('/');
           });
         }}
