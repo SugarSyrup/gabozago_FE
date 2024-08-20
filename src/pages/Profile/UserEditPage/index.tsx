@@ -1,5 +1,5 @@
 import loadImage from 'blueimp-load-image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import * as S from './style';
 
@@ -18,59 +18,54 @@ import { BrandIcon } from '../../Auth/SignUpPage/style';
 import Typography from '../../../components/common/Typography';
 import { patch } from '@_utils/api';
 import Nickname from '../../../components/signUp/Nickname';
+import { useSetRecoilState } from 'recoil';
+import { popupValue } from '@_recoil/common/PopupValue';
 
 function UserEditPage() {
   const { nickname, description, avatarURL } = useLoaderData() as TUserProfile;
-  const { Popup, popupOpen, popupClose } = usePopup();
+  const { popupOpen, popupClose } = usePopup();
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [nameValue, setNameValue] = useState(nickname);
   const [descValue, setDescValue] = useState(description);
   const [isAvatarChanged, setIsAvatarChanged] = useState(false);
   const [isNicknameOk, setIsNicknameOk] = useState(false);
   const navigate = useNavigate();
+  const setPopupValue = useSetRecoilState(popupValue);
 
   const [userAvatarURL, setUserAvatarURL] = useState(avatarURL);
 
+  useEffect(() => {
+    setPopupValue({
+      Header: '정말 로그아웃 하시겠습니까?',
+      CloseButton: {
+        text: '취소',
+        onClick: () => {
+          popupClose();
+        },
+      },
+      ConfirmButton: {
+        text: '확인',
+        onClick: () => {
+          if (window.Android) {
+            window.Android.logout();
+          }
+          if (window.webkit) {
+            window.webkit.messageHandlers.IosHandler.callback.message({
+              action: 'logout',
+              code: 'logout',
+            });
+          }
+
+          localStorage.removeItem('access_token');
+          popupClose();
+          navigate('/');
+        },
+      },
+    });
+  });
+
   return (
     <PageTemplate nav={null}>
-      <Popup>
-        <S.PopupContainer>
-          <Typography.Headline size="sm">정말 로그아웃 하시겠습니까?</Typography.Headline>
-          <div>
-            <S.PopupConfirmButton
-              onClick={() => {
-                popupClose();
-
-                if (window.Android) {
-                  window.Android.logout();
-                }
-                if (window.webkit) {
-                  window.webkit.messageHandlers.IosHandler.callback.message({
-                    action: 'logout',
-                    code: 'logout',
-                  });
-                }
-              }}
-            >
-              <Typography.Title size="lg" color="#A6A6A6">
-                취소
-              </Typography.Title>
-            </S.PopupConfirmButton>
-            <S.PopupConfirmButton
-              onClick={() => {
-                localStorage.removeItem('access_token');
-                localStorage.removeItem('refresh_token');
-                popupClose();
-                navigate('/');
-              }}
-            >
-              <Typography.Title size="lg" color="#5276FA">
-                확인
-              </Typography.Title>
-            </S.PopupConfirmButton>
-          </div>
-        </S.PopupContainer>
-      </Popup>
       <S.Form
         onSubmit={(e) => {
           e.preventDefault();
