@@ -51,7 +51,7 @@ function RedirectPage() {
           toast.custom(() => (
             <Toast>
               <Typography.Title size="md" color="white">
-                로그인 실해팼습니다. 다시 로그인 시도해 주세요
+                로그인 실패했습니다. 다시 로그인 시도해 주세요
               </Typography.Title>
             </Toast>
           ));
