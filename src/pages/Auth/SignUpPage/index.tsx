@@ -75,13 +75,13 @@ function SignUpPage() {
 
             if (window.Android) {
               window.Android.postUUID({
-                code: response.data.access,
+                code: response.data.user_data.uuid,
               });
             }
             if (window.webkit) {
               window.webkit.messageHandlers.IosHandler.callback.message({
                 action: 'postUUID',
-                code: response.data.access,
+                code: response.data.user_data.uuid,
               });
             }
 

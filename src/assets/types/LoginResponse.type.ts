@@ -3,8 +3,9 @@ export interface LoginResponse {
   access: string;
   access_expires_at: string;
   refresh_expires_at: string;
-  user_data?: {
-    email: string;
-    nickname: string;
+  user_data: {
+    email?: string;
+    nickname?: string;
+    uuid: string;
   };
 }
