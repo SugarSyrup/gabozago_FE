@@ -138,6 +138,7 @@ function LoginPage() {
                     }
                   })
                   .catch((error) => {
+                    console.log(error);
                     if (error.status === 400) {
                       toast.custom(() => (
                         <Toast>
