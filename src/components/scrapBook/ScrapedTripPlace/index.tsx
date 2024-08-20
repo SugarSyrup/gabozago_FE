@@ -9,6 +9,7 @@ import Typography from '../../common/Typography';
 import { scrapPlaceFilterState } from '../../../recoil/filters/scrapPlaceFilterState';
 import { TFilter } from '../../../assets/types/FilterTypes';
 import NoThumbnailImg from '@_imgs/NoThumbnail.png';
+import MapIcon from '@_icons/map.svg?react';
 
 interface Place {
   thumbnailURL: string;
@@ -95,42 +96,46 @@ function ScrapedTripPlace() {
           {places.length === 0 ? '편집하기' : <S.FontHighlight>편집하기</S.FontHighlight>}
         </Typography.Title>
       </S.ContentsHeader>
-      {places.length !== 0 ? (
-        <>
-          <S.PlaceList>
-            {places.map((item) => (
-              <S.PlaceItem key={item.id}>
-                {item.thumbnailURL ? (
-                  <S.ThumbnailWrapper src={item.thumbnailURL} alt={item.name} />
-                ) : (
-                  <S.NoThumbnailWrapper>
-                    <img src={NoThumbnailImg} alt="No Thumbnail" />
-                  </S.NoThumbnailWrapper>
+      {places.length === 0 ? (
+        <S.PlaceList>
+          {places.map((item) => (
+            <S.PlaceItem key={item.id}>
+              {item.thumbnailURL ? (
+                <S.ThumbnailWrapper src={item.thumbnailURL} alt={item.name} />
+              ) : (
+                <S.NoThumbnailWrapper>
+                  <img src={NoThumbnailImg} alt="No Thumbnail" />
+                </S.NoThumbnailWrapper>
+              )}
+              <S.PlaceInfomation>
+                <Typography.Title size="md" color="inherit">
+                  {item.name}
+                </Typography.Title>
+                <S.PlaceThemeNAddress>
+                  <Typography.Label size="lg" color="#424242">
+                    {item.theme}
+                  </Typography.Label>
+                  <S.InfoSeperateLine />
+                  <Typography.Label size="lg" color="#424242">
+                    {item.address}
+                  </Typography.Label>
+                </S.PlaceThemeNAddress>
+                {item.memo && (
+                  <Typography.Label size="lg" color="#A6A6A6">
+                    {item.memo}
+                  </Typography.Label>
                 )}
-                <S.PlaceInfomation>
-                  <Typography.Title size="md" color="inherit">
-                    {item.name}
-                  </Typography.Title>
-                  <S.PlaceThemeNAddress>
-                    <Typography.Label size="lg" color="#424242">
-                      {item.theme}
-                    </Typography.Label>
-                    <S.InfoSeperateLine />
-                    <Typography.Label size="lg" color="#424242">
-                      {item.address}
-                    </Typography.Label>
-                  </S.PlaceThemeNAddress>
-                  {item.memo && (
-                    <Typography.Label size="lg" color="#A6A6A6">
-                      {item.memo}
-                    </Typography.Label>
-                  )}
-                </S.PlaceInfomation>
-              </S.PlaceItem>
-            ))}
-            <div ref={infiniteRef} />
-          </S.PlaceList>
-        </>
+              </S.PlaceInfomation>
+            </S.PlaceItem>
+          ))}
+          <div ref={infiniteRef} />
+          <S.MapButton>
+            <MapIcon />
+            <Typography.Title size="lg" color="inherit">
+              지도 보기
+            </Typography.Title>
+          </S.MapButton>
+        </S.PlaceList>
       ) : (
         <S.NoScrapedPlace>
           <Typography.Headline size="sm" color="inherit">

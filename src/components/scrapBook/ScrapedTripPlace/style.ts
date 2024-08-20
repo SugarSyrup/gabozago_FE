@@ -18,8 +18,11 @@ export const FontHighlight = styled.span`
 `;
 
 export const PlaceList = styled.ol`
+  width: 100%;
+
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 
 export const PlaceItem = styled.li`
@@ -63,6 +66,28 @@ export const InfoSeperateLine = styled.div`
   width: 1px;
   height: 8px;
   border-right: 1px solid ${({ theme }) => theme.colors.gray.secondary};
+`;
+
+export const MapButton = styled.div`
+  display: inline-flex;
+  height: 40px;
+  padding: 2px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+
+  border-radius: 100px;
+  background: ${({ theme }) => theme.colors.blue.primary};
+  color: white;
+
+  position: fixed;
+  bottom: 90px;
+  cursor: pointer;
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
 `;
 
 export const NoScrapedPlace = styled.div`
