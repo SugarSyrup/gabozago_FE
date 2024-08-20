@@ -39,7 +39,7 @@ function RedirectPage() {
         }
       })
       .catch((error) => {
-        if (error.status === 400) {
+        if (error.response.status === 400) {
           toast.custom(() => (
             <Toast>
               <Typography.Title size="md" color="white">

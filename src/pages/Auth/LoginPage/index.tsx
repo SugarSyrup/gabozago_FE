@@ -139,7 +139,7 @@ function LoginPage() {
                   })
                   .catch((error) => {
                     console.log(error);
-                    if (error.status === 400) {
+                    if (error.response.status === 400) {
                       toast.custom(() => (
                         <Toast>
                           <Typography.Title size="md" color="white">
@@ -152,7 +152,7 @@ function LoginPage() {
                       toast.custom(() => (
                         <Toast>
                           <Typography.Title size="md" color="white">
-                            로그인 실해팼습니다. 다시 로그인 시도해 주세요
+                            로그인 실패했습니다. 다시 로그인 시도해 주세요
                           </Typography.Title>
                         </Toast>
                       ));
