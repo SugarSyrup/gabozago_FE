@@ -1,117 +1,97 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
-export const PlaceList = styled.ol<{ marginTop: string }>`
-  margin-top: ${({ marginTop }) => marginTop};
+export const ContentsHeader = styled.div`
+  width: calc(100% + 40px);
+  margin-left: -20px;
+
+  padding: 10px 20px;
+  background-color: #f6f6f6;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: ${({ theme }) => theme.colors.font.primary};
+`;
+
+export const FontHighlight = styled.span`
+  color: ${({ theme }) => theme.colors.blue.primary};
+`;
+
+export const PlaceList = styled.ol`
   display: flex;
   flex-direction: column;
-  gap: 20px;
 `;
 
 export const PlaceItem = styled.li`
-  overflow: hidden;
-  display: flex;
-  justify-content: space-between;
-  align-items: start;
-  flex-wrap: nowrap;
-  gap: 10px;
-
-  & > div:first-child {
-    display: flex;
-    gap: 10px;
-  }
-`;
-
-export const BookMarkButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: start;
-  padding: 0;
-
-  background-color: transparent;
-  border: 0;
-
-  svg {
-    fill: ${({ theme }) => theme.main};
-  }
-`;
-
-export const StyledLink = styled(Link)`
-  color: ${({ theme }) => theme.black};
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-export const PlaceInfoBox = styled.div`
-  flex: 1 1 auto;
-  max-width: 100%;
-`;
-
-export const TopInfoBox = styled.div`
   width: 100%;
-  margin-bottom: 7px;
+  padding: 16px 20px;
+
   display: flex;
-  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 16px;
+`;
+
+export const ThumbnailWrapper = styled.img`
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+`;
+
+export const NoThumbnailWrapper = styled.div`
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+`;
+
+export const PlaceInfomation = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+`;
+
+export const PlaceThemeNAddress = styled.div`
+  display: flex;
+  justify-content: flex-start;
   align-items: center;
   gap: 8px;
 `;
 
-export const PlaceNameSpan = styled.span`
-  word-break: normal;
-  font-weight: 500;
-  font-size: 16px;
-  letter-spacing: 0.2%;
-  line-height: 18px;
-
-  /* text-overflow: ellipsis;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical; */
+export const InfoSeperateLine = styled.div`
+  width: 1px;
+  height: 8px;
+  border-right: 1px solid ${({ theme }) => theme.colors.gray.secondary};
 `;
 
-export const PlaceThemeSpan = styled.span`
-  font-size: 12px;
-  word-break: keep-all;
-  color: ${({ theme }) => theme.gray01};
-`;
-
-export const AddressParagraph = styled.p`
+export const NoScrapedPlace = styled.div`
   width: 100%;
-  margin-bottom: 12px;
-  font-size: 12px;
-  word-break: keep-all;
-  color: ${({ theme }) => theme.gray01};
-`;
+  height: 60vh;
 
-export const DetailViewButton = styled.button`
-  flex-shrink: 0;
-  padding: 0;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 
+  h3 {
+    text-align: center;
+    color: ${({ theme }) => theme.colors.gray.secondary};
+  }
+`;
+
+export const TripBucketButton = styled.div`
+  display: inline-flex;
+  padding: 4px 15px;
+  margin-top: 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+
+  border-radius: 20px;
+  border: 1px solid ${({ theme }) => theme.colors.blue.primary};
+  background-color: white;
+
+  color: ${({ theme }) => theme.colors.blue.primary};
   cursor: pointer;
-  border: 0;
-  color: ${({ theme }) => theme.main};
-  background-color: transparent;
-
-  label {
-    cursor: pointer;
-  }
-  svg {
-    width: 16px;
-    height: 16px;
-
-    path {
-      fill: ${({ theme }) => theme.main};
-    }
-  }
-
-  &:hover {
-    text-decoration: underline;
-  }
 `;
