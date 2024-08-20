@@ -46,11 +46,11 @@ function UserEditPage() {
       ConfirmButton: {
         text: '확인',
         onClick: () => {
-          if (window.Android) {
-            window.Android.logout();
+          if (window.GabozagoDev) {
+            window.GabozagoDev.logout();
           }
           if (window.webkit) {
-            window.webkit.messageHandlers.IosHandler.callback.message({
+            window.webkit.messageHandlers.GabozagoDev.callback.message({
               action: 'logout',
               code: 'logout',
             });

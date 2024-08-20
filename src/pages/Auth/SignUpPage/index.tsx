@@ -73,13 +73,13 @@ function SignUpPage() {
           post<LoginResponse>('/user/sign-in', body).then((response) => {
             localStorage.setItem('access_token', response.data.access);
 
-            if (window.Android) {
-              window.Android.postUUID({
+            if (window.GabozagoDev) {
+              window.GabozagoDev.postUUID({
                 code: response.data.user_data.uuid,
               });
             }
             if (window.webkit) {
-              window.webkit.messageHandlers.IosHandler.callback.message({
+              window.webkit.messageHandlers.GabozagoDev.callback.message({
                 action: 'postUUID',
                 code: response.data.user_data.uuid,
               });
