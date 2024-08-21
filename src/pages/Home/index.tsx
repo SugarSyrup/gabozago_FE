@@ -52,10 +52,6 @@ function HomePage() {
         </S.BellWrapper>
       </S.Header>
 
-      <Typography.Headline size="md" color="inherit" noOfLine={-1}>
-        Version Update v2.0
-        {localStorage.getItem('test')}
-      </Typography.Headline>
       {/* Banner */}
       <Banner />
 

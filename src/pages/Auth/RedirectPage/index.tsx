@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { get } from '@_utils/api';
@@ -10,6 +10,7 @@ import Typography from '@_common/Typography';
 function RedirectPage() {
   const { type } = useParams();
   const navigate = useNavigate();
+  const [data, setData] = useState<string[]>([]);
 
   useEffect(() => {
     const code = new URL(document.location.toString()).searchParams.get('code');
@@ -18,6 +19,7 @@ function RedirectPage() {
       .then((response) => {
         if (response.data.status === 'ACTIVE') {
           localStorage.setItem('access_token', response.data.access);
+          setData((prev) => [...prev, `tokensetting:${response.data.access}`]);
 
           if (window.GabozagoDev) {
             window.GabozagoDev.postUUID({
@@ -31,14 +33,21 @@ function RedirectPage() {
             });
           }
 
+          setData((prev) => [...prev, `Bridge:${response.data.user_data.uuid}`]);
+
           navigate('/');
         } else {
+          setData((prev) => [
+            ...prev,
+            `Not Current User ${response.data.user_data.email} ${response.data.access} ${response.data.user_data.nickname}`,
+          ]);
           navigate(
             `/signup?type=${type}&email=${response.data.user_data?.email}&nickname=${response.data.user_data?.nickname}&code=${response.data.access}`,
           );
         }
       })
       .catch((error) => {
+        setData((prev) => [...prev, `Erro:${error.response.status}`]);
         if (error.response.status === 400) {
           toast.custom(() => (
             <Toast>
@@ -48,6 +57,7 @@ function RedirectPage() {
             </Toast>
           ));
         } else {
+          setData((prev) => [...prev, `Error Else:${error.response.status}`]);
           toast.custom(() => (
             <Toast>
               <Typography.Title size="md" color="white">
@@ -63,7 +73,9 @@ function RedirectPage() {
   return (
     <>
       <span>REDIRECT URL</span>
-      {localStorage.getItem('access_token')}
+      {data.map((item) => (
+        <p key={item}>{item}</p>
+      ))}
     </>
   );
 }
