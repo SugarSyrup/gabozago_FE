@@ -35,15 +35,15 @@ function RedirectPage() {
 
           setData((prev) => [...prev, `Bridge:${response.data.user_data.uuid}`]);
 
-          navigate('/');
+          // navigate('/');
         } else {
           setData((prev) => [
             ...prev,
             `Not Current User ${response.data.user_data.email} ${response.data.access} ${response.data.user_data.nickname}`,
           ]);
-          navigate(
-            `/signup?type=${type}&email=${response.data.user_data?.email}&nickname=${response.data.user_data?.nickname}&code=${response.data.access}`,
-          );
+          // navigate(
+          //   `/signup?type=${type}&email=${response.data.user_data?.email}&nickname=${response.data.user_data?.nickname}&code=${response.data.access}`,
+          // );
         }
       })
       .catch((error) => {
@@ -66,7 +66,7 @@ function RedirectPage() {
             </Toast>
           ));
         }
-        navigate('/login');
+        // navigate('/login');
       });
   }, []);
 
