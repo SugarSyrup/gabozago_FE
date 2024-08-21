@@ -63,7 +63,6 @@ function RedirectPage() {
   return (
     <>
       <span>REDIRECT URL</span>
-      {localStorage.getItem('access_token')}
     </>
   );
 }
