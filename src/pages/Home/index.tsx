@@ -73,7 +73,7 @@ function HomePage() {
           <Typography.Headline size="sm" color="inherit" noOfLine={2}>
             <S.FontHighlight>{username} 님</S.FontHighlight>
             <br />
-            이런 장소는 어떠세요?
+            이런 장소는 어떠세요? Cache Busting
           </Typography.Headline>
         </S.ArticleIntroduceTitle>
         <PlaceRecommendation />
