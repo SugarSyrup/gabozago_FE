@@ -52,6 +52,8 @@ function HomePage() {
         </S.BellWrapper>
       </S.Header>
 
+      <Typography.Headline size="md">Version 3</Typography.Headline>
+
       {/* Banner */}
       <Banner />
 
