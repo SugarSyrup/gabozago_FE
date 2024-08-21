@@ -33,6 +33,8 @@ function HomePage() {
         setUsername(response.data.nickname);
       });
     }
+
+    localStorage.setItem('test', 'ASDF');
   }, []);
 
   return (
@@ -52,6 +54,7 @@ function HomePage() {
 
       <Typography.Headline size="md" color="inherit" noOfLine={-1}>
         Version Update
+        {localStorage.getItem('test')}
       </Typography.Headline>
       {/* Banner */}
       <Banner />
