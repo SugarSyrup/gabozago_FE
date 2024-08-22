@@ -401,6 +401,10 @@ const router = createBrowserRouter([
       </IsLoginTemplate>
     ),
   },
+  {
+    path: '/testmap',
+    element: <ScrapBookPlaceMapPage />,
+  },
 ]);
 
 export default router;
