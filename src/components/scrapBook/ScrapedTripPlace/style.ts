@@ -13,8 +13,8 @@ export const ContentsHeader = styled.div`
   color: ${({ theme }) => theme.colors.font.primary};
 `;
 
-export const FontHighlight = styled.span`
-  color: ${({ theme }) => theme.colors.blue.primary};
+export const FontHighlight = styled.span<{ isRed?: boolean }>`
+  color: ${({ theme, isRed }) => (isRed ? theme.colors.red.primary : theme.colors.blue.primary)};
 `;
 
 export const PlaceList = styled.ol`
@@ -25,7 +25,7 @@ export const PlaceList = styled.ol`
   align-items: center;
 `;
 
-export const PlaceItem = styled.li`
+export const PlaceItem = styled.li<{ $isChecked: boolean }>`
   width: 100%;
   padding: 16px 20px;
 
@@ -34,6 +34,9 @@ export const PlaceItem = styled.li`
   align-items: center;
   flex-wrap: nowrap;
   gap: 16px;
+
+  background-color: ${({ theme, $isChecked }) =>
+    $isChecked ? theme.colors.blue.secondary : 'white'};
 `;
 
 export const ThumbnailWrapper = styled.img`

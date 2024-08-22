@@ -2,9 +2,9 @@ import { memo, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 import * as S from './style';
-import BookMarkIcon from '../../../assets/icons/bookmark_filled.svg?react';
+import SelectIcon from '@_icons/select.svg?react';
+import SelectFilledIcon from '@_icons/select_filled.svg?react';
 import { get, post } from '@_utils/api';
-import RightChevronIcon from '../../../assets/icons/chevron_right.svg?react';
 import Typography from '../../common/Typography';
 import { scrapPlaceFilterState } from '../../../recoil/filters/scrapPlaceFilterState';
 import { TFilter } from '../../../assets/types/FilterTypes';
@@ -22,10 +22,15 @@ interface Place {
 
 function ScrapedTripPlace() {
   const navigate = useNavigate();
+
   const filter = useRecoilValue<TFilter>(scrapPlaceFilterState);
   const resetFilter = useResetRecoilState(scrapPlaceFilterState);
+
   const [places, setPlaces] = useState<Place[]>([]);
+  const [deletes, setDeletes] = useState<number[]>([]);
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [next, setNext] = useState<string | null>(null);
+
   const infiniteRef = useRef<HTMLDivElement>(null);
 
   const getPlaces = async () => {
@@ -89,17 +94,62 @@ function ScrapedTripPlace() {
       <S.ContentsHeader>
         <Typography.Title size="md" color="inherit">
           {/* TODO: data.length */}
-          전체 <S.FontHighlight>123</S.FontHighlight>
+          {isEditMode ? (
+            <p
+              onClick={() => {
+                setIsEditMode(false);
+              }}
+            >
+              취소
+            </p>
+          ) : (
+            <>
+              전체 <S.FontHighlight>{places.length}</S.FontHighlight>
+            </>
+          )}
         </Typography.Title>
         {/* @TODO: 편집 모드 UI 및 버튼 기능 구성 */}
         <Typography.Title size="sm" color="#A6A6A6">
-          {places.length === 0 ? '편집하기' : <S.FontHighlight>편집하기</S.FontHighlight>}
+          {isEditMode ? (
+            <p
+              onClick={() => {
+                if (deletes.length > 0) {
+                  // @TODO: 삭제 기능 구현
+                }
+              }}
+            >
+              {places.length === 0 ? '삭제하기' : <S.FontHighlight isRed>삭제하기</S.FontHighlight>}
+            </p>
+          ) : (
+            <p
+              onClick={() => {
+                if (deletes.length > 0) {
+                  setIsEditMode(true);
+                }
+              }}
+            >
+              {places.length === 0 ? '편집하기' : <S.FontHighlight>편집하기</S.FontHighlight>}
+            </p>
+          )}
         </Typography.Title>
       </S.ContentsHeader>
-      {places.length === 0 ? (
+      {places.length !== 0 ? (
         <S.PlaceList>
           {places.map((item) => (
-            <S.PlaceItem key={item.id}>
+            <S.PlaceItem key={item.id} isChecked={isEditMode && deletes.includes(item.id)}>
+              {isEditMode && (
+                <div
+                  onClick={() => {
+                    if (deletes.includes(item.id)) {
+                      setDeletes(deletes.filter((id) => id !== item.id));
+                    } else {
+                      setDeletes([...deletes, item.id]);
+                    }
+                  }}
+                >
+                  {deletes.includes(item.id) ? <SelectIcon /> : <SelectFilledIcon />}
+                </div>
+              )}
               {item.thumbnailURL ? (
                 <S.ThumbnailWrapper src={item.thumbnailURL} alt={item.name} />
               ) : (
