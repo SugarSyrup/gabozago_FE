@@ -107,13 +107,6 @@ function PlanMap({ isEditMode, data = [], dayFilter }: Props) {
         mapId={import.meta.env.VITE_GOOGLEMAP_MAP_ID}
         onClick={() => {
           setMapFocused(true);
-          // console.log('onClick');
-        }}
-        onZoomChanged={() => {
-          // console.log('onResize');
-        }}
-        onDrag={() => {
-          // console.log('onDrag');
         }}
       >
         {data.map(
