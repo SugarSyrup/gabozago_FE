@@ -26,7 +26,16 @@ function ScrapedTripPlace() {
   const filter = useRecoilValue<TFilter>(scrapPlaceFilterState);
   const resetFilter = useResetRecoilState(scrapPlaceFilterState);
 
-  const [places, setPlaces] = useState<Place[]>([]);
+  const [places, setPlaces] = useState<Place[]>([
+    {
+      thumbnailURL: '',
+      id: 0,
+      name: '',
+      theme: [],
+      address: '',
+      memo: '',
+    },
+  ]);
   const [deletes, setDeletes] = useState<number[]>([]);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [next, setNext] = useState<string | null>(null);
@@ -47,7 +56,7 @@ function ScrapedTripPlace() {
           theme: filter.theme?.join(','),
         },
       });
-      setPlaces(data.results);
+      setPlaces((prev) => [...prev, ...data.results]);
       setNext(data.next);
     }
   };
@@ -136,7 +145,7 @@ function ScrapedTripPlace() {
       {places.length !== 0 ? (
         <S.PlaceList>
           {places.map((item) => (
-            <S.PlaceItem key={item.id} isChecked={isEditMode && deletes.includes(item.id)}>
+            <S.PlaceItem key={item.id} $isChecked={isEditMode && deletes.includes(item.id)}>
               {isEditMode && (
                 <div
                   onClick={() => {
@@ -179,12 +188,18 @@ function ScrapedTripPlace() {
             </S.PlaceItem>
           ))}
           <div ref={infiniteRef} />
-          <S.MapButton>
-            <MapIcon />
-            <Typography.Title size="lg" color="inherit">
-              지도 보기
-            </Typography.Title>
-          </S.MapButton>
+          {!isEditMode && (
+            <S.MapButton
+              onClick={() => {
+                navigate('/scrapbook/placemap');
+              }}
+            >
+              <MapIcon />
+              <Typography.Title size="lg" color="inherit">
+                지도 보기
+              </Typography.Title>
+            </S.MapButton>
+          )}
         </S.PlaceList>
       ) : (
         <S.NoScrapedPlace>
