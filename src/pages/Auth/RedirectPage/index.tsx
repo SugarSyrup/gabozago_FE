@@ -20,6 +20,7 @@ function RedirectPage() {
         if (response.data.status === 'ACTIVE') {
           localStorage.setItem('access_token', response.data.access);
           setData((prev) => [...prev, `1. tokensetting:${response.data.access}`]);
+          setData((prev) => [...prev, `1.1 tokensetting:${localStorage.getItem('access_token')}`]);
 
           if (window.GabozagoDev) {
             window.GabozagoDev.postUUID({
