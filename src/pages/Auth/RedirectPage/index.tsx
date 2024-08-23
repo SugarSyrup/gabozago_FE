@@ -19,7 +19,8 @@ function RedirectPage() {
       .then((response) => {
         if (response.data.status === 'ACTIVE') {
           localStorage.setItem('access_token', response.data.access);
-          setData((prev) => [...prev, `tokensetting:${response.data.access}`]);
+          setData((prev) => [...prev, `1. tokensetting:${response.data.access}`]);
+          setData((prev) => [...prev, `1.1 tokensetting:${localStorage.getItem('access_token')}`]);
 
           if (window.GabozagoDev) {
             window.GabozagoDev.postUUID({
@@ -32,14 +33,13 @@ function RedirectPage() {
               code: response.data.user_data.uuid,
             });
           }
-
-          setData((prev) => [...prev, `Bridge:${response.data.user_data.uuid}`]);
+          setData((prev) => [...prev, `2. Bridge:${response.data.user_data.uuid}`]);
 
           navigate('/');
         } else {
           setData((prev) => [
             ...prev,
-            `Not Current User ${response.data.user_data.email} ${response.data.access} ${response.data.user_data.nickname}`,
+            `3. Not Current User ${response.data.user_data.email} ${response.data.access} ${response.data.user_data.nickname}`,
           ]);
           navigate(
             `/signup?type=${type}&email=${response.data.user_data?.email}&nickname=${response.data.user_data?.nickname}&code=${response.data.access}`,
@@ -47,7 +47,7 @@ function RedirectPage() {
         }
       })
       .catch((error) => {
-        setData((prev) => [...prev, `Erro:${error}`]);
+        setData((prev) => [...prev, `4. Error:${error}`]);
         if (error.response.status === 400) {
           toast.custom(() => (
             <Toast>
@@ -56,8 +56,9 @@ function RedirectPage() {
               </Typography.Title>
             </Toast>
           ));
+          setData((prev) => [...prev, `5. Error:${error.response}`]);
         } else {
-          setData((prev) => [...prev, `Error Else:${error}`]);
+          setData((prev) => [...prev, `6. Error:${error.response}`]);
           toast.custom(() => (
             <Toast>
               <Typography.Title size="md" color="white">
@@ -66,12 +67,14 @@ function RedirectPage() {
             </Toast>
           ));
         }
+        setData((prev) => [...prev, `7. Error:${error.response}`]);
         navigate('/login');
       });
   }, []);
 
   return (
     <>
+      <span>version 8/23 0.1</span>
       <span>REDIRECT URL</span>
       {data.map((item) => (
         <p key={item}>{item}</p>
