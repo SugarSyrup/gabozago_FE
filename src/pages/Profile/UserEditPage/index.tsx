@@ -46,17 +46,22 @@ function UserEditPage() {
       ConfirmButton: {
         text: '확인',
         onClick: () => {
+          localStorage.removeItem('access_token');
+
           if (window.GabozagoDev) {
             window.GabozagoDev.logout();
           }
-          if (window.webkit) {
+          if (
+            window.webkit &&
+            window.webkitURL.messageHandlers &&
+            window.webkitURL.messageHandlers.GabozagoDev
+          ) {
             window.webkit.messageHandlers.GabozagoDev.callback.message({
               action: 'logout',
               code: 'logout',
             });
           }
 
-          localStorage.removeItem('access_token');
           popupClose();
           navigate('/');
         },
