@@ -40,6 +40,14 @@ function HomePage() {
   return (
     <PageTemplate>
       {/* Header */}
+      <button
+        type="button"
+        onClick={() => {
+          localStorage.removeItem('access_token');
+        }}
+      >
+        로컬 스토리지 삭제
+      </button>
       <S.Header>
         <LogoIcon />
         <S.BellWrapper
@@ -52,7 +60,7 @@ function HomePage() {
         </S.BellWrapper>
       </S.Header>
 
-      <Typography.Headline size="md">Version 4</Typography.Headline>
+      <Typography.Headline size="md">Version 5</Typography.Headline>
 
       {/* Banner */}
       <Banner />

@@ -58,7 +58,7 @@ function BottomNav({
     RightContent: (
       <Typography.Body size="lg" color="white">
         <span
-          style={{ textDecoration: 'underline', cursor: 'pointer' }}
+          style={{ textDecoration: 'underline', cursor: 'pointer', textWrap: 'nowrap' }}
           onClick={() => {
             navigate('/login');
           }}

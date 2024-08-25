@@ -123,7 +123,11 @@ function LoginPage() {
                           code: response.data.user_data.uuid,
                         });
                       }
-                      if (window.webkit) {
+                      if (
+                        window.webkit &&
+                        window.webkitURL.messageHandlers &&
+                        window.webkitURL.messageHandlers.GabozagoDev
+                      ) {
                         window.webkit.messageHandlers.GabozagoDev.callback.message({
                           action: 'postUUID',
                           code: response.data.user_data.uuid,
