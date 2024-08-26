@@ -124,11 +124,8 @@ function LoginPage() {
                             code: response.data.user_data.uuid,
                           });
                         }
-                        if (
-                          window.webkit.messageHandlers.GabozagoDev &&
-                          window.webkit.messageHandlers.GabozagoDev.callback
-                        ) {
-                          window.webkit.messageHandlers.GabozagoDev.callback({
+                        if (window.webkit.messageHandlers.gabozagoDev) {
+                          window.webkit.messageHandlers.gabozagoDev.postMessage({
                             action: 'postUUID',
                             code: response.data.user_data.uuid,
                           });

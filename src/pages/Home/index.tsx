@@ -59,7 +59,7 @@ function HomePage() {
               });
             }
             if (window.webkit.messageHandlers.gabozagoDev) {
-              window.webkit.messageHandlers.gabozagoDev.callback('callback method test');
+              window.webkit.messageHandlers.gabozagoDev.postMessage('test message');
             }
           } catch (e) {
             setData((prev) => [...prev, `${e}`]);
@@ -83,7 +83,7 @@ function HomePage() {
         </S.BellWrapper>
       </S.Header>
 
-      <Typography.Headline size="md">Version 8/26 오후 3시</Typography.Headline>
+      <Typography.Headline size="md">Version 8/26 오후 3시 30분</Typography.Headline>
 
       {/* Banner */}
       <Banner />
