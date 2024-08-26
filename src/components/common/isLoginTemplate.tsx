@@ -27,20 +27,25 @@ function IsLoginTemplate({ children }: Props) {
     const access_token = localStorage.getItem('access_token');
 
     if (!access_token) {
-      toast.custom(() => (
-        <Toast>
-          <Typography.Body size="lg" color="white">
-            로그인이 필요한 서비스 입니다
-          </Typography.Body>
-          <ToastLink
-            onClick={() => {
-              navigate(`/login`);
-            }}
-          >
-            로그인 하러가기
-          </ToastLink>
-        </Toast>
-      ));
+      toast.custom(
+        () => (
+          <Toast>
+            <Typography.Body size="lg" color="white">
+              로그인이 필요한 서비스 입니다
+            </Typography.Body>
+            <ToastLink
+              onClick={() => {
+                navigate(`/login`);
+              }}
+            >
+              로그인 하러가기
+            </ToastLink>
+          </Toast>
+        ),
+        {
+          duration: 1000,
+        },
+      );
       navigate('/');
     }
   }, []);

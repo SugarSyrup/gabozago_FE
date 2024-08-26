@@ -124,11 +124,10 @@ function LoginPage() {
                         });
                       }
                       if (
-                        window.webkit &&
-                        window.webkitURL.messageHandlers &&
-                        window.webkitURL.messageHandlers.GabozagoDev
+                        window.webkit.messageHandlers.GabozagoDev &&
+                        window.webkit.messageHandlers.GabozagoDev.callback
                       ) {
-                        window.webkit.messageHandlers.GabozagoDev.callback.message({
+                        window.webkit.messageHandlers.GabozagoDev.callback({
                           action: 'postUUID',
                           code: response.data.user_data.uuid,
                         });
