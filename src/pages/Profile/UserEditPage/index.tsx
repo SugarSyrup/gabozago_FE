@@ -48,17 +48,21 @@ function UserEditPage() {
         onClick: () => {
           localStorage.removeItem('access_token');
 
-          if (window.GabozagoDev) {
-            window.GabozagoDev.logout();
-          }
-          if (
-            window.webkit.messageHandlers.GabozagoDev &&
-            window.webkit.messageHandlers.GabozagoDev.callback
-          ) {
-            window.webkit.messageHandlers.GabozagoDev.callback({
-              action: 'logout',
-              code: 'logout',
-            });
+          try {
+            if (window.GabozagoDev) {
+              window.GabozagoDev.logout();
+            }
+            if (
+              window.webkit.messageHandlers.GabozagoDev &&
+              window.webkit.messageHandlers.GabozagoDev.callback
+            ) {
+              window.webkit.messageHandlers.GabozagoDev.callback({
+                action: 'logout',
+                code: 'logout',
+              });
+            }
+          } catch (e) {
+            console.log(e);
           }
 
           popupClose();

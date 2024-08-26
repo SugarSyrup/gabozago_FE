@@ -22,21 +22,24 @@ function RedirectPage() {
           setData((prev) => [...prev, `1. tokensetting:${response.data.access}`]);
           setData((prev) => [...prev, `1.1 tokensetting:${localStorage.getItem('access_token')}`]);
 
-          if (window.GabozagoDev) {
-            window.GabozagoDev.postUUID({
-              code: response.data.user_data.uuid,
-            });
+          try {
+            if (window.GabozagoDev) {
+              window.GabozagoDev.postUUID({
+                code: response.data.user_data.uuid,
+              });
+            }
+            if (
+              window.webkit.messageHandlers.GabozagoDev &&
+              window.webkit.messageHandlers.GabozagoDev.callback
+            ) {
+              window.webkit.messageHandlers.GabozagoDev.callback({
+                action: 'postUUID',
+                code: response.data.user_data.uuid,
+              });
+            }
+          } catch (e) {
+            setData((prev) => [...prev, `2. Bridge:${response.data.user_data.uuid}`]);
           }
-          if (
-            window.webkit.messageHandlers.GabozagoDev &&
-            window.webkit.messageHandlers.GabozagoDev.callback
-          ) {
-            window.webkit.messageHandlers.GabozagoDev.callback({
-              action: 'postUUID',
-              code: response.data.user_data.uuid,
-            });
-          }
-          setData((prev) => [...prev, `2. Bridge:${response.data.user_data.uuid}`]);
 
           navigate('/');
         } else {
