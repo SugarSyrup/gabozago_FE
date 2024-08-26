@@ -43,7 +43,7 @@ function IsLoginTemplate({ children }: Props) {
           </Toast>
         ),
         {
-          duration: 5000,
+          duration: 1000,
         },
       );
       navigate('/');
