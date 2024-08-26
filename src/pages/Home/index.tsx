@@ -55,16 +55,16 @@ function HomePage() {
           try {
             if (window.GabozagoDev) {
               window.GabozagoDev.postUUID({
-                code: response.data.user_data.uuid,
+                code: 'test',
               });
             }
             if (
-              window.webkit.messageHandlers.GabozagoDev &&
-              window.webkit.messageHandlers.GabozagoDev.callback
+              window.webkit.messageHandlers.gabozagoDev &&
+              window.webkit.messageHandlers.gabozagoDev.callback
             ) {
-              window.webkit.messageHandlers.GabozagoDev.callback({
-                action: 'postUUID',
-                code: response.data.user_data.uuid,
+              window.webkit.messageHandlers.gabozagoDev.callback({
+                action: 'test',
+                code: 'test',
               });
             }
           } catch (e) {
