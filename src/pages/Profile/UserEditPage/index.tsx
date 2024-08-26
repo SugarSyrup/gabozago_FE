@@ -52,11 +52,10 @@ function UserEditPage() {
             window.GabozagoDev.logout();
           }
           if (
-            window.webkit &&
-            window.webkitURL.messageHandlers &&
-            window.webkitURL.messageHandlers.GabozagoDev
+            window.webkit.messageHandlers.GabozagoDev &&
+            window.webkit.messageHandlers.GabozagoDev.callback
           ) {
-            window.webkit.messageHandlers.GabozagoDev.callback.message({
+            window.webkit.messageHandlers.GabozagoDev.callback({
               action: 'logout',
               code: 'logout',
             });

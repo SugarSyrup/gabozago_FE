@@ -28,11 +28,10 @@ function RedirectPage() {
             });
           }
           if (
-            window.webkit &&
-            window.webkit.messageHandlers &&
-            window.webkit.messageHandlers.GabozagoDev
+            window.webkit.messageHandlers.GabozagoDev &&
+            window.webkit.messageHandlers.GabozagoDev.callback
           ) {
-            window.webkit.messageHandlers.GabozagoDev.callback.message({
+            window.webkit.messageHandlers.GabozagoDev.callback({
               action: 'postUUID',
               code: response.data.user_data.uuid,
             });
@@ -78,7 +77,7 @@ function RedirectPage() {
 
   return (
     <>
-      <span>version 8/23 0.1</span>
+      <span>version 8/26 0.1</span>
       <span>REDIRECT URL</span>
       {data.map((item) => (
         <p key={item}>{item}</p>
