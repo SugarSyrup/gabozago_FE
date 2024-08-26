@@ -54,9 +54,7 @@ function HomePage() {
         onClick={() => {
           try {
             if (window.GabozagoDev) {
-              window.GabozagoDev.postUUID({
-                code: 'test',
-              });
+              window.GabozagoDev.postUUID('test');
             }
             if (window.webkit.messageHandlers.gabozagoDev) {
               window.webkit.messageHandlers.gabozagoDev.postMessage('test message');

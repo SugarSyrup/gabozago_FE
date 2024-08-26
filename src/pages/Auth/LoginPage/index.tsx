@@ -120,9 +120,7 @@ function LoginPage() {
 
                       try {
                         if (window.GabozagoDev) {
-                          window.GabozagoDev.postUUID({
-                            code: response.data.user_data.uuid,
-                          });
+                          window.GabozagoDev.postUUID(response.data.user_data.uuid);
                         }
                         if (window.webkit.messageHandlers.gabozagoDev) {
                           window.webkit.messageHandlers.gabozagoDev.postMessage({
