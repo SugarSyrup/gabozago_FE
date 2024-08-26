@@ -26,6 +26,7 @@ import { TUserProfile } from '@_types/TUserProfile';
 function HomePage() {
   const navigate = useNavigate();
   const [username, setUsername] = useState<string>('');
+  const [data, setData] = useState<string[]>([]);
 
   useEffect(() => {
     if (isLogin()) {
@@ -48,6 +49,34 @@ function HomePage() {
       >
         로컬 스토리지 삭제
       </button>
+      <button
+        type="button"
+        onClick={() => {
+          try {
+            if (window.GabozagoDev) {
+              window.GabozagoDev.postUUID({
+                code: response.data.user_data.uuid,
+              });
+            }
+            if (
+              window.webkit.messageHandlers.GabozagoDev &&
+              window.webkit.messageHandlers.GabozagoDev.callback
+            ) {
+              window.webkit.messageHandlers.GabozagoDev.callback({
+                action: 'postUUID',
+                code: response.data.user_data.uuid,
+              });
+            }
+          } catch (e) {
+            setData((prev) => [...prev, `${e}`]);
+          }
+        }}
+      >
+        콜백 테스트
+      </button>
+      {data.map((item, index) => (
+        <p key={index}>{item}</p>
+      ))}
       <S.Header>
         <LogoIcon />
         <S.BellWrapper
