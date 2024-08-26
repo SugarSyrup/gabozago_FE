@@ -81,7 +81,7 @@ function HomePage() {
         </S.BellWrapper>
       </S.Header>
 
-      <Typography.Headline size="md">Version 8/26 오후 3시 30분</Typography.Headline>
+      <Typography.Headline size="md">Version 8/26 오후 4시 30분</Typography.Headline>
 
       {/* Banner */}
       <Banner />
