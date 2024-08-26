@@ -58,14 +58,8 @@ function HomePage() {
                 code: 'test',
               });
             }
-            if (
-              window.webkit.messageHandlers.gabozagoDev &&
-              window.webkit.messageHandlers.gabozagoDev.callback
-            ) {
-              window.webkit.messageHandlers.gabozagoDev.callback({
-                action: 'test',
-                code: 'test',
-              });
+            if (window.webkit.messageHandlers.gabozagoDev) {
+              window.webkit.messageHandlers.gabozagoDev.callback('callback method test');
             }
           } catch (e) {
             setData((prev) => [...prev, `${e}`]);
