@@ -118,19 +118,23 @@ function LoginPage() {
                     if (response.data.status === 'ACTIVE') {
                       localStorage.setItem('access_token', response.data.access);
 
-                      if (window.GabozagoDev) {
-                        window.GabozagoDev.postUUID({
-                          code: response.data.user_data.uuid,
-                        });
-                      }
-                      if (
-                        window.webkit.messageHandlers.GabozagoDev &&
-                        window.webkit.messageHandlers.GabozagoDev.callback
-                      ) {
-                        window.webkit.messageHandlers.GabozagoDev.callback({
-                          action: 'postUUID',
-                          code: response.data.user_data.uuid,
-                        });
+                      try {
+                        if (window.GabozagoDev) {
+                          window.GabozagoDev.postUUID({
+                            code: response.data.user_data.uuid,
+                          });
+                        }
+                        if (
+                          window.webkit.messageHandlers.GabozagoDev &&
+                          window.webkit.messageHandlers.GabozagoDev.callback
+                        ) {
+                          window.webkit.messageHandlers.GabozagoDev.callback({
+                            action: 'postUUID',
+                            code: response.data.user_data.uuid,
+                          });
+                        }
+                      } catch (e) {
+                        console.log(e);
                       }
 
                       navigate('/');
