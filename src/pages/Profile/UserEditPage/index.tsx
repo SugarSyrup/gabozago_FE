@@ -52,11 +52,8 @@ function UserEditPage() {
             if (window.GabozagoDev) {
               window.GabozagoDev.logout();
             }
-            if (
-              window.webkit.messageHandlers.GabozagoDev &&
-              window.webkit.messageHandlers.GabozagoDev.callback
-            ) {
-              window.webkit.messageHandlers.GabozagoDev.callback({
+            if (window.webkit.messageHandlers.gabozagoDev) {
+              window.webkit.messageHandlers.gabozagoDev.postMessage({
                 action: 'logout',
                 code: 'logout',
               });
