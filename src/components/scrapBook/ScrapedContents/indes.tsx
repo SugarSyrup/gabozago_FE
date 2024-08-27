@@ -2,23 +2,18 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Typography from '@_common/Typography';
+import { get } from '@_utils/api';
+import { TPagination } from '@_types/server/pagination.type';
+import { TContentShorten } from '@_types/server/content.type';
 
 import useSearchInput from '../../../hooks/useSearchInput';
 import InstagramIcon from '../../../assets/imgs/instagram_icon.png';
 
 import * as S from './style';
 
-interface ContentResponseType {
-  id: number;
-  title: string;
-  thumbnail: string;
-  socialType: string;
-  isWatched: boolean;
-}
-
 function ScrapedContents() {
   const navigate = useNavigate();
-  const [data, setData] = useState<ContentResponseType[]>([]);
+  const [data, setData] = useState<TContentShorten[]>([]);
   const [inputRef, SearchInput] = useSearchInput({
     placeholder: '콘텐츠 를 검색해보세요.',
     onChange: () => {},
@@ -30,8 +25,14 @@ function ScrapedContents() {
   });
 
   useEffect(() => {
-    // @TODO: API 연동
+    interface TResponse extends TPagination<TContentShorten> {
+      count: number;
+    }
+    get<TResponse>('/scrap/content').then((res) => {
+      setData(res.data.results);
+    });
     // @TODO: 검색에 따라 결과 바꿔지게 수정
+    // @TODO: infinite scroll 추가
   }, []);
 
   return (
@@ -51,23 +52,26 @@ function ScrapedContents() {
       </S.ContentsHeader>
       <S.ContentsContainer>
         {/* @TODO: Item onClick */}
-        <S.ContentItem
-          onClick={() => {
-            navigate('/scrapbook/content/0');
-          }}
-        >
-          <S.ImgWrapper>
-            <img src="https://via.placeholder.com/150" alt="content" />
-            <S.IconWrapper>
-              <img src={InstagramIcon} alt="instagramIcon" />
-            </S.IconWrapper>
-          </S.ImgWrapper>
-          <S.Title>
-            <Typography.Title size="sm" noOfLine={2} color="inherit">
-              콘텐츠 제목
-            </Typography.Title>
-          </S.Title>
-        </S.ContentItem>
+        {data.map((content) => (
+          <S.ContentItem
+            onClick={() => {
+              navigate('/scrapbook/content/0');
+            }}
+            key={content.id}
+          >
+            <S.ImgWrapper>
+              <img src="https://via.placeholder.com/150" alt="content" />
+              <S.IconWrapper>
+                <img src={InstagramIcon} alt="instagramIcon" />
+              </S.IconWrapper>
+            </S.ImgWrapper>
+            <S.Title>
+              <Typography.Title size="sm" noOfLine={2} color="inherit">
+                콘텐츠 제목
+              </Typography.Title>
+            </S.Title>
+          </S.ContentItem>
+        ))}
         <S.ContentItem
           onClick={() => {
             navigate('/scrapbook/content/0');
