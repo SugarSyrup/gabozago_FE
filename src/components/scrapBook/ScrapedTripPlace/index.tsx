@@ -35,6 +35,22 @@ function ScrapedTripPlace() {
       address: '',
       memo: '',
     },
+    {
+      thumbnailURL: '',
+      id: 1,
+      name: '',
+      theme: [],
+      address: '',
+      memo: '',
+    },
+    {
+      thumbnailURL: '',
+      id: 2,
+      name: '',
+      theme: [],
+      address: '',
+      memo: '',
+    },
   ]);
   const [deletes, setDeletes] = useState<number[]>([]);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
@@ -132,9 +148,12 @@ function ScrapedTripPlace() {
           ) : (
             <p
               onClick={() => {
-                if (deletes.length > 0) {
+                if (places.length > 0) {
                   setIsEditMode(true);
                 }
+              }}
+              style={{
+                cursor: places.length === 0 ? 'default' : 'pointer',
               }}
             >
               {places.length === 0 ? '편집하기' : <S.FontHighlight>편집하기</S.FontHighlight>}
@@ -156,7 +175,7 @@ function ScrapedTripPlace() {
                     }
                   }}
                 >
-                  {deletes.includes(item.id) ? <SelectIcon /> : <SelectFilledIcon />}
+                  {deletes.includes(item.id) ? <SelectFilledIcon /> : <SelectIcon />}
                 </div>
               )}
               {item.thumbnailURL ? (

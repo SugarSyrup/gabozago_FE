@@ -18,7 +18,8 @@ export const FontHighlight = styled.span<{ isRed?: boolean }>`
 `;
 
 export const PlaceList = styled.ol`
-  width: 100%;
+  width: calc(100% + 40px);
+  margin-left: -20px;
 
   display: flex;
   flex-direction: column;

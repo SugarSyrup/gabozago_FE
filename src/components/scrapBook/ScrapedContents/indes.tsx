@@ -30,6 +30,7 @@ function ScrapedContents() {
     }
     get<TResponse>('/scrap/content').then((res) => {
       setData(res.data.results);
+      console.log(res.data);
     });
     // @TODO: 검색에 따라 결과 바꿔지게 수정
     // @TODO: infinite scroll 추가
@@ -52,26 +53,36 @@ function ScrapedContents() {
       </S.ContentsHeader>
       <S.ContentsContainer>
         {/* @TODO: Item onClick */}
-        {data.map((content) => (
-          <S.ContentItem
-            onClick={() => {
-              navigate('/scrapbook/content/0');
-            }}
-            key={content.id}
-          >
-            <S.ImgWrapper>
-              <img src="https://via.placeholder.com/150" alt="content" />
-              <S.IconWrapper>
-                <img src={InstagramIcon} alt="instagramIcon" />
-              </S.IconWrapper>
-            </S.ImgWrapper>
-            <S.Title>
-              <Typography.Title size="sm" noOfLine={2} color="inherit">
-                콘텐츠 제목
-              </Typography.Title>
-            </S.Title>
-          </S.ContentItem>
-        ))}
+        {data.length !== 0 &&
+          data.map((content) => (
+            <S.ContentItem
+              onClick={() => {
+                navigate(`/scrapbook/content/${content.id}`);
+              }}
+              key={content.id}
+            >
+              {!content.is_read && (
+                <S.NotWatched>
+                  <Typography.Title size="md" noOfLine={2} color="inherit">
+                    미열람
+                    <br />
+                    콘텐츠
+                  </Typography.Title>
+                </S.NotWatched>
+              )}
+              <S.ImgWrapper>
+                <img src={content.thumbnailURL} alt="content" />
+                <S.IconWrapper>
+                  <img src={InstagramIcon} alt="instagramIcon" />
+                </S.IconWrapper>
+              </S.ImgWrapper>
+              <S.Title>
+                <Typography.Title size="sm" noOfLine={2} color="inherit">
+                  {content.title}
+                </Typography.Title>
+              </S.Title>
+            </S.ContentItem>
+          ))}
         <S.ContentItem
           onClick={() => {
             navigate('/scrapbook/content/0');
