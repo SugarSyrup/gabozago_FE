@@ -59,22 +59,19 @@ function ScrapedTripPlace() {
   const infiniteRef = useRef<HTMLDivElement>(null);
 
   const getPlaces = async () => {
-    const token = localStorage.getItem('access_token');
-    if (token) {
-      const { data } = await get<{
-        next: string | null;
-        previous: string | null;
-        results: Place[];
-      }>('folder/scrap/place', {
-        params: {
-          sort: filter.sort,
-          location: filter.location?.join(','),
-          theme: filter.theme?.join(','),
-        },
-      });
-      setPlaces((prev) => [...prev, ...data.results]);
-      setNext(data.next);
-    }
+    const { data } = await get<{
+      next: string | null;
+      previous: string | null;
+      results: Place[];
+    }>('folder/scrap/place', {
+      params: {
+        sort: filter.sort,
+        location: filter.location?.join(','),
+        theme: filter.theme?.join(','),
+      },
+    });
+    setPlaces((prev) => [...prev, ...data.results]);
+    setNext(data.next);
   };
 
   useEffect(() => {

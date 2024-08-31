@@ -60,7 +60,6 @@ function PlanMap({ isEditMode, data = [], dayFilter }: Props) {
     setBounds(coords);
   }, [coords, map, mapFocused]);
 
-  // Map 편집모드로 갔다가 돌아올때, 지도의 Zoom 이 초기화 되는 문제 수정
   useEffect(() => {
     if (!map) return;
     setTimeout(() => {
