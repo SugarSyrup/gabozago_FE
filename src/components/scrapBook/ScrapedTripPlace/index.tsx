@@ -1,6 +1,6 @@
 import { memo, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue, useResetRecoilState } from 'recoil';
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import * as S from './style';
 import SelectIcon from '@_icons/select.svg?react';
 import SelectFilledIcon from '@_icons/select_filled.svg?react';
@@ -10,6 +10,8 @@ import { scrapPlaceFilterState } from '../../../recoil/filters/scrapPlaceFilterS
 import { TFilter } from '../../../assets/types/FilterTypes';
 import NoThumbnailImg from '@_imgs/NoThumbnail.png';
 import MapIcon from '@_icons/map.svg?react';
+import { popupValue } from '@_recoil/common/PopupValue';
+import usePopup from '../../../hooks/usePopup';
 
 interface Place {
   thumbnailURL: string;
@@ -55,6 +57,8 @@ function ScrapedTripPlace() {
   const [deletes, setDeletes] = useState<number[]>([]);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [next, setNext] = useState<string | null>(null);
+  const { popupOpen, popupClose } = usePopup();
+  const setPopupUI = useSetRecoilState(popupValue);
 
   const infiniteRef = useRef<HTMLDivElement>(null);
 
@@ -136,7 +140,19 @@ function ScrapedTripPlace() {
             <p
               onClick={() => {
                 if (deletes.length > 0) {
-                  // @TODO: 삭제 기능 구현
+                  setPopupUI({
+                    Header: 'N개의 장소를 삭제하시겠어요?',
+                    Warning: '삭제한 장소는 복구할 수 없어요.',
+                    CloseButton: {
+                      text: '취소',
+                    },
+                    ConfirmButton: {
+                      onClick: () => {
+                        // @TODO: 삭제 요청 API
+                      },
+                      text: '확인',
+                    },
+                  });
                 }
               }}
             >
