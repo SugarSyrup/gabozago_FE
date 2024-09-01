@@ -1,5 +1,16 @@
 import styled from 'styled-components';
 
+export const CurrentPositionWrapper = styled.div`
+  position: absolute;
+  top: 56px;
+  right: 8px;
+
+  background-color: white;
+  padding: 4px;
+  border-radius: 8px;
+  cursor: pointer;
+`;
+
 export const ModalOpenButton = styled.div`
   position: fixed;
   left: calc(50% - 60px);
@@ -87,4 +98,37 @@ export const InfoSeperateLine = styled.div`
   width: 1px;
   height: 8px;
   border-right: 1px solid ${({ theme }) => theme.colors.gray.secondary};
+`;
+
+export const SelectedPlaceWrapper = styled.div`
+  width: calc(100% - 40px);
+  max-width: 460px;
+
+  height: 115px;
+  background-color: white;
+  border-radius: 8px;
+
+  position: fixed;
+  bottom: 24px;
+  z-index: 100;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+`;
+
+export const InfoTopContainer = styled.div`
+  padding-top: 1px;
+  padding-left: 4px;
+  & > p:first-child {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    align-items: center;
+  }
+  & > p:nth-child(2) {
+    padding-bottom: 2px;
+  }
 `;
