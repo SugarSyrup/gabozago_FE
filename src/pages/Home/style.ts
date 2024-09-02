@@ -1,5 +1,51 @@
 import styled from 'styled-components';
 
+export const PopupContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  padding-top: 12px;
+  padding-bottom: 12px;
+
+  svg {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+
+    path {
+      fill: ${({ theme }) => theme.colors.black.primary};
+    }
+  }
+
+  img {
+    width: 146px;
+  }
+
+  h1 {
+    margin-top: 24px;
+    color: ${({ theme }) => theme.colors.black.primary};
+  }
+
+  span {
+    text-align: center !important;
+    color: #727272;
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+
+  span:last-child {
+    color: ${({ theme }) => theme.colors.blue.primary};
+    margin-top: 0px;
+    margin-bottom: 4px;
+  }
+`;
+
 // Header
 export const Header = styled.header`
   width: 100%;
