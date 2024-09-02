@@ -1,4 +1,6 @@
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useSetRecoilState } from 'recoil';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { isAndroid, isIOS } from 'react-device-detect';
 
 import LogoIcon from '@_icons/logo_text.svg?react';
@@ -6,27 +8,35 @@ import BellIcon from '@_icons/bell_pin_fill.svg?react';
 import LogoForeIcon from '@_icons/logo_fore.svg?react';
 import InstagramIcon from '@_icons/instagram.svg?react';
 import ChevronRightIcon from '@_icons/chevron_right.svg?react';
+import XIcon from '@_icons/x.svg?react';
+import SleepIMG from '@_imgs/sleepIMG.png';
+
+import isLogin from '@_utils/isLogin';
+import { get } from '@_utils/api';
 
 import Typography from '@_common/Typography';
 import OutlineButton from '@_common/Button/OutlineButton';
+import PageTemplate from '@_common/PageTemplate';
 
-import PageTemplate from '../../components/common/PageTemplate';
+import { TUserProfile } from '@_types/TUserProfile';
+import { popupValue } from '@_recoil/common/PopupValue';
+
 import PopularArticles from '../../components/home/PopularArticles';
 import HotArticles from '../../components/home/HotArticles';
 import PlaceRecommendation from '../../components/home/PlaceRecommendation';
 import TripBucketList from '../../components/home/TripBucketList';
 import Banner from '../../components/home/Banner';
+import usePopup from '../../hooks/usePopup';
 
 import * as S from './style';
-import { useEffect, useState } from 'react';
-import isLogin from '@_utils/isLogin';
-import { get } from '@_utils/api';
-import { TUserProfile } from '@_types/TUserProfile';
 
 function HomePage() {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [username, setUsername] = useState<string>('');
   const [data, setData] = useState<string[]>([]);
+  const setPopupValue = useSetRecoilState(popupValue);
+  const { popupOpen, popupClose } = usePopup();
 
   useEffect(() => {
     if (isLogin()) {
@@ -34,8 +44,36 @@ function HomePage() {
         setUsername(response.data.nickname);
       });
     }
+  }, []);
 
-    localStorage.setItem('test', 'ASDF');
+  useEffect(() => {
+    if (searchParams.get('popup') === 'bucket_fail') {
+      setPopupValue({
+        Custom: (
+          <S.PopupContainer>
+            <XIcon
+              onClick={() => {
+                popupClose();
+              }}
+            />
+            <img src={SleepIMG} alt="bucket_fail" />
+            <Typography.Headline size="sm" color="inherit">
+              콘텐츠를 다시 공유해주세요!
+            </Typography.Headline>
+            <Typography.Body size="lg" color="inherit" noOfLine={3}>
+              요청을 처리하는데 문제가 생겼어요. <br />
+              이전 화면으로 돌아가 <br />
+              다시 공유하면 정상적으로 처리됩니다.
+            </Typography.Body>
+            <Typography.Body size="lg" color="inherit" noOfLine={3}>
+              서비스 이용에 불편을 드려 죄송합니다.
+            </Typography.Body>
+          </S.PopupContainer>
+        ),
+      });
+      popupOpen();
+      setSearchParams('');
+    }
   }, []);
 
   return (
