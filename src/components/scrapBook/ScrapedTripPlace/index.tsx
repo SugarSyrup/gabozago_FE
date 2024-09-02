@@ -1,6 +1,6 @@
 import { memo, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue, useResetRecoilState } from 'recoil';
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import * as S from './style';
 import SelectIcon from '@_icons/select.svg?react';
 import SelectFilledIcon from '@_icons/select_filled.svg?react';
@@ -10,6 +10,8 @@ import { scrapPlaceFilterState } from '../../../recoil/filters/scrapPlaceFilterS
 import { TFilter } from '../../../assets/types/FilterTypes';
 import NoThumbnailImg from '@_imgs/NoThumbnail.png';
 import MapIcon from '@_icons/map.svg?react';
+import { popupValue } from '@_recoil/common/PopupValue';
+import usePopup from '../../../hooks/usePopup';
 
 interface Place {
   thumbnailURL: string;
@@ -35,30 +37,45 @@ function ScrapedTripPlace() {
       address: '',
       memo: '',
     },
+    {
+      thumbnailURL: '',
+      id: 1,
+      name: '',
+      theme: [],
+      address: '',
+      memo: '',
+    },
+    {
+      thumbnailURL: '',
+      id: 2,
+      name: '',
+      theme: [],
+      address: '',
+      memo: '',
+    },
   ]);
   const [deletes, setDeletes] = useState<number[]>([]);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [next, setNext] = useState<string | null>(null);
+  const { popupOpen, popupClose } = usePopup();
+  const setPopupUI = useSetRecoilState(popupValue);
 
   const infiniteRef = useRef<HTMLDivElement>(null);
 
   const getPlaces = async () => {
-    const token = localStorage.getItem('access_token');
-    if (token) {
-      const { data } = await get<{
-        next: string | null;
-        previous: string | null;
-        results: Place[];
-      }>('folder/scrap/place', {
-        params: {
-          sort: filter.sort,
-          location: filter.location?.join(','),
-          theme: filter.theme?.join(','),
-        },
-      });
-      setPlaces((prev) => [...prev, ...data.results]);
-      setNext(data.next);
-    }
+    const { data } = await get<{
+      next: string | null;
+      previous: string | null;
+      results: Place[];
+    }>('folder/scrap/place', {
+      params: {
+        sort: filter.sort,
+        location: filter.location?.join(','),
+        theme: filter.theme?.join(','),
+      },
+    });
+    setPlaces((prev) => [...prev, ...data.results]);
+    setNext(data.next);
   };
 
   useEffect(() => {
@@ -123,7 +140,19 @@ function ScrapedTripPlace() {
             <p
               onClick={() => {
                 if (deletes.length > 0) {
-                  // @TODO: 삭제 기능 구현
+                  setPopupUI({
+                    Header: 'N개의 장소를 삭제하시겠어요?',
+                    Warning: '삭제한 장소는 복구할 수 없어요.',
+                    CloseButton: {
+                      text: '취소',
+                    },
+                    ConfirmButton: {
+                      onClick: () => {
+                        // @TODO: 삭제 요청 API
+                      },
+                      text: '확인',
+                    },
+                  });
                 }
               }}
             >
@@ -132,9 +161,12 @@ function ScrapedTripPlace() {
           ) : (
             <p
               onClick={() => {
-                if (deletes.length > 0) {
+                if (places.length > 0) {
                   setIsEditMode(true);
                 }
+              }}
+              style={{
+                cursor: places.length === 0 ? 'default' : 'pointer',
               }}
             >
               {places.length === 0 ? '편집하기' : <S.FontHighlight>편집하기</S.FontHighlight>}
@@ -156,7 +188,7 @@ function ScrapedTripPlace() {
                     }
                   }}
                 >
-                  {deletes.includes(item.id) ? <SelectIcon /> : <SelectFilledIcon />}
+                  {deletes.includes(item.id) ? <SelectFilledIcon /> : <SelectIcon />}
                 </div>
               )}
               {item.thumbnailURL ? (
