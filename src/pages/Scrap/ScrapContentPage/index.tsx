@@ -153,6 +153,7 @@ function ScrapContentPage() {
           <S.MemoEdit
             onClick={() => {
               navigate(`/scrap/content/${id}/edit`);
+              set;
             }}
           >
             <Typography.Title size="sm" color="inherit">
