@@ -11,6 +11,7 @@ import InstagramIcon from '../../../assets/imgs/instagram_icon.png';
 
 import * as S from './style';
 
+// @TODO: 삭제하기
 function ScrapedContents() {
   const navigate = useNavigate();
   const [data, setData] = useState<TContentShorten[]>([]);
@@ -30,7 +31,6 @@ function ScrapedContents() {
     }
     get<TResponse>('/scrap/content').then((res) => {
       setData(res.data.results);
-      console.log(res.data);
     });
     // @TODO: 검색에 따라 결과 바꿔지게 수정
     // @TODO: infinite scroll 추가

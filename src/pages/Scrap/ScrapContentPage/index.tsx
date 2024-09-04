@@ -17,7 +17,7 @@ import InstagramImg from '@_imgs/instagram_icon.png';
 import { popupValue } from '@_recoil/common/PopupValue';
 
 import * as S from './style';
-import { patch } from '@_utils/api';
+import { deletes, patch } from '@_utils/api';
 import { useNavigate, useParams } from 'react-router-dom';
 
 // @TODO: GET Content Data
@@ -109,7 +109,8 @@ function ScrapContentPage() {
                   ConfirmButton: {
                     text: '확인',
                     onClick: () => {
-                      popupClose();
+                      deletes(`/scrap/content?id=${id}`);
+                      navigate(-1);
                     },
                   },
                 });
