@@ -65,6 +65,7 @@ import { get } from '@_utils/api';
 import IsLoginTemplate from '@_common/isLoginTemplate';
 import { LocationResponseType } from './pages/Mytrip/LocationSelectPage';
 import ErrorHandlingPage from './pages/ErrorHandling';
+import TripBucketPage from './pages/OnBoarding/TripBucketPage';
 
 const router = createBrowserRouter([
   /* ---- 홈 페이지 ---- */
@@ -76,6 +77,10 @@ const router = createBrowserRouter([
   {
     path: '/notifications',
     element: <NotificationPage />,
+  },
+  {
+    path: '/onboarding/tripbucket',
+    element: <TripBucketPage />,
   },
 
   /* ---- 아티클 페이지 ---- */

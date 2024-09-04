@@ -14,7 +14,7 @@ export const Content = styled.div<{ header: number; nav: boolean }>`
   width: 100%;
   padding: ${({ header }) => (header ? '0 20px' : '60px 20px')};
   padding-top: ${({ header }) => `${header}px`};
-  padding-bottom: ${({ nav }) => (nav ? '100px' : '60px')};
+  padding-bottom: ${({ nav }) => (nav ? '100px' : '0px')};
 `;
 
 export const Header = styled.header`
