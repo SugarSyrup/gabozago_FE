@@ -26,45 +26,7 @@ import { useNavigate } from 'react-router-dom';
 import CooordsIcon from '@_icons/coords.svg?react';
 
 function ScrapBookPlaceMapPage() {
-  const [data, setData] = useState<TPlace[]>([
-    {
-      thumbnailURL: '',
-      placeId: 0,
-      name: '',
-      category: '',
-      addressShort: '',
-      memo: '',
-      latitude: 34.1855,
-      longitude: 128.0741,
-    },
-    {
-      thumbnailURL: '',
-      placeId: 1,
-      name: '',
-      category: '',
-      addressShort: '',
-      memo: '',
-      latitude: 35.1855,
-      longitude: 129.0741,
-    },
-    {
-      thumbnailURL: '',
-      placeId: 2,
-      name: '',
-      category: '',
-      addressShort: '',
-      memo: '',
-      latitude: 36.1855,
-      longitude: 130.0741,
-    },
-  ]);
-  const [coords, setCoords] = useState<google.maps.LatLngLiteral[]>([
-    { lat: 34.1855, lng: 128.0741 },
-    { lat: 35.1855, lng: 129.0741 },
-    { lat: 36.1855, lng: 130.0741 },
-    { lat: 37.1855, lng: 131.0741 },
-    { lat: 38.1855, lng: 132.0741 },
-  ]);
+  const [data, setData] = useState<TPlace[]>([]);
   const [currentCorrds, setCurrentCoords] = useState<google.maps.LatLngLiteral>({
     lat: -1,
     lng: -1,
@@ -80,18 +42,28 @@ function ScrapBookPlaceMapPage() {
     get<{
       next: string | null;
       previous: string | null;
-      results: Place[];
-    }>('folder/scrap/place', {
+      results: TPlace[];
+    }>('scrap/place', {
       params: {
         ordering: filter.sort,
         location: filter.location?.join(','),
         theme: filter.theme?.join(','),
       },
     }).then(({ data: responseData }) => {
-      // setData((prev) => [...prev, ...responseData.results]);
-      // setNext(data.next);
+      setData(responseData.results);
     });
   }, []);
+
+  useEffect(() => {
+    if (!window.google) return;
+    const bounds = new window.google.maps.LatLngBounds();
+
+    data.forEach((place) => {
+      bounds.extend({ lat: place.latitude, lng: place.longitude });
+    });
+
+    map?.fitBounds(bounds);
+  }, [data]);
 
   return (
     <PageTemplate
@@ -112,12 +84,19 @@ function ScrapBookPlaceMapPage() {
             setSelectedPlace(undefined);
           }}
         >
-          {coords.map((coord, index) => {
-            const markerRef = useAdvancedMarkerRef();
+          {data.map((place, index) => {
+            // const markerRef = useAdvancedMarkerRef();
 
             return (
               <>
-                <AdvancedMarker ref={markerRef} position={coord} key={index}>
+                <AdvancedMarker
+                  // ref={markerRef}
+                  position={{
+                    lat: place.latitude,
+                    lng: place.longitude,
+                  }}
+                  key={index}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="35"
@@ -145,8 +124,9 @@ function ScrapBookPlaceMapPage() {
                     />
                   </svg>
                 </AdvancedMarker>
+                {/* anchor={markerRef}  */}
                 {selectedPlace && (
-                  <InfoWindow maxWidth={250} anchor={markerRef} shouldFocus headerDisabled>
+                  <InfoWindow maxWidth={250} shouldFocus headerDisabled>
                     <S.InfoTopContainer>
                       <p>
                         <Typography.Title size="md" noOfLine={2}>
