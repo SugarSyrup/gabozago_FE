@@ -4,6 +4,7 @@ import {
   AdvancedMarker,
   InfoWindow,
   Map,
+  Marker,
   useAdvancedMarkerRef,
   useMap,
 } from '@vis.gl/react-google-maps';
@@ -64,6 +65,10 @@ function ScrapBookPlaceMapPage() {
     { lat: 37.1855, lng: 131.0741 },
     { lat: 38.1855, lng: 132.0741 },
   ]);
+  const [currentCorrds, setCurrentCoords] = useState<google.maps.LatLngLiteral>({
+    lat: -1,
+    lng: -1,
+  });
   const [selectedPlace, setSelectedPlace] = useState<TPlace>();
 
   const map = useMap('scraped-map');
@@ -164,7 +169,23 @@ function ScrapBookPlaceMapPage() {
               </>
             );
           })}
-          <S.CurrentPositionWrapper>
+          {currentCorrds.lat !== -1 && (
+            <Marker position={{ lat: currentCorrds.lat, lng: currentCorrds.lng }} />
+          )}
+          <S.CurrentPositionWrapper
+            onClick={() => {
+              navigator.geolocation.getCurrentPosition((position) => {
+                map?.setCenter({ lat: position.coords.latitude, lng: position.coords.longitude });
+                map?.setZoom(17);
+              });
+              navigator.geolocation.watchPosition((position) => {
+                setCurrentCoords({
+                  lat: position.coords.latitude,
+                  lng: position.coords.longitude,
+                });
+              });
+            }}
+          >
             <CooordsIcon />
           </S.CurrentPositionWrapper>
         </Map>

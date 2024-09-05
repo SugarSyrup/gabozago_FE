@@ -28,32 +28,7 @@ function ScrapedTripPlace() {
   const filter = useRecoilValue<TFilter>(scrapPlaceFilterState);
   const resetFilter = useResetRecoilState(scrapPlaceFilterState);
 
-  const [places, setPlaces] = useState<Place[]>([
-    {
-      thumbnailURL: '',
-      id: 0,
-      name: '',
-      theme: [],
-      address: '',
-      memo: '',
-    },
-    {
-      thumbnailURL: '',
-      id: 1,
-      name: '',
-      theme: [],
-      address: '',
-      memo: '',
-    },
-    {
-      thumbnailURL: '',
-      id: 2,
-      name: '',
-      theme: [],
-      address: '',
-      memo: '',
-    },
-  ]);
+  const [places, setPlaces] = useState<Place[]>([]);
   const [deletes, setDeletes] = useState<number[]>([]);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [next, setNext] = useState<string | null>(null);
@@ -62,20 +37,44 @@ function ScrapedTripPlace() {
 
   const infiniteRef = useRef<HTMLDivElement>(null);
 
-  const getPlaces = async () => {
-    const { data } = await get<{
-      next: string | null;
-      previous: string | null;
-      results: Place[];
-    }>('folder/scrap/place', {
-      params: {
-        sort: filter.sort,
-        location: filter.location?.join(','),
-        theme: filter.theme?.join(','),
-      },
-    });
-    setPlaces((prev) => [...prev, ...data.results]);
-    setNext(data.next);
+  const getPlaces = () => {
+    if (filter.sort === '담은순') {
+      get<{
+        next: string | null;
+        previous: string | null;
+        count: number;
+        results: Place[];
+      }>('scrap/place', {
+        params: {
+          ordering: 'scraped',
+          location: filter.location?.join(','),
+          theme: filter.theme?.join(','),
+        },
+      }).then(({ data }) => {
+        setPlaces(data.results.contents);
+        setNext(data.next);
+      });
+    } else {
+      navigator.geolocation.getCurrentPosition((position) => {
+        get<{
+          next: string | null;
+          previous: string | null;
+          count: number;
+          results: Place[];
+        }>('scrap/place', {
+          params: {
+            ordering: 'distance',
+            latitude: position.coords.latitude.toFixed(6),
+            longitude: position.coords.longitude.toFixed(6),
+            location: filter.location?.join(','),
+            theme: filter.theme?.join(','),
+          },
+        }).then(({ data }) => {
+          setPlaces(data.results);
+          setNext(data.next);
+        });
+      });
+    }
   };
 
   useEffect(() => {

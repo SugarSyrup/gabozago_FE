@@ -1,5 +1,66 @@
 import styled from 'styled-components';
 
+export const IconWrapper = styled.div`
+  svg {
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+
+    path {
+      fill: ${({ theme }) => theme.colors.gray.primary};
+    }
+  }
+`;
+
+export const ModalContainer = styled.div`
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  h3 {
+    cursor: pointer;
+    color: #262626;
+  }
+`;
+
+export const ChangePopupContainer = styled.form`
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+`;
+
+export const ChangePopupHeader = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const ChangePopupInput = styled.input`
+  width: 100%;
+  height: 28px;
+
+  color: ${({ theme }) => theme.gray};
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+
+  border: none;
+  border-bottom: 1px solid #e4e4e4;
+`;
+
+export const FormButton = styled.button`
+  border: none;
+  background-color: inherit;
+
+  cursor: pointer;
+`;
+
 export const Container = styled.div`
   width: 100%;
   margin-top: 14px;
@@ -67,7 +128,32 @@ export const SeperateLine = styled.pre`
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray.quaternary};
 `;
 
-export const InstagramTextContainer = styled.div``;
+export const HeadlineContainer = styled.div`
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const MemoEdit = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+
+  color: ${({ theme }) => theme.colors.blue.primary};
+  cursor: pointer;
+
+  svg {
+    width: 16px;
+    height: 16px;
+
+    path {
+      fill: ${({ theme }) => theme.colors.blue.primary};
+    }
+  }
+`;
 
 export const InstagramText = styled.div<{ isOpen: boolean }>`
   padding: 16px;
