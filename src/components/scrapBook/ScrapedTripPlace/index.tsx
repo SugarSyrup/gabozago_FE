@@ -51,7 +51,7 @@ function ScrapedTripPlace() {
           theme: filter.theme?.join(','),
         },
       }).then(({ data }) => {
-        setPlaces(data.results.contents);
+        setPlaces(data.results);
         setNext(data.next);
       });
     } else {

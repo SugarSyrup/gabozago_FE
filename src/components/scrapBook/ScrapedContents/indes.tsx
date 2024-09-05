@@ -61,7 +61,8 @@ function ScrapedContents() {
               }}
               key={content.id}
             >
-              {!content.is_read && (
+              {/* @TODO: height 정사각형 관련 에러 */}
+              {/* {!content.is_read && (
                 <S.NotWatched>
                   <Typography.Title size="md" noOfLine={2} color="inherit">
                     미열람
@@ -69,7 +70,7 @@ function ScrapedContents() {
                     콘텐츠
                   </Typography.Title>
                 </S.NotWatched>
-              )}
+              )} */}
               <S.ImgWrapper>
                 <img src={content.thumbnailURL} alt="content" />
                 <S.IconWrapper>

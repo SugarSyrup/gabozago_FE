@@ -83,7 +83,7 @@ function ScrapBookPlaceMapPage() {
       results: Place[];
     }>('folder/scrap/place', {
       params: {
-        sort: filter.sort,
+        ordering: filter.sort,
         location: filter.location?.join(','),
         theme: filter.theme?.join(','),
       },
