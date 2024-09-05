@@ -73,6 +73,21 @@ function HomePage() {
       });
       popupOpen();
       setSearchParams('');
+    } else if (searchParams.get('popup') === 'alert_fail') {
+      setPopupValue({
+        Header: '잠깐! 이대로면 내 여행과 관련된 소식을 받을 수 없어요!',
+        Description: '소식을 받고 싶다면, 시스템 설정을 통해 알림 설정을 해주세요',
+        CloseButton: {
+          text: '취소',
+          onClick: () => {},
+        },
+        ConfirmButton: {
+          text: '확인',
+          onClick: () => {},
+        },
+      });
+      popupOpen();
+      setSearchParams('');
     }
   }, []);
 

@@ -90,6 +90,10 @@ export const TextContainer = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 4px;
+
+  h1 {
+    text-align: center;
+  }
 `;
 
 export const ButtonContainer = styled.div`
