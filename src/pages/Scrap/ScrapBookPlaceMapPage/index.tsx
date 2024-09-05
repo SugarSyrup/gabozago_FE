@@ -83,7 +83,7 @@ function ScrapBookPlaceMapPage() {
       results: Place[];
     }>('folder/scrap/place', {
       params: {
-        sort: filter.sort,
+        ordering: filter.sort,
         location: filter.location?.join(','),
         theme: filter.theme?.join(','),
       },
@@ -174,6 +174,20 @@ function ScrapBookPlaceMapPage() {
           )}
           <S.CurrentPositionWrapper
             onClick={() => {
+              try {
+                if (window.GabozagoDev) {
+                  window.GabozagoDev.locationAccess();
+                }
+                if (window.webkit.messageHandlers.gabozagoDev) {
+                  window.webkit.messageHandlers.gabozagoDev.postMessage({
+                    action: 'locationAccess',
+                    code: 'locationAccess',
+                  });
+                }
+              } catch (e) {
+                console.log(e);
+              }
+
               navigator.geolocation.getCurrentPosition((position) => {
                 map?.setCenter({ lat: position.coords.latitude, lng: position.coords.longitude });
                 map?.setZoom(17);
