@@ -44,10 +44,16 @@ export const ContentItem = styled.div`
 
 export const ImgWrapper = styled.div`
   position: relative;
+  width: 100%;
 
   display: flex;
   justify-content: center;
   align-items: center;
+
+  &::after {
+    content: '';
+    padding-bottom: 100%;
+  }
 
   img {
     width: 100%;
@@ -55,12 +61,20 @@ export const ImgWrapper = styled.div`
   }
 `;
 
+export const NoImgWrapper = styled.div<{ height: number | undefined }>`
+  width: 100%;
+  height: ${({ height }) => height}px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const NotWatched = styled.div`
   width: 100%;
   height: 100%;
-  background:
-    linear-gradient(0deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.55) 100%),
-    url(<path-to-image>) lightgray 50% / cover no-repeat;
+  background: black;
+  opacity: 0.8;
   border-radius: 10px;
 
   display: flex;
