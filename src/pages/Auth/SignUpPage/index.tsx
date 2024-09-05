@@ -72,7 +72,6 @@ function SignUpPage() {
           localStorage.setItem('access_token', codeParams as string);
           post<LoginResponse>('/user/sign-in', body).then((response) => {
             localStorage.setItem('access_token', response.data.access);
-            
             try {
               if (window.GabozagoDev) {
                 window.GabozagoDev.postUUID(response.data.user_data.uuid);
@@ -83,6 +82,9 @@ function SignUpPage() {
                   code: response.data.user_data.uuid,
                 });
               }
+            } catch (e) {
+              console.log(e);
+            }
 
             navigate('/');
           });
