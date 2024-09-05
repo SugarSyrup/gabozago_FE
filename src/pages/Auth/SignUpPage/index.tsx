@@ -72,18 +72,17 @@ function SignUpPage() {
           localStorage.setItem('access_token', codeParams as string);
           post<LoginResponse>('/user/sign-in', body).then((response) => {
             localStorage.setItem('access_token', response.data.access);
-
-            if (window.GabozagoDev) {
-              window.GabozagoDev.postUUID({
-                code: response.data.user_data.uuid,
-              });
-            }
-            if (window.webkit) {
-              window.webkit.messageHandlers.GabozagoDev.callback.message({
-                action: 'postUUID',
-                code: response.data.user_data.uuid,
-              });
-            }
+            
+            try {
+              if (window.GabozagoDev) {
+                window.GabozagoDev.postUUID(response.data.user_data.uuid);
+              }
+              if (window.webkit.messageHandlers.gabozagoDev) {
+                window.webkit.messageHandlers.gabozagoDev.postMessage({
+                  action: 'postUUID',
+                  code: response.data.user_data.uuid,
+                });
+              }
 
             navigate('/');
           });

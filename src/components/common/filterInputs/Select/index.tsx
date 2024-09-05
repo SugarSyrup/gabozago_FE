@@ -21,6 +21,23 @@ function Select({ filter, setFilter, options, multiple = false }: Props) {
         <S.Item
           key={`option-${value}`}
           checked={multiple ? filter.includes(value) : filter === value}
+          onClick={() => {
+            if (label === '거리순') {
+              try {
+                if (window.GabozagoDev) {
+                  window.GabozagoDev.locationAccess();
+                }
+                if (window.webkit.messageHandlers.gabozagoDev) {
+                  window.webkit.messageHandlers.gabozagoDev.postMessage({
+                    action: 'locationAccess',
+                    code: 'locationAccess',
+                  });
+                }
+              } catch (e) {
+                console.log(e);
+              }
+            }
+          }}
         >
           <S.CheckboxInput
             type="checkbox"
