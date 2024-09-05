@@ -79,11 +79,15 @@ function HomePage() {
         Description: '소식을 받고 싶다면, 시스템 설정을 통해 알림 설정을 해주세요',
         CloseButton: {
           text: '취소',
-          onClick: () => {},
+          onClick: () => {
+            popupClose();
+          },
         },
         ConfirmButton: {
           text: '확인',
-          onClick: () => {},
+          onClick: () => {
+            popupClose();
+          },
         },
       });
       popupOpen();
