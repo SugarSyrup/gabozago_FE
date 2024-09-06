@@ -28,7 +28,7 @@ function ScrapedTripPlace() {
   const setPopupUI = useSetRecoilState(popupValue);
 
   const infiniteRef = useRef<HTMLDivElement>(null);
-
+  // @TODO: Place 공통 코드 정리
   const getPlaces = () => {
     if (filter.sort === '담은순') {
       get<{
