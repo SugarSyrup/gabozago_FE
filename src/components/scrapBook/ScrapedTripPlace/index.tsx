@@ -12,15 +12,7 @@ import NoThumbnailImg from '@_imgs/NoThumbnail.png';
 import MapIcon from '@_icons/map.svg?react';
 import { popupValue } from '@_recoil/common/PopupValue';
 import usePopup from '../../../hooks/usePopup';
-
-interface Place {
-  thumbnailURL: string;
-  id: number;
-  name: string;
-  theme: string[];
-  address: string;
-  memo?: string;
-}
+import { TPlace } from '@_types/Place.type';
 
 function ScrapedTripPlace() {
   const navigate = useNavigate();
@@ -28,7 +20,7 @@ function ScrapedTripPlace() {
   const filter = useRecoilValue<TFilter>(scrapPlaceFilterState);
   const resetFilter = useResetRecoilState(scrapPlaceFilterState);
 
-  const [places, setPlaces] = useState<Place[]>([]);
+  const [places, setPlaces] = useState<TPlace[]>([]);
   const [deletes, setDeletes] = useState<number[]>([]);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [next, setNext] = useState<string | null>(null);
@@ -43,7 +35,7 @@ function ScrapedTripPlace() {
         next: string | null;
         previous: string | null;
         count: number;
-        results: Place[];
+        results: TPlace[];
       }>('scrap/place', {
         params: {
           ordering: 'scraped',
@@ -60,7 +52,7 @@ function ScrapedTripPlace() {
           next: string | null;
           previous: string | null;
           count: number;
-          results: Place[];
+          results: TPlace[];
         }>('scrap/place', {
           params: {
             ordering: 'distance',
@@ -98,7 +90,7 @@ function ScrapedTripPlace() {
           get<{
             next: string | null;
             previous: string | null;
-            results: Place[];
+            results: TPlace[];
           }>(next).then((res) => {
             setPlaces([...places, ...res.data.results]);
             setNext(res.data.next);
@@ -118,7 +110,6 @@ function ScrapedTripPlace() {
     <>
       <S.ContentsHeader>
         <Typography.Title size="md" color="inherit">
-          {/* TODO: data.length */}
           {isEditMode ? (
             <p
               onClick={() => {
@@ -133,7 +124,6 @@ function ScrapedTripPlace() {
             </>
           )}
         </Typography.Title>
-        {/* @TODO: 편집 모드 UI 및 버튼 기능 구성 */}
         <Typography.Title size="sm" color="#A6A6A6">
           {isEditMode ? (
             <p
@@ -176,18 +166,21 @@ function ScrapedTripPlace() {
       {places.length !== 0 ? (
         <S.PlaceList>
           {places.map((item) => (
-            <S.PlaceItem key={item.id} $isChecked={isEditMode && deletes.includes(item.id)}>
+            <S.PlaceItem
+              key={item.placeId}
+              $isChecked={isEditMode && deletes.includes(item.placeId)}
+            >
               {isEditMode && (
                 <div
                   onClick={() => {
-                    if (deletes.includes(item.id)) {
-                      setDeletes(deletes.filter((id) => id !== item.id));
+                    if (deletes.includes(item.placeId)) {
+                      setDeletes(deletes.filter((id) => id !== item.placeId));
                     } else {
-                      setDeletes([...deletes, item.id]);
+                      setDeletes([...deletes, item.placeId]);
                     }
                   }}
                 >
-                  {deletes.includes(item.id) ? <SelectFilledIcon /> : <SelectIcon />}
+                  {deletes.includes(item.placeId) ? <SelectFilledIcon /> : <SelectIcon />}
                 </div>
               )}
               {item.thumbnailURL ? (
@@ -203,11 +196,11 @@ function ScrapedTripPlace() {
                 </Typography.Title>
                 <S.PlaceThemeNAddress>
                   <Typography.Label size="lg" color="#424242">
-                    {item.theme}
+                    {item.category}
                   </Typography.Label>
                   <S.InfoSeperateLine />
                   <Typography.Label size="lg" color="#424242">
-                    {item.address}
+                    {item.addressShort}
                   </Typography.Label>
                 </S.PlaceThemeNAddress>
                 {item.memo && (
