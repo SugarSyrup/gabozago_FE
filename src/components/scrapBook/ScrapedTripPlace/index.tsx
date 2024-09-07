@@ -177,6 +177,11 @@ function ScrapedTripPlace() {
             <S.PlaceItem
               key={item.placeId}
               $isChecked={isEditMode && deletes.includes(item.placeId)}
+              onClick={() => {
+                if (!isEditMode) {
+                  navigate(`/place/${item.placeId}`);
+                }
+              }}
             >
               {isEditMode && (
                 <div
