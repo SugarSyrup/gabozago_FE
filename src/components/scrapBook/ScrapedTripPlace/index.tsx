@@ -133,7 +133,7 @@ function ScrapedTripPlace() {
               onClick={() => {
                 if (deletes.length > 0) {
                   setPopupUI({
-                    Header: 'N개의 장소를 삭제하시겠어요?',
+                    Header: `${deletes.length}개의 장소를 삭제하시겠어요?`,
                     Warning: '삭제한 장소는 복구할 수 없어요.',
                     CloseButton: {
                       text: '취소',
@@ -145,6 +145,7 @@ function ScrapedTripPlace() {
                       text: '확인',
                     },
                   });
+                  popupOpen();
                 }
               }}
             >

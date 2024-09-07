@@ -12,6 +12,7 @@ import useSearchInput from '../../../hooks/useSearchInput';
 import InstagramIcon from '../../../assets/imgs/instagram_icon.png';
 
 import * as S from './style';
+import usePopup from '../../../hooks/usePopup';
 
 interface TResponse extends TPagination<TContentShorten> {
   count: number;
@@ -27,6 +28,7 @@ function ScrapedContents() {
 
   const itemRef = useRef<HTMLDivElement>(null);
   const setPopupUI = useSetRecoilState(popupValue);
+  const { popupOpen, popupClose } = usePopup();
 
   const [inputRef, SearchInput] = useSearchInput({
     placeholder: '콘텐츠 를 검색해보세요.',
@@ -83,7 +85,7 @@ function ScrapedContents() {
               onClick={() => {
                 if (deletes.length > 0) {
                   setPopupUI({
-                    Header: 'N개의 장소를 삭제하시겠어요?',
+                    Header: `${deletes.length}개의 장소를 삭제하시겠어요?`,
                     Warning: '삭제한 장소는 복구할 수 없어요.',
                     CloseButton: {
                       text: '취소',
@@ -95,6 +97,7 @@ function ScrapedContents() {
                       text: '확인',
                     },
                   });
+                  popupOpen();
                 }
               }}
             >
