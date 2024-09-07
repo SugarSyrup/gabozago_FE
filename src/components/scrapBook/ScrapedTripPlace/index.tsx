@@ -1,18 +1,21 @@
 import { memo, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
-import * as S from './style';
+
 import SelectIcon from '@_icons/select.svg?react';
 import SelectFilledIcon from '@_icons/select_filled.svg?react';
+import MapIcon from '@_icons/map.svg?react';
 import { get, post } from '@_utils/api';
+import NoThumbnailImg from '@_imgs/NoThumbnail.png';
+import { popupValue } from '@_recoil/common/PopupValue';
+import { TPlace } from '@_types/Place.type';
+
 import Typography from '../../common/Typography';
 import { scrapPlaceFilterState } from '../../../recoil/filters/scrapPlaceFilterState';
 import { TFilter } from '../../../assets/types/FilterTypes';
-import NoThumbnailImg from '@_imgs/NoThumbnail.png';
-import MapIcon from '@_icons/map.svg?react';
-import { popupValue } from '@_recoil/common/PopupValue';
 import usePopup from '../../../hooks/usePopup';
-import { TPlace } from '@_types/Place.type';
+
+import * as S from './style';
 
 function ScrapedTripPlace() {
   const navigate = useNavigate();
@@ -145,7 +148,11 @@ function ScrapedTripPlace() {
                 }
               }}
             >
-              {places.length === 0 ? '삭제하기' : <S.FontHighlight isRed>삭제하기</S.FontHighlight>}
+              {places.length === 0 ? (
+                '삭제하기'
+              ) : (
+                <S.FontHighlight isRead>삭제하기</S.FontHighlight>
+              )}
             </p>
           ) : (
             <p

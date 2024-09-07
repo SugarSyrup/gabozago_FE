@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 
 import Typography from '@_common/Typography';
 import { get } from '@_utils/api';
 import { TPagination } from '@_types/server/pagination.type';
 import { TContentShorten } from '@_types/server/content.type';
+import { popupValue } from '@_recoil/common/PopupValue';
 
 import useSearchInput from '../../../hooks/useSearchInput';
 import InstagramIcon from '../../../assets/imgs/instagram_icon.png';
@@ -19,8 +21,13 @@ interface TResponse extends TPagination<TContentShorten> {
 function ScrapedContents() {
   const navigate = useNavigate();
   const [data, setData] = useState<TContentShorten[]>([]);
+  const [deletes, setDeletes] = useState<number[]>([]);
   const [count, setCount] = useState<number>(0);
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
+
   const itemRef = useRef<HTMLDivElement>(null);
+  const setPopupUI = useSetRecoilState(popupValue);
+
   const [inputRef, SearchInput] = useSearchInput({
     placeholder: '콘텐츠 를 검색해보세요.',
     onChange: () => {},
@@ -55,11 +62,58 @@ function ScrapedContents() {
       </S.SearchBarWrapper>
       <S.ContentsHeader>
         <Typography.Title size="md" color="inherit">
-          전체 <S.FontHighlight>{count}</S.FontHighlight>
+          {isEditMode ? (
+            <p
+              onClick={() => {
+                setIsEditMode(false);
+                setDeletes([]);
+              }}
+            >
+              취소
+            </p>
+          ) : (
+            <>
+              전체 <S.FontHighlight>{count}</S.FontHighlight>
+            </>
+          )}
         </Typography.Title>
-        {/* @TODO: 편집 모드 UI 및 버튼 기능 구성 */}
         <Typography.Title size="sm" color="inherit">
-          <S.FontHighlight>편집하기</S.FontHighlight>
+          {isEditMode ? (
+            <p
+              onClick={() => {
+                if (deletes.length > 0) {
+                  setPopupUI({
+                    Header: 'N개의 장소를 삭제하시겠어요?',
+                    Warning: '삭제한 장소는 복구할 수 없어요.',
+                    CloseButton: {
+                      text: '취소',
+                    },
+                    ConfirmButton: {
+                      onClick: () => {
+                        // @TODO: 삭제 요청 API
+                      },
+                      text: '확인',
+                    },
+                  });
+                }
+              }}
+            >
+              {data.length === 0 ? '삭제하기' : <S.FontHighlight isRead>삭제하기</S.FontHighlight>}
+            </p>
+          ) : (
+            <p
+              onClick={() => {
+                if (data.length > 0) {
+                  setIsEditMode(true);
+                }
+              }}
+              style={{
+                cursor: data.length === 0 ? 'default' : 'pointer',
+              }}
+            >
+              {data.length === 0 ? '편집하기' : <S.FontHighlight>편집하기</S.FontHighlight>}
+            </p>
+          )}
         </Typography.Title>
       </S.ContentsHeader>
       <S.ContentsContainer>
@@ -67,13 +121,45 @@ function ScrapedContents() {
           data.map((content) => (
             <S.ContentItem
               onClick={() => {
-                navigate(`/scrapbook/content/${content.id}`);
+                if (!isEditMode) {
+                  navigate(`/scrapbook/content/${content.id}`);
+                }
               }}
               key={content.id}
               ref={itemRef}
             >
+              {isEditMode && (
+                <>
+                  {deletes.includes(content.id) ? (
+                    <S.EditSVGWrapper
+                      onClick={() => {
+                        setDeletes(deletes.filter((id) => id !== content.id));
+                      }}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <path
+                          d="M12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2ZM15.2197 8.96967L10.75 13.4393L8.78033 11.4697C8.48744 11.1768 8.01256 11.1768 7.71967 11.4697C7.42678 11.7626 7.42678 12.2374 7.71967 12.5303L10.2197 15.0303C10.5126 15.3232 10.9874 15.3232 11.2803 15.0303L16.2803 10.0303C16.5732 9.73744 16.5732 9.26256 16.2803 8.96967C15.9874 8.67678 15.5126 8.67678 15.2197 8.96967Z"
+                          fill="white"
+                        />
+                      </svg>
+                    </S.EditSVGWrapper>
+                  ) : (
+                    <S.EditButton
+                      onClick={() => {
+                        setDeletes([...deletes, content.id]);
+                      }}
+                    />
+                  )}
+                </>
+              )}
               <S.ImgWrapper>
-                {!content.isRead && (
+                {!content.isRead && !deletes.includes(content.id) && (
                   <S.NotWatched>
                     <Typography.Title size="md" noOfLine={2} color="inherit">
                       미열람
@@ -81,6 +167,15 @@ function ScrapedContents() {
                       콘텐츠
                     </Typography.Title>
                   </S.NotWatched>
+                )}
+                {deletes.includes(content.id) && (
+                  <S.DeleteCheckedWrapper>
+                    <Typography.Title size="md" noOfLine={2} color="inherit">
+                      미열람
+                      <br />
+                      콘텐츠
+                    </Typography.Title>
+                  </S.DeleteCheckedWrapper>
                 )}
                 {content.thumbnailURL ? (
                   <img src={content.thumbnailURL} alt="content" />

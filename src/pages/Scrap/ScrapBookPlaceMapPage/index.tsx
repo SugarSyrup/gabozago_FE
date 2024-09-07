@@ -1,13 +1,6 @@
-import { useEffect, useReducer, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  AdvancedMarker,
-  InfoWindow,
-  Map,
-  Marker,
-  useAdvancedMarkerRef,
-  useMap,
-} from '@vis.gl/react-google-maps';
+import { Map, Marker, useMap } from '@vis.gl/react-google-maps';
 import { useRecoilValue } from 'recoil';
 
 import { HeaderWithBack } from '@_common/Header';
