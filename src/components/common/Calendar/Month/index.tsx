@@ -28,7 +28,6 @@ const Month = forwardRef(({ year, month }: Props, ref: ForwardedRef<HTMLDivEleme
 
   function onDateClick(date: string) {
     const currentDate = new Date();
-    const PastDateClickAccess = false;
 
     if (
       currentDate >
