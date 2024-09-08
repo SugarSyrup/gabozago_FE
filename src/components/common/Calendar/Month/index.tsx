@@ -1,9 +1,14 @@
-// import { useEffect } from 'react';
 import { ForwardedRef, forwardRef, useEffect, useRef, useState } from 'react';
-import Typography from '../../Typography';
-import * as S from './style';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+
 import { dateClickFlagState, datesState } from '@_recoil/mytrip/createData';
+import { popupValue } from '@_recoil/common/PopupValue';
+import ImportantIcon from '@_icons/exclamation_circle.svg?react';
+
+import usePopup from '../../../../hooks/usePopup';
+import Typography from '../../Typography';
+
+import * as S from './style';
 
 interface Props {
   year: number;
@@ -13,11 +18,71 @@ interface Props {
 const Month = forwardRef(({ year, month }: Props, ref: ForwardedRef<HTMLDivElement>) => {
   const [opacity, setOpacity] = useState<number>(0.3);
   const [{ startDate, endDate }, setDates] = useRecoilState(datesState);
+  const [firstPastDateClickFlag, setFirstPastDateClickFlag] = useState<boolean>(true);
   const [dateClickFlag, setDateClickFlag] = useRecoilState(dateClickFlagState);
+
+  const setPopupUI = useSetRecoilState(popupValue);
+  const { popupOpen, popupClose } = usePopup();
+
   const monthRef = useRef<HTMLDivElement>(null);
 
   function onDateClick(date: string) {
-    if (dateClickFlag) {
+    const currentDate = new Date();
+    const PastDateClickAccess = false;
+
+    if (
+      currentDate >
+        new Date(
+          Number(date.slice(0, 4)),
+          Number(date.slice(4, 6)) - 1,
+          Number(date.slice(6, 8)) + 1,
+        ) &&
+      firstPastDateClickFlag
+    ) {
+      setFirstPastDateClickFlag(false);
+      setPopupUI({
+        Icon: <ImportantIcon />,
+        Header: '지난 여행 일정으로 등록하시겠어요?',
+        Description: `선택하신 날짜는 지난 일정이에요.<br />
+          해당 일정을 등록하면 ‘다가오는 여행'이 아닌,<br />
+          ‘지난 여행 일정'에 등록되어요.`,
+        ConfirmButton: {
+          text: '네, 등록할게요',
+          onClick: () => {
+            if (dateClickFlag) {
+              setDates({
+                startDate: date,
+                endDate: '',
+              });
+              setDateClickFlag((prev) => !prev);
+            } else {
+              if (Number(date) < Number(startDate)) {
+                setDates({
+                  startDate: date,
+                  endDate: startDate,
+                });
+              } else {
+                setDates({
+                  startDate,
+                  endDate: date,
+                });
+              }
+              setDateClickFlag((prev) => !prev);
+            }
+
+            popupClose();
+          },
+        },
+        CloseButton: {
+          text: '아니요',
+          onClick: () => {
+            setFirstPastDateClickFlag(true);
+            popupClose();
+          },
+        },
+      });
+      popupOpen();
+    } else if (dateClickFlag) {
       setDates({
         startDate: date,
         endDate: '',
