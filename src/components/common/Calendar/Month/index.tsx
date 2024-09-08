@@ -42,8 +42,8 @@ const Month = forwardRef(({ year, month }: Props, ref: ForwardedRef<HTMLDivEleme
       setPopupUI({
         Icon: <ImportantIcon />,
         Header: '지난 여행 일정으로 등록하시겠어요?',
-        Description: `선택하신 날짜는 지난 일정이에요.<br />
-          해당 일정을 등록하면 ‘다가오는 여행'이 아닌,<br />
+        Description: `선택하신 날짜는 지난 일정이에요.
+          해당 일정을 등록하면 ‘다가오는 여행'이 아닌,
           ‘지난 여행 일정'에 등록되어요.`,
         ConfirmButton: {
           text: '네, 등록할게요',

@@ -43,7 +43,8 @@ export const MemoTextArea = styled.textarea`
   padding: 15px;
   margin-top: 6px;
 
-  min-height: 260px;
+  min-height: 550px;
+
   width: 100%;
   font-size: 16px;
   border-radius: 10px;

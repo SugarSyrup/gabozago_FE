@@ -52,11 +52,11 @@ function MemoPage() {
         onChange={(e) => {
           setText(e.target.value);
         }}
-        maxLength={200}
+        maxLength={1000}
       />
       <S.TextCountParagraph>
         {text.length}
-        /200
+        /1000
       </S.TextCountParagraph>
       <S.ButtonWrapper>
         <Button
