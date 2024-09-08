@@ -11,7 +11,7 @@ interface Props {
   id: number;
   name: string;
   theme: string;
-  thumbnail?: string;
+  thumbnail?: string | null;
   keyword?: string;
   address: string;
   location: string;

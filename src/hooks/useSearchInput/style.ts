@@ -54,7 +54,10 @@ export const Btns = styled.div`
   }
 `;
 
-export const SearchButton = styled.div<{ searchIconColor?: string }>`
+export const SearchButton = styled.button<{ searchIconColor?: string }>`
+  border: none;
+  background-color: inherit;
+
   display: flex;
   justify-content: center;
   align-items: center;
