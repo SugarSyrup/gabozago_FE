@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import CalendarAddIcon from '@_icons/calendar_add.svg?react';
@@ -14,9 +14,11 @@ import { datesState, selectedLocationsState } from '@_recoil/mytrip/createData';
 import { calculateDateDiff } from '@_utils/calendar';
 
 import * as S from './style';
+import { patch } from '@_utils/api';
 
 function MyTripDatesSelectPage() {
   const navigate = useNavigate();
+  const { id } = useParams();
   const dates = useRecoilValue(datesState);
   const setSelectedLocation = useSetRecoilState(selectedLocationsState);
   return (
@@ -27,8 +29,15 @@ function MyTripDatesSelectPage() {
             bgColor={dates.startDate !== '' && dates.endDate !== '' ? 'blue' : 'gray'}
             onClick={() => {
               setSelectedLocation([]);
+
               if (dates.startDate !== '' && dates.endDate !== '') {
-                navigate('/mytrip/create/location', { replace: true });
+                patch('/my-travel', {
+                  id,
+                  departureDate: `${dates.startDate.slice(0, 4)}-${dates.startDate.slice(4, 6)}-${dates.startDate.slice(6, 8)}`,
+                  arrivalDate: `${dates.endDate.slice(0, 4)}-${dates.endDate.slice(4, 6)}-${dates.endDate.slice(6, 8)}`,
+                }).then(() => {
+                  navigate(-1);
+                });
               }
             }}
           >
