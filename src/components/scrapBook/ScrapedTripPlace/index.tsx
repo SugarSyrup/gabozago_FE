@@ -1,26 +1,21 @@
 import { memo, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
-import * as S from './style';
+
 import SelectIcon from '@_icons/select.svg?react';
 import SelectFilledIcon from '@_icons/select_filled.svg?react';
+import MapIcon from '@_icons/map.svg?react';
 import { get, post } from '@_utils/api';
+import NoThumbnailImg from '@_imgs/NoThumbnail.png';
+import { popupValue } from '@_recoil/common/PopupValue';
+import { TPlace } from '@_types/Place.type';
+
 import Typography from '../../common/Typography';
 import { scrapPlaceFilterState } from '../../../recoil/filters/scrapPlaceFilterState';
 import { TFilter } from '../../../assets/types/FilterTypes';
-import NoThumbnailImg from '@_imgs/NoThumbnail.png';
-import MapIcon from '@_icons/map.svg?react';
-import { popupValue } from '@_recoil/common/PopupValue';
 import usePopup from '../../../hooks/usePopup';
 
-interface Place {
-  thumbnailURL: string;
-  id: number;
-  name: string;
-  theme: string[];
-  address: string;
-  memo?: string;
-}
+import * as S from './style';
 
 function ScrapedTripPlace() {
   const navigate = useNavigate();
@@ -28,7 +23,7 @@ function ScrapedTripPlace() {
   const filter = useRecoilValue<TFilter>(scrapPlaceFilterState);
   const resetFilter = useResetRecoilState(scrapPlaceFilterState);
 
-  const [places, setPlaces] = useState<Place[]>([]);
+  const [places, setPlaces] = useState<TPlace[]>([]);
   const [deletes, setDeletes] = useState<number[]>([]);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [next, setNext] = useState<string | null>(null);
@@ -36,14 +31,14 @@ function ScrapedTripPlace() {
   const setPopupUI = useSetRecoilState(popupValue);
 
   const infiniteRef = useRef<HTMLDivElement>(null);
-
+  // @TODO: Place 공통 코드 정리
   const getPlaces = () => {
     if (filter.sort === '담은순') {
       get<{
         next: string | null;
         previous: string | null;
         count: number;
-        results: Place[];
+        results: TPlace[];
       }>('scrap/place', {
         params: {
           ordering: 'scraped',
@@ -60,7 +55,7 @@ function ScrapedTripPlace() {
           next: string | null;
           previous: string | null;
           count: number;
-          results: Place[];
+          results: TPlace[];
         }>('scrap/place', {
           params: {
             ordering: 'distance',
@@ -98,7 +93,7 @@ function ScrapedTripPlace() {
           get<{
             next: string | null;
             previous: string | null;
-            results: Place[];
+            results: TPlace[];
           }>(next).then((res) => {
             setPlaces([...places, ...res.data.results]);
             setNext(res.data.next);
@@ -118,7 +113,6 @@ function ScrapedTripPlace() {
     <>
       <S.ContentsHeader>
         <Typography.Title size="md" color="inherit">
-          {/* TODO: data.length */}
           {isEditMode ? (
             <p
               onClick={() => {
@@ -133,14 +127,13 @@ function ScrapedTripPlace() {
             </>
           )}
         </Typography.Title>
-        {/* @TODO: 편집 모드 UI 및 버튼 기능 구성 */}
         <Typography.Title size="sm" color="#A6A6A6">
           {isEditMode ? (
             <p
               onClick={() => {
                 if (deletes.length > 0) {
                   setPopupUI({
-                    Header: 'N개의 장소를 삭제하시겠어요?',
+                    Header: `${deletes.length}개의 장소를 삭제하시겠어요?`,
                     Warning: '삭제한 장소는 복구할 수 없어요.',
                     CloseButton: {
                       text: '취소',
@@ -152,10 +145,15 @@ function ScrapedTripPlace() {
                       text: '확인',
                     },
                   });
+                  popupOpen();
                 }
               }}
             >
-              {places.length === 0 ? '삭제하기' : <S.FontHighlight isRed>삭제하기</S.FontHighlight>}
+              {places.length === 0 ? (
+                '삭제하기'
+              ) : (
+                <S.FontHighlight isRead>삭제하기</S.FontHighlight>
+              )}
             </p>
           ) : (
             <p
@@ -176,18 +174,26 @@ function ScrapedTripPlace() {
       {places.length !== 0 ? (
         <S.PlaceList>
           {places.map((item) => (
-            <S.PlaceItem key={item.id} $isChecked={isEditMode && deletes.includes(item.id)}>
+            <S.PlaceItem
+              key={item.placeId}
+              $isChecked={isEditMode && deletes.includes(item.placeId)}
+              onClick={() => {
+                if (!isEditMode) {
+                  navigate(`/place/${item.placeId}`);
+                }
+              }}
+            >
               {isEditMode && (
                 <div
                   onClick={() => {
-                    if (deletes.includes(item.id)) {
-                      setDeletes(deletes.filter((id) => id !== item.id));
+                    if (deletes.includes(item.placeId)) {
+                      setDeletes(deletes.filter((id) => id !== item.placeId));
                     } else {
-                      setDeletes([...deletes, item.id]);
+                      setDeletes([...deletes, item.placeId]);
                     }
                   }}
                 >
-                  {deletes.includes(item.id) ? <SelectFilledIcon /> : <SelectIcon />}
+                  {deletes.includes(item.placeId) ? <SelectFilledIcon /> : <SelectIcon />}
                 </div>
               )}
               {item.thumbnailURL ? (
@@ -203,11 +209,11 @@ function ScrapedTripPlace() {
                 </Typography.Title>
                 <S.PlaceThemeNAddress>
                   <Typography.Label size="lg" color="#424242">
-                    {item.theme}
+                    {item.category}
                   </Typography.Label>
                   <S.InfoSeperateLine />
                   <Typography.Label size="lg" color="#424242">
-                    {item.address}
+                    {item.addressShort}
                   </Typography.Label>
                 </S.PlaceThemeNAddress>
                 {item.memo && (

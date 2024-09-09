@@ -13,8 +13,8 @@ export const ContentsHeader = styled.div`
   color: ${({ theme }) => theme.colors.font.primary};
 `;
 
-export const FontHighlight = styled.span<{ isRed?: boolean }>`
-  color: ${({ theme, isRed }) => (isRed ? theme.colors.red.primary : theme.colors.blue.primary)};
+export const FontHighlight = styled.span<{ isRead?: boolean }>`
+  color: ${({ theme, isRead }) => (isRead ? theme.colors.red.primary : theme.colors.blue.primary)};
 `;
 
 export const PlaceList = styled.ol`

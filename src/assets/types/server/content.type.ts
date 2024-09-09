@@ -3,5 +3,5 @@ export interface TContentShorten {
   title: string;
   thumbnailURL: string;
   source: string;
-  is_read: boolean;
+  isRead: boolean;
 }
