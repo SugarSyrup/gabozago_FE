@@ -19,10 +19,11 @@ interface Props {
 
 interface TPlace {
   id: number;
-  image: null | string;
-  location: string;
   name: string;
-  theme: string;
+  category: string;
+  addressShort: string;
+  location: string;
+  thumbnailURL: null | string;
 }
 
 function SearchPlaces({ tripId, keyword, location, popupOpen, setNewLocation }: Props) {
@@ -47,19 +48,24 @@ function SearchPlaces({ tripId, keyword, location, popupOpen, setNewLocation }: 
     <>
       {searchedPlaces.length !== 0 ? (
         <S.SearchPlacesList>
-          {searchedPlaces.map(({ name, theme, id, location: placeLocation }) => (
-            <RecommendationListItem
-              name={name}
-              theme={theme}
-              location={placeLocation}
-              id={id}
-              keyword={keyword}
-              setNewLocation={setNewLocation}
-              popupOpen={popupOpen}
-              locations={location}
-            />
-          ))}
-          <S.AddPlace>
+          {searchedPlaces.map(
+            ({ name, category, id, location: placeLocation, addressShort, thumbnailURL }) => (
+              <RecommendationListItem
+                name={name}
+                theme={category}
+                location={placeLocation}
+                id={id}
+                keyword={keyword}
+                setNewLocation={setNewLocation}
+                popupOpen={popupOpen}
+                thumbnail={thumbnailURL}
+                locations={location}
+                address={addressShort}
+                key={id}
+              />
+            ),
+          )}
+          {/* <S.AddPlace>
             <S.Explain>
               <span>찾으시는 장소가 없나요?</span>
               <span>직접 등록해보세요!</span>
@@ -71,20 +77,20 @@ function SearchPlaces({ tripId, keyword, location, popupOpen, setNewLocation }: 
             >
               새로운 장소 추가하기
             </S.Button>
-          </S.AddPlace>
+          </S.AddPlace> */}
         </S.SearchPlacesList>
       ) : (
         <S.SearchedNotFounded>
           <SearchIcon />
           <S.Title>검색 결과가 없습니다.</S.Title>
           <S.Desc>찾으시는 장소가 없나요?직접 등록해보세요!</S.Desc>
-          <S.Button
+          {/* <S.Button
             onClick={() => {
               navigate(`/mytrip/${tripId}/create`);
             }}
           >
             새로운 장소 추가하기
-          </S.Button>
+          </S.Button> */}
         </S.SearchedNotFounded>
       )}
     </>

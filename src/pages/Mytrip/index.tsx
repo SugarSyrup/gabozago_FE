@@ -7,6 +7,7 @@ import MyTripPage from './MyTripPage';
 import PlaceAddPage from './PlaceAddPage';
 import MyTripPlaceCreatePage from './PlaceCreatePage';
 import ViewAllPage from './ViewAllPage';
+import MyTripDatesModifyPage from './DatesModifyPage';
 
 export {
   MyTripDatesSelectPage,
@@ -18,4 +19,5 @@ export {
   PlaceAddPage,
   MyTripPlaceCreatePage,
   ViewAllPage,
+  MyTripDatesModifyPage,
 };

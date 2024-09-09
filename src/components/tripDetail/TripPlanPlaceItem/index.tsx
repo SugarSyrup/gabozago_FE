@@ -10,15 +10,13 @@ import { DateObject } from '@_utils/calendar';
 export interface PlaceData {
   detailRouteId: number;
   placeName: string;
-  placeTheme: string;
+  placeCategory: string;
   placeId: number;
-  location: string;
-  address: string;
-  googlePlaceId: string;
-  placeImage: string;
+  placeLocation: string;
   latitude: number;
   longitude: number;
   memo: string;
+  thumbnailURL: string;
 }
 
 interface Props extends PlaceData {
@@ -31,13 +29,12 @@ interface Props extends PlaceData {
 function TripPlanPlaceItem({
   detailRouteId,
   placeName,
-  placeTheme,
+  placeCategory,
   placeId,
   memo,
   day,
   date,
-  location,
-  index,
+  placeLocation,
   setIsEditMode,
 }: Props) {
   const navigate = useNavigate();
@@ -64,16 +61,16 @@ function TripPlanPlaceItem({
             {placeName}
           </Typography.Title>
           <S.InfoContainer>
-            <S.InfoSpan>
-              <LocationIcon />
-              {location}
-            </S.InfoSpan>
-            {placeTheme && (
+            {placeCategory && (
               <S.InfoSpan>
                 <ThemeIcon />
-                {placeTheme}
+                {placeCategory}
               </S.InfoSpan>
             )}
+            <S.InfoSpan>
+              <LocationIcon />
+              {placeLocation}
+            </S.InfoSpan>
           </S.InfoContainer>
         </div>
         <S.MemoButton
@@ -95,7 +92,11 @@ function TripPlanPlaceItem({
           <EditIcon />
         </S.MemoButton>
       </S.TitleBox>
-      {memo && memo.length >= 0 && <S.MemoParagraph>{memo}</S.MemoParagraph>}
+      {memo && memo.length >= 0 && (
+        <Typography.Label size="md" color="#A6A6A6" noOfLine={2}>
+          {memo}
+        </Typography.Label>
+      )}
     </S.PlaceBox>
   );
 }

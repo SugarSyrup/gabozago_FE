@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import Month from '../Month';
 
 import * as S from './style';
+import { useRecoilValue } from 'recoil';
+import { datesState } from '@_recoil/mytrip/createData';
 
 function PastNFutureCalendar() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -12,6 +14,7 @@ function PastNFutureCalendar() {
   const [data, setData] = useState<{ year: number; month: number }[]>([]);
   const [pastHead, setPastHead] = useState<{ year: number; month: number }>();
   const [futureHead, setFutureHead] = useState<{ year: number; month: number }>();
+  const selectedDate = useRecoilValue(datesState);
 
   useEffect(() => {
     setTimeout(() => {
@@ -130,9 +133,21 @@ function PastNFutureCalendar() {
         <div ref={pastInfinitScrollRef} />
         {data.map((calendarData, index) => {
           const currentDate = new Date();
-          const isToday =
+          let isToday =
             calendarData.year === currentDate.getFullYear() &&
             calendarData.month === currentDate.getMonth() + 1;
+
+          if (selectedDate.startDate && selectedDate.endDate) {
+            const startDate = new Date(
+              Number(`${selectedDate.startDate.slice(0, 4)}`),
+              Number(`${selectedDate.startDate.slice(4, 6)}`),
+              Number(`${selectedDate.startDate.slice(6, 8)}`),
+            );
+
+            isToday =
+              calendarData.year === startDate.getFullYear() &&
+              calendarData.month === startDate.getMonth();
+          }
 
           return (
             <Month

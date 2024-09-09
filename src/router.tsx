@@ -25,6 +25,7 @@ import {
   MyTripPage,
   ViewAllPage,
   PlaceAddPage,
+  MyTripDatesModifyPage,
 } from './pages/Mytrip';
 
 /* ---- 스크랩 페이지 ---- */
@@ -184,7 +185,7 @@ const router = createBrowserRouter([
     path: '/mytrip/:id/dateChange',
     element: (
       <IsLoginTemplate>
-        <MyTripDatesSelectPage />
+        <MyTripDatesModifyPage />
       </IsLoginTemplate>
     ),
   },

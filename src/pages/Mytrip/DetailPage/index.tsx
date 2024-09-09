@@ -18,6 +18,7 @@ import PlanEditMode from '../../../components/tripDetail/PlanEditMode';
 import BackButton from '../../../components/common/BackButton';
 
 import * as S from './style';
+import useMyTripModal from '../../../hooks/useMyTripModal';
 
 export const markerColors = [
   '#5276FA',
@@ -32,8 +33,8 @@ export const markerColors = [
 export interface TripData {
   id: number;
   title: string;
-  departure_date: string;
-  arrival_date: string;
+  departureDate: string;
+  arrivalDate: string;
   days: number;
   location: string[];
   plan: DayPlan[];
@@ -46,6 +47,13 @@ function MyTripDetailPage() {
   const [data, setData] = useRecoilState(tripState);
   const resetData = useResetRecoilState(tripState);
   const [tempData, setTempData] = useRecoilState(editingTripPlanState);
+
+  const { MyTripModal, modalOpen } = useMyTripModal({
+    id: Number(id),
+    title: data.title,
+    departureDate: data.departureDate,
+    arrivalDate: data.arrivalDate,
+  });
 
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [dayFilter, setDayFilter] = useState<number>(0); // 0: 전체보기
@@ -71,12 +79,12 @@ function MyTripDetailPage() {
 
   // 여행 일정 데이터 불러오기
   const getData = async (id: number) => {
-    const { data } = await get<TripData>(`/my-travel/${id}`);
+    const { data: responseData } = await get<TripData>(`/my-travel/${id}`);
 
-    setData(data);
+    setData(responseData);
     setDuration({
-      departure: parseDateString(data.departure_date) as DateObject,
-      arrival: parseDateString(data.arrival_date) as DateObject,
+      departure: parseDateString(responseData.departureDate) as DateObject,
+      arrival: parseDateString(responseData.arrivalDate) as DateObject,
     });
   };
 
@@ -144,7 +152,11 @@ function MyTripDetailPage() {
         <S.Header>
           <S.NavigationHeader>
             <BackButton />
-            <OptionIcon />
+            <OptionIcon
+              onClick={() => {
+                modalOpen();
+              }}
+            />
           </S.NavigationHeader>
           <Typography.Headline size="md">{data.title}</Typography.Headline>
           <S.DateParagraph>
@@ -156,6 +168,7 @@ function MyTripDetailPage() {
         </S.Header>
       }
     >
+      <MyTripModal />
       {hasRouteData(data) ? (
         <PlanMap
           isEditMode={isEditMode}

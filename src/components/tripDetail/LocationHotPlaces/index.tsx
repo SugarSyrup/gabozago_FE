@@ -15,8 +15,9 @@ interface Props {
 interface TPlace {
   id: number;
   name: string;
-  theme: string;
-  location: string;
+  category: string;
+  addressShort: string;
+  thumbnailURL: string;
 }
 
 function LocationHotPlaces({ locations, setNewLocation, popupOpen }: Props) {
@@ -35,16 +36,18 @@ function LocationHotPlaces({ locations, setNewLocation, popupOpen }: Props) {
       )}
       {recommendPlaces.length !== 0 && (
         <S.RecommendationList>
-          {recommendPlaces.map(({ name, theme, id, location }) => (
+          {recommendPlaces.map(({ name, category, id, addressShort, thumbnailURL }) => (
             <RecommendationListItem
               key={id}
               name={name}
-              theme={theme}
-              location={location}
+              theme={category}
+              address={addressShort}
+              location={locations.toString()}
               id={id}
               popupOpen={popupOpen}
               setNewLocation={setNewLocation}
               locations={locations}
+              thumbnail={thumbnailURL}
             />
           ))}
         </S.RecommendationList>
