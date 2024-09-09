@@ -28,32 +28,7 @@ function ScrapedTripPlace() {
   const filter = useRecoilValue<TFilter>(scrapPlaceFilterState);
   const resetFilter = useResetRecoilState(scrapPlaceFilterState);
 
-  const [places, setPlaces] = useState<Place[]>([
-    {
-      thumbnailURL: '',
-      id: 0,
-      name: '',
-      theme: [],
-      address: '',
-      memo: '',
-    },
-    {
-      thumbnailURL: '',
-      id: 1,
-      name: '',
-      theme: [],
-      address: '',
-      memo: '',
-    },
-    {
-      thumbnailURL: '',
-      id: 2,
-      name: '',
-      theme: [],
-      address: '',
-      memo: '',
-    },
-  ]);
+  const [places, setPlaces] = useState<Place[]>([]);
   const [deletes, setDeletes] = useState<number[]>([]);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [next, setNext] = useState<string | null>(null);

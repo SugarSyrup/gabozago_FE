@@ -167,7 +167,6 @@ function MyTripLocationSearchPage() {
           keyword={keyword}
           popupOpen={popupOpen}
           setNewLocation={setNewLocation}
-          setNewRegion={setNewRegion}
         />
       )}
       <S.Contents>

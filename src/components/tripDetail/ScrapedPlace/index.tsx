@@ -20,10 +20,12 @@ interface Props {
 }
 
 interface Place {
+  thumbnailURL: string;
   id: number;
   name: string;
   theme: string[];
   address: string;
+  memo?: string;
 }
 
 function ScrapedPlace({ popupOpen, setNewLocation, setNewRegion, locations }: Props) {
@@ -39,9 +41,9 @@ function ScrapedPlace({ popupOpen, setNewLocation, setNewRegion, locations }: Pr
         next: string | null;
         previous: string | null;
         results: Place[];
-      }>('folder/scrap/place', {
+      }>('scrap/place', {
         params: {
-          location: filter.location.join(','),
+          location: filter.location?.join(','),
         },
       });
       setPlaces(data.results);
