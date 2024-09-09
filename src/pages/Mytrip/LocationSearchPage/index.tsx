@@ -22,14 +22,15 @@ import usePopup from '../../../hooks/usePopup';
 import { selectedPlacesState } from '../../../recoil/mytrip/selectedPlacesState';
 import { scrapPlaceFilterState } from '../../../recoil/filters/scrapPlaceFilterState';
 import { popupValue } from '@_recoil/common/PopupValue';
+import { placeKeyword } from '@_recoil/mytrip/placeKeyword';
 
 function MyTripLocationSearchPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [tabNavIdx, setTabNavIdx] = useState<number>(1);
   const [isSearching, setIsSearching] = useState<boolean>(false);
-  const [locations, setLocations] = useState<string[]>();
-  const [keyword, setKeyword] = useState<string>('');
+  const [locations, setLocations] = useState<string[]>([]);
+  const [keyword, setKeyword] = useRecoilState(placeKeyword);
   const [newLocation, setNewLocation] = useState<string>('');
   const [newRegion, setNewRegion] = useState<string>('');
   const setActiveFilters = useSetRecoilState(scrapPlaceFilterState);
@@ -43,7 +44,7 @@ function MyTripLocationSearchPage() {
     },
   });
   const { popupOpen, popupClose } = usePopup();
-  const [, setSelectedPlaces] = useRecoilState(selectedPlacesState);
+  const [selectedPlaces, setSelectedPlaces] = useRecoilState(selectedPlacesState);
   const setPopupValue = useSetRecoilState(popupValue);
 
   function onChange() {
@@ -70,17 +71,29 @@ function MyTripLocationSearchPage() {
   }, []);
 
   useEffect(() => {
+    if (keyword) {
+      setIsSearching(true);
+      setKeyword(keyword);
+
+      if (inputRef.current) {
+        inputRef.current.focus();
+        inputRef.current.value = keyword;
+      }
+    }
+  }, []);
+
+  useEffect(() => {
     setPopupValue({
       Icon: <InfomationIcon />,
       Header: '지역을 추가하시겠어요?',
-      Description: `선택하신 여행 장소는 ${locations?.toLocaleString()}을 벗어나요.\n
+      Description: `선택하신 여행 장소는 ${locations.toLocaleString()}을 벗어나요.\n
       ${newLocation}도 여행 계획에 추가하시겠어요?`,
       Warning: '*지역을 추가하지 않으면, 해당 장소도 추가되지 않아요.',
       CloseButton: {
         text: '아니요',
         onClick: () => {
           setSelectedPlaces((prev) =>
-            prev.filter((selectedPlace) => selectedPlace.name !== newRegion),
+            prev.filter((selectedPlace) => selectedPlace.location !== newLocation),
           );
           popupClose();
         },
@@ -92,11 +105,12 @@ function MyTripLocationSearchPage() {
             myTravelId: id,
             location: newLocation,
           }).then(() => {});
+          setLocations((prev) => [...prev, newLocation]);
           popupClose();
         },
       },
     });
-  }, []);
+  }, [locations, newLocation]);
 
   return (
     <PageTemplate
@@ -153,6 +167,7 @@ function MyTripLocationSearchPage() {
           keyword={keyword}
           popupOpen={popupOpen}
           setNewLocation={setNewLocation}
+          setNewRegion={setNewRegion}
         />
       )}
       <S.Contents>

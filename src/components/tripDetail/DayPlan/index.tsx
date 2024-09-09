@@ -6,6 +6,7 @@ import TripPlanPlaceItem, { PlaceData } from '../TripPlanPlaceItem';
 import AddPlaceButton from '../AddPlaceButton';
 import { selectedPlacesState } from '../../../recoil/mytrip/selectedPlacesState';
 import { Position } from '../../common/GoogleMap';
+import { placeKeyword } from '@_recoil/mytrip/placeKeyword';
 
 interface Props {
   data: PlaceData[];
@@ -16,6 +17,7 @@ interface Props {
 function DayPlan({ data, day, date: dateString, setIsEditMode }: Props) {
   const navigate = useNavigate();
   const setSelectedPlaces = useSetRecoilState(selectedPlacesState);
+  const setPlaceKeyword = useSetRecoilState(placeKeyword);
   const date = parseDateString(dateString);
   const markerColors = [
     '#5276FA',
@@ -29,6 +31,7 @@ function DayPlan({ data, day, date: dateString, setIsEditMode }: Props) {
 
   const clickAddPlaceButtonHandler = () => {
     setSelectedPlaces([]);
+    setPlaceKeyword('');
     navigate(`./${day}/search`);
   };
 

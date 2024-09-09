@@ -6,6 +6,7 @@ import { selectedPlacesState } from '../../../recoil/mytrip/selectedPlacesState'
 
 import Typography from '../../common/Typography';
 import LocationPlaceholderIcon from '../../mytrip/LocationPlaceholderIcon';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   id: number;
@@ -34,6 +35,7 @@ function RecommendationListItem({
 }: Props) {
   const [selectedPlaces, setSelectedPlaces] = useRecoilState(selectedPlacesState);
   const [isActive, setIsActive] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsActive(selectedPlaces.find((selectedPlace) => selectedPlace.id === id) !== undefined);
@@ -62,7 +64,11 @@ function RecommendationListItem({
 
   return (
     <S.Container>
-      <S.LeftItems>
+      <S.LeftItems
+        onClick={() => {
+          navigate(`/place/${id}?keyword=${keyword}`);
+        }}
+      >
         <S.Thumbnail>
           {thumbnail ? (
             <img src={thumbnail} alt={thumbnail} />

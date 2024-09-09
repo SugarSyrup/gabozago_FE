@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 
 import LocationIcon from '@_icons/location.svg?react';
 import PhoneIcon from '@_icons/phone.svg?react';
@@ -40,7 +40,9 @@ type TData = {
 
 function PlacePage() {
   const { id } = useParams();
+
   const [data, setData] = useState<TData>();
+  const [keyword, setKeyword] = useState<string>('');
   const titleRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
 
