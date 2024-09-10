@@ -64,6 +64,7 @@ type TData = {
 
 function PlacePage() {
   const { id } = useParams();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
   const [data, setData] = useState<TData>();
@@ -109,19 +110,21 @@ function PlacePage() {
         </HeaderWithBack>
       }
       nav={
-        <BottomButtonContainer
-          onClick={() => {
-            navigate(`/mytrip/place/${id}`);
-          }}
-          bgColor="blue"
-        >
-          <S.BottomContainer>
-            <CalendarAddIcon />
-            <Typography.Title size="lg" color="inherit">
-              내 일정에 추가하기
-            </Typography.Title>
-          </S.BottomContainer>
-        </BottomButtonContainer>
+        searchParams.get('isMyTrip') !== 'true' && (
+          <BottomButtonContainer
+            onClick={() => {
+              navigate(`/mytrip/place/${id}`);
+            }}
+            bgColor="blue"
+          >
+            <S.BottomContainer>
+              <CalendarAddIcon />
+              <Typography.Title size="lg" color="inherit">
+                내 일정에 추가하기
+              </Typography.Title>
+            </S.BottomContainer>
+          </BottomButtonContainer>
+        )
       }
     >
       {data !== undefined && (
