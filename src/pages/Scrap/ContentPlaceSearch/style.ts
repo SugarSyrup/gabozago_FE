@@ -88,18 +88,4 @@ export const HighlightName = styled.span`
   color: ${({ theme }) => theme.main};
 `;
 
-export const Button = styled.button<{ isActive: boolean }>`
-  background-color: ${({ isActive, theme }) => isActive && theme.main};
-  color: ${({ theme, isActive }) => isActive && theme.white};
-
-  padding: 4px 15px;
-  border: none;
-  border-radius: 20px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  cursor: pointer;
-  flex-shrink: 0;
-`;
+export const ScrapWrapper = styled.div<{ isActive: boolean }>``;

@@ -1,19 +1,14 @@
 import styled from 'styled-components';
 
 export const MenuList = styled.ul`
-  padding: 0 20px;
+  padding: 20px 20px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
 `;
 
 export const MenuItem = styled.li<{ color?: string }>`
-  padding: 20px 0;
-  display: grid;
-  grid-template-columns: 24px 1fr;
-  grid-auto-rows: fit-content;
-  gap: 20px;
-
+  width: 100%;
   cursor: pointer;
   color: ${({ theme }) => theme.gray01};
 
