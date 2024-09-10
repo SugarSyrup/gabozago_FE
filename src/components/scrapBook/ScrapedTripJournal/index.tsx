@@ -224,7 +224,7 @@ function ScrapedTripJournal() {
             key={id}
             background={thumbnail || ''}
             onClick={() => {
-              navigate(`./${id}`);
+              navigate(`./${id}?name=${name}`);
             }}
           >
             <div />

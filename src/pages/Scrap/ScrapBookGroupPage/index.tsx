@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { get } from '@_utils/api';
@@ -23,11 +23,6 @@ import {
   articleOrderingOptions,
   scrapArticleFilterState,
 } from '../../../recoil/filters/scrapArticleFilter';
-import {
-  activeScrapShortFormFilterListState,
-  scrapShortFormFilterState,
-  shortFormOrderingOptions,
-} from '../../../recoil/filters/scrapShortFormFilter';
 
 export interface Article {
   id: number;
@@ -41,9 +36,8 @@ export interface Article {
 
 function ScrapBookGroupPage() {
   const { id } = useParams();
+  const [searchParams] = useSearchParams();
   const [articles, setArticles] = useState<Article[]>([]);
-  const [shortForms, setShortForms] = useState<ShortForm[]>([]);
-  const [focusedTabIndex, setFocusedTabIndex] = useState<number>(0);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   /* 아티클 */
@@ -70,7 +64,7 @@ function ScrapBookGroupPage() {
 
   useEffect(() => {
     getArticles();
-  }, []);
+  }, [activeArticleFilter]);
 
   useEffect(() => {
     resetArticleFilter();
@@ -80,7 +74,7 @@ function ScrapBookGroupPage() {
     <PageTemplate
       header={
         <S.HeaderContainer>
-          <PageHeader>스크랩</PageHeader>
+          <PageHeader>{id === 'all' ? '모든게시물' : searchParams.get('name')}</PageHeader>
 
           <S.FilterContainer>
             <FilterList
@@ -109,7 +103,6 @@ function ScrapBookGroupPage() {
             </li>
           ))}
         </S.ArticleList>
-        <S.ShortformContainer>{/* <ShortFormList data={shortForms} /> */}</S.ShortformContainer>
       </S.ContentsContainer>
     </PageTemplate>
   );
