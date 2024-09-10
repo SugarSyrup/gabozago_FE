@@ -13,9 +13,10 @@ import * as S from './style';
 interface Props {
   year: number;
   month: number;
+  pastOff?: boolean;
 }
 
-const Month = forwardRef(({ year, month }: Props, ref: ForwardedRef<HTMLDivElement>) => {
+const Month = forwardRef(({ year, month, pastOff }: Props, ref: ForwardedRef<HTMLDivElement>) => {
   const [opacity, setOpacity] = useState<number>(0.3);
   const [{ startDate, endDate }, setDates] = useRecoilState(datesState);
   const [firstPastDateClickFlag, setFirstPastDateClickFlag] = useState<boolean>(true);
@@ -120,8 +121,11 @@ const Month = forwardRef(({ year, month }: Props, ref: ForwardedRef<HTMLDivEleme
         <S.Date
           isDuring={Number(startDate) <= Number(thisDate) && Number(endDate) >= Number(thisDate)}
           onClick={() => {
-            onDateClick(thisDate);
+            if (pastOff !== true || Number(todayDate) <= Number(thisDate)) {
+              onDateClick(thisDate);
+            }
           }}
+          isPastDay={Number(todayDate) > Number(thisDate)}
           isToday={Number(todayDate) === Number(thisDate)}
         >
           {Number(startDate) === Number(thisDate) || Number(endDate) === Number(thisDate) ? (

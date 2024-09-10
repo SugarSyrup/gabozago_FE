@@ -69,6 +69,7 @@ import IsLoginTemplate from '@_common/isLoginTemplate';
 import { LocationResponseType } from './pages/Mytrip/LocationSelectPage';
 import ErrorHandlingPage from './pages/ErrorHandling';
 import TripBucketPage from './pages/OnBoarding/TripBucketPage';
+import PlaceMyTripCreate from './pages/PlaceMyTripCreate';
 
 const router = createBrowserRouter([
   /* ---- 홈 페이지 ---- */
@@ -392,6 +393,15 @@ const router = createBrowserRouter([
     element: (
       <IsLoginTemplate>
         <PlacePage />
+      </IsLoginTemplate>
+    ),
+  },
+  {
+    // 장소 페이지
+    path: '/place/mytrip/create',
+    element: (
+      <IsLoginTemplate>
+        <PlaceMyTripCreate />
       </IsLoginTemplate>
     ),
   },

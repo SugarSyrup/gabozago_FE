@@ -17,6 +17,7 @@ import PetDenyIcon from '@_icons/pet_deny.svg?react';
 import ParkDenyIcon from '@_icons/park_deny.svg?react';
 import WheelChairDenyIcon from '@_icons/wheelChair_deny.svg?react';
 import BabyCarrigeDenyIcon from '@_icons/babyCarrige_deny.svg?react';
+import RightChevronIcon from '@_icons/chevron_right.svg?react';
 
 import { HeaderWithBack } from '@_common/Header';
 import OutlineButton from '@_common/Button/OutlineButton';
@@ -241,9 +242,28 @@ function PlacePage() {
               <>
                 <S.SeperateLine />
                 <S.MemoContainer>
-                  <Typography.Headline size="sm" color="inherit">
-                    저장된 메모
-                  </Typography.Headline>
+                  <S.MemoHeader>
+                    <Typography.Headline size="sm" color="inherit">
+                      저장된 메모
+                    </Typography.Headline>
+                    <div
+                      style={{
+                        display: 'flex',
+                        gap: '4px',
+                        alignItems: 'center',
+                        cursor: 'pointer',
+                      }}
+                      onClick={() => {
+                        // @TODO: 메모 과련 정리 필요
+                        // navigate(`/scrap/content/${id}/edit`);
+                      }}
+                    >
+                      <Typography.Title size="sm" color="#5276FA">
+                        수정
+                      </Typography.Title>
+                      <RightChevronIcon />
+                    </div>
+                  </S.MemoHeader>
                   <S.MemoDataList>
                     <S.MemoItem>
                       <Typography.Title size="md" color="inherit">

@@ -189,6 +189,23 @@ export const Memo = styled.span`
   letter-spacing: -0.3px;
 `;
 
+export const MemoHeader = styled.div`
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  svg {
+    width: 16px;
+    height: 16px;
+
+    path {
+      fill: ${({ theme }) => theme.colors.blue.primary};
+    }
+  }
+`;
+
 export const ExtraInfomationContainer = styled.div`
   width: 100%;
   padding-top: 8px;

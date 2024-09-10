@@ -30,7 +30,7 @@ function PlaceAddPage() {
   const [data, setData] = useState<TMyTravelItem[]>([]);
   const setDates = useSetRecoilState(datesState);
   const [placeData, setPlaceData] = useState<{
-    region: string;
+    location: string;
     name: string;
   }>();
   const [currentSelectedItem, setCurrentSelectedItem] = useState<{
@@ -49,9 +49,9 @@ function PlaceAddPage() {
     });
 
     get<{
-      region: string;
+      location: string;
       name: string;
-    }>(`/place/${id}`).then((response) => {
+    }>(`/community/article/place/${id}`).then((response) => {
       setPlaceData(response.data);
     });
   }, []);
@@ -100,21 +100,19 @@ function PlaceAddPage() {
                   setPopupUI({
                     Icon: <InfomationIcon />,
                     Header: '지역을 추가하시겠어요?',
-                    Description: `선택하신 여행 장소는
-                    ${
+                    Description: `선택하신 여행 장소는${
                       currentSelectedItem.id !== -1 &&
                       data
                         .filter((item) => item.id === currentSelectedItem.id)[0]
                         .location.toLocaleString()
-                    }
-                    을 벗어나요.\n ${placeData?.region}도 여행 계획에 추가하시겠어요?`,
+                    } 을 벗어나요.\n ${placeData?.location}도 여행 계획에 추가하시겠어요?`,
                     Warning: '*지역을 추가하지 않으면, 해당 장소도 추가되지 않아요.',
                     ConfirmButton: {
                       text: '네, 추가할게요',
                       onClick: () => {
                         post<{ message: string }>('/my-travel/location', {
                           myTravelId: currentSelectedItem.id,
-                          location: placeData?.region,
+                          location: placeData?.location,
                         }).then((response) => {
                           if (response.status === 201) {
                             post<{
@@ -136,14 +134,14 @@ function PlaceAddPage() {
                                       .filter((item) => item.id === currentSelectedItem.id)[0]
                                       .location.toLocaleString()
                                   }
-                                  을 벗어나요.\n ${placeData?.region}도 여행 계획에 추가하시겠어요?`,
+                                  을 벗어나요.\n ${placeData?.location}도 여행 계획에 추가하시겠어요?`,
                                   Warning: '*지역을 추가하지 않으면, 해당 장소도 추가되지 않아요.',
                                   ConfirmButton: {
                                     text: '네, 추가할게요',
                                     onClick: () => {
                                       post<{ message: string }>('/my-travel/location', {
                                         myTravelId: currentSelectedItem.id,
-                                        location: placeData?.region,
+                                        location: placeData?.location,
                                       }).then((locationResponse) => {
                                         if (locationResponse.status === 201) {
                                           post<{
@@ -262,8 +260,8 @@ function PlaceAddPage() {
               endDate: '',
             });
             setCreateTravelState('add');
-            setAddLocationState(placeData.region);
-            navigate('/mytrip/create');
+            setAddLocationState(placeData.location);
+            navigate(`/place/mytrip/create?placeId=${id}&location=${placeData.location}`);
           }}
         >
           <Typography.Label size="lg" color="inherit">
