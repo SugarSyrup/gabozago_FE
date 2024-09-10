@@ -18,7 +18,7 @@ function AdditionalText({ children, data }: Props) {
         {isOpen ? (
           <>
             {children}
-            <S.Desc>{data}</S.Desc>
+            <S.Desc dangerouslySetInnerHTML={{ __html: data }} />
           </>
         ) : (
           children

@@ -65,20 +65,20 @@ export const PlaceTitle = styled.div`
   }
 `;
 
-export const ScrapButton = styled.div`
+export const ScrapButton = styled.div<{ isScraped: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 4px;
 
-  color: ${({ theme }) => theme.colors.font.tertiary};
+  color: ${({ theme, isScraped }) => (isScraped ? 'white' : theme.colors.font.tertiary)};
 
   svg {
     width: 16px;
     height: 16px;
 
     path {
-      fill: ${({ theme }) => theme.colors.font.tertiary};
+      fill: ${({ theme, isScraped }) => (isScraped ? 'white' : theme.colors.font.tertiary)};
     }
   }
 `;
@@ -247,7 +247,7 @@ export const BottomContainer = styled.div`
     width: 28px;
     height: 28px;
 
-    path: {
+    path {
       fill: white;
     }
   }

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Button = styled.button`
+export const Button = styled.button<{ bgColor?: 'blue' | 'gray' }>`
   padding-top: 6px;
   padding-bottom: 6px;
   padding-left: 16px;
@@ -11,6 +11,7 @@ export const Button = styled.button`
   color: ${({ theme }) => theme.colors.blue.primary};
   border-radius: 100px;
   background-color: inherit;
+  background-color: ${({ theme, bgColor }) => bgColor === 'blue' && theme.colors.blue.primary};
 
   display: flex;
   justify-content: center;
