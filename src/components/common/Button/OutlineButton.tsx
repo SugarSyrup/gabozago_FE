@@ -8,7 +8,7 @@ function OutlineButton(
   ref: ComponentPropsWithRef<ElementType>['ref'],
 ) {
   return (
-    <S.Button {...props} ref={ref}>
+    <S.Button bgColor={props.bgColor} {...props} ref={ref}>
       {typeof children === 'string' && (
         <Typography.Title size="sm" color="inherit">
           {children}

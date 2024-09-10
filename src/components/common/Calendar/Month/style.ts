@@ -34,6 +34,7 @@ export const Day = styled.div`
 interface DateProps {
   isDuring: boolean;
   isToday: boolean;
+  isPastDay?: boolean;
 }
 
 // 날짜
@@ -70,6 +71,7 @@ export const Date = styled.div<DateProps>`
     `}
 
   color: ${({ isToday, theme }) => isToday && theme.colors.blue.primary};
+  color: ${({ isPastDay, theme }) => isPastDay && theme.colors.gray.secondary};
 `;
 
 export const DateHightlight = styled.div<{

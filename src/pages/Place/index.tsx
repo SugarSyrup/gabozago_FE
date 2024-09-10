@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
 import LocationIcon from '@_icons/location.svg?react';
 import PhoneIcon from '@_icons/phone.svg?react';
@@ -11,7 +11,13 @@ import DogIcon from '@_icons/dog.svg?react';
 import WheelChairIcon from '@_icons/wheelChair.svg?react';
 import BabyCarrigeIcon from '@_icons/babyCarrige.svg?react';
 import ScrapIcon from '@_icons/bookmark.svg?react';
+import ScrapFiiledIcon from '@_icons/bookmark_filled.svg?react';
 import ArrowTopIcon from '@_icons/arrow_top.svg?react';
+import PetDenyIcon from '@_icons/pet_deny.svg?react';
+import ParkDenyIcon from '@_icons/park_deny.svg?react';
+import WheelChairDenyIcon from '@_icons/wheelChair_deny.svg?react';
+import BabyCarrigeDenyIcon from '@_icons/babyCarrige_deny.svg?react';
+import RightChevronIcon from '@_icons/chevron_right.svg?react';
 
 import { HeaderWithBack } from '@_common/Header';
 import OutlineButton from '@_common/Button/OutlineButton';
@@ -21,28 +27,47 @@ import BottomButtonContainer from '@_common/BottomButtonContainer';
 
 import AdditionalText from '../../components/place/AdditionalText';
 import PlaceGoogleMap from '../../components/journal/GoogleMap';
-import { get } from '@_utils/api';
+import { get, post } from '@_utils/api';
 
 import * as S from './style';
 
 type TData = {
-  region: string;
   name: string;
-  theme: string;
+  category: string;
   address: string;
+  trafficInformation: string;
   number: string;
-  opening_hours: string;
+  openingHours: string;
   website: string;
-  image: string[];
-  latitude: string;
-  longitude: string;
+  additionalInformation: string;
+  latitude: number;
+  longitude: number;
+  thumbnailURL: string;
+
+  scrap: {
+    count: number;
+    isScraped: boolean;
+  };
+
+  saved: {
+    contentLink: string;
+    memo: string;
+  };
+
+  details: {
+    parking: boolean | null;
+    pet: boolean | null;
+    barrierFree: boolean | null;
+    stroller: boolean | null;
+  };
 };
 
 function PlacePage() {
   const { id } = useParams();
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   const [data, setData] = useState<TData>();
-  const [keyword, setKeyword] = useState<string>('');
   const titleRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
 
@@ -85,19 +110,26 @@ function PlacePage() {
         </HeaderWithBack>
       }
       nav={
-        <BottomButtonContainer onClick={() => {}} bgColor="blue">
-          <S.BottomContainer>
-            <CalendarAddIcon />
-            <Typography.Title size="lg" color="inherit">
-              내 일정에 추가하기
-            </Typography.Title>
-          </S.BottomContainer>
-        </BottomButtonContainer>
+        searchParams.get('isMyTrip') !== 'true' && (
+          <BottomButtonContainer
+            onClick={() => {
+              navigate(`/mytrip/place/${id}`);
+            }}
+            bgColor="blue"
+          >
+            <S.BottomContainer>
+              <CalendarAddIcon />
+              <Typography.Title size="lg" color="inherit">
+                내 일정에 추가하기
+              </Typography.Title>
+            </S.BottomContainer>
+          </BottomButtonContainer>
+        )
       }
     >
       {data !== undefined && (
         <S.ContentContainer>
-          {data.image.length === 0 ? (
+          {data.thumbnailURL === null ? (
             <PlaceGoogleMap
               height="200px"
               center={{
@@ -113,9 +145,7 @@ function PlacePage() {
             />
           ) : (
             <S.ImgSlider>
-              {data.image.map((img, index) => (
-                <img src={img} key={img} alt={`${index} IMG`} />
-              ))}
+              <img src={data.thumbnailURL} key={data.name} alt={`${data.name} IMG`} />
             </S.ImgSlider>
           )}
 
@@ -126,14 +156,31 @@ function PlacePage() {
                 {data.name}
               </Typography.Headline>
               <Typography.Body size="lg" color="#A6A6A6">
-                {data.theme}
+                {data.category}
               </Typography.Body>
-              <OutlineButton>
-                <S.ScrapButton>
+              <OutlineButton
+                bgColor={data.scrap.isScraped ? 'blue' : undefined}
+                onClick={() => {
+                  post('/scrap/place', {
+                    placeId: id,
+                    isTripBucket: false,
+                  }).then(() => {
+                    setData({
+                      ...data,
+                      scrap: {
+                        ...data.scrap,
+                        isScraped: !data.scrap.isScraped,
+                        count: data.scrap.isScraped ? data.scrap.count - 1 : data.scrap.count + 1,
+                      },
+                    });
+                  });
+                }}
+              >
+                <S.ScrapButton isScraped={data.scrap.isScraped}>
                   <Typography.Title size="sm" color="inherit">
-                    999
+                    {data.scrap.count}
                   </Typography.Title>
-                  <ScrapIcon />
+                  {data.scrap.isScraped ? <ScrapFiiledIcon /> : <ScrapIcon />}
                 </S.ScrapButton>
               </OutlineButton>
             </S.PlaceTitle>
@@ -141,19 +188,23 @@ function PlacePage() {
             {/* ContentList */}
             <S.ContentList>
               <S.InfomationList>
-                <S.InfomationItem>
-                  <LocationIcon />
-                  <S.InfomationText>{data.address}</S.InfomationText>
-                </S.InfomationItem>
-                <S.InfomationItem>
-                  <PhoneIcon />
-                  <S.InfomationText>{data.number}</S.InfomationText>
-                </S.InfomationItem>
-                {data.opening_hours && (
+                {data.address && (
+                  <S.InfomationItem>
+                    <LocationIcon />
+                    <S.InfomationText>{data.address}</S.InfomationText>
+                  </S.InfomationItem>
+                )}
+                {data.number && (
+                  <S.InfomationItem>
+                    <PhoneIcon />
+                    <S.InfomationText>{data.number}</S.InfomationText>
+                  </S.InfomationItem>
+                )}
+                {data.openingHours && (
                   <S.InfomationItem>
                     <TimeIcon />
-                    {/* <PlaceOperateTime opening_hours={data.opening_hours} /> */}
-                    <AdditionalText data={data.opening_hours}>
+                    {/* <PlaceOperateTime opening_hours={data.openingHours} /> */}
+                    <AdditionalText data={data.openingHours}>
                       <S.InfomationText>운영시간</S.InfomationText>
                     </AdditionalText>
                   </S.InfomationItem>
@@ -164,13 +215,13 @@ function PlacePage() {
                     <S.InfomationLink to={data.website}>{data.website}</S.InfomationLink>
                   </S.InfomationItem>
                 )}
-                {/* @TODO: 부가정보 추가시 삽입 */}
-                {data.opening_hours && (
+
+                {data.additionalInformation && (
                   <S.InfomationItem>
                     <TimeIcon />
                     {/* <PlaceOperateTime opening_hours={data.opening_hours} /> */}
-                    <AdditionalText data={data.opening_hours}>
-                      <S.InfomationText>운영시간</S.InfomationText>
+                    <AdditionalText data={data.additionalInformation}>
+                      <S.InfomationText>부가 정보</S.InfomationText>
                     </AdditionalText>
                   </S.InfomationItem>
                 )}
@@ -189,66 +240,139 @@ function PlacePage() {
                 },
               ]}
             />
+
+            {data.saved.contentLink !== null && (
+              <>
+                <S.SeperateLine />
+                <S.MemoContainer>
+                  <S.MemoHeader>
+                    <Typography.Headline size="sm" color="inherit">
+                      저장된 메모
+                    </Typography.Headline>
+                    <div
+                      style={{
+                        display: 'flex',
+                        gap: '4px',
+                        alignItems: 'center',
+                        cursor: 'pointer',
+                      }}
+                      onClick={() => {
+                        // @TODO: 메모 과련 정리 필요
+                        // navigate(`/scrap/content/${id}/edit`);
+                      }}
+                    >
+                      <Typography.Title size="sm" color="#5276FA">
+                        수정
+                      </Typography.Title>
+                      <RightChevronIcon />
+                    </div>
+                  </S.MemoHeader>
+                  <S.MemoDataList>
+                    <S.MemoItem>
+                      <Typography.Title size="md" color="inherit">
+                        링크
+                      </Typography.Title>
+                      <S.MemoLink>{data.saved.contentLink}</S.MemoLink>
+                    </S.MemoItem>
+                    <S.MemoItem>
+                      <Typography.Title size="md" color="inherit">
+                        메모
+                      </Typography.Title>
+                      <S.Memo>{data.saved.memo}</S.Memo>
+                    </S.MemoItem>
+                  </S.MemoDataList>
+                </S.MemoContainer>
+              </>
+            )}
             <S.SeperateLine />
 
-            {/* Memo */}
-            <S.MemoContainer>
-              <Typography.Headline size="sm" color="inherit">
-                저장된 메모
-              </Typography.Headline>
-              <S.MemoDataList>
-                <S.MemoItem>
-                  <Typography.Title size="md" color="inherit">
-                    링크
-                  </Typography.Title>
-                  <S.MemoLink>http://instagram.com/mogumogu_bake_jeonpo</S.MemoLink>
-                </S.MemoItem>
-                <S.MemoItem>
-                  <Typography.Title size="md" color="inherit">
-                    메모
-                  </Typography.Title>
-                  <S.Memo>
-                    여기 웨이팅 짱짱 많아서 미리 예약하고 가야함. 진짜 꼭! 그리고 소금빵이 진짜
-                    맛있어서 소금빵 꼭 먹어야지 히히 맛있겠당
-                  </S.Memo>
-                </S.MemoItem>
-              </S.MemoDataList>
-            </S.MemoContainer>
-            <S.SeperateLine />
-
-            {/* Extra Info */}
-            <S.ExtraInfomationContainer>
-              <Typography.Headline size="sm" color="inherit">
-                상세 정보
-              </Typography.Headline>
-              <S.ExtraInfomation>
-                <S.ExtraInfomationItem>
-                  <ParkIcon />
-                  <Typography.Label size="lg" color="inherit">
-                    주차
-                  </Typography.Label>
-                </S.ExtraInfomationItem>
-                <S.ExtraInfomationItem>
-                  <DogIcon />
-                  <Typography.Label size="lg" color="inherit">
-                    반려동물 출입
-                  </Typography.Label>
-                </S.ExtraInfomationItem>
-                <S.ExtraInfomationItem>
-                  <WheelChairIcon />
-                  <Typography.Label size="lg" color="inherit">
-                    베리어프리
-                  </Typography.Label>
-                </S.ExtraInfomationItem>
-                <S.ExtraInfomationItem>
-                  <BabyCarrigeIcon />
-                  <Typography.Label size="lg" color="inherit">
-                    유모차 대여
-                  </Typography.Label>
-                </S.ExtraInfomationItem>
-              </S.ExtraInfomation>
-            </S.ExtraInfomationContainer>
-            <S.SeperateLine />
+            {data.details.parking !== null &&
+              data.details.pet !== null &&
+              data.details.barrierFree !== null &&
+              data.details.stroller !== null && (
+                <>
+                  <S.ExtraInfomationContainer>
+                    <Typography.Headline size="sm" color="inherit">
+                      상세 정보
+                    </Typography.Headline>
+                    <S.ExtraInfomation>
+                      {data.details.parking !== null &&
+                        (data.details.parking ? (
+                          <S.ExtraInfomationItem>
+                            <ParkIcon />
+                            <Typography.Label size="lg" color="inherit">
+                              주차
+                            </Typography.Label>
+                          </S.ExtraInfomationItem>
+                        ) : (
+                          <S.ExtraInfomationItem>
+                            <ParkDenyIcon />
+                            <Typography.Label size="lg" color="inherit">
+                              주차
+                              <br />
+                              불가
+                            </Typography.Label>
+                          </S.ExtraInfomationItem>
+                        ))}
+                      {data.details.parking !== null &&
+                        (data.details.parking ? (
+                          <S.ExtraInfomationItem>
+                            <DogIcon />
+                            <Typography.Label size="lg" color="inherit">
+                              반려동물 출입
+                            </Typography.Label>
+                          </S.ExtraInfomationItem>
+                        ) : (
+                          <S.ExtraInfomationItem>
+                            <PetDenyIcon />
+                            <Typography.Label size="lg" color="inherit">
+                              반려동물 출입
+                              <br />
+                              불가
+                            </Typography.Label>
+                          </S.ExtraInfomationItem>
+                        ))}
+                      {data.details.parking !== null &&
+                        (data.details.parking ? (
+                          <S.ExtraInfomationItem>
+                            <WheelChairIcon />
+                            <Typography.Label size="lg" color="inherit">
+                              배리어프리
+                            </Typography.Label>
+                          </S.ExtraInfomationItem>
+                        ) : (
+                          <S.ExtraInfomationItem>
+                            <WheelChairDenyIcon />
+                            <Typography.Label size="lg" color="inherit">
+                              배리어프리
+                              <br />
+                              불가
+                            </Typography.Label>
+                          </S.ExtraInfomationItem>
+                        ))}
+                      {data.details.parking !== null &&
+                        (data.details.parking ? (
+                          <S.ExtraInfomationItem>
+                            <BabyCarrigeIcon />
+                            <Typography.Label size="lg" color="inherit">
+                              유모차 대여
+                            </Typography.Label>
+                          </S.ExtraInfomationItem>
+                        ) : (
+                          <S.ExtraInfomationItem>
+                            <BabyCarrigeDenyIcon />
+                            <Typography.Label size="lg" color="inherit">
+                              유모차 대여
+                              <br />
+                              불가
+                            </Typography.Label>
+                          </S.ExtraInfomationItem>
+                        ))}
+                    </S.ExtraInfomation>
+                  </S.ExtraInfomationContainer>
+                  <S.SeperateLine />
+                </>
+              )}
 
             {/* UpButton */}
             <S.UpButton
