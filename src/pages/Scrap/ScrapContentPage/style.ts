@@ -162,7 +162,7 @@ export const InstagramText = styled.div<{ isOpen: boolean }>`
   border-bottom-right-radius: 0;
   background-color: ${({ theme }) => theme.colors.gray.quaternary};
 
-  height: ${({ isOpen }) => (isOpen ? 'auto' : '320px')};
+  max-height: ${({ isOpen }) => (isOpen ? 'auto' : '320px')};
   overflow-y: ${({ isOpen }) => (isOpen ? 'auto' : 'hidden')};
 
   p {
@@ -199,7 +199,9 @@ export const TextButton = styled.div`
   }
 `;
 
-export const MemoContainer = styled.div``;
+export const MemoContainer = styled.div`
+  width: 100%;
+`;
 
 export const MemoText = styled.div<{ isOpen: boolean }>`
   padding: 16px;
@@ -208,7 +210,7 @@ export const MemoText = styled.div<{ isOpen: boolean }>`
   border-bottom-right-radius: 0;
   background-color: ${({ theme }) => theme.colors.gray.quaternary};
 
-  height: ${({ isOpen }) => (isOpen ? 'auto' : '160px')};
+  max-height: ${({ isOpen }) => (isOpen ? 'auto' : '160px')};
   overflow-y: ${({ isOpen }) => (isOpen ? 'auto' : 'hidden')};
 
   p {
@@ -251,12 +253,31 @@ export const PlaceItem = styled.div`
   }
 `;
 
-export const PlaceIconWrapper = styled.div`
+export const PlaceIconWrapper = styled.div<{ isScraped: boolean | undefined }>`
   position: absolute;
   right: 0px;
 
   svg {
     width: 32px;
     height: 32px;
+
+    path{
+      fill: ${({ isScraped, theme }) => {
+        switch (isScraped) {
+          case true: {
+            return theme.colors.blue.primary;
+          }
+          case false: {
+            return theme.colors.gray.primary;
+          }
+          default: {
+            return theme.colors.gray.primary;
+          }
+        }
+      }}
   }
+`;
+
+export const FontHighlight = styled.span`
+  color: ${({ theme }) => theme.colors.blue.primary};
 `;

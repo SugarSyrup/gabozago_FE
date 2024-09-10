@@ -58,7 +58,11 @@ export const ImgWrapper = styled.div`
 
   img {
     width: 100%;
+    height: 100%;
     border-radius: 10px;
+
+    position: absolute;
+    object-fit: cover;
   }
 `;
 
@@ -83,6 +87,7 @@ export const NotWatched = styled.div`
   align-items: center;
 
   position: absolute;
+  z-index: 10;
 
   h3 {
     position: absolute;
@@ -102,6 +107,7 @@ export const DeleteCheckedWrapper = styled.div`
   align-items: center;
 
   position: absolute;
+  z-index: 20;
 
   h3 {
     position: absolute;
@@ -122,6 +128,7 @@ export const IconWrapper = styled.div`
   position: absolute;
   right: 8px;
   bottom: 8px;
+  z-index: 20;
 
   img {
     width: 24px;
@@ -145,7 +152,7 @@ export const EditButton = styled.div`
   position: absolute;
   top: 6px;
   left: 6px;
-  z-index: 10;
+  z-index: 100;
   cursor: pointer;
 
   display: flex;
@@ -157,5 +164,5 @@ export const EditSVGWrapper = styled.div`
   position: absolute;
   top: 6px;
   left: 6px;
-  z-index: 10;
+  z-index: 100;
 `;

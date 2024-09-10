@@ -6,11 +6,14 @@ import KebabMenuIcon from '../../../assets/icons/menu_kebab.svg?react';
 import EditIcon from '../../../assets/icons/edit.svg?react';
 import DeleteIcon from '../../../assets/icons/delete.svg?react';
 import { deletes, get, patch, post } from '@_utils/api';
-import useTextInputPopup from '../../../hooks/useTextInputPopup';
 import useModal from '../../../hooks/useModal';
 import MenuOptionList from '../../common/MenuOptionList';
 import useConfirm from '../../../hooks/useConfirm';
 import Typography from '../../common/Typography';
+import { useSetRecoilState } from 'recoil';
+import { popupValue } from '@_recoil/common/PopupValue';
+import usePopup from '../../../hooks/usePopup';
+import ImportantIcom from '@_icons/exclamation_circle.svg?react';
 
 interface GroupInfo {
   id: number;
@@ -18,34 +21,19 @@ interface GroupInfo {
   thumbnail?: string;
 }
 
-const ScrapedTripJournal = memo(() => {
+function ScrapedTripJournal() {
   const navigate = useNavigate();
   const [editingFolderName, setEditingFolderName] = useState<string>('');
+  const { popupOpen, popupClose } = usePopup();
+  const setPopupUI = useSetRecoilState(popupValue);
+
   const {
     Modal: SettingsModal,
     modalOpen: settingsModalOpen,
     modalClose: settingsModalClose,
     isOpend: isSettingsModalOpend,
   } = useModal({});
-  const {
-    TextInputPopup: CreateFolderPopup,
-    textInputPopupOpen: createPopupOpen,
-    textInputPopupClose: createPopupClose,
-    isOpend: isCreatePopupOpend,
-  } = useTextInputPopup('새 폴더 추가', 38);
-  const {
-    TextInputPopup: EditFolderPopup,
-    textInputPopupOpen: editPopupOpen,
-    textInputPopupClose: editPopupClose,
-    isOpend: isEditPopupOpend,
-  } = useTextInputPopup('폴더 이름', 38, editingFolderName);
-  const { ConfirmPopup, confirmPopupOpen, confirmPopupClose } = useConfirm(
-    '폴더를 삭제하시겠어요?',
-    '폴더를 삭제하면, 폴더 안에 스크랩된 \n콘텐츠도 모두 삭제 돼요.',
-    null,
-    '아니요',
-    '네, 삭제할게요',
-  );
+
   const [groupList, setGroupList] = useState<GroupInfo[]>([]);
   const [targetGroupIndex, setTargetGroupIndex] = useState<number>(0);
 
@@ -60,12 +48,58 @@ const ScrapedTripJournal = memo(() => {
     settingsModalClose();
     setEditingFolderName(groupList[targetGroupIndex].name);
 
-    editPopupOpen();
+    setPopupUI({
+      Custom: (
+        <form
+          style={{
+            width: '100%',
+          }}
+          onSubmit={(e: FormEvent<HTMLFormElement>) => {
+            e.preventDefault();
+
+            const formData = new FormData(e.currentTarget);
+            editFolderName(groupList[targetGroupIndex].id, String(formData.get('폴더 이름 수정')));
+
+            popupClose();
+          }}
+        >
+          <S.PopupHeader>
+            <S.PopupTitle>폴더 이름 수정</S.PopupTitle>
+            <S.PopupSaveButton type="submit">저장</S.PopupSaveButton>
+          </S.PopupHeader>
+          <S.PopupInput
+            type="text"
+            name="폴더 이름 수정"
+            maxLength={38}
+            defaultValue={groupList[targetGroupIndex].name}
+          />
+        </form>
+      ),
+    });
+    popupOpen();
   };
+
   const handleDeleteFolderClick = () => {
     settingsModalClose();
-    confirmPopupOpen();
-    // @todo: 폴더 삭제 alert 창 띄움
+    setPopupUI({
+      Icon: <ImportantIcom />,
+      Header: '폴더를 삭제하시겠어요?',
+      Description: `폴더를 삭제하면, 폴더 안에 스크랩된
+콘텐츠도 모두 삭제 돼요.`,
+      ConfirmButton: {
+        text: '네, 삭제할게요',
+        onClick: () => {
+          deleteFolder(groupList[targetGroupIndex].id);
+        },
+      },
+      CloseButton: {
+        text: '아니요',
+        onClick: () => {
+          popupClose();
+        },
+      },
+    });
+    popupOpen();
   };
   const settingMenus = [
     {
@@ -98,8 +132,9 @@ const ScrapedTripJournal = memo(() => {
     });
     getGroupList();
 
-    createPopupClose();
+    popupClose();
   };
+
   // 폴더 이름 수정
   const editFolderName = async (id: number, name: string) => {
     if (!name || name === '') {
@@ -110,13 +145,14 @@ const ScrapedTripJournal = memo(() => {
       id,
       name,
     });
+
     if (data.message === 'PATCH SUCCESS') {
       getGroupList();
-      editPopupClose();
     } else {
       alert('수정에 실패하였습니다.');
     }
   };
+
   // 폴더 삭제
   const deleteFolder = async (id: number) => {
     const { data } = await deletes<{ message: string }>('folder/community', {
@@ -124,7 +160,7 @@ const ScrapedTripJournal = memo(() => {
     });
     if (data.message === 'DELETE SUCCESS') {
       getGroupList();
-      confirmPopupClose();
+      popupClose();
     } else {
       alert('삭제에 실패하였습니다.');
     }
@@ -136,40 +172,39 @@ const ScrapedTripJournal = memo(() => {
 
   return (
     <>
-      <ConfirmPopup
-        onConfirm={() => {
-          deleteFolder(groupList[targetGroupIndex].id);
-        }}
-      />
-      <S.ModalWrapper isOpen={isSettingsModalOpend || isCreatePopupOpend || isEditPopupOpend}>
+      <S.ModalWrapper isOpen={isSettingsModalOpend}>
         <SettingsModal>
           <MenuOptionList menus={settingMenus} />
         </SettingsModal>
-        <CreateFolderPopup
-          onSubmit={(e: FormEvent<HTMLFormElement>) => {
-            e.preventDefault();
-
-            const formData = new FormData(e.currentTarget);
-            console.log(formData.get('새 폴더 추가'));
-            createNewFolder(String(formData.get('새 폴더 추가')));
-          }}
-        />
-        <EditFolderPopup
-          onSubmit={(e: FormEvent<HTMLFormElement>) => {
-            e.preventDefault();
-
-            const formData = new FormData(e.currentTarget);
-            console.log(formData.get('폴더 이름'));
-            console.log(groupList[targetGroupIndex]);
-            editFolderName(groupList[targetGroupIndex].id, String(formData.get('폴더 이름')));
-          }}
-        />
       </S.ModalWrapper>
+
       <S.GroupList>
         <S.CreateNewGroupItem key="createGroup" background={addCircle}>
           <div
             onClick={() => {
-              createPopupOpen();
+              setPopupUI({
+                Custom: (
+                  <form
+                    style={{
+                      width: '100%',
+                    }}
+                    onSubmit={(e: FormEvent<HTMLFormElement>) => {
+                      e.preventDefault();
+
+                      const formData = new FormData(e.currentTarget);
+                      createNewFolder(String(formData.get('새 폴더 추가')));
+                      popupClose();
+                    }}
+                  >
+                    <S.PopupHeader>
+                      <S.PopupTitle>새 폴더 추가</S.PopupTitle>
+                      <S.PopupSaveButton type="submit">저장</S.PopupSaveButton>
+                    </S.PopupHeader>
+                    <S.PopupInput type="text" name="새 폴더 추가" maxLength={38} />
+                  </form>
+                ),
+              });
+              popupOpen();
             }}
           />
           <p>새 폴더 추가</p>
@@ -189,7 +224,7 @@ const ScrapedTripJournal = memo(() => {
             key={id}
             background={thumbnail || ''}
             onClick={() => {
-              navigate(`./${id}`);
+              navigate(`./${id}?name=${name}`);
             }}
           >
             <div />
@@ -211,6 +246,6 @@ const ScrapedTripJournal = memo(() => {
       </S.GroupList>
     </>
   );
-});
+}
 
 export default ScrapedTripJournal;

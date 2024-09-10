@@ -35,6 +35,7 @@ import {
   ScrapContentPage,
   ScrapBookPlaceMapPage,
   ContentMemoEditPage,
+  ContentPlaceSearchPage,
 } from './pages/Scrap';
 
 /* ---- 장소 페이지 ---- */
@@ -244,6 +245,14 @@ const router = createBrowserRouter([
     element: (
       <IsLoginTemplate>
         <ContentMemoEditPage />
+      </IsLoginTemplate>
+    ),
+  },
+  {
+    path: '/scrapbook/content/:id/search',
+    element: (
+      <IsLoginTemplate>
+        <ContentPlaceSearchPage />
       </IsLoginTemplate>
     ),
   },
