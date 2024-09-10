@@ -5,16 +5,21 @@ import Typography from '../Typography';
 
 interface Props {
   children: string | React.ReactNode;
+  onClick?: () => void;
 }
 
-function HeaderWithBack({ children }: Props) {
+function HeaderWithBack({ children, onClick }: Props) {
   const navigate = useNavigate();
   return (
     <S.Header>
       <S.LeftBackButtonWrapper>
         <BackButton
           onClick={() => {
-            navigate(-1);
+            if (onClick) {
+              onClick();
+            } else {
+              navigate(-1);
+            }
           }}
         />
       </S.LeftBackButtonWrapper>
