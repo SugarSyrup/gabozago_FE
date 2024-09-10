@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 
 import Typography from '@_common/Typography';
-import { get } from '@_utils/api';
+import { deletes, get } from '@_utils/api';
 import { TPagination } from '@_types/server/pagination.type';
 import { TContentShorten } from '@_types/server/content.type';
 import { popupValue } from '@_recoil/common/PopupValue';
@@ -22,7 +22,7 @@ interface TResponse extends TPagination<TContentShorten> {
 function ScrapedContents() {
   const navigate = useNavigate();
   const [data, setData] = useState<TContentShorten[]>([]);
-  const [deletes, setDeletes] = useState<number[]>([]);
+  const [deleteContents, setDeletes] = useState<number[]>([]);
   const [count, setCount] = useState<number>(0);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
 
@@ -83,16 +83,21 @@ function ScrapedContents() {
           {isEditMode ? (
             <p
               onClick={() => {
-                if (deletes.length > 0) {
+                if (deleteContents.length > 0) {
                   setPopupUI({
-                    Header: `${deletes.length}개의 장소를 삭제하시겠어요?`,
+                    Header: `${deleteContents.length}개의 장소를 삭제하시겠어요?`,
                     Warning: '삭제한 장소는 복구할 수 없어요.',
                     CloseButton: {
                       text: '취소',
+                      onClick: () => {
+                        popupClose();
+                      },
                     },
                     ConfirmButton: {
                       onClick: () => {
-                        // @TODO: 삭제 요청 API
+                        deletes(`scrap/content?id=${deleteContents.toLocaleString()}`).then(() => {
+                          popupClose();
+                        });
                       },
                       text: '확인',
                     },
@@ -133,10 +138,10 @@ function ScrapedContents() {
             >
               {isEditMode && (
                 <>
-                  {deletes.includes(content.id) ? (
+                  {deleteContents.includes(content.id) ? (
                     <S.EditSVGWrapper
                       onClick={() => {
-                        setDeletes(deletes.filter((id) => id !== content.id));
+                        setDeletes(deleteContents.filter((id) => id !== content.id));
                       }}
                     >
                       <svg
@@ -155,14 +160,14 @@ function ScrapedContents() {
                   ) : (
                     <S.EditButton
                       onClick={() => {
-                        setDeletes([...deletes, content.id]);
+                        setDeletes([...deleteContents, content.id]);
                       }}
                     />
                   )}
                 </>
               )}
               <S.ImgWrapper>
-                {!content.isRead && !deletes.includes(content.id) && (
+                {!content.isRead && !deleteContents.includes(content.id) && (
                   <S.NotWatched>
                     <Typography.Title size="md" noOfLine={2} color="inherit">
                       미열람
@@ -171,7 +176,7 @@ function ScrapedContents() {
                     </Typography.Title>
                   </S.NotWatched>
                 )}
-                {deletes.includes(content.id) && (
+                {deleteContents.includes(content.id) && (
                   <S.DeleteCheckedWrapper>
                     <Typography.Title size="md" noOfLine={2} color="inherit">
                       미열람

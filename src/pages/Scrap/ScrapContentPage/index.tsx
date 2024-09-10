@@ -8,8 +8,10 @@ import useModal from '../../../hooks/useModal';
 import usePopup from '../../../hooks/usePopup';
 
 import BottomChevronIcon from '@_icons/chevron_bottom.svg?react';
+import TopChevronIcon from '@_icons/chevron_top.svg?react';
 import MeatBallIcon from '@_icons/meatballsMenu.svg?react';
-import BookmarkIcon from '@_icons/bookmark_filled.svg?react';
+import BookmarkFilledIcon from '@_icons/bookmark_filled.svg?react';
+import BookmarkIcon from '@_icons/bookmark.svg?react';
 import ExclamationCircleIcon from '@_icons/exclamation_circle.svg?react';
 import ChevronRightIcon from '@_icons/chevron_right.svg?react';
 
@@ -17,7 +19,7 @@ import InstagramImg from '@_imgs/instagram_icon.png';
 import { popupValue } from '@_recoil/common/PopupValue';
 
 import * as S from './style';
-import { deletes, get, patch } from '@_utils/api';
+import { deletes, get, patch, post } from '@_utils/api';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
@@ -28,14 +30,17 @@ interface TData {
   memo: string;
   thumbnailURL: string;
   source: string;
-  place: {
-    count: number;
-    place_list: {
-      placeId?: number;
-      name: string;
-      isScraped?: boolean;
-    }[];
-  };
+  place: [
+    { count: number },
+    {
+      places_list: {
+        placeId?: number;
+        name: string;
+        isScraped?: boolean;
+        thumbnailURL?: string | null;
+      }[];
+    },
+  ];
 }
 
 function ScrapContentPage() {
@@ -46,6 +51,9 @@ function ScrapContentPage() {
   const { Modal, modalOpen } = useModal({});
   const { popupOpen, popupClose } = usePopup();
   const setPopupUI = useSetRecoilState(popupValue);
+
+  const [isContentOpen, setIsContentOpen] = useState(false);
+  const [isMemoOpen, setIsMemoOpen] = useState(false);
 
   useEffect(() => {
     get<TData>(`/scrap/content/${id}`).then((res) => {
@@ -75,6 +83,7 @@ function ScrapContentPage() {
       }
       nav={null}
     >
+      {/* MoDal */}
       <Modal>
         <S.ModalContainer>
           <Typography.Title size="lg" color="inherit">
@@ -103,7 +112,7 @@ function ScrapContentPage() {
                         </S.FormButton>
                       </S.ChangePopupHeader>
                       <S.ChangePopupInput
-                        defaultValue="@TODO: Set Title Default Value"
+                        defaultValue={data?.title}
                         name="title"
                         type="text"
                         maxLength={38}
@@ -146,6 +155,8 @@ function ScrapContentPage() {
           </Typography.Title>
         </S.ModalContainer>
       </Modal>
+
+      {/* Header */}
       <S.Container>
         <S.Header>
           <img src="https://via.placeholder.com/64" alt="profile" />
@@ -154,7 +165,13 @@ function ScrapContentPage() {
               {data?.title}
             </Typography.Title>
             <Typography.Label size="lg" color="inherit">
-              인스타그램 바로가기
+              <span
+                onClick={() => {
+                  window.location.href = data?.url as string;
+                }}
+              >
+                인스타그램 바로가기
+              </span>
             </Typography.Label>
           </S.HeaderText>
           <S.HeaderIconWrapper>
@@ -162,15 +179,33 @@ function ScrapContentPage() {
           </S.HeaderIconWrapper>
         </S.Header>
         <S.SeperateLine />
+
+        {/* Contents */}
         <Typography.Headline size="sm">본문</Typography.Headline>
-        <S.InstagramText isOpen={false}>
-          {data?.content
-            .split('\n')
-            .map((line, index) => <p key={`${line} ${index}`}>{line === ' ' ? <br /> : line}</p>)}
-        </S.InstagramText>
-        <S.TextButton>
-          펼치기 <BottomChevronIcon />
-        </S.TextButton>
+        <div style={{ width: '100%' }}>
+          <S.InstagramText isOpen={isContentOpen}>
+            {data?.content
+              .split('\n')
+              .map((line, index) => <p key={`${line} ${index}`}>{line === ' ' ? <br /> : line}</p>)}
+          </S.InstagramText>
+          <S.TextButton
+            onClick={() => {
+              setIsContentOpen((prev) => !prev);
+            }}
+          >
+            {isContentOpen ? (
+              <>
+                접기 <TopChevronIcon />
+              </>
+            ) : (
+              <>
+                펼치기 <BottomChevronIcon />
+              </>
+            )}
+          </S.TextButton>
+        </div>
+
+        {/* Memo */}
         <S.HeadlineContainer>
           <Typography.Headline size="sm">메모</Typography.Headline>
           <S.MemoEdit
@@ -185,56 +220,126 @@ function ScrapContentPage() {
           </S.MemoEdit>
         </S.HeadlineContainer>
         <S.MemoContainer>
-          <S.MemoText isOpen={false}>
+          <S.MemoText isOpen={isMemoOpen}>
             {data?.memo
               .split('\n')
               .map((line, index) => <p key={`${line} ${index}`}>{line === ' ' ? <br /> : line}</p>)}
           </S.MemoText>
-          <S.TextButton>
-            펼치기 <BottomChevronIcon />
+          <S.TextButton
+            onClick={() => {
+              setIsMemoOpen((prev) => !prev);
+            }}
+          >
+            {isMemoOpen ? (
+              <>
+                접기 <TopChevronIcon />
+              </>
+            ) : (
+              <>
+                펼치기 <BottomChevronIcon />
+              </>
+            )}
           </S.TextButton>
         </S.MemoContainer>
-        <S.PlaceHeadlineWrapper>
-          <Typography.Headline size="sm">콘텐츠 속 장소 {data?.place.count}</Typography.Headline>
-        </S.PlaceHeadlineWrapper>
-        <S.PlaceList>
-          <S.PlaceItem>
-            <img src="https://via.placeholder.com/64" alt="place" />
-            <Typography.Title size="lg" color="inherit">
-              움싸우스 코리아
-            </Typography.Title>
-            <S.PlaceIconWrapper>
-              <BookmarkIcon />
-            </S.PlaceIconWrapper>
-          </S.PlaceItem>
-          <S.PlaceItem>
-            <img src="https://via.placeholder.com/64" alt="place" />
-            <Typography.Title size="lg" color="inherit">
-              움싸우스 코리아
-            </Typography.Title>
-            <S.PlaceIconWrapper>
-              <BookmarkIcon />
-            </S.PlaceIconWrapper>
-          </S.PlaceItem>
-          <S.PlaceItem>
-            <img src="https://via.placeholder.com/64" alt="place" />
-            <Typography.Title size="lg" color="inherit">
-              움싸우스 코리아
-            </Typography.Title>
-            <S.PlaceIconWrapper>
-              <BookmarkIcon />
-            </S.PlaceIconWrapper>
-          </S.PlaceItem>
-          <S.PlaceItem>
-            <img src="https://via.placeholder.com/64" alt="place" />
-            <Typography.Title size="lg" color="inherit">
-              움싸우스 코리아
-            </Typography.Title>
-            <S.PlaceIconWrapper>
-              <BookmarkIcon />
-            </S.PlaceIconWrapper>
-          </S.PlaceItem>
-        </S.PlaceList>
+
+        {/* Places */}
+        {data?.place[0].count > 0 && (
+          <>
+            <S.PlaceHeadlineWrapper>
+              <Typography.Headline size="sm">
+                콘텐츠 속 장소 <S.FontHighlight>{data?.place[0].count}</S.FontHighlight>
+              </Typography.Headline>
+            </S.PlaceHeadlineWrapper>
+
+            <S.PlaceList>
+              {data?.place[1].places_list &&
+                data?.place[1].places_list.map((place, index) =>
+                  place.placeId ? (
+                    <S.PlaceItem key={index}>
+                      {place.thumbnailURL ? (
+                        <img src={place.thumbnailURL} alt="place" />
+                      ) : (
+                        <img src="https://via.placeholder.com/64" alt="place" />
+                      )}
+
+                      <Typography.Title size="lg" color="inherit">
+                        {place.name}
+                      </Typography.Title>
+
+                      <S.PlaceIconWrapper isScraped={place.isScraped}>
+                        {place.isScraped === undefined && <BookmarkIcon />}
+
+                        {place.isScraped === true && (
+                          <BookmarkFilledIcon
+                            onClick={() => {
+                              deletes(`/scrap/place?placeId=${place.placeId}`);
+                            }}
+                          />
+                        )}
+                        {place.isScraped === false && (
+                          <BookmarkIcon
+                            onClick={() => {
+                              post(`/scrap/place`, {
+                                placeId: place.placeId,
+                                isTripBucket: true,
+                                memo: data.memo,
+                              });
+                            }}
+                          />
+                        )}
+                      </S.PlaceIconWrapper>
+                    </S.PlaceItem>
+                  ) : (
+                    <S.PlaceItem key={index}>
+                      <img src={place.thumbnailURL} alt="place" />
+                      <Typography.Title size="lg" color="inherit">
+                        {place.name}
+                      </Typography.Title>
+                      <S.PlaceIconWrapper>
+                        <BookmarkIcon />
+                      </S.PlaceIconWrapper>
+                    </S.PlaceItem>
+                  ),
+                )}
+              {/* <S.PlaceItem>
+                <img src="https://via.placeholder.com/64" alt="place" />
+                <Typography.Title size="lg" color="inherit">
+                  움싸우스 코리아
+                </Typography.Title>
+                <S.PlaceIconWrapper>
+                  <BookmarkIcon />
+                </S.PlaceIconWrapper>
+              </S.PlaceItem>
+              <S.PlaceItem>
+                <img src="https://via.placeholder.com/64" alt="place" />
+                <Typography.Title size="lg" color="inherit">
+                  움싸우스 코리아
+                </Typography.Title>
+                <S.PlaceIconWrapper>
+                  <BookmarkIcon />
+                </S.PlaceIconWrapper>
+              </S.PlaceItem>
+              <S.PlaceItem>
+                <img src="https://via.placeholder.com/64" alt="place" />
+                <Typography.Title size="lg" color="inherit">
+                  움싸우스 코리아
+                </Typography.Title>
+                <S.PlaceIconWrapper>
+                  <BookmarkIcon />
+                </S.PlaceIconWrapper>
+              </S.PlaceItem>
+              <S.PlaceItem>
+                <img src="https://via.placeholder.com/64" alt="place" />
+                <Typography.Title size="lg" color="inherit">
+                  움싸우스 코리아
+                </Typography.Title>
+                <S.PlaceIconWrapper>
+                  <BookmarkIcon />
+                </S.PlaceIconWrapper>
+              </S.PlaceItem> */}
+            </S.PlaceList>
+          </>
+        )}
       </S.Container>
     </PageTemplate>
   );
