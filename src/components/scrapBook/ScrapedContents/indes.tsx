@@ -85,8 +85,8 @@ function ScrapedContents() {
               onClick={() => {
                 if (deleteContents.length > 0) {
                   setPopupUI({
-                    Header: `${deleteContents.length}개의 장소를 삭제하시겠어요?`,
-                    Warning: '삭제한 장소는 복구할 수 없어요.',
+                    Header: `${deleteContents.length}개의 콘텐츠를 삭제하시겠어요?`,
+                    Warning: '삭제한 콘텐츠는 복구할 수 없어요.',
                     CloseButton: {
                       text: '취소',
                       onClick: () => {
