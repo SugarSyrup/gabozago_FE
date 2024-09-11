@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { HeaderWithBack } from '@_common/Header';
 import PageTemplate from '@_common/PageTemplate';
@@ -19,6 +19,41 @@ function NotificationPage() {
       isRead: boolean;
     }[]
   >([]);
+  const [next, setNext] = useState<string>();
+  const infiniteRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && next) {
+        get<{
+          next: string;
+          previous: string;
+          results: {
+            id: number;
+            content: string;
+            createdAt: string;
+            redirectURL: string;
+            isRead: boolean;
+          }[];
+        }>(next).then((response) => {
+          setData([...data, ...response.data.results]);
+          setNext(response.data.next);
+        });
+      }
+    }, options);
+
+    if (infiniteRef.current) {
+      observer.observe(infiniteRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     get<{
@@ -33,6 +68,7 @@ function NotificationPage() {
       }[];
     }>('/user/web-notification').then((res) => {
       setData(res.data.results);
+      setNext(response.data.next);
     });
   }, []);
 
@@ -46,7 +82,10 @@ function NotificationPage() {
           </Typography.Title>
         </S.NoDataContainer>
       ) : (
-        <NotificationList data={data} />
+        <>
+          <NotificationList data={data} />
+          <div ref={infiniteRef} />
+        </>
       )}
     </PageTemplate>
   );

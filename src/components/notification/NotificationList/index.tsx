@@ -1,5 +1,6 @@
 import Typography from '@_common/Typography';
 import * as S from './style';
+import { useEffect, useRef } from 'react';
 
 interface Props {
   data: {
