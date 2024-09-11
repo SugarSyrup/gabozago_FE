@@ -27,7 +27,7 @@ function LocationHotPlaces({ locations, setNewLocation, popupOpen }: Props) {
     get<TPlace[]>(`/my-travel/location/hot?location=${locations.toString()}`).then((response) => {
       setRecommendPlaces(response.data);
     });
-  }, []);
+  }, [locations]);
 
   return (
     <>
