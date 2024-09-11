@@ -186,7 +186,7 @@ function HomePage() {
 
         <OutlineButton
           onClick={() => {
-            navigate('/aritcles');
+            navigate('/articles');
           }}
         >
           <S.ButtonContent>
