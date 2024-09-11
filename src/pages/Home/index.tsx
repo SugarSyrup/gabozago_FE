@@ -4,7 +4,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { isAndroid, isIOS } from 'react-device-detect';
 
 import LogoIcon from '@_icons/logo_text.svg?react';
-import BellIcon from '@_icons/bell_pin_fill.svg?react';
+import BellIcon from '@_icons/bell_pin.svg?react';
 import LogoForeIcon from '@_icons/logo_fore.svg?react';
 import InstagramIcon from '@_icons/instagram.svg?react';
 import ChevronRightIcon from '@_icons/chevron_right.svg?react';
@@ -35,6 +35,7 @@ function HomePage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [username, setUsername] = useState<string>('');
   const [data, setData] = useState<string[]>([]);
+  const [isNotifications, setIsNotifications] = useState<boolean>(false);
   const setPopupValue = useSetRecoilState(popupValue);
   const { popupOpen, popupClose } = usePopup();
 
@@ -75,8 +76,10 @@ function HomePage() {
       setSearchParams('');
     } else if (searchParams.get('popup') === 'alert_fail') {
       setPopupValue({
-        Header: '잠깐! 이대로면 내 여행과 관련된 소식을 받을 수 없어요!',
-        Description: '소식을 받고 싶다면, 시스템 설정을 통해 알림 설정을 해주세요',
+        Header: '잠깐! 이대로면 내 여행을 위한 소중한 소식을 받아 볼 수 없어요.',
+        Description: `알림을 켜면 공유한 장소의 저장이
+완료되었는지 확인할 수 있어요 :)`,
+        Warning: '시스템 설정 > 가보자고 > 알림 허용',
         CloseButton: {
           text: '취소',
           onClick: () => {
@@ -95,41 +98,27 @@ function HomePage() {
     }
   }, []);
 
+  useEffect(() => {
+    get<{ reminder: boolean }>('/user/web-notification/reminder')
+      .then((response) => {
+        setIsNotifications(response.data.reminder);
+      })
+      .catch((error) => {
+        setIsNotifications(error.response.data.reminder);
+      });
+  });
+
   return (
     <PageTemplate>
       {/* Header */}
-      <button
-        type="button"
-        onClick={() => {
-          localStorage.removeItem('access_token');
-        }}
-      >
-        로컬 스토리지 삭제
-      </button>
-      <button
-        type="button"
-        onClick={() => {
-          try {
-            if (window.GabozagoDev) {
-              window.GabozagoDev.postUUID('test');
-            }
-            if (window.webkit.messageHandlers.gabozagoDev) {
-              window.webkit.messageHandlers.gabozagoDev.postMessage('test message');
-            }
-          } catch (e) {
-            setData((prev) => [...prev, `${e}`]);
-          }
-        }}
-      >
-        콜백 테스트
-      </button>
+
       {data.map((item, index) => (
         <p key={index}>{item}</p>
       ))}
       <S.Header>
         <LogoIcon />
         <S.BellWrapper
-          isAlert
+          isAlert={isNotifications}
           onClick={() => {
             navigate('/notifications');
           }}
@@ -137,8 +126,6 @@ function HomePage() {
           <BellIcon />
         </S.BellWrapper>
       </S.Header>
-
-      <Typography.Headline size="md">Version 9/5 12시</Typography.Headline>
 
       {/* Banner */}
       <Banner />
@@ -158,16 +145,18 @@ function HomePage() {
       </S.TripBucketContainer>
 
       {/* Place Recommend */}
-      <S.PlaceRecommendContainer>
-        <S.ArticleIntroduceTitle>
-          <Typography.Headline size="sm" color="inherit" noOfLine={2}>
-            <S.FontHighlight>{username} 님</S.FontHighlight>
-            <br />
-            이런 장소는 어떠세요?
-          </Typography.Headline>
-        </S.ArticleIntroduceTitle>
-        <PlaceRecommendation />
-      </S.PlaceRecommendContainer>
+      {username && (
+        <S.PlaceRecommendContainer>
+          <S.ArticleIntroduceTitle>
+            <Typography.Headline size="sm" color="inherit" noOfLine={2}>
+              <S.FontHighlight>{username} 님</S.FontHighlight>
+              <br />
+              이런 장소는 어떠세요?
+            </Typography.Headline>
+          </S.ArticleIntroduceTitle>
+          <PlaceRecommendation />
+        </S.PlaceRecommendContainer>
+      )}
 
       {/* Articles */}
       <S.ArticleContainer>
@@ -197,7 +186,7 @@ function HomePage() {
 
         <OutlineButton
           onClick={() => {
-            navigate('/aritcles');
+            navigate('/articles');
           }}
         >
           <S.ButtonContent>

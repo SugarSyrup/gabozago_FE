@@ -8,7 +8,7 @@ export const Container = styled.div`
 
   img {
     width: 100%;
-    height: 400px;
+    height: 460px;
   }
 `;
 
@@ -82,14 +82,16 @@ export const RecommendItem = styled.li`
 
   position: relative;
   border-bottom: 1px solid rgba(231, 231, 231, 0.5);
+`;
+
+export const RecommendIconWrapper = styled.div`
+  position: absolute;
+  right: 0px;
 
   svg {
     width: 24px;
     height: 24px;
     cursor: pointer;
-
-    position: absolute;
-    right: 0px;
 
     path {
       fill: white;

@@ -54,14 +54,27 @@ function SignUpPage() {
             body = {
               emailParmas,
               nickname,
-              eventAgreement: formData.get('eventCheck') === 'on',
             };
           } else {
             body = {
               nickname,
-              eventAgreement: formData.get('eventCheck') === 'on',
             };
           }
+
+          const optionalTerms = [];
+
+          if (formData.get('TERMS01')) {
+            optionalTerms.push('TERMS01');
+          }
+
+          if (formData.get('TERMS02')) {
+            optionalTerms.push('TERMS02');
+          }
+
+          body = {
+            ...body,
+            optionalTerms,
+          };
 
           if (isRecommenderOk !== -1) {
             body = {
