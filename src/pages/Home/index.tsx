@@ -76,8 +76,10 @@ function HomePage() {
       setSearchParams('');
     } else if (searchParams.get('popup') === 'alert_fail') {
       setPopupValue({
-        Header: '잠깐! 이대로면 내 여행과 관련된 소식을 받을 수 없어요!',
-        Description: '소식을 받고 싶다면, 시스템 설정을 통해 알림 설정을 해주세요',
+        Header: '잠깐! 이대로면 내 여행을 위한 소중한 소식을 받아 볼 수 없어요.',
+        Description: `알림을 켜면 공유한 장소의 저장이
+완료되었는지 확인할 수 있어요 :)`,
+        Warning: '시스템 설정 > 가보자고 > 알림 허용',
         CloseButton: {
           text: '취소',
           onClick: () => {
