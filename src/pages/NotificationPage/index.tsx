@@ -68,7 +68,7 @@ function NotificationPage() {
       }[];
     }>('/user/web-notification').then((res) => {
       setData(res.data.results);
-      setNext(response.data.next);
+      setNext(res.data.next);
     });
   }, []);
 

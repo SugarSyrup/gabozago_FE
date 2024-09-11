@@ -76,7 +76,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <HomePage />,
-    errorElement: <ErrorHandlingPage />,
+    // errorElement: <ErrorHandlingPage />,
   },
   {
     path: '/notifications',
