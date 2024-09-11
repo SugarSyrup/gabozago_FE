@@ -18,7 +18,7 @@ import ImportantIcom from '@_icons/exclamation_circle.svg?react';
 interface GroupInfo {
   id: number;
   name: string;
-  thumbnail?: string;
+  thumbnailURL: string;
 }
 
 function ScrapedTripJournal() {
@@ -211,7 +211,7 @@ function ScrapedTripJournal() {
         </S.CreateNewGroupItem>
         <S.GroupItem
           key={0}
-          background=""
+          background={groupList[0]?.thumbnailURL || ''}
           onClick={() => {
             navigate('./all');
           }}
@@ -219,10 +219,10 @@ function ScrapedTripJournal() {
           <div />
           <p>모든 게시물</p>
         </S.GroupItem>
-        {groupList.map(({ id, name, thumbnail }, index) => (
+        {groupList.map(({ id, name, thumbnailURL }, index) => (
           <S.GroupItem
             key={id}
-            background={thumbnail || ''}
+            background={thumbnailURL || ''}
             onClick={() => {
               navigate(`./${id}?name=${name}`);
             }}
