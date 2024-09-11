@@ -98,31 +98,7 @@ function HomePage() {
   return (
     <PageTemplate>
       {/* Header */}
-      <button
-        type="button"
-        onClick={() => {
-          localStorage.removeItem('access_token');
-        }}
-      >
-        로컬 스토리지 삭제
-      </button>
-      <button
-        type="button"
-        onClick={() => {
-          try {
-            if (window.GabozagoDev) {
-              window.GabozagoDev.postUUID('test');
-            }
-            if (window.webkit.messageHandlers.gabozagoDev) {
-              window.webkit.messageHandlers.gabozagoDev.postMessage('test message');
-            }
-          } catch (e) {
-            setData((prev) => [...prev, `${e}`]);
-          }
-        }}
-      >
-        콜백 테스트
-      </button>
+
       {data.map((item, index) => (
         <p key={index}>{item}</p>
       ))}
@@ -137,8 +113,6 @@ function HomePage() {
           <BellIcon />
         </S.BellWrapper>
       </S.Header>
-
-      <Typography.Headline size="md">Version 9/5 12시</Typography.Headline>
 
       {/* Banner */}
       <Banner />
