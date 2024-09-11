@@ -272,7 +272,21 @@ function ScrapContentPage() {
                         {place.isScraped === true && (
                           <BookmarkFilledIcon
                             onClick={() => {
-                              deletes(`/scrap/place?id=${place.placeId}`);
+                              deletes(`/scrap/place?id=${place.placeId}`).then(() => {
+                                setData({
+                                  ...data,
+                                  place: [
+                                    { count: data.place[0].count },
+                                    {
+                                      places_list: data.place[1].places_list.map((item) =>
+                                        item.placeId === place.placeId
+                                          ? { ...item, isScraped: false }
+                                          : item,
+                                      ),
+                                    },
+                                  ],
+                                });
+                              });
                             }}
                           />
                         )}
@@ -283,6 +297,20 @@ function ScrapContentPage() {
                                 placeId: place.placeId,
                                 isTripBucket: true,
                                 memo: data.memo,
+                              }).then(() => {
+                                setData({
+                                  ...data,
+                                  place: [
+                                    { count: data.place[0].count },
+                                    {
+                                      places_list: data.place[1].places_list.map((item) =>
+                                        item.placeId === place.placeId
+                                          ? { ...item, isScraped: true }
+                                          : item,
+                                      ),
+                                    },
+                                  ],
+                                });
                               });
                             }}
                           />
