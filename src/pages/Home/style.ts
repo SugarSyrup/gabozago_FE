@@ -62,10 +62,10 @@ export const BellWrapper = styled.div<{ isAlert: boolean }>`
     width: 24px;
     height: 24px;
 
-    path {
+    /* path {
       fill: ${({ theme }) => theme.colors.black.primary};
       /* stroke: ${({ theme }) => theme.colors.black.primary}; */
-    }
+    } */
 
     circle {
       fill: ${({ theme, isAlert }) =>

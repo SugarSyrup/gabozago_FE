@@ -3,29 +3,30 @@ import * as S from './style';
 
 interface Props {
   data: {
-    name: string;
-    time: string;
-    relatedURL: {
-      type: 'place' | 'content';
-      id: string;
-    };
+    id: number;
+    content: string;
+    createdAt: string;
+    redirectURL: string;
     isRead: boolean;
   }[];
 }
-
-// @TODO: 컴포넌트 누르면 isRead 세팅하기
-// @TODO: 컴포넌트 누르면 해당 페이지로 이동하게끔
 
 function NotificationList({ data }: Props) {
   return (
     <S.AlertList>
       {data.map((item, index) => (
-        <S.AlertItem key={`${item.name} ${index}`} isOpen={item.isRead}>
-          <Typography.Title size="md" color="inherit">
-            {item.name}
+        <S.AlertItem
+          key={`${item.content} ${index}`}
+          isOpen={item.isRead}
+          onClick={() => {
+            window.location.href = `${item.redirectURL}`;
+          }}
+        >
+          <Typography.Title size="md" color="inherit" noOfLine={3}>
+            {item.content}
           </Typography.Title>
           <Typography.Label size="md" color="inherit">
-            {item.time}
+            {item.createdAt}
           </Typography.Label>
         </S.AlertItem>
       ))}

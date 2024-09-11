@@ -7,13 +7,33 @@ import Typography from '@_common/Typography';
 
 import NotificationList from '../../components/notification/NotificationList';
 import * as S from './style';
+import { get } from '@_utils/api';
 
 function NotificationPage() {
-  const [data] = useState<[]>([]);
+  const [data, setData] = useState<
+    {
+      id: number;
+      content: string;
+      createdAt: string;
+      redirectURL: string;
+      isRead: boolean;
+    }[]
+  >([]);
 
   useEffect(() => {
-    // Alert DATA GET
-    // get().then((res) => {});
+    get<{
+      next: string;
+      previous: string;
+      results: {
+        id: number;
+        content: string;
+        createdAt: string;
+        redirectURL: string;
+        isRead: boolean;
+      }[];
+    }>('/user/web-notification').then((res) => {
+      setData(res.data.results);
+    });
   }, []);
 
   return (

@@ -4,7 +4,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { isAndroid, isIOS } from 'react-device-detect';
 
 import LogoIcon from '@_icons/logo_text.svg?react';
-import BellIcon from '@_icons/bell_pin_fill.svg?react';
+import BellIcon from '@_icons/bell_pin.svg?react';
 import LogoForeIcon from '@_icons/logo_fore.svg?react';
 import InstagramIcon from '@_icons/instagram.svg?react';
 import ChevronRightIcon from '@_icons/chevron_right.svg?react';
@@ -35,6 +35,7 @@ function HomePage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [username, setUsername] = useState<string>('');
   const [data, setData] = useState<string[]>([]);
+  const [isNotifications, setIsNotifications] = useState<boolean>(false);
   const setPopupValue = useSetRecoilState(popupValue);
   const { popupOpen, popupClose } = usePopup();
 
@@ -95,6 +96,16 @@ function HomePage() {
     }
   }, []);
 
+  useEffect(() => {
+    get<{ reminder: boolean }>('/user/web-notification/reminder')
+      .then((response) => {
+        setIsNotifications(response.data.reminder);
+      })
+      .catch((error) => {
+        setIsNotifications(error.response.data.reminder);
+      });
+  });
+
   return (
     <PageTemplate>
       {/* Header */}
@@ -105,7 +116,7 @@ function HomePage() {
       <S.Header>
         <LogoIcon />
         <S.BellWrapper
-          isAlert
+          isAlert={isNotifications}
           onClick={() => {
             navigate('/notifications');
           }}
