@@ -13,18 +13,24 @@ const terms = [
   {
     id: 'serviceCheck',
     label: '서비스 이용약관 동의',
-    link: '/terms/01',
+    link: '/terms/04',
     required: true,
   },
   {
     id: 'personalCheck',
     label: '개인정보 수집 및 이용 동의',
-    link: '/terms/02',
+    link: '/terms/05',
     required: true,
   },
   {
-    id: 'eventCheck',
-    label: '이벤트 및 할인 혜택 안내 동의',
+    id: 'TERMS01',
+    label: '위치기반 서비스 이용약관 동의',
+    link: '/terms/01',
+    required: false,
+  },
+  {
+    id: 'TERMS02',
+    label: '서비스 관련 정보 앱푸시 수신동의',
     required: false,
   },
 ];
@@ -38,13 +44,15 @@ function CheckBoxs({ setCheckboxActive }: Props) {
   const [ageCheck, setAgeCheck] = useState(false);
   const [serviceCheck, setServiceCheck] = useState(false);
   const [personalCheck, setPersonalCheck] = useState(false);
-  const [eventCheck, setEventCheck] = useState(false);
+  const [locationCheck, setLocationCheck] = useState(false);
+  const [pushCheck, setPushCheck] = useState(false);
 
   useEffect(() => {
     if (allChecks === true) {
       setAgeCheck(true);
       setServiceCheck(true);
       setPersonalCheck(true);
+      setLocationCheck(true);
       setCheckboxActive(true);
     }
   }, [allChecks]);
@@ -58,10 +66,10 @@ function CheckBoxs({ setCheckboxActive }: Props) {
   }, [ageCheck, serviceCheck, personalCheck]);
 
   useEffect(() => {
-    if (eventCheck && ageCheck && serviceCheck && personalCheck) {
+    if (pushCheck && ageCheck && serviceCheck && personalCheck && locationCheck) {
       setAllChecks(true);
     }
-  }, [eventCheck, ageCheck, serviceCheck, personalCheck]);
+  }, [pushCheck, ageCheck, serviceCheck, personalCheck, locationCheck]);
 
   return (
     <S.CheckBoxsContainer>
@@ -95,6 +103,7 @@ function CheckBoxs({ setCheckboxActive }: Props) {
       <S.CheckBoxContainer>
         {terms.map((term) => (
           <CheckBoxItem
+            key={term.id}
             name={term.id}
             required={term.required}
             className="checkbox"
@@ -109,8 +118,11 @@ function CheckBoxs({ setCheckboxActive }: Props) {
                 case 'personalCheck':
                   setPersonalCheck(e.currentTarget.checked);
                   break;
-                case 'eventCheck':
-                  setEventCheck(e.currentTarget.checked);
+                case 'TERMS01':
+                  setLocationCheck(e.currentTarget.checked);
+                  break;
+                case 'TERMS02':
+                  setPushCheck(e.currentTarget.checked);
                   break;
               }
               if (!e.currentTarget.checked) {
