@@ -42,7 +42,11 @@ function Banner() {
           </Typography.Body>
           <img src={TripGIF} alt="tripBannerGIF" />
         </S.TripBanner>
-        <S.BucketBanner>
+        <S.BucketBanner
+          onClick={() => {
+            navigate('/onboarding/tripbucket');
+          }}
+        >
           <Typography.Title size="lg" color="inherit" noOfLine={2}>
             흩어져 있던 맛집, 카페, 관광지
             <br />
