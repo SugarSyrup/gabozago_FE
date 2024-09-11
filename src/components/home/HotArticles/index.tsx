@@ -55,11 +55,11 @@ function HotArticles() {
       <S.Slider>
         {articleData?.slice(6, articleData.length).map((article, idx) => (
           <S.SliderItem key={article.id}>
-            <S.SliderItemIdx>
+            {/* <S.SliderItemIdx>
               <Typography.Title size="md" color="inherit">
                 {idx}
               </Typography.Title>
-            </S.SliderItemIdx>
+            </S.SliderItemIdx> */}
             <S.SliderImg
               src={article.thumbnailURL}
               onClick={() => {
