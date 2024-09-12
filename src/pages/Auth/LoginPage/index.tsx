@@ -66,8 +66,7 @@ function LoginPage() {
           <LogoIcon />
           <LogoText />
           <S.BrandCopy>
-            <span>타인의 여행후기를</span>
-            <span>나만의 여행으로 만드는 새로운 방법</span>
+            <span>여행지를 담는 가장 간단한 방법</span>
           </S.BrandCopy>
           <S.MessageContainer>
             <S.FloatingMessage>
