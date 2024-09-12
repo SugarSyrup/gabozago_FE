@@ -15,6 +15,7 @@ import BookmarkIcon from '@_icons/bookmark.svg?react';
 import ExclamationCircleIcon from '@_icons/exclamation_circle.svg?react';
 import ChevronRightIcon from '@_icons/chevron_right.svg?react';
 import SearchIcon from '@_icons/search.svg?react';
+import LogoSmallIcon from '@_icons/logo_small.svg?react';
 
 import InstagramImg from '@_imgs/instagram_icon.png';
 import { popupValue } from '@_recoil/common/PopupValue';
@@ -161,7 +162,14 @@ function ScrapContentPage() {
       {/* Header */}
       <S.Container>
         <S.Header>
-          <img src="https://via.placeholder.com/64" alt="profile" />
+          {data?.thumbnailURL ? (
+            <img src={data?.thumbnailURL} alt="profile" />
+          ) : (
+            <S.NoThumbnail>
+              <LogoSmallIcon />
+            </S.NoThumbnail>
+          )}
+
           <S.HeaderText>
             <Typography.Title size="md" color="inherit">
               {data?.title}
