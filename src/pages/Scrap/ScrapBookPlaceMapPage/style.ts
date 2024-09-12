@@ -15,7 +15,7 @@ export const ModalOpenButton = styled.div`
   position: fixed;
   left: calc(50% - 60px);
   bottom: 50px;
-  z-index: 100;
+  z-index: 200;
 
   padding: 4px 16px;
   background-color: white;
@@ -110,7 +110,7 @@ export const SelectedPlaceWrapper = styled.div`
 
   position: fixed;
   bottom: 24px;
-  z-index: 100;
+  z-index: 250;
 
   display: flex;
   flex-direction: row;

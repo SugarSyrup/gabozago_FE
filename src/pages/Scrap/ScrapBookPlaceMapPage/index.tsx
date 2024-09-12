@@ -42,21 +42,13 @@ function ScrapBookPlaceMapPage() {
       results: TPlace[];
     }>('scrap/place').then(({ data: responseData }) => {
       setData(responseData.results);
-      let flag = true;
-
-      while (flag) {
-        if (responseData.next) {
-          get<{
-            next: string | null;
-            previous: string | null;
-            results: TPlace[];
-          }>('scrap/place').then(({ data: responseNextData }) => {
-            setData((prev) => [...prev, ...responseNextData.results]);
-          });
-        } else {
-          flag = false;
-        }
-      }
+      get<{
+        next: string | null;
+        previous: string | null;
+        results: TPlace[];
+      }>('scrap/place').then(({ data: responseNextData }) => {
+        setData((prev) => [...prev, ...responseNextData.results]);
+      });
     });
   }, []);
 
