@@ -26,7 +26,8 @@ function SettingsPage() {
         },
         {
           text: '고객센터 • 도움말',
-          path: '/cscenter',
+          // path: '/cscenter',
+          path: 'http://pf.kakao.com/_xgxfxoxcG/chat',
         },
         {
           text: '의견보내기',
@@ -39,23 +40,28 @@ function SettingsPage() {
       items: [
         {
           text: '서비스 이용 약관',
-          path: '/terms/04',
+          // path: '/terms/04',
+          path: 'http://teamfore.notion.site/15c4abba6dbc4c788511d7466ca2a801?pvs=25',
         },
         {
           text: '개인정보 수집 및 이용동의',
-          path: '/terms/05',
+          // path: '/terms/05',
+          path: 'https://teamfore.notion.site/61f78ba3a6924fe384b1ecb87bdab271?pvs=25',
         },
         {
           text: '위치정보 이용약관',
           path: '/terms/01',
+          // path: 'http://teamfore.notion.site/f5afac74fa1f4abb8a4ca09c5e8d47bf?pvs=25',
         },
         {
           text: '데이터 제공 정책',
-          path: '/terms/06',
+          // path: '/terms/06',
+          path: 'http://teamfore.notion.site/dbc5a006bf2a4a4d838ed9447d6731a0?pvs=25',
         },
         {
           text: '오픈소스 라이센스',
-          path: '/terms/07',
+          // path: '/terms/07',
+          path: 'https://teamfore.notion.site/815a648d0b5c40f3b2b262e146bfd0fc?pvs=25',
         },
       ],
     },
@@ -99,7 +105,11 @@ function SettingsPage() {
               {settings[0].items.map((item, index) => (
                 <S.SettingItem
                   onClick={() => {
-                    navigate(item.path);
+                    if (item.path.includes('http')) {
+                      window.location.href = item.path;
+                    } else {
+                      navigate(item.path);
+                    }
                   }}
                   key={`${item.text} ${index}`}
                 >
@@ -152,7 +162,11 @@ function SettingsPage() {
               {settings[1].items.map((item, index) => (
                 <S.SettingItem
                   onClick={() => {
-                    navigate(item.path);
+                    if (item.path.includes('http')) {
+                      window.location.href = item.path;
+                    } else {
+                      navigate(item.path);
+                    }
                   }}
                   key={`${item.text} ${index}`}
                 >
