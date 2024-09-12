@@ -227,19 +227,22 @@ function PlacePage() {
                 )}
               </S.InfomationList>
             </S.ContentList>
-            <PlaceGoogleMap
-              height="144px"
-              center={{
-                lat: Number(data.latitude),
-                lng: Number(data.longitude),
-              }}
-              markers={[
-                {
+
+            {data.thumbnailURL !== null && (
+              <PlaceGoogleMap
+                height="144px"
+                center={{
                   lat: Number(data.latitude),
                   lng: Number(data.longitude),
-                },
-              ]}
-            />
+                }}
+                markers={[
+                  {
+                    lat: Number(data.latitude),
+                    lng: Number(data.longitude),
+                  },
+                ]}
+              />
+            )}
 
             {data.saved.contentLink !== null && (
               <>
@@ -286,93 +289,95 @@ function PlacePage() {
             )}
             <S.SeperateLine />
 
-            {data.details.parking !== null &&
-              data.details.pet !== null &&
-              data.details.barrierFree !== null &&
-              data.details.stroller !== null && (
-                <>
-                  <S.ExtraInfomationContainer>
-                    <Typography.Headline size="sm" color="inherit">
-                      상세 정보
-                    </Typography.Headline>
-                    <S.ExtraInfomation>
-                      {data.details.parking !== null &&
-                        (data.details.parking ? (
-                          <S.ExtraInfomationItem>
-                            <ParkIcon />
-                            <Typography.Label size="lg" color="inherit">
-                              주차
-                            </Typography.Label>
-                          </S.ExtraInfomationItem>
-                        ) : (
-                          <S.ExtraInfomationItem>
-                            <ParkDenyIcon />
-                            <Typography.Label size="lg" color="inherit">
-                              주차
-                              <br />
-                              불가
-                            </Typography.Label>
-                          </S.ExtraInfomationItem>
-                        ))}
-                      {data.details.parking !== null &&
-                        (data.details.parking ? (
-                          <S.ExtraInfomationItem>
-                            <DogIcon />
-                            <Typography.Label size="lg" color="inherit">
-                              반려동물 출입
-                            </Typography.Label>
-                          </S.ExtraInfomationItem>
-                        ) : (
-                          <S.ExtraInfomationItem>
-                            <PetDenyIcon />
-                            <Typography.Label size="lg" color="inherit">
-                              반려동물 출입
-                              <br />
-                              불가
-                            </Typography.Label>
-                          </S.ExtraInfomationItem>
-                        ))}
-                      {data.details.parking !== null &&
-                        (data.details.parking ? (
-                          <S.ExtraInfomationItem>
-                            <WheelChairIcon />
-                            <Typography.Label size="lg" color="inherit">
-                              배리어프리
-                            </Typography.Label>
-                          </S.ExtraInfomationItem>
-                        ) : (
-                          <S.ExtraInfomationItem>
-                            <WheelChairDenyIcon />
-                            <Typography.Label size="lg" color="inherit">
-                              배리어프리
-                              <br />
-                              불가
-                            </Typography.Label>
-                          </S.ExtraInfomationItem>
-                        ))}
-                      {data.details.parking !== null &&
-                        (data.details.parking ? (
-                          <S.ExtraInfomationItem>
-                            <BabyCarrigeIcon />
-                            <Typography.Label size="lg" color="inherit">
-                              유모차 대여
-                            </Typography.Label>
-                          </S.ExtraInfomationItem>
-                        ) : (
-                          <S.ExtraInfomationItem>
-                            <BabyCarrigeDenyIcon />
-                            <Typography.Label size="lg" color="inherit">
-                              유모차 대여
-                              <br />
-                              불가
-                            </Typography.Label>
-                          </S.ExtraInfomationItem>
-                        ))}
-                    </S.ExtraInfomation>
-                  </S.ExtraInfomationContainer>
-                  <S.SeperateLine />
-                </>
-              )}
+            {data.details.parking === null &&
+            data.details.pet === null &&
+            data.details.barrierFree === null &&
+            data.details.stroller === null ? (
+              <></>
+            ) : (
+              <>
+                <S.ExtraInfomationContainer>
+                  <Typography.Headline size="sm" color="inherit">
+                    상세 정보
+                  </Typography.Headline>
+                  <S.ExtraInfomation>
+                    {data.details.parking !== null &&
+                      (data.details.parking ? (
+                        <S.ExtraInfomationItem>
+                          <ParkIcon />
+                          <Typography.Label size="lg" color="inherit">
+                            주차
+                          </Typography.Label>
+                        </S.ExtraInfomationItem>
+                      ) : (
+                        <S.ExtraInfomationItem>
+                          <ParkDenyIcon />
+                          <Typography.Label size="lg" color="inherit">
+                            주차
+                            <br />
+                            불가
+                          </Typography.Label>
+                        </S.ExtraInfomationItem>
+                      ))}
+                    {data.details.pet !== null &&
+                      (data.details.pet ? (
+                        <S.ExtraInfomationItem>
+                          <DogIcon />
+                          <Typography.Label size="lg" color="inherit">
+                            반려동물 출입
+                          </Typography.Label>
+                        </S.ExtraInfomationItem>
+                      ) : (
+                        <S.ExtraInfomationItem>
+                          <PetDenyIcon />
+                          <Typography.Label size="lg" color="inherit">
+                            반려동물 출입
+                            <br />
+                            불가
+                          </Typography.Label>
+                        </S.ExtraInfomationItem>
+                      ))}
+                    {data.details.barrierFree !== null &&
+                      (data.details.barrierFree ? (
+                        <S.ExtraInfomationItem>
+                          <WheelChairIcon />
+                          <Typography.Label size="lg" color="inherit">
+                            배리어프리
+                          </Typography.Label>
+                        </S.ExtraInfomationItem>
+                      ) : (
+                        <S.ExtraInfomationItem>
+                          <WheelChairDenyIcon />
+                          <Typography.Label size="lg" color="inherit">
+                            배리어프리
+                            <br />
+                            불가
+                          </Typography.Label>
+                        </S.ExtraInfomationItem>
+                      ))}
+                    {data.details.stroller !== null &&
+                      (data.details.stroller ? (
+                        <S.ExtraInfomationItem>
+                          <BabyCarrigeIcon />
+                          <Typography.Label size="lg" color="inherit">
+                            유모차 대여
+                          </Typography.Label>
+                        </S.ExtraInfomationItem>
+                      ) : (
+                        <S.ExtraInfomationItem>
+                          <BabyCarrigeDenyIcon />
+                          <Typography.Label size="lg" color="inherit">
+                            유모차 대여
+                            <br />
+                            불가
+                          </Typography.Label>
+                        </S.ExtraInfomationItem>
+                      ))}
+                  </S.ExtraInfomation>
+                </S.ExtraInfomationContainer>
+                <S.SeperateLine />
+              </>
+            )}
 
             {/* UpButton */}
             <S.UpButton
