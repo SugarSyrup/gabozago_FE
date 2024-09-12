@@ -176,15 +176,7 @@ function ScrapedContents() {
                     </Typography.Title>
                   </S.NotWatched>
                 )}
-                {deleteContents.includes(content.id) && (
-                  <S.DeleteCheckedWrapper>
-                    <Typography.Title size="md" noOfLine={2} color="inherit">
-                      미열람
-                      <br />
-                      콘텐츠
-                    </Typography.Title>
-                  </S.DeleteCheckedWrapper>
-                )}
+                {deleteContents.includes(content.id) && <S.DeleteCheckedWrapper />}
                 {content.thumbnailURL ? (
                   <img src={content.thumbnailURL} alt="content" />
                 ) : (

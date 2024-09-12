@@ -147,7 +147,6 @@ export const EditButton = styled.div`
 
   border: 1px solid white;
   border-radius: 100%;
-  background-color: inherit;
 
   position: absolute;
   top: 6px;
