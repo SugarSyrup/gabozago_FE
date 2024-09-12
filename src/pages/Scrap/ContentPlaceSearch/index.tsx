@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import * as S from './style';
 import PageTemplate from '@_common/PageTemplate';
@@ -18,6 +18,7 @@ interface TResponseData extends TPlace {
 }
 
 function ContentPlaceSearchPage() {
+  const navigate = useNavigate();
   const [data, setData] = useState<TResponseData[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const [inputRef, SearchInput] = useSearchInput({
@@ -46,7 +47,11 @@ function ContentPlaceSearchPage() {
       header={
         <S.Header>
           <S.SearchBar>
-            <LeftChevronIcon />
+            <LeftChevronIcon
+              onClick={() => {
+                navigate(-1);
+              }}
+            />
             <SearchInput />
           </S.SearchBar>
         </S.Header>

@@ -208,41 +208,47 @@ function ScrapContentPage() {
         </div>
 
         {/* Memo */}
-        <S.HeadlineContainer>
-          <Typography.Headline size="sm">메모</Typography.Headline>
-          <S.MemoEdit
-            onClick={() => {
-              navigate(`/scrap/content/${id}/edit?memo=${data?.memo}`);
-            }}
-          >
-            <Typography.Title size="sm" color="inherit">
-              수정
-            </Typography.Title>
-            <ChevronRightIcon />
-          </S.MemoEdit>
-        </S.HeadlineContainer>
-        <S.MemoContainer>
-          <S.MemoText isOpen={isMemoOpen}>
-            {data?.memo
-              .split('\n')
-              .map((line, index) => <p key={`${line} ${index}`}>{line === ' ' ? <br /> : line}</p>)}
-          </S.MemoText>
-          <S.TextButton
-            onClick={() => {
-              setIsMemoOpen((prev) => !prev);
-            }}
-          >
-            {isMemoOpen ? (
-              <>
-                접기 <TopChevronIcon />
-              </>
-            ) : (
-              <>
-                펼치기 <BottomChevronIcon />
-              </>
-            )}
-          </S.TextButton>
-        </S.MemoContainer>
+        {data?.memo && (
+          <>
+            <S.HeadlineContainer>
+              <Typography.Headline size="sm">메모</Typography.Headline>
+              <S.MemoEdit
+                onClick={() => {
+                  navigate(`/scrap/content/${id}/edit?memo=${data?.memo}`);
+                }}
+              >
+                <Typography.Title size="sm" color="inherit">
+                  수정
+                </Typography.Title>
+                <ChevronRightIcon />
+              </S.MemoEdit>
+            </S.HeadlineContainer>
+            <S.MemoContainer>
+              <S.MemoText isOpen={isMemoOpen}>
+                {data?.memo
+                  .split('\n')
+                  .map((line, index) => (
+                    <p key={`${line} ${index}`}>{line === ' ' ? <br /> : line}</p>
+                  ))}
+              </S.MemoText>
+              <S.TextButton
+                onClick={() => {
+                  setIsMemoOpen((prev) => !prev);
+                }}
+              >
+                {isMemoOpen ? (
+                  <>
+                    접기 <TopChevronIcon />
+                  </>
+                ) : (
+                  <>
+                    펼치기 <BottomChevronIcon />
+                  </>
+                )}
+              </S.TextButton>
+            </S.MemoContainer>
+          </>
+        )}
 
         {/* Places */}
         {data?.place[0].count > 0 && (
