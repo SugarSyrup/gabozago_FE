@@ -7,6 +7,8 @@ import Typography from '@_common/Typography';
 
 import * as S from './style';
 import { get, post } from '@_utils/api';
+import toast from 'react-hot-toast';
+import { Toast } from '@_common/Toast';
 
 interface TTerm {
   id: string;
@@ -120,13 +122,37 @@ function TermsPage() {
               setIsActive((prev) => !prev);
               post('/settings/terms', {
                 term: 'TERMS01',
-              });
+              })
+                .then(() => {
+                  toast.custom(() => (
+                    <Toast>
+                      <Typography.Body size="lg" color="white">
+                        위치정보 이용약관에 동의하셨습니다. (24. {new Date().getMonth()}.{' '}
+                        {new Date().getDate()})
+                      </Typography.Body>
+                    </Toast>
+                  ));
+                })
+                .catch(() => {
+                  toast.custom(() => (
+                    <Toast>
+                      <Typography.Body size="lg" color="white">
+                        위치정보 이용약관에 거부하였습니다. (24. {new Date().getMonth()}.{' '}
+                        {new Date().getDate()})
+                      </Typography.Body>
+                    </Toast>
+                  ));
+                });
             }}
           >
             <div />
           </S.ToggleSwitch>
         </S.LocationAccessToggleWrapper>
-        <S.TermsLink>
+        <S.TermsLink
+          onClick={() => {
+            window.location.href = 'https://teamfore.notion.site/f5afac74fa1f4abb8a4ca09c5e8d47bf';
+          }}
+        >
           <Typography.Body size="md" color="inherit">
             약관 자세히보기
           </Typography.Body>
