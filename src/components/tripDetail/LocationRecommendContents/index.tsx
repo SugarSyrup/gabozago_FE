@@ -41,7 +41,7 @@ function LocationRecommendContents({ locations }: Props) {
         setData(response.data);
       },
     );
-  }, []);
+  }, [locations]);
 
   return (
     <>

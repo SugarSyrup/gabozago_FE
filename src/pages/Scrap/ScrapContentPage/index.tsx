@@ -15,6 +15,7 @@ import BookmarkIcon from '@_icons/bookmark.svg?react';
 import ExclamationCircleIcon from '@_icons/exclamation_circle.svg?react';
 import ChevronRightIcon from '@_icons/chevron_right.svg?react';
 import SearchIcon from '@_icons/search.svg?react';
+import LogoSmallIcon from '@_icons/logo_small.svg?react';
 
 import InstagramImg from '@_imgs/instagram_icon.png';
 import { popupValue } from '@_recoil/common/PopupValue';
@@ -161,7 +162,14 @@ function ScrapContentPage() {
       {/* Header */}
       <S.Container>
         <S.Header>
-          <img src="https://via.placeholder.com/64" alt="profile" />
+          {data?.thumbnailURL ? (
+            <img src={data?.thumbnailURL} alt="profile" />
+          ) : (
+            <S.NoThumbnail>
+              <LogoSmallIcon />
+            </S.NoThumbnail>
+          )}
+
           <S.HeaderText>
             <Typography.Title size="md" color="inherit">
               {data?.title}
@@ -208,41 +216,47 @@ function ScrapContentPage() {
         </div>
 
         {/* Memo */}
-        <S.HeadlineContainer>
-          <Typography.Headline size="sm">메모</Typography.Headline>
-          <S.MemoEdit
-            onClick={() => {
-              navigate(`/scrap/content/${id}/edit?memo=${data?.memo}`);
-            }}
-          >
-            <Typography.Title size="sm" color="inherit">
-              수정
-            </Typography.Title>
-            <ChevronRightIcon />
-          </S.MemoEdit>
-        </S.HeadlineContainer>
-        <S.MemoContainer>
-          <S.MemoText isOpen={isMemoOpen}>
-            {data?.memo
-              .split('\n')
-              .map((line, index) => <p key={`${line} ${index}`}>{line === ' ' ? <br /> : line}</p>)}
-          </S.MemoText>
-          <S.TextButton
-            onClick={() => {
-              setIsMemoOpen((prev) => !prev);
-            }}
-          >
-            {isMemoOpen ? (
-              <>
-                접기 <TopChevronIcon />
-              </>
-            ) : (
-              <>
-                펼치기 <BottomChevronIcon />
-              </>
-            )}
-          </S.TextButton>
-        </S.MemoContainer>
+        {data?.memo && (
+          <>
+            <S.HeadlineContainer>
+              <Typography.Headline size="sm">메모</Typography.Headline>
+              <S.MemoEdit
+                onClick={() => {
+                  navigate(`/scrap/content/${id}/edit?memo=${data?.memo}`);
+                }}
+              >
+                <Typography.Title size="sm" color="inherit">
+                  수정
+                </Typography.Title>
+                <ChevronRightIcon />
+              </S.MemoEdit>
+            </S.HeadlineContainer>
+            <S.MemoContainer>
+              <S.MemoText isOpen={isMemoOpen}>
+                {data?.memo
+                  .split('\n')
+                  .map((line, index) => (
+                    <p key={`${line} ${index}`}>{line === ' ' ? <br /> : line}</p>
+                  ))}
+              </S.MemoText>
+              <S.TextButton
+                onClick={() => {
+                  setIsMemoOpen((prev) => !prev);
+                }}
+              >
+                {isMemoOpen ? (
+                  <>
+                    접기 <TopChevronIcon />
+                  </>
+                ) : (
+                  <>
+                    펼치기 <BottomChevronIcon />
+                  </>
+                )}
+              </S.TextButton>
+            </S.MemoContainer>
+          </>
+        )}
 
         {/* Places */}
         {data?.place[0].count > 0 && (
@@ -272,7 +286,21 @@ function ScrapContentPage() {
                         {place.isScraped === true && (
                           <BookmarkFilledIcon
                             onClick={() => {
-                              deletes(`/scrap/place?id=${place.placeId}`);
+                              deletes(`/scrap/place?id=${place.placeId}`).then(() => {
+                                setData({
+                                  ...data,
+                                  place: [
+                                    { count: data.place[0].count },
+                                    {
+                                      places_list: data.place[1].places_list.map((item) =>
+                                        item.placeId === place.placeId
+                                          ? { ...item, isScraped: false }
+                                          : item,
+                                      ),
+                                    },
+                                  ],
+                                });
+                              });
                             }}
                           />
                         )}
@@ -283,6 +311,20 @@ function ScrapContentPage() {
                                 placeId: place.placeId,
                                 isTripBucket: true,
                                 memo: data.memo,
+                              }).then(() => {
+                                setData({
+                                  ...data,
+                                  place: [
+                                    { count: data.place[0].count },
+                                    {
+                                      places_list: data.place[1].places_list.map((item) =>
+                                        item.placeId === place.placeId
+                                          ? { ...item, isScraped: true }
+                                          : item,
+                                      ),
+                                    },
+                                  ],
+                                });
                               });
                             }}
                           />

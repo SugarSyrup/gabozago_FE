@@ -90,6 +90,30 @@ export const Header = styled.div`
   }
 `;
 
+export const NoThumbnail = styled.div`
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  border: 1px solid #e7e7e7;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    width: 24px;
+    height: 24px;
+
+    path {
+      fill: ${({ theme }) => theme.colors.blue.primary};
+    }
+
+    path:nth-child(3) {
+      fill: white;
+    }
+  }
+`;
+
 export const HeaderText = styled.div`
   width: 60%;
 

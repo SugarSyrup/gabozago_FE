@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { memo, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
@@ -22,15 +23,44 @@ function ScrapedTripPlace() {
 
   const filter = useRecoilValue<TFilter>(scrapPlaceFilterState);
   const resetFilter = useResetRecoilState(scrapPlaceFilterState);
+  const setPopupUI = useSetRecoilState(popupValue);
 
   const [places, setPlaces] = useState<TPlace[]>([]);
+  const [count, setCount] = useState<number>(0);
   const [deletes, setDeletes] = useState<number[]>([]);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [next, setNext] = useState<string | null>(null);
-  const { popupOpen, popupClose } = usePopup();
-  const setPopupUI = useSetRecoilState(popupValue);
 
+  function themeSwiftCode(keyword: string) {
+    switch (keyword) {
+      case '음식점':
+        return '01';
+      case '카페':
+        return '02';
+      case '관광명소':
+        return '03';
+      case '레포츠':
+        return '04';
+      case '쇼핑':
+        return '05';
+      case '문화시설':
+        return '06';
+      case '여가시설':
+        return '07';
+      case '편의시설':
+        return '08';
+      case '숙박시설':
+        return '09';
+      case '주차장':
+        return '10';
+      default:
+        return '';
+    }
+  }
+
+  const { popupOpen, popupClose } = usePopup();
   const infiniteRef = useRef<HTMLDivElement>(null);
+
   // @TODO: Place 공통 코드 정리
   const getPlaces = () => {
     if (filter.sort === '담은순') {
@@ -43,11 +73,12 @@ function ScrapedTripPlace() {
         params: {
           ordering: 'scraped',
           location: filter.location?.join(','),
-          theme: filter.theme?.join(','),
+          theme: filter.theme?.map((item) => `PLC${themeSwiftCode(item)}`).join(','),
         },
       }).then(({ data }) => {
         setPlaces(data.results);
-        setNext(data.next);
+        setCount(data.count);
+        setNext(data.next?.replace('http', 'https'));
       });
     } else {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -123,7 +154,7 @@ function ScrapedTripPlace() {
             </p>
           ) : (
             <>
-              전체 <S.FontHighlight>{places.length}</S.FontHighlight>
+              전체 <S.FontHighlight>{count}</S.FontHighlight>
             </>
           )}
         </Typography.Title>

@@ -62,14 +62,9 @@ export const BellWrapper = styled.div<{ isAlert: boolean }>`
     width: 24px;
     height: 24px;
 
-    /* path {
-      fill: ${({ theme }) => theme.colors.black.primary};
-      /* stroke: ${({ theme }) => theme.colors.black.primary}; */
-    } */
-
     circle {
       fill: ${({ theme, isAlert }) =>
-        isAlert ? theme.colors.red.primary : theme.colors.black.primary};
+        isAlert ? theme.colors.red.primary : theme.colors.white.primary};
     }
   }
 `;

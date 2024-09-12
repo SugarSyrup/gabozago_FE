@@ -9,6 +9,10 @@ export const Container = styled.div`
 
   display: flex;
   flex-direction: column;
+
+  div:first-child {
+    border-radius: 8px !important;
+  }
 `;
 
 export const Item = styled.div`
@@ -20,18 +24,6 @@ export const Item = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: 9px;
-
-  svg {
-    width: 24px;
-    height: 24px;
-
-    position: absolute;
-    right: 0px;
-
-    path {
-      fill: ${({ theme }) => theme.colors.gray.secondary};
-    }
-  }
 `;
 
 export const PlaceImg = styled.img`
@@ -62,4 +54,18 @@ export const Address = styled.span`
 export const SeperateLine = styled.div`
   width: 100%;
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray.tertiary};
+`;
+
+export const IconWrapper = styled.div`
+  position: absolute;
+  right: 0px;
+
+  svg {
+    width: 24px;
+    height: 24px;
+
+    path {
+      fill: ${({ theme }) => theme.colors.gray.secondary};
+    }
+  }
 `;

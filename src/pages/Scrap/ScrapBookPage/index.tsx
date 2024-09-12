@@ -6,7 +6,7 @@ import { TFilter } from '@_types/FilterTypes';
 import FilterList from '@_common/FilterList';
 import TabBar from '@_common/TabBar';
 
-import ScrapedContents from '../../../components/scrapBook/ScrapedContents/indes';
+import ScrapedContents from '../../../components/scrapBook/ScrapedContents';
 import ScrapedTripJournal from '../../../components/scrapBook/ScrapedTripJournal';
 import ScrapedTripPlace from '../../../components/scrapBook/ScrapedTripPlace';
 

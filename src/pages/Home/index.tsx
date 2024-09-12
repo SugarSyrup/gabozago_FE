@@ -30,11 +30,18 @@ import usePopup from '../../hooks/usePopup';
 
 import * as S from './style';
 
+interface TPlace {
+  placeId: number;
+  name: string;
+  addressShort: string;
+  thumbnail: string;
+}
+
 function HomePage() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [username, setUsername] = useState<string>('');
-  const [data, setData] = useState<string[]>([]);
+  const [isTripBucketPlaces, setIsTripBucketPlaces] = useState<boolean>(false);
   const [isNotifications, setIsNotifications] = useState<boolean>(false);
   const setPopupValue = useSetRecoilState(popupValue);
   const { popupOpen, popupClose } = usePopup();
@@ -45,6 +52,12 @@ function HomePage() {
         setUsername(response.data.nickname);
       });
     }
+  }, []);
+
+  useEffect(() => {
+    get<TPlace[]>('/scrap/place/home').then((response) => {
+      setIsTripBucketPlaces(response.data.length > 0);
+    });
   }, []);
 
   useEffect(() => {
@@ -111,10 +124,6 @@ function HomePage() {
   return (
     <PageTemplate>
       {/* Header */}
-
-      {data.map((item, index) => (
-        <p key={index}>{item}</p>
-      ))}
       <S.Header>
         <LogoIcon />
         <S.BellWrapper
@@ -131,18 +140,20 @@ function HomePage() {
       <Banner />
 
       {/* Recently Trip Bucket */}
-      <S.TripBucketContainer>
-        <S.TripBucketTitle>
-          <Typography.Headline size="sm" color="inherit" noOfLine={-1}>
-            최근 담은 트립 버킷
-          </Typography.Headline>
-          <S.TripBucketAll>
-            <span>전체 보기</span>
-            <ChevronRightIcon />
-          </S.TripBucketAll>
-        </S.TripBucketTitle>
-        <TripBucketList />
-      </S.TripBucketContainer>
+      {isTripBucketPlaces && (
+        <S.TripBucketContainer>
+          <S.TripBucketTitle>
+            <Typography.Headline size="sm" color="inherit" noOfLine={-1}>
+              최근 담은 트립 버킷
+            </Typography.Headline>
+            <S.TripBucketAll>
+              <span>전체 보기</span>
+              <ChevronRightIcon />
+            </S.TripBucketAll>
+          </S.TripBucketTitle>
+          <TripBucketList />
+        </S.TripBucketContainer>
+      )}
 
       {/* Place Recommend */}
       {username && (

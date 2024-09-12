@@ -60,7 +60,7 @@ function MyTripPage() {
           <S.HeadingContainer>
             <Typography.Headline size="md">{nickname} 님</Typography.Headline>
             <Typography.Title size="lg">
-              다가오는 여행이 <S.TextHighlight>{tripUpComing.length}개</S.TextHighlight>개 있어요!
+              다가오는 여행이 <S.TextHighlight>{tripUpComing.length}개</S.TextHighlight> 있어요!
             </Typography.Title>
           </S.HeadingContainer>
         )}

@@ -29,6 +29,18 @@ export const RightIconContainer = styled.div`
   }
 `;
 
+export const BellWrapper = styled.div<{ isAlert: boolean }>`
+  svg {
+    width: 24px;
+    height: 24px;
+
+    circle {
+      fill: ${({ theme, isAlert }) =>
+        isAlert ? theme.colors.red.primary : theme.colors.white.primary};
+    }
+  }
+`;
+
 // User Information Section
 
 export const UserInfomation = styled.div`

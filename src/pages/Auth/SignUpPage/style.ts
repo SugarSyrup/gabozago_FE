@@ -11,13 +11,13 @@ export const ButtonWrapper = styled.div`
   max-width: 480px;
   background-color: white;
   margin-top: 50px;
+
+  position: fixed;
+  bottom: 45px;
 `;
 
 export const Button = styled.button`
-  position: absolute;
-  bottom: 45px;
-
-  width: calc(100% - 40px);
+  width: calc(100% - 20px);
   padding: 17px 0px;
 
   background-color: ${({ theme }) => theme.main};

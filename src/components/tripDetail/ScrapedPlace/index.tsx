@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { selectedPlacesState } from '../../../recoil/mytrip/selectedPlacesState';
 import BookMarkIcon from '../../../assets/icons/bookmark_filled.svg?react';
@@ -33,26 +33,53 @@ function ScrapedPlace({ popupOpen, setNewLocation, setNewRegion, locations }: Pr
   const activeFilter = useRecoilValue(activeScrapPlaceFilterListState);
   const [places, setPlaces] = useState<Place[]>([]);
   const [selectedPlaces, setSelectedPlaces] = useRecoilState(selectedPlacesState);
+  const [next, setNext] = useState<string | null>(null);
+  const infiniteRef = useRef<HTMLDivElement>(null);
 
   const getPlaces = async () => {
-    const token = localStorage.getItem('access_token');
-    if (token) {
-      const { data } = await get<{
-        next: string | null;
-        previous: string | null;
-        results: Place[];
-      }>('scrap/place', {
-        params: {
-          location: filter.location?.join(','),
-        },
-      });
-      setPlaces(data.results);
-    }
+    const { data } = await get<{
+      next: string | null;
+      previous: string | null;
+      results: Place[];
+    }>('scrap/place', {
+      params: {
+        location: filter.location?.join(','),
+      },
+    });
+    setPlaces(data.results);
+    setNext(data.next);
   };
 
   useEffect(() => {
     getPlaces();
   }, [filter]);
+
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && next) {
+        get<{
+          next: string;
+          previous: string;
+          results: Place[];
+        }>(next).then((response) => {
+          setPlaces([...places, ...response.data.results]);
+          setNext(response.data.next.replace('http', 'https'));
+        });
+      }
+    }, options);
+
+    if (infiniteRef.current) {
+      observer.observe(infiniteRef.current);
+    }
+
+    return () => observer.disconnect();
+  });
 
   return (
     <>
@@ -66,8 +93,8 @@ function ScrapedPlace({ popupOpen, setNewLocation, setNewRegion, locations }: Pr
         />
       </S.FilterContainer>
       <S.PlaceList>
-        {places.map((item) => (
-          <S.PlaceItem>
+        {places.map((item, index) => (
+          <S.PlaceItem key={index}>
             <div>
               <S.BookMarkButton>
                 <BookMarkIcon />
@@ -121,6 +148,7 @@ function ScrapedPlace({ popupOpen, setNewLocation, setNewRegion, locations }: Pr
           </S.PlaceItem>
         ))}
       </S.PlaceList>
+      <div ref={infiniteRef} />
     </>
   );
 }
