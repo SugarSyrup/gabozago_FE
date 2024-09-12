@@ -32,5 +32,5 @@ export const BottomNavigation = styled.div`
 
   position: fixed;
   bottom: 0px;
-  z-index: 10000;
+  z-index: 150;
 `;

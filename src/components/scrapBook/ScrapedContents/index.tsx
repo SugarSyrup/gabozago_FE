@@ -22,11 +22,13 @@ interface TResponse extends TPagination<TContentShorten> {
 function ScrapedContents() {
   const navigate = useNavigate();
   const [data, setData] = useState<TContentShorten[]>([]);
+  const [next, setNext] = useState<string | null>(null);
   const [deleteContents, setDeletes] = useState<number[]>([]);
   const [count, setCount] = useState<number>(0);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
 
   const itemRef = useRef<HTMLDivElement>(null);
+  const infiniteRef = useRef<HTMLDivElement>(null);
   const setPopupUI = useSetRecoilState(popupValue);
   const { popupOpen, popupClose } = usePopup();
 
@@ -53,9 +55,32 @@ function ScrapedContents() {
     get<TResponse>('/scrap/content').then((res) => {
       setData(res.data.results);
       setCount(res.data.count);
+      setNext(res.data.next);
     });
-    // @TODO: infinite scroll 추가
   }, []);
+
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && next) {
+        get<TResponse>(next).then((response) => {
+          setData([...data, ...response.data.results]);
+          setNext(response.data.next);
+        });
+      }
+    }, options);
+
+    if (infiniteRef.current) {
+      observer.observe(infiniteRef.current);
+    }
+
+    return () => observer.disconnect();
+  });
 
   return (
     <>
@@ -215,6 +240,7 @@ function ScrapedContents() {
             </S.ContentItem>
           ))}
       </S.ContentsContainer>
+      <div ref={infiniteRef} />
     </>
   );
 }
