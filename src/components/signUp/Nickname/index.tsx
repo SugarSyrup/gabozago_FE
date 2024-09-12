@@ -46,8 +46,8 @@ function Nickname({ setIsNicknameOk }: Props) {
       });
   }, []);
 
-  function isNicknameValid(nickname: string) {
-    if (nickname.includes('?')) {
+  function isNicknameValid(nicknameParams: string) {
+    if (nicknameParams.includes('?')) {
       return false;
     }
     return true;
@@ -60,7 +60,7 @@ function Nickname({ setIsNicknameOk }: Props) {
       label="닉네임"
       disabled={false}
       required
-      value={nickname || ''}
+      value={nickname === null ? '' : nickname}
       placeholder="닉네임을 입력하세요. (중복 불가)"
       minLength={2}
       maxLength={15}
