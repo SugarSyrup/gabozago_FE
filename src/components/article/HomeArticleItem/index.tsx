@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import BookMarkIcon from '../../../assets/icons/bookmark.svg?react';
+import BookMarkFilledIcon from '../../../assets/icons/bookmark_filled.svg?react';
 import Typography from '../../common/Typography';
 
 import * as S from './style';
@@ -87,7 +88,7 @@ function ArticleItem({ id, title, desc, thumbnailURL, isBookmarked }: Props) {
               }
             }}
           >
-            <BookMarkIcon />
+            {isUserScraped ? <BookMarkFilledIcon /> : <BookMarkIcon />}
           </S.BookMarkWrapper>
         </S.ThumbnailWrapper>
         <div

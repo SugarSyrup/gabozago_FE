@@ -36,6 +36,8 @@ export const OAuthSquareButton = styled.div`
   justify-content: center;
   align-items: center;
 
+  cursor: pointer;
+
   svg {
     width: 40px;
     height: 40px;
@@ -90,6 +92,7 @@ export const OAuthCircleButton = styled.div<{ color: string }>`
   align-items: center;
 
   border-radius: 100%;
+  cursor: pointer;
 `;
 
 export const MessageContainer = styled.div`

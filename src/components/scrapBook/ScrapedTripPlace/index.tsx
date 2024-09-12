@@ -78,7 +78,7 @@ function ScrapedTripPlace() {
       }).then(({ data }) => {
         setPlaces(data.results);
         setCount(data.count);
-        setNext(data.next);
+        setNext(data.next?.replace('http', 'https'));
       });
     } else {
       navigator.geolocation.getCurrentPosition((position) => {
