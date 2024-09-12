@@ -88,4 +88,16 @@ export const HighlightName = styled.span`
   color: ${({ theme }) => theme.main};
 `;
 
-export const ScrapWrapper = styled.div<{ isActive: boolean }>``;
+export const ScrapWrapper = styled.div<{ isActive: boolean }>`
+  cursor: pointer;
+
+  svg {
+    width: 32px;
+    height: 32px;
+
+    path {
+      fill: ${({ isActive, theme }) =>
+        isActive ? theme.colors.blue.primary : theme.colors.gray.secondary};
+    }
+  }
+`;
