@@ -41,7 +41,6 @@ function HomePage() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [username, setUsername] = useState<string>('');
-  const [data, setData] = useState<string[]>([]);
   const [isTripBucketPlaces, setIsTripBucketPlaces] = useState<boolean>(false);
   const [isNotifications, setIsNotifications] = useState<boolean>(false);
   const setPopupValue = useSetRecoilState(popupValue);
@@ -125,10 +124,6 @@ function HomePage() {
   return (
     <PageTemplate>
       {/* Header */}
-
-      {data.map((item, index) => (
-        <p key={index}>{item}</p>
-      ))}
       <S.Header>
         <LogoIcon />
         <S.BellWrapper

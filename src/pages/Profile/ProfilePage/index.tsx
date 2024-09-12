@@ -49,6 +49,7 @@ function ProfilePage() {
     favoriteCount: 0,
   });
   const [currentTap, setCurrentTap] = useState<'trip' | 'activity'>('trip');
+  const [isNotifications, setIsNotifications] = useState<boolean>(false);
   const swiperRef = useRef<HTMLDivElement>(null);
 
   const { nickname, description, avatarURL } = useLoaderData() as TUserProfile;
@@ -99,6 +100,16 @@ function ProfilePage() {
     }
   }, [currentTap]);
 
+  useEffect(() => {
+    get<{ reminder: boolean }>('/user/web-notification/reminder')
+      .then((response) => {
+        setIsNotifications(response.data.reminder);
+      })
+      .catch((error) => {
+        setIsNotifications(error.response.data.reminder);
+      });
+  });
+
   return (
     <PageTemplate
       header={
@@ -110,12 +121,14 @@ function ProfilePage() {
               </Typography.Headline>
             </HeaderText>
             <S.RightIconContainer>
-              {/* @TODO: BellIcon 안읽은 알람 유무에 따라  */}
-              <BellIcon
+              <S.BellWrapper
+                isAlert={isNotifications}
                 onClick={() => {
                   navigate('/notifications');
                 }}
-              />
+              >
+                <BellIcon />
+              </S.BellWrapper>
               <SettingIcon
                 onClick={() => {
                   navigate('/profile/settings');
