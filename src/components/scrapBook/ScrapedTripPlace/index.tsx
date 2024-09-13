@@ -6,10 +6,11 @@ import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import SelectIcon from '@_icons/select.svg?react';
 import SelectFilledIcon from '@_icons/select_filled.svg?react';
 import MapIcon from '@_icons/map.svg?react';
-import { get, post } from '@_utils/api';
+import { deletes, get, post } from '@_utils/api';
 import NoThumbnailImg from '@_imgs/NoThumbnail.png';
 import { popupValue } from '@_recoil/common/PopupValue';
 import { TPlace } from '@_types/Place.type';
+import ImportantIcon from '@_icons/exclamation_circle.svg?react';
 
 import Typography from '../../common/Typography';
 import { scrapPlaceFilterState } from '../../../recoil/filters/scrapPlaceFilterState';
@@ -27,7 +28,7 @@ function ScrapedTripPlace() {
 
   const [places, setPlaces] = useState<TPlace[]>([]);
   const [count, setCount] = useState<number>(0);
-  const [deletes, setDeletes] = useState<number[]>([]);
+  const [deletePlaces, setDeletePlaces] = useState<number[]>([]);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [next, setNext] = useState<string | null>(null);
 
@@ -61,7 +62,6 @@ function ScrapedTripPlace() {
   const { popupOpen, popupClose } = usePopup();
   const infiniteRef = useRef<HTMLDivElement>(null);
 
-  // @TODO: Place 공통 코드 정리
   const getPlaces = () => {
     if (filter.sort === '담은순') {
       get<{
@@ -162,16 +162,20 @@ function ScrapedTripPlace() {
           {isEditMode ? (
             <p
               onClick={() => {
-                if (deletes.length > 0) {
+                if (deletePlaces.length > 0) {
                   setPopupUI({
-                    Header: `${deletes.length}개의 장소를 삭제하시겠어요?`,
+                    Icon: <ImportantIcon />,
+                    Header: `${deletePlaces.length}개의 장소를 삭제하시겠어요?`,
                     Warning: '삭제한 장소는 복구할 수 없어요.',
                     CloseButton: {
                       text: '취소',
+                      onClick: () => {
+                        popupClose();
+                      }
                     },
                     ConfirmButton: {
                       onClick: () => {
-                        // @TODO: 삭제 요청 API
+                        deletes(`/scrap/place?id=${deletePlaces.join(',')}`)
                       },
                       text: '확인',
                     },
@@ -207,7 +211,7 @@ function ScrapedTripPlace() {
           {places.map((item) => (
             <S.PlaceItem
               key={item.placeId}
-              $isChecked={isEditMode && deletes.includes(item.placeId)}
+              $isChecked={isEditMode && deletePlaces.includes(item.placeId)}
               onClick={() => {
                 if (!isEditMode) {
                   navigate(`/place/${item.placeId}`);
@@ -217,14 +221,14 @@ function ScrapedTripPlace() {
               {isEditMode && (
                 <div
                   onClick={() => {
-                    if (deletes.includes(item.placeId)) {
-                      setDeletes(deletes.filter((id) => id !== item.placeId));
+                    if (deletePlaces.includes(item.placeId)) {
+                      setDeletePlaces(deletePlaces.filter((id) => id !== item.placeId));
                     } else {
-                      setDeletes([...deletes, item.placeId]);
+                      setDeletePlaces([...deletePlaces, item.placeId]);
                     }
                   }}
                 >
-                  {deletes.includes(item.placeId) ? <SelectFilledIcon /> : <SelectIcon />}
+                  {deletePlaces.includes(item.placeId) ? <SelectFilledIcon /> : <SelectIcon />}
                 </div>
               )}
               {item.thumbnailURL ? (
