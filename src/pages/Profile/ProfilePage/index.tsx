@@ -3,7 +3,7 @@ import { useLoaderData, useNavigate } from 'react-router-dom';
 
 import SettingIcon from '@_icons/setting.svg?react';
 import UserIcon from '@_icons/user.svg?react';
-import BellIcon from '@_icons/bell_pin_fill.svg?react';
+import BellIcon from '@_icons/bell_pin.svg?react';
 import ChevronRightIcon from '@_icons/chevron_right_expand.svg?react';
 import { TUserProfile } from '../../../assets/types/TUserProfile';
 
