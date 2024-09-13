@@ -22,7 +22,7 @@ export const ButtonWrapper = styled.div`
 `;
 
 export const Button = styled.button`
-  width: calc(100% - 40px);
+  width: calc(100% - 20px);
   padding: 17px 0px;
 
   background-color: ${({ theme }) => theme.main};
