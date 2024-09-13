@@ -82,6 +82,7 @@ function RedirectPage() {
     <>
       <span>version 8/26 0.1</span>
       <span>REDIRECT URL</span>
+      <span>QA 도중 해당 페이지를 벗어날수 없다면? 말씀주셔요... ㅈㅅ</span>
       {data.map((item) => (
         <p key={item}>{item}</p>
       ))}

@@ -78,7 +78,6 @@ function SettingsPage() {
   return (
     <PageTemplate header={<HeaderWithBack>설정</HeaderWithBack>}>
       <S.ContentsWrapper>
-        {/* User Account Info & Setting Section */}
         <S.UserSettingButton>
           <S.UserSettingLeftItems>
             {avatarURL ? <img src={avatarURL} alt="user avatar" /> : <UserIcon />}

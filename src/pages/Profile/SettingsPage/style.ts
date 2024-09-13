@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
 export const ContentsWrapper = styled.div`
-  height: 90dvh;
-
   display: flex;
   flex-direction: column;
   width: calc(100% + 40px);
@@ -101,9 +99,8 @@ export const SettingItem = styled.li`
 `;
 
 export const LeaveButton = styled.button`
-  position: absolute;
-  left: 20px;
-  bottom: 140px;
+  align-self: self-start;
+  margin-left: 20px;
 
   cursor: pointer;
   border: 0;
