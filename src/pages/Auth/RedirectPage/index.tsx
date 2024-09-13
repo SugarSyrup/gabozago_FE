@@ -60,13 +60,18 @@ function RedirectPage() {
           setData((prev) => [...prev, `5. Error:${error.response}`]);
         } else {
           setData((prev) => [...prev, `6. Error:${error.response}`]);
-          toast.custom(() => (
-            <Toast>
-              <Typography.Title size="md" color="white">
-                로그인 실패했습니다. 다시 로그인 시도해 주세요
-              </Typography.Title>
-            </Toast>
-          ));
+          toast.custom(
+            () => (
+              <Toast>
+                <Typography.Title size="md" color="white">
+                  로그인 실패했습니다. 다시 로그인 시도해 주세요
+                </Typography.Title>
+              </Toast>
+            ),
+            {
+              duration: 3000,
+            },
+          );
         }
         setData((prev) => [...prev, `7. Error:${error.response}`]);
         navigate('/login');
@@ -77,6 +82,7 @@ function RedirectPage() {
     <>
       <span>version 8/26 0.1</span>
       <span>REDIRECT URL</span>
+      <span>QA 도중 해당 페이지를 벗어날수 없다면? 말씀주셔요... ㅈㅅ</span>
       {data.map((item) => (
         <p key={item}>{item}</p>
       ))}

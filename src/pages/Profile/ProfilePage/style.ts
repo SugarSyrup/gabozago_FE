@@ -38,6 +38,10 @@ export const BellWrapper = styled.div<{ isAlert: boolean }>`
       fill: ${({ theme, isAlert }) =>
         isAlert ? theme.colors.red.primary : theme.colors.white.primary};
     }
+
+    path {
+      fill: white;
+    }
   }
 `;
 

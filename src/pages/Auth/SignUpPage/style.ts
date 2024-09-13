@@ -5,19 +5,22 @@ export const FormContainer = styled.form`
   flex-direction: column;
   justify-content: flex-start;
   gap: 18px;
+
+  padding-bottom: 120px;
 `;
 export const ButtonWrapper = styled.div`
   width: 100%;
-  max-width: 480px;
+  max-width: 500px;
   background-color: white;
-  margin-top: 50px;
 
   position: fixed;
-  bottom: 45px;
+  bottom: 0;
+  padding-top: 10px;
+  padding-bottom: 20px;
 `;
 
 export const Button = styled.button`
-  width: calc(100% - 20px);
+  width: calc(100% - 40px);
   padding: 17px 0px;
 
   background-color: ${({ theme }) => theme.main};

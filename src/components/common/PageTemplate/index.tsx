@@ -20,7 +20,9 @@ interface Props {
 
 function PageTemplate({ children, nav = 'default', header }: Props) {
   const headerRef = useRef<HTMLDivElement>(null);
+  const navRef = useRef<HTMLDivElement>(null);
   const [headerHeight, setHeaderHeight] = useState<number>(0);
+  const [navHeight, setNavHeight] = useState<number>(0);
 
   const [popuupOpenState, setPopupOpenState] = useRecoilState(popupIsOpen);
 
@@ -55,16 +57,28 @@ function PageTemplate({ children, nav = 'default', header }: Props) {
     return () => resizeObserver.disconnect();
   }, [headerRef.current]);
 
+  useEffect(() => {
+    if (!navRef.current) return;
+    const resizeObserver = new ResizeObserver((entries) => {
+      setNavHeight(entries[0].target.clientHeight);
+    });
+    resizeObserver.observe(navRef.current);
+
+    return () => resizeObserver.disconnect();
+  }, [navRef.current, nav]);
+
   return (
     <S.Container header={!!header}>
       {popuupOpenState && <Popup />}
       <Modal>{modal.contents}</Modal>
       <Toaster position="bottom-center" reverseOrder={false} containerStyle={{ bottom: 80 }} />
       <S.Header ref={headerRef}>{header && header}</S.Header>
-      <S.Content header={headerHeight} nav={!!(nav || nav === 'default')}>
+      <S.Content header={headerHeight} nav={navHeight}>
         {children}
       </S.Content>
-      <S.BottomNavigation>{nav === 'default' ? <BottomNavBar /> : nav}</S.BottomNavigation>
+      <S.BottomNavigation ref={navRef}>
+        {nav === 'default' ? <BottomNavBar /> : nav}
+      </S.BottomNavigation>
     </S.Container>
   );
 }

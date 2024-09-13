@@ -141,22 +141,32 @@ function LoginPage() {
                   .catch((error) => {
                     console.log(error);
                     if (error.response.status === 400) {
-                      toast.custom(() => (
-                        <Toast>
-                          <Typography.Title size="md" color="white">
-                            다른 소셜 이메일로 가입되어 있습니다. {error.response.data.error}로
-                            로그인 해주세요
-                          </Typography.Title>
-                        </Toast>
-                      ));
+                      toast.custom(
+                        () => (
+                          <Toast>
+                            <Typography.Title size="md" color="white">
+                              다른 소셜 이메일로 가입되어 있습니다. {error.response.data.error}로
+                              로그인 해주세요
+                            </Typography.Title>
+                          </Toast>
+                        ),
+                        {
+                          duration: 3000,
+                        },
+                      );
                     } else {
-                      toast.custom(() => (
-                        <Toast>
-                          <Typography.Title size="md" color="white">
-                            로그인 실패했습니다. 다시 로그인 시도해 주세요
-                          </Typography.Title>
-                        </Toast>
-                      ));
+                      toast.custom(
+                        () => (
+                          <Toast>
+                            <Typography.Title size="md" color="white">
+                              로그인 실패했습니다. 다시 로그인 시도해 주세요
+                            </Typography.Title>
+                          </Toast>
+                        ),
+                        {
+                          duration: 3000,
+                        },
+                      );
                     }
                   });
               }}
