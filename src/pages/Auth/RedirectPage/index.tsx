@@ -60,13 +60,18 @@ function RedirectPage() {
           setData((prev) => [...prev, `5. Error:${error.response}`]);
         } else {
           setData((prev) => [...prev, `6. Error:${error.response}`]);
-          toast.custom(() => (
-            <Toast>
-              <Typography.Title size="md" color="white">
-                로그인 실패했습니다. 다시 로그인 시도해 주세요
-              </Typography.Title>
-            </Toast>
-          ));
+          toast.custom(
+            () => (
+              <Toast>
+                <Typography.Title size="md" color="white">
+                  로그인 실패했습니다. 다시 로그인 시도해 주세요
+                </Typography.Title>
+              </Toast>
+            ),
+            {
+              duration: 3000,
+            },
+          );
         }
         setData((prev) => [...prev, `7. Error:${error.response}`]);
         navigate('/login');
