@@ -11,6 +11,8 @@ export const FormContainer = styled.form`
 export const ButtonWrapper = styled.div`
   width: 100%;
   max-width: 500px;
+  margin-left: -20px;
+  padding-left: 20px;
   background-color: white;
 
   position: fixed;
