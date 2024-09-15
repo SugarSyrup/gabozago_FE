@@ -1,5 +1,6 @@
 import Typography from '@_common/Typography';
 import * as S from './style';
+import { useEffect } from 'react';
 
 interface Props {
   data: {
@@ -11,7 +12,30 @@ interface Props {
   }[];
 }
 
+function calculateDate(itemDate: string) {
+  const date = new Date(itemDate);
+  const current = new Date();
+  const diffMSec = (current.getTime() - date.getTime()) / 1000;
+  const diffMin = diffMSec / 60;
+  const diffHour = diffMSec / (60 * 60);
+
+  console.log(diffMin);
+
+  if (diffMSec < 60) {
+    return '방금';
+  }
+  if (diffMin < 60) {
+    return `${Math.floor(diffMin)}분 전`;
+  }
+  if (diffHour < 24) {
+    return `${Math.floor(diffHour)}시간 전`;
+  }
+  return `${date.getMonth() + 1}월 ${date.getDate()}일`;
+}
+
 function NotificationList({ data }: Props) {
+  useEffect(() => {}, []);
+
   return (
     <S.AlertList>
       {data.map((item, index) => (
@@ -26,7 +50,7 @@ function NotificationList({ data }: Props) {
             {item.content}
           </Typography.Title>
           <Typography.Label size="md" color="inherit">
-            {item.createdAt}
+            {calculateDate(item.createdAt)}
           </Typography.Label>
         </S.AlertItem>
       ))}
