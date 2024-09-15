@@ -34,6 +34,8 @@ export const ThumbnailWrapper = styled.div`
   width: 100%;
   background-color: white;
 
+  padding-bottom: 80px;
+
   img {
     width: 100%;
     max-height: 100%;
@@ -160,4 +162,35 @@ export const LoginLinkButton = styled.div`
   border-radius: 30px;
   margin-top: 20px;
   cursor: pointer;
+`;
+
+export const ClosingContainer = styled.div`
+  border-top: 1px solid ${({ theme }) => theme.colors.gray.tertiary};
+  padding-top: 16px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 16px;
+`;
+
+export const ClosingHeader = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  color: ${({ theme }) => theme.colors.blue.primary};
+`;
+
+export const ClosingContent = styled.span`
+  padding-left: 8px;
+  padding-right: 8px;
+
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.5px;
 `;

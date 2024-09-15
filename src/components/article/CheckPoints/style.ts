@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const CheckPointList = styled.div`
   width: 100%;
-  margin-top: 30px;
   margin-bottom: 15px;
 
   border-radius: 4px;

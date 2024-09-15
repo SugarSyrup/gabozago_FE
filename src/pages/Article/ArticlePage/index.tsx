@@ -1,8 +1,10 @@
+/* eslint-disable prettier/prettier */
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 import DoubleChevronBottom from '@_icons/double_chevron_bottom.svg?react';
+import CommentMeatballIcon from '@_icons/comment_meatball.svg?react';
 
 import BackButton from '@_common/BackButton';
 import PageTemplate from '@_common/PageTemplate';
@@ -25,6 +27,7 @@ import InterviewProfile from '../../../components/article/InterviewProfile';
 import { get } from '@_utils/api';
 import useModal from '../../../hooks/useModal';
 import * as S from './style';
+import Question from '../../../components/article/Question';
 
 interface TArticle {
   title: string;
@@ -55,6 +58,11 @@ interface TEditor {
   type: 'editor';
 }
 
+interface TQuestion {
+  content: string;
+  type: 'question';
+}
+
 interface TInterview {
   content: string;
   type: 'interview';
@@ -75,13 +83,13 @@ interface TPhoto {
 }
 
 interface TPlace {
-  imageURL: string;
+  imageURL?: string;
   placeId: number;
   type: 'place';
 }
 
 interface TAbroadPlace {
-  imageURL: string;
+  imageURL?: string;
   name: string;
   address: string;
   type: 'abroadPlace';
@@ -189,6 +197,7 @@ function ArticlePage() {
                 refs={stationRefs}
               />
               <S.Content isLogin={isLogin}>
+                {/* {JSON.parse(data.content).data.map( */}
                 {JSON.parse(data.content).data.map(
                   (
                     content:
@@ -198,7 +207,8 @@ function ArticlePage() {
                       | TPlace
                       | TProfile
                       | TStation
-                      | TAbroadPlace,
+                      | TAbroadPlace
+                      | TQuestion,
                   ) => {
                     switch (content.type) {
                       case 'station':
@@ -242,10 +252,25 @@ function ArticlePage() {
                             address={content.address}
                           />
                         );
+                      case 'question':
+                        return <Question content={content.content} />
                     }
                   },
                 )}
-                {data.checkpoint && <CheckPoints data={JSON.parse(data.checkpoint).data} />}
+                {
+                  data.closing && (
+                    <S.ClosingContainer>
+                      <S.ClosingHeader >
+                        <CommentMeatballIcon />
+                        <Typography.Title size="lg" color="inherit">
+                          에디터 한마디
+                        </Typography.Title>
+                      </S.ClosingHeader>
+                      <S.ClosingContent dangerouslySetInnerHTML={{__html: tmp.closing}}/>
+                    </S.ClosingContainer>
+                  )
+                }
+                {data.checkpoint && <CheckPoints data={JSON.parse(tmp.checkpoint).data} />}
                 {data.nextArticle && (
                   <S.NextArticle
                     onClick={() => {
