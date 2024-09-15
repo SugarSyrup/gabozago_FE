@@ -22,7 +22,7 @@ export const AlertItem = styled.li<{ isOpen: boolean }>`
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray.tertiary};
 
   background-color: ${({ theme, isOpen }) =>
-    isOpen ? theme.colors.blue.tertiary : theme.colors.white.primary};
+    isOpen ? theme.colors.white.primary : theme.colors.blue.tertiary};
 
   h3 {
     color: ${({ theme }) => theme.colors.font.primary};
