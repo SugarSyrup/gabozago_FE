@@ -16,8 +16,10 @@ import {
 } from '../../../recoil/filters/scrapPlaceFilterState';
 
 import * as S from './style';
+import { useSearchParams } from 'react-router-dom';
 
 function ScrapBookPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [focusedTabIndex, setFocusedTabIndex] = useState<number>(0);
   const setActiveFilters = useSetRecoilState(scrapPlaceFilterState);
   const tabs = [
@@ -34,6 +36,12 @@ function ScrapBookPage() {
       theme: [],
       sort: '담은순',
     });
+  }, []);
+
+  useEffect(() => {
+    if (searchParams.has('tab')) {
+      setFocusedTabIndex(Number(searchParams.get('tab') as string));
+    }
   }, []);
 
   return (

@@ -179,6 +179,7 @@ export const MemoLink = styled.a`
   line-height: 24px;
   letter-spacing: -0.3px;
   text-decoration-line: underline;
+  cursor: pointer;
 `;
 
 export const Memo = styled.span`

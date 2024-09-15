@@ -4,6 +4,7 @@ import * as S from './style';
 import { useEffect, useState } from 'react';
 import { get } from '@_utils/api';
 import LocationPlaceholderIcon from '../../mytrip/LocationPlaceholderIcon';
+import { useNavigate } from 'react-router-dom';
 
 interface TPlace {
   placeId: number;
@@ -13,6 +14,7 @@ interface TPlace {
 }
 
 function TripBucketList() {
+  const navigate = useNavigate();
   const [data, setData] = useState<TPlace[]>([]);
 
   useEffect(() => {
@@ -25,7 +27,11 @@ function TripBucketList() {
     <S.Container>
       {data.map((place, index) => (
         <>
-          <S.Item>
+          <S.Item
+            onClick={() => {
+              navigate(`/place/${place.placeId}`);
+            }}
+          >
             {place.thumbnail ? (
               <S.PlaceImg src={place.thumbnail} />
             ) : (

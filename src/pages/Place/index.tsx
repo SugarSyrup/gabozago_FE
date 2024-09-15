@@ -260,8 +260,7 @@ function PlacePage() {
                         cursor: 'pointer',
                       }}
                       onClick={() => {
-                        // @TODO: 메모 과련 정리 필요
-                        // navigate(`/scrap/content/${id}/edit`);
+                        navigate(`/place/${id}/edit?memo=${data.saved.memo}`);
                       }}
                     >
                       <Typography.Title size="sm" color="#5276FA">
@@ -275,7 +274,13 @@ function PlacePage() {
                       <Typography.Title size="md" color="inherit">
                         링크
                       </Typography.Title>
-                      <S.MemoLink>{data.saved.contentLink}</S.MemoLink>
+                      <S.MemoLink
+                        onClick={() => {
+                          window.location.href = data.saved.contentLink;
+                        }}
+                      >
+                        {data.saved.contentLink}
+                      </S.MemoLink>
                     </S.MemoItem>
                     <S.MemoItem>
                       <Typography.Title size="md" color="inherit">

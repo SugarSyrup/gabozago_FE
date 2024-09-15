@@ -146,7 +146,11 @@ function HomePage() {
             <Typography.Headline size="sm" color="inherit" noOfLine={-1}>
               최근 담은 트립 버킷
             </Typography.Headline>
-            <S.TripBucketAll>
+            <S.TripBucketAll
+              onClick={() => {
+                navigate('/scrapbook?tab=1');
+              }}
+            >
               <span>전체 보기</span>
               <ChevronRightIcon />
             </S.TripBucketAll>
