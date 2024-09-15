@@ -6,7 +6,7 @@ export const ModalWrapper = styled.div<{ isOpen: boolean }>`
   right: 0;
   top: 0;
   bottom: 0;
-  z-index: ${({ isOpen }) => (isOpen ? 100 : -10)};
+  z-index: ${({ isOpen }) => (isOpen ? 500 : -10)};
 
   margin: auto;
   max-width: 500px;
