@@ -10,10 +10,10 @@ import Typography from '../Typography';
 function BottomNavBar() {
   const { pathname } = useLocation();
   const navItems = [
-    { title: '아티클', icon: <ArticleIcon />, path: '/articles' },
-    { title: '내 여행', icon: <TripIcon />, path: '/mytrip' },
     { title: '홈', icon: <HomeIcon />, path: '/' },
+    { title: '내 여행', icon: <TripIcon />, path: '/mytrip' },
     { title: '스크랩', icon: <ScrapIcon />, path: '/scrapbook' },
+    { title: '아티클', icon: <ArticleIcon />, path: '/articles' },
     { title: 'MY', icon: <MyIcon />, path: '/profile' },
   ];
   const isMatches = (path: string) => {
