@@ -97,7 +97,7 @@ function ScrapedTripPlace() {
           },
         }).then(({ data }) => {
           setPlaces(data.results);
-          setNext(data.next);
+          setNext(data.next?.replace('http', 'https'));
         });
       });
     }
@@ -127,7 +127,7 @@ function ScrapedTripPlace() {
             results: TPlace[];
           }>(next).then((res) => {
             setPlaces([...places, ...res.data.results]);
-            setNext(res.data.next);
+            setNext(res.data.next?.replace('http', 'https'));
           });
         }
       });

@@ -50,6 +50,7 @@ function ScrapedContents() {
       }).then((res) => {
         setData(res.data.results);
         setCount(res.data.count);
+        setNext(res.data.next?.replace('http', 'https'));
         setIsSearch(false);
       });
     },
@@ -59,7 +60,7 @@ function ScrapedContents() {
     get<TResponse>('/scrap/content').then((res) => {
       setData(res.data.results);
       setCount(res.data.count);
-      setNext(res.data.next);
+      setNext(res.data.next?.replace('http', 'https'));
     });
   }, []);
 
@@ -74,7 +75,7 @@ function ScrapedContents() {
       if (entries[0].isIntersecting && next) {
         get<TResponse>(next).then((response) => {
           setData([...data, ...response.data.results]);
-          setNext(response.data.next);
+          setNext(response.data.next?.replace('http', 'https'));
         });
       }
     }, options);
