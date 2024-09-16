@@ -43,7 +43,7 @@ function NotificationPage() {
           }[];
         }>(next).then((response) => {
           setData([...data, ...response.data.results]);
-          setNext(response.data.next);
+          setNext(data.next?.replace('http', 'https'));
         });
       }
     }, options);
@@ -68,7 +68,7 @@ function NotificationPage() {
       }[];
     }>('/user/web-notification').then((res) => {
       setData(res.data.results);
-      setNext(res.data.next);
+      setNext(data.next?.replace('http', 'https'));
     });
   }, []);
 
