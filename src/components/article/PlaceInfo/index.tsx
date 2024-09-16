@@ -13,7 +13,7 @@ import Typography from '../../common/Typography';
 
 interface Props {
   placeId: number;
-  imageURL: string;
+  imageURL?: string;
 }
 
 interface TPlace {
@@ -50,7 +50,7 @@ function PlaceInfo({ placeId, imageURL }: Props) {
       <Alert />
       {data && (
         <>
-          <img src={imageURL} alt={data.name} />
+          {imageURL && <img src={imageURL} alt={data.name} />}
           <S.Infomation>
             <S.TextContainer>
               <S.Name

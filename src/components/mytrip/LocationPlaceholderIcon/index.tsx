@@ -2,6 +2,7 @@ import * as S from './style';
 
 interface Props {
   type: 1 | 2 | 3 | 4 | 5;
+  onClick?: () => void;
 }
 
 const TypeColor = {
@@ -12,9 +13,16 @@ const TypeColor = {
   5: '#6F6F6F',
 };
 
-function LocationPlaceholderIcon({ type }: Props) {
+function LocationPlaceholderIcon({ type, onClick }: Props) {
   return (
-    <S.IconWrapper type={type}>
+    <S.IconWrapper
+      type={type}
+      onClick={() => {
+        if (onClick) {
+          onClick();
+        }
+      }}
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="32"

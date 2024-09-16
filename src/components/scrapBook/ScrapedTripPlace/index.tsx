@@ -97,7 +97,7 @@ function ScrapedTripPlace() {
           },
         }).then(({ data }) => {
           setPlaces(data.results);
-          setNext(data.next);
+          setNext(data.next?.replace('http', 'https'));
         });
       });
     }
@@ -127,7 +127,7 @@ function ScrapedTripPlace() {
             results: TPlace[];
           }>(next).then((res) => {
             setPlaces([...places, ...res.data.results]);
-            setNext(res.data.next);
+            setNext(res.data.next?.replace('http', 'https'));
           });
         }
       });
@@ -184,7 +184,7 @@ function ScrapedTripPlace() {
                 }
               }}
             >
-              {places.length === 0 ? (
+              {deletePlaces.length === 0 ? (
                 '삭제하기'
               ) : (
                 <S.FontHighlight isRead>삭제하기</S.FontHighlight>
@@ -193,15 +193,15 @@ function ScrapedTripPlace() {
           ) : (
             <p
               onClick={() => {
-                if (places.length > 0) {
+                if (count > 0) {
                   setIsEditMode(true);
                 }
               }}
               style={{
-                cursor: places.length === 0 ? 'default' : 'pointer',
+                cursor: count === 0 ? 'default' : 'pointer',
               }}
             >
-              {places.length === 0 ? '편집하기' : <S.FontHighlight>편집하기</S.FontHighlight>}
+              {count === 0 ? '편집하기' : <S.FontHighlight>편집하기</S.FontHighlight>}
             </p>
           )}
         </Typography.Title>

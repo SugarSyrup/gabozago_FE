@@ -273,13 +273,30 @@ function ScrapContentPage() {
                   place.placeId ? (
                     <S.PlaceItem key={index}>
                       {place.thumbnailURL ? (
-                        <img src={place.thumbnailURL} alt="place" />
+                        <img
+                          src={place.thumbnailURL}
+                          alt="place"
+                          onClick={() => {
+                            navigate(`/place/${place.placeId}`);
+                          }}
+                        />
                       ) : (
-                        <LocationPlaceholderIcon type={1} />
+                        <LocationPlaceholderIcon
+                          type={1}
+                          onClick={() => {
+                            navigate(`/place/${place.placeId}`);
+                          }}
+                        />
                       )}
 
                       <Typography.Title size="lg" color="inherit">
-                        {place.name}
+                        <span
+                          onClick={() => {
+                            navigate(`/place/${place.placeId}`);
+                          }}
+                        >
+                          {place.name}
+                        </span>
                       </Typography.Title>
 
                       <S.PlaceIconWrapper isScraped={place.isScraped}>
