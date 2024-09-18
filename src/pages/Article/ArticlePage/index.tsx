@@ -33,6 +33,7 @@ interface TArticle {
   title: string;
   thumbnailURL: string;
   content: string;
+  closing: string | undefined;
   checkpoint: string | undefined;
 
   isClapped: boolean;
@@ -266,11 +267,11 @@ function ArticlePage() {
                           에디터 한마디
                         </Typography.Title>
                       </S.ClosingHeader>
-                      <S.ClosingContent dangerouslySetInnerHTML={{__html: tmp.closing}}/>
+                      <S.ClosingContent dangerouslySetInnerHTML={{__html: data.closing}}/>
                     </S.ClosingContainer>
                   )
                 }
-                {data.checkpoint && <CheckPoints data={JSON.parse(tmp.checkpoint).data} />}
+                {data.checkpoint && <CheckPoints data={JSON.parse(data.checkpoint).data} />}
                 {data.nextArticle && (
                   <S.NextArticle
                     onClick={() => {
