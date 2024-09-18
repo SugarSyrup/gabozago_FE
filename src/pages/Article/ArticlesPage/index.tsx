@@ -23,11 +23,12 @@ function ArticlesPage() {
   const [articleData, setArticleData] = useState<TArticle['results']>([]);
   const [next, setNext] = useState<TArticle['next']>(null);
   const infiniteRef = React.useRef<HTMLDivElement>(null);
+  const containerRef = React.useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     get<TArticle>('/community/article?ordering=latest').then((response) => {
       setArticleData(response.data.results);
-      setNext(response.data.next);
+      setNext(response.data.next?.replace('http', 'https'));
     });
   }, []);
 
@@ -41,9 +42,14 @@ function ArticlesPage() {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting && next) {
+          const scrollHeight = window.scrollY;
           get<TArticle>(next).then((response) => {
-            setArticleData([...articleData, ...response.data.results]);
-            setNext(response.data.next);
+            setArticleData((prev) => [...prev, ...response.data.results]);
+            setNext(response.data.next?.replace('http', 'https'));
+
+            setTimeout(() => {
+              window.scrollTo(0, scrollHeight);
+            }, 0);
           });
         }
       });
@@ -58,7 +64,8 @@ function ArticlesPage() {
 
   return (
     <PageTemplate>
-      <S.Container>
+      <div style={{ paddingTop: '20px' }} />
+      <S.Container ref={containerRef}>
         <S.ArticleList>
           {articleData.map((article) => (
             <ArticleItem

@@ -25,6 +25,7 @@ interface TArticle {
 function HotArticles() {
   const navigate = useNavigate();
   const [articleData, setArticleData] = useState<TArticle['results']>([]);
+  const [isSetData, setIsSetData] = useState<boolean>(false);
   const [currentArticleId, setCurrentArticleId] = useState<number>(0);
   const [currentArticleIdx, setCurrentArticleIdx] = useState<number>(0);
   const [isUserScrapedList, setIsUserScrapedList] = useState<boolean[]>([]);
@@ -41,12 +42,25 @@ function HotArticles() {
 
   useEffect(() => {
     // @TODO: API 가 현재 존재하지 않아 임시로 기존 APi 활용 -> 수정 예정
-    get<TArticle>('/community/article?ordering=weekly_popular&size=10').then((response) => {
+    get<TArticle>('/community/article/trend?id=5,7,8,9').then((response) => {
       setArticleData(response.data.results);
       response.data.results.forEach((article) => {
         setIsUserScrapedList((prev) => [...prev, article.isBookmarked]);
       });
     });
+    // [5, 7, 8, 9].forEach((id) => {
+    //   get<{
+    //     id: number;
+    //     title: string;
+    //     thumbnailURL: string;
+    //     subtitle: string;
+    //     isBookmarked: boolean;
+    //   }>(`/community/article/${id}`).then((response) => {
+    //     setArticleData((prev) => [...prev, { ...response.data, id }]);
+    //     setIsUserScrapedList((prev) => [...prev, response.data.isBookmarked]);
+    //     setIsSetData(true);
+    //   });
+    // });
   }, []);
 
   return (
