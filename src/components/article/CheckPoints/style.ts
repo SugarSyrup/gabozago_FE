@@ -23,6 +23,7 @@ export const CheckPointItem = styled.div`
   svg {
     width: 20px;
     height: 20px;
+    flex-shrink: 0;
 
     path {
       fill: ${({ theme }) => theme.main};

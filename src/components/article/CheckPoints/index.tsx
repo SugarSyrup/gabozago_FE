@@ -15,7 +15,7 @@ function CheckPoints({ data }: Props) {
     <S.CheckPointList>
       <Typography.Title size="md">CHECK POINT</Typography.Title>
       {data.map((checkpoint) => (
-        <S.CheckPointItem>
+        <S.CheckPointItem key={checkpoint.name}>
           <CheckPointIcon />
           <S.CheckPointText>
             <Typography.Title size="sm" color="inherit">
