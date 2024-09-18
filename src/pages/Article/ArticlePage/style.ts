@@ -138,7 +138,7 @@ export const IsLoginBlur = styled.div<{ top: number }>`
   left: 0px;
   bottom: 0px;
   top: ${({ top }) => `${top * 54 + 2390 + 24 + 34}px`};
-  z-index: 100;
+  z-index: 500;
 
   display: flex;
   flex-direction: column;
