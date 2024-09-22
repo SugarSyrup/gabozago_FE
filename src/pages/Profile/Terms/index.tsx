@@ -122,27 +122,18 @@ function TermsPage() {
               setIsActive((prev) => !prev);
               post('/settings/terms', {
                 term: 'TERMS01',
-              })
-                .then(() => {
-                  toast.custom(() => (
-                    <Toast>
-                      <Typography.Body size="lg" color="white">
-                        위치정보 이용약관에 동의하셨습니다. (24. {new Date().getMonth()}.{' '}
-                        {new Date().getDate()})
-                      </Typography.Body>
-                    </Toast>
-                  ));
-                })
-                .catch(() => {
-                  toast.custom(() => (
-                    <Toast>
-                      <Typography.Body size="lg" color="white">
-                        위치정보 이용약관에 거부하였습니다. (24. {new Date().getMonth()}.{' '}
-                        {new Date().getDate()})
-                      </Typography.Body>
-                    </Toast>
-                  ));
-                });
+              }).then(() => {
+                toast.dismiss();
+                toast.custom(() => (
+                  <Toast>
+                    <Typography.Body size="lg" color="white">
+                      위치정보 이용약관에 {isActive ? '거부' : '동의'}하셨습니다. (
+                      {new Date().getFullYear()}. {new Date().getMonth() + 1}.{' '}
+                      {new Date().getDate()})
+                    </Typography.Body>
+                  </Toast>
+                ));
+              });
             }}
           >
             <div />
@@ -163,12 +154,6 @@ function TermsPage() {
           기기 설정 &gt; 가보자고 앱 &gt; 위치 접근을 허용해 주세요!
         </Typography.Body>
       </S.Contents>
-      {/* {data.contents.map(({ heading, text }) => (
-        <>
-          {heading && <S.Heading>{heading}</S.Heading>}
-          <S.Text>{text}</S.Text>
-        </>
-      ))} */}
     </PageTemplate>
   );
   // );
