@@ -41,33 +41,19 @@ function HotArticles() {
   });
 
   useEffect(() => {
-    // @TODO: API 가 현재 존재하지 않아 임시로 기존 APi 활용 -> 수정 예정
-    get<TArticle>('/community/article/trend?id=5,7,8,9').then((response) => {
-      setArticleData(response.data.results);
-      response.data.results.forEach((article) => {
+    get<TArticle['results']>('/community/article/trend?id=5,7,8,9').then((response) => {
+      setArticleData(response.data);
+      response.data.forEach((article) => {
         setIsUserScrapedList((prev) => [...prev, article.isBookmarked]);
       });
     });
-    // [5, 7, 8, 9].forEach((id) => {
-    //   get<{
-    //     id: number;
-    //     title: string;
-    //     thumbnailURL: string;
-    //     subtitle: string;
-    //     isBookmarked: boolean;
-    //   }>(`/community/article/${id}`).then((response) => {
-    //     setArticleData((prev) => [...prev, { ...response.data, id }]);
-    //     setIsUserScrapedList((prev) => [...prev, response.data.isBookmarked]);
-    //     setIsSetData(true);
-    //   });
-    // });
   }, []);
 
   return (
     <>
       <ScrapModal />
       <S.Slider>
-        {articleData?.slice(6, articleData.length).map((article, idx) => (
+        {articleData.map((article, idx) => (
           <S.SliderItem key={article.id}>
             {/* <S.SliderItemIdx>
               <Typography.Title size="md" color="inherit">
