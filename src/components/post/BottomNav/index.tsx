@@ -18,6 +18,9 @@ import isLogin from '@_utils/isLogin';
 import * as S from './style';
 import { useSetRecoilState } from 'recoil';
 import { popupValue } from '@_recoil/common/PopupValue';
+import toast from 'react-hot-toast';
+import { Toast } from '@_common/Toast';
+import styled from 'styled-components';
 
 interface Props {
   postId: number;
@@ -30,6 +33,17 @@ interface Props {
   onShareClick: () => void;
   title?: string;
 }
+
+const ToastLink = styled.span`
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  text-decoration-line: underline;
+  cursor: pointer;
+`;
 
 function BottomNav({
   postId,
@@ -49,25 +63,27 @@ function BottomNav({
   const [isUserClpas, setIsUserClpas] = useState<number>(claps);
   const setPopupUI = useSetRecoilState(popupValue);
 
-  const { Alert, alertOpen } = useAlert({
-    Content: (
-      <Typography.Body size="lg" color="white">
-        로그인이 필요한 서비스에요.
-      </Typography.Body>
-    ),
-    RightContent: (
-      <Typography.Body size="lg" color="white">
-        <span
-          style={{ textDecoration: 'underline', cursor: 'pointer', textWrap: 'nowrap' }}
-          onClick={() => {
-            navigate('/login');
-          }}
-        >
-          로그인 하러가기
-        </span>
-      </Typography.Body>
-    ),
-  });
+  function alertOpen() {
+    toast.custom(
+      () => (
+        <Toast>
+          <Typography.Body size="lg" color="white">
+            로그인이 필요한 서비스 입니다
+          </Typography.Body>
+          <ToastLink
+            onClick={() => {
+              navigate(`/login`);
+            }}
+          >
+            로그인 하러가기
+          </ToastLink>
+        </Toast>
+      ),
+      {
+        duration: 1000,
+      },
+    );
+  }
 
   const { ScrapModal, scrapModalOpen, scrapModalClose } = useScrapModal({
     id: Number(postId),
@@ -91,7 +107,7 @@ function BottomNav({
   }
   return (
     <>
-      <Alert />
+      {/* <Alert /> */}
       <ScrapModal />
       <S.Navigation>
         <S.NavigationItem
