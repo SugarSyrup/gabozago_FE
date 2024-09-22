@@ -18,7 +18,14 @@ function Nickname({ setIsNicknameOk }: Props) {
   const codeParams = searchParams.get('code');
 
   useEffect(() => {
-    if (nickname === '' || nickname === null || nickname === undefined) return;
+    if (
+      nickname === '' ||
+      nickname === 'null' ||
+      nickname === null ||
+      nickname === undefined ||
+      nickname === 'undefined'
+    )
+      return;
 
     if (!isNicknameValid(nickname as string)) {
       setNicknameAlert('한글, 영어, 숫자, _, .만 가능합니다.');
@@ -60,7 +67,14 @@ function Nickname({ setIsNicknameOk }: Props) {
       label="닉네임"
       disabled={false}
       required
-      value={nickname === null ? '' : nickname}
+      value={
+        nickname === null ||
+        nickname === undefined ||
+        nickname === 'null' ||
+        nickname === 'undefined'
+          ? ''
+          : nickname
+      }
       placeholder="닉네임을 입력하세요. (중복 불가)"
       minLength={2}
       maxLength={15}
