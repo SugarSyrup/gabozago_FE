@@ -71,7 +71,12 @@ function PageTemplate({ children, nav = 'default', header }: Props) {
     <S.Container header={!!header}>
       {popuupOpenState && <Popup />}
       <Modal>{modal.contents}</Modal>
-      <Toaster position="bottom-center" reverseOrder={false} containerStyle={{ bottom: 80 }} />
+      <Toaster
+        position="bottom-center"
+        reverseOrder
+        containerStyle={{ bottom: 80 }}
+        toastOptions={{ duration: 3000 }}
+      />
       <S.Header ref={headerRef}>{header && header}</S.Header>
       <S.Content header={headerHeight} nav={navHeight}>
         {children}
