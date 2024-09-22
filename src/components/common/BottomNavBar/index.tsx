@@ -1,32 +1,19 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import HomeIcon from '../../../assets/icons/home.svg?react';
-import MyIcon from '../../../assets/icons/my.svg?react';
-import ScrapIcon from '../../../assets/icons/bookmark_filled.svg?react';
-import TripIcon from '../../../assets/icons/trip.svg?react';
-import ArticleIcon from '../../../assets/icons/article.svg?react';
-import * as S from './style';
-import Typography from '../Typography';
 import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { Toast } from '@_common/Toast';
-import styled from 'styled-components';
 
-const ToastLink = styled.span`
-  display: inline-block;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  color: white;
-  text-align: center;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 24px;
-  letter-spacing: 0.5px;
-  text-decoration-line: underline;
-  cursor: pointer;
-`;
+import HomeIcon from '@_icons/home.svg?react';
+import MyIcon from '@_icons/my.svg?react';
+import ScrapIcon from '@_icons/bookmark_filled.svg?react';
+import TripIcon from '@_icons/trip.svg?react';
+import ArticleIcon from '@_icons/article.svg?react';
+
+import Typography from '../Typography';
+import * as S from './style';
+
+import LoginToast from '@_common/Toast/Toast/LoginToast';
 
 function BottomNavBar() {
-  const navigate = useNavigate();
   const { pathname } = useLocation();
   const [isLogin, setIsLogin] = useState<boolean>(false);
 
@@ -64,25 +51,9 @@ function BottomNavBar() {
             onClick={() => {
               if (!isLogin && item.title !== '홈' && item.title !== '아티클') {
                 toast.dismiss();
-                toast.custom(
-                  () => (
-                    <Toast>
-                      <Typography.Body size="lg" color="white">
-                        로그인이 필요한 서비스 입니다
-                      </Typography.Body>
-                      <ToastLink
-                        onClick={() => {
-                          navigate(`/login`);
-                        }}
-                      >
-                        로그인 하러가기
-                      </ToastLink>
-                    </Toast>
-                  ),
-                  {
-                    duration: 1000,
-                  },
-                );
+                toast.custom(() => <LoginToast />, {
+                  duration: 1000,
+                });
               }
             }}
           >
