@@ -81,7 +81,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/notifications',
-    element: <NotificationPage />,
+    element: (
+      <IsLoginTemplate>
+        <NotificationPage />
+      </IsLoginTemplate>
+    ),
   },
   {
     path: '/onboarding/tripbucket',

@@ -160,18 +160,20 @@ function HomePage() {
       )}
 
       {/* Place Recommend */}
-      {username && (
-        <S.PlaceRecommendContainer>
-          <S.ArticleIntroduceTitle>
-            <Typography.Headline size="sm" color="inherit" noOfLine={2}>
-              <S.FontHighlight>{username} 님</S.FontHighlight>
-              <br />
-              이런 장소는 어떠세요?
-            </Typography.Headline>
-          </S.ArticleIntroduceTitle>
-          <PlaceRecommendation />
-        </S.PlaceRecommendContainer>
-      )}
+      <S.PlaceRecommendContainer>
+        <S.ArticleIntroduceTitle>
+          <Typography.Headline size="sm" color="inherit" noOfLine={2}>
+            {username && (
+              <>
+                <S.FontHighlight>{username} 님</S.FontHighlight>
+                <br />
+              </>
+            )}
+            이런 장소는 어떠세요?
+          </Typography.Headline>
+        </S.ArticleIntroduceTitle>
+        <PlaceRecommendation />
+      </S.PlaceRecommendContainer>
 
       {/* Articles */}
       <S.ArticleContainer>
