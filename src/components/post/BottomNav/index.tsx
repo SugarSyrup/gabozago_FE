@@ -35,6 +35,10 @@ interface Props {
 }
 
 const ToastLink = styled.span`
+  display: inline-block;
+  padding-top: 6px;
+  padding-bottom: 6px;
+
   color: white;
   text-align: center;
   font-size: 14px;
@@ -62,28 +66,6 @@ function BottomNav({
   const [isUserClap, setIsUserClap] = useState<boolean>(isClap);
   const [isUserClpas, setIsUserClpas] = useState<number>(claps);
   const setPopupUI = useSetRecoilState(popupValue);
-
-  function alertOpen() {
-    toast.custom(
-      () => (
-        <Toast>
-          <Typography.Body size="lg" color="white">
-            로그인이 필요한 서비스 입니다
-          </Typography.Body>
-          <ToastLink
-            onClick={() => {
-              navigate(`/login`);
-            }}
-          >
-            로그인 하러가기
-          </ToastLink>
-        </Toast>
-      ),
-      {
-        duration: 1000,
-      },
-    );
-  }
 
   const { ScrapModal, scrapModalOpen, scrapModalClose } = useScrapModal({
     id: Number(postId),
@@ -127,8 +109,6 @@ function BottomNav({
                   setIsUserClpas((prev) => prev - 1);
                 }
               });
-            } else {
-              alertOpen();
             }
           }}
         >
@@ -139,8 +119,6 @@ function BottomNav({
           onClick={() => {
             if (isLogin()) {
               onCommentClick();
-            } else {
-              alertOpen();
             }
           }}
         >
@@ -160,8 +138,6 @@ function BottomNav({
             }
             if (isLogin()) {
               scrapModalOpen();
-            } else {
-              alertOpen();
             }
           }}
         >

@@ -10,6 +10,9 @@ interface Props {
 }
 
 const ToastLink = styled.span`
+  display: inline-block;
+  padding-top: 6px;
+  padding-bottom: 6px;
   color: white;
   text-align: center;
   font-size: 14px;
@@ -27,6 +30,7 @@ function IsLoginTemplate({ children }: Props) {
     const access_token = localStorage.getItem('access_token');
 
     if (!access_token) {
+      toast.dismiss();
       toast.custom(
         () => (
           <Toast>
@@ -46,7 +50,6 @@ function IsLoginTemplate({ children }: Props) {
           duration: 1000,
         },
       );
-      navigate('/');
     }
   }, []);
 
