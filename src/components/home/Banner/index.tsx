@@ -56,10 +56,13 @@ function Banner() {
             navigate('/onboarding/tripbucket');
           }}
         >
-          <Typography.Title size="lg" color="inherit" noOfLine={2}>
-            흩어져 있던 맛집, 카페, 관광지
-            <br />
-            모두 모아봐요!
+          <Typography.Title
+            size="lg"
+            color="inherit"
+            noOfLine={2}
+            maxWidth={(bannerRef.current?.offsetWidth - 198) as number}
+          >
+            흩어져 있던 맛집, 카페, 관광지 모두 모아봐요!
           </Typography.Title>
           <Typography.Body size="md" color="#5276FA">
             트립 버킷 사용해보기
