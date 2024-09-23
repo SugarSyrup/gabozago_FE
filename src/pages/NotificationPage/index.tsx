@@ -25,12 +25,14 @@ function NotificationPage() {
   useEffect(() => {
     const options = {
       root: null,
-      rootMargin: '0px',
+      rootMargin: '20px',
       threshold: 0,
     };
 
     const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && next) {
+      if (entries[0].isIntersecting) {
+        if (!next) return;
+
         get<{
           next: string;
           previous: string;
@@ -42,18 +44,25 @@ function NotificationPage() {
             isRead: boolean;
           }[];
         }>(next).then((response) => {
-          setData([...data, ...response.data.results]);
-          setNext(data.next?.replace('http', 'https'));
+          setData((prev) => [...prev, ...response.data.results]);
+          console.log(response.data.next);
+          if (response.data.next) {
+            setNext(response.data.next.replace('http', 'https'));
+          } else {
+            setNext('');
+          }
         });
       }
     }, options);
 
+    console.log('infiniteRef');
     if (infiniteRef.current) {
+      console.log(infiniteRef.current);
       observer.observe(infiniteRef.current);
     }
 
     return () => observer.disconnect();
-  }, []);
+  }, [infiniteRef.current]);
 
   useEffect(() => {
     get<{
@@ -68,7 +77,7 @@ function NotificationPage() {
       }[];
     }>('/user/web-notification').then((res) => {
       setData(res.data.results);
-      setNext(data.next?.replace('http', 'https'));
+      setNext(res.data.next.replace('http', 'https'));
     });
   }, []);
 
@@ -85,6 +94,11 @@ function NotificationPage() {
         <>
           <NotificationList data={data} />
           <div ref={infiniteRef} />
+          {/* <S.AlertInfomation>
+            <Typography.Title size="sm" color="inherit">
+              최근 30일 이내의 알림만 확인할 수 있어요.
+            </Typography.Title>
+          </S.AlertInfomation> */}
         </>
       )}
     </PageTemplate>

@@ -19,8 +19,6 @@ function calculateDate(itemDate: string) {
   const diffMin = diffMSec / 60;
   const diffHour = diffMSec / (60 * 60);
 
-  console.log(diffMin);
-
   if (diffMSec < 60) {
     return '방금';
   }

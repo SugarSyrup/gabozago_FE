@@ -17,3 +17,14 @@ export const NoDataContainer = styled.div`
     height: 148px;
   }
 `;
+
+export const AlertInfomation = styled.div`
+  width: 100%;
+  padding: 16px 20px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: ${({ theme }) => theme.colors.font.tertiary};
+`;
