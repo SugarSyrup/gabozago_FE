@@ -26,7 +26,16 @@ function Banner() {
 
   return (
     <>
-      <S.Banner ref={bannerRef}>
+      <S.Banner
+        ref={bannerRef}
+        onScroll={(e) => {
+          if (e.currentTarget.scrollLeft >= e.currentTarget.offsetWidth - 52) {
+            setBannerCount(2);
+          } else {
+            setBannerCount(1);
+          }
+        }}
+      >
         <S.TripBanner
           onClick={() => {
             navigate('/mytrip');
