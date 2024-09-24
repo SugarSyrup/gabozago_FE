@@ -37,15 +37,14 @@ export const RadioInput = styled.input`
   width: 24px;
   height: 24px;
   border-radius: 100%;
-  border: 1px solid ${({ theme }) => theme.colors.blue.primary};
 
   background-color: white;
   vertical-align: middle;
   appearance: none;
 
+  background: center no-repeat url('/Icons/radio_empty.svg');
   &:checked {
     background: center no-repeat url('/Icons/radio_checked.svg');
-    //    background: center url('/checked_radio.svg') no-repeat;
     border: none;
   }
 `;
