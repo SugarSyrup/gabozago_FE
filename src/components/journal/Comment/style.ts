@@ -124,6 +124,11 @@ export const SendButton = styled.button<{ disabled: boolean }>`
   svg {
     width: 30px;
     height: 30px;
+
+    path {
+      fill: ${({ disabled, theme }) =>
+        disabled ? theme.colors.blue.primary : theme.colors.gray.secondary};
+    }
   }
 
   &:hover,
