@@ -117,12 +117,13 @@ function Comment({
     const textarea = textareaRef.current;
     if (!textarea) return;
 
-    const inputValue = (e.target as HTMLTextAreaElement).value.trim();
-    if (inputValue.match(/^\s+/)) {
-      textarea.value = '';
+    const inputValue = (e.target as HTMLTextAreaElement).value;
+    // console.log(e.target.value);
+    // if (inputValue.match(/^\s+/)) {
+    //   textarea.value = ' ';
 
-      return;
-    }
+    //   return;
+    // }
 
     setComment(inputValue);
     adjustTextareaHeight();
