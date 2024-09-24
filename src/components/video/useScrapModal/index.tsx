@@ -192,7 +192,7 @@ function useScrapModal({ id, type, setIsScraped }: Props) {
                     }}
                     isClicked={folder.status}
                   >
-                    <ScrapBorderIcon />
+                    {folder.status ? <ScrapIcon /> : <ScrapBorderIcon />}
                   </S.TravelAddBtn>
                 </S.TravelItem>
               ))}
