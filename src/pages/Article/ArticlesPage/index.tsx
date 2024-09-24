@@ -45,7 +45,7 @@ function ArticlesPage() {
           const scrollHeight = window.scrollY;
           get<TArticle>(next).then((response) => {
             setArticleData((prev) => [...prev, ...response.data.results]);
-            setNext(response.data.next?.replace('http', 'https'));
+            setNext(response.data.next?.replace('http://', 'https://'));
 
             setTimeout(() => {
               window.scrollTo(0, scrollHeight);
