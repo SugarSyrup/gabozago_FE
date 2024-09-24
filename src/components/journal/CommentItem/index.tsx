@@ -182,12 +182,20 @@ function CommentItem({
             <KebabMenuIcon />
           </S.MenuButton>
           <div>
-            <Link to={`/profile/${userId}`}>
-              <S.UserNameSpan>{name}</S.UserNameSpan>
-            </Link>
+            {/* <Link to={`/profile/${userId}`}> */}
+
+            <S.UserNameSpan>{name}</S.UserNameSpan>
+
             <S.TimestampSpan>{createDateString(createDate)}</S.TimestampSpan>
           </div>
-          <S.CommentParagraph>{text}</S.CommentParagraph>
+          <S.CommentParagraph>
+            {text.split('\n').map((line) => (
+              <span key={line}>
+                {line}
+                <br />
+              </span>
+            ))}
+          </S.CommentParagraph>
           <S.ActionBox>
             <S.IconButton
               onClick={() => {

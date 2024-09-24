@@ -38,6 +38,7 @@ function Comment({
   const [comment, setComment] = useState<string>('');
   const [commentCount, setCommentCount] = useState<number>(commentCountProp);
   const [comments, setComments] = useState<TParsedComment[]>([]);
+  const [isSubmitActive, setIsSubmitActive] = useState<boolean>(false);
 
   const parseComments = (comments: TComment[]): TParsedComment[] => {
     const parsedComments: TParsedComment[] = [];
@@ -117,15 +118,16 @@ function Comment({
     const textarea = textareaRef.current;
     if (!textarea) return;
 
-    const inputValue = (e.target as HTMLTextAreaElement).value.trim();
-    if (inputValue.match(/^\s+/)) {
-      textarea.value = '';
-
-      return;
-    }
+    const inputValue = (e.target as HTMLTextAreaElement).value;
 
     setComment(inputValue);
     adjustTextareaHeight();
+
+    if (inputValue.length > 0) {
+      setIsSubmitActive(true);
+    } else {
+      setIsSubmitActive(false);
+    }
   };
 
   useEffect(() => {
@@ -157,7 +159,7 @@ function Comment({
             ref={textareaRef}
             onChange={onChange}
           />
-          <S.SendButton disabled={comment.length === 0} type="submit">
+          <S.SendButton disabled={isSubmitActive} type="submit">
             <SendIcon />
           </S.SendButton>
         </S.CommentInputControlBox>

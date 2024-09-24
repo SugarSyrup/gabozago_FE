@@ -179,6 +179,7 @@ export const ClosingHeader = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  gap: 8px;
 
   color: ${({ theme }) => theme.colors.blue.primary};
 `;

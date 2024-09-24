@@ -12,6 +12,12 @@ export const MenuItem = styled.li<{ color?: string }>`
   cursor: pointer;
   color: ${({ theme }) => theme.gray01};
 
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+
   &:hover {
     text-decoration: underline;
   }

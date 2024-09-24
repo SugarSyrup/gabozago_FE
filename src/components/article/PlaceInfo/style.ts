@@ -17,6 +17,36 @@ export const Container = styled.div`
   }
 `;
 
+export const ToastMessageContainer = styled.div<{ isScraped: boolean }>`
+  margin-left: -4px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 4px;
+
+  svg {
+    width: 24px;
+    height: 24px;
+
+    path {
+      fill: ${({ theme, isScraped }) => (isScraped ? theme.colors.blue.primary : 'white')};
+    }
+  }
+`;
+
+export const ToastMessageLink = styled.span`
+  color: white;
+  text-align: center;
+
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  text-decoration-line: underline;
+`;
+
 export const Infomation = styled.div`
   display: flex;
   flex-direction: row;
@@ -78,7 +108,7 @@ export const Buttons = styled.div`
   }
 `;
 
-export const Icon = styled.div`
+export const Icon = styled.div<{ isScraped?: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -91,14 +121,28 @@ export const Icon = styled.div`
     height: 24px;
 
     path {
-      fill: ${({ theme }) => theme.colors.gray.secondary};
+      fill: ${({ theme, isScraped }) =>
+        isScraped ? theme.colors.blue.primary : theme.colors.gray.secondary};
     }
   }
 
   span {
-    color: ${({ theme }) => theme.colors.gray.secondary};
+    color: ${({ theme, isScraped }) =>
+      isScraped ? theme.colors.blue.primary : theme.colors.gray.secondary};
     text-align: center;
     font-size: 8px;
     white-space: nowrap;
+  }
+`;
+
+export const BookMarkIconWrapper = styled.div<{ isScraped: boolean }>`
+  svg {
+    width: 24px;
+    height: 24px;
+
+    path {
+      fill: ${({ theme, isScraped }) =>
+        isScraped ? theme.colors.blue.primary : theme.colors.gray.secondary} !important;
+    }
   }
 `;

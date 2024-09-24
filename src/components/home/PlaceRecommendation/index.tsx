@@ -3,7 +3,7 @@ import BGIMG from '../../../assets/imgs/PlaceRecommendBG.png';
 import RightChevronIcon from '@_icons/chevron_right.svg?react';
 
 import * as S from './style';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { get } from '@_utils/api';
 import LocationPlaceholderIcon from '../../mytrip/LocationPlaceholderIcon';
 import { useNavigate } from 'react-router-dom';
@@ -20,6 +20,7 @@ function PlaceRecommendation() {
   const [nationWideRanking, setNationWideRanking] = useState<TRecommendationPlace[]>([]);
   const [howNowRanking, setHowNowRanking] = useState<TRecommendationPlace[]>([]);
   const [weekendHereRanking, setWeekendHereRanking] = useState<TRecommendationPlace[]>([]);
+  const itemRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     get('/place/home/ranking').then((response) => {
@@ -41,7 +42,7 @@ function PlaceRecommendation() {
           </Typography.Title>
           <S.RecommendList>
             {nationWideRanking.map((place) => (
-              <S.RecommendItem key={place.id}>
+              <S.RecommendItem key={place.id} ref={itemRef}>
                 {place.thumbnailURL ? (
                   <S.PlaceImg src={place.thumbnailURL} />
                 ) : (
@@ -49,7 +50,11 @@ function PlaceRecommendation() {
                 )}
 
                 <S.RecommendItemDesc>
-                  <Typography.Label size="md" color="inherit">
+                  <Typography.Label
+                    size="md"
+                    color="inherit"
+                    maxWidth={(itemRef.current?.offsetWidth as number) - 90}
+                  >
                     {place.name}
                   </Typography.Label>
                   <Typography.Label size="sm" color="inherit">

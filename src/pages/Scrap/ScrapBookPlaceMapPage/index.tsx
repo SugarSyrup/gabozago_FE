@@ -129,7 +129,9 @@ function ScrapBookPlaceMapPage() {
               }
 
               if (isActive) {
+                console.log('isActive');
                 navigator.geolocation.getCurrentPosition((position) => {
+                  console.log(position);
                   if (position.coords) {
                     map?.setCenter({
                       lat: position.coords.latitude,
@@ -168,6 +170,7 @@ function ScrapBookPlaceMapPage() {
                   }
                 });
               } else {
+                console.log('isNotActive');
                 setPopupUI({
                   Custom: (
                     <S.PopupContainer>
@@ -255,8 +258,8 @@ function ScrapBookPlaceMapPage() {
                     </S.PopupContainer>
                   ),
                 });
+                popupOpen();
               }
-              popupOpen();
             }}
           >
             <CooordsIcon />
@@ -334,7 +337,12 @@ function ScrapBookPlaceMapPage() {
             navigate(`/place/${selectedPlace.placeId}`);
           }}
         >
-          <img src={selectedPlace.thumbnailURL} alt={selectedPlace.name} />
+          {selectedPlace.thumbnailURL ? (
+            <img src={selectedPlace.thumbnailURL} alt={selectedPlace.name} />
+          ) : (
+            <img src={NoThumbnailImg} alt="No Thumbnail" />
+          )}
+
           <div>
             <Typography.Title size="md" color="inherit">
               {selectedPlace.name}

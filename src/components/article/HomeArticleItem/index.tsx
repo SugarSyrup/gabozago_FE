@@ -97,7 +97,7 @@ function ArticleItem({ id, title, desc, thumbnailURL, isBookmarked }: Props) {
           }}
         >
           <Typography.Headline size="sm" noOfLine={2}>
-            {title}
+            <span style={{ wordBreak: 'break-all' }}>{title}</span>
           </Typography.Headline>
           <Typography.Title size="md" color="#A6A6A6">
             {desc}

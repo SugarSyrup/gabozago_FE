@@ -54,9 +54,7 @@ const onError = async (error: AxiosError | Error): Promise<AxiosError> => {
           .post<{
             access: string;
             access_expires_at: string;
-          }>('/user/jwt-token-auth/refresh', {
-            refresh: localStorage.getItem('refresh_token'),
-          })
+          }>('/user/jwt-token-auth/refresh')
           .then((response) => {
             localStorage.setItem('access_token', response.data.access);
             return axiosInstance.request(error.config as InternalAxiosRequestConfig);
