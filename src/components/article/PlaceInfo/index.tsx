@@ -1,15 +1,18 @@
 import { useEffect, useState } from 'react';
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import MarketIcon from '../../../assets/icons/market.svg?react';
 import CalendarAddIcon from '../../../assets/icons/calendar_add_border.svg?react';
 import BookMarkIcon from '../../../assets/icons/bookmark.svg?react';
+import BookMarkFilledIcon from '@_icons/bookmark_filled.svg?react';
 import RightChevron from '../../../assets/icons/chevron_right.svg?react';
 
 import * as S from './style';
 import { get, post } from '@_utils/api';
 import useAlert from '../../../hooks/useAlert';
 import Typography from '../../common/Typography';
+import toast from 'react-hot-toast';
+import { Toast } from '@_common/Toast';
 
 interface Props {
   placeId: number;
@@ -25,29 +28,25 @@ interface TPlace {
   opening_hours: string;
   website: string;
   image: string[];
+  scrap: {
+    isScraped: boolean;
+  };
 }
 
 function PlaceInfo({ placeId, imageURL }: Props) {
   const navigate = useNavigate();
   const [data, setData] = useState<TPlace>();
-  const [alertMessage, setAlertMessage] = useState<string>('');
-  const { Alert, alertOpen } = useAlert({
-    Content: (
-      <Typography.Body size="lg" color="white">
-        {alertMessage}
-      </Typography.Body>
-    ),
-  });
+  const [isScraped, setIsScraped] = useState(false);
 
   useEffect(() => {
     get<TPlace>(`/place/${placeId}`).then((response) => {
       setData(response.data);
+      setIsScraped(response.data.scrap.isScraped);
     });
   }, []);
 
   return (
     <S.Container>
-      <Alert />
       {data && (
         <>
           {imageURL && <img src={imageURL} alt={data.name} />}
@@ -77,18 +76,44 @@ function PlaceInfo({ placeId, imageURL }: Props) {
               </S.Icon>
               <S.Icon
                 onClick={() => {
-                  post<{ message: string }>('/folder/scrap/place', {
+                  post<{ message: string }>('/scrap/place', {
                     placeId,
+                    isTripBucket: false,
                   }).then((response) => {
                     if (response.data.message === 'Create Success') {
-                      setAlertMessage(`${data.name}가 스크랩 되었습니다.`);
-                    } else {
-                      setAlertMessage(`${data.name}를 스크랩에서 삭제했습니다.`);
-                    }
+                      toast.custom(() => (
+                        <Toast>
+                          <Typography.Title size="md" color="white">
+                            <S.ToastMessageContainer isScraped>
+                              <BookMarkFilledIcon />
+                              {data.name}를 스크랩에 추가했습니다.
+                            </S.ToastMessageContainer>
+                          </Typography.Title>
 
-                    alertOpen();
+                          <Link to="/scrapbook?tab=0">
+                            <S.ToastMessageLink>스크랩 확인하기</S.ToastMessageLink>
+                          </Link>
+                        </Toast>
+                      ));
+                    } else {
+                      toast.custom(() => (
+                        <Toast>
+                          <Typography.Title size="md" color="white">
+                            <S.ToastMessageContainer isScraped={false}>
+                              <BookMarkIcon />
+                              {data.name}를 스크랩에서 삭제했습니다.
+                            </S.ToastMessageContainer>
+                          </Typography.Title>
+
+                          <Link to="/scrapbook?tab=0">
+                            <S.ToastMessageLink>스크랩 확인하기</S.ToastMessageLink>
+                          </Link>
+                        </Toast>
+                      ));
+                    }
                   });
                 }}
+                isScraped={isScraped}
               >
                 <BookMarkIcon />
                 <span>장소 스크랩</span>
