@@ -34,15 +34,21 @@ function TripBucketPage() {
   }, [index]);
 
   useEffect(() => {
-    containerRef.current?.addEventListener('scrollend', () => {
-      const { innerWidth } = window;
-
-      if (innerWidth > 500) {
-        setIndex(Math.floor(containerRef.current.scrollLeft / 500));
-      } else {
-        setIndex(Math.floor(containerRef.current.scrollLeft / innerWidth));
-      }
-    });
+    // containerRef.current?.addEventListener('scrollend', () => {
+    //   const { innerWidth } = window;
+    //   if (innerWidth > 500) {
+    //     setIndex(Math.floor(containerRef.current.scrollLeft / 500));
+    //   } else {
+    //     setIndex(Math.floor(containerRef.current.scrollLeft / innerWidth));
+    //   }
+    // });
+    // containerRef.current?.addEventListener('scroll', (e) => {
+    //   const { innerWidth } = window;
+    //   const indexFlag = innerWidth > 500 ? 500 : innerWidth;
+    //   if (Math.floor(containerRef.current.scrollLeft / indexFlag) !== index) {
+    //     setIndex(Math.floor(containerRef.current.scrollLeft / indexFlag));
+    //   }
+    // });
   }, []);
 
   return (
@@ -50,9 +56,27 @@ function TripBucketPage() {
       <S.Container ref={containerRef}>
         <img src={BannerFirstIMG} alt="" />
         <img src={BannerSecondIMG} alt="" />
-        <img src={BannerThirdIMG} alt="" />
-        <img src={BannerFourthIMG} alt="" />
-        <img src={BannerFifthIMG} alt="" />
+        <img
+          src={BannerThirdIMG}
+          alt=""
+          style={{
+            alignSelf: 'flex-end',
+          }}
+        />
+        <img
+          src={BannerFourthIMG}
+          alt=""
+          style={{
+            alignSelf: 'flex-end',
+          }}
+        />
+        <img
+          src={BannerFifthIMG}
+          alt=""
+          style={{
+            alignSelf: 'flex-end',
+          }}
+        />
       </S.Container>
       <S.IndexDots>
         {[0, 1, 2, 3, 4].map((i) => {
