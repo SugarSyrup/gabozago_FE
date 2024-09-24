@@ -104,4 +104,21 @@ export const RecommendItemDesc = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+
+  label:first-child {
+    color: #fff;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 22px;
+    letter-spacing: -0.048px;
+  }
+  label:last-child {
+    color: #fff;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px; /* 183.333% */
+    letter-spacing: -0.036px;
+  }
 `;
