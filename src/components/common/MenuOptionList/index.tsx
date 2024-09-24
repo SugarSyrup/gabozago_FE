@@ -18,6 +18,7 @@ function MenuOptionList({ menus }: Props) {
     <S.MenuList>
       {menus.map(({ icon, iconColor, name, onClick }) => (
         <S.MenuItem color={iconColor} onClick={onClick} key={name}>
+          {icon}
           <Typography.Title size="lg">{name}</Typography.Title>
         </S.MenuItem>
       ))}
