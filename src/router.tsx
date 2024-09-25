@@ -132,12 +132,12 @@ const router = createBrowserRouter([
     element: <ArticlePage />,
     loader: async () => {
       if (localStorage.getItem('access_token')) {
-        post(`${import.meta.env.VITE_BASE_URL}/user/jwt-token-auth/verify`, {
+        await post(`${import.meta.env.VITE_BASE_URL}/user/jwt-token-auth/verify`, {
           token: localStorage.getItem('access_token'),
         })
           .then(() => {})
-          .catch(() => {
-            post<{
+          .catch(async () => {
+            await post<{
               access: string;
               access_expires_at: string;
             }>('/user/jwt-token-auth/refresh')
@@ -212,12 +212,12 @@ const router = createBrowserRouter([
     ),
     loader: async () => {
       if (localStorage.getItem('access_token')) {
-        post(`${import.meta.env.VITE_BASE_URL}/user/jwt-token-auth/verify`, {
+        await post(`${import.meta.env.VITE_BASE_URL}/user/jwt-token-auth/verify`, {
           token: localStorage.getItem('access_token'),
         })
           .then(() => {})
-          .catch(() => {
-            post<{
+          .catch(async () => {
+            await post<{
               access: string;
               access_expires_at: string;
             }>('/user/jwt-token-auth/refresh')
@@ -254,12 +254,12 @@ const router = createBrowserRouter([
     ),
     loader: async () => {
       if (localStorage.getItem('access_token')) {
-        post(`${import.meta.env.VITE_BASE_URL}/user/jwt-token-auth/verify`, {
+        await post(`${import.meta.env.VITE_BASE_URL}/user/jwt-token-auth/verify`, {
           token: localStorage.getItem('access_token'),
         })
           .then(() => {})
-          .catch(() => {
-            post<{
+          .catch(async () => {
+            await post<{
               access: string;
               access_expires_at: string;
             }>('/user/jwt-token-auth/refresh')
@@ -380,12 +380,12 @@ const router = createBrowserRouter([
     ),
     loader: async () => {
       if (localStorage.getItem('access_token')) {
-        post(`${import.meta.env.VITE_BASE_URL}/user/jwt-token-auth/verify`, {
+        await post(`${import.meta.env.VITE_BASE_URL}/user/jwt-token-auth/verify`, {
           token: localStorage.getItem('access_token'),
         })
           .then(() => {})
-          .catch(() => {
-            post<{
+          .catch(async () => {
+            await post<{
               access: string;
               access_expires_at: string;
             }>('/user/jwt-token-auth/refresh')
@@ -422,12 +422,12 @@ const router = createBrowserRouter([
     ),
     loader: async () => {
       if (localStorage.getItem('access_token')) {
-        post(`${import.meta.env.VITE_BASE_URL}/user/jwt-token-auth/verify`, {
+        await post(`${import.meta.env.VITE_BASE_URL}/user/jwt-token-auth/verify`, {
           token: localStorage.getItem('access_token'),
         })
           .then(() => {})
-          .catch(() => {
-            post<{
+          .catch(async () => {
+            await post<{
               access: string;
               access_expires_at: string;
             }>('/user/jwt-token-auth/refresh')
@@ -455,12 +455,12 @@ const router = createBrowserRouter([
     ),
     loader: async () => {
       if (localStorage.getItem('access_token')) {
-        post(`${import.meta.env.VITE_BASE_URL}/user/jwt-token-auth/verify`, {
+        await post(`${import.meta.env.VITE_BASE_URL}/user/jwt-token-auth/verify`, {
           token: localStorage.getItem('access_token'),
         })
           .then(() => {})
-          .catch(() => {
-            post<{
+          .catch(async () => {
+            await post<{
               access: string;
               access_expires_at: string;
             }>('/user/jwt-token-auth/refresh')
@@ -517,12 +517,12 @@ const router = createBrowserRouter([
     element: <InquiryPage />,
     loader: async () => {
       if (localStorage.getItem('access_token')) {
-        post(`${import.meta.env.VITE_BASE_URL}/user/jwt-token-auth/verify`, {
+        await post(`${import.meta.env.VITE_BASE_URL}/user/jwt-token-auth/verify`, {
           token: localStorage.getItem('access_token'),
         })
           .then(() => {})
-          .catch(() => {
-            post<{
+          .catch(async () => {
+            await post<{
               access: string;
               access_expires_at: string;
             }>('/user/jwt-token-auth/refresh')
@@ -637,12 +637,12 @@ const router = createBrowserRouter([
     ),
     loader: async () => {
       if (localStorage.getItem('access_token')) {
-        post(`${import.meta.env.VITE_BASE_URL}/user/jwt-token-auth/verify`, {
+        await post(`${import.meta.env.VITE_BASE_URL}/user/jwt-token-auth/verify`, {
           token: localStorage.getItem('access_token'),
         })
           .then(() => {})
-          .catch(() => {
-            post<{
+          .catch(async () => {
+            await post<{
               access: string;
               access_expires_at: string;
             }>('/user/jwt-token-auth/refresh')

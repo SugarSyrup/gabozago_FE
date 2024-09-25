@@ -217,6 +217,37 @@ function HomePage() {
 
       {/* Footer */}
       <S.Footer>
+        <S.FooterTerms>
+          <Typography.Label size="lg" color="inherit">
+            <span
+              onClick={() => {
+                window.location.href =
+                  'https://teamfore.notion.site/15c4abba6dbc4c788511d7466ca2a801?pvs=25';
+              }}
+              style={{
+                cursor: 'pointer',
+              }}
+            >
+              이용약관
+            </span>
+          </Typography.Label>
+          <Typography.Label size="lg" color="inherit">
+            |
+          </Typography.Label>
+          <Typography.Label size="lg" color="inherit">
+            <span
+              onClick={() => {
+                window.location.href =
+                  'https://teamfore.notion.site/61f78ba3a6924fe384b1ecb87bdab271?pvs=25';
+              }}
+              style={{
+                cursor: 'pointer',
+              }}
+            >
+              개인정보처리방침
+            </span>
+          </Typography.Label>
+        </S.FooterTerms>
         <S.FooterTitle>
           <Typography.Title size="sm" color="inherit">
             포레 (FOR:e) 사업자 정보
