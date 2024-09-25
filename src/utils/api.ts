@@ -67,10 +67,6 @@ const onError = async (error: AxiosError | Error): Promise<AxiosError> => {
 
         return axiosInstance.request(error.config as InternalAxiosRequestConfig);
       }
-      if (status === 401 && messages[0].message === 'Token is invalid or expired') {
-        localStorage.removeItem('access_token');
-        window.location.href = '/';
-      }
     }
   } else {
     console.log(`[API] | Error ${error.message}`);
