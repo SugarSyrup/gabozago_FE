@@ -197,3 +197,13 @@ export const FooterListItem = styled.ol`
   grid-template-columns: 40% 60%;
   color: ${({ theme }) => theme.colors.font.tertiary};
 `;
+
+export const FooterTerms = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+
+  color: #a6a6a6;
+`;
