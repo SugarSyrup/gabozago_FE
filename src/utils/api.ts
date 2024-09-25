@@ -65,7 +65,7 @@ const onError = async (error: AxiosError | Error): Promise<AxiosError> => {
             window.location.href = '/login';
           });
 
-        return axiosInstance.request(error.config as InternalAxiosRequestConfig);
+        // return axiosInstance.request(error.config as InternalAxiosRequestConfig);
       }
     }
   } else {
