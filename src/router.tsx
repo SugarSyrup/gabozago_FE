@@ -102,6 +102,8 @@ const router = createBrowserRouter([
               });
           });
       }
+
+      return '';
     },
   },
   {
