@@ -53,7 +53,7 @@ export const TextHighlight = styled.span`
 export const CreateMyTripTextButton = styled.div<{
   hasTripUpcoming: boolean;
 }>`
-  width: calc(100% - 20px);
+  width: calc(100%);
 
   display: flex;
   justify-content: center;
@@ -61,7 +61,6 @@ export const CreateMyTripTextButton = styled.div<{
   gap: 8px;
 
   padding: 12px 20px;
-  margin-left: 10px;
 
   background-color: ${({ theme, hasTripUpcoming }) => (hasTripUpcoming ? theme.white : theme.main)};
   border: ${({ theme, hasTripUpcoming }) => hasTripUpcoming && `.5px solid ${theme.main}`};

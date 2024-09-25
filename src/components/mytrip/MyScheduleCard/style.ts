@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Card = styled.div`
   width: 100%;
-  height: 96psx;
+  height: 96px;
   flex-shrink: 0;
   border-radius: 10px;
   background-color: ${({ theme }) => theme.blue04};
