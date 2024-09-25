@@ -80,8 +80,12 @@ const router = createBrowserRouter([
     // errorElement: <ErrorHandlingPage />,
     loader: async () => {
       if (localStorage.getItem('access_token')) {
-        fetch('/user/jwt-token-auth/verify', {
+        await fetch(`${import.meta.env.VITE_BASE_URL}/user/jwt-token-auth/verify`, {
           method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            withCredentials: 'true',
+          },
           body: JSON.stringify({
             token: localStorage.getItem('access_token'),
           }),
@@ -101,8 +105,8 @@ const router = createBrowserRouter([
                 window.location.href = '/login';
               });
           });
+        return '';
       }
-
       return '';
     },
   },
