@@ -64,7 +64,7 @@ import {
   InquiryHistoryPage,
 } from './pages/Cscenter';
 
-import { get } from '@_utils/api';
+import { get, post } from '@_utils/api';
 import IsLoginTemplate from '@_common/isLoginTemplate';
 import { LocationResponseType } from './pages/Mytrip/LocationSelectPage';
 import ErrorHandlingPage from './pages/ErrorHandling';
@@ -78,6 +78,31 @@ const router = createBrowserRouter([
     path: '/',
     element: <HomePage />,
     // errorElement: <ErrorHandlingPage />,
+    loader: async () => {
+      if (localStorage.getItem('access_token')) {
+        fetch('/user/jwt-token-auth/verify', {
+          method: 'POST',
+          body: JSON.stringify({
+            token: localStorage.getItem('access_token'),
+          }),
+        })
+          .then(() => {})
+          .catch(() => {
+            post<{
+              access: string;
+              access_expires_at: string;
+            }>('/user/jwt-token-auth/refresh')
+              .then((response) => {
+                localStorage.setItem('access_token', response.data.access);
+              })
+              .catch(() => {
+                localStorage.removeItem('access_token');
+                localStorage.removeItem('refresh_token');
+                window.location.href = '/login';
+              });
+          });
+      }
+    },
   },
   {
     path: '/notifications',
