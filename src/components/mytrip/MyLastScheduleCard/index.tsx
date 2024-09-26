@@ -47,7 +47,7 @@ function MyLastScheduleCard({
             }}
           >
             <Typography.Title size="md" noOfLine={2} maxWidth={150}>
-              {title}
+              <span style={{ wordBreak: 'break-all' }}>{title}</span>
             </Typography.Title>
             <S.Infos>
               <S.Info>

@@ -30,7 +30,7 @@ function LocationHotPlaces({ locations, setNewLocation, popupOpen }: Props) {
   }, [locations]);
 
   return (
-    <>
+    <div style={{ width: '100%' }}>
       {recommendPlaces.length !== 0 && (
         <Typography.Title size="lg">{locations.toLocaleString()} HOT 여행지</Typography.Title>
       )}
@@ -52,7 +52,7 @@ function LocationHotPlaces({ locations, setNewLocation, popupOpen }: Props) {
           ))}
         </S.RecommendationList>
       )}
-    </>
+    </div>
   );
 }
 

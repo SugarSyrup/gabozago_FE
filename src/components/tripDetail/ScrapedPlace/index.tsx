@@ -10,7 +10,8 @@ import {
 import FilterList from '../../common/FilterList';
 import Typography from '../../common/Typography';
 import * as S from './style';
-import { TFilter } from '../../../assets/types/FilterTypes';
+import { SelectOptions, TFilter } from '../../../assets/types/FilterTypes';
+import { articleOrderingOptions } from '@_recoil/filters/scrapArticleFilter';
 
 interface Props {
   popupOpen: () => void;
@@ -21,10 +22,10 @@ interface Props {
 
 interface Place {
   thumbnailURL: string;
-  id: number;
+  placeId: number;
   name: string;
-  theme: string[];
-  address: string;
+  category: string[];
+  addressShort: string;
   memo?: string;
 }
 
@@ -47,7 +48,7 @@ function ScrapedPlace({ popupOpen, setNewLocation, setNewRegion, locations }: Pr
       },
     });
     setPlaces(data.results);
-    setNext(data.next);
+    setNext(data.next?.replace('http://', 'https://'));
   };
 
   useEffect(() => {
@@ -69,7 +70,7 @@ function ScrapedPlace({ popupOpen, setNewLocation, setNewRegion, locations }: Pr
           results: Place[];
         }>(next).then((response) => {
           setPlaces([...places, ...response.data.results]);
-          setNext(response.data.next.replace('http', 'https'));
+          setNext(response.data.next.replace('http://', 'https://'));
         });
       }
     }, options);
@@ -86,7 +87,16 @@ function ScrapedPlace({ popupOpen, setNewLocation, setNewRegion, locations }: Pr
       <S.FilterContainer>
         <FilterList
           filterType="scrapPlace"
-          filters={[{ name: 'location', options: null }]}
+          // filters={[{ name: 'location', options: null }]}
+          filters={[
+            {
+              name: 'sort',
+              options: {
+                options: articleOrderingOptions,
+              } as SelectOptions,
+            },
+            { name: 'location', options: null },
+          ]}
           filterState={filter}
           setFilterState={setFilter}
           activeFilterState={activeFilter}
@@ -99,35 +109,37 @@ function ScrapedPlace({ popupOpen, setNewLocation, setNewRegion, locations }: Pr
               <S.BookMarkButton>
                 <BookMarkIcon />
               </S.BookMarkButton>
-              <S.StyledLink to={`/place/${item.id}`}>
+              <S.StyledLink to={`/place/${item.placeId}`}>
                 <S.PlaceInfoBox>
                   <S.TopInfoBox>
                     <S.PlaceNameSpan>{item.name}</S.PlaceNameSpan>
-                    <S.PlaceThemeSpan>{item.theme}</S.PlaceThemeSpan>
+                    <S.PlaceThemeSpan>{item.category}</S.PlaceThemeSpan>
                   </S.TopInfoBox>
-                  <S.AddressParagraph>{item.address}</S.AddressParagraph>
+                  <S.AddressParagraph>{item.addressShort}</S.AddressParagraph>
                 </S.PlaceInfoBox>
               </S.StyledLink>
             </div>
             <S.Button
               isActive={
-                selectedPlaces.find((selectedPlace) => selectedPlace.id === item.id) !== undefined
+                selectedPlaces.find((selectedPlace) => selectedPlace.id === item.placeId) !==
+                undefined
               }
               onClick={() => {
                 if (
-                  selectedPlaces.find((selectedPlace) => selectedPlace.id === item.id) !== undefined
+                  selectedPlaces.find((selectedPlace) => selectedPlace.id === item.placeId) !==
+                  undefined
                 ) {
                   setSelectedPlaces((prev) =>
-                    prev.filter((SelectedPlace) => SelectedPlace.id !== item.id),
+                    prev.filter((SelectedPlace) => SelectedPlace.id !== item.placeId),
                   );
                 } else {
-                  get<{ region: string }>(`/place/${item.id}`).then((response) => {
+                  get<{ region: string }>(`/place/${item.placeId}`).then((response) => {
                     setSelectedPlaces((prev) => [
                       ...prev,
                       {
                         name: item.name,
                         thumbnail: '',
-                        id: item.id,
+                        id: item.placeId,
                         location: response.data.region,
                       },
                     ]);

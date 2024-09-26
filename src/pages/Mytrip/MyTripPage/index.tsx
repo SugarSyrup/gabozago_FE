@@ -49,11 +49,11 @@ function MyTripPage() {
           <S.HeadingContainer>
             <Typography.Headline size="md">{nickname} 님</Typography.Headline>
             {tripHistory.length !== 0 ? (
+              <Typography.Title size="lg">아직 여행 일정이 없어요!</Typography.Title>
+            ) : (
               <Typography.Title size="lg">
                 <S.TextHighlight>가보자고</S.TextHighlight>와 첫 여행 일정을 세워보세요!
               </Typography.Title>
-            ) : (
-              <Typography.Title size="lg">아직 여행 일정이 없어요!</Typography.Title>
             )}
           </S.HeadingContainer>
         ) : (

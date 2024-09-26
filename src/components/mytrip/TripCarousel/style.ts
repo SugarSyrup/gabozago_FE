@@ -4,8 +4,8 @@ export const ScheduleCardContainer = styled.div`
   margin-left: -20px;
 
   width: calc(100% + 40px);
-  padding-left: 30px;
-  padding-right: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
 
   display: flex;
   justify-content: space-between;

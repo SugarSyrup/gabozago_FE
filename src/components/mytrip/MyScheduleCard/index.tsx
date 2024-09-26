@@ -66,8 +66,8 @@ function MyScheduleCard({
               }
             }}
           >
-            <Typography.Title size="md" maxWidth={300} noOfLine={2}>
-              {title}
+            <Typography.Title size="md" maxWidth={280} noOfLine={2}>
+              <span style={{ wordBreak: 'break-all' }}>{title}</span>
             </Typography.Title>
             <S.Infos>
               <S.Info>

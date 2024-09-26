@@ -57,7 +57,7 @@ function RecommendationListItem({
 
       if (!locations.includes(location)) {
         setNewLocation(location);
-        popupOpen();
+        // popupOpen();
       }
     }
   }
@@ -66,7 +66,7 @@ function RecommendationListItem({
     <S.Container>
       <S.LeftItems
         onClick={() => {
-          navigate(`/place/${id}?keyword=${keyword}`);
+          navigate(`/place/${id}?keyword=${keyword}&isMyTrip=true`);
         }}
       >
         <S.Thumbnail>
