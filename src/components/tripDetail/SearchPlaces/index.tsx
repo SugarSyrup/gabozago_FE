@@ -83,7 +83,8 @@ function SearchPlaces({ tripId, keyword, location, popupOpen, setNewLocation }: 
         <S.SearchedNotFounded>
           <SearchIcon />
           <S.Title>검색 결과가 없습니다.</S.Title>
-          <S.Desc>찾으시는 장소가 없나요?직접 등록해보세요!</S.Desc>
+          <S.Desc>찾으시는 장소가 없나요?</S.Desc>
+          {/* <S.Desc>찾으시는 장소가 없나요?직접 등록해보세요!</S.Desc> */}
           {/* <S.Button
             onClick={() => {
               navigate(`/mytrip/${tripId}/create`);
