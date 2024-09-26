@@ -40,6 +40,7 @@ function LocationRecommendContents({ locations }: Props) {
           <S.RecommendatoinReviewList>
             {data.map((item) => (
               <RecommendationReviewItem
+                key={item.id}
                 type="article"
                 id={item.id}
                 name={item.title}
