@@ -13,14 +13,14 @@ function PageHeader({ LeftItem = <BackButton />, children, RightItem = <></> }: 
   return (
     <>
       <BrowserView>
-        <S.Header>
+        <S.Header isChidren={children !== undefined}>
           <S.LeftItemWrapper>{LeftItem}</S.LeftItemWrapper>
           {children}
           <S.RightItemWrapper>{RightItem}</S.RightItemWrapper>
         </S.Header>
       </BrowserView>
       <MobileView>
-        <S.MobileHeader>
+        <S.MobileHeader isChidren={children !== undefined}>
           <S.LeftItemWrapper>{LeftItem}</S.LeftItemWrapper>
           {children}
           <S.RightItemWrapper>{RightItem}</S.RightItemWrapper>
