@@ -24,17 +24,22 @@ export const FontHighlight = styled.span<{ isRead?: boolean }>`
 export const ContentsContainer = styled.div`
   width: 100%;
 
-  display: flex;
+  /* display: flex;
   justify-content: space-between;
   align-items: flex-start;
   align-self: stretch;
-  flex-wrap: wrap;
+  flex-wrap: wrap; */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 30%);
+  justify-content: space-between;
+  /* grid-column-gap: auto; */
+  /* grid-gap: 20px; */
 
   padding: 16px 0;
 `;
 
 export const ContentItem = styled.div`
-  width: 30%;
+  width: 100%;
   position: relative;
 
   display: flex;
