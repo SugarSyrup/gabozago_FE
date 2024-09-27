@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Map, Marker, useMap } from '@vis.gl/react-google-maps';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
@@ -27,6 +27,7 @@ import toast from 'react-hot-toast';
 import { Toast } from '@_common/Toast';
 
 function ScrapBookPlaceMapPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [data, setData] = useState<TPlace[]>([]);
   const [isActive, setIsActive] = useState(false);
   const [currentCorrds, setCurrentCoords] = useState<google.maps.LatLngLiteral>({
@@ -43,19 +44,13 @@ function ScrapBookPlaceMapPage() {
   const filter = useRecoilValue<TFilter>(scrapPlaceFilterState);
 
   useEffect(() => {
+    const placeCounts = searchParams.get('count');
     get<{
       next: string | null;
       previous: string | null;
       results: TPlace[];
-    }>('scrap/place').then(({ data: responseData }) => {
+    }>(`scrap/place?count=${placeCounts}`).then(({ data: responseData }) => {
       setData(responseData.results);
-      get<{
-        next: string | null;
-        previous: string | null;
-        results: TPlace[];
-      }>('scrap/place').then(({ data: responseNextData }) => {
-        setData((prev) => [...prev, ...responseNextData.results]);
-      });
     });
 
     get<{ TERMS01: boolean }>('/settings/terms?q=TERMS01').then((res) => {
@@ -291,44 +286,46 @@ function ScrapBookPlaceMapPage() {
             )}
           </S.FilterList>
 
-          {data.map((place) => (
-            <S.PlaceItem
-              key={place.placeId}
-              onClick={() => {
-                setSelectedPlace(place);
-                map?.setCenter({ lat: place.latitude, lng: place.longitude });
-                map?.setZoom(17);
-                modalClose();
-              }}
-            >
-              {place.thumbnailURL ? (
-                <S.ThumbnailWrapper src={place.thumbnailURL} alt={place.name} />
-              ) : (
-                <S.NoThumbnailWrapper>
-                  <img src={NoThumbnailImg} alt="No Thumbnail" />
-                </S.NoThumbnailWrapper>
-              )}
-              <S.PlaceInfomation>
-                <Typography.Title size="md" color="inherit">
-                  {place.name}
-                </Typography.Title>
-                <S.PlaceThemeNAddress>
-                  <Typography.Label size="lg" color="#424242">
-                    {place.category}
-                  </Typography.Label>
-                  <S.InfoSeperateLine />
-                  <Typography.Label size="lg" color="#424242">
-                    {place.addressShort}
-                  </Typography.Label>
-                </S.PlaceThemeNAddress>
-                {place.memo && (
-                  <Typography.Label size="lg" color="#A6A6A6">
-                    {place.memo}
-                  </Typography.Label>
+          <S.PlaceList>
+            {data.map((place) => (
+              <S.PlaceItem
+                key={place.placeId}
+                onClick={() => {
+                  setSelectedPlace(place);
+                  map?.setCenter({ lat: place.latitude, lng: place.longitude });
+                  map?.setZoom(17);
+                  modalClose();
+                }}
+              >
+                {place.thumbnailURL ? (
+                  <S.ThumbnailWrapper src={place.thumbnailURL} alt={place.name} />
+                ) : (
+                  <S.NoThumbnailWrapper>
+                    <img src={NoThumbnailImg} alt="No Thumbnail" />
+                  </S.NoThumbnailWrapper>
                 )}
-              </S.PlaceInfomation>
-            </S.PlaceItem>
-          ))}
+                <S.PlaceInfomation>
+                  <Typography.Title size="md" color="inherit">
+                    {place.name}
+                  </Typography.Title>
+                  <S.PlaceThemeNAddress>
+                    <Typography.Label size="lg" color="#424242">
+                      {place.category}
+                    </Typography.Label>
+                    <S.InfoSeperateLine />
+                    <Typography.Label size="lg" color="#424242">
+                      {place.addressShort}
+                    </Typography.Label>
+                  </S.PlaceThemeNAddress>
+                  {place.memo && (
+                    <Typography.Label size="lg" color="#A6A6A6">
+                      {place.memo}
+                    </Typography.Label>
+                  )}
+                </S.PlaceInfomation>
+              </S.PlaceItem>
+            ))}
+          </S.PlaceList>
         </S.ModalList>
       </Modal>
       {selectedPlace ? (

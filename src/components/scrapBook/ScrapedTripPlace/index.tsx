@@ -28,6 +28,7 @@ function ScrapedTripPlace() {
 
   const [places, setPlaces] = useState<TPlace[]>([]);
   const [count, setCount] = useState<number>(0);
+  const [maximunCount, setMaximumCount] = useState<number>(0);
   const [deletePlaces, setDeletePlaces] = useState<number[]>([]);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [next, setNext] = useState<string | null>(null);
@@ -109,6 +110,23 @@ function ScrapedTripPlace() {
   }, [filter]);
 
   useEffect(() => {
+    get<{
+      next: string | null;
+      previous: string | null;
+      count: number;
+      results: TPlace[];
+    }>('scrap/place', {
+      params: {
+        ordering: 'scraped',
+        location: filter.location?.join(','),
+        theme: filter.theme?.map((item) => `PLC${themeSwiftCode(item)}`).join(','),
+      },
+    }).then(({ data }) => {
+      setPlaces(data.results);
+      setCount(data.count);
+      setMaximumCount(data.count);
+      setNext(data.next?.replace('http://', 'https://'));
+    });
     resetFilter();
   }, []);
 
@@ -268,7 +286,7 @@ function ScrapedTripPlace() {
           {!isEditMode && (
             <S.MapButton
               onClick={() => {
-                navigate('/scrapbook/placemap');
+                navigate(`/scrapbook/placemap?count=${maximunCount}`);
               }}
             >
               <MapIcon />
