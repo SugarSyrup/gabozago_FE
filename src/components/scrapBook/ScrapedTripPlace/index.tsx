@@ -173,12 +173,14 @@ function ScrapedTripPlace() {
                     CloseButton: {
                       text: '취소',
                       onClick: () => {
+                        setDeletePlaces([]);
                         popupClose();
                       }
                     },
                     ConfirmButton: {
                       onClick: () => {
                         deletes(`/scrap/place?id=${deletePlaces.join(',')}`)
+                        window.location.reload();
                       },
                       text: '확인',
                     },
