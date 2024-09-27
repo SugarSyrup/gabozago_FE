@@ -162,6 +162,11 @@ Firefox : 웹브라우저 우측 상단 아이콘 - 설정 - 개인 정보 및 �
       alert('접근할 수 없는 페이지입니다.');
       navigate(-1);
     }
+
+    if (id === '01' && localStorage.getItem('access_token') === null) {
+      alert('접근할 수 없는 페이지입니다.');
+      navigate(-1);
+    }
   }, [id, data]);
 
   useEffect(() => {
@@ -179,7 +184,7 @@ Firefox : 웹브라우저 우측 상단 아이콘 - 설정 - 개인 정보 및 �
         </PageHeader>
       }
     >
-      {id === '1' ? (
+      {id === '01' ? (
         <S.Contents>
           <Typography.Title size="lg" color="black" noOfLine={2}>
             위치 기반 서비스 이용을 위해
