@@ -34,7 +34,7 @@ function ScrapedContents() {
   const { popupOpen, popupClose } = usePopup();
 
   const [inputRef, SearchInput] = useSearchInput({
-    placeholder: '콘텐츠 를 검색해보세요.',
+    placeholder: '콘텐츠를 검색해보세요.',
     onChange: () => {},
     backgroundColor: 'white',
     borderColor: '#ADADAD',
@@ -126,14 +126,16 @@ function ScrapedContents() {
                         CloseButton: {
                           text: '취소',
                           onClick: () => {
-                            popupClose();
+                            setDeletes([]);
+                            window.location.reload();
                           },
                         },
                         ConfirmButton: {
                           onClick: () => {
                             deletes(`scrap/content?id=${deleteContents.toLocaleString()}`).then(
                               () => {
-                                popupClose();
+                                window.location.reload();
+                                setDeletes([]);
                               },
                             );
                           },
@@ -144,8 +146,14 @@ function ScrapedContents() {
                     }
                   }}
                 >
-                  {data.length === 0 ? (
-                    '삭제하기'
+                  {deleteContents.length === 0 ? (
+                    <span
+                      style={{
+                        color: '#A6A6A6',
+                      }}
+                    >
+                      삭제하기
+                    </span>
                   ) : (
                     <S.FontHighlight isRead>삭제하기</S.FontHighlight>
                   )}
