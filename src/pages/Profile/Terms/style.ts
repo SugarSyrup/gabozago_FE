@@ -48,3 +48,68 @@ export const TermsLink = styled.span`
   text-decoration: underline;
   cursor: pointer;
 `;
+
+export const TermsContainer = styled.div`
+  padding-top: 24px;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 24px;
+`;
+
+export const TermsContent = styled.div`
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px;
+
+  table,
+  th,
+  td {
+    border: 1px solid #ebebeb;
+    border-collapse: collapse;
+  }
+
+  td,
+  th {
+    padding: 8px;
+  }
+
+  table {
+    width: 100%;
+
+    thead tr {
+      background-color: #f5f5f5;
+      text-align: left;
+    }
+
+    thead tr th,
+    tbody tr td {
+      font-weight: 400;
+      font-size: 12px;
+    }
+  }
+`;
+
+export const TermsHeader = styled.span`
+  color: #000;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+`;
+
+export const TermsText = styled.span`
+  color: #727272;
+  text-align: justify;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px; /* 169.231% */
+`;
