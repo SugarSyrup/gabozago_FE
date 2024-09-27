@@ -24,17 +24,22 @@ export const FontHighlight = styled.span<{ isRead?: boolean }>`
 export const ContentsContainer = styled.div`
   width: 100%;
 
-  display: flex;
+  /* display: flex;
   justify-content: space-between;
   align-items: flex-start;
   align-self: stretch;
-  flex-wrap: wrap;
+  flex-wrap: wrap; */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 30%);
+  justify-content: space-between;
+  /* grid-column-gap: auto; */
+  /* grid-gap: 20px; */
 
   padding: 16px 0;
 `;
 
 export const ContentItem = styled.div`
-  width: 30%;
+  width: 100%;
   position: relative;
 
   display: flex;
@@ -187,4 +192,35 @@ export const SearchingContainer = styled.div`
     font-weight: 600;
     line-height: 28px; /* 175% */
   }
+`;
+
+export const NoDataContainer = styled.div`
+  width: 60%;
+  margin: auto;
+  margin-top: 120px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h3 {
+    text-align: center;
+  }
+`;
+
+export const TripBucketButton = styled.div`
+  display: inline-flex;
+  padding: 4px 15px;
+  margin-top: 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+
+  border-radius: 20px;
+  border: 1px solid ${({ theme }) => theme.colors.blue.primary};
+  background-color: white;
+
+  color: ${({ theme }) => theme.colors.blue.primary};
+  cursor: pointer;
 `;

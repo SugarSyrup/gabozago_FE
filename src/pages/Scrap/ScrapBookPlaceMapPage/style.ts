@@ -55,6 +55,20 @@ export const ModalList = styled.ol`
   max-height: 384px;
 `;
 
+export const PlaceList = styled.ol`
+  width: 100%;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+    scrollbar-width: none;
+  }
+`;
+
 export const PlaceItem = styled.li`
   width: 100%;
   padding: 16px 20px;
@@ -101,6 +115,8 @@ export const InfoSeperateLine = styled.div`
 `;
 
 export const SelectedPlaceWrapper = styled.div`
+  padding-left: 20px;
+
   width: calc(100% - 40px);
   max-width: 460px;
 

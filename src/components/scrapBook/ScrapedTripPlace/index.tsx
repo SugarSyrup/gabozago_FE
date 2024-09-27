@@ -28,6 +28,7 @@ function ScrapedTripPlace() {
 
   const [places, setPlaces] = useState<TPlace[]>([]);
   const [count, setCount] = useState<number>(0);
+  const [maximunCount, setMaximumCount] = useState<number>(0);
   const [deletePlaces, setDeletePlaces] = useState<number[]>([]);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [next, setNext] = useState<string | null>(null);
@@ -78,7 +79,7 @@ function ScrapedTripPlace() {
       }).then(({ data }) => {
         setPlaces(data.results);
         setCount(data.count);
-        setNext(data.next?.replace('http', 'https'));
+        setNext(data.next?.replace('http://', 'https://'));
       });
     } else {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -93,11 +94,12 @@ function ScrapedTripPlace() {
             latitude: position.coords.latitude.toFixed(6),
             longitude: position.coords.longitude.toFixed(6),
             location: filter.location?.join(','),
-            theme: filter.theme?.join(','),
+            theme: filter.theme?.map((item) => `PLC${themeSwiftCode(item)}`).join(','),
           },
         }).then(({ data }) => {
           setPlaces(data.results);
-          setNext(data.next?.replace('http', 'https'));
+          setCount(data.count);
+          setNext(data.next?.replace('http://', 'https://'));
         });
       });
     }
@@ -108,6 +110,23 @@ function ScrapedTripPlace() {
   }, [filter]);
 
   useEffect(() => {
+    get<{
+      next: string | null;
+      previous: string | null;
+      count: number;
+      results: TPlace[];
+    }>('scrap/place', {
+      params: {
+        ordering: 'scraped',
+        location: filter.location?.join(','),
+        theme: filter.theme?.map((item) => `PLC${themeSwiftCode(item)}`).join(','),
+      },
+    }).then(({ data }) => {
+      setPlaces(data.results);
+      setCount(data.count);
+      setMaximumCount(data.count);
+      setNext(data.next?.replace('http://', 'https://'));
+    });
     resetFilter();
   }, []);
 
@@ -124,10 +143,12 @@ function ScrapedTripPlace() {
           get<{
             next: string | null;
             previous: string | null;
+            count: number;
             results: TPlace[];
           }>(next).then((res) => {
             setPlaces([...places, ...res.data.results]);
-            setNext(res.data.next?.replace('http', 'https'));
+            setCount(res.data.count);
+            setNext(res.data.next?.replace('http://', 'https://'));
           });
         }
       });
@@ -170,12 +191,15 @@ function ScrapedTripPlace() {
                     CloseButton: {
                       text: '취소',
                       onClick: () => {
+                        setDeletePlaces([]);
                         popupClose();
                       }
                     },
                     ConfirmButton: {
                       onClick: () => {
                         deletes(`/scrap/place?id=${deletePlaces.join(',')}`)
+                        setDeletePlaces([]);
+                        window.location.reload();
                       },
                       text: '확인',
                     },
@@ -263,7 +287,7 @@ function ScrapedTripPlace() {
           {!isEditMode && (
             <S.MapButton
               onClick={() => {
-                navigate('/scrapbook/placemap');
+                navigate(`/scrapbook/placemap?count=${maximunCount}`);
               }}
             >
               <MapIcon />
@@ -284,8 +308,11 @@ function ScrapedTripPlace() {
             저장해보세요.
           </Typography.Title>
 
-          {/* @TODO: 버킷 안내 페이지 이동 */}
-          <S.TripBucketButton>
+          <S.TripBucketButton
+            onClick={() => {
+              navigate('/onboarding/tripbucket');
+            }}
+          >
             <Typography.Label size="lg" color="inherit">
               트립 버킷 사용해보기
             </Typography.Label>

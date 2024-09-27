@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-export const Header = styled.header`
+export const Header = styled.header<{ isChidren: boolean }>`
   width: 100%;
   height: 50px;
-  padding: 15px 20px;
+  padding: ${({ isChidren }) => (isChidren ? '15px 20px' : '25px 20px')};
   position: relative;
 
   display: flex;
@@ -14,9 +14,9 @@ export const Header = styled.header`
   background-color: white;
 `;
 
-export const MobileHeader = styled.header`
+export const MobileHeader = styled.header<{ isChidren: boolean }>`
   width: 100%;
-  padding: 15px 20px;
+  padding: ${({ isChidren }) => (isChidren ? '15px 20px' : '25px 20px')};
   padding-top: constant(safe-area-inset-top, 20px);
   padding-bottom: constant(safe-area-inset-top, 20px);
   position: relative;
