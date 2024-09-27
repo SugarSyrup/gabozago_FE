@@ -19,7 +19,6 @@ interface TResponse extends TPagination<TContentShorten> {
   count: number;
 }
 
-// @TODO: 삭제하기
 function ScrapedContents() {
   const navigate = useNavigate();
   const [data, setData] = useState<TContentShorten[]>([]);
@@ -50,7 +49,7 @@ function ScrapedContents() {
       }).then((res) => {
         setData(res.data.results);
         setCount(res.data.count);
-        setNext(res.data.next?.replace('http', 'https'));
+        setNext(res.data.next?.replace('http://', 'https://'));
         setIsSearch(false);
       });
     },
@@ -60,7 +59,7 @@ function ScrapedContents() {
     get<TResponse>('/scrap/content').then((res) => {
       setData(res.data.results);
       setCount(res.data.count);
-      setNext(res.data.next?.replace('http', 'https'));
+      setNext(res.data.next?.replace('http://', 'https://'));
     });
   }, []);
 
@@ -75,7 +74,7 @@ function ScrapedContents() {
       if (entries[0].isIntersecting && next) {
         get<TResponse>(next).then((response) => {
           setData([...data, ...response.data.results]);
-          setNext(response.data.next?.replace('http', 'https'));
+          setNext(response.data.next?.replace('http://', 'https://'));
         });
       }
     }, options);
@@ -167,6 +166,23 @@ function ScrapedContents() {
               )}
             </Typography.Title>
           </S.ContentsHeader>
+          {data.length === 0 && (
+            <S.NoDataContainer>
+              <Typography.Headline size="sm">스크랩한 콘텐츠가 없어요</Typography.Headline>
+              <Typography.Title size="md" color="#A6A6A6" noOfLine={2}>
+                트립 버킷으로 흩어진 여행 콘텐츠를 저장해보세요.
+              </Typography.Title>
+              <S.TripBucketButton
+                onClick={() => {
+                  navigate('/onboarding/tripbucket');
+                }}
+              >
+                <Typography.Label size="lg" color="inherit">
+                  트립 버킷 사용해보기
+                </Typography.Label>
+              </S.TripBucketButton>
+            </S.NoDataContainer>
+          )}
           <S.ContentsContainer>
             {data.length !== 0 &&
               data.map((content) => (

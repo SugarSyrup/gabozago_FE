@@ -188,3 +188,34 @@ export const SearchingContainer = styled.div`
     line-height: 28px; /* 175% */
   }
 `;
+
+export const NoDataContainer = styled.div`
+  width: 60%;
+  margin: auto;
+  margin-top: 120px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h3 {
+    text-align: center;
+  }
+`;
+
+export const TripBucketButton = styled.div`
+  display: inline-flex;
+  padding: 4px 15px;
+  margin-top: 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+
+  border-radius: 20px;
+  border: 1px solid ${({ theme }) => theme.colors.blue.primary};
+  background-color: white;
+
+  color: ${({ theme }) => theme.colors.blue.primary};
+  cursor: pointer;
+`;
