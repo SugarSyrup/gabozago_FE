@@ -237,8 +237,7 @@ function HomePage() {
           <Typography.Label size="lg" color="inherit">
             <span
               onClick={() => {
-                window.location.href =
-                  'https://teamfore.notion.site/61f78ba3a6924fe384b1ecb87bdab271?pvs=25';
+                navigate('/terms/02');
               }}
               style={{
                 cursor: 'pointer',

@@ -155,14 +155,14 @@ Firefox : 웹브라우저 우측 상단 아이콘 - 설정 - 개인 정보 및 �
       ],
     },
   ];
-  // const data: TTerm | undefined = termsMap.find((item) => item.id === id);
+  const data: TTerm | undefined = termsMap.find((item) => item.id === id);
 
-  // useEffect(() => {
-  //   if (id === undefined || data === undefined) {
-  //     alert('접근할 수 없는 페이지입니다.');
-  //     navigate(-1);
-  //   }
-  // }, [id, data]);
+  useEffect(() => {
+    if (id === undefined || data === undefined) {
+      alert('접근할 수 없는 페이지입니다.');
+      navigate(-1);
+    }
+  }, [id, data]);
 
   useEffect(() => {
     get<{ TERMS01: boolean }>('/settings/terms?q=TERMS01').then((res) => {
