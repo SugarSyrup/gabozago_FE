@@ -11,6 +11,7 @@ import BottomNavBar from '../BottomNavBar';
 import * as S from './style';
 import { popupIsOpen } from '@_recoil/common/PopupValue';
 import Popup from '@_common/Popup';
+import { post } from '@_utils/api';
 
 interface Props {
   children: ReactNode;

@@ -57,7 +57,8 @@ const onError = async (error: AxiosError | Error): Promise<AxiosError> => {
           }>('/user/jwt-token-auth/refresh')
           .then((response) => {
             localStorage.setItem('access_token', response.data.access);
-            return axiosInstance.request(error.config as InternalAxiosRequestConfig);
+            // return axiosInstance.request(error.config as InternalAxiosRequestConfig);
+            window.location.href = '/login';
           })
           .catch(() => {
             localStorage.removeItem('access_token');
