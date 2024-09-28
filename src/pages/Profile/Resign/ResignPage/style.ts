@@ -14,8 +14,6 @@ export const Container = styled.div`
 `;
 
 export const ConfirmButtonsContainer = styled.div`
-  position: fixed;
-  bottom: 0;
   width: 100%;
   max-width: 500px;
 

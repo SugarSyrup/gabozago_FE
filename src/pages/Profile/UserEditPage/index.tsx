@@ -1,6 +1,6 @@
 import loadImage from 'blueimp-load-image';
 import { useEffect, useState } from 'react';
-import { useLoaderData, useNavigate } from 'react-router-dom';
+import { useLoaderData, useNavigate, useSearchParams } from 'react-router-dom';
 import * as S from './style';
 
 import PageTemplate from '../../../components/common/PageTemplate';
@@ -22,7 +22,7 @@ import { useSetRecoilState } from 'recoil';
 import { popupValue } from '@_recoil/common/PopupValue';
 
 function UserEditPage() {
-  const { nickname, description, avatarURL } = useLoaderData() as TUserProfile;
+  const { nickname, description, avatarURL, email } = useLoaderData() as TUserProfile;
   const { popupOpen, popupClose } = usePopup();
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [nameValue, setNameValue] = useState(nickname);
@@ -80,18 +80,28 @@ function UserEditPage() {
             loadImage(
               formdata.get('avatar') as File,
               (img, data) => {
-                if (data === undefined) return;
+                if (data === undefined) {
+                  patch('/user/profile', formdata).then(() => {
+                    navigate(-1);
+                  });
+                  return;
+                }
                 if (data.imageHead && data.exif) {
                   loadImage.writeExifData(data.imageHead, data, 'Orientation', 1);
                   img.toBlob((blob) => {
                     loadImage.replaceHead(blob, data.imageHead, async (newBlob) => {
+                      console.log('b');
                       formdata.set('avatar', newBlob);
 
-                      patch('/user/profile', formdata).then(() => {
+                      patch('/user/profile', {
+                        avatar: newBlob,
+                        nickname: formdata.get('nickname'),
+                        desc: formdata.get('desc'),
+                      }).then(() => {
                         navigate(-1);
                       });
                     });
-                  }, 'image/jpeg');
+                  }, 'image/jpeg, image/png');
                 } else {
                   patch('/user/profile', formdata).then(() => {
                     navigate(-1);
@@ -114,7 +124,7 @@ function UserEditPage() {
           <Heading size="sm">프로필 수정</Heading>
           <S.SubmitBtn
             type="submit"
-            isActive={nameValue !== nickname || descValue !== description || isAvatarChanged}
+            isActive={isNicknameOk || descValue !== description || isAvatarChanged}
           >
             완료
           </S.SubmitBtn>
@@ -173,6 +183,7 @@ function UserEditPage() {
             inputType="email"
             name="account"
             label="연결된 계정"
+            value={email}
             disabled
             required
             explain={
