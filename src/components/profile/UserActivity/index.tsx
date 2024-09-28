@@ -47,14 +47,14 @@ function UserActivity() {
         `/user/profile/my-activity?sort=${actFilter}&community=article`,
       ).then((response) => {
         setData(response.data.results);
-        setNext(response.data.next);
+        setNext(response.data.next?.replace('http://', 'https://'));
       });
     } else {
       get<CommentsResponseType>(
         `/user/profile/my-activity?sort=${actFilter}&community=article`,
       ).then((response) => {
         setData(response.data.results);
-        setNext(response.data.next);
+        setNext(response.data.next?.replace('http://', 'https://'));
       });
     }
   }, [actFilter]);
@@ -71,7 +71,7 @@ function UserActivity() {
                 const prevData = prev as ArticleResponseType['results'];
                 return [...prevData, ...response.data.results];
               });
-              setNext(response.data.next);
+              setNext(response.data.next?.replace('http://', 'https://'));
             });
           } else {
             get<CommentsResponseType>(next).then((response) => {
@@ -79,7 +79,7 @@ function UserActivity() {
                 const prevData = prev as CommentsResponseType['results'];
                 return [...prevData, ...response.data.results];
               });
-              setNext(response.data.next);
+              setNext(response.data.next?.replace('http://', 'https://'));
             });
           }
         }
