@@ -4,7 +4,7 @@ export const Container = styled.li`
   width: 100%;
   padding: 15px 10px;
   border-radius: 15px;
-  background-color: ${({ theme }) => theme.blue05};
+  background-color: #f6f6f6;
 
   display: flex;
   flex-direction: row;

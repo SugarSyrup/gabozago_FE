@@ -8,11 +8,12 @@ import * as S from './style';
 
 interface Props {
   setIsNicknameOk: React.Dispatch<React.SetStateAction<boolean>>;
+  defaultValue?: string;
 }
 
-function Nickname({ setIsNicknameOk }: Props) {
+function Nickname({ setIsNicknameOk, defaultValue }: Props) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [nickname, setNicknameState] = useState(searchParams.get('nickname'));
+  const [nickname, setNicknameState] = useState(defaultValue || searchParams.get('nickname'));
   const [nicknameAlert, setNicknameAlert] = useState('');
 
   const codeParams = searchParams.get('code');
@@ -33,7 +34,9 @@ function Nickname({ setIsNicknameOk }: Props) {
       return;
     }
 
-    localStorage.setItem('access_token', codeParams as string);
+    if (codeParams) {
+      localStorage.setItem('access_token', codeParams as string);
+    }
     get<{ message: string }>(`/user/nickname/${nickname}`)
       .then((res) => {
         if (res.data.message === 'POSSIBLE') {
@@ -49,7 +52,9 @@ function Nickname({ setIsNicknameOk }: Props) {
         setIsNicknameOk(false);
       })
       .finally(() => {
-        localStorage.removeItem('access_token');
+        if (codeParams) {
+          localStorage.removeItem('access_token');
+        }
       });
   }, []);
 
@@ -95,7 +100,9 @@ function Nickname({ setIsNicknameOk }: Props) {
           return;
         }
 
-        localStorage.setItem('access_token', codeParams as string);
+        if (codeParams) {
+          localStorage.setItem('access_token', codeParams as string);
+        }
         get<{ message: string }>(`/user/nickname/${nickname}`)
           .then((res) => {
             if (res.data.message === 'POSSIBLE') {
@@ -108,7 +115,9 @@ function Nickname({ setIsNicknameOk }: Props) {
             setIsNicknameOk(false);
           })
           .finally(() => {
-            localStorage.removeItem('access_token');
+            if (codeParams) {
+              localStorage.removeItem('access_token');
+            }
           });
       }}
     />
