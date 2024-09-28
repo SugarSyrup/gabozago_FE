@@ -70,7 +70,7 @@ function ScrapedTripJournal() {
           <S.PopupInput
             type="text"
             name="폴더 이름 수정"
-            maxLength={38}
+            maxLength={25}
             defaultValue={groupList[targetGroupIndex].name}
           />
         </form>
@@ -90,6 +90,7 @@ function ScrapedTripJournal() {
         text: '네, 삭제할게요',
         onClick: () => {
           deleteFolder(groupList[targetGroupIndex].id);
+          window.location.reload();
         },
       },
       CloseButton: {
@@ -219,7 +220,7 @@ function ScrapedTripJournal() {
           <div />
           <p>모든 게시물</p>
         </S.GroupItem>
-        {groupList.map(({ id, name, thumbnailURL }, index) => (
+        {groupList.splice(1).map(({ id, name, thumbnailURL }, index) => (
           <S.GroupItem
             key={id}
             background={thumbnailURL || ''}

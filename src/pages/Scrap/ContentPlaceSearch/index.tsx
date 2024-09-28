@@ -28,6 +28,12 @@ function ContentPlaceSearchPage() {
     borderColor: '#ADADAD',
     onSubmit: (e) => {
       e.preventDefault();
+
+      get<TResponseData[]>(`/place/scrap-list-search?query=${inputRef.current.value}`).then(
+        (res) => {
+          setData(res.data);
+        },
+      );
     },
   });
 
@@ -68,7 +74,11 @@ function ContentPlaceSearchPage() {
       <S.List>
         {data.map((place, index) => (
           <S.Item key={index}>
-            <S.LeftItems>
+            <S.LeftItems
+              onClick={() => {
+                navigate(`/place/${place.id}`);
+              }}
+            >
               <S.Thumbnail>
                 {place.thumbnailURL ? (
                   <img src={place.thumbnailURL} alt={place.thumbnailURL} />
