@@ -31,8 +31,12 @@ function MyTripLocationSearchPage() {
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const [locations, setLocations] = useState<string[]>([]);
   const [keyword, setKeyword] = useRecoilState(placeKeyword);
-  const [newLocation, setNewLocation] = useState<string>('');
-  const [newRegion, setNewRegion] = useState<string>('');
+  const [newLocation, setNewLocation] = useState<{
+    thumbnail?: string | null;
+    id: number;
+    name: string;
+    location: string;
+  }>();
   const setActiveFilters = useSetRecoilState(scrapPlaceFilterState);
   const [inputRef, SearchInput] = useSearchInput({
     placeholder: '장소명을 입력하세요',
@@ -106,6 +110,7 @@ function MyTripLocationSearchPage() {
             location: newLocation,
           }).then(() => {});
           setLocations((prev) => [...prev, newLocation]);
+
           popupClose();
         },
       },
@@ -187,7 +192,6 @@ function MyTripLocationSearchPage() {
         {!isSearching && tabNavIdx === 2 && (
           <ScrapedPlace
             popupOpen={popupOpen}
-            setNewRegion={setNewRegion}
             setNewLocation={setNewLocation}
             locations={locations}
           />
