@@ -197,9 +197,10 @@ function ScrapedTripPlace() {
                     },
                     ConfirmButton: {
                       onClick: () => {
-                        deletes(`/scrap/place?id=${deletePlaces.join(',')}`)
-                        setDeletePlaces([]);
-                        window.location.reload();
+                        deletes(`/scrap/place?id=${deletePlaces.join(',')}`).then(() => {
+                          setDeletePlaces([]);
+                          window.location.reload();
+                        })
                       },
                       text: '확인',
                     },

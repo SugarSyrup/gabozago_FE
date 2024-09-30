@@ -26,6 +26,7 @@ interface Place {
   name: string;
   category: string[];
   addressShort: string;
+  location: string;
   memo?: string;
 }
 
@@ -183,23 +184,20 @@ function ScrapedPlace({ popupOpen, setNewLocation, setNewRegion, locations }: Pr
                     prev.filter((SelectedPlace) => SelectedPlace.id !== item.placeId),
                   );
                 } else {
-                  get<{ region: string }>(`/place/${item.placeId}`).then((response) => {
-                    setSelectedPlaces((prev) => [
-                      ...prev,
-                      {
-                        name: item.name,
-                        thumbnail: '',
-                        id: item.placeId,
-                        location: response.data.region,
-                      },
-                    ]);
+                  setSelectedPlaces((prev) => [
+                    ...prev,
+                    {
+                      name: item.name,
+                      thumbnail: '',
+                      id: item.placeId,
+                      location: item.location,
+                    },
+                  ]);
+                  setNewLocation(item.location);
 
-                    if (locations && !locations.includes(response.data.region)) {
-                      setNewLocation(response.data.region);
-                      setNewRegion(item.name);
-                      popupOpen();
-                    }
-                  });
+                  if (locations && !locations.includes(item.location)) {
+                    popupOpen();
+                  }
                 }
               }}
             >
