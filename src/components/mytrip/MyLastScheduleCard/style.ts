@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
-export const Card = styled.div`
+export const Card = styled.div<{ isUpcoming: boolean }>`
   width: 100%;
   height: 98px;
   flex-shrink: 0;
   border-radius: 10px;
-  background-color: ${({ theme }) => theme.gray06};
+  background-color: ${({ theme, isUpcoming }) => (isUpcoming ? '#D4DDFF' : theme.gray06)};
 
   position: relative;
   cursor: pointer;
@@ -25,11 +25,12 @@ export const InfoContainer = styled.div`
   gap: 10px;
 `;
 
-export const ThumbnailWrapper = styled.div`
+export const ThumbnailWrapper = styled.div<{ isUpcoming: boolean }>`
   width: 68px;
   height: 68px;
   flex-shrink: 0;
-  background-color: ${({ theme }) => theme.blue04};
+  background-color: ${({ theme, isUpcoming }) =>
+    isUpcoming ? theme.colors.blue.primary : theme.blue04};
   border-radius: 100%;
 
   display: flex;
@@ -39,6 +40,10 @@ export const ThumbnailWrapper = styled.div`
   svg {
     width: 24px;
     height: 24px;
+
+    path:last-child {
+      fill: ${({ theme, isUpcoming }) => isUpcoming && theme.colors.blue.primary};
+    }
   }
 
   img {

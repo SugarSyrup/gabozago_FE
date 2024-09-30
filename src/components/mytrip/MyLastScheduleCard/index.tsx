@@ -15,6 +15,7 @@ interface Props {
   arrival_date: string;
   regions: string[];
   thumbnailURL: string;
+  isUpcoming: boolean;
 }
 
 function MyLastScheduleCard({
@@ -24,6 +25,7 @@ function MyLastScheduleCard({
   arrival_date,
   regions,
   thumbnailURL,
+  isUpcoming,
 }: Props) {
   const navigate = useNavigate();
   const { MyTripModal, modalOpen } = useMyTripModal({
@@ -36,9 +38,9 @@ function MyLastScheduleCard({
   return (
     <>
       <MyTripModal />
-      <S.Card>
+      <S.Card isUpcoming={isUpcoming}>
         <S.InfoContainer>
-          <S.ThumbnailWrapper>
+          <S.ThumbnailWrapper isUpcoming={isUpcoming}>
             {thumbnailURL ? <img src={thumbnailURL} alt="thumbnail" /> : <LogoSmallIcon />}
           </S.ThumbnailWrapper>
           <S.TextContainer
