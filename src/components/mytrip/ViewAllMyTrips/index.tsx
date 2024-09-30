@@ -70,13 +70,13 @@ function ViewAllMyTrips() {
     <S.CardList>
       {
         upcomingData.map((trip) => (
-          <MyLastScheduleCard {...trip} key={trip.id} />
+          <MyLastScheduleCard {...trip} key={trip.id} isUpcoming />
         ))
         // tripData.map((trip) => <span>{trip.title}</span>)
       }
       {
         pastData.map((trip) => (
-          <MyLastScheduleCard {...trip} key={trip.id} />
+          <MyLastScheduleCard {...trip} key={trip.id} isUpcoming={false} />
         ))
         // tripData.map((trip) => <span>{trip.title}</span>)
       }

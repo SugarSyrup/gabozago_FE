@@ -108,7 +108,7 @@ function MyTripPage() {
           </S.ContentHeadingWrappper>
           <S.ContentContainer>
             {tripHistory.map((trip) => (
-              <MyLastScheduleCard {...trip} key={trip.id} />
+              <MyLastScheduleCard {...trip} key={trip.id} isUpcoming={false} />
             ))}
           </S.ContentContainer>
         </>
