@@ -183,6 +183,9 @@ function Comment({
                   setReply={setReply}
                   type={type}
                   deleteComments={deleteComments}
+                  getComments={() => {
+                    getComments(id);
+                  }}
                 />
               </li>
             ))}

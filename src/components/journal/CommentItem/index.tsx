@@ -47,6 +47,7 @@ interface Props extends Comment {
   textareaRef?: React.RefObject<HTMLTextAreaElement>;
   type: 'short-form' | 'article' | 'video' | 'report' | 'travelog';
   deleteComments: (commentId: number) => void;
+  getComments: () => void;
 }
 
 function CommentItem({
@@ -67,6 +68,7 @@ function CommentItem({
   isClapped,
   type,
   deleteComments,
+  getComments,
 }: Props) {
   const [likeCount, setLikeCount] = useState<number>(like);
   const [isLiked, setIsLiked] = useState<boolean>(isClapped);
@@ -85,6 +87,7 @@ function CommentItem({
     type,
     commentId: id,
     setIsReported,
+    refresh: getComments,
   });
 
   const toggleLike = async () => {
