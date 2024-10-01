@@ -15,9 +15,16 @@ interface Options {
   postId?: number | null;
   commentId?: number | null;
   setIsReported?: React.Dispatch<React.SetStateAction<boolean>>;
+  refresh: () => void;
 }
 
-function useReportPopup({ type, postId = null, commentId = null, setIsReported }: Options) {
+function useReportPopup({
+  type,
+  postId = null,
+  commentId = null,
+  setIsReported,
+  refresh,
+}: Options) {
   const { Popup, popupOpen, popupClose } = usePopup();
   const setPopupUI = useSetRecoilState(popupValue);
   const reasons = [
@@ -54,6 +61,7 @@ function useReportPopup({ type, postId = null, commentId = null, setIsReported }
         }
 
         toast.custom(() => <ReportToast />);
+        refresh();
         popupClose();
       }
     } catch (error) {
