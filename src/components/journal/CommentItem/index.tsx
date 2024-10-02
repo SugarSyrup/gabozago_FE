@@ -168,6 +168,7 @@ function CommentItem({
               }).then(() => {
                 getComments();
                 popupClose();
+                commentMenuModalClose();
               });
             },
           },
@@ -204,6 +205,7 @@ function CommentItem({
               }).then(() => {
                 getComments();
                 popupClose();
+                commentMenuModalClose();
               });
             },
           },
