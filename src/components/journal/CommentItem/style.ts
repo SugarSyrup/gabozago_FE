@@ -159,3 +159,12 @@ export const ReplyList = styled.ol`
   flex-direction: column;
   gap: 15px;
 `;
+
+export const BlockedContent = styled.span`
+  color: ${({ theme }) => theme.colors.gray.secondary};
+
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+`;

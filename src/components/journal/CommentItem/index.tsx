@@ -163,7 +163,12 @@ function CommentItem({
           ConfirmButton: {
             text: '확인',
             onClick: () => {
-              popupClose();
+              post('/community/article/block', {
+                userId,
+              }).then(() => {
+                getComments();
+                popupClose();
+              });
             },
           },
           CloseButton: {
@@ -194,7 +199,12 @@ function CommentItem({
           ConfirmButton: {
             text: '확인',
             onClick: () => {
-              popupClose();
+              post('/community/article/block', {
+                userId,
+              }).then(() => {
+                getComments();
+                popupClose();
+              });
             },
           },
           CloseButton: {
@@ -265,7 +275,13 @@ function CommentItem({
           </div>
 
           {isBlocked ? (
-            <span>차단한 사용자의 댓글입니다. 댓글을 보시려면 차단을 해제해 주세요.</span>
+            <S.BlockedContent
+              onClick={() => {
+                commentMenuModalOpen();
+              }}
+            >
+              차단한 사용자의 댓글입니다. 댓글을 보시려면 차단을 해제해 주세요.
+            </S.BlockedContent>
           ) : (
             <S.CommentParagraph>
               {text.split('\n').map((line) => (
