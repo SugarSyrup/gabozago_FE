@@ -6,6 +6,17 @@ export const GrayColoredIcon = styled.span`
   }
 `;
 
+export const BlockedIconWrapper = styled.div`
+  svg {
+    path:first-child {
+      fill: #b0b0b0;
+    }
+    path:last-child {
+      fill: #5276fa;
+    }
+  }
+`;
+
 export const Container = styled.div<{ isReply: boolean; isFocused: boolean }>`
   width: 100%;
   padding: ${({ isReply }) => (isReply ? '0' : '8px 15px')};
@@ -147,4 +158,13 @@ export const ReplyList = styled.ol`
   display: flex;
   flex-direction: column;
   gap: 15px;
+`;
+
+export const BlockedContent = styled.span`
+  color: ${({ theme }) => theme.colors.gray.secondary};
+
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.25px;
 `;
