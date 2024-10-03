@@ -92,7 +92,7 @@ function LoginPage() {
             >
               <NaverIcon width={14} height={14} />
             </S.OAuthCircleButton>
-            {window.webkit && (
+            {!window.webkit && (
               <S.OAuthCircleButton
                 color="#FFFFFF"
                 onClick={() => {
