@@ -92,14 +92,17 @@ function LoginPage() {
             >
               <NaverIcon width={14} height={14} />
             </S.OAuthCircleButton>
-            <S.OAuthCircleButton
-              color="#FFFFFF"
-              onClick={() => {
-                window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${import.meta.env.VITE_GOOGLE_CLIENT_ID}&redirect_uri=${import.meta.env.VITE_GOOGLE_REDIRECT_URI}&response_type=code&scope=email+profile`;
-              }}
-            >
-              <GoogleIcon width={20} height={20} />
-            </S.OAuthCircleButton>
+            {window.webkit && (
+              <S.OAuthCircleButton
+                color="#FFFFFF"
+                onClick={() => {
+                  window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${import.meta.env.VITE_GOOGLE_CLIENT_ID}&redirect_uri=${import.meta.env.VITE_GOOGLE_REDIRECT_URI}&response_type=code&scope=email+profile`;
+                }}
+              >
+                <GoogleIcon width={20} height={20} />
+              </S.OAuthCircleButton>
+            )}
+
             <S.OAuthCircleButton
               color="#000000"
               onClick={async () => {
