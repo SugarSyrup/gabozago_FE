@@ -145,7 +145,7 @@ function UserEditPage() {
               }}
             />
           </S.CloseIconWrapper>
-          <Heading size="sm">프로필 수정</Heading>
+          <Heading size="sm">수정</Heading>
           <S.SubmitBtn
             type="submit"
             isActive={isNicknameOk && (descValue !== description || isAvatarChanged)}
