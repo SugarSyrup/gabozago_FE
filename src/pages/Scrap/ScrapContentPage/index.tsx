@@ -25,6 +25,8 @@ import { deletes, get, patch, post } from '@_utils/api';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import LocationPlaceholderIcon from '../../../components/mytrip/LocationPlaceholderIcon';
+import toast from 'react-hot-toast';
+import { Toast } from '@_common/Toast';
 
 interface TData {
   url: string;
@@ -59,9 +61,20 @@ function ScrapContentPage() {
   const [isMemoOpen, setIsMemoOpen] = useState(false);
 
   useEffect(() => {
-    get<TData>(`/scrap/content/${id}`).then((res) => {
-      setData(res.data);
-    });
+    get<TData>(`/scrap/content/${id}`)
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((e) => {
+        if (e.response.status === 404) {
+          toast.custom(() => (
+            <Toast>
+              <span style={{ color: 'white' }}>해당 콘텐츠가 삭제되었습니다.</span>
+            </Toast>
+          ));
+          navigate(-1);
+        }
+      });
   }, []);
 
   return (
