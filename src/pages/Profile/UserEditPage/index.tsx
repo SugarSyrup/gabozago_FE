@@ -83,15 +83,19 @@ function UserEditPage() {
               .then(() => {
                 navigate(-1);
               })
-              .catch((e) => {
-                if (e.data.status === 413) {
-                  toast.custom(
-                    () => <Toast>업로드 하려는 프로필 사진의 용량이 너무 큽니다.</Toast>,
-                    {
-                      duration: 1000,
-                    },
-                  );
-                }
+              .catch(() => {
+                toast.custom(
+                  () => (
+                    <Toast>
+                      <span style={{ color: 'white' }}>
+                        업로드 하려는 프로필 사진의 용량이 너무 큽니다.
+                      </span>
+                    </Toast>
+                  ),
+                  {
+                    duration: 1000,
+                  },
+                );
               });
           }
 
