@@ -76,7 +76,7 @@ function HotArticles() {
               </Label>
             </div>
             <S.BookMarkWrapper
-              isBookmark={isUserScrapedList[idx + 6]}
+              isBookmark={isUserScrapedList[idx]}
               onClick={() => {
                 setCurrentArticleIdx(idx + 6);
                 if (localStorage.getItem('access_token')) {
@@ -98,7 +98,7 @@ function HotArticles() {
                 }
               }}
             >
-              {isUserScrapedList[idx + 6] ? <BookMarkFilledIcon /> : <BookMarkIcon />}
+              {isUserScrapedList[idx] ? <BookMarkFilledIcon /> : <BookMarkIcon />}
             </S.BookMarkWrapper>
           </S.SliderItem>
         ))}
