@@ -20,6 +20,8 @@ import { patch } from '@_utils/api';
 import Nickname from '../../../components/signUp/Nickname';
 import { useSetRecoilState } from 'recoil';
 import { popupValue } from '@_recoil/common/PopupValue';
+import toast from 'react-hot-toast';
+import { Toast } from '@_common/Toast';
 
 function UserEditPage() {
   const { nickname, description, avatarURL, email } = useLoaderData() as TUserProfile;
@@ -77,9 +79,24 @@ function UserEditPage() {
           const formdata = new FormData(e.currentTarget);
 
           if (isNicknameOk && (descValue !== description || isAvatarChanged)) {
-            patch('/user/profile', formdata).then(() => {
-              navigate(-1);
-            });
+            patch('/user/profile', formdata)
+              .then(() => {
+                navigate(-1);
+              })
+              .catch(() => {
+                toast.custom(
+                  () => (
+                    <Toast>
+                      <span style={{ color: 'white' }}>
+                        업로드 하려는 프로필 사진의 용량이 너무 큽니다.
+                      </span>
+                    </Toast>
+                  ),
+                  {
+                    duration: 1000,
+                  },
+                );
+              });
           }
 
           //   loadImage(
