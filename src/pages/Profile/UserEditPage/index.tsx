@@ -76,11 +76,12 @@ function UserEditPage() {
           e.preventDefault();
           const formdata = new FormData(e.currentTarget);
 
-          patch('/user/profile', formdata).then(() => {
-            navigate(-1);
-          });
+          if (isNicknameOk && (descValue !== description || isAvatarChanged)) {
+            patch('/user/profile', formdata).then(() => {
+              navigate(-1);
+            });
+          }
 
-          // if (isNicknameOk || descValue !== description || isAvatarChanged) {
           //   loadImage(
           //     formdata.get('avatar') as File,
           //     (img, data) => {
@@ -130,7 +131,7 @@ function UserEditPage() {
           <Heading size="sm">프로필 수정</Heading>
           <S.SubmitBtn
             type="submit"
-            isActive={isNicknameOk || descValue !== description || isAvatarChanged}
+            isActive={isNicknameOk && (descValue !== description || isAvatarChanged)}
           >
             완료
           </S.SubmitBtn>
