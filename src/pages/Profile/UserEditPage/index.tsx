@@ -79,24 +79,60 @@ function UserEditPage() {
           const formdata = new FormData(e.currentTarget);
 
           if (isNicknameOk && (descValue !== description || isAvatarChanged)) {
-            patch('/user/profile', formdata)
-              .then(() => {
-                navigate(-1);
-              })
-              .catch(() => {
-                toast.custom(
-                  () => (
-                    <Toast>
-                      <span style={{ color: 'white' }}>
-                        업로드 하려는 프로필 사진의 용량이 너무 큽니다.
-                      </span>
-                    </Toast>
-                  ),
-                  {
-                    duration: 1000,
-                  },
-                );
-              });
+            loadImage(
+              formdata.get('avatar') as File,
+              (img, data) => {
+                if (data.imageHead && data.exif) {
+                  // 3. exif 값이 있다면 orientation 값을 1로 변경
+                  loadImage.writeExifData(data.imageHead, data, 'Orientation', 1);
+                  img.toBlob(function (blob) {
+                    loadImage.replaceHead(blob, data.imageHead, async function (newBlob) {
+                      newBlob.name = file.name;
+                      // 4. 기존 메서드로 파일 s3에 업로드
+                      await patch('/user/profile', formdata)
+                        .then(() => {
+                          navigate(-1);
+                        })
+                        .catch(() => {
+                          toast.custom(
+                            () => (
+                              <Toast>
+                                <span style={{ color: 'white' }}>
+                                  업로드 하려는 프로필 사진의 용량이 너무 큽니다.
+                                </span>
+                              </Toast>
+                            ),
+                            {
+                              duration: 1000,
+                            },
+                          );
+                        });
+                    });
+                  }, 'image/jpeg');
+                } else {
+                  // exif 값 없으면 바로 s3에 업로드
+                  patch('/user/profile', formdata)
+                    .then(() => {
+                      navigate(-1);
+                    })
+                    .catch(() => {
+                      toast.custom(
+                        () => (
+                          <Toast>
+                            <span style={{ color: 'white' }}>
+                              업로드 하려는 프로필 사진의 용량이 너무 큽니다.
+                            </span>
+                          </Toast>
+                        ),
+                        {
+                          duration: 1000,
+                        },
+                      );
+                    });
+                }
+              },
+              { meta: true, orientation: true, canvas: true },
+            );
           }
 
           //   loadImage(
@@ -145,7 +181,7 @@ function UserEditPage() {
               }}
             />
           </S.CloseIconWrapper>
-          <Heading size="sm">수정</Heading>
+          <Heading size="sm">프로필 수정</Heading>
           <S.SubmitBtn
             type="submit"
             isActive={isNicknameOk && (descValue !== description || isAvatarChanged)}
@@ -181,18 +217,12 @@ function UserEditPage() {
                 const file = e.currentTarget.files[0];
                 const reader = new FileReader();
 
-                loadImage(file, { meta: true, canvas: true, orientation: true }).then((img) => {
-                  img.image.toBlob((blob) => {
-                    const rotateFile = new File([blob], file.name, { type: file.type });
-
-                    reader.readAsDataURL(rotateFile);
-                    reader.onloadend = () => {
-                      setUserAvatarURL(reader.result as string);
-                      setAvatarFile(file);
-                      setIsAvatarChanged(true);
-                    };
-                  }, file.type);
-                });
+                reader.readAsDataURL(file);
+                reader.onloadend = () => {
+                  setUserAvatarURL(reader.result as string);
+                  setAvatarFile(file);
+                  setIsAvatarChanged(true);
+                };
               }
             }}
           />
