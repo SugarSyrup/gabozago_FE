@@ -181,12 +181,18 @@ function UserEditPage() {
                 const file = e.currentTarget.files[0];
                 const reader = new FileReader();
 
-                reader.readAsDataURL(file);
-                reader.onloadend = () => {
-                  setUserAvatarURL(reader.result as string);
-                  setAvatarFile(file);
-                  setIsAvatarChanged(true);
-                };
+                loadImage(file, { meta: true, canvas: true, orientation: true }).then((img) => {
+                  img.image.toBlob((blob) => {
+                    const rotateFile = new File([blob], file.name, { type: file.type });
+
+                    reader.readAsDataURL(rotateFile);
+                    reader.onloadend = () => {
+                      setUserAvatarURL(reader.result as string);
+                      setAvatarFile(file);
+                      setIsAvatarChanged(true);
+                    };
+                  }, file.type);
+                });
               }
             }}
           />
