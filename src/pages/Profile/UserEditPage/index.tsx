@@ -82,12 +82,14 @@ function UserEditPage() {
             loadImage(
               formdata.get('avatar') as File,
               (img, data) => {
+                console.log(1);
                 if (data.imageHead && data.exif) {
+                  console.log(2);
                   // 3. exif 값이 있다면 orientation 값을 1로 변경
                   loadImage.writeExifData(data.imageHead, data, 'Orientation', 1);
                   img.toBlob(function (blob) {
                     loadImage.replaceHead(blob, data.imageHead, async function (newBlob) {
-                      newBlob.name = file.name;
+                      newBlob.name = (formdata.get('avatar') as File).name;
                       // 4. 기존 메서드로 파일 s3에 업로드
                       await patch('/user/profile', formdata)
                         .then(() => {
@@ -110,6 +112,7 @@ function UserEditPage() {
                     });
                   }, 'image/jpeg');
                 } else {
+                  console.log(3);
                   // exif 값 없으면 바로 s3에 업로드
                   patch('/user/profile', formdata)
                     .then(() => {
@@ -133,6 +136,8 @@ function UserEditPage() {
               },
               { meta: true, orientation: true, canvas: true },
             );
+
+            console.log(4);
           }
 
           //   loadImage(
