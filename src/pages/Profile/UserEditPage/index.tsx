@@ -76,41 +76,47 @@ function UserEditPage() {
           e.preventDefault();
           const formdata = new FormData(e.currentTarget);
 
-          if (isNicknameOk || descValue !== description || isAvatarChanged) {
-            loadImage(
-              formdata.get('avatar') as File,
-              (img, data) => {
-                if (data === undefined) {
-                  patch('/user/profile', formdata).then(() => {
-                    navigate(-1);
-                  });
-                  return;
-                }
-                if (data.imageHead && data.exif) {
-                  loadImage.writeExifData(data.imageHead, data, 'Orientation', 1);
-                  img.toBlob((blob) => {
-                    loadImage.replaceHead(blob, data.imageHead, async (newBlob) => {
-                      console.log('b');
-                      formdata.set('avatar', newBlob);
+          patch('/user/profile', formdata).then(() => {
+            navigate(-1);
+          });
 
-                      patch('/user/profile', {
-                        avatar: newBlob,
-                        nickname: formdata.get('nickname'),
-                        desc: formdata.get('desc'),
-                      }).then(() => {
-                        navigate(-1);
-                      });
-                    });
-                  }, 'image/jpeg, image/png');
-                } else {
-                  patch('/user/profile', formdata).then(() => {
-                    navigate(-1);
-                  });
-                }
-              },
-              { meta: true, orientation: true, canvas: true },
-            );
-          }
+          // if (isNicknameOk || descValue !== description || isAvatarChanged) {
+          //   loadImage(
+          //     formdata.get('avatar') as File,
+          //     (img, data) => {
+          //       console.log(data);
+          //       if (data === undefined) {
+          //         console.log('a');
+          //         patch('/user/profile', formdata).then(() => {
+          //           navigate(-1);
+          //         });
+          //       } else if (data.imageHead && data.exif) {
+          //         console.log('c');
+          //         loadImage.writeExifData(data.imageHead, data, 'Orientation', 1);
+          //         img.toBlob((blob) => {
+          //           loadImage.replaceHead(blob, data.imageHead, async (newBlob) => {
+          //             console.log(newBlob);
+          //             formdata.set('avatar', newBlob);
+
+          //             patch('/user/profile', {
+          //               avatar: newBlob,
+          //               nickname: formdata.get('nickname'),
+          //               desc: formdata.get('desc'),
+          //             }).then(() => {
+          //               navigate(-1);
+          //             });
+          //           });
+          //         }, 'image/jpeg, image/png');
+          //       } else {
+          //         console.log('d');
+          //         patch('/user/profile', formdata).then(() => {
+          //           navigate(-1);
+          //         });
+          //       }
+          //     },
+          //     { meta: true, orientation: true, canvas: true },
+          //   );
+          // }
         }}
       >
         <S.Header>
@@ -141,6 +147,7 @@ function UserEditPage() {
                 borderRadius: '100%',
                 objectFit: 'cover',
               }}
+              alt={`${{ nickname }}님의 프로필 사진`}
             />
           )}
           <S.CameraIconWrapper htmlFor="avatar">
