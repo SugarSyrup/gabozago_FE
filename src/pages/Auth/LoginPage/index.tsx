@@ -57,17 +57,15 @@ declare global {
 }
 
 function checkMobile() {
-  const varUA = navigator.userAgent.toLowerCase(); // userAgent 값 얻기
+  const varUA = navigator.userAgent.toLowerCase();
 
   if (varUA.indexOf('android') > -1) {
-    // 안드로이드
     return 'android';
   }
   if (varUA.indexOf('iphone') > -1 || varUA.indexOf('ipad') > -1 || varUA.indexOf('ipod') > -1) {
-    // IOS
     return 'ios';
   }
-  // 아이폰, 안드로이드 외
+
   return 'other';
 }
 
