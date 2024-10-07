@@ -56,6 +56,7 @@ function NotificationPage() {
     }, options);
 
     console.log('infiniteRef');
+    console.log(infiniteRef);
     if (infiniteRef.current) {
       console.log(infiniteRef.current);
       observer.observe(infiniteRef.current);
@@ -92,13 +93,7 @@ function NotificationPage() {
         </S.NoDataContainer>
       ) : (
         <>
-          <NotificationList data={data} />
-          <div ref={infiniteRef} />
-          {/* <S.AlertInfomation>
-            <Typography.Title size="sm" color="inherit">
-              최근 30일 이내의 알림만 확인할 수 있어요.
-            </Typography.Title>
-          </S.AlertInfomation> */}
+          <NotificationList data={data} infiniteRef={infiniteRef} />
         </>
       )}
     </PageTemplate>

@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 import { get } from '@_utils/api';
 import { LoginResponse } from '@_types/LoginResponse.type';
-import toast from 'react-hot-toast';
 import { Toast } from '@_common/Toast';
 import Typography from '@_common/Typography';
+import PageTemplate from '@_common/PageTemplate';
 import readingIMG from '@_imgs/readingIMG.png';
 
 import * as S from './style';
-import PageTemplate from '@_common/PageTemplate';
 
 function RedirectPage() {
   const { type } = useParams();
@@ -35,11 +35,11 @@ function RedirectPage() {
             }
           } catch (e) {}
 
-          // navigate('/');
+          navigate('/');
         } else {
-          // navigate(
-          //   `/signup?type=${type}&email=${response.data.user_data?.email}&nickname=${response.data.user_data?.nickname}&code=${response.data.access}`,
-          // );
+          navigate(
+            `/signup?type=${type}&email=${response.data.user_data?.email}&nickname=${response.data.user_data?.nickname}&code=${response.data.access}`,
+          );
         }
       })
       .catch((error) => {
@@ -71,7 +71,7 @@ function RedirectPage() {
             },
           );
         }
-        // navigate('/login');
+        navigate('/login');
       });
   }, []);
 

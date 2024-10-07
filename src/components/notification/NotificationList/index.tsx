@@ -10,6 +10,7 @@ interface Props {
     redirectURL: string;
     isRead: boolean;
   }[];
+  infiniteRef: React.RefObject<HTMLDivElement>;
 }
 
 function calculateDate(itemDate: string) {
@@ -31,7 +32,7 @@ function calculateDate(itemDate: string) {
   return `${date.getMonth() + 1}월 ${date.getDate()}일`;
 }
 
-function NotificationList({ data }: Props) {
+function NotificationList({ data, infiniteRef }: Props) {
   useEffect(() => {}, []);
 
   return (
@@ -52,7 +53,7 @@ function NotificationList({ data }: Props) {
           </Typography.Label>
         </S.AlertItem>
       ))}
-      <S.AlertInfomation>
+      <S.AlertInfomation ref={infiniteRef}>
         <Typography.Title size="sm" color="inherit">
           최근 30일 이내의 알림만 확인할 수 있어요.
         </Typography.Title>
