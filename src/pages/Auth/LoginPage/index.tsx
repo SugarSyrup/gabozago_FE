@@ -86,17 +86,108 @@ function LoginPage() {
               <ThunderMoveIcon />
               <span>3초만에 빠른 시작하기</span>
             </S.FloatingMessage>
-            <S.OAuthSquareButton
-              onClick={() => {
-                window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${import.meta.env.VITE_KAKAO_API_KEY}&redirect_uri=${import.meta.env.VITE_KAKAO_REDIRECT_URI}&response_type=code`;
-              }}
-            >
-              <KakaoIcon />
-              <span>카카오톡으로 시작하기</span>
-            </S.OAuthSquareButton>
+            {checkMobile() === 'ios' ? (
+              <S.OAuthSquareButton
+                bgColor="black"
+                color="white"
+                onClick={async () => {
+                  window.AppleID.auth.init({
+                    clientId: `${import.meta.env.VITE_APPLE_CLIENT_ID}`,
+                    scope: 'name email',
+                    redirectURI: `${import.meta.env.VITE_APPLE_REDIRECT_URI}`,
+                    responseType: `code`,
+                    usePopup: true,
+                  });
+
+                  const res = await window.AppleID.auth.signIn();
+                  get<LoginResponse>(`/user/apple/callback/?code=${res.authorization.code}`)
+                    .then((response) => {
+                      if (response.data.status === 'ACTIVE') {
+                        localStorage.setItem('access_token', response.data.access);
+
+                        try {
+                          if (window.GabozagoDev) {
+                            window.GabozagoDev.postUUID(response.data.user_data.uuid);
+                          }
+                          if (window.webkit.messageHandlers.gabozagoDev) {
+                            window.webkit.messageHandlers.gabozagoDev.postMessage({
+                              action: 'postUUID',
+                              code: response.data.user_data.uuid,
+                            });
+                          }
+                        } catch (e) {
+                          console.log(e);
+                        }
+
+                        navigate('/');
+                      } else {
+                        navigate(
+                          `/signup?type=apple&email=${response.data.user_data?.email}&nickname=${response.data.user_data?.nickname}&code=${response.data.access}`,
+                        );
+                      }
+                    })
+                    .catch((error) => {
+                      console.log(error);
+                      if (error.response.status === 400) {
+                        toast.custom(
+                          () => (
+                            <Toast>
+                              <Typography.Title size="md" color="white">
+                                다른 소셜 이메일로 가입되어 있습니다. {error.response.data.error}로
+                                로그인 해주세요
+                              </Typography.Title>
+                            </Toast>
+                          ),
+                          {
+                            duration: 3000,
+                          },
+                        );
+                      } else {
+                        toast.custom(
+                          () => (
+                            <Toast>
+                              <Typography.Title size="md" color="white">
+                                로그인 실패했습니다. 다시 로그인 시도해 주세요
+                              </Typography.Title>
+                            </Toast>
+                          ),
+                          {
+                            duration: 3000,
+                          },
+                        );
+                      }
+                    });
+                }}
+              >
+                <AppleIcon />
+                <span>Apple로 시작하기</span>
+              </S.OAuthSquareButton>
+            ) : (
+              <S.OAuthSquareButton
+                bgColor="#ffe812"
+                color="black"
+                onClick={() => {
+                  window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${import.meta.env.VITE_KAKAO_API_KEY}&redirect_uri=${import.meta.env.VITE_KAKAO_REDIRECT_URI}&response_type=code`;
+                }}
+              >
+                <KakaoIcon />
+                <span>카카오톡으로 시작하기</span>
+              </S.OAuthSquareButton>
+            )}
           </S.MessageContainer>
           <S.SeperateTextLine>또는</S.SeperateTextLine>
           <S.OAuthButtons>
+            {checkMobile() === 'ios' && (
+              <S.OAuthCircleButton
+                color="#FFCD00"
+                onClick={() => {
+                  window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${import.meta.env.VITE_KAKAO_API_KEY}&redirect_uri=${import.meta.env.VITE_KAKAO_REDIRECT_URI}&response_type=code`;
+                }}
+              >
+                <KakaoIcon />
+              </S.OAuthCircleButton>
+            )}
+
             <S.OAuthCircleButton
               color="#00BF18"
               onClick={() => {
@@ -116,81 +207,81 @@ function LoginPage() {
               </S.OAuthCircleButton>
             )}
 
-            <S.OAuthCircleButton
-              color="#000000"
-              onClick={async () => {
-                window.AppleID.auth.init({
-                  clientId: `${import.meta.env.VITE_APPLE_CLIENT_ID}`,
-                  scope: 'name email',
-                  redirectURI: `${import.meta.env.VITE_APPLE_REDIRECT_URI}`,
-                  responseType: `code`,
-                  usePopup: true,
-                });
-
-                const res = await window.AppleID.auth.signIn();
-                get<LoginResponse>(`/user/apple/callback/?code=${res.authorization.code}`)
-                  .then((response) => {
-                    if (response.data.status === 'ACTIVE') {
-                      localStorage.setItem('access_token', response.data.access);
-
-                      try {
-                        if (window.GabozagoDev) {
-                          window.GabozagoDev.postUUID(response.data.user_data.uuid);
-                        }
-                        if (window.webkit.messageHandlers.gabozagoDev) {
-                          window.webkit.messageHandlers.gabozagoDev.postMessage({
-                            action: 'postUUID',
-                            code: response.data.user_data.uuid,
-                          });
-                        }
-                      } catch (e) {
-                        console.log(e);
-                      }
-
-                      navigate('/');
-                    } else {
-                      navigate(
-                        `/signup?type=apple&email=${response.data.user_data?.email}&nickname=${response.data.user_data?.nickname}&code=${response.data.access}`,
-                      );
-                    }
-                  })
-                  .catch((error) => {
-                    console.log(error);
-                    if (error.response.status === 400) {
-                      toast.custom(
-                        () => (
-                          <Toast>
-                            <Typography.Title size="md" color="white">
-                              다른 소셜 이메일로 가입되어 있습니다. {error.response.data.error}로
-                              로그인 해주세요
-                            </Typography.Title>
-                          </Toast>
-                        ),
-                        {
-                          duration: 3000,
-                        },
-                      );
-                    } else {
-                      toast.custom(
-                        () => (
-                          <Toast>
-                            <Typography.Title size="md" color="white">
-                              로그인 실패했습니다. 다시 로그인 시도해 주세요
-                            </Typography.Title>
-                          </Toast>
-                        ),
-                        {
-                          duration: 3000,
-                        },
-                      );
-                    }
+            {checkMobile() !== 'ios' && (
+              <S.OAuthCircleButton
+                color="#000000"
+                onClick={async () => {
+                  window.AppleID.auth.init({
+                    clientId: `${import.meta.env.VITE_APPLE_CLIENT_ID}`,
+                    scope: 'name email',
+                    redirectURI: `${import.meta.env.VITE_APPLE_REDIRECT_URI}`,
+                    responseType: `code`,
+                    usePopup: true,
                   });
-              }}
-            >
-              <AppleIcon width={40} height={40} />
-            </S.OAuthCircleButton>
-            {/* )} */}
-            {/* /> */}
+
+                  const res = await window.AppleID.auth.signIn();
+                  get<LoginResponse>(`/user/apple/callback/?code=${res.authorization.code}`)
+                    .then((response) => {
+                      if (response.data.status === 'ACTIVE') {
+                        localStorage.setItem('access_token', response.data.access);
+
+                        try {
+                          if (window.GabozagoDev) {
+                            window.GabozagoDev.postUUID(response.data.user_data.uuid);
+                          }
+                          if (window.webkit.messageHandlers.gabozagoDev) {
+                            window.webkit.messageHandlers.gabozagoDev.postMessage({
+                              action: 'postUUID',
+                              code: response.data.user_data.uuid,
+                            });
+                          }
+                        } catch (e) {
+                          console.log(e);
+                        }
+
+                        navigate('/');
+                      } else {
+                        navigate(
+                          `/signup?type=apple&email=${response.data.user_data?.email}&nickname=${response.data.user_data?.nickname}&code=${response.data.access}`,
+                        );
+                      }
+                    })
+                    .catch((error) => {
+                      console.log(error);
+                      if (error.response.status === 400) {
+                        toast.custom(
+                          () => (
+                            <Toast>
+                              <Typography.Title size="md" color="white">
+                                다른 소셜 이메일로 가입되어 있습니다. {error.response.data.error}로
+                                로그인 해주세요
+                              </Typography.Title>
+                            </Toast>
+                          ),
+                          {
+                            duration: 3000,
+                          },
+                        );
+                      } else {
+                        toast.custom(
+                          () => (
+                            <Toast>
+                              <Typography.Title size="md" color="white">
+                                로그인 실패했습니다. 다시 로그인 시도해 주세요
+                              </Typography.Title>
+                            </Toast>
+                          ),
+                          {
+                            duration: 3000,
+                          },
+                        );
+                      }
+                    });
+                }}
+              >
+                <AppleIcon width={40} height={40} />
+              </S.OAuthCircleButton>
+            )}
           </S.OAuthButtons>
         </S.Container>
       </PageTemplate>
