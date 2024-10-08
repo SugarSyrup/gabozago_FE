@@ -25,11 +25,12 @@ export const BrandCopy = styled.span`
   line-height: 22px;
 `;
 
-export const OAuthSquareButton = styled.div`
+export const OAuthSquareButton = styled.div<{ bgColor: string; color: string }>`
   width: 100%;
   padding: 3px 0px;
   border-radius: 4px;
-  background-color: #ffe812;
+  background-color: ${({ bgColor }) => bgColor};
+  color: ${({ color }) => color};
 
   display: flex;
   gap: 6px;
