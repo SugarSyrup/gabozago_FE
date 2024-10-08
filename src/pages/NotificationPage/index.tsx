@@ -20,18 +20,13 @@ function NotificationPage() {
     }[]
   >([]);
   const [next, setNext] = useState<string>();
-  const infiniteRef = useRef<HTMLDivElement>(null);
+  const infiniteObserveRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const options = {
-      root: null,
-      rootMargin: '20px',
-      threshold: 0,
-    };
-
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
-        if (!next) return;
+        if (next === null || next === undefined || next === '') return;
+        const scrollHeight = window.scrollY;
 
         get<{
           next: string;
@@ -45,25 +40,25 @@ function NotificationPage() {
           }[];
         }>(next).then((response) => {
           setData((prev) => [...prev, ...response.data.results]);
-          console.log(response.data.next);
-          if (response.data.next) {
+          if (response.data.next !== null) {
             setNext(response.data.next.replace('http', 'https'));
           } else {
             setNext('');
           }
+
+          setTimeout(() => {
+            window.scrollTo(0, scrollHeight);
+          }, 0);
         });
       }
-    }, options);
+    });
 
-    console.log('infiniteRef');
-    console.log(infiniteRef);
-    if (infiniteRef.current) {
-      console.log(infiniteRef.current);
-      observer.observe(infiniteRef.current);
+    if (infiniteObserveRef.current) {
+      observer.observe(infiniteObserveRef.current);
     }
 
     return () => observer.disconnect();
-  }, [infiniteRef.current]);
+  }, [infiniteObserveRef.current, next]);
 
   useEffect(() => {
     get<{
@@ -93,9 +88,15 @@ function NotificationPage() {
         </S.NoDataContainer>
       ) : (
         <>
-          <NotificationList data={data} infiniteRef={infiniteRef} />
+          <NotificationList data={data} />
+          <S.AlertInfomation>
+            <Typography.Title size="sm" color="inherit">
+              최근 30일 이내의 알림만 확인할 수 있어요.
+            </Typography.Title>
+          </S.AlertInfomation>
         </>
       )}
+      <div ref={infiniteObserveRef} />
     </PageTemplate>
   );
 }

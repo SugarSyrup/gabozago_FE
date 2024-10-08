@@ -1,6 +1,5 @@
 import Typography from '@_common/Typography';
 import * as S from './style';
-import { useEffect } from 'react';
 
 interface Props {
   data: {
@@ -10,7 +9,6 @@ interface Props {
     redirectURL: string;
     isRead: boolean;
   }[];
-  infiniteRef: React.RefObject<HTMLDivElement>;
 }
 
 function calculateDate(itemDate: string) {
@@ -32,9 +30,7 @@ function calculateDate(itemDate: string) {
   return `${date.getMonth() + 1}월 ${date.getDate()}일`;
 }
 
-function NotificationList({ data, infiniteRef }: Props) {
-  useEffect(() => {}, []);
-
+function NotificationList({ data }: Props) {
   return (
     <S.AlertList>
       {data.map((item, index) => (
@@ -53,11 +49,6 @@ function NotificationList({ data, infiniteRef }: Props) {
           </Typography.Label>
         </S.AlertItem>
       ))}
-      <S.AlertInfomation ref={infiniteRef}>
-        <Typography.Title size="sm" color="inherit">
-          최근 30일 이내의 알림만 확인할 수 있어요.
-        </Typography.Title>
-      </S.AlertInfomation>
     </S.AlertList>
   );
 }
