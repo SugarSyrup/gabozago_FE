@@ -18,11 +18,11 @@ function BottomNavBar() {
   const [isLogin, setIsLogin] = useState<boolean>(false);
 
   const navItems = [
-    { title: '홈', icon: <HomeIcon className="홈 Icon" />, path: '/' },
-    { title: '내 여행', icon: <TripIcon className="내 여행 Icon" />, path: '/mytrip' },
-    { title: '스크랩', icon: <ScrapIcon className="스크랩 Icon" />, path: '/scrapbook' },
-    { title: '아티클', icon: <ArticleIcon className="아티클 Icon" />, path: '/articles' },
-    { title: 'MY', icon: <MyIcon className="마이 페이지 Icon" />, path: '/profile' },
+    { title: '홈', icon: <HomeIcon />, path: '/' },
+    { title: '내 여행', icon: <TripIcon />, path: '/mytrip' },
+    { title: '스크랩', icon: <ScrapIcon />, path: '/scrapbook' },
+    { title: '아티클', icon: <ArticleIcon />, path: '/articles' },
+    { title: 'MY', icon: <MyIcon />, path: '/profile' },
   ];
   const isMatches = (path: string) => {
     if (path === '/') {
@@ -45,7 +45,7 @@ function BottomNavBar() {
   return (
     <S.NavList className="BottomNavigationBar">
       {navItems.map((item, index) => (
-        <S.ListItem isActive={isMatches(item.path)} key={`navItem ${index}`} className={item.title}>
+        <S.ListItem isActive={isMatches(item.path)} key={`navItem ${index}`}>
           <Link
             to={isLogin ? item.path : ''}
             onClick={() => {
@@ -56,6 +56,7 @@ function BottomNavBar() {
                 });
               }
             }}
+            id={`${item.title}-nav`}
           >
             {item.icon}
             <Typography.Label size="sm" color="inherit">
