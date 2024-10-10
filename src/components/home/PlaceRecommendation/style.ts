@@ -45,6 +45,7 @@ export const SliderItem = styled.div`
   background: rgba(255, 255, 255, 0.15);
   box-shadow: 0px 0px 14.1px 0px rgba(0, 0, 0, 0.09);
   backdrop-filter: blur(7.5px);
+  -webkit-backdrop-filter: blur(7.5px);
 
   display: flex;
   flex-direction: column;
