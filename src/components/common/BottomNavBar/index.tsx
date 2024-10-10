@@ -47,7 +47,7 @@ function BottomNavBar() {
       {navItems.map((item, index) => (
         <S.ListItem isActive={isMatches(item.path)} key={`navItem ${index}`}>
           <Link
-            to={isLogin ? item.path : ''}
+            to={isLogin || item.title === '아티클' ? item.path : ''}
             onClick={() => {
               if (!isLogin && item.title !== '홈' && item.title !== '아티클') {
                 toast.dismiss();
