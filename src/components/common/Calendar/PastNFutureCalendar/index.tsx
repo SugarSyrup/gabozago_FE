@@ -21,7 +21,7 @@ function PastNFutureCalendar() {
       currentDateRef.current?.scrollIntoView({
         block: 'center',
       });
-    }, 0);
+    }, 10);
   }, []);
 
   useEffect(() => {
@@ -77,7 +77,7 @@ function PastNFutureCalendar() {
             if (containerRef.current) {
               containerRef.current.scrollTo(0, 320 * 4 + 294 + containerRef.current.scrollTop);
             }
-          }, 0);
+          }, 10);
         }
       });
     }, options);

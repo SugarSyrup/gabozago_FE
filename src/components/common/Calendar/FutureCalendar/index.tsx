@@ -19,7 +19,7 @@ function FutureCalendar() {
       currentDateRef.current?.scrollIntoView({
         block: 'center',
       });
-    }, 0);
+    }, 10);
   }, []);
 
   useEffect(() => {
