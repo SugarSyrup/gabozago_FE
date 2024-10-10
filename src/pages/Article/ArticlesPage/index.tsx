@@ -65,17 +65,6 @@ function ArticlesPage() {
   return (
     <PageTemplate>
       <div style={{ paddingTop: '20px' }} />
-      <button
-        onClick={() => {
-          window.scrollTo(0, 200);
-          setTimeout(() => {
-            window.scrollTo(0, 200);
-          }, 10);
-        }}
-        type="button"
-      >
-        asfd
-      </button>
       <S.Container ref={containerRef}>
         <S.ArticleList>
           {articleData.map((article) => (

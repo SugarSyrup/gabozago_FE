@@ -29,12 +29,18 @@ import toast from 'react-hot-toast';
 import { Toast } from '@_common/Toast';
 
 interface TData {
-  url: string;
+  // url: string;
   title: string;
   content: string;
   memo: string;
-  thumbnailURL: string;
-  source: string;
+  // thumbnailURL: string;
+  // source: string;
+  link: {
+    url: string;
+    title: string;
+    thumbnailURL: string;
+    source: string;
+  };
   place: [
     { count: number },
     {
@@ -175,8 +181,8 @@ function ScrapContentPage() {
       {/* Header */}
       <S.Container>
         <S.Header>
-          {data?.thumbnailURL ? (
-            <img src={data?.thumbnailURL} alt="profile" />
+          {data?.link.thumbnailURL ? (
+            <img src={data?.link.thumbnailURL} alt="profile" />
           ) : (
             <S.NoThumbnail>
               <LogoSmallIcon />
@@ -190,7 +196,7 @@ function ScrapContentPage() {
             <Typography.Label size="lg" color="inherit">
               <span
                 onClick={() => {
-                  window.location.href = data?.url as string;
+                  window.location.href = data?.link.url as string;
                 }}
               >
                 인스타그램 바로가기
