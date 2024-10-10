@@ -45,25 +45,26 @@ function BottomNavBar() {
   return (
     <S.NavList className="BottomNavigationBar">
       {navItems.map((item, index) => (
-        <S.ListItem isActive={isMatches(item.path)} key={`navItem ${index}`}>
-          <Link
-            to={isLogin || item.title === '아티클' ? item.path : ''}
-            onClick={() => {
-              if (!isLogin && item.title !== '홈' && item.title !== '아티클') {
-                toast.dismiss();
-                toast.custom(() => <LoginToast />, {
-                  duration: 1000,
-                });
-              }
-            }}
-            id={`${item.title}-nav`}
-          >
+        <Link
+          to={isLogin || item.title === '아티클' ? item.path : ''}
+          onClick={() => {
+            if (!isLogin && item.title !== '홈' && item.title !== '아티클') {
+              toast.dismiss();
+              toast.custom(() => <LoginToast />, {
+                duration: 1000,
+              });
+            }
+          }}
+          id={`${item.title}-nav`}
+          key={`navItem ${index}`}
+        >
+          <S.ListItem isActive={isMatches(item.path)}>
             {item.icon}
             <Typography.Label size="sm" color="inherit">
               {item.title}
             </Typography.Label>
-          </Link>
-        </S.ListItem>
+          </S.ListItem>
+        </Link>
       ))}
     </S.NavList>
   );
