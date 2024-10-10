@@ -105,6 +105,8 @@ const router = createBrowserRouter([
         const { data } = await get<TUserProfile>('/user/profile');
         return data.avatarURL;
       }
+
+      return {};
     },
   },
 
