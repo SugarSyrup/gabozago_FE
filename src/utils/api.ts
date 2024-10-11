@@ -49,7 +49,12 @@ const onError = async (error: AxiosError | Error): Promise<AxiosError> => {
         window.location.href = '/login';
       }
 
-      if (status === 401 && messages[0].message === 'Token is invalid or expired') {
+      if (
+        (status === 401 && messages[0].message === 'Token is invalid or expired') ||
+        error.response.data.detail === 'User not found'
+      ) {
+        console.log(error.response.data);
+
         await axiosInstance
           .post<{
             access: string;

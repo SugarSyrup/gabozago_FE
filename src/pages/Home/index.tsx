@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { isAndroid, isIOS } from 'react-device-detect';
 
 import LogoIcon from '@_icons/logo_text.svg?react';
@@ -126,14 +126,11 @@ function HomePage() {
       {/* Header */}
       <S.Header>
         <LogoIcon />
-        <S.BellWrapper
-          isAlert={isNotifications}
-          onClick={() => {
-            navigate('/notifications');
-          }}
-        >
-          <BellIcon />
-        </S.BellWrapper>
+        <Link to="/notifications" id="notifications">
+          <S.BellWrapper isAlert={isNotifications}>
+            <BellIcon />
+          </S.BellWrapper>
+        </Link>
       </S.Header>
 
       {/* Banner */}
@@ -146,14 +143,12 @@ function HomePage() {
             <Typography.Headline size="sm" color="inherit" noOfLine={-1}>
               최근 담은 트립 버킷
             </Typography.Headline>
-            <S.TripBucketAll
-              onClick={() => {
-                navigate('/scrapbook?tab=1');
-              }}
-            >
-              <span>전체 보기</span>
-              <ChevronRightIcon />
-            </S.TripBucketAll>
+            <Link to="/scrapbook?tab=1">
+              <S.TripBucketAll>
+                <span>전체 보기</span>
+                <ChevronRightIcon />
+              </S.TripBucketAll>
+            </Link>
           </S.TripBucketTitle>
           <TripBucketList />
         </S.TripBucketContainer>
