@@ -49,12 +49,28 @@ const onError = async (error: AxiosError | Error): Promise<AxiosError> => {
         window.location.href = '/login';
       }
 
+      if (error.response.data.detail === 'User not found') {
+        await axiosInstance
+          .post<{
+            access: string;
+            access_expires_at: string;
+          }>('/user/jwt-token-auth/refresh')
+          .then((response) => {
+            localStorage.setItem('access_token', response.data.access);
+            // return axiosInstance.request(error.config as InternalAxiosRequestConfig);
+            window.location.reload();
+          })
+          .catch(() => {
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('refresh_token');
+            window.location.href = '/login';
+          });
+      }
+
       if (
         (status === 401 && messages[0].message === 'Token is invalid or expired') ||
         error.response.data.detail === 'User not found'
       ) {
-        console.log(error.response.data);
-
         await axiosInstance
           .post<{
             access: string;
