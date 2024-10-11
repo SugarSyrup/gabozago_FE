@@ -10,41 +10,42 @@ export const NavList = styled.ol`
 
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-`;
 
-export const ListItem = styled.li<{ isActive?: boolean }>`
   a {
     padding-left: 10px;
     padding-right: 10px;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
     text-decoration: none;
     color: ${({ isActive, theme }) => (isActive ? theme.main : theme.gray02)};
     transition: all ease-in-out 0.3s;
+  }
+`;
 
-    label {
-      font-weight: ${({ isActive }) => (isActive ? 700 : 400)};
+export const ListItem = styled.li<{ isActive?: boolean }>`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  label {
+    font-weight: ${({ isActive }) => (isActive ? 700 : 400)};
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+
+    path {
+      transition: all ease-in-out 0.3s;
+      fill: ${({ isActive, theme }) => (isActive ? theme.main : theme.gray02)};
     }
-    svg {
-      width: 24px;
-      height: 24px;
+  }
 
+  @media (hover: hover) {
+    &:hover {
+      color: ${({ theme }) => theme.main};
       path {
-        transition: all ease-in-out 0.3s;
-        fill: ${({ isActive, theme }) => (isActive ? theme.main : theme.gray02)};
-      }
-    }
-
-    @media (hover: hover) {
-      &:hover {
-        color: ${({ theme }) => theme.main};
-        path {
-          fill: ${({ theme }) => theme.main};
-        }
+        fill: ${({ theme }) => theme.main};
       }
     }
   }
