@@ -101,13 +101,9 @@ function ProfilePage() {
   }, [currentTap]);
 
   useEffect(() => {
-    get<{ reminder: boolean }>('/user/web-notification/reminder')
-      .then((response) => {
-        setIsNotifications(response.data.reminder);
-      })
-      .catch((error) => {
-        setIsNotifications(error.response.data.reminder);
-      });
+    get<{ reminder: boolean }>('/user/web-notification/reminder').then((response) => {
+      setIsNotifications(response.data.reminder);
+    });
   });
 
   return (
