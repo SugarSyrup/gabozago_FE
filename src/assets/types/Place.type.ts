@@ -7,4 +7,5 @@ export interface TPlace {
   memo: string; // 100자까지 드리겠습니다!
   latitude: number; // 지도 좌표를 위해...
   longitude: number;
+  location: string;
 }

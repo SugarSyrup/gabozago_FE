@@ -79,6 +79,7 @@ function Comment({
       getComments(id);
     });
   };
+
   const submitComment = async (parentCommentId: number | null) => {
     if (type === 'short-form') {
       await post<{
@@ -159,7 +160,7 @@ function Comment({
             ref={textareaRef}
             onChange={onChange}
           />
-          <S.SendButton disabled={isSubmitActive} type="submit">
+          <S.SendButton disabled={!isSubmitActive} type="submit">
             <SendIcon />
           </S.SendButton>
         </S.CommentInputControlBox>
