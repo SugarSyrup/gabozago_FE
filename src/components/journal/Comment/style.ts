@@ -117,7 +117,7 @@ export const SendButton = styled.button<{ disabled: boolean }>`
   padding: 0;
   width: 30px;
 
-  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
+  cursor: ${({ $disabled }) => ($disabled ? 'not-allowed' : 'pointer')};
   border: 0;
   background-color: transparent;
 
@@ -126,8 +126,8 @@ export const SendButton = styled.button<{ disabled: boolean }>`
     height: 30px;
 
     path {
-      fill: ${({ disabled, theme }) =>
-        disabled ? theme.colors.blue.primary : theme.colors.gray.secondary};
+      fill: ${({ $disabled, theme }) =>
+        $disabled ? theme.colors.gray.secondary : theme.colors.blue.primary};
     }
   }
 
