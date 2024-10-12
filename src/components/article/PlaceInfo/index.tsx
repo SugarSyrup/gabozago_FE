@@ -81,20 +81,25 @@ function PlaceInfo({ placeId, imageURL }: Props) {
                     isTripBucket: false,
                   }).then((response) => {
                     if (response.data.message === 'Create Success') {
-                      toast.custom(() => (
-                        <Toast>
-                          <Typography.Title size="md" color="white">
-                            <S.ToastMessageContainer isScraped>
-                              <BookMarkFilledIcon />
-                              {data.name}를 스크랩에 추가했습니다.
-                            </S.ToastMessageContainer>
-                          </Typography.Title>
+                      toast.custom(
+                        () => (
+                          <Toast>
+                            <Typography.Title size="md" color="white">
+                              <S.ToastMessageContainer isScraped>
+                                <BookMarkFilledIcon />
+                                {data.name}를 스크랩에 추가했습니다.
+                              </S.ToastMessageContainer>
+                            </Typography.Title>
 
-                          <Link to="/scrapbook?tab=0">
-                            <S.ToastMessageLink>스크랩 확인하기</S.ToastMessageLink>
-                          </Link>
-                        </Toast>
-                      ));
+                            <Link to="/scrapbook?tab=0">
+                              <S.ToastMessageLink>스크랩 확인하기</S.ToastMessageLink>
+                            </Link>
+                          </Toast>
+                        ),
+                        {
+                          duration: 1000,
+                        },
+                      );
                     } else {
                       toast.custom(() => (
                         <Toast>
