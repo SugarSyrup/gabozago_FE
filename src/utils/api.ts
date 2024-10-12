@@ -21,6 +21,7 @@ const onRequest = async (
   const { method, url } = config;
   console.log(`[API - REQUEST] ${method?.toUpperCase()} ${url}`);
 
+  // @TODO: expired 되면 요청 안보내기
   // if (TokenManager.isTokenExpired()) {
   //   await TokenManager.refreshTokenAndRetry({ config });
   // }
@@ -52,29 +53,6 @@ const onError = async (error: AxiosError | Error): Promise<AxiosError> => {
         data: { code, messages },
       } = error.response;
       console.log(`[API - ERROR] ${method?.toUpperCase()} ${url} | ${status} : ${code}`);
-      // if (status === 401 && code === 'user_inactive') {
-      //   localStorage.removeItem('access_token');
-      //   localStorage.removeItem('refresh_token');
-      //   window.location.href = '/login';
-      // }
-
-      // if (error.response.data.detail === 'User not found') {
-      //   await axiosInstance
-      //     .post<{
-      //       access: string;
-      //       access_expires_at: string;
-      //     }>('/user/jwt-token-auth/refresh')
-      //     .then((response) => {
-      //       localStorage.setItem('access_token', response.data.access);
-      //       // return axiosInstance.request(error.config as InternalAxiosRequestConfig);
-      //       window.location.reload();
-      //     })
-      //     .catch(() => {
-      //       localStorage.removeItem('access_token');
-      //       localStorage.removeItem('refresh_token');
-      //       window.location.href = '/login';
-      //     });
-      // }
 
       if (status === 401 && messages[0].message === 'Token is invalid or expired') {
         originalRequest._retry = true;
@@ -91,30 +69,12 @@ const onError = async (error: AxiosError | Error): Promise<AxiosError> => {
             return Promise.reject(refreshError);
           }
         }
+
         return retryOriginalRequest;
-
-        // console.log('work');
-        // await axiosInstance
-        //   .post<{
-        //     access: string;
-        //     access_expires_at: string;
-        //   }>('/user/jwt-token-auth/refresh')
-        //   .then((response) => {
-        //     // localStorage.setItem('access_token', response.data.access);
-        //     // return axiosInstance.request(error.config as InternalAxiosRequestConfig);
-        //     // window.location.reload();
-        //     console.log('refresh success');
-
-        //     console.log(response);
-        //   })
-        //   .catch(() => {
-        //     // localStorage.removeItem('access_token');
-        //     // localStorage.removeItem('refresh_token');
-        //     // window.location.href = '/login';
-        //     console.log('refresh fail');
-        //   });
-
         // return axiosInstance.request(error.config as InternalAxiosRequestConfig);
+      }
+      if (status === 401) {
+        TokenManager.logout();
       }
     }
   }

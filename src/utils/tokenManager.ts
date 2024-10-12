@@ -28,11 +28,9 @@ const TokenManager = (() => {
   };
 
   const logout = () => {
-    // 로그아웃 로직 구현
-    // 예: 토큰 삭제, 상태 초기화 등
-    // localStorage.removeItem('access_token');
-    // localStorage.removeItem('refresh_token');
-    // window.location.href = '/login';
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('access_expires_at');
+    window.location.href = '/home';
   };
 
   const refreshTokenAndRetry = async (error) => {
