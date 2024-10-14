@@ -30,7 +30,7 @@ const TokenManager = (() => {
   const logout = () => {
     localStorage.removeItem('access_token');
     localStorage.removeItem('access_expires_at');
-    window.location.href = '/home';
+    window.location.href = '/';
   };
 
   const refreshTokenAndRetry = async (error) => {
