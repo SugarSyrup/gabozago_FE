@@ -17,19 +17,10 @@ export const RightIconContainer = styled.div`
   justify-content: flex-end;
   align-items: center;
   gap: 28px;
-
-  svg {
-    width: 28px;
-    height: 28px;
-    flex-shrink: 0;
-
-    path {
-      fill: ${({ theme }) => theme.colors.gray.secondary};
-    }
-  }
 `;
 
 export const BellWrapper = styled.div<{ isAlert: boolean }>`
+  flex-shrink: 0;
   svg {
     width: 24px;
     height: 24px;
@@ -38,9 +29,17 @@ export const BellWrapper = styled.div<{ isAlert: boolean }>`
       fill: ${({ theme, isAlert }) =>
         isAlert ? theme.colors.red.primary : theme.colors.white.primary};
     }
+  }
+`;
+
+export const SettingWrapper = styled.div`
+  flex-shrink: 0;
+  svg {
+    width: 24px;
+    height: 24px;
 
     path {
-      fill: white;
+      fill: #33363f;
     }
   }
 `;

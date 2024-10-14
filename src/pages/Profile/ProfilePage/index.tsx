@@ -125,11 +125,13 @@ function ProfilePage() {
               >
                 <BellIcon />
               </S.BellWrapper>
-              <SettingIcon
-                onClick={() => {
-                  navigate('/profile/settings');
-                }}
-              />
+              <S.SettingWrapper>
+                <SettingIcon
+                  onClick={() => {
+                    navigate('/profile/settings');
+                  }}
+                />
+              </S.SettingWrapper>
             </S.RightIconContainer>
           </Header>
           <S.FixedContainer>
