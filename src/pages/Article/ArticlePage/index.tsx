@@ -146,6 +146,7 @@ function ArticlePage() {
       {data && (
         <PageTemplate
           nav={
+            isLogin ?
             <BottomNav
               title={data.title}
               postId={id}
@@ -167,6 +168,8 @@ function ArticlePage() {
                 ));
               }}
             />
+            :
+            <></>
           }
         >
           <Modal>
