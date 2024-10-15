@@ -43,7 +43,7 @@ interface TData {
   };
   place: {
     count: number;
-    places_list: {
+    placesList: {
       placeId?: number;
       name: string;
       isScraped?: boolean;
@@ -289,8 +289,8 @@ function ScrapContentPage() {
             </S.PlaceHeadlineWrapper>
 
             <S.PlaceList>
-              {data?.place.places_list &&
-                data?.place.places_list.map((place, index) =>
+              {data?.place.placesList &&
+                data?.place.placesList.map((place, index) =>
                   place.placeId ? (
                     <S.PlaceItem key={index}>
                       {place.thumbnailURL ? (
@@ -327,16 +327,15 @@ function ScrapContentPage() {
                               deletes(`/scrap/place?id=${place.placeId}`).then(() => {
                                 setData({
                                   ...data,
-                                  place: [
-                                    { count: data.place.count },
-                                    {
-                                      places_list: data.place.places_list.map((item) =>
-                                        item.placeId === place.placeId
-                                          ? { ...item, isScraped: false }
-                                          : item,
-                                      ),
-                                    },
-                                  ],
+                                  place: {
+                                    count: data.place.count,
+
+                                    placesList: data.place.placesList.map((item) =>
+                                      item.placeId === place.placeId
+                                        ? { ...item, isScraped: false }
+                                        : item,
+                                    ),
+                                  },
                                 });
                               });
                             }}
@@ -354,7 +353,7 @@ function ScrapContentPage() {
                                   ...data,
                                   place: {
                                     count: data.place.count,
-                                    places_list: data.place.places_list.map((item) =>
+                                    placesList: data.place.placesList.map((item) =>
                                       item.placeId === place.placeId
                                         ? { ...item, isScraped: true }
                                         : item,
