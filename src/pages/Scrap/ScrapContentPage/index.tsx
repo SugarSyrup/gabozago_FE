@@ -41,17 +41,15 @@ interface TData {
     thumbnailURL: string;
     source: string;
   };
-  place: [
-    { count: number },
-    {
-      places_list: {
-        placeId?: number;
-        name: string;
-        isScraped?: boolean;
-        thumbnailURL?: string | null;
-      }[];
-    },
-  ];
+  place: {
+    count: number;
+    places_list: {
+      placeId?: number;
+      name: string;
+      isScraped?: boolean;
+      thumbnailURL?: string | null;
+    }[];
+  };
 }
 
 function ScrapContentPage() {
@@ -282,17 +280,17 @@ function ScrapContentPage() {
         </>
 
         {/* Places */}
-        {data?.place[0].count > 0 && (
+        {data?.place.count > 0 && (
           <>
             <S.PlaceHeadlineWrapper>
               <Typography.Headline size="sm">
-                콘텐츠 속 장소 <S.FontHighlight>{data?.place[0].count}</S.FontHighlight>
+                콘텐츠 속 장소 <S.FontHighlight>{data?.place.count}</S.FontHighlight>
               </Typography.Headline>
             </S.PlaceHeadlineWrapper>
 
             <S.PlaceList>
-              {data?.place[1].places_list &&
-                data?.place[1].places_list.map((place, index) =>
+              {data?.place.places_list &&
+                data?.place.places_list.map((place, index) =>
                   place.placeId ? (
                     <S.PlaceItem key={index}>
                       {place.thumbnailURL ? (
@@ -330,9 +328,9 @@ function ScrapContentPage() {
                                 setData({
                                   ...data,
                                   place: [
-                                    { count: data.place[0].count },
+                                    { count: data.place.count },
                                     {
-                                      places_list: data.place[1].places_list.map((item) =>
+                                      places_list: data.place.places_list.map((item) =>
                                         item.placeId === place.placeId
                                           ? { ...item, isScraped: false }
                                           : item,
@@ -354,16 +352,14 @@ function ScrapContentPage() {
                               }).then(() => {
                                 setData({
                                   ...data,
-                                  place: [
-                                    { count: data.place[0].count },
-                                    {
-                                      places_list: data.place[1].places_list.map((item) =>
-                                        item.placeId === place.placeId
-                                          ? { ...item, isScraped: true }
-                                          : item,
-                                      ),
-                                    },
-                                  ],
+                                  place: {
+                                    count: data.place.count,
+                                    places_list: data.place.places_list.map((item) =>
+                                      item.placeId === place.placeId
+                                        ? { ...item, isScraped: true }
+                                        : item,
+                                    ),
+                                  },
                                 });
                               });
                             }}
