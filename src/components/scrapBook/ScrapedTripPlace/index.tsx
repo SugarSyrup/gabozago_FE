@@ -18,11 +18,15 @@ import { TFilter } from '../../../assets/types/FilterTypes';
 import usePopup from '../../../hooks/usePopup';
 
 import * as S from './style';
+import isLocationTermsAgreed from '@_utils/isLocationTerms';
+import toast from 'react-hot-toast';
+import { Toast } from '@_common/Toast';
 
 function ScrapedTripPlace() {
   const navigate = useNavigate();
 
   const filter = useRecoilValue<TFilter>(scrapPlaceFilterState);
+  const setFilter = useSetRecoilState(scrapPlaceFilterState);
   const resetFilter = useResetRecoilState(scrapPlaceFilterState);
   const setPopupUI = useSetRecoilState(popupValue);
 
@@ -64,6 +68,7 @@ function ScrapedTripPlace() {
   const infiniteRef = useRef<HTMLDivElement>(null);
 
   const getPlaces = () => {
+    console.log(filter);
     if (filter.sort === '담은순') {
       get<{
         next: string | null;
@@ -82,31 +87,134 @@ function ScrapedTripPlace() {
         setNext(data.next?.replace('http://', 'https://'));
       });
     } else {
-      navigator.geolocation.getCurrentPosition((position) => {
-        get<{
-          next: string | null;
-          previous: string | null;
-          count: number;
-          results: TPlace[];
-        }>('scrap/place', {
-          params: {
-            ordering: 'distance',
-            latitude: position.coords.latitude.toFixed(6),
-            longitude: position.coords.longitude.toFixed(6),
-            location: filter.location?.join(','),
-            theme: filter.theme?.map((item) => `PLC${themeSwiftCode(item)}`).join(','),
-          },
-        }).then(({ data }) => {
-          setPlaces(data.results);
-          setCount(data.count);
-          setNext(data.next?.replace('http://', 'https://'));
-        });
+      isLocationTermsAgreed().then((isAgreed) => {
+        if(isAgreed) {
+          navigator.geolocation.getCurrentPosition((position) => {
+            get<{
+              next: string | null;
+              previous: string | null;
+              count: number;
+              results: TPlace[];
+            }>('scrap/place', {
+              params: {
+                ordering: 'distance',
+                latitude: position.coords.latitude.toFixed(6),
+                longitude: position.coords.longitude.toFixed(6),
+                location: filter.location?.join(','),
+                theme: filter.theme?.map((item) => `PLC${themeSwiftCode(item)}`).join(','),
+              },
+            }).then(({ data }) => {
+              setPlaces(data.results);
+              setCount(data.count);
+              setNext(data.next?.replace('http://', 'https://'));
+            });
+          });          
+        } else {
+          setPopupUI({
+            Custom: (
+              <S.PopupContainer>
+                <Typography.Headline size="sm" color="black" noOfLine={3}>
+                  <p style={{ textAlign: 'center' }}>
+                    위치 정보 이용 약관에 <br />
+                    동의해 주세요!
+                  </p>
+                </Typography.Headline>
+                <Typography.Body size="lg" color="#727272" noOfLine={4}>
+                  <p style={{ textAlign: 'center' }}>
+                    위치 기반 서비스를 이용하시려면,
+                    <br />
+                    먼저 약관 동의가 필요해요
+                  </p>
+                </Typography.Body>
+                <S.CheckBoxContainer>
+                  <input
+                    type="checkbox"
+                    onClick={() => {
+                      post('/settings/terms', {
+                        term: 'TERMS01',
+                      })
+                        .then(() => {
+                          toast.custom(() => (
+                            <Toast>
+                              <Typography.Body size="lg" color="white">
+                                위치정보 이용약관에 동의하셨습니다. (24. {new Date().getMonth()}.{' '}
+                                {new Date().getDate()})
+                              </Typography.Body>
+                            </Toast>
+                          ));
+                        })
+                        .catch(() => {
+                          toast.custom(() => (
+                            <Toast>
+                              <Typography.Body size="lg" color="white">
+                                위치정보 이용약관에 거부하였습니다. (24. {new Date().getMonth()}.{' '}
+                                {new Date().getDate()})
+                              </Typography.Body>
+                            </Toast>
+                          ));
+                        });
+                    }}
+                  />
+                  <label>
+                    <Typography.Body size="md" color="#424242">
+                      약관에 확인하였으며, 동의합니다
+                    </Typography.Body>
+                  </label>
+                  <div
+                    style={{
+                      position: 'absolute',
+                      right: '0px',
+                    }}
+                    onClick={() => {
+                      window.location.href =
+                        'http://teamfore.notion.site/f5afac74fa1f4abb8a4ca09c5e8d47bf?pvs=25';
+                    }}
+                  >
+                    <Typography.Body size="md" color="#5276FA">
+                      <span style={{ cursor: 'pointer', textDecoration: 'underline' }}>
+                        약관 보기
+                      </span>
+                    </Typography.Body>
+                  </div>
+                </S.CheckBoxContainer>
+                <S.ButtonContainer>
+                  <div
+                    onClick={() => {
+                      getPlaces();
+                      popupClose();
+                    }}
+                  >
+                    <span style={{ color: '#A6A6A6' }}>나중에 할게요</span>
+                  </div>
+                  <div
+                    onClick={() => {
+                      getPlaces();
+                      popupClose();
+                    }}
+                  >
+                    <span style={{ color: '#5276FA' }}>확인</span>
+                  </div>
+                </S.ButtonContainer>
+              </S.PopupContainer>
+            ),
+          });
+          popupOpen();
+        }
       });
+      
     }
   };
 
   useEffect(() => {
     getPlaces();
+    isLocationTermsAgreed().then((isAgreed) => {
+      if(!isAgreed && filter.sort === '거리순') {
+        setFilter({
+          ...filter,
+          sort: '담은순',
+        })
+      }
+    });
   }, [filter]);
 
   useEffect(() => {

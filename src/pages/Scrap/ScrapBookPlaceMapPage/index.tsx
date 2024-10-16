@@ -25,6 +25,7 @@ import usePopup from '../../../hooks/usePopup';
 import { popupValue } from '@_recoil/common/PopupValue';
 import toast from 'react-hot-toast';
 import { Toast } from '@_common/Toast';
+import isLocationTermsAgreed from '@_utils/isLocationTerms';
 
 function ScrapBookPlaceMapPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -53,8 +54,8 @@ function ScrapBookPlaceMapPage() {
       setData(responseData.results);
     });
 
-    get<{ TERMS01: boolean }>('/settings/terms?q=TERMS01').then((res) => {
-      setIsActive(res.data.TERMS01);
+    isLocationTermsAgreed().then((isAgreed) => {
+      setIsActive(isAgreed);
     });
   }, []);
 
