@@ -99,7 +99,9 @@ function ScrapContentPage() {
               />
             </S.IconWrapper>
           }
-        />
+        >
+          {data?.title}
+        </PageHeader>
       }
       nav={null}
     >
@@ -189,7 +191,7 @@ function ScrapContentPage() {
 
           <S.HeaderText>
             <Typography.Title size="md" color="inherit">
-              {data?.title}
+              {data?.link.title}
             </Typography.Title>
             <Typography.Label size="lg" color="inherit">
               <span
