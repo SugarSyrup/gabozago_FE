@@ -124,3 +124,68 @@ export const TripBucketButton = styled.div`
   color: ${({ theme }) => theme.colors.blue.primary};
   cursor: pointer;
 `;
+
+export const PopupContainer = styled.div`
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 4px;
+`;
+
+export const CheckBoxContainer = styled.div`
+  width: 100%;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+
+  position: relative;
+
+  input {
+    appearance: none; /* 원래 제공되는 체크박스 없애기 */
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    border: 1px solid ${({ theme }) => theme.gray03};
+
+    &:checked {
+      border: 1px solid ${({ theme }) => theme.main};
+      background: center no-repeat url('/check.svg');
+      background-size: contain;
+    }
+  }
+`;
+
+export const ButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-top: 20px;
+
+  div {
+    cursor: pointer;
+    width: 45%;
+    height: 44px;
+    padding: 10px 16px;
+
+    background-color: ${({ theme }) => theme.colors.blue.secondary};
+    border-radius: 8px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    span {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 28px;
+    }
+  }
+`;
