@@ -180,7 +180,6 @@ function ScrapedTripPlace() {
                 <S.ButtonContainer>
                   <div
                     onClick={() => {
-                      getPlaces();
                       popupClose();
                     }}
                   >
@@ -188,7 +187,6 @@ function ScrapedTripPlace() {
                   </div>
                   <div
                     onClick={() => {
-                      getPlaces();
                       popupClose();
                     }}
                   >
