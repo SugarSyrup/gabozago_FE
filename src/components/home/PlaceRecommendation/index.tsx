@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from 'react';
 import { get } from '@_utils/api';
 import LocationPlaceholderIcon from '../../mytrip/LocationPlaceholderIcon';
 import { useNavigate } from 'react-router-dom';
+import eventPush from '@_utils/GA4EventPush';
 
 interface TRecommendationPlace {
   id: number;
@@ -63,6 +64,7 @@ function PlaceRecommendation() {
                 </S.RecommendItemDesc>
                 <S.RecommendIconWrapper
                   onClick={() => {
+                    eventPush('홈.전국랭킹TOP5');
                     navigate(`/place/${place.id}`);
                   }}
                 >
@@ -72,6 +74,7 @@ function PlaceRecommendation() {
             ))}
           </S.RecommendList>
         </S.SliderItem>
+
         <S.SliderItem>
           <Typography.Title size="lg" color="inherit" noOfLine={2}>
             지금 많이 담고 있어요!
@@ -97,6 +100,7 @@ function PlaceRecommendation() {
                 </S.RecommendItemDesc>
                 <S.RecommendIconWrapper
                   onClick={() => {
+                    eventPush('홈.오늘TOP5');
                     navigate(`/place/${place.id}`);
                   }}
                 >
@@ -132,6 +136,7 @@ function PlaceRecommendation() {
                 </S.RecommendItemDesc>
                 <S.RecommendIconWrapper
                   onClick={() => {
+                    eventPush('홈.맛집TOP5');
                     navigate(`/place/${place.id}`);
                   }}
                 >

@@ -13,6 +13,7 @@ import * as S from './style';
 
 import LoginToast from '@_common/Toast/Toast/LoginToast';
 import toastGenerate from '@_utils/toastGenerate';
+import eventPush from '@_utils/GA4EventPush';
 
 function BottomNavBar() {
   const { pathname } = useLocation();
@@ -53,6 +54,7 @@ function BottomNavBar() {
               toast.dismiss();
               toastGenerate(<LoginToast />);
             }
+            eventPush(`${item.title.replace(' ', '')}.nav`);
           }}
           id={`${item.title}-nav`}
           key={`navItem ${index}`}
