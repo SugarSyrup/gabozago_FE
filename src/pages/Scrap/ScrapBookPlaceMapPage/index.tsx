@@ -25,6 +25,7 @@ import usePopup from '../../../hooks/usePopup';
 import { popupValue } from '@_recoil/common/PopupValue';
 import toast from 'react-hot-toast';
 import { Toast } from '@_common/Toast';
+import toastGenerate from '@_utils/toastGenerate';
 
 function ScrapBookPlaceMapPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -191,24 +192,24 @@ function ScrapBookPlaceMapPage() {
                               term: 'TERMS01',
                             })
                               .then(() => {
-                                toast.custom(() => (
+                                toastGenerate(
                                   <Toast>
                                     <Typography.Body size="lg" color="white">
                                       위치정보 이용약관에 동의하셨습니다. (24.{' '}
                                       {new Date().getMonth()}. {new Date().getDate()})
                                     </Typography.Body>
-                                  </Toast>
-                                ));
+                                  </Toast>,
+                                );
                               })
                               .catch(() => {
-                                toast.custom(() => (
+                                toastGenerate(
                                   <Toast>
                                     <Typography.Body size="lg" color="white">
                                       위치정보 이용약관에 거부하였습니다. (24.{' '}
                                       {new Date().getMonth()}. {new Date().getDate()})
                                     </Typography.Body>
-                                  </Toast>
-                                ));
+                                  </Toast>,
+                                );
                               });
                           }}
                         />

@@ -27,6 +27,7 @@ import { useEffect, useState } from 'react';
 import LocationPlaceholderIcon from '../../../components/mytrip/LocationPlaceholderIcon';
 import toast from 'react-hot-toast';
 import { Toast } from '@_common/Toast';
+import toastGenerate from '@_utils/toastGenerate';
 
 interface TData {
   // url: string;
@@ -71,11 +72,11 @@ function ScrapContentPage() {
       })
       .catch((e) => {
         if (e.response.status === 404) {
-          toast.custom(() => (
+          toastGenerate(
             <Toast>
               <span style={{ color: 'white' }}>해당 콘텐츠가 삭제되었습니다.</span>
-            </Toast>
-          ));
+            </Toast>,
+          );
           navigate(-1);
         }
       });

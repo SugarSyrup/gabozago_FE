@@ -28,6 +28,7 @@ import { get } from '@_utils/api';
 import useModal from '../../../hooks/useModal';
 import * as S from './style';
 import Question from '../../../components/article/Question';
+import toastGenerate from '@_utils/toastGenerate';
 
 interface TArticle {
   title: string;
@@ -159,13 +160,13 @@ function ArticlePage() {
               }}
               bookmark={data.bookmark}
               onShareClick={() => {
-                toast.custom(() => (
+                toastGenerate(
                   <Toast>
                     <Typography.Title size="md" color="white">
                       URL이 복사되었습니다.
                     </Typography.Title>
                   </Toast>
-                ));
+                );
               }}
             />
             :
