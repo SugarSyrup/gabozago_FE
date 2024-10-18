@@ -15,6 +15,7 @@ import Typography from '../../../components/common/Typography';
 import * as S from './style';
 import { get } from '@_utils/api';
 import { Header, HeaderText } from '../../../components/common/Header';
+import eventPush from '@_utils/GA4EventPush';
 
 const userStatics = [
   {
@@ -120,6 +121,7 @@ function ProfilePage() {
               <S.BellWrapper
                 isAlert={isNotifications}
                 onClick={() => {
+                  eventPush('MY.알림');
                   navigate('/notifications');
                 }}
               >
@@ -128,6 +130,7 @@ function ProfilePage() {
               <S.SettingWrapper>
                 <SettingIcon
                   onClick={() => {
+                    eventPush('MY.설정');
                     navigate('/profile/settings');
                   }}
                 />
@@ -140,7 +143,12 @@ function ProfilePage() {
                 {avatarURL ? <img src={avatarURL} alt={`${nickname} img`} /> : <UserIcon />}
                 <Typography.Title size="lg">{nickname}</Typography.Title>
               </S.UserProfile>
-              <S.ProfileEditBtn to="edit">
+              <S.ProfileEditBtn
+                to="edit"
+                onClick={() => {
+                  eventPush('MY.프로필더보기');
+                }}
+              >
                 <ChevronRightIcon />
               </S.ProfileEditBtn>
             </S.UserInfomation>

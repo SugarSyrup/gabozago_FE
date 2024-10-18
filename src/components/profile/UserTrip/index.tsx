@@ -1,3 +1,4 @@
+import eventPush from '@_utils/GA4EventPush';
 import ChevronRightIcon from '../../../assets/icons/chevron_right.svg?react';
 import CirclePlusIcon from '../../../assets/icons/plus_circle.svg?react';
 
@@ -11,7 +12,12 @@ function UserTrip() {
   return (
     <S.Container>
       <S.Header>
-        <S.TravelLink to="/mytrip/all">
+        <S.TravelLink
+          onClick={() => {
+            eventPush('MY.내여행전체보기');
+          }}
+          to="/mytrip/all"
+        >
           <Typography.Body size="lg" color="inherit">
             전체보기
           </Typography.Body>
@@ -19,7 +25,12 @@ function UserTrip() {
         </S.TravelLink>
       </S.Header>
       <TripList />
-      <S.CreateMyTrip to="/mytrip/create">
+      <S.CreateMyTrip
+        to="/mytrip/create"
+        onClick={() => {
+          eventPush('MY.여행일정만들기');
+        }}
+      >
         <Button type="text" size="md">
           <CirclePlusIcon />
           <Typography.Title size="md" color="#484848">
