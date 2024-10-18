@@ -19,6 +19,7 @@ import BackButton from '../../../components/common/BackButton';
 
 import * as S from './style';
 import useMyTripModal from '../../../hooks/useMyTripModal';
+import eventPush from '@_utils/GA4EventPush';
 
 export const markerColors = [
   '#5276FA',
@@ -154,6 +155,7 @@ function MyTripDetailPage() {
             <BackButton />
             <OptionIcon
               onClick={() => {
+                eventPush('내여행.여행일정.여행정보수정');
                 modalOpen();
               }}
             />

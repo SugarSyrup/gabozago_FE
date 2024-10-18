@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import TagManager from 'react-gtm-module';
 
 import HomeIcon from '@_icons/home.svg?react';
 import MyIcon from '@_icons/my.svg?react';
@@ -14,6 +13,7 @@ import * as S from './style';
 
 import LoginToast from '@_common/Toast/Toast/LoginToast';
 import toastGenerate from '@_utils/toastGenerate';
+import eventPush from '@_utils/GA4EventPush';
 
 function BottomNavBar() {
   const { pathname } = useLocation();
@@ -54,11 +54,7 @@ function BottomNavBar() {
               toast.dismiss();
               toastGenerate(<LoginToast />);
             }
-            TagManager.dataLayer({
-              dataLayer: {
-                event: '홈-nav',
-              },
-            });
+            eventPush(`${item.title.replace(' ', '')}.nav`);
           }}
           id={`${item.title}-nav`}
           key={`navItem ${index}`}

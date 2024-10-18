@@ -8,6 +8,7 @@ import BookMarkFilledIcon from '@_icons/bookmark_filled.svg?react';
 import useScrapModal from '../../video/useScrapModal';
 
 import * as S from './style';
+import eventPush from '@_utils/GA4EventPush';
 
 interface TArticle {
   next: null | string;
@@ -56,11 +57,13 @@ function PopularArticles() {
             <S.SliderImg
               src={article.thumbnailURL}
               onClick={() => {
+                eventPush('홈.금주인기아티클');
                 navigate(`/article/${article.id}`);
               }}
             />
             <div
               onClick={() => {
+                eventPush('홈.금주인기아티클');
                 navigate(`/article/${article.id}`);
               }}
             >

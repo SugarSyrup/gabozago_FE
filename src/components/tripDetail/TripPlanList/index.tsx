@@ -7,6 +7,7 @@ import { tripState } from '../../../recoil/tripState';
 import useModal from '../../../hooks/useModal';
 import Typography from '../../common/Typography';
 import CheckedIcon from '../../../assets/icons/check.svg?react';
+import eventPush from '@_utils/GA4EventPush';
 
 export interface DayPlan {
   day: number;
@@ -69,6 +70,7 @@ function TripPlanList({ setIsEditMode, dayFilter, setDayFilter }: Props) {
       {data.plan.length >= 0 && (
         <S.DayFilterButton
           onClick={() => {
+            eventPush('내여행.여행일정.전체일정');
             modalOpen();
           }}
         >

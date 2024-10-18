@@ -17,6 +17,7 @@ import { createTravelState } from '../../../recoil/mytrip/createTravelState';
 import { TravelResponseType } from '@_types/TravelRespones.type';
 
 import * as S from './style';
+import eventPush from '@_utils/GA4EventPush';
 
 function MyTripPage() {
   const navigate = useNavigate();
@@ -82,9 +83,10 @@ function MyTripPage() {
 
         <S.CreateMyTripTextButton
           onClick={() => {
-            navigate('/mytrip/create');
+            eventPush('내여행.여행일정만들기');
             setCreateTravelState('create');
             setDatesState({ startDate: '', endDate: '' });
+            navigate('/mytrip/create');
           }}
           hasTripUpcoming={tripUpComing.length !== 0}
         >

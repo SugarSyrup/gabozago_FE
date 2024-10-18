@@ -7,6 +7,7 @@ import AddPlaceButton from '../AddPlaceButton';
 import { selectedPlacesState } from '../../../recoil/mytrip/selectedPlacesState';
 import { Position } from '../../common/GoogleMap';
 import { placeKeyword } from '@_recoil/mytrip/placeKeyword';
+import eventPush from '@_utils/GA4EventPush';
 
 interface Props {
   data: PlaceData[];
@@ -63,6 +64,7 @@ function DayPlan({ data, day, date: dateString, setIsEditMode }: Props) {
         </div>
         <S.EditButton
           onClick={() => {
+            eventPush('내여행.여행일정.일정별편집');
             setIsEditMode(true);
           }}
         >

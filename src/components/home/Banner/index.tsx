@@ -6,6 +6,7 @@ import TripGIF from '../../../assets/imgs/banner_trip.gif';
 import BucketIMG from '../../../assets/imgs/bucketIMG.png';
 
 import * as S from './style';
+import eventPush from '@_utils/GA4EventPush';
 
 function Banner() {
   const navigate = useNavigate();
@@ -38,6 +39,7 @@ function Banner() {
       >
         <S.TripBanner
           onClick={() => {
+            eventPush('홈.여행일정만들기');
             navigate('/mytrip');
           }}
         >
@@ -53,6 +55,7 @@ function Banner() {
         </S.TripBanner>
         <S.BucketBanner
           onClick={() => {
+            eventPush('홈.트립버킷사용해보기');
             navigate('/onboarding/tripbucket');
           }}
         >

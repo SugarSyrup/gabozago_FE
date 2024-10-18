@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, createRef, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import * as S from './style';
+import eventPush from '@_utils/GA4EventPush';
 
 interface Props {
   tabs: { id: number | string; name: string }[];
@@ -41,6 +42,7 @@ function TabBar({
             key={tab.id}
             ref={tabRefs[index]}
             onClick={() => {
+              eventPush(`스크랩.${tab.name.replace(' ', '')}`);
               setFocusedTabIndex(index);
               query.set('tab', String(index));
               setQuery(query);

@@ -9,6 +9,7 @@ import useScrapModal from '../../video/useScrapModal';
 
 import * as S from './style';
 import Typography from '@_common/Typography';
+import eventPush from '@_utils/GA4EventPush';
 
 interface TArticle {
   next: null | string;
@@ -63,11 +64,13 @@ function HotArticles() {
             <S.SliderImg
               src={article.thumbnailURL}
               onClick={() => {
+                eventPush('홈.인기급상승아티클');
                 navigate(`/article/${article.id}`);
               }}
             />
             <div
               onClick={() => {
+                eventPush('홈.인기급상승아티클');
                 navigate(`/article/${article.id}`);
               }}
             >

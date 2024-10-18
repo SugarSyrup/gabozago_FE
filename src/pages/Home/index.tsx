@@ -29,6 +29,7 @@ import Banner from '../../components/home/Banner';
 import usePopup from '../../hooks/usePopup';
 
 import * as S from './style';
+import eventPush from '@_utils/GA4EventPush';
 
 interface TPlace {
   placeId: number;
@@ -122,7 +123,13 @@ function HomePage() {
       {/* Header */}
       <S.Header>
         <LogoIcon />
-        <Link to="/notifications" id="notifications">
+        <Link
+          to="/notifications"
+          id="notifications"
+          onClick={() => {
+            eventPush('홈.알림');
+          }}
+        >
           <S.BellWrapper isAlert={isNotifications}>
             <BellIcon />
           </S.BellWrapper>
@@ -194,6 +201,7 @@ function HomePage() {
 
         <OutlineButton
           onClick={() => {
+            eventPush('홈.아티클더보기');
             navigate('/articles');
           }}
         >
