@@ -21,6 +21,7 @@ import * as S from './style';
 import isLocationTermsAgreed from '@_utils/isLocationTerms';
 import toast from 'react-hot-toast';
 import { Toast } from '@_common/Toast';
+import eventPush from '@_utils/GA4EventPush';
 
 function ScrapedTripPlace() {
   const navigate = useNavigate();
@@ -417,6 +418,7 @@ function ScrapedTripPlace() {
 
           <S.TripBucketButton
             onClick={() => {
+              eventPush('스크랩.트립버킷사용해보기');
               navigate('/onboarding/tripbucket');
             }}
           >

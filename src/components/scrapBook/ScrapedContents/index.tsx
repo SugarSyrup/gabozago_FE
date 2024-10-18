@@ -14,6 +14,7 @@ import InstagramIcon from '../../../assets/imgs/instagram_icon.png';
 
 import * as S from './style';
 import usePopup from '../../../hooks/usePopup';
+import eventPush from '@_utils/GA4EventPush';
 
 interface TResponse extends TPagination<TContentShorten> {
   count: number;
@@ -182,6 +183,7 @@ function ScrapedContents() {
               </Typography.Title>
               <S.TripBucketButton
                 onClick={() => {
+                  eventPush('스크랩.트립버킷사용해보기');
                   navigate('/onboarding/tripbucket');
                 }}
               >

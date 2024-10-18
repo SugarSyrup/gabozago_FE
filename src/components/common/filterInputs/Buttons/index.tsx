@@ -1,6 +1,7 @@
 import React from 'react';
 import * as S from './style';
 import { ButtonsOptions } from '../../../../assets/types/FilterTypes';
+import eventPush from '@_utils/GA4EventPush';
 
 export interface Props extends ButtonsOptions {
   filter: string[];
@@ -19,7 +20,13 @@ function Buttons({ filter, setFilter, options }: Props) {
   return (
     <S.List>
       {options.map(({ label, value }) => (
-        <S.Item checked={filter.includes(value)}>
+        <S.Item
+          checked={filter.includes(value)}
+          key={label}
+          onClick={() => {
+            eventPush(`필터링.테마.${label}`);
+          }}
+        >
           <S.CheckboxInput
             type="checkbox"
             id={value}
