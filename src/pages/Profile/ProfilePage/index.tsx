@@ -181,6 +181,7 @@ function ProfilePage() {
             <S.TapNavigationBar currentTap={currentTap}>
               <S.TapNavigation
                 onClick={() => {
+                  eventPush('MY.나의여행');
                   setCurrentTap('trip');
                 }}
                 isHighlight={currentTap === 'trip'}
@@ -191,6 +192,7 @@ function ProfilePage() {
               </S.TapNavigation>
               <S.TapNavigation
                 onClick={() => {
+                  eventPush('MY.나의활동');
                   setCurrentTap('activity');
                 }}
                 isHighlight={currentTap === 'activity'}
