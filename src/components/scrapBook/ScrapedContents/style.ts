@@ -171,28 +171,6 @@ export const EditSVGWrapper = styled.div`
   z-index: 100;
 `;
 
-export const SearchingContainer = styled.div`
-  height: 50dvh;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  img {
-    width: 50%;
-  }
-
-  span {
-    color: #424242;
-    text-align: center;
-
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 28px; /* 175% */
-  }
-`;
 
 export const NoDataContainer = styled.div`
   width: 60%;

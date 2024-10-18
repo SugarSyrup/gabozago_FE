@@ -15,6 +15,7 @@ import InstagramIcon from '../../../assets/imgs/instagram_icon.png';
 import * as S from './style';
 import usePopup from '../../../hooks/usePopup';
 import eventPush from '@_utils/GA4EventPush';
+import SearchLoadingUI from '@_common/SearchLoadingUI';
 
 interface TResponse extends TPagination<TContentShorten> {
   count: number;
@@ -93,10 +94,7 @@ function ScrapedContents() {
         <SearchInput />
       </S.SearchBarWrapper>
       {isSearch ? (
-        <S.SearchingContainer>
-          <img src={WaitingIMG} alt="waiting" />
-          <span>검색 결과를 찾고 있어요</span>
-        </S.SearchingContainer>
+        <SearchLoadingUI />
       ) : (
         <>
           <S.ContentsHeader>
