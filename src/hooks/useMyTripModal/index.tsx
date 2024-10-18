@@ -13,6 +13,7 @@ import * as S from './style';
 import { datesState } from '../../recoil/mytrip/createData';
 import { createTravelState } from '../../recoil/mytrip/createTravelState';
 import { popupCustomSelector, popupValue } from '@_recoil/common/PopupValue';
+import eventPush from '@_utils/GA4EventPush';
 
 interface Props {
   id: number;
@@ -102,6 +103,7 @@ function useMyTripModal({ id, title, departureDate, arrivalDate }: Props) {
           <S.TravelSettings>
             <div
               onClick={() => {
+                eventPush('여행정보수정.여행기록삭제');
                 modalClose();
                 setPopupValue({
                   Icon: <InfomationIcon />,
@@ -133,6 +135,7 @@ function useMyTripModal({ id, title, departureDate, arrivalDate }: Props) {
             </div>
             <div
               onClick={() => {
+                eventPush('여행정보수정.여행제목변경');
                 modalClose();
                 // setPopupType('CHANGE');
                 setCustomPopup(
@@ -150,7 +153,7 @@ function useMyTripModal({ id, title, departureDate, arrivalDate }: Props) {
                     }}
                   >
                     <S.ChangePopupHeader>
-                      <Typography.Title size="sm">일정 제목 변경</Typography.Title>
+                      <Typography.Title size="sm">여행 제목 변경</Typography.Title>
                       <S.FormButton>
                         <Typography.Title size="sm" color="#5276FA">
                           저장
@@ -172,6 +175,7 @@ function useMyTripModal({ id, title, departureDate, arrivalDate }: Props) {
             </div>
             <div
               onClick={() => {
+                eventPush('여행정보수정.여행날짜변경');
                 setDates({
                   startDate: departureDate.replace('-', '').replace('-', ''),
                   endDate: arrivalDate.replace('-', '').replace('-', ''),
