@@ -10,6 +10,7 @@ import { get, post } from '@_utils/api';
 import toast from 'react-hot-toast';
 import { Toast } from '@_common/Toast';
 import toastGenerate from '@_utils/toastGenerate';
+import isLocationTermsAgreed from '@_utils/isLocationTerms';
 
 interface TTerm {
   id: string;
@@ -171,9 +172,7 @@ Firefox : 웹브라우저 우측 상단 아이콘 - 설정 - 개인 정보 및 �
   }, [id, data]);
 
   useEffect(() => {
-    get<{ TERMS01: boolean }>('/settings/terms?q=TERMS01').then((res) => {
-      setIsActive(res.data.TERMS01);
-    });
+    isLocationTermsAgreed().then((res) => setIsActive(res));
   }, []);
 
   return (
