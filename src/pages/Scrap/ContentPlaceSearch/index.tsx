@@ -11,6 +11,7 @@ import Typography from '@_common/Typography';
 import LocationPlaceholderIcon from '../../../components/mytrip/LocationPlaceholderIcon';
 import BookMarkIcon from '@_icons/bookmark.svg?react';
 import BookMarkFillIcon from '@_icons/bookmark_filled.svg?react';
+import SearchLoadingUI from '@_common/SearchLoadingUI';
 
 interface TResponseData extends TPlace {
   id: number;
@@ -19,6 +20,7 @@ interface TResponseData extends TPlace {
 
 function ContentPlaceSearchPage() {
   const navigate = useNavigate();
+  const [isSearching, setIsSearching] = useState<boolean>(false);
   const [data, setData] = useState<TResponseData[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const [inputRef, SearchInput] = useSearchInput({
@@ -29,8 +31,10 @@ function ContentPlaceSearchPage() {
     onSubmit: (e) => {
       e.preventDefault();
 
+      setIsSearching(true);
       get<TResponseData[]>(`/place/scrap-list-search?query=${inputRef.current.value}`).then(
         (res) => {
+          setIsSearching(false);
           setData(res.data);
         },
       );
@@ -38,10 +42,12 @@ function ContentPlaceSearchPage() {
   });
 
   useEffect(() => {
+    setIsSearching(true);
     if (inputRef.current) {
       inputRef.current.value = searchParams.get('name') as string;
       get<TResponseData[]>(`/place/scrap-list-search?query=${searchParams.get('name')}`).then(
         (res) => {
+          setIsSearching(false);
           setData(res.data);
         },
       );
@@ -71,65 +77,69 @@ function ContentPlaceSearchPage() {
           <S.FontHighlight>{data.length}</S.FontHighlight>
         </Typography.Title>
       </S.ListHeader>
-      <S.List>
-        {data.map((place, index) => (
-          <S.Item key={index}>
-            <S.LeftItems
-              onClick={() => {
-                navigate(`/place/${place.id}`);
-              }}
-            >
-              <S.Thumbnail>
-                {place.thumbnailURL ? (
-                  <img src={place.thumbnailURL} alt={place.thumbnailURL} />
-                ) : (
-                  <LocationPlaceholderIcon type={((place.id % 5) + 1) as 1 | 2 | 3 | 4 | 5} />
-                )}
-              </S.Thumbnail>
-              <S.Infomation>
-                <Typography.Title size="lg">{place.name}</Typography.Title>
-
-                <S.ExtraInfomation>
-                  <Typography.Label size="lg" color="#A6A6A6">
-                    <span>{place.category}</span>
-                  </Typography.Label>
-                  {place.category && place.addressShort && (
-                    <Typography.Label size="lg" color="#A6A6A6">
-                      <span>|</span>
-                    </Typography.Label>
+      {isSearching ? (
+        <SearchLoadingUI />
+      ) : (
+        <S.List>
+          {data.map((place, index) => (
+            <S.Item key={index}>
+              <S.LeftItems
+                onClick={() => {
+                  navigate(`/place/${place.id}`);
+                }}
+              >
+                <S.Thumbnail>
+                  {place.thumbnailURL ? (
+                    <img src={place.thumbnailURL} alt={place.thumbnailURL} />
+                  ) : (
+                    <LocationPlaceholderIcon type={((place.id % 5) + 1) as 1 | 2 | 3 | 4 | 5} />
                   )}
-                  <Typography.Label size="lg" color="#A6A6A6">
-                    <span>{place.addressShort}</span>
-                  </Typography.Label>
-                </S.ExtraInfomation>
-              </S.Infomation>
-            </S.LeftItems>
-            <S.ScrapWrapper
-              isActive={place.isScraped}
-              onClick={() => {
-                post('/scrap/place', {
-                  placeId: place.id,
-                  isTripBucket: true,
-                }).then(() => {
-                  setData((prev) => {
-                    return prev.map((prevPlace) => {
-                      if (prevPlace.id === place.id) {
-                        return {
-                          ...prevPlace,
-                          isScraped: !prevPlace.isScraped,
-                        };
-                      }
-                      return prevPlace;
+                </S.Thumbnail>
+                <S.Infomation>
+                  <Typography.Title size="lg">{place.name}</Typography.Title>
+
+                  <S.ExtraInfomation>
+                    <Typography.Label size="lg" color="#A6A6A6">
+                      <span>{place.category}</span>
+                    </Typography.Label>
+                    {place.category && place.addressShort && (
+                      <Typography.Label size="lg" color="#A6A6A6">
+                        <span>|</span>
+                      </Typography.Label>
+                    )}
+                    <Typography.Label size="lg" color="#A6A6A6">
+                      <span>{place.addressShort}</span>
+                    </Typography.Label>
+                  </S.ExtraInfomation>
+                </S.Infomation>
+              </S.LeftItems>
+              <S.ScrapWrapper
+                isActive={place.isScraped}
+                onClick={() => {
+                  post('/scrap/place', {
+                    placeId: place.id,
+                    isTripBucket: true,
+                  }).then(() => {
+                    setData((prev) => {
+                      return prev.map((prevPlace) => {
+                        if (prevPlace.id === place.id) {
+                          return {
+                            ...prevPlace,
+                            isScraped: !prevPlace.isScraped,
+                          };
+                        }
+                        return prevPlace;
+                      });
                     });
                   });
-                });
-              }}
-            >
-              {place.isScraped ? <BookMarkFillIcon /> : <BookMarkIcon />}
-            </S.ScrapWrapper>
-          </S.Item>
-        ))}
-      </S.List>
+                }}
+              >
+                {place.isScraped ? <BookMarkFillIcon /> : <BookMarkIcon />}
+              </S.ScrapWrapper>
+            </S.Item>
+          ))}
+        </S.List>
+      )}
     </PageTemplate>
   );
 }
