@@ -281,7 +281,7 @@ function HomePage() {
             이메일
           </Typography.Label>
           <Typography.Label size="lg" color="inherit" noOfLine={-1}>
-            min_stone@naver.com
+            fore.cnl@gmail.com
           </Typography.Label>
         </S.FooterListItem>
         <S.FooterListItem>
