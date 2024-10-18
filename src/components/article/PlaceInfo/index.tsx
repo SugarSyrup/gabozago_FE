@@ -13,6 +13,7 @@ import useAlert from '../../../hooks/useAlert';
 import Typography from '../../common/Typography';
 import toast from 'react-hot-toast';
 import { Toast } from '@_common/Toast';
+import toastGenerate from '@_utils/toastGenerate';
 
 interface Props {
   placeId: number;
@@ -101,7 +102,7 @@ function PlaceInfo({ placeId, imageURL }: Props) {
                         },
                       );
                     } else {
-                      toast.custom(() => (
+                      toastGenerate(
                         <Toast>
                           <Typography.Title size="md" color="white">
                             <S.ToastMessageContainer isScraped={false}>
@@ -113,8 +114,8 @@ function PlaceInfo({ placeId, imageURL }: Props) {
                           <Link to="/scrapbook?tab=0">
                             <S.ToastMessageLink>스크랩 확인하기</S.ToastMessageLink>
                           </Link>
-                        </Toast>
-                      ));
+                        </Toast>,
+                      );
                     }
                   });
                 }}

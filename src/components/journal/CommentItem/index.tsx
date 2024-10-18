@@ -21,6 +21,7 @@ import { Toast } from '@_common/Toast';
 import { useSetRecoilState } from 'recoil';
 import { popupValue } from '@_recoil/common/PopupValue';
 import usePopup from '../../../hooks/usePopup';
+import toastGenerate from '@_utils/toastGenerate';
 
 export interface Comment {
   id: number;
@@ -120,7 +121,7 @@ function CommentItem({
       name: '삭제하기',
       onClick: () => {
         deleteComments(id);
-        toast.custom(() => <CommentDeleteToast />);
+        toastGenerate(<CommentDeleteToast />);
         commentMenuModalClose();
       },
     },
@@ -132,13 +133,13 @@ function CommentItem({
       iconColor: 'white',
       onClick: () => {
         if (isReported) {
-          toast.custom(() => (
+          toastGenerate(
             <Toast>
               <Typography.Body size="lg" color="white">
                 이미 신고한 댓글입니다.
               </Typography.Body>
-            </Toast>
-          ));
+            </Toast>,
+          );
           commentMenuModalClose();
           return;
         }

@@ -9,6 +9,7 @@ import usePopup from '../usePopup';
 import * as S from './style';
 import { useSetRecoilState } from 'recoil';
 import { popupValue } from '@_recoil/common/PopupValue';
+import toastGenerate from '@_utils/toastGenerate';
 
 interface Options {
   type: 'short-form' | 'article' | 'video' | 'report' | 'travelog';
@@ -60,7 +61,7 @@ function useReportPopup({
           setIsReported(true);
         }
 
-        toast.custom(() => <ReportToast />);
+        toastGenerate(<ReportToast />);
         refresh();
         popupClose();
       }

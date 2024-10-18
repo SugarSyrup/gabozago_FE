@@ -13,6 +13,7 @@ import ImportantIcon from '@_icons/exclamation_circle.svg?react';
 
 import * as S from './style';
 import usePopup from '../../../hooks/usePopup';
+import toastGenerate from '@_utils/toastGenerate';
 
 // @TODO : Memo Data 가져오는 로직 추가
 function ContentMemoEditPage() {
@@ -71,13 +72,13 @@ function ContentMemoEditPage() {
               patch(`/scrap/content/${id}`, {
                 memo: memoRef.current?.value,
               }).then(() => {
-                toast.custom(() => (
+                toastGenerate(
                   <Toast>
                     <Typography.Title size="lg" color="white">
                       저장이 완료되었습니다.
                     </Typography.Title>
-                  </Toast>
-                ));
+                  </Toast>,
+                );
                 navigate(-1);
               });
             }}

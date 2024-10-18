@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import toast from 'react-hot-toast';
 
 import LoginToast from './Toast/Toast/LoginToast';
+import toastGenerate from '@_utils/toastGenerate';
 import { useNavigate } from 'react-router-dom';
 
 interface Props {
@@ -16,9 +17,7 @@ function IsLoginTemplate({ children }: Props) {
 
     if (!accessToken) {
       toast.dismiss();
-      toast.custom(() => <LoginToast />, {
-        duration: 1000,
-      });
+      toastGenerate(<LoginToast />);
       navigate('/');
     }
   }, []);

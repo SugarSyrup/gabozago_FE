@@ -23,6 +23,11 @@ interface GroupInfo {
 
 function ScrapedTripJournal() {
   const navigate = useNavigate();
+
+  const [groupList, setGroupList] = useState<GroupInfo[]>([]);
+  const [allArticlesThumbnail, setAllArticlesThumbnail] = useState<string>('');
+  const [targetGroupIndex, setTargetGroupIndex] = useState<number>(0);
+
   const [editingFolderName, setEditingFolderName] = useState<string>('');
   const { popupOpen, popupClose } = usePopup();
   const setPopupUI = useSetRecoilState(popupValue);
@@ -33,9 +38,6 @@ function ScrapedTripJournal() {
     modalClose: settingsModalClose,
     isOpend: isSettingsModalOpend,
   } = useModal({});
-
-  const [groupList, setGroupList] = useState<GroupInfo[]>([]);
-  const [targetGroupIndex, setTargetGroupIndex] = useState<number>(0);
 
   /* === 케밥 메뉴 시작 === */
   const handleMenuButtonClick = (e: MouseEvent, index: number) => {
@@ -102,6 +104,7 @@ function ScrapedTripJournal() {
     });
     popupOpen();
   };
+
   const settingMenus = [
     {
       icon: <EditIcon />,
@@ -119,7 +122,12 @@ function ScrapedTripJournal() {
   // 콘텐츠 그룹 목록 불러오기
   const getGroupList = async () => {
     const { data } = await get<GroupInfo[]>('folder/community');
-    setGroupList(data);
+
+    if (data[0].thumbnailURL) {
+      setAllArticlesThumbnail(data[0].thumbnailURL);
+    }
+
+    setGroupList(data.splice(1));
   };
   // 새 폴더 생성
   const createNewFolder = async (name: string) => {
@@ -212,7 +220,7 @@ function ScrapedTripJournal() {
         </S.CreateNewGroupItem>
         <S.GroupItem
           key={0}
-          background={groupList[0]?.thumbnailURL || ''}
+          background={allArticlesThumbnail || ''}
           onClick={() => {
             navigate('./all');
           }}
@@ -220,7 +228,7 @@ function ScrapedTripJournal() {
           <div />
           <p>모든 게시물</p>
         </S.GroupItem>
-        {groupList.splice(1).map(({ id, name, thumbnailURL }, index) => (
+        {groupList.map(({ id, name, thumbnailURL }, index) => (
           <S.GroupItem
             key={id}
             background={thumbnailURL || ''}

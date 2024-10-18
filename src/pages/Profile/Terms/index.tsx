@@ -9,6 +9,7 @@ import * as S from './style';
 import { get, post } from '@_utils/api';
 import toast from 'react-hot-toast';
 import { Toast } from '@_common/Toast';
+import toastGenerate from '@_utils/toastGenerate';
 import isLocationTermsAgreed from '@_utils/isLocationTerms';
 
 interface TTerm {
@@ -202,15 +203,15 @@ Firefox : 웹브라우저 우측 상단 아이콘 - 설정 - 개인 정보 및 �
                   term: 'TERMS01',
                 }).then(() => {
                   toast.dismiss();
-                  toast.custom(() => (
+                  toastGenerate(
                     <Toast>
                       <Typography.Body size="lg" color="white">
                         위치정보 이용약관에 {isActive ? '거부' : '동의'}하셨습니다. (
                         {new Date().getFullYear()}. {new Date().getMonth() + 1}.{' '}
                         {new Date().getDate()})
                       </Typography.Body>
-                    </Toast>
-                  ));
+                    </Toast>,
+                  );
                 });
               }}
             >

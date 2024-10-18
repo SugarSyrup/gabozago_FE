@@ -19,6 +19,7 @@ import * as S from './style';
 import toast from 'react-hot-toast';
 import { Toast } from '@_common/Toast';
 import { popupValue } from '@_recoil/common/PopupValue';
+import toastGenerate from '@_utils/toastGenerate';
 
 function MyTripPlaceCreatePage() {
   const navigate = useNavigate();
@@ -112,7 +113,7 @@ function MyTripPlaceCreatePage() {
                 });
                 popupOpen();
               } else {
-                toast.custom(() => (
+                toastGenerate(
                   <Toast>
                     <Typography.Body size="lg" color="white">
                       장소가 추가되었습니다.
@@ -124,8 +125,8 @@ function MyTripPlaceCreatePage() {
                     >
                       장소 검색 돌아가기
                     </S.LinkTypo>
-                  </Toast>
-                ));
+                  </Toast>,
+                );
               }
             });
           });

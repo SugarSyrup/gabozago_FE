@@ -22,6 +22,7 @@ import usePopup from '../../../hooks/usePopup';
 import { get, post } from '@_utils/api';
 
 import * as S from './style';
+import toastGenerate from '@_utils/toastGenerate';
 
 function PlaceAddPage() {
   const { id } = useParams();
@@ -87,13 +88,13 @@ function PlaceAddPage() {
               day: currentSelectedItem.day,
             })
               .then(() => {
-                toast.custom(() => (
+                toastGenerate(
                   <Toast>
                     <Typography.Body size="lg" color="white">
                       장소가 추가되었습니다.
                     </Typography.Body>
-                  </Toast>
-                ));
+                  </Toast>,
+                );
               })
               .catch((err) => {
                 if (err.response.status === 400) {
@@ -157,23 +158,23 @@ function PlaceAddPage() {
                                             } else {
                                               popupClose();
 
-                                              toast.custom(() => (
+                                              toastGenerate(
                                                 <Toast>
                                                   <Typography.Body size="lg" color="white">
                                                     장소가 추가되었습니다.
                                                   </Typography.Body>
-                                                </Toast>
-                                              ));
+                                                </Toast>,
+                                              );
                                             }
                                           });
                                         } else {
-                                          toast.custom(() => (
+                                          toastGenerate(
                                             <Toast>
                                               <Typography.Body size="lg" color="white">
                                                 이미 내 여행 지역에 추가되어 있습니다.
                                               </Typography.Body>
-                                            </Toast>
-                                          ));
+                                            </Toast>,
+                                          );
                                         }
                                       });
                                       popupClose();
@@ -189,28 +190,28 @@ function PlaceAddPage() {
                                 popupOpen();
                               } else {
                                 popupClose();
-                                toast.custom(() => (
+                                toastGenerate(
                                   <Toast>
                                     <Typography.Body size="lg" color="white">
                                       장소가 추가되었습니다.
                                     </Typography.Body>
-                                  </Toast>
-                                ));
+                                  </Toast>,
+                                );
                               }
                             });
                           } else {
-                            toast.custom(() => (
+                            toastGenerate(
                               <Toast>
                                 <Typography.Body size="lg" color="white">
                                   이미 내 여행 지역에 추가되어 있습니다.
                                 </Typography.Body>
-                              </Toast>
-                            ));
+                              </Toast>,
+                            );
                           }
                         });
                         popupClose();
                         navigate(-1);
-                        toast.custom(() => (
+                        toastGenerate(
                           <Toast>
                             <S.TaostContainer>
                               <Typography.Body size="lg" color="white">
@@ -224,8 +225,8 @@ function PlaceAddPage() {
                                 일정 보러가기
                               </S.TaostLink>
                             </S.TaostContainer>
-                          </Toast>
-                        ));
+                          </Toast>,
+                        );
                       },
                     },
                     CloseButton: {

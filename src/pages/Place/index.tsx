@@ -260,7 +260,11 @@ function PlacePage() {
                         cursor: 'pointer',
                       }}
                       onClick={() => {
-                        navigate(`/place/${id}/edit?memo=${data.saved.memo}`);
+                        if (data.saved.memo === null) {
+                          navigate(`/place/${id}/edit`);
+                        } else {
+                          navigate(`/place/${id}/edit?memo=${data.saved.memo}`);
+                        }
                       }}
                     >
                       <Typography.Title size="sm" color="#5276FA">

@@ -13,6 +13,7 @@ import Typography from '../Typography';
 import * as S from './style';
 
 import LoginToast from '@_common/Toast/Toast/LoginToast';
+import toastGenerate from '@_utils/toastGenerate';
 
 function BottomNavBar() {
   const { pathname } = useLocation();
@@ -51,9 +52,7 @@ function BottomNavBar() {
           onClick={() => {
             if (!isLogin && item.title !== '홈' && item.title !== '아티클') {
               toast.dismiss();
-              toast.custom(() => <LoginToast />, {
-                duration: 1000,
-              });
+              toastGenerate(<LoginToast />);
             }
             TagManager.dataLayer({
               dataLayer: {
