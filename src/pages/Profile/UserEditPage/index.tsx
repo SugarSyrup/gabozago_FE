@@ -22,10 +22,12 @@ import { useSetRecoilState } from 'recoil';
 import { popupValue } from '@_recoil/common/PopupValue';
 import toast from 'react-hot-toast';
 import { Toast } from '@_common/Toast';
+import SpinnerWrapper from '@_common/SpinnerWrapper';
 
 function UserEditPage() {
   const { nickname, description, avatarURL, email } = useLoaderData() as TUserProfile;
   const { popupOpen, popupClose } = usePopup();
+  const [isLoading, setIsLoading] = useState(false);
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [nameValue, setNameValue] = useState(nickname);
   const [descValue, setDescValue] = useState(description);
@@ -73,12 +75,15 @@ function UserEditPage() {
 
   return (
     <PageTemplate nav={null}>
+      {isLoading && <SpinnerWrapper />}
       <S.Form
         onSubmit={(e) => {
           e.preventDefault();
           const formdata = new FormData(e.currentTarget);
 
           if (isNicknameOk && (descValue !== description || isAvatarChanged)) {
+            setIsLoading(true);
+
             loadImage(
               formdata.get('avatar') as File,
               (img, data) => {
@@ -133,43 +138,6 @@ function UserEditPage() {
               { meta: true, orientation: true, canvas: true },
             );
           }
-
-          //   loadImage(
-          //     formdata.get('avatar') as File,
-          //     (img, data) => {
-          //       console.log(data);
-          //       if (data === undefined) {
-          //         console.log('a');
-          //         patch('/user/profile', formdata).then(() => {
-          //           navigate(-1);
-          //         });
-          //       } else if (data.imageHead && data.exif) {
-          //         console.log('c');
-          //         loadImage.writeExifData(data.imageHead, data, 'Orientation', 1);
-          //         img.toBlob((blob) => {
-          //           loadImage.replaceHead(blob, data.imageHead, async (newBlob) => {
-          //             console.log(newBlob);
-          //             formdata.set('avatar', newBlob);
-
-          //             patch('/user/profile', {
-          //               avatar: newBlob,
-          //               nickname: formdata.get('nickname'),
-          //               desc: formdata.get('desc'),
-          //             }).then(() => {
-          //               navigate(-1);
-          //             });
-          //           });
-          //         }, 'image/jpeg, image/png');
-          //       } else {
-          //         console.log('d');
-          //         patch('/user/profile', formdata).then(() => {
-          //           navigate(-1);
-          //         });
-          //       }
-          //     },
-          //     { meta: true, orientation: true, canvas: true },
-          //   );
-          // }
         }}
       >
         <S.Header>

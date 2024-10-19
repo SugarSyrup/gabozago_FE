@@ -11,7 +11,7 @@ import { TPlace } from '@_types/Place.type';
 import { TFilter } from '@_types/FilterTypes';
 
 import MenuIcon from '@_icons/menu.svg?react';
-import CooordsIcon from '@_icons/coords.svg?react';
+import CoordsIcon from '@_icons/coords.svg?react';
 import NoThumbnailImg from '@_imgs/NoThumbnail.png';
 import { get, post } from '@_utils/api';
 
@@ -23,13 +23,14 @@ import * as S from './style';
 import MapMarker from '../../../components/scrapBook/MapMarker';
 import usePopup from '../../../hooks/usePopup';
 import { popupValue } from '@_recoil/common/PopupValue';
-import toast from 'react-hot-toast';
 import { Toast } from '@_common/Toast';
 import toastGenerate from '@_utils/toastGenerate';
 import isLocationTermsAgreed from '@_utils/isLocationTerms';
+import SpinnerIcon from '@_icons/spinner.svg?react';
 
 function ScrapBookPlaceMapPage() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<TPlace[]>([]);
   const [isActive, setIsActive] = useState(false);
   const [currentCorrds, setCurrentCoords] = useState<google.maps.LatLngLiteral>({
@@ -126,9 +127,9 @@ function ScrapBookPlaceMapPage() {
               }
 
               if (isActive) {
-                console.log('isActive');
+                setIsLoading(true);
                 navigator.geolocation.getCurrentPosition((position) => {
-                  console.log(position);
+                  setIsLoading(false);
                   if (position.coords) {
                     map?.setCenter({
                       lat: position.coords.latitude,
@@ -167,7 +168,6 @@ function ScrapBookPlaceMapPage() {
                   }
                 });
               } else {
-                console.log('isNotActive');
                 setPopupUI({
                   Custom: (
                     <S.PopupContainer>
@@ -259,7 +259,7 @@ function ScrapBookPlaceMapPage() {
               }
             }}
           >
-            <CooordsIcon />
+            {isLoading ? <SpinnerIcon /> : <CoordsIcon />}
           </S.CurrentPositionWrapper>
         </Map>
       }
