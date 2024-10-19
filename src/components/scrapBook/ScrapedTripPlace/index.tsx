@@ -23,7 +23,11 @@ import toast from 'react-hot-toast';
 import { Toast } from '@_common/Toast';
 import eventPush from '@_utils/GA4EventPush';
 
-function ScrapedTripPlace() {
+interface Props {
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+function ScrapedTripPlace({setIsLoading}: Props) {
   const navigate = useNavigate();
 
   const filter = useRecoilValue<TFilter>(scrapPlaceFilterState);
@@ -69,7 +73,6 @@ function ScrapedTripPlace() {
   const infiniteRef = useRef<HTMLDivElement>(null);
 
   const getPlaces = () => {
-    console.log(filter);
     if (filter.sort === '담은순') {
       get<{
         next: string | null;
@@ -90,6 +93,7 @@ function ScrapedTripPlace() {
     } else {
       isLocationTermsAgreed().then((isAgreed) => {
         if(isAgreed) {
+          setIsLoading(true);
           navigator.geolocation.getCurrentPosition((position) => {
             get<{
               next: string | null;
@@ -108,6 +112,7 @@ function ScrapedTripPlace() {
               setPlaces(data.results);
               setCount(data.count);
               setNext(data.next?.replace('http://', 'https://'));
+              setIsLoading(false);
             });
           });          
         } else {

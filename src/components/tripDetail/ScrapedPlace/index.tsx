@@ -17,6 +17,7 @@ import { popupValue } from '@_recoil/common/PopupValue';
 import toast from 'react-hot-toast';
 import { Toast } from '@_common/Toast';
 import usePopup from '../../../hooks/usePopup';
+import SpinnerWrapper from '@_common/SpinnerWrapper';
 
 interface Props {
   popupOpen: () => void;
@@ -63,6 +64,7 @@ function themeSwiftCode(keyword: string) {
 }
 
 function ScrapedPlace({ popupOpen, setNewLocation, setNewRegion, locations }: Props) {
+  const [isLoading, setIsLoading] = useState(false);
   const [filter, setFilter] = useRecoilState<TFilter>(scrapPlaceFilterState);
   const activeFilter = useRecoilValue(activeScrapPlaceFilterListState);
   const [places, setPlaces] = useState<Place[]>([]);
@@ -80,6 +82,7 @@ function ScrapedPlace({ popupOpen, setNewLocation, setNewRegion, locations }: Pr
     };
 
     if (ordering === 'distance') {
+      setIsLoading(true);
       navigator.geolocation.getCurrentPosition((position) => {
         get<{
           next: string | null;
@@ -94,6 +97,7 @@ function ScrapedPlace({ popupOpen, setNewLocation, setNewRegion, locations }: Pr
         }).then(({ data }) => {
           setPlaces(data.results);
           setNext(data.next?.replace('http://', 'https://'));
+          setIsLoading(false);
         });
       });
     } else {
@@ -244,6 +248,7 @@ function ScrapedPlace({ popupOpen, setNewLocation, setNewRegion, locations }: Pr
 
   return (
     <>
+      {isLoading && <SpinnerWrapper />}
       <S.FilterContainer>
         <FilterList
           filterType="scrapPlace"

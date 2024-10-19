@@ -9,6 +9,15 @@ export const CurrentPositionWrapper = styled.div`
   padding: 4px;
   border-radius: 8px;
   cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    width: 32px;
+    height: 32px;
+  }
 `;
 
 export const ModalOpenButton = styled.div`

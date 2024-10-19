@@ -17,13 +17,15 @@ import {
 
 import * as S from './style';
 import { useSearchParams } from 'react-router-dom';
+import SpinnerWrapper from '@_common/SpinnerWrapper';
 
 function ScrapBookPage() {
+  const [isLoading, setIsLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [focusedTabIndex, setFocusedTabIndex] = useState<number>(0);
   const setActiveFilters = useSetRecoilState(scrapPlaceFilterState);
   const tabs = [
-    { id: 1, name: '여행 장소', content: <ScrapedTripPlace /> },
+    { id: 1, name: '여행 장소', content: <ScrapedTripPlace setIsLoading={setIsLoading} /> },
     { id: 2, name: '콘텐츠', content: <ScrapedContents /> },
     { id: 3, name: '아티클', content: <ScrapedTripJournal /> },
   ];
@@ -109,6 +111,7 @@ function ScrapBookPage() {
         </S.Header>
       }
     >
+      {isLoading && <SpinnerWrapper />}
       {tabs[focusedTabIndex].content}
     </PageTemplate>
   );
