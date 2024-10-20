@@ -41,9 +41,7 @@ function SearchPlaces({ tripId, keyword, location, popupOpen, setNewLocation }: 
 
   useEffect(() => {
     setIsSearching(true);
-    get<TPlace[]>(
-      `/place/list-search?location=${location.toLocaleString()}&query=${keywords}`,
-    ).then((response) => {
+    get<TPlace[]>(`/place/search/my-travel?query=${keywords}`).then((response) => {
       setIsSearching(false);
       setSearchedPlaces(response.data);
     });

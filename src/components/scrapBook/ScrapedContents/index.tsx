@@ -43,6 +43,7 @@ function ScrapedContents() {
     onSubmit: (e) => {
       e.preventDefault();
       setIsSearch(true);
+      eventPush('스크랩.콘텐츠.검색');
 
       get<TResponse>('/scrap/content', {
         params: {

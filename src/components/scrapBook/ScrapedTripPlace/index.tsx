@@ -400,6 +400,7 @@ function ScrapedTripPlace({setIsLoading}: Props) {
           {!isEditMode && (
             <S.MapButton
               onClick={() => {
+                eventPush('스크랩.트립버킷.지도보기');
                 navigate(`/scrapbook/placemap?count=${maximunCount}`);
               }}
             >
