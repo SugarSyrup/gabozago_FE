@@ -160,7 +160,7 @@ Firefox : 웹브라우저 우측 상단 아이콘 - 설정 - 개인 정보 및 �
   const data: TTerm | undefined = termsMap.find((item) => item.id === id);
 
   useEffect(() => {
-    if (id === undefined || data === undefined) {
+    if (id === undefined) {
       alert('접근할 수 없는 페이지입니다.');
       navigate(-1);
     }
