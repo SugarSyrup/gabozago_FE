@@ -1,4 +1,4 @@
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
 import * as S from './style';
 import PageTemplate from '@_common/PageTemplate';
@@ -20,6 +20,7 @@ interface TResponseData extends TPlace {
 
 function ContentPlaceSearchPage() {
   const navigate = useNavigate();
+  const { id } = useParams();
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const [data, setData] = useState<TResponseData[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -32,12 +33,12 @@ function ContentPlaceSearchPage() {
       e.preventDefault();
 
       setIsSearching(true);
-      get<TResponseData[]>(`/place/scrap-list-search?query=${inputRef.current.value}`).then(
-        (res) => {
-          setIsSearching(false);
-          setData(res.data);
-        },
-      );
+      get<TResponseData[]>(
+        `/place/search/scrap/content/${id}?query=${inputRef.current.value}`,
+      ).then((res) => {
+        setIsSearching(false);
+        setData(res.data);
+      });
     },
   });
 
@@ -45,12 +46,12 @@ function ContentPlaceSearchPage() {
     setIsSearching(true);
     if (inputRef.current) {
       inputRef.current.value = searchParams.get('name') as string;
-      get<TResponseData[]>(`/place/scrap-list-search?query=${searchParams.get('name')}`).then(
-        (res) => {
-          setIsSearching(false);
-          setData(res.data);
-        },
-      );
+      get<TResponseData[]>(
+        `/place/search/scrap/content/${id}?query=${searchParams.get('name')}`,
+      ).then((res) => {
+        setIsSearching(false);
+        setData(res.data);
+      });
     }
   }, []);
 
