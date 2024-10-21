@@ -8,4 +8,5 @@ export interface TPlace {
   latitude: number; // 지도 좌표를 위해...
   longitude: number;
   location: string;
+  theme: string;
 }

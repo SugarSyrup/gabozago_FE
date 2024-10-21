@@ -189,3 +189,10 @@ export const ButtonContainer = styled.div`
     }
   }
 `;
+
+export const EditModeSelectButton = styled.div`
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+`;

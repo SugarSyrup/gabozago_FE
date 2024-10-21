@@ -23,6 +23,7 @@ import toast from 'react-hot-toast';
 import { Toast } from '@_common/Toast';
 import eventPush from '@_utils/GA4EventPush';
 import themeSwiftCode from '@_utils/themeSwiftCode';
+import ThemeIcon from '@_common/ThemeIcon';
 
 interface Props {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
@@ -330,7 +331,7 @@ function ScrapedTripPlace({setIsLoading}: Props) {
               }}
             >
               {isEditMode && (
-                <div
+                <S.EditModeSelectButton
                   onClick={() => {
                     if (deletePlaces.includes(item.placeId)) {
                       setDeletePlaces(deletePlaces.filter((id) => id !== item.placeId));
@@ -340,15 +341,16 @@ function ScrapedTripPlace({setIsLoading}: Props) {
                   }}
                 >
                   {deletePlaces.includes(item.placeId) ? <SelectFilledIcon /> : <SelectIcon />}
-                </div>
+                </S.EditModeSelectButton>
               )}
-              {item.thumbnailURL ? (
+              {/* {item.thumbnailURL ? (
                 <S.ThumbnailWrapper src={item.thumbnailURL} alt={item.name} />
               ) : (
                 <S.NoThumbnailWrapper>
                   <img src={NoThumbnailImg} alt="No Thumbnail" />
                 </S.NoThumbnailWrapper>
-              )}
+              )} */}
+              {!isEditMode && <ThemeIcon id={themeSwiftCode(item.theme)} width={20} height={20} color="#5276FA"/>}
               <S.PlaceInfomation>
                 <Typography.Title size="md" color="inherit">
                   {item.name}
