@@ -35,6 +35,7 @@ const Container = styled.div<{ color: string; width: number; height: number }>`
   svg {
     path {
       fill: ${({ color }) => color};
+      stroke: ${({ color, id }) => id === '09' && color};
     }
   }
 `;
@@ -60,7 +61,7 @@ function ThemeIcon({ id, color, width, height }: Props) {
   };
 
   return (
-    <Container color={color} width={width} height={height}>
+    <Container color={color} width={width} height={height} id={id}>
       <ThemeOutlineCircle />
       {themeIcon[id]}
     </Container>

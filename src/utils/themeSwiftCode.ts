@@ -6,20 +6,18 @@ function themeSwiftCode(keyword: string) {
       return '02';
     case '관광명소':
       return '03';
-    case '레포츠':
+    case '대형마트':
       return '04';
-    case '쇼핑':
-      return '05';
     case '문화시설':
-      return '06';
-    case '여가시설':
-      return '07';
+      return '05';
     case '편의시설':
-      return '08';
+      return '06';
     case '숙박시설':
-      return '09';
+      return '07';
     case '주차장':
-      return '10';
+      return '08';
+    case '기타':
+      return '09';
     default:
       return '';
   }

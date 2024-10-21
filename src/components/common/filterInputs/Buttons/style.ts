@@ -27,6 +27,7 @@ export const CheckboxInput = styled.input`
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 4px;
 
     cursor: pointer;
     color: ${({ theme }) => theme.gray01};
