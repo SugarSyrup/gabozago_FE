@@ -18,6 +18,7 @@ import toast from 'react-hot-toast';
 import { Toast } from '@_common/Toast';
 import usePopup from '../../../hooks/usePopup';
 import SpinnerWrapper from '@_common/SpinnerWrapper';
+import themeSwiftCode from '@_utils/themeSwiftCode';
 
 interface Props {
   popupOpen: () => void;
@@ -34,33 +35,6 @@ interface Place {
   addressShort: string;
   location: string;
   memo?: string;
-}
-
-function themeSwiftCode(keyword: string) {
-  switch (keyword) {
-    case '음식점':
-      return '01';
-    case '카페':
-      return '02';
-    case '관광명소':
-      return '03';
-    case '레포츠':
-      return '04';
-    case '쇼핑':
-      return '05';
-    case '문화시설':
-      return '06';
-    case '여가시설':
-      return '07';
-    case '편의시설':
-      return '08';
-    case '숙박시설':
-      return '09';
-    case '주차장':
-      return '10';
-    default:
-      return '';
-  }
 }
 
 function ScrapedPlace({ popupOpen, setNewLocation, setNewRegion, locations }: Props) {
@@ -273,13 +247,12 @@ function ScrapedPlace({ popupOpen, setNewLocation, setNewRegion, locations }: Pr
                   { label: '음식점', value: '음식점' },
                   { label: '카페', value: '카페' },
                   { label: '관광명소', value: '관광명소' },
-                  { label: '레포츠', value: '레포츠' },
-                  { label: '쇼핑', value: '쇼핑' },
+                  { label: '대형마트', value: '대형마트' },
                   { label: '문화시설', value: '문화시설' },
-                  { label: '여가시설', value: '여가시설' },
                   { label: '편의시설', value: '편의시설' },
                   { label: '숙박시설', value: '숙박시설' },
                   { label: '주차장', value: '주차장' },
+                  { label: '기타', value: '기타' },
                 ],
               },
             },

@@ -22,6 +22,8 @@ import isLocationTermsAgreed from '@_utils/isLocationTerms';
 import toast from 'react-hot-toast';
 import { Toast } from '@_common/Toast';
 import eventPush from '@_utils/GA4EventPush';
+import themeSwiftCode from '@_utils/themeSwiftCode';
+import ThemeIcon from '@_common/ThemeIcon';
 
 interface Props {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
@@ -41,33 +43,6 @@ function ScrapedTripPlace({setIsLoading}: Props) {
   const [deletePlaces, setDeletePlaces] = useState<number[]>([]);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [next, setNext] = useState<string | null>(null);
-
-  function themeSwiftCode(keyword: string) {
-    switch (keyword) {
-      case '음식점':
-        return '01';
-      case '카페':
-        return '02';
-      case '관광명소':
-        return '03';
-      case '레포츠':
-        return '04';
-      case '쇼핑':
-        return '05';
-      case '문화시설':
-        return '06';
-      case '여가시설':
-        return '07';
-      case '편의시설':
-        return '08';
-      case '숙박시설':
-        return '09';
-      case '주차장':
-        return '10';
-      default:
-        return '';
-    }
-  }
 
   const { popupOpen, popupClose } = usePopup();
   const infiniteRef = useRef<HTMLDivElement>(null);
@@ -356,7 +331,7 @@ function ScrapedTripPlace({setIsLoading}: Props) {
               }}
             >
               {isEditMode && (
-                <div
+                <S.EditModeSelectButton
                   onClick={() => {
                     if (deletePlaces.includes(item.placeId)) {
                       setDeletePlaces(deletePlaces.filter((id) => id !== item.placeId));
@@ -366,15 +341,16 @@ function ScrapedTripPlace({setIsLoading}: Props) {
                   }}
                 >
                   {deletePlaces.includes(item.placeId) ? <SelectFilledIcon /> : <SelectIcon />}
-                </div>
+                </S.EditModeSelectButton>
               )}
-              {item.thumbnailURL ? (
+              {/* {item.thumbnailURL ? (
                 <S.ThumbnailWrapper src={item.thumbnailURL} alt={item.name} />
               ) : (
                 <S.NoThumbnailWrapper>
                   <img src={NoThumbnailImg} alt="No Thumbnail" />
                 </S.NoThumbnailWrapper>
-              )}
+              )} */}
+              {!isEditMode && <ThemeIcon id={themeSwiftCode(item.theme)} width={20} height={20} color="#5276FA"/>}
               <S.PlaceInfomation>
                 <Typography.Title size="md" color="inherit">
                   {item.name}

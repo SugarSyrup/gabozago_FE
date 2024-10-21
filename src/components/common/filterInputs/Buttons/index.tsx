@@ -2,6 +2,8 @@ import React from 'react';
 import * as S from './style';
 import { ButtonsOptions } from '../../../../assets/types/FilterTypes';
 import eventPush from '@_utils/GA4EventPush';
+import ThemeIcon from '@_common/ThemeIcon';
+import themeSwiftCode from '@_utils/themeSwiftCode';
 
 export interface Props extends ButtonsOptions {
   filter: string[];
@@ -35,7 +37,15 @@ function Buttons({ filter, setFilter, options }: Props) {
               toggleItem(value);
             }}
           />
-          <label htmlFor={value}>{label}</label>
+          <label htmlFor={value}>
+            <ThemeIcon
+              id={themeSwiftCode(label)}
+              width={20}
+              height={20}
+              color={filter.includes(value) ? 'white' : '#94ABFF'}
+            />
+            {label}
+          </label>
         </S.Item>
       ))}
     </S.List>
