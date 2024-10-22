@@ -36,6 +36,10 @@ import { get, post } from '@_utils/api';
 
 import * as S from './style';
 import NaverMap from '../../components/scrapBook/NaverMap';
+import TabBar from '@_common/TabBar';
+import TripBucketContent from '../../components/place/TripBucketContent';
+import BlogContent from '../../components/place/BlogContent';
+import ExtraInfoContent from '../../components/place/ExtraInfoContent';
 
 type TData = {
   basicInformation: {
@@ -61,7 +65,12 @@ function PlacePage() {
   const navigate = useNavigate();
 
   const [data, setData] = useState<TData>();
-  const headerRef = useRef<HTMLDivElement>(null);
+  const tabs = [
+    { id: 1, name: '트립 버킷', content: <TripBucketContent /> },
+    { id: 2, name: '블로그', content: <BlogContent /> },
+    { id: 3, name: '정보', content: <ExtraInfoContent /> },
+  ];
+  const [focusedTabIndex, setFocusedTabIndex] = useState<number>(0);
 
   useEffect(() => {
     get<TData>(`/place/${id}`).then((response) => {
@@ -149,22 +158,38 @@ function PlacePage() {
           <S.SeperateLine />
 
           <S.MapButtonsContainer>
-            <S.InfomationItem>
+            <S.InfomationItem
+              onClick={() => {
+                window.location.href = `kakaomap://place?id=${data.basicInformation.kakaoPlaceId}`;
+              }}
+            >
               <MapIcon />
               <S.InfomationText>상세 정보 보러가기</S.InfomationText>
             </S.InfomationItem>
             <S.MapButtons>
-              <S.MapButton>
+              <S.MapButton
+                onClick={() => {
+                  window.location.href = `kakaomap://place?id=${data.basicInformation.kakaoPlaceId}`;
+                }}
+              >
                 <img src={KakaoMapIMG} alt="KakaoMap" />
                 <Typography.Title size="lg">카카오</Typography.Title>
               </S.MapButton>
               <S.MapButtonSperateLine />
-              <S.MapButton>
+              <S.MapButton
+                onClick={() => {
+                  window.location.href = `nmap://place?lat=${data.basicInformation.coordinate[0]}&lng=${data.basicInformation.coordinate[1]}&appname=gabozago.kr`;
+                }}
+              >
                 <img src={NaverMapIMG} alt="TMap" />
                 <Typography.Title size="lg">네이버</Typography.Title>
               </S.MapButton>
               <S.MapButtonSperateLine />
-              <S.MapButton>
+              <S.MapButton
+                onClick={() => {
+                  window.location.href = `https://apis.openapi.sk.com/tmap/app/routes?appKey=${import.meta.env.VITE_TMAP_API_KEY}&goalname=${data.basicInformation.name}&goalx=${data.basicInformation.coordinate[0]}&goaly=${data.basicInformation.coordinate[1]}`;
+                }}
+              >
                 <img src={TMapIMG} alt="TMap" />
                 <Typography.Title size="lg">티맵</Typography.Title>
               </S.MapButton>
@@ -181,6 +206,13 @@ function PlacePage() {
           </S.PlaceAddButton>
 
           <S.PageSeperateLine />
+
+          <TabBar
+            tabs={tabs}
+            focusedTabIndex={focusedTabIndex}
+            setFocusedTabIndex={setFocusedTabIndex}
+          />
+          {tabs[focusedTabIndex].content}
         </S.ContentContainer>
       )}
     </PageTemplate>
