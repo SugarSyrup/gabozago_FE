@@ -10,34 +10,8 @@ export const ContentContainer = styled.div`
   gap: 16px;
 `;
 
-export const HeaderName = styled.div``;
-
-export const ImgSlider = styled.div`
-  width: 100%;
-  max-height: 200px;
-  overflow: auto;
-  position: relative;
-
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  scroll-snap-type: x mandatory;
-
-  img {
-    width: 100%;
-    max-height: 200px;
-    scroll-snap-align: start;
-    object-fit: cover;
-    flex-shrink: 0;
-  }
-
-  &::-webkit-scrollbar {
-    display: none;
-    scrollbar-width: none;
-  }
-`;
-
-export const TextContainer = styled.div`
+// PlaceHeader
+export const PlaceHeaderContainer = styled.div`
   width: 100%;
   padding-left: 20px;
   padding-right: 20px;
@@ -48,7 +22,7 @@ export const TextContainer = styled.div`
   gap: 16px;
 `;
 
-export const PlaceTitle = styled.div`
+export const PlaceHeader = styled.div`
   position: relative;
   width: 100%;
 
@@ -71,27 +45,21 @@ export const ScrapButton = styled.div<{ isScraped: boolean }>`
   align-items: center;
   gap: 4px;
 
-  color: ${({ theme, isScraped }) => (isScraped ? 'white' : theme.colors.font.tertiary)};
+  color: ${({ theme }) => theme.colors.font.secondary};
 
   svg {
     width: 16px;
     height: 16px;
 
     path {
-      fill: ${({ theme, isScraped }) => (isScraped ? 'white' : theme.colors.font.tertiary)};
+      fill: ${({ theme, isScraped }) =>
+        isScraped ? theme.colors.blue.primary : theme.colors.font.tertiary};
     }
   }
 `;
 
-// ContentList
-export const ContentList = styled.div`
-  width: 100%;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  gap: 8px;
-`;
+// BasicInformationContainer
+export const BasicInformationContainer = styled.div``;
 
 export const InfomationList = styled.ol`
   width: 100%;
@@ -102,8 +70,7 @@ export const InfomationList = styled.ol`
 `;
 
 export const InfomationItem = styled.li`
-  padding-top: 4px;
-  padding-bottom: 4px;
+  padding: 4px 20px;
 
   display: flex;
   justify-content: flex-start;
@@ -124,6 +91,89 @@ export const InfomationText = styled.span`
   font-size: 14px;
   font-weight: 400;
   line-height: 24px;
+  letter-spacing: 0.5px;
+`;
+
+export const AddressOld = styled.span`
+  color: ${({ theme }) => theme.colors.font.tertiary};
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.028px;
+
+  margin-right: 8px;
+`;
+
+export const SeperateLine = styled.div`
+  width: calc(100% - 40px);
+  margin-left: 20px;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.gray.tertiary};
+`;
+
+export const PageSeperateLine = styled.div`
+  width: 100%;
+  border-bottom: 4px solid ${({ theme }) => theme.colors.gray.tertiary};
+`;
+
+// Map Buttons Container
+
+export const MapButtonsContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+`;
+
+export const MapButtons = styled.div`
+  width: calc(100% - 60px);
+  margin-left: 30px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const MapButton = styled.div`
+  padding: 16px 8px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  img {
+    width: 28px;
+    height: 28px;
+  }
+`;
+
+export const MapButtonSperateLine = styled.div`
+  height: 32px;
+  width: 0px;
+
+  border-right: 1px solid ${({ theme }) => theme.colors.gray.tertiary};
+`;
+
+export const PlaceAddButton = styled.div`
+  width: calc(100% - 40px);
+  margin-left: 20px;
+  padding: 12px 20px;
+
+  border: 1px solid ${({ theme }) => theme.colors.blue.primary};
+  border-radius: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  svg {
+    width: 28px;
+    height: 28px;
+    path {
+      fill: ${({ theme }) => theme.colors.blue.primary};
+    }
+  }
 `;
 
 export const InfomationLink = styled(Link)`
@@ -133,11 +183,6 @@ export const InfomationLink = styled(Link)`
   line-height: 20px;
   letter-spacing: 0.25px;
   text-decoration-line: underline;
-`;
-
-export const SeperateLine = styled.div`
-  width: 100%;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray.tertiary};
 `;
 
 export const MemoContainer = styled.div`
@@ -253,20 +298,4 @@ export const UpButton = styled.div`
   background: #fff;
 
   cursor: pointer;
-`;
-
-export const BottomContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-
-  svg {
-    width: 28px;
-    height: 28px;
-
-    path {
-      fill: white;
-    }
-  }
 `;
