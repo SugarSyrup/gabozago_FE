@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLoaderData, useParams } from 'react-router-dom';
+import { useLoaderData, useNavigate, useParams } from 'react-router-dom';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 
 import { get } from '@_utils/api';
@@ -43,6 +43,7 @@ export interface TripData {
 
 function MyTripDetailPage() {
   const { id } = useParams(); // 파라미터에 게시글 ID
+  const navigate = useNavigate();
   const nickname = useLoaderData() as string;
 
   const [data, setData] = useRecoilState(tripState);
@@ -77,17 +78,6 @@ function MyTripDetailPage() {
       dateString: '',
     },
   });
-
-  // 여행 일정 데이터 불러오기
-  const getData = async (id: number) => {
-    const { data: responseData } = await get<TripData>(`/my-travel/${id}`);
-
-    setData(responseData);
-    setDuration({
-      departure: parseDateString(responseData.departureDate) as DateObject,
-      arrival: parseDateString(responseData.arrivalDate) as DateObject,
-    });
-  };
 
   // 날짜 객체에서 여행 기간 "yyyy. m. d. ~ yyyy. m. d. / n박 m일"로 변환된 텍스트
   const getDurationString = (departure: DateObject, arrival: DateObject): string => {
@@ -126,7 +116,18 @@ function MyTripDetailPage() {
 
   useEffect(() => {
     resetData();
-    getData(Number(id));
+
+    get<TripData>(`/my-travel/${Number(id)}`)
+      .then(({ data: responseData }) => {
+        setData(responseData);
+        setDuration({
+          departure: parseDateString(responseData.departureDate) as DateObject,
+          arrival: parseDateString(responseData.arrivalDate) as DateObject,
+        });
+      })
+      .catch((error) => {
+        navigate(-1);
+      });
   }, []);
 
   useEffect(() => {
