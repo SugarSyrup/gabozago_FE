@@ -350,7 +350,7 @@ function ScrapedTripPlace({setIsLoading}: Props) {
                   <img src={NoThumbnailImg} alt="No Thumbnail" />
                 </S.NoThumbnailWrapper>
               )} */}
-              {!isEditMode && <ThemeIcon id={themeSwiftCode(item.theme)} width={20} height={20} color="#5276FA"/>}
+              {!isEditMode && <ThemeIcon id={item.theme.slice(3)} width={20} height={20} color="#5276FA"/>}
               <S.PlaceInfomation>
                 <Typography.Title size="md" color="inherit">
                   {item.name}
