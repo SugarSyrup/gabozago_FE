@@ -18,6 +18,7 @@ import ParkDenyIcon from '@_icons/park_deny.svg?react';
 import WheelChairDenyIcon from '@_icons/wheelChair_deny.svg?react';
 import BabyCarrigeDenyIcon from '@_icons/babyCarrige_deny.svg?react';
 import RightChevronIcon from '@_icons/chevron_right.svg?react';
+import ImportantIcon from '@_icons/exclamation_circle.svg?react';
 import MapIcon from '@_icons/map.svg?react';
 
 import NaverMapIMG from '@_imgs/maps/NaverMap.png';
@@ -40,6 +41,9 @@ import TabBar from '@_common/TabBar';
 import TripBucketContent from '../../components/place/TripBucketContent';
 import BlogContent from '../../components/place/BlogContent';
 import ExtraInfoContent from '../../components/place/ExtraInfoContent';
+import { useSetRecoilState } from 'recoil';
+import { popupValue } from '@_recoil/common/PopupValue';
+import usePopup from '../../hooks/usePopup';
 
 type TData = {
   basicInformation: {
@@ -102,12 +106,22 @@ function PlacePage() {
     { id: 3, name: '정보', content: <ExtraInfoContent data={data?.etcInformation} /> },
   ];
   const [focusedTabIndex, setFocusedTabIndex] = useState<number>(0);
+  const { popupOpen, popupClose } = usePopup();
+  const setPoupUI = useSetRecoilState(popupValue);
 
   useEffect(() => {
     get<TData>(`/place/${id}`).then((response) => {
       setData(response.data);
     });
   }, []);
+
+  useEffect(() => {
+    const scrollHeight = window.scrollY;
+
+    setTimeout(() => {
+      window.scrollTo(0, scrollHeight);
+    }, 10);
+  }, [focusedTabIndex]);
 
   return (
     <PageTemplate
@@ -134,24 +148,63 @@ function PlacePage() {
                   backgroundColor: data.basicInformation.scrap.isScraped ? '#F3F6FF' : 'white',
                 }}
                 onClick={() => {
-                  post('/scrap/place', {
-                    placeId: id,
-                    isTripBucket: false,
-                  }).then(() => {
-                    setData({
-                      ...data,
-                      basicInformation: {
-                        ...data.basicInformation,
-                        scrap: {
-                          ...data.basicInformation.scrap,
-                          isScraped: !data.basicInformation.scrap.isScraped,
-                          count: data.basicInformation.scrap.isScraped
-                            ? data.basicInformation.scrap.count - 1
-                            : data.basicInformation.scrap.count + 1,
+                  if (data.basicInformation.scrap.isScraped) {
+                    setPoupUI({
+                      Icon: <ImportantIcon />,
+                      Header: '이 장소의 스크랩을 삭제하시겠어요?',
+                      Warning: '삭제하면 다시 복구할 수 없어요',
+                      ConfirmButton: {
+                        text: '네, 삭제할게요',
+                        onClick: () => {
+                          post('/scrap/place', {
+                            placeId: id,
+                            isTripBucket: false,
+                          }).then(() => {
+                            setData({
+                              ...data,
+                              basicInformation: {
+                                ...data.basicInformation,
+                                scrap: {
+                                  ...data.basicInformation.scrap,
+                                  isScraped: !data.basicInformation.scrap.isScraped,
+                                  count: data.basicInformation.scrap.isScraped
+                                    ? data.basicInformation.scrap.count - 1
+                                    : data.basicInformation.scrap.count + 1,
+                                },
+                              },
+                            });
+                          });
+                          popupClose();
+                        },
+                      },
+                      CloseButton: {
+                        text: '아니요',
+                        onClick: () => {
+                          popupClose();
                         },
                       },
                     });
-                  });
+                    popupOpen();
+                  } else {
+                    post('/scrap/place', {
+                      placeId: id,
+                      isTripBucket: false,
+                    }).then(() => {
+                      setData({
+                        ...data,
+                        basicInformation: {
+                          ...data.basicInformation,
+                          scrap: {
+                            ...data.basicInformation.scrap,
+                            isScraped: !data.basicInformation.scrap.isScraped,
+                            count: data.basicInformation.scrap.isScraped
+                              ? data.basicInformation.scrap.count - 1
+                              : data.basicInformation.scrap.count + 1,
+                          },
+                        },
+                      });
+                    });
+                  }
                 }}
               >
                 <S.ScrapButton isScraped={data.basicInformation.scrap.isScraped}>
@@ -229,7 +282,11 @@ function PlacePage() {
 
           <S.SeperateLine />
 
-          <S.PlaceAddButton>
+          <S.PlaceAddButton
+            onClick={() => {
+              navigate(`/mytrip/place/${id}`);
+            }}
+          >
             <CalendarAddIcon />
             <Typography.Title size="lg" color="#484848">
               내 일정에 추가하기
@@ -238,11 +295,18 @@ function PlacePage() {
 
           <S.PageSeperateLine />
 
-          <TabBar
-            tabs={tabs}
-            focusedTabIndex={focusedTabIndex}
-            setFocusedTabIndex={setFocusedTabIndex}
-          />
+          <div
+            style={{
+              position: 'sticky',
+              top: '48px',
+            }}
+          >
+            <TabBar
+              tabs={tabs}
+              focusedTabIndex={focusedTabIndex}
+              setFocusedTabIndex={setFocusedTabIndex}
+            />
+          </div>
           {tabs[focusedTabIndex].content}
         </S.ContentContainer>
       )}

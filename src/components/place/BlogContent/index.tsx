@@ -29,7 +29,13 @@ function BlogContent({ data }: Props) {
                 {item.date}
               </Typography.Label>
             </S.BlogInfo>
-            <S.BlogTitle dangerouslySetInnerHTML={{ __html: item.title }} />
+            <div
+              onClick={() => {
+                window.location.href = item.contentURL;
+              }}
+            >
+              <S.BlogTitle dangerouslySetInnerHTML={{ __html: item.title }} />
+            </div>
             <S.BlogContent>
               <span dangerouslySetInnerHTML={{ __html: item.summary }} />
               <img src={item.thumbnailURL} alt="thumbnail" />
