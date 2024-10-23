@@ -77,7 +77,7 @@ type TData = {
     summary: string;
   }[];
 
-  etcInfomation: {
+  etcInformation: {
     openingHours: string;
     website: string;
     additionalInfomation: string;
@@ -99,7 +99,7 @@ function PlacePage() {
   const tabs = [
     { id: 1, name: '트립 버킷', content: <TripBucketContent data={data?.tripBucket} /> },
     { id: 2, name: '블로그', content: <BlogContent data={data?.blog} /> },
-    { id: 3, name: '정보', content: <ExtraInfoContent data={data?.etcInfomation} /> },
+    { id: 3, name: '정보', content: <ExtraInfoContent data={data?.etcInformation} /> },
   ];
   const [focusedTabIndex, setFocusedTabIndex] = useState<number>(0);
 
