@@ -13,15 +13,12 @@ function NaverMap({ coordinate }: Props) {
     });
     if (coordinate) {
       mapInstance = new window.naver.maps.Map('map', {
-        // center: new naver.maps.LatLng(coordinate[0], coordinate[1]),
-        // 35.134080249513474, 129.10317348438963
-
-        center: new naver.maps.LatLng(35.1531673, 129.066005),
+        center: new naver.maps.LatLng(coordinate[0], coordinate[1]),
         zoom: 16,
       });
 
       const marker = new naver.maps.Marker({
-        position: new naver.maps.LatLng(35.1531673, 129.066005),
+        position: new naver.maps.LatLng(coordinate[0], coordinate[1]),
         map: mapInstance,
       });
     } else {

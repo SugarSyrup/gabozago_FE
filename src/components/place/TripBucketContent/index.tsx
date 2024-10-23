@@ -3,8 +3,10 @@ import { useState } from 'react';
 import TopChevronIcon from '@_icons/chevron_top.svg?react';
 import BottomChevronIcon from '@_icons/chevron_bottom.svg?react';
 import ChevronRightIcon from '@_icons/chevron_right.svg?react';
+import LogoSmallIcon from '@_icons/logo_small.svg?react';
 
 import Typography from '@_common/Typography';
+import InstagramImg from '@_imgs/instagram_icon.png';
 
 import * as S from './style';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -23,7 +25,7 @@ interface Props {
 
 function TripBucketContent({ data }: Props) {
   const navigate = useNavigate();
-  const id = useParams();
+  const { id } = useParams();
   const [isMemoOpen, setIsMemoOpen] = useState(false);
 
   return (
@@ -31,8 +33,25 @@ function TripBucketContent({ data }: Props) {
       <Typography.Headline size="sm">함께 담은 콘텐츠</Typography.Headline>
       <S.ContentList>
         {data.contents.map((content) => (
-          <S.ContentItem key={content.id}>
-            <img src={content.thumbnailURL} />
+          <S.ContentItem
+            key={content.id}
+            onClick={() => {
+              navigate(`/scrapbook/content/${content.id}`);
+            }}
+          >
+            {content.thumbnailURL ? (
+              <>
+                <img src={content.thumbnailURL} alt={content.title} />
+                <S.HeaderIconWrapper>
+                  {content.source === 'SRC01' && <img src={InstagramImg} alt="icon" />}
+                </S.HeaderIconWrapper>
+              </>
+            ) : (
+              <S.NoThumbnail>
+                <LogoSmallIcon />
+              </S.NoThumbnail>
+            )}
+
             <Typography.Title size="md" noOfLine={2}>
               <span
                 style={{
@@ -52,7 +71,7 @@ function TripBucketContent({ data }: Props) {
             if (data.memo === null) {
               navigate(`/place/${id}/edit`);
             } else {
-              navigate(`/place/${id}/edit?memo=${data.memo}`);
+              navigate(`/place/${id}/edit?memo=${data.memo.replace(/(\n|\r\n)/g, '%0a')}`);
             }
           }}
         >
