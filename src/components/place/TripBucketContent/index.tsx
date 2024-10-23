@@ -23,7 +23,7 @@ interface Props {
 
 function TripBucketContent({ data }: Props) {
   const navigate = useNavigate();
-  const id = useParams();
+  const { id } = useParams();
   const [isMemoOpen, setIsMemoOpen] = useState(false);
 
   return (
@@ -57,7 +57,8 @@ function TripBucketContent({ data }: Props) {
             if (data.memo === null) {
               navigate(`/place/${id}/edit`);
             } else {
-              navigate(`/place/${id}/edit?memo=${data.memo}`);
+              console.log(data.memo);
+              navigate(`/place/${id}/edit?memo=${data.memo.replace(/(\n|\r\n)/g, '%0a')}`);
             }
           }}
         >
