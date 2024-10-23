@@ -50,10 +50,12 @@ function PlaceAddPage() {
     });
 
     get<{
-      location: string;
-      name: string;
-    }>(`/community/article/place/${id}`).then((response) => {
-      setPlaceData(response.data);
+      basicInformation: {
+        location: string;
+        name: string;
+      };
+    }>(`place/${id}`).then((response) => {
+      setPlaceData(response.data.basicInformation);
     });
   }, []);
 
