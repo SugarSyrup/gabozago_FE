@@ -37,6 +37,7 @@ export const ContentItem = styled.div`
   justify-content: flex-start;
   align-items: center;
   flex-shrink: 0;
+  position: relative;
 
   img {
     width: 100px;
@@ -119,5 +120,50 @@ export const MemoEdit = styled.div`
     path {
       fill: ${({ theme }) => theme.colors.blue.primary};
     }
+  }
+`;
+
+export const NoThumbnail = styled.div`
+  width: 100px;
+  height: 100px;
+  border-radius: 9px;
+  border: 1px solid #e7e7e7;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    width: 24px;
+    height: 24px;
+
+    path {
+      fill: ${({ theme }) => theme.colors.blue.primary};
+    }
+
+    path:nth-child(3) {
+      fill: white;
+    }
+  }
+`;
+
+export const HeaderIconWrapper = styled.div`
+  width: 32px;
+  height: 32px;
+  padding: 4px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.4);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  top: 60px;
+  right: 8px;
+
+  img {
+    width: 24px;
+    height: 24px;
   }
 `;

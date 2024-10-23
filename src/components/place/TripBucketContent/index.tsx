@@ -3,8 +3,10 @@ import { useState } from 'react';
 import TopChevronIcon from '@_icons/chevron_top.svg?react';
 import BottomChevronIcon from '@_icons/chevron_bottom.svg?react';
 import ChevronRightIcon from '@_icons/chevron_right.svg?react';
+import LogoSmallIcon from '@_icons/logo_small.svg?react';
 
 import Typography from '@_common/Typography';
+import InstagramImg from '@_imgs/instagram_icon.png';
 
 import * as S from './style';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -37,7 +39,19 @@ function TripBucketContent({ data }: Props) {
               navigate(`/scrapbook/content/${content.id}`);
             }}
           >
-            <img src={content.thumbnailURL} />
+            {content.thumbnailURL ? (
+              <>
+                <img src={content.thumbnailURL} alt={content.title} />
+                <S.HeaderIconWrapper>
+                  {content.source === 'SRC01' && <img src={InstagramImg} alt="icon" />}
+                </S.HeaderIconWrapper>
+              </>
+            ) : (
+              <S.NoThumbnail>
+                <LogoSmallIcon />
+              </S.NoThumbnail>
+            )}
+
             <Typography.Title size="md" noOfLine={2}>
               <span
                 style={{
@@ -57,7 +71,6 @@ function TripBucketContent({ data }: Props) {
             if (data.memo === null) {
               navigate(`/place/${id}/edit`);
             } else {
-              console.log(data.memo);
               navigate(`/place/${id}/edit?memo=${data.memo.replace(/(\n|\r\n)/g, '%0a')}`);
             }
           }}
