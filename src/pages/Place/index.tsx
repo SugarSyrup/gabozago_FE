@@ -57,6 +57,36 @@ type TData = {
       isScraped: boolean;
     };
   };
+
+  tripBucket: {
+    contents: {
+      id: number;
+      thumbnailURL: string;
+      source: string;
+      title: string;
+    }[];
+    memo: string;
+  };
+
+  blog: {
+    title: string;
+    blogName: string;
+    date: string;
+    thumbnailURL: string;
+    contentURL: string;
+  }[];
+
+  etcInfomation: {
+    openingHours: string;
+    website: string;
+    additionalInfomation: string;
+    amenitiesAndService: {
+      parking: boolean;
+      pet: boolean;
+      barrierFree: boolean;
+      stroller: boolean;
+    };
+  };
 };
 
 function PlacePage() {
@@ -66,9 +96,9 @@ function PlacePage() {
 
   const [data, setData] = useState<TData>();
   const tabs = [
-    { id: 1, name: '트립 버킷', content: <TripBucketContent /> },
-    { id: 2, name: '블로그', content: <BlogContent /> },
-    { id: 3, name: '정보', content: <ExtraInfoContent /> },
+    { id: 1, name: '트립 버킷', content: <TripBucketContent data={data?.tripBucket} /> },
+    { id: 2, name: '블로그', content: <BlogContent data={data?.blog} /> },
+    { id: 3, name: '정보', content: <ExtraInfoContent data={data?.etcInfomation} /> },
   ];
   const [focusedTabIndex, setFocusedTabIndex] = useState<number>(0);
 

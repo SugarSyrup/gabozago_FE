@@ -285,7 +285,7 @@ export const PlaceIconWrapper = styled.div<{ isScraped: boolean | undefined }>`
     width: 32px;
     height: 32px;
 
-    path{
+    path {
       fill: ${({ isScraped, theme }) => {
         switch (isScraped) {
           case true: {
@@ -298,7 +298,8 @@ export const PlaceIconWrapper = styled.div<{ isScraped: boolean | undefined }>`
             return theme.colors.gray.primary;
           }
         }
-      }}
+      }};
+    }
   }
 `;
 
