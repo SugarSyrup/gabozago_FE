@@ -3,6 +3,8 @@ import styled from 'styled-components';
 export const Container = styled.div<{ widthStyle: 'fit-content' | 'flexible' }>`
   position: relative;
   width: ${({ widthStyle }) => (widthStyle === 'flexible' ? 'auto' : widthStyle)};
+
+  background-color: white;
 `;
 
 export const TabList = styled.ol<{ widthStyle: 'fit-content' | 'flexible' }>`

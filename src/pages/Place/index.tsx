@@ -18,6 +18,12 @@ import ParkDenyIcon from '@_icons/park_deny.svg?react';
 import WheelChairDenyIcon from '@_icons/wheelChair_deny.svg?react';
 import BabyCarrigeDenyIcon from '@_icons/babyCarrige_deny.svg?react';
 import RightChevronIcon from '@_icons/chevron_right.svg?react';
+import ImportantIcon from '@_icons/exclamation_circle.svg?react';
+import MapIcon from '@_icons/map.svg?react';
+
+import NaverMapIMG from '@_imgs/maps/NaverMap.png';
+import KakaoMapIMG from '@_imgs/maps/KakaoMap.png';
+import TMapIMG from '@_imgs/maps/Tmap.png';
 
 import { HeaderWithBack } from '@_common/Header';
 import OutlineButton from '@_common/Button/OutlineButton';
@@ -30,35 +36,61 @@ import PlaceGoogleMap from '../../components/journal/GoogleMap';
 import { get, post } from '@_utils/api';
 
 import * as S from './style';
+import NaverMap from '../../components/scrapBook/NaverMap';
+import TabBar from '@_common/TabBar';
+import TripBucketContent from '../../components/place/TripBucketContent';
+import BlogContent from '../../components/place/BlogContent';
+import ExtraInfoContent from '../../components/place/ExtraInfoContent';
+import { useSetRecoilState } from 'recoil';
+import { popupValue } from '@_recoil/common/PopupValue';
+import usePopup from '../../hooks/usePopup';
 
 type TData = {
-  name: string;
-  category: string;
-  address: string;
-  trafficInformation: string;
-  number: string;
-  openingHours: string;
-  website: string;
-  additionalInformation: string;
-  latitude: number;
-  longitude: number;
-  thumbnailURL: string;
-
-  scrap: {
-    count: number;
-    isScraped: boolean;
+  basicInformation: {
+    name: string;
+    category: string;
+    address: {
+      old: string;
+      road: string;
+    };
+    number: string;
+    kakaoPlaceId: string;
+    coordinate: [number, number];
+    scrap: {
+      count: number;
+      isScraped: boolean;
+    };
   };
 
-  saved: {
-    contentLink: string;
+  tripBucket: {
+    contents: {
+      id: number;
+      thumbnailURL: string;
+      source: string;
+      title: string;
+    }[];
     memo: string;
   };
 
-  details: {
-    parking: boolean | null;
-    pet: boolean | null;
-    barrierFree: boolean | null;
-    stroller: boolean | null;
+  blog: {
+    title: string;
+    blogName: string;
+    date: string;
+    thumbnailURL: string;
+    contentURL: string;
+    summary: string;
+  }[];
+
+  etcInformation: {
+    openingHours: string;
+    website: string;
+    additionalInfomation: string;
+    amenitiesAndService: {
+      parking: boolean;
+      pet: boolean;
+      barrierFree: boolean;
+      stroller: boolean;
+    };
   };
 };
 
@@ -68,8 +100,14 @@ function PlacePage() {
   const navigate = useNavigate();
 
   const [data, setData] = useState<TData>();
-  const titleRef = useRef<HTMLDivElement>(null);
-  const headerRef = useRef<HTMLDivElement>(null);
+  const tabs = [
+    { id: 1, name: '트립 버킷', content: <TripBucketContent data={data?.tripBucket} /> },
+    { id: 2, name: '블로그', content: <BlogContent data={data?.blog} /> },
+    { id: 3, name: '정보', content: <ExtraInfoContent data={data?.etcInformation} /> },
+  ];
+  const [focusedTabIndex, setFocusedTabIndex] = useState<number>(0);
+  const { popupOpen, popupClose } = usePopup();
+  const setPoupUI = useSetRecoilState(popupValue);
 
   useEffect(() => {
     get<TData>(`/place/${id}`).then((response) => {
@@ -78,325 +116,198 @@ function PlacePage() {
   }, []);
 
   useEffect(() => {
-    if (!titleRef.current) return;
+    const scrollHeight = window.scrollY;
 
-    const observer = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach((entry) => {
-          const entryIntersectionRatio = Math.floor(entry.intersectionRatio * 100) / 100;
-          if (entryIntersectionRatio >= 0.6) {
-            headerRef.current?.style.setProperty('opacity', `0`);
-          } else {
-            headerRef.current?.style.setProperty('opacity', `1`);
-          }
-        });
-      },
-      {
-        threshold: [0.6, 0.625, 0.65, 0.675, 0.7, 0.725, 0.75, 0.775, 0.8, 0.825, 0.85, 0.875, 0.9],
-      },
-    );
-    observer.observe(titleRef.current);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
+    setTimeout(() => {
+      window.scrollTo(0, scrollHeight);
+    }, 10);
+  }, [focusedTabIndex]);
 
   return (
     <PageTemplate
       header={
-        <HeaderWithBack>
-          {data ? <S.HeaderName ref={headerRef}>{data.name}</S.HeaderName> : ''}
-        </HeaderWithBack>
+        <HeaderWithBack>{data ? <span>{data.basicInformation.name}</span> : ''}</HeaderWithBack>
       }
-      nav={
-        searchParams.get('isMyTrip') !== 'true' && (
-          <BottomButtonContainer
+      nav={null}
+    >
+      {data?.basicInformation !== undefined && (
+        <S.ContentContainer>
+          <NaverMap coordinate={data.basicInformation.coordinate} />
+
+          <S.PlaceHeaderContainer>
+            <S.PlaceHeader>
+              <Typography.Headline size="md" color="#000">
+                {data.basicInformation.name}
+              </Typography.Headline>
+              <Typography.Body size="lg" color="#A6A6A6">
+                {data.basicInformation.category}
+              </Typography.Body>
+              <OutlineButton
+                style={{
+                  borderColor: '#5276FA',
+                  backgroundColor: data.basicInformation.scrap.isScraped ? '#F3F6FF' : 'white',
+                }}
+                onClick={() => {
+                  if (data.basicInformation.scrap.isScraped) {
+                    setPoupUI({
+                      Icon: <ImportantIcon />,
+                      Header: '이 장소의 스크랩을 삭제하시겠어요?',
+                      Warning: '삭제하면 다시 복구할 수 없어요',
+                      ConfirmButton: {
+                        text: '네, 삭제할게요',
+                        onClick: () => {
+                          post('/scrap/place', {
+                            placeId: id,
+                            isTripBucket: false,
+                          }).then(() => {
+                            setData({
+                              ...data,
+                              basicInformation: {
+                                ...data.basicInformation,
+                                scrap: {
+                                  ...data.basicInformation.scrap,
+                                  isScraped: !data.basicInformation.scrap.isScraped,
+                                  count: data.basicInformation.scrap.isScraped
+                                    ? data.basicInformation.scrap.count - 1
+                                    : data.basicInformation.scrap.count + 1,
+                                },
+                              },
+                            });
+                          });
+                          popupClose();
+                        },
+                      },
+                      CloseButton: {
+                        text: '아니요',
+                        onClick: () => {
+                          popupClose();
+                        },
+                      },
+                    });
+                    popupOpen();
+                  } else {
+                    post('/scrap/place', {
+                      placeId: id,
+                      isTripBucket: false,
+                    }).then(() => {
+                      setData({
+                        ...data,
+                        basicInformation: {
+                          ...data.basicInformation,
+                          scrap: {
+                            ...data.basicInformation.scrap,
+                            isScraped: !data.basicInformation.scrap.isScraped,
+                            count: data.basicInformation.scrap.isScraped
+                              ? data.basicInformation.scrap.count - 1
+                              : data.basicInformation.scrap.count + 1,
+                          },
+                        },
+                      });
+                    });
+                  }
+                }}
+              >
+                <S.ScrapButton isScraped={data.basicInformation.scrap.isScraped}>
+                  <Typography.Title size="sm" color="inherit">
+                    {data.basicInformation.scrap.count}
+                  </Typography.Title>
+                  {data.basicInformation.scrap.isScraped ? <ScrapFiiledIcon /> : <ScrapIcon />}
+                </S.ScrapButton>
+              </OutlineButton>
+            </S.PlaceHeader>
+          </S.PlaceHeaderContainer>
+
+          <S.BasicInformationContainer>
+            <S.InfomationList>
+              {data.basicInformation.address && (
+                <S.InfomationItem>
+                  <LocationIcon />
+                  <S.InfomationText>
+                    {data.basicInformation.address.road}
+                    <br />
+                    <S.AddressOld>[지번]</S.AddressOld>
+                    {data.basicInformation.address.old}
+                  </S.InfomationText>
+                </S.InfomationItem>
+              )}
+              {data.basicInformation.number && (
+                <S.InfomationItem>
+                  <PhoneIcon />
+                  <S.InfomationText>{data.basicInformation.number}</S.InfomationText>
+                </S.InfomationItem>
+              )}
+            </S.InfomationList>
+          </S.BasicInformationContainer>
+
+          <S.SeperateLine />
+
+          <S.MapButtonsContainer>
+            <S.InfomationItem
+              onClick={() => {
+                window.location.href = `kakaomap://place?id=${data.basicInformation.kakaoPlaceId}`;
+              }}
+            >
+              <MapIcon />
+              <S.InfomationText>상세 정보 보러가기</S.InfomationText>
+            </S.InfomationItem>
+            <S.MapButtons>
+              <S.MapButton
+                onClick={() => {
+                  window.location.href = `kakaomap://place?id=${data.basicInformation.kakaoPlaceId}`;
+                }}
+              >
+                <img src={KakaoMapIMG} alt="KakaoMap" />
+                <Typography.Title size="lg">카카오</Typography.Title>
+              </S.MapButton>
+              <S.MapButtonSperateLine />
+              <S.MapButton
+                onClick={() => {
+                  window.location.href = `nmap://place?lat=${data.basicInformation.coordinate[0]}&lng=${data.basicInformation.coordinate[1]}&appname=gabozago.kr`;
+                }}
+              >
+                <img src={NaverMapIMG} alt="TMap" />
+                <Typography.Title size="lg">네이버</Typography.Title>
+              </S.MapButton>
+              <S.MapButtonSperateLine />
+              <S.MapButton
+                onClick={() => {
+                  window.location.href = `https://apis.openapi.sk.com/tmap/app/routes?appKey=${import.meta.env.VITE_TMAP_API_KEY}&goalname=${data.basicInformation.name}&goalx=${data.basicInformation.coordinate[0]}&goaly=${data.basicInformation.coordinate[1]}`;
+                }}
+              >
+                <img src={TMapIMG} alt="TMap" />
+                <Typography.Title size="lg">티맵</Typography.Title>
+              </S.MapButton>
+            </S.MapButtons>
+          </S.MapButtonsContainer>
+
+          <S.SeperateLine />
+
+          <S.PlaceAddButton
             onClick={() => {
               navigate(`/mytrip/place/${id}`);
             }}
-            bgColor="blue"
           >
-            <S.BottomContainer>
-              <CalendarAddIcon />
-              <Typography.Title size="lg" color="inherit">
-                내 일정에 추가하기
-              </Typography.Title>
-            </S.BottomContainer>
-          </BottomButtonContainer>
-        )
-      }
-    >
-      {data !== undefined && (
-        <S.ContentContainer>
-          {data.thumbnailURL === null ? (
-            <PlaceGoogleMap
-              height="200px"
-              center={{
-                lat: Number(data.latitude),
-                lng: Number(data.longitude),
-              }}
-              markers={[
-                {
-                  lat: Number(data.latitude),
-                  lng: Number(data.longitude),
-                },
-              ]}
+            <CalendarAddIcon />
+            <Typography.Title size="lg" color="#484848">
+              내 일정에 추가하기
+            </Typography.Title>
+          </S.PlaceAddButton>
+
+          <S.PageSeperateLine />
+
+          <div
+            style={{
+              position: 'sticky',
+              top: '48px',
+            }}
+          >
+            <TabBar
+              tabs={tabs}
+              focusedTabIndex={focusedTabIndex}
+              setFocusedTabIndex={setFocusedTabIndex}
             />
-          ) : (
-            <S.ImgSlider>
-              <img src={data.thumbnailURL} key={data.name} alt={`${data.name} IMG`} />
-            </S.ImgSlider>
-          )}
-
-          {/* Text Infomation */}
-          <S.TextContainer>
-            <S.PlaceTitle ref={titleRef}>
-              <Typography.Headline size="md" color="#000">
-                {data.name}
-              </Typography.Headline>
-              <Typography.Body size="lg" color="#A6A6A6">
-                {data.category}
-              </Typography.Body>
-              <OutlineButton
-                bgColor={data.scrap.isScraped ? 'blue' : undefined}
-                onClick={() => {
-                  post('/scrap/place', {
-                    placeId: id,
-                    isTripBucket: false,
-                  }).then(() => {
-                    setData({
-                      ...data,
-                      scrap: {
-                        ...data.scrap,
-                        isScraped: !data.scrap.isScraped,
-                        count: data.scrap.isScraped ? data.scrap.count - 1 : data.scrap.count + 1,
-                      },
-                    });
-                  });
-                }}
-              >
-                <S.ScrapButton isScraped={data.scrap.isScraped}>
-                  <Typography.Title size="sm" color="inherit">
-                    {data.scrap.count}
-                  </Typography.Title>
-                  {data.scrap.isScraped ? <ScrapFiiledIcon /> : <ScrapIcon />}
-                </S.ScrapButton>
-              </OutlineButton>
-            </S.PlaceTitle>
-
-            {/* ContentList */}
-            <S.ContentList>
-              <S.InfomationList>
-                {data.address && (
-                  <S.InfomationItem>
-                    <LocationIcon />
-                    <S.InfomationText>{data.address}</S.InfomationText>
-                  </S.InfomationItem>
-                )}
-                {data.number && (
-                  <S.InfomationItem>
-                    <PhoneIcon />
-                    <S.InfomationText>{data.number}</S.InfomationText>
-                  </S.InfomationItem>
-                )}
-                {data.openingHours && (
-                  <S.InfomationItem>
-                    <TimeIcon />
-                    {/* <PlaceOperateTime opening_hours={data.openingHours} /> */}
-                    <AdditionalText data={data.openingHours}>
-                      <S.InfomationText>운영시간</S.InfomationText>
-                    </AdditionalText>
-                  </S.InfomationItem>
-                )}
-                {data.website && (
-                  <S.InfomationItem>
-                    <LinkIcon />
-                    <S.InfomationLink to={data.website}>{data.website}</S.InfomationLink>
-                  </S.InfomationItem>
-                )}
-
-                {data.additionalInformation && (
-                  <S.InfomationItem>
-                    <TimeIcon />
-                    {/* <PlaceOperateTime opening_hours={data.opening_hours} /> */}
-                    <AdditionalText data={data.additionalInformation}>
-                      <S.InfomationText>부가 정보</S.InfomationText>
-                    </AdditionalText>
-                  </S.InfomationItem>
-                )}
-              </S.InfomationList>
-            </S.ContentList>
-
-            {data.thumbnailURL !== null && (
-              <PlaceGoogleMap
-                height="144px"
-                center={{
-                  lat: Number(data.latitude),
-                  lng: Number(data.longitude),
-                }}
-                markers={[
-                  {
-                    lat: Number(data.latitude),
-                    lng: Number(data.longitude),
-                  },
-                ]}
-              />
-            )}
-
-            {data.saved.contentLink !== null && (
-              <>
-                <S.SeperateLine />
-                <S.MemoContainer>
-                  <S.MemoHeader>
-                    <Typography.Headline size="sm" color="inherit">
-                      저장된 메모
-                    </Typography.Headline>
-                    <div
-                      style={{
-                        display: 'flex',
-                        gap: '4px',
-                        alignItems: 'center',
-                        cursor: 'pointer',
-                      }}
-                      onClick={() => {
-                        if (data.saved.memo === null) {
-                          navigate(`/place/${id}/edit`);
-                        } else {
-                          navigate(`/place/${id}/edit?memo=${data.saved.memo}`);
-                        }
-                      }}
-                    >
-                      <Typography.Title size="sm" color="#5276FA">
-                        수정
-                      </Typography.Title>
-                      <RightChevronIcon />
-                    </div>
-                  </S.MemoHeader>
-                  <S.MemoDataList>
-                    <S.MemoItem>
-                      <Typography.Title size="md" color="inherit">
-                        링크
-                      </Typography.Title>
-                      <S.MemoLink
-                        onClick={() => {
-                          window.location.href = data.saved.contentLink;
-                        }}
-                      >
-                        {data.saved.contentLink}
-                      </S.MemoLink>
-                    </S.MemoItem>
-                    <S.MemoItem>
-                      <Typography.Title size="md" color="inherit">
-                        메모
-                      </Typography.Title>
-                      <S.Memo>{data.saved.memo}</S.Memo>
-                    </S.MemoItem>
-                  </S.MemoDataList>
-                </S.MemoContainer>
-              </>
-            )}
-            <S.SeperateLine />
-
-            {data.details.parking === null &&
-            data.details.pet === null &&
-            data.details.barrierFree === null &&
-            data.details.stroller === null ? (
-              <></>
-            ) : (
-              <>
-                <S.ExtraInfomationContainer>
-                  <Typography.Headline size="sm" color="inherit">
-                    상세 정보
-                  </Typography.Headline>
-                  <S.ExtraInfomation>
-                    {data.details.parking !== null &&
-                      (data.details.parking ? (
-                        <S.ExtraInfomationItem>
-                          <ParkIcon />
-                          <Typography.Label size="lg" color="inherit">
-                            주차
-                          </Typography.Label>
-                        </S.ExtraInfomationItem>
-                      ) : (
-                        <S.ExtraInfomationItem>
-                          <ParkDenyIcon />
-                          <Typography.Label size="lg" color="inherit">
-                            주차
-                            <br />
-                            불가
-                          </Typography.Label>
-                        </S.ExtraInfomationItem>
-                      ))}
-                    {data.details.pet !== null &&
-                      (data.details.pet ? (
-                        <S.ExtraInfomationItem>
-                          <DogIcon />
-                          <Typography.Label size="lg" color="inherit">
-                            반려동물 출입
-                          </Typography.Label>
-                        </S.ExtraInfomationItem>
-                      ) : (
-                        <S.ExtraInfomationItem>
-                          <PetDenyIcon />
-                          <Typography.Label size="lg" color="inherit">
-                            반려동물 출입
-                            <br />
-                            불가
-                          </Typography.Label>
-                        </S.ExtraInfomationItem>
-                      ))}
-                    {data.details.barrierFree !== null &&
-                      (data.details.barrierFree ? (
-                        <S.ExtraInfomationItem>
-                          <WheelChairIcon />
-                          <Typography.Label size="lg" color="inherit">
-                            배리어프리
-                          </Typography.Label>
-                        </S.ExtraInfomationItem>
-                      ) : (
-                        <S.ExtraInfomationItem>
-                          <WheelChairDenyIcon />
-                          <Typography.Label size="lg" color="inherit">
-                            배리어프리
-                            <br />
-                            불가
-                          </Typography.Label>
-                        </S.ExtraInfomationItem>
-                      ))}
-                    {data.details.stroller !== null &&
-                      (data.details.stroller ? (
-                        <S.ExtraInfomationItem>
-                          <BabyCarrigeIcon />
-                          <Typography.Label size="lg" color="inherit">
-                            유모차 대여
-                          </Typography.Label>
-                        </S.ExtraInfomationItem>
-                      ) : (
-                        <S.ExtraInfomationItem>
-                          <BabyCarrigeDenyIcon />
-                          <Typography.Label size="lg" color="inherit">
-                            유모차 대여
-                            <br />
-                            불가
-                          </Typography.Label>
-                        </S.ExtraInfomationItem>
-                      ))}
-                  </S.ExtraInfomation>
-                </S.ExtraInfomationContainer>
-                <S.SeperateLine />
-              </>
-            )}
-
-            {/* UpButton */}
-            <S.UpButton
-              onClick={() => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-            >
-              <ArrowTopIcon />
-            </S.UpButton>
-          </S.TextContainer>
+          </div>
+          {tabs[focusedTabIndex].content}
         </S.ContentContainer>
       )}
     </PageTemplate>
