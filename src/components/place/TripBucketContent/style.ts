@@ -37,6 +37,13 @@ export const ContentItem = styled.div`
   justify-content: flex-start;
   align-items: center;
   flex-shrink: 0;
+
+  img {
+    width: 100px;
+    height: 100px;
+    border-radius: 9px;
+    object-fit: cover;
+  }
 `;
 
 export const MemoContainer = styled.div`

@@ -31,7 +31,12 @@ function TripBucketContent({ data }: Props) {
       <Typography.Headline size="sm">함께 담은 콘텐츠</Typography.Headline>
       <S.ContentList>
         {data.contents.map((content) => (
-          <S.ContentItem key={content.id}>
+          <S.ContentItem
+            key={content.id}
+            onClick={() => {
+              navigate(`/scrapbook/content/${content.id}`);
+            }}
+          >
             <img src={content.thumbnailURL} />
             <Typography.Title size="md" noOfLine={2}>
               <span
