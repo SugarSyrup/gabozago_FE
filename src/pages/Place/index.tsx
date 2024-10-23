@@ -74,6 +74,7 @@ type TData = {
     date: string;
     thumbnailURL: string;
     contentURL: string;
+    summary: string;
   }[];
 
   etcInfomation: {
