@@ -224,6 +224,14 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: '/scrapbook/place/add',
+    element: (
+      <IsLoginTemplate>
+        <ScrapBookPage />
+      </IsLoginTemplate>
+    ),
+  },
+  {
     path: '/scrapbook/placemap',
     element: (
       <IsLoginTemplate>

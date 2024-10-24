@@ -26,10 +26,12 @@ import themeSwiftCode from '@_utils/themeSwiftCode';
 import ThemeIcon from '@_common/ThemeIcon';
 
 interface Props {
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  isEditMode: boolean;
+  setIsEditMode: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function ScrapedTripPlace({setIsLoading}: Props) {
+function ScrapedTripPlace({setIsLoading, isEditMode, setIsEditMode}: Props) {
   const navigate = useNavigate();
 
   const filter = useRecoilValue<TFilter>(scrapPlaceFilterState);
@@ -41,7 +43,6 @@ function ScrapedTripPlace({setIsLoading}: Props) {
   const [count, setCount] = useState<number>(0);
   const [maximunCount, setMaximumCount] = useState<number>(0);
   const [deletePlaces, setDeletePlaces] = useState<number[]>([]);
-  const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [next, setNext] = useState<string | null>(null);
 
   const { popupOpen, popupClose } = usePopup();

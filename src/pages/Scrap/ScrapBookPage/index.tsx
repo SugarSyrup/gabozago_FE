@@ -5,6 +5,7 @@ import PageTemplate from '@_common/PageTemplate';
 import { TFilter } from '@_types/FilterTypes';
 import FilterList from '@_common/FilterList';
 import TabBar from '@_common/TabBar';
+import PlusIcon from '@_icons/plus.svg?react';
 
 import ScrapedContents from '../../../components/scrapBook/ScrapedContents';
 import ScrapedTripJournal from '../../../components/scrapBook/ScrapedTripJournal';
@@ -16,17 +17,34 @@ import {
 } from '../../../recoil/filters/scrapPlaceFilterState';
 
 import * as S from './style';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import SpinnerWrapper from '@_common/SpinnerWrapper';
+import Typography from '@_common/Typography';
 
 function ScrapBookPage() {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [focusedTabIndex, setFocusedTabIndex] = useState<number>(0);
   const setActiveFilters = useSetRecoilState(scrapPlaceFilterState);
   const tabs = [
-    { id: 1, name: '여행 장소', content: <ScrapedTripPlace setIsLoading={setIsLoading} /> },
-    { id: 2, name: '콘텐츠', content: <ScrapedContents /> },
+    {
+      id: 1,
+      name: '여행 장소',
+      content: (
+        <ScrapedTripPlace
+          setIsLoading={setIsLoading}
+          isEditMode={isEditMode}
+          setIsEditMode={setIsEditMode}
+        />
+      ),
+    },
+    {
+      id: 2,
+      name: '콘텐츠',
+      content: <ScrapedContents isEditMode={isEditMode} setIsEditMode={setIsEditMode} />,
+    },
     { id: 3, name: '아티클', content: <ScrapedTripJournal /> },
   ];
   const [filter, setFilter] = useRecoilState<TFilter>(scrapPlaceFilterState);
@@ -94,6 +112,19 @@ function ScrapBookPage() {
                 setFilterState={setFilter}
                 activeFilterState={activeFilter}
               />
+
+              {!isEditMode && (
+                <S.NewPlaceButton
+                  onClick={() => {
+                    navigate('/scrapbook/place/add');
+                  }}
+                >
+                  <PlusIcon />
+                  <Typography.Title size="md" color="#5276FA" noOfLine={-1}>
+                    새 장소
+                  </Typography.Title>
+                </S.NewPlaceButton>
+              )}
             </S.FilterContainer>
           )}
           {/* {focusedTabIndex === 1 && (

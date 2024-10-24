@@ -21,13 +21,17 @@ interface TResponse extends TPagination<TContentShorten> {
   count: number;
 }
 
-function ScrapedContents() {
+interface Props {
+  isEditMode: boolean;
+  setIsEditMode: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function ScrapedContents({ isEditMode, setIsEditMode }: Props) {
   const navigate = useNavigate();
   const [data, setData] = useState<TContentShorten[]>([]);
   const [next, setNext] = useState<string | null>(null);
   const [deleteContents, setDeletes] = useState<number[]>([]);
   const [count, setCount] = useState<number>(0);
-  const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [isSearch, setIsSearch] = useState<boolean>(false);
 
   const itemRef = useRef<HTMLDivElement>(null);
