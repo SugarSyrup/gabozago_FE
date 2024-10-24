@@ -71,6 +71,7 @@ import ErrorHandlingPage from './pages/ErrorHandling';
 import TripBucketPage from './pages/OnBoarding/TripBucketPage';
 import PlaceMyTripCreate from './pages/PlaceMyTripCreate';
 import PlaceMemoEditPage from './pages/PlaceMemoEditPage';
+import ScrapBookPlaceAddPage from './pages/Scrap/ScrapBookPlaceAddPage';
 
 const router = createBrowserRouter([
   /* ---- 홈 페이지 ---- */
@@ -227,7 +228,7 @@ const router = createBrowserRouter([
     path: '/scrapbook/place/add',
     element: (
       <IsLoginTemplate>
-        <ScrapBookPage />
+        <ScrapBookPlaceAddPage />
       </IsLoginTemplate>
     ),
   },
